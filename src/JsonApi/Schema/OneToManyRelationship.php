@@ -7,7 +7,7 @@ class OneToManyRelationship extends Relationship
      * @var array
      */
     private $data;
-
+    
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resource
      */

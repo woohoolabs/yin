@@ -13,10 +13,7 @@ abstract class AbstractDocument implements DocumentTransformerInterface
      */
     protected $response;
 
-    /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\Criteria
-     */
-    protected $criteria;
+
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
@@ -77,9 +74,9 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     {
         $content = [];
 
-        $this->addOptionalTransformedItemToArray($content, "jsonApi", $this->getJsonApi());
-        $this->addOptionalTransformedItemToArray($content, "meta", $this->getMeta());
-        $this->addOptionalTransformedItemToArray($content, "links", $this->getLinks());
+        $this->addOptionalTransformedItemToArray($this->criteria, $content, "jsonApi", $this->getJsonApi());
+        $this->addOptionalTransformedItemToArray($this->criteria, $content, "meta", $this->getMeta());
+        $this->addOptionalTransformedItemToArray($this->criteria, $content, "links", $this->getLinks());
 
         return $content;
     }

@@ -41,18 +41,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @return array
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
      */
     abstract protected function getRelationships($resource);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
-     * @param mixed $resource
-     */
-    abstract protected function addIncluded(Included $included, $resource);
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $selfLink
@@ -60,7 +54,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @return array
      */
     public function transform(
-        AbstractDocument $document,
+        AbstractCompoundDocument $document,
         $resource,
         Criteria $criteria,
         Link $selfLink = null,
@@ -75,52 +69,54 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $this->addOptionalItemToArray($result, "meta", $this->getMeta($resource));
 
         // LINKS
-        $this->transformLinks($result, $resource, $selfLink, $relatedLink);
+        $this->transformLinks($criteria, $result, $resource, $selfLink, $relatedLink);
 
         // ATTRIBUTES
-        $this->transformAttributes($result, $resource);
+        $this->transformAttributes($criteria, $result, $resource);
 
         //RELATIONSHIPS
-        $this->transformRelationships($result, $resource);
-
-        //INCLUDED
+        $this->transformRelationships($document->getIncluded(), $criteria, $result, $resource);
 
         return $result;
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param array $array
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $selfLink
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $relatedLink
      */
-    private function transformLinks(array &$array, $resource, Link $selfLink, Link $relatedLink)
+    private function transformLinks(Criteria $criteria, array &$array, $resource, Link $selfLink, Link $relatedLink)
     {
         $links = $this->getLinks($resource);
         if ($links !== null) {
             $links->setSelf($selfLink);
             $links->setRelated($relatedLink);
         }
-        $this->addOptionalTransformedItemToArray($array, "links", $links);
+        $this->addOptionalTransformedItemToArray($criteria, $array, "links", $links);
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param array $array
      * @param $resource
      */
-    private function transformAttributes(array &$array, $resource)
+    private function transformAttributes(Criteria $criteria, array &$array, $resource)
     {
         $attributes = $this->getAttributes($resource);
-        $this->addOptionalItemToArray($array, "attributes", $attributes);
+        $this->addOptionalTransformedItemToArray($criteria, $array, "attributes", $attributes);
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param array $array
      * @param $resource
      */
-    private function transformRelationships(array &$array, $resource)
+    private function transformRelationships(Included $included, Criteria $criteria, array &$array, $resource)
     {
         $relationships = $this->getRelationships($resource);
-        $this->addOptionalItemToArray($array, "relationships", $relationships);
+        $this->addOptionalIncludedTransformedItemToArray($included, $criteria, $array, "relationships", $relationships);
     }
 }

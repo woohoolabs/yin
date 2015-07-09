@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformerInterface;
 
 class JsonApi
 {
@@ -27,13 +27,12 @@ class JsonApi
         $this->response = $response;
     }
 
-    public function orchestrate(callable $extract, callable $perform, $transformer)
+    public function orchestrate(callable $extract, callable $perform, DocumentTransformerInterface $transformer)
     {
         if ($this->negotiate()) {
             $action = $extract($this->request);
             $resource = $perform($action);
-            $this->transform();
-            $this->respond();
+            $this->transform($transformer);
         }
     }
 
@@ -55,29 +54,10 @@ class JsonApi
     }
 
     /**
-     * Transforms the response content.
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformerInterface $document
      */
-    public function transform()
+    public function transform(DocumentTransformerInterface $document)
     {
-
-    }
-
-    /**
-     * Manipulates the response.
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function respond()
-    {
-        $this->response = $this->response->withAddedHeader("Content-Type", "vnd.api+json");
-
-        return $this->response;
-    }
-
-    public function error(Error $error)
-    {
-        $this->response = $this->response
-            ->withStatus($error->getStatus())
-            ->getBody()->write($error->serialize());
-
+        $this->response = $document->transformResponse();
     }
 }

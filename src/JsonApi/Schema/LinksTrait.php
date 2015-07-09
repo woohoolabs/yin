@@ -1,6 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
+use WoohooLabs\Yin\JsonApi\Request\Criteria;
+
 trait LinksTrait
 {
     /**
@@ -20,12 +22,13 @@ trait LinksTrait
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param array $array
      */
-    public function addTransformedLinksToArray(array &$array)
+    public function addTransformedLinksToArray(array &$array, Criteria $criteria)
     {
         if ($this->links !== null) {
-            $array["links"] = $this->links->transform();
+            $array["links"] = $this->links->transform($criteria);
         }
     }
 }

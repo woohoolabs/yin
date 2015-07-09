@@ -1,7 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Included implements Transformable
+use WoohooLabs\Yin\JsonApi\Request\Criteria;
+
+class Included implements TransformableInterface
 {
     /**
      * @var array
@@ -26,9 +28,10 @@ class Included implements Transformable
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform()
+    public function transform(Criteria $criteria)
     {
         $included = [];
 

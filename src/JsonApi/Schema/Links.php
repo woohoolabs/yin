@@ -2,54 +2,55 @@
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Transformer\TransformerTrait;
 
-class Links implements Transformable
+class Links implements TransformableInterface
 {
-    /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Link
-     */
-    private $self;
-
-    /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Link
-     */
-    private $related;
+    use TransformerTrait;
 
     /**
      * @var array
      */
-    private $links;
+    protected $links;
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
-     * @param array $links
      */
-    public function __construct(Link $self = null, Link $related = null, array $links = null)
+    public function __construct(Link $self = null, Link $related = null)
     {
-        $this->self = $self;
-        $this->related = $related;
-        $this->links = $links;
+        $this->links = [];
+        $this->addOptionalItemToArray($this->links, "self", $self);
+        $this->addOptionalItemToArray($this->links, "related", $related);
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform()
+    public function transform(Criteria $criteria)
     {
         $links = [];
 
-        foreach ($this->links as $link) {
+        foreach ($this->links as $rel => $link) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
-            $links[] = $link->transform();
+            $links[$rel] = $link->transform($criteria);
         }
 
         return $links;
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getSelf()
+    {
+        return isset($this->links["self"]) ? $this->links["self"] : null;
+    }
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @return $this
      */
     public function setSelf(Link $self)
     {
@@ -59,16 +60,16 @@ class Links implements Transformable
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
      */
     public function getRelated()
     {
-        return $this->related;
+        return isset($this->links["related"]) ? $this->links["related"] : null;
     }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @return $this
      */
     public function setRelated(Link $related)
     {
@@ -80,7 +81,7 @@ class Links implements Transformable
     /**
      * @param string $rel
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $link
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @return $this
      */
     public function addLink($rel, Link $link)
     {

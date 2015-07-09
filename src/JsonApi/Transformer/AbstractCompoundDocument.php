@@ -38,9 +38,17 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
         // DATA
         $this->setData();
-        $this->addOptionalTransformedCollectionToArray($content, "data", $this->data);
-        $this->addOptionalTransformedItemToArray($content, "included", $this->included);
+        $this->addOptionalTransformedCollectionToArray($this->criteria, $content, "data", $this->data);
+        $this->addOptionalTransformedItemToArray($this->criteria, $content, "included", $this->included);
 
         return $content;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Included
+     */
+    public function getIncluded()
+    {
+        return $this->included;
     }
 }

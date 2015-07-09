@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 interface ResourceTransformerInterface
 {
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $selfLink
@@ -15,7 +15,7 @@ interface ResourceTransformerInterface
      * @return array
      */
     public function transform(
-        AbstractDocument $document,
+        AbstractCompoundDocument $document,
         $resource, Criteria
         $criteria,
         Link $selfLink = null,

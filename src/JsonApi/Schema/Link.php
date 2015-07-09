@@ -1,7 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Link implements Transformable
+use WoohooLabs\Yin\JsonApi\Request\Criteria;
+
+class Link implements TransformableInterface
 {
     /**
      * @var string
@@ -17,9 +19,10 @@ class Link implements Transformable
     }
 
     /**
-     * @return string
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @return array
      */
-    public function transform()
+    public function transform(Criteria $criteria)
     {
         return $this->href;
     }
