@@ -5,8 +5,6 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractDocument implements DocumentTransformerInterface
 {
-    use TransformerTrait;
-
     /**
      * @var \Psr\Http\Message\ResponseInterface
      */
@@ -79,9 +77,23 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     {
         $content = [];
 
-        $this->addOptionalSimpleTransformedItemToArray($content, "jsonApi", $this->getJsonApi());
-        $this->addOptionalSimpleTransformedItemToArray($content, "meta", $this->getMeta());
-        $this->addOptionalSimpleTransformedItemToArray($content, "links", $this->getLinks());
+        // JsonApi
+        $jsonApi = $this->getJsonApi();
+        if ($jsonApi !== null) {
+            $content["jsonApi"] = $jsonApi->transform();
+        }
+
+        // Meta
+        $meta = $this->getMeta();
+        if ($meta !== null) {
+            $content["meta"] = $meta;
+        }
+
+        // Links
+        $links = $this->getLinks();
+        if ($links !== null) {
+            $content["links"] = $links->transform();
+        }
 
         return $content;
     }
