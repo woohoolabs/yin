@@ -6,8 +6,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Included;
 
 abstract class AbstractResourceTransformer implements ResourceTransformerInterface
 {
-    use TransformerTrait;
-
     /**
      * @param mixed $resource
      * @return string
@@ -57,7 +55,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         ];
 
         // META
-        $this->addOptionalItemToArray($result, "meta", $this->getMeta($resource));
+        $meta = $this->getMeta($resource);
+        if (empty($value) === false) {
+            $result["meta"] = $meta;
+        }
 
         return $result;
     }
@@ -74,7 +75,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $result = $this->transformToResourceIdentifier($resource);
 
         // LINKS
-        $this->transformLinks($result, $resource, $criteria, $relationshipPath);
+        $this->transformLinks($result, $resource, $relationshipPath);
 
         // ATTRIBUTES
         $this->transformAttributes($result, $resource, $criteria);
@@ -85,19 +86,18 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         return $result;
     }
 
-
-
     /**
      * @param array $array
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param string $relationshipPath
      */
-    private function transformLinks(array &$array, $resource, Criteria $criteria, $relationshipPath)
+    private function transformLinks(array &$array, $resource, $relationshipPath)
     {
         $links = $this->getLinks($resource, $relationshipPath);
 
-        $this->addOptionalTransformedItemToArray($resource, $criteria, $array, "links", $links);
+        if (empty($value) === false) {
+            $array["links"] = $links->transform();
+        }
     }
 
     /**
