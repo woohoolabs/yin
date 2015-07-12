@@ -19,12 +19,12 @@ class Attributes
     }
 
     /**
-     * @param string $rel
+     * @param string $name
      * @param \Closure $attribute
      */
-    public function setAttribute($rel, \Closure $attribute)
+    public function setAttribute($name, \Closure $attribute)
     {
-        $this->attributes[$rel] = $attribute;
+        $this->attributes[$name] = $attribute;
     }
 
     /**

@@ -13,27 +13,27 @@ class Criteria
     /**
      * @var array
      */
-    private $includedFields;
+    private $includedFields = [];
 
     /**
      * @var array
      */
-    private $includedRelationships;
+    private $includedRelationships = [];
 
     /**
      * @var array
      */
-    private $sorting;
+    private $sorting = [];
 
     /**
      * @var array
      */
-    private $pagination;
+    private $pagination = [];
 
     /**
      * @var array
      */
-    private $filtering;
+    private $filtering = [];
 
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
@@ -49,7 +49,9 @@ class Criteria
 
     protected function setIncludedFields()
     {
-        $this->filtering = explode(",", $this->getQueryParam("fields"));
+        foreach ($this->getQueryParam("fields", []) as $resourceType => $fields) {
+            $this->includedFields[$resourceType] = explode(",", $fields);
+        }
     }
 
     /**
@@ -76,7 +78,9 @@ class Criteria
      */
     protected function setIncludedRelationships()
     {
-        $this->includedRelationships = explode(",", $this->getQueryParam("include"));
+        foreach ($this->getQueryParam("include", []) as $relationshipPath => $includes) {
+            $this->includedFields[$relationshipPath] = explode(",", $includes);
+        }
     }
 
     /**
@@ -92,7 +96,7 @@ class Criteria
 
     protected function setSorting()
     {
-        $this->sorting = explode(",", $this->getQueryParam("sort"));
+        $this->sorting = explode(",", $this->getQueryParam("sort", ""));
     }
 
     /**
@@ -131,10 +135,11 @@ class Criteria
 
     /**
      * @param string $name
-     * @return string
+     * @param mixed $default
+     * @return array|string
      */
-    protected function getQueryParam($name)
+    protected function getQueryParam($name, $default)
     {
-        return isset($this->queryParams[$name]) ? $this->queryParams[$name] : "";
+        return isset($this->queryParams[$name]) ? $this->queryParams[$name] : $default;
     }
 }
