@@ -9,9 +9,9 @@ class OneToOneAbstractRelationship extends AbstractRelationship
     private $data;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resource
+     * @param array $resource
      */
-    public function setResource(ResourceIdentifier $resource)
+    public function addResource(array $resource)
     {
         $this->data = $resource;
     }

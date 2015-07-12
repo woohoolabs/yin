@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Included;
 
 interface ResourceTransformerInterface
 {
@@ -13,16 +13,11 @@ interface ResourceTransformerInterface
     public function transformToResourceIdentifier($resource);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipPath
      * @return array
      */
-    public function transformToResource(
-        AbstractCompoundDocument $document,
-        $resource,
-        Criteria $criteria,
-        $relationshipPath = ""
-    );
+    public function transformToResource($resource, Criteria $criteria, Included $included, $relationshipPath = "");
 }

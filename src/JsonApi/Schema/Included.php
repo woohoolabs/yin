@@ -11,18 +11,16 @@ class Included implements TransformableInterface
     private $included;
 
     /**
-     * @param string $type
-     * @param string $id
      * @param array $transformedResource
      * @return $this
      */
-    public function addIncludedResource($type, $id, array $transformedResource)
+    public function addIncludedResource(array $transformedResource)
     {
-        if (isset($this->included[$type]) === false) {
-            $this->included[$type] = [];
+        if (isset($this->included[$transformedResource["type"]]) === false) {
+            $this->included[$transformedResource["type"]] = [];
         }
 
-        $this->included[$type][$id] = $transformedResource;
+        $this->included[$transformedResource["type"]][$transformedResource["id"]] = $transformedResource;
 
         return $this;
     }

@@ -63,18 +63,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipPath
      * @return array
      */
-    public function transformToResource(
-        AbstractCompoundDocument $document,
-        $resource,
-        Criteria $criteria,
-        $relationshipPath = ""
-    ) {
+    public function transformToResource($resource, Criteria $criteria, Included $included, $relationshipPath = "")
+    {
         $result = $this->transformToResourceIdentifier($resource);
 
         // LINKS
@@ -84,10 +80,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $this->transformAttributes($result, $resource, $criteria);
 
         //RELATIONSHIPS
-        $this->transformRelationships($result, $resource, $criteria, $document->getIncluded(), $relationshipPath);
+        $this->transformRelationships($result, $resource, $criteria, $included, $relationshipPath);
 
         return $result;
     }
+
+
 
     /**
      * @param array $array

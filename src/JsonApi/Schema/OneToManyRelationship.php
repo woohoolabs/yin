@@ -7,12 +7,12 @@ class OneToManyAbstractRelationship extends AbstractRelationship
      * @var array
      */
     private $data;
-    
+
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resource
+     * @param array $resourceIdentifier
      */
-    public function addResource(ResourceIdentifier $resource)
+    protected function addResource(array $resourceIdentifier)
     {
-        $this->data[] = $resource;
+        $this->data[] = $resourceIdentifier;
     }
 }
