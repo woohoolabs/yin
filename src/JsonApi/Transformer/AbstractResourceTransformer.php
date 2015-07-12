@@ -10,13 +10,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param mixed $resource
      * @return string
      */
-    abstract protected function getType($resource);
+    abstract public function getType($resource);
 
     /**
      * @param mixed $resource
      * @return string
      */
-    abstract protected function getId($resource);
+    abstract public function getId($resource);
 
     /**
      * @param mixed $resource

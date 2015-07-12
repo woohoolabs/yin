@@ -29,6 +29,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     public function __construct(ResponseInterface $response, $resource)
     {
         parent::__construct($response);
+        $this->resource = $resource;
         $this->included = new Included();
     }
 
