@@ -11,6 +11,14 @@ class Relationships
     private $relationships;
 
     /**
+     * @param array $relationships
+     */
+    public function setRelationships(array $relationships)
+    {
+        $this->relationships = $relationships;
+    }
+
+    /**
      * @param string $rel
      * @param \Closure $relationship
      */

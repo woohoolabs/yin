@@ -11,6 +11,14 @@ class Attributes
     private $attributes;
 
     /**
+     * @param array $attributes
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
      * @param string $rel
      * @param \Closure $attribute
      */
