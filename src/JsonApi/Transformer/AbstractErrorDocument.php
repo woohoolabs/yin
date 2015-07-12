@@ -13,11 +13,10 @@ abstract class AbstractErrorDocument extends AbstractDocument
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param int $statusCode
      */
-    public function __construct(ResponseInterface $response, $statusCode)
+    public function __construct(ResponseInterface $response)
     {
-        parent::__construct($response, $statusCode);
+        parent::__construct($response);
     }
 
     /**
@@ -36,7 +35,12 @@ abstract class AbstractErrorDocument extends AbstractDocument
         $content = parent::transformContent();
 
         // ERRORS
-        $this->addOptionalSimpleTransformedCollectionToArray($content, "errors", $this->errors);
+        if (empty($this->errors) === false) {
+            foreach ($this->errors as $error) {
+                /** @var \WoohooLabs\Yin\JsonApi\Schema\Error $error */
+                $content["errors"][] = $error->transform();
+            }
+        }
 
         return $content;
     }

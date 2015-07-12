@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Error implements Serializable
+class Error implements SimpleTransformableInterface
 {
     use MetaTrait;
     use LinksTrait;
@@ -35,16 +35,6 @@ class Error implements Serializable
      * @var mixed
      */
     private $source;
-
-    /**
-     * @return string
-     */
-    public function serialize()
-    {
-        return json_encode([
-            "code" => $this->code
-        ]);
-    }
 
     /**
      * @return string
@@ -152,5 +142,21 @@ class Error implements Serializable
     {
         $this->source = $source;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function transform()
+    {
+        $content = [
+            "id" => $this->getId(),
+            "status" => $this->getStatus(),
+            "code" => $this->getCode(),
+            "title" => $this->getTitle(),
+            "detail" => $this->getDetail()
+        ];
+
+        return $content;
     }
 }

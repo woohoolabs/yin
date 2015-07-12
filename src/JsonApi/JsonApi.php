@@ -58,6 +58,6 @@ class JsonApi
      */
     public function transform(DocumentTransformerInterface $document)
     {
-        $this->response = $document->transformResponse();
+        $this->response = $document->getResponse();
     }
 }

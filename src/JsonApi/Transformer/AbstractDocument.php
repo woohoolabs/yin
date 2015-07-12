@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
 abstract class AbstractDocument implements DocumentTransformerInterface
 {
@@ -17,12 +18,10 @@ abstract class AbstractDocument implements DocumentTransformerInterface
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param int $statusCode
      */
-    public function __construct(ResponseInterface $response, $statusCode)
+    public function __construct(ResponseInterface $response)
     {
         $this->response = $response;
-        $this->statusCode = $statusCode;
     }
 
     /**
@@ -57,23 +56,26 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     abstract protected function getLinks();
 
     /**
+     * @param int $statusCode
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function transformResponse()
+    public function getResponse($statusCode, Criteria $criteria)
     {
         $response = $this->response;
 
-        $response->getBody()->write(json_encode($this->transformContent()));
-        $response = $response->withStatus($this->statusCode);
+        $response->getBody()->write(json_encode($this->transformContent($criteria)));
+        $response = $response->withStatus($statusCode);
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());
 
         return $response;
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    protected function transformContent()
+    protected function transformContent(Criteria $criteria)
     {
         $content = [];
 
