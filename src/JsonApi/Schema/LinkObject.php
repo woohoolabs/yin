@@ -11,7 +11,7 @@ class LinkObject extends Link
      */
     public function __construct($href, array $meta = [])
     {
-       parent::__construct($href);
+        parent::__construct($href);
         $this->meta = $meta;
     }
 

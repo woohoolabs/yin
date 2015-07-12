@@ -21,8 +21,8 @@ interface ResourceTransformerInterface
      */
     public function transformToResource(
         AbstractCompoundDocument $document,
-        $resource, Criteria
-        $criteria,
+        $resource,
+        Criteria $criteria,
         $relationshipPath = ""
     );
 }

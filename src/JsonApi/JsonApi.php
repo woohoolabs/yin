@@ -44,7 +44,7 @@ class JsonApi
 
         if (strpos($contentType, "application/vnd.api+json") !== false && strpos($contentType, ";") !== false) {
             $this->response = $this->response->withStatus(415);
-        } elseif(strpos($accept, "application/vnd.api+json") !== false && strpos($accept, ";") !== false) {
+        } elseif (strpos($accept, "application/vnd.api+json") !== false && strpos($accept, ";") !== false) {
             $this->response = $this->response->withStatus(406);
         } else {
             $success = true;

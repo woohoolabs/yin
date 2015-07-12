@@ -30,14 +30,16 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     /**
      * @return array
      */
-    protected function getExtensions() {
+    protected function getExtensions()
+    {
         return [];
     }
 
     /**
      * @return array
      */
-    protected function getSupportedExtensions() {
+    protected function getSupportedExtensions()
+    {
         return [];
     }
 
