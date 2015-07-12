@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class OneToManyRelationship extends Relationship
+class OneToManyAbstractRelationship extends AbstractRelationship
 {
     /**
      * @var array

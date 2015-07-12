@@ -10,6 +10,16 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     /**
      * @var mixed
      */
+    protected $resource;
+
+    /**
+     * @var \WoohooLabs\Yin\JsonApi\Request\Criteria
+     */
+    protected $criteria;
+
+    /**
+     * @var mixed
+     */
     protected $data;
 
     /**
@@ -19,15 +29,21 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param int $statusCode
+     * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      */
-    public function __construct(ResponseInterface $response, Criteria $criteria)
+    public function __construct(ResponseInterface $response, $statusCode, $resource, Criteria $criteria)
     {
-        parent::__construct($response, $criteria);
+        parent::__construct($response, $statusCode);
+        $this->criteria = $criteria;
         $this->included = new Included();
     }
 
-    abstract protected function setData();
+    /**
+     * @param mixed $resource
+     */
+    abstract protected function setContent($resource);
 
     /**
      * @return array
@@ -37,9 +53,13 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         $content = parent::transformContent();
 
         // DATA
-        $this->setData();
-        $this->addOptionalTransformedCollectionToArray($this->criteria, $content, "data", $this->data);
-        $this->addOptionalTransformedItemToArray($this->criteria, $content, "included", $this->included);
+        $this->setContent($this->resource);
+        $content["data"] = $this->data;
+
+        // INCLUDED
+        if ($this->included !== null) {
+            $content["included"] = $this->included->transform($this->resource, $this->criteria);
+        }
 
         return $content;
     }

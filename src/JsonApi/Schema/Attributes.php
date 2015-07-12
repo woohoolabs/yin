@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
-abstract class Attributes implements TransformableInterface
+class Attributes implements TransformableInterface
 {
     /**
      * @var array
@@ -20,15 +20,16 @@ abstract class Attributes implements TransformableInterface
     }
 
     /**
+     * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform($resource, Criteria $criteria)
     {
         $attributes = [];
 
         foreach ($this->attributes as $name => $attribute) {
-            $attributes[$name] = $attribute($criteria);
+            $attributes[$name] = $attribute($resource, $criteria);
         }
 
         return $attributes;

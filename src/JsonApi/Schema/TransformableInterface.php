@@ -6,8 +6,9 @@ use WoohooLabs\Yin\JsonApi\Request\Criteria;
 interface TransformableInterface
 {
     /**
+     * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria);
+    public function transform($resource, Criteria $criteria);
 }

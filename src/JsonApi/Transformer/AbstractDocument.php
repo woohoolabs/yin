@@ -2,7 +2,6 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
 abstract class AbstractDocument implements DocumentTransformerInterface
 {
@@ -13,16 +12,19 @@ abstract class AbstractDocument implements DocumentTransformerInterface
      */
     protected $response;
 
-
+    /**
+     * @var int
+     */
+    protected $statusCode;
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param int $statusCode
      */
-    public function __construct(ResponseInterface $response, Criteria $criteria)
+    public function __construct(ResponseInterface $response, $statusCode)
     {
         $this->response = $response;
-        $this->criteria = $criteria;
+        $this->statusCode = $statusCode;
     }
 
     /**
@@ -61,8 +63,9 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     {
         $response = $this->response;
 
-        $response->withAddedHeader("Content-Type", $this->getContentType());
         $response->getBody()->write(json_encode($this->transformContent()));
+        $response = $response->withStatus($this->statusCode);
+        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
 
         return $response;
     }
@@ -74,9 +77,9 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     {
         $content = [];
 
-        $this->addOptionalTransformedItemToArray($this->criteria, $content, "jsonApi", $this->getJsonApi());
-        $this->addOptionalTransformedItemToArray($this->criteria, $content, "meta", $this->getMeta());
-        $this->addOptionalTransformedItemToArray($this->criteria, $content, "links", $this->getLinks());
+        $this->addOptionalSimpleTransformedItemToArray($content, "jsonApi", $this->getJsonApi());
+        $this->addOptionalSimpleTransformedItemToArray($content, "meta", $this->getMeta());
+        $this->addOptionalSimpleTransformedItemToArray($content, "links", $this->getLinks());
 
         return $content;
     }

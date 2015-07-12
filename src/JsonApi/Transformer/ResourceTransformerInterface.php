@@ -7,18 +7,22 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 interface ResourceTransformerInterface
 {
     /**
+     * @param mixed $resource
+     * @return array
+     */
+    public function transformToResourceIdentifier($resource);
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $selfLink
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $relatedLink
+     * @param string $relationshipPath
      * @return array
      */
-    public function transform(
+    public function transformToResource(
         AbstractCompoundDocument $document,
         $resource, Criteria
         $criteria,
-        Link $selfLink = null,
-        Link $relatedLink = null
+        $relationshipPath = ""
     );
 }

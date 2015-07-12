@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Transformer\TransformerTrait;
 
-class Links implements TransformableInterface
+class Links implements SimpleTransformableInterface
 {
     use TransformerTrait;
 
@@ -25,16 +25,15 @@ class Links implements TransformableInterface
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform()
     {
         $links = [];
 
         foreach ($this->links as $rel => $link) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
-            $links[$rel] = $link->transform($criteria);
+            $links[$rel] = $link->transform();
         }
 
         return $links;

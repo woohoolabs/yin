@@ -13,25 +13,26 @@ class Included implements TransformableInterface
     /**
      * @param string $type
      * @param string $id
-     * @param array $resource
+     * @param array $transformedResource
      * @return $this
      */
-    public function addIncludedResource($type, $id, array $resource)
+    public function addIncludedResource($type, $id, array $transformedResource)
     {
         if (isset($this->included[$type]) === false) {
             $this->included[$type] = [];
         }
 
-        $this->included[$type][$id] = $resource;
+        $this->included[$type][$id] = $transformedResource;
 
         return $this;
     }
 
     /**
+     * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform($resource, Criteria $criteria)
     {
         $included = [];
 

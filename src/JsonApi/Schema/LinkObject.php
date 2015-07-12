@@ -1,8 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
-
 class LinkObject extends Link
 {
     use MetaTrait;
@@ -18,12 +16,11 @@ class LinkObject extends Link
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform()
     {
-        $link = parent::transform($criteria);
+        $link = ["href" => parent::transform()];
         $this->addTransformedMetaToArray($link);
 
         return $link;

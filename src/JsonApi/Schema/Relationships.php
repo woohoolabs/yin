@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
-abstract class Relationships implements IncludedTransformableInterface
+class Relationships
 {
     /**
      * @var array
@@ -20,16 +20,20 @@ abstract class Relationships implements IncludedTransformableInterface
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $relationshipPath
      * @return array
      */
-    public function transform(Included $included, Criteria $criteria)
+    public function transform($resource, Criteria $criteria, Included $included, $relationshipPath)
     {
         $relationships = [];
 
         foreach ($this->relationships as $rel => $relationship) {
-            $relationships[$rel] = $relationship($included, $criteria);
+            if ($criteria->isIncludedRelationship($relationshipPath . "." . $rel)) {
+                $relationships[$rel] = $relationship($resource, $criteria, $included);
+            }
         }
 
         return $relationships;

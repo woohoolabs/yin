@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-abstract class Relationship
+abstract class AbstractRelationship
 {
     use LinksTrait;
     use MetaTrait;

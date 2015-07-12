@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
-class Link implements TransformableInterface
+class Link implements SimpleTransformableInterface
 {
     /**
      * @var string
@@ -19,10 +19,9 @@ class Link implements TransformableInterface
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform()
     {
         return $this->href;
     }

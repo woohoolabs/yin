@@ -1,9 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
-
-class JsonApi implements TransformableInterface
+class JsonApi implements SimpleTransformableInterface
 {
     /**
      * @var string
@@ -26,10 +24,9 @@ class JsonApi implements TransformableInterface
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    public function transform(Criteria $criteria)
+    public function transform()
     {
         return [
             "version" => $this->version,
