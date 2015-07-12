@@ -13,6 +13,14 @@ class Relationships
     /**
      * @param array $relationships
      */
+    public function __construct(array $relationships = [])
+    {
+        $this->relationships = $relationships;
+    }
+
+    /**
+     * @param array $relationships
+     */
     public function setRelationships(array $relationships)
     {
         $this->relationships = $relationships;

@@ -13,6 +13,14 @@ class Attributes
     /**
      * @param array $attributes
      */
+    public function __construct(array $attributes = [])
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * @param array $attributes
+     */
     public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
