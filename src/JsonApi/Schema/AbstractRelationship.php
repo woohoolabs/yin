@@ -24,8 +24,7 @@ abstract class AbstractRelationship
         Criteria $criteria,
         Included $includes,
         $relationshipPath
-    )
-    {
+    ) {
         $this->addResource($transformer->transformToResourceIdentifier($resource));
         if ($criteria->isIncludedRelationship($relationshipPath)) {
             $includes->addIncludedResource(
