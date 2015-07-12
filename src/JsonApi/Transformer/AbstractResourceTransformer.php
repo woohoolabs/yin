@@ -35,7 +35,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @return array
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
      */
     abstract protected function getAttributes($resource);
 
@@ -110,8 +110,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     private function transformAttributes(array &$array, $resource, Criteria $criteria)
     {
         $attributes = $this->getAttributes($resource);
-
-        $this->addOptionalTransformedItemToArray($resource, $criteria, $array, "attributes", $attributes);
+        if ($attributes !== null) {
+            $array["attributes"] = $attributes->transform($resource, $criteria, $this->getType($resource));
+        }
     }
 
     /**
