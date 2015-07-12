@@ -8,7 +8,7 @@ class Included implements TransformableInterface
     /**
      * @var array
      */
-    private $included;
+    private $included = [];
 
     /**
      * @param array $transformedResource
