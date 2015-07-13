@@ -6,7 +6,7 @@ trait MetaTrait
     /**
      * @var array
      */
-    private $meta;
+    protected $meta = [];
 
     /**
      * @param array $meta
@@ -17,15 +17,5 @@ trait MetaTrait
         $this->meta = $meta;
 
         return $this;
-    }
-
-    /**
-     * @param array $array
-     */
-    public function addTransformedMetaToArray(array &$array)
-    {
-        if (empty($this->meta) === false) {
-            $array["meta"] = $this->meta;
-        }
     }
 }

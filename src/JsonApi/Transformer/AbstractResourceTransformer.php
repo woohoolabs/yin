@@ -118,19 +118,19 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
-     * @param string $relationshipPath
+     * @param string $baseRelationshipPath
      */
     private function transformRelationships(
         array &$array,
         $resource,
         Criteria $criteria,
         Included $included,
-        $relationshipPath
+        $baseRelationshipPath
     ) {
         $relationships = $this->getRelationships($resource);
 
         if ($relationships !== null) {
-            $array["relationships"] = $relationships->transform($resource, $criteria, $included, $relationshipPath);
+            $array["relationships"] = $relationships->transform($resource, $criteria, $included, $baseRelationshipPath);
         }
     }
 }

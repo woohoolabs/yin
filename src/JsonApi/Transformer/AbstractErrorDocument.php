@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 
 abstract class AbstractErrorDocument extends AbstractDocument
@@ -28,11 +29,12 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    protected function transformContent()
+    protected function transformContent(Criteria $criteria)
     {
-        $content = parent::transformContent();
+        $content = parent::transformContent($criteria);
 
         // ERRORS
         if (empty($this->errors) === false) {

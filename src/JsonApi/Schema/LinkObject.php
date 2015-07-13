@@ -21,7 +21,10 @@ class LinkObject extends Link
     public function transform()
     {
         $link = ["href" => parent::transform()];
-        $this->addTransformedMetaToArray($link);
+
+        if (empty($this->meta) === false) {
+            $link["meta"] = $this->meta;
+        }
 
         return $link;
     }

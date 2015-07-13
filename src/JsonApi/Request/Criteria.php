@@ -78,9 +78,7 @@ class Criteria
      */
     protected function setIncludedRelationships()
     {
-        foreach ($this->getQueryParam("include", []) as $relationshipPath => $includes) {
-            $this->includedFields[$relationshipPath] = explode(",", $includes);
-        }
+        $this->includedRelationships = array_flip(explode(",", $this->getQueryParam("include", "")));
     }
 
     /**
