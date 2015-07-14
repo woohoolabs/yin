@@ -25,7 +25,13 @@ class OneToOneRelationship extends AbstractRelationship
     protected function transformData(Criteria $criteria, Included $included, $baseRelationshipPath, $relationshipName)
     {
         if ($this->data) {
-            return $this->transformResource($this->data, $criteria, $included, $baseRelationshipPath, $relationshipName);
+            return $this->transformResource(
+                $this->data,
+                $criteria,
+                $included,
+                $baseRelationshipPath,
+                $relationshipName
+            );
         } else {
             return null;
         }
