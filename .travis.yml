@@ -16,9 +16,7 @@ matrix:
       env:
         - EXECUTE_COVERAGE=true
     - php: 7
-    - php: hhvm 
-  allow_failures:
-    - php: 7
+    - php: hhvm
 
 before_install:
   - if [[ $EXECUTE_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
