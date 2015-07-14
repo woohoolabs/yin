@@ -19,7 +19,7 @@ class Link implements SimpleTransformableInterface
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function transform()
     {

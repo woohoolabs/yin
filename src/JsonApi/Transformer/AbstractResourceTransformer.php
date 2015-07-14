@@ -95,7 +95,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     {
         $links = $this->getLinks($resource, $relationshipPath);
 
-        if (empty($value) === false) {
+        if (empty($links) === false) {
             $array["links"] = $links->transform();
         }
     }

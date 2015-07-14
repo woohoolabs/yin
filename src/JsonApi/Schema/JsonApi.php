@@ -3,15 +3,12 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 class JsonApi implements SimpleTransformableInterface
 {
+    use MetaTrait;
+
     /**
      * @var string
      */
     private $version;
-
-    /**
-     * @var array
-     */
-    private $meta;
 
     /**
      * @param string $version
@@ -28,10 +25,15 @@ class JsonApi implements SimpleTransformableInterface
      */
     public function transform()
     {
-        return [
-            "version" => $this->version,
-            "meta" => $this->meta
+        $result = [
+            "version" => $this->version
         ];
+
+        if ($this->meta !== null) {
+            $result["meta"] = $this->meta;
+        }
+
+        return $result;
     }
 
     /**
