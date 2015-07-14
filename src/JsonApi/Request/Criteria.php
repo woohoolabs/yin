@@ -50,7 +50,7 @@ class Criteria
     protected function setIncludedFields()
     {
         foreach ($this->getQueryParam("fields", []) as $resourceType => $fields) {
-            $this->includedFields[$resourceType] = explode(",", $fields);
+            $this->includedFields[$resourceType] = array_flip(explode(",", $fields));
         }
     }
 
@@ -60,7 +60,7 @@ class Criteria
      */
     public function getIncludedFields($resourceType)
     {
-        return isset($this->includedFields[$resourceType]) ? $this->includedFields[$resourceType] : [];
+        return isset($this->includedFields[$resourceType]) ? array_keys($this->includedFields[$resourceType]) : [];
     }
 
     /**
@@ -78,18 +78,48 @@ class Criteria
      */
     protected function setIncludedRelationships()
     {
-        $this->includedRelationships = array_flip(explode(",", $this->getQueryParam("include", "")));
+        $relationshipNames = explode(",", $this->getQueryParam("include", ""));
+        foreach ($relationshipNames as $relationship) {
+            $relationship = ".$relationship.";
+            $length = strlen($relationship);
+            $dot1 = 0;
+
+            while ($dot1 < $length - 1) {
+                $dot2 = strpos($relationship, ".", $dot1 + 1);
+                $path = substr($relationship, 1, $dot1 > 0 ? $dot1 - 1 : 0);
+                $name = substr($relationship, $dot1 + 1, $dot2 - $dot1 - 1);
+
+                if (isset($this->includedRelationships[$path]) === false) {
+                    $this->includedRelationships[$path] = [];
+                }
+                $this->includedRelationships[$path][$name] = $name;
+
+                $dot1 = $dot2;
+            };
+        }
     }
 
     /**
-     * @param $relationshipPath
+     * @param string $baseRelationshipPath
+     * @return array
+     */
+    public function getIncludedRelationships($baseRelationshipPath)
+    {
+        if (isset($this->includedRelationships[$baseRelationshipPath])) {
+            return $this->includedRelationships[$baseRelationshipPath];
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
      * @return bool
      */
-    public function isIncludedRelationship($relationshipPath)
+    public function isIncludedRelationship($baseRelationshipPath, $relationshipName)
     {
-        // TODO linkage of intermediate resources
-        // TODO direct relationships with - separation
-        return isset($this->includedRelationships[$relationshipPath]);
+        return isset($this->includedRelationships[$baseRelationshipPath][$relationshipName]);
     }
 
     protected function setSorting()

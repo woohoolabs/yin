@@ -130,7 +130,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $relationships = $this->getRelationships($resource);
 
         if ($relationships !== null) {
-            $array["relationships"] = $relationships->transform($resource, $criteria, $included, $baseRelationshipPath);
+            $array["relationships"] = $relationships->transform(
+                $resource,
+                $criteria,
+                $included,
+                $this->getType($resource),
+                $baseRelationshipPath
+            );
         }
     }
 }

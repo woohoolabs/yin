@@ -31,35 +31,54 @@ abstract class AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $includes
-     * @param string $relationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
      * @return array
      */
-    abstract protected function transformData(Criteria $criteria, Included $includes, $relationshipPath);
+    abstract protected function transformData(
+        Criteria $criteria,
+        Included $included,
+        $baseRelationshipPath,
+        $relationshipName
+    );
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $includes
-     * @param string $relationshipPath
-     * @return array
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $resourceType
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
+     * @return array|null
      */
-    public function transform(Criteria $criteria, Included $includes, $relationshipPath)
-    {
-        $relationship = [];
+    public function transform(
+        Criteria $criteria,
+        Included $included,
+        $resourceType,
+        $baseRelationshipPath,
+        $relationshipName
+    ) {
+        $relationship = null;
 
-        // LINKS
-        if ($this->links !== null) {
-            $relationship["links"] = $this->links->transform();
-        }
+        $data = $this->transformData($criteria, $included, $baseRelationshipPath, $relationshipName);
 
-        // META
-        if (empty($this->meta) === false) {
-            $relationship["meta"] = $this->meta;
-        }
+        if ($criteria->isIncludedField($resourceType, $relationshipName)) {
+            $relationship = [];
 
-        // DATA
-        if ($this->data !== null) {
-            $relationship["data"] = $this->transformData($criteria, $includes, $relationshipPath);
+            // LINKS
+            if ($this->links !== null) {
+                $relationship["links"] = $this->links->transform();
+            }
+
+            // META
+            if (empty($this->meta) === false) {
+                $relationship["meta"] = $this->meta;
+            }
+
+            // DATA
+            if ($data !== null) {
+                $relationship["data"] = $data;
+            }
         }
 
         return $relationship;
@@ -68,15 +87,26 @@ abstract class AbstractRelationship
     /**
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $includes
-     * @param string $relationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
      * @return array
      */
-    protected function transformResource($resource, Criteria $criteria, Included $includes, $relationshipPath)
-    {
-        if ($criteria->isIncludedRelationship($relationshipPath)) {
-            $includes->addIncludedResource(
-                $this->resourceTransformer->transformToResource($resource, $criteria, $includes, $relationshipPath)
+    protected function transformResource(
+        $resource,
+        Criteria $criteria,
+        Included $included,
+        $baseRelationshipPath,
+        $relationshipName
+    ) {
+        if ($criteria->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
+            $included->addIncludedResource(
+                $this->resourceTransformer->transformToResource(
+                    $resource,
+                    $criteria,
+                    $included,
+                    $baseRelationshipPath
+                )
             );
         }
 

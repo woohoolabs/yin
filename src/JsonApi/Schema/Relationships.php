@@ -39,23 +39,28 @@ class Relationships
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $resourceType
      * @param string $baseRelationshipPath
      * @return array
      */
-    public function transform(
-        $resource,
-        Criteria $criteria,
-        Included $included,
-        $baseRelationshipPath
-    ) {
+    public function transform($resource, Criteria $criteria, Included $included, $resourceType, $baseRelationshipPath)
+    {
         $relationships = [];
 
-        foreach ($this->relationships as $rel => $relationshipCallback) {
-            $relationshipPath = ($baseRelationshipPath ? "$baseRelationshipPath." : "") . $rel;
-            if ($criteria->isIncludedRelationship($relationshipPath)) {
-                /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-                $relationship = $relationshipCallback($resource);
-                $relationships[$rel] = $relationship->transform($criteria, $included, $relationshipPath);
+        foreach ($this->relationships as $relationshipName => $relationshipCallback) {
+            /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
+            $relationship = $relationshipCallback($resource);
+
+            $relationship = $relationship->transform(
+                $criteria,
+                $included,
+                $resourceType,
+                $baseRelationshipPath,
+                $relationshipName
+            );
+
+            if ($relationship !== null) {
+                $relationships[$relationshipName] = $relationship;
             }
         }
 

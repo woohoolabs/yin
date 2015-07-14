@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
-class OneToManyArrayRelationship extends AbstractRelationship
+class OneToManyIterableRelationship extends AbstractRelationship
 {
     /**
      * @param array $data
@@ -17,16 +17,19 @@ class OneToManyArrayRelationship extends AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $includes
-     * @param string $relationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
      * @return array
      */
-    protected function transformData(Criteria $criteria, Included $includes, $relationshipPath)
+    protected function transformData(Criteria $criteria, Included $included, $baseRelationshipPath, $relationshipName)
     {
         $result = [];
 
-        foreach ($this->data as $item) {
-            $result[] = $this->transformResource($item, $criteria, $includes, $relationshipPath);
+        if ($this->data !== null) {
+            foreach ($this->data as $item) {
+                $result[] = $this->transformResource($item, $criteria, $included, $baseRelationshipPath, $relationshipName);
+            }
         }
 
         return $result;

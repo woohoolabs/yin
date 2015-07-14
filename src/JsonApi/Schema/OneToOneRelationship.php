@@ -17,12 +17,13 @@ class OneToOneRelationship extends AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $includes
-     * @param string $relationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $baseRelationshipPath
+     * @param string $relationshipName
      * @return array
      */
-    protected function transformData(Criteria $criteria, Included $includes, $relationshipPath)
+    protected function transformData(Criteria $criteria, Included $included, $baseRelationshipPath, $relationshipName)
     {
-        return $this->transformResource($this->data, $criteria, $includes, $relationshipPath);
+        return $this->transformResource($this->data, $criteria, $included, $baseRelationshipPath, $relationshipName);
     }
 }
