@@ -76,9 +76,7 @@ abstract class AbstractRelationship
             }
 
             // DATA
-            if ($data !== null) {
-                $relationship["data"] = $data;
-            }
+            $relationship["data"] = $data;
         }
 
         return $relationship;

@@ -51,17 +51,13 @@ class Relationships
             /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
             $relationship = $relationshipCallback($resource);
 
-            $relationship = $relationship->transform(
+            $relationships[$relationshipName] = $relationship->transform(
                 $criteria,
                 $included,
                 $resourceType,
                 $baseRelationshipPath,
                 $relationshipName
             );
-
-            if ($relationship !== null) {
-                $relationships[$relationshipName] = $relationship;
-            }
         }
 
         return $relationships;

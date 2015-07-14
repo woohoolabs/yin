@@ -6,9 +6,9 @@ use Psr\Http\Message\ServerRequestInterface;
 class Criteria
 {
     /**
-     * @var array
+     * @var \Psr\Http\Message\ServerRequestInterface
      */
-    private $queryParams;
+    private $request;
 
     /**
      * @var array
@@ -40,7 +40,7 @@ class Criteria
      */
     public function __construct(ServerRequestInterface $request)
     {
-        $this->queryParams = $request->getQueryParams();
+        $this->request = $request;
 
         $this->setIncludedRelationships();
         $this->setIncludedFields();
@@ -137,7 +137,7 @@ class Criteria
 
     protected function setPagination()
     {
-        $this->pagination = isset($this->queryParams["page"]) ? $this->queryParams["page"] : null;
+        $this->pagination = $this->getQueryParam("page", null);
     }
 
     /**
@@ -150,7 +150,7 @@ class Criteria
 
     protected function setFiltering()
     {
-        $this->filtering = isset($this->queryParams["filter"]) ? $this->queryParams["filter"] : null;
+        $this->filtering = $this->getQueryParam("filter", null);
     }
 
     /**
@@ -164,10 +164,20 @@ class Criteria
     /**
      * @param string $name
      * @param mixed $default
+     * @return mixed
+     */
+    public function getAttribute($name, $default = null)
+    {
+        return $this->request->getAttribute($name, $default);
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $default
      * @return array|string
      */
-    protected function getQueryParam($name, $default)
+    public function getQueryParam($name, $default = null)
     {
-        return isset($this->queryParams[$name]) ? $this->queryParams[$name] : $default;
+        return isset($this->request->getQueryParams()[$name]) ? $this->request->getQueryParams()[$name] : $default;
     }
 }

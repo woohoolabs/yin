@@ -28,7 +28,13 @@ class OneToManyIterableRelationship extends AbstractRelationship
 
         if ($this->data !== null) {
             foreach ($this->data as $item) {
-                $result[] = $this->transformResource($item, $criteria, $included, $baseRelationshipPath, $relationshipName);
+                $result[] = $this->transformResource(
+                    $item,
+                    $criteria,
+                    $included,
+                    $baseRelationshipPath,
+                    $relationshipName
+                );
             }
         }
 
