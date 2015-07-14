@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use Src\JsonApi\Document\BookDocument;
 use Src\JsonApi\Resource\AuthorResourceTransformer;
 use Src\JsonApi\Resource\BookResourceTransformer;
+use Src\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
 class BookController
@@ -19,7 +20,7 @@ class BookController
     {
         $resource = [
             "id" => "12345",
-            "print" => "2015-01-01 01:11:00",
+            "title" => "Example Book",
             "authors" => [
                 [
                     "id" => "11111",
@@ -29,10 +30,18 @@ class BookController
                     "id" => "11112",
                     "name" => "Jane Doe"
                 ]
+            ],
+            "publisher" => [
+                "id" => "12346",
+                "name" => "Example Publisher"
             ]
         ];
 
-        $document = new BookDocument($response, $resource, new BookResourceTransformer(new AuthorResourceTransformer()));
+        $document = new BookDocument(
+            $response,
+            $resource,
+            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        );
 
         return $document->getResponse(200, new Criteria($request));
     }

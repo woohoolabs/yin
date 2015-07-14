@@ -3,6 +3,7 @@ namespace Src\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\OneToManyIterableRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\OneToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
@@ -14,11 +15,20 @@ class BookResourceTransformer extends AbstractResourceTransformer
     private $authorTransformer;
 
     /**
-     * @param AuthorResourceTransformer $authorTransformer
+     * @var PublisherResourceTransformer
      */
-    public function __construct(AuthorResourceTransformer $authorTransformer)
-    {
+    private $publisherTransformer;
+
+    /**
+     * @param AuthorResourceTransformer $authorTransformer
+     * @param PublisherResourceTransformer $publisherTransformer
+     */
+    public function __construct(
+        AuthorResourceTransformer $authorTransformer,
+        PublisherResourceTransformer $publisherTransformer
+    ) {
         $this->authorTransformer = $authorTransformer;
+        $this->publisherTransformer = $publisherTransformer;
     }
 
     /**
@@ -64,15 +74,11 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
-        $attributes = new Attributes();
-
-        $attributes->setAttributes(
+        return new Attributes(
             [
-                "print" => function($resource) { return $resource["print"]; },
+                "title" => function($resource) { return $resource["title"]; },
             ]
         );
-
-        return $attributes;
     }
 
     /**
@@ -84,6 +90,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
         return new Relationships([
             "authors" => function($resource) {
                 return new OneToManyIterableRelationship($resource["authors"], $this->authorTransformer);
+            },
+            "publisher" => function($resource) {
+                return new OneToOneRelationship($resource["publisher"], $this->publisherTransformer);
             }
         ]);
     }
