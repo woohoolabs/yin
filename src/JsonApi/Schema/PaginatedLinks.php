@@ -1,15 +1,16 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class PaginatedLinks extends Links
+class PaginatedLinks extends CompulsoryLinks
 {
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
+     * @param array $links
      */
-    public function __construct(Link $self = null, Link $related = null)
+    public function __construct(Link $self = null, Link $related = null, array $links = [])
     {
-        parent::__construct($self, $related);
+        parent::__construct($self, $related, $links);
     }
 
     /**

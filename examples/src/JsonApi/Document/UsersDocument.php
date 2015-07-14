@@ -2,28 +2,28 @@
 namespace Src\JsonApi\Document;
 
 use Psr\Http\Message\ResponseInterface;
-use Src\JsonApi\Resource\BookResourceTransformer;
+use Src\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
-use WoohooLabs\Yin\JsonApi\Schema\CompulsoryLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
 
-class BookDocument extends AbstractSingleDocument
+class UsersDocument extends AbstractCollectionDocument
 {
     /**
-     * @var BookResourceTransformer
+     * @var UserResourceTransformer
      */
-    protected $bookTransformer;
+    protected $userTransformer;
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
-     * @param BookResourceTransformer $bookTransformer
+     * @param UserResourceTransformer $bookTransformer
      */
-    public function __construct(ResponseInterface $response, $resource, BookResourceTransformer $bookTransformer)
+    public function __construct(ResponseInterface $response, $resource, UserResourceTransformer $bookTransformer)
     {
         parent::__construct($response, $resource);
-        $this->bookTransformer = $bookTransformer;
+        $this->userTransformer = $bookTransformer;
     }
 
     /**
@@ -47,9 +47,9 @@ class BookDocument extends AbstractSingleDocument
      */
     protected function getLinks()
     {
-        return new CompulsoryLinks(
-            new Link("http://example.com/api/books/" . $this->bookTransformer->getId($this->resource))
-        );
+        return new Links([
+            "self" => new Link("http://example.com/api/users")
+        ]);
     }
 
     /**
@@ -58,6 +58,6 @@ class BookDocument extends AbstractSingleDocument
      */
     protected function setContent($resource, Criteria $criteria)
     {
-        $this->data = $this->bookTransformer->transformToResource($resource, $criteria, $this->included);
+        $this->data = $this->userTransformer->transformToResource($resource, $criteria, $this->included);
     }
 }
