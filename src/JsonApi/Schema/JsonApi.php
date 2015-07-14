@@ -14,7 +14,7 @@ class JsonApi implements SimpleTransformableInterface
      * @param string $version
      * @param array $meta
      */
-    public function __construct($version, array $meta = null)
+    public function __construct($version, array $meta = [])
     {
         $this->version = $version;
         $this->meta = $meta;
@@ -29,7 +29,7 @@ class JsonApi implements SimpleTransformableInterface
             "version" => $this->version
         ];
 
-        if ($this->meta !== null) {
+        if (empty($this->meta) === false) {
             $result["meta"] = $this->meta;
         }
 
