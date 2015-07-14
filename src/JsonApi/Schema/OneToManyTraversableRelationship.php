@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
-class OneToManyIterableRelationship extends AbstractRelationship
+class OneToManyTraversableRelationship extends AbstractRelationship
 {
     /**
      * @param array $data

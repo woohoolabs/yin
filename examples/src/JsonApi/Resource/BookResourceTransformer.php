@@ -2,7 +2,7 @@
 namespace Src\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
-use WoohooLabs\Yin\JsonApi\Schema\OneToManyIterableRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\OneToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
@@ -89,7 +89,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     {
         return new Relationships([
             "authors" => function($resource) {
-                return new OneToManyIterableRelationship($resource["authors"], $this->authorTransformer);
+                return new OneToManyTraversableRelationship($resource["authors"], $this->authorTransformer);
             },
             "publisher" => function($resource) {
                 return new OneToOneRelationship($resource["publisher"], $this->publisherTransformer);

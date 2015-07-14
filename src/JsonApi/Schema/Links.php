@@ -16,12 +16,15 @@ class Links implements SimpleTransformableInterface
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
+     * @param array $links
      */
-    public function __construct(Link $self = null, Link $related = null)
+    public function __construct(Link $self = null, Link $related = null, array $links = [])
     {
         $this->links = [];
         $this->addOptionalItemToArray($this->links, "self", $self);
         $this->addOptionalItemToArray($this->links, "related", $related);
+
+        $this->links = array_merge($this->links, $links);
     }
 
     /**
