@@ -56,7 +56,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         // META
         $meta = $this->getMeta($resource);
-        if (empty($value) === false) {
+        if (empty($meta) === false) {
             $result["meta"] = $meta;
         }
 

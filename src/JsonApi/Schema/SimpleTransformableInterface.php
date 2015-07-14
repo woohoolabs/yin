@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 interface SimpleTransformableInterface
 {
     /**
-     * @return array
+     * @return array|string
      */
     public function transform();
 }

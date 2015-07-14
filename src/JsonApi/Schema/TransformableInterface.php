@@ -8,7 +8,7 @@ interface TransformableInterface
     /**
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
-     * @return array|string
+     * @return array
      */
     public function transform($resource, Criteria $criteria);
 }
