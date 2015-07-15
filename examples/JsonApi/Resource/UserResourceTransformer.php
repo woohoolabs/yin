@@ -60,7 +60,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     protected function getAttributes($resource)
     {
@@ -74,14 +74,16 @@ class UserResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     protected function getRelationships($resource)
     {
-        return new Relationships([
-            "contacts" => function($resource) {
-                return new OneToManyTraversableRelationship($resource["contacts"], $this->contactTransformer);
-            }
-        ]);
+        return new Relationships(
+            [
+                "contacts" => function($resource) {
+                    return new OneToManyTraversableRelationship($resource["contacts"], $this->contactTransformer);
+                }
+            ]
+        );
     }
 }

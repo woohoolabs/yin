@@ -87,13 +87,15 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     protected function getRelationships($resource)
     {
-        return new Relationships([
-            "authors" => function($resource) {
-                return new OneToManyTraversableRelationship($resource["authors"], $this->authorTransformer);
-            },
-            "publisher" => function($resource) {
-                return new OneToOneRelationship($resource["publisher"], $this->publisherTransformer);
-            }
-        ]);
+        return new Relationships(
+            [
+                "authors" => function($resource) {
+                    return new OneToManyTraversableRelationship($resource["authors"], $this->authorTransformer);
+                },
+                "publisher" => function($resource) {
+                    return new OneToOneRelationship($resource["publisher"], $this->publisherTransformer);
+                }
+            ]
+        );
     }
 }

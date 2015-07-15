@@ -47,9 +47,11 @@ class UsersDocument extends AbstractCollectionDocument
      */
     protected function getLinks()
     {
-        return new Links([
-            "self" => new Link("http://example.com/api/users")
-        ]);
+        return new Links(
+            [
+                "self" => new Link("http://example.com/api/users")
+            ]
+        );
     }
 
     /**

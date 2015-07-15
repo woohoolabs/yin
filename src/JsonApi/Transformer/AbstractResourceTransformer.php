@@ -33,13 +33,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     abstract protected function getAttributes($resource);
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     abstract protected function getRelationships($resource);
 

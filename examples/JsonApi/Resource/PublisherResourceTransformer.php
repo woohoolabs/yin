@@ -49,7 +49,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     protected function getAttributes($resource)
     {
@@ -60,7 +60,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     protected function getRelationships($resource)
     {

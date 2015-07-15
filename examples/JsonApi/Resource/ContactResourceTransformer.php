@@ -53,9 +53,11 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
-        return new Attributes([
-            $resource["type"] => function($resource) { return $resource["value"]; },
-        ]);
+        return new Attributes(
+            [
+                $resource["type"] => function($resource) { return $resource["value"]; },
+            ]
+        );
     }
 
     /**
