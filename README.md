@@ -6,7 +6,7 @@
 [![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 [![License](https://img.shields.io/packagist/l/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 
-**Woohoo Labs. Yin is library for HATEOAS API-s to transform resources to JSON API format easily and efficiently.**
+**Woohoo Labs. Yin is a library for HATEOAS API-s to transform resources to JSON API format easily and efficiently.**
 
 ## Introduction
 
