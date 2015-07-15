@@ -10,7 +10,7 @@
 
 ## Introduction
 
-[JSON API](http://jsonapi.org/) specification reached 1.0 in 29th May 2015 and we believe it is a big day for RESTful
+[JSON API](http://jsonapi.org/) specification reached 1.0 on 29th May 2015 and we believe it is a big day for RESTful
 API-s as this specification makes APIs more robust and future-proof than they have ever been. Woohoo Labs. Yin (named
 after Yin-Yang) was born to bring efficiency and elegance for your JSON API definitions.
 
