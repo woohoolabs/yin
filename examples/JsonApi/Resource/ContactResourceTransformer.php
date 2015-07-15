@@ -53,10 +53,8 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
-        $value = $resource["type"] == "phone" ? "phone_number" : "email";
-
         return new Attributes([
-            $value => function($resource) { return $resource["value"]; },
+            $resource["type"] => function($resource) { return $resource["value"]; },
         ]);
     }
 

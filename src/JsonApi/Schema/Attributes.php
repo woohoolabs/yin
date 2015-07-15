@@ -46,7 +46,7 @@ class Attributes
         $attributes = [];
 
         foreach ($this->attributes as $name => $attribute) {
-            if ($criteria->getIncludedFields($resourceType)) {
+            if ($criteria->isIncludedField($resourceType, $name)) {
                 $attributes[$name] = $attribute($resource, $criteria);
             }
         }
