@@ -55,11 +55,12 @@ now) which you have to extend:
 
 And there is an ``AbstractResourceTransformer`` class for resource transformation.
 
-Have a look at the [examples](https://github.com/woohoolabs/yin/examples) if you want to get to know more how Yin works:
-the controllers contain the resources which will be transformed according to the JSON API spec. Visit
-``index.php?example={{ EXAMPLE_NAME }}``, where ``EXAMPLE_NAME`` can be "book" or "users". But don't forget first to run
-``composer install`` in Yin's root directory. You can also restrict which fields and attributes should be fetched. Let's
-see two example URIs:
+Have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples) if you want to get to know more
+how Yin works: the controllers contain the resources which will be transformed according to the JSON API spec.
+
+Visit ``index.php?example={{ EXAMPLE_NAME }}``, where ``EXAMPLE_NAME`` can be "book" or "users". But don't forget first
+to run ``composer install`` in Yin's root directory. You can also restrict which fields and attributes should be
+fetched. Let's see two example URIs:
 
 - ``index.php?example=book&fields[book]=title,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
 - ``index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone_number,email&include=contacts``
