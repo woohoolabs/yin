@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
 
-abstract class AbstractSingleDocument extends AbstractCompoundDocument
+abstract class AbstractSingleResourceDocument extends AbstractCompoundDocument
 {
     /**
      * @param \Psr\Http\Message\ResponseInterface $response

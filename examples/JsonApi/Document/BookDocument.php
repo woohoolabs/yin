@@ -6,9 +6,9 @@ use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Schema\CompulsoryLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 
-class BookDocument extends AbstractSingleDocument
+class BookDocument extends AbstractSingleResourceDocument
 {
     /**
      * @var BookResourceTransformer
