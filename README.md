@@ -105,7 +105,7 @@ which should show:
     },
     {
       "type": "publisher",
-      "id:" "12346",
+      "id": "12346",
       "attributes": {
         "name": "Example Publisher"
       }
