@@ -39,7 +39,7 @@ class UsersDocument extends AbstractCollectionDocument
      */
     protected function getMeta()
     {
-        return null;
+        return [];
     }
 
     /**

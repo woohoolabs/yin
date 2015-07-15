@@ -39,7 +39,7 @@ class BookDocument extends AbstractSingleResourceDocument
      */
     protected function getMeta()
     {
-        return null;
+        return [];
     }
 
     /**

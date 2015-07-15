@@ -65,6 +65,12 @@ fetched. Let's see two example URIs:
 - ``index.php?example=book&fields[book]=title,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
 - ``index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone_number,email&include=contacts``
 
+Notice how transformation of resource attributes and relationships works (e.g. in
+[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 
+you have to define anonymous functions for each attribute and relationship. This design allows us
+to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
+are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).
+
 ## License
 
 The MIT License (MIT). Please see the [License File](https://github.com/woohoolabs/yin/blob/master/LICENSE.md)
