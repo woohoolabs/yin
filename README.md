@@ -67,47 +67,47 @@ If you are able to open ``examples/index.php``, let's see the response of the bo
 which should show:
 ```json
 {
-  links: {
-    self: "http://example.com/api/books/12345"
+  "links": {
+    "self": "http://example.com/api/books/12345"
   },
-  data: {
-    type: "book",
-    id: "12345",
-    attributes: {
-      title: "Example Book"
+  "data": {
+    "type": "book",
+    "id": "12345",
+    "attributes": {
+      "title": "Example Book"
     },
-    relationships: {
-      authors: {
-        data: [
-          { type: "author", id: "11111"},
-          { type: "author", id: "11112"}
+    "relationships": {
+      "authors": {
+        "data": [
+          { "type": "author", "id": "11111"},
+          { "type": "author", "id": "11112"}
         ]
       },
-      publisher: {
-        data: { type: "publisher", id: "12346" }
+      "publisher": {
+        "data": { "type": "publisher", "id": "12346" }
       }
     }
   },
-  included: [
+  "included": [
     {
-      type: "author",
-      id: "11111",
-      attributes: {
-        name: "John Doe"
+      "type": "author",
+      "id": "11111",
+      "attributes": {
+        "name": "John Doe"
       }
     },
     {
-      type: "author",
-      id: "11112",
-      attributes: {
-        name: "Jane Doe"
+      "type": "author",
+      "id": "11112",
+      "attributes": {
+        "name": "Jane Doe"
       }
     },
     {
-      type: "publisher",
-      id: "12346",
-      attributes: {
-        name: "Example Publisher"
+      "type": "publisher",
+      "id:" "12346",
+      "attributes": {
+        "name": "Example Publisher"
       }
     }
   ]
