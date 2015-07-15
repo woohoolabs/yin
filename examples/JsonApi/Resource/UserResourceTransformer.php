@@ -1,13 +1,24 @@
 <?php
-namespace Src\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
+use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class ContactResourceTransformer extends AbstractResourceTransformer
+class UserResourceTransformer extends AbstractResourceTransformer
 {
-    public function __construct()
+    /**
+     * @var ContactResourceTransformer
+     */
+    private $contactTransformer;
+
+    /**
+     * @param ContactResourceTransformer $contactTransformer
+     */
+    public function __construct(ContactResourceTransformer $contactTransformer)
     {
+        $this->contactTransformer = $contactTransformer;
     }
 
     /**
@@ -16,7 +27,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($resource)
     {
-        return "contact";
+        return "user";
     }
 
     /**
@@ -53,11 +64,12 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
-        $value = $resource["type"] == "phone" ? "phone_number" : "email";
-
-        return new Attributes([
-            $value => function($resource) { return $resource["value"]; },
-        ]);
+        return new Attributes(
+            [
+                "firstname" => function($resource) { return $resource["firstname"]; },
+                "surname" => function($resource) { return $resource["lastname"]; },
+            ]
+        );
     }
 
     /**
@@ -66,6 +78,10 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     protected function getRelationships($resource)
     {
-        return null;
+        return new Relationships([
+            "contacts" => function($resource) {
+                return new OneToManyTraversableRelationship($resource["contacts"], $this->contactTransformer);
+            }
+        ]);
     }
 }

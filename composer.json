@@ -31,7 +31,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WoohooLabsTest\\Yin\\": "tests/"
+            "WoohooLabsTest\\Yin\\": "tests/",
+            "WoohooLabs\\Yin\\Examples\\": "examples/"
         }
     }
 }

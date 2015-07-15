@@ -1,10 +1,10 @@
 <?php
-namespace Src\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class PublisherResourceTransformer extends AbstractResourceTransformer
+class AuthorResourceTransformer extends AbstractResourceTransformer
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($resource)
     {
-        return "publisher";
+        return "author";
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
-namespace Src\Controller;
+namespace WoohooLabs\Yin\Examples\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Src\JsonApi\Document\BookDocument;
-use Src\JsonApi\Resource\AuthorResourceTransformer;
-use Src\JsonApi\Resource\BookResourceTransformer;
-use Src\JsonApi\Resource\PublisherResourceTransformer;
+use WoohooLabs\Yin\Examples\JsonApi\Document\BookDocument;
+use WoohooLabs\Yin\Examples\JsonApi\Resource\AuthorResourceTransformer;
+use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
+use WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
 class BookController

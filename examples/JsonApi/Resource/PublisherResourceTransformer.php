@@ -1,24 +1,13 @@
 <?php
-namespace Src\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
-use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class UserResourceTransformer extends AbstractResourceTransformer
+class PublisherResourceTransformer extends AbstractResourceTransformer
 {
-    /**
-     * @var ContactResourceTransformer
-     */
-    private $contactTransformer;
-
-    /**
-     * @param ContactResourceTransformer $contactTransformer
-     */
-    public function __construct(ContactResourceTransformer $contactTransformer)
+    public function __construct()
     {
-        $this->contactTransformer = $contactTransformer;
     }
 
     /**
@@ -27,7 +16,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($resource)
     {
-        return "user";
+        return "publisher";
     }
 
     /**
@@ -64,12 +53,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
-        return new Attributes(
-            [
-                "firstname" => function($resource) { return $resource["firstname"]; },
-                "surname" => function($resource) { return $resource["lastname"]; },
-            ]
-        );
+        return new Attributes([
+            "name" => function($resource) { return $resource["name"]; },
+        ]);
     }
 
     /**
@@ -78,10 +64,6 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     protected function getRelationships($resource)
     {
-        return new Relationships([
-            "contacts" => function($resource) {
-                return new OneToManyTraversableRelationship($resource["contacts"], $this->contactTransformer);
-            }
-        ]);
+        return null;
     }
 }

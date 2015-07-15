@@ -1,11 +1,11 @@
 <?php
-namespace Src\Controller;
+namespace WoohooLabs\Yin\Examples\Controller;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Src\JsonApi\Document\UsersDocument;
-use Src\JsonApi\Resource\ContactResourceTransformer;
-use Src\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\Examples\JsonApi\Document\UsersDocument;
+use WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer;
+use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 
 class UsersController

@@ -1,10 +1,10 @@
 <?php
-namespace Src\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class AuthorResourceTransformer extends AbstractResourceTransformer
+class ContactResourceTransformer extends AbstractResourceTransformer
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($resource)
     {
-        return "author";
+        return "contact";
     }
 
     /**
@@ -53,8 +53,10 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      */
     protected function getAttributes($resource)
     {
+        $value = $resource["type"] == "phone" ? "phone_number" : "email";
+
         return new Attributes([
-            "name" => function($resource) { return $resource["name"]; },
+            $value => function($resource) { return $resource["value"]; },
         ]);
     }
 

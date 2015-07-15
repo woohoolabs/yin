@@ -1,5 +1,5 @@
 <?php
-namespace Src\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
