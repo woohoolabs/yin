@@ -56,13 +56,66 @@ now) which you have to extend:
 And there is an ``AbstractResourceTransformer`` class for resource transformation.
 
 Have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples) if you want to get to know more
-how Yin works: controllers contain the resources which will be transformed according to the JSON API spec. Set up a
-web server and visit ``examples/index.php?example={{ EXAMPLE_NAME }}``, where ``EXAMPLE_NAME`` can be "book" or "users".
-But don't forget first to run ``composer install`` in Yin's root directory. You can also restrict which fields and
-attributes should be fetched. Let's see two example URIs:
+how Yin works: set up a web server and visit ``examples/index.php?example=EXAMPLE_NAME``, where ``EXAMPLE_NAME`` can be
+"book" or "users". But don't forget first to run ``composer install`` in Yin's root directory. You can also restrict
+which fields and attributes should be fetched (the original resources - which are transformed - can be found in
+the controllers).
 
-- ``index.php?example=book&fields[book]=title,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
-- ``index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone_number,email&include=contacts``
+If you are able to open ``examples/index.php``, let's see the response of the book example:
+
+``examples/index.php?example=book&fields[book]=title,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
+which should show:
+```json
+{
+  links: {
+    self: "http://example.com/api/books/12345"
+  },
+  data: {
+    type: "book",
+    id: "12345",
+    attributes: {
+      title: "Example Book"
+    },
+    relationships: {
+      authors: {
+        data: [
+          { type: "author", id: "11111"},
+          { type: "author", id: "11112"}
+        ]
+      },
+      publisher: {
+        data: { type: "publisher", id: "12346" }
+      }
+    }
+  },
+  included: [
+    {
+      type: "author",
+      id: "11111",
+      attributes: {
+        name: "John Doe"
+      }
+    },
+    {
+      type: "author",
+      id: "11112",
+      attributes: {
+        name: "Jane Doe"
+      }
+    },
+    {
+      type: "publisher",
+      id: "12346",
+      attributes: {
+        name: "Example Publisher"
+      }
+    }
+  ]
+}
+```
+
+You can also play with the users example:
+``examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone_number,email&include=contacts``
 
 Notice how transformation of resource attributes and relationships works (e.g.:
 [`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 
