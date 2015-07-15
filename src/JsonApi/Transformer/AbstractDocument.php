@@ -87,7 +87,7 @@ abstract class AbstractDocument implements DocumentTransformerInterface
 
         // Meta
         $meta = $this->getMeta();
-        if ($meta !== null) {
+        if (empty($meta) === false) {
             $content["meta"] = $meta;
         }
 
