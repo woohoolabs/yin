@@ -2,7 +2,6 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 
 abstract class AbstractErrorDocument extends AbstractDocument
@@ -13,14 +12,6 @@ abstract class AbstractErrorDocument extends AbstractDocument
     protected $errors = [];
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
-    {
-        parent::__construct($response);
-    }
-
-    /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error $error
      */
     public function addError(Error $error)
@@ -29,12 +20,25 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param int $responseCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getResponse(ResponseInterface $response, $responseCode = null)
+    {
+        $response->getBody()->write(json_encode($this->transformContent()));
+        $response = $response->withStatus($responseCode);
+        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
+
+        return $response;
+    }
+
+    /**
      * @return array
      */
-    protected function transformContent(Criteria $criteria)
+    protected function transformContent()
     {
-        $content = parent::transformContent($criteria);
+        $content = $this->transformBaseContent();
 
         // ERRORS
         if (empty($this->errors) === false) {

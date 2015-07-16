@@ -1,13 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
-use WoohooLabs\Yin\JsonApi\Transformer\TransformerTrait;
-
 class Links implements SimpleTransformableInterface
 {
-    use TransformerTrait;
-
     /**
      * @var array
      */

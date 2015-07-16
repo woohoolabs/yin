@@ -22,26 +22,26 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param mixed $resource
      * @return array
      */
-    abstract protected function getMeta($resource);
+    abstract public function getMeta($resource);
 
     /**
      * @param mixed $resource
      * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    abstract protected function getLinks($resource, $relationshipPath);
+    abstract public function getLinks($resource, $relationshipPath);
 
     /**
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
-    abstract protected function getAttributes($resource);
+    abstract public function getAttributes($resource);
 
     /**
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    abstract protected function getRelationships($resource);
+    abstract public function getRelationships($resource);
 
     /**
      * @param mixed $resource

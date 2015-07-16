@@ -53,7 +53,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return array
      */
-    protected function getMeta($resource)
+    public function getMeta($resource)
     {
         return [];
     }
@@ -63,7 +63,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    protected function getLinks($resource, $relationshipPath)
+    public function getLinks($resource, $relationshipPath)
     {
         return null;
     }
@@ -72,7 +72,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
      */
-    protected function getAttributes($resource)
+    public function getAttributes($resource)
     {
         return new Attributes(
             [
@@ -85,7 +85,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
      */
-    protected function getRelationships($resource)
+    public function getRelationships($resource)
     {
         return new Relationships(
             [

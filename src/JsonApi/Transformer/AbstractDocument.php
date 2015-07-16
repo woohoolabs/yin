@@ -1,29 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
-
-abstract class AbstractDocument implements DocumentTransformerInterface
+abstract class AbstractDocument
 {
-    /**
-     * @var \Psr\Http\Message\ResponseInterface
-     */
-    protected $response;
-
-    /**
-     * @var int
-     */
-    protected $statusCode;
-
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     */
-    public function __construct(ResponseInterface $response)
-    {
-        $this->response = $response;
-    }
-
     /**
      * @return array
      */
@@ -51,31 +30,14 @@ abstract class AbstractDocument implements DocumentTransformerInterface
     abstract protected function getMeta();
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
     abstract protected function getLinks();
 
     /**
-     * @param int $statusCode
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getResponse($statusCode, Criteria $criteria)
-    {
-        $response = $this->response;
-
-        $response->getBody()->write(json_encode($this->transformContent($criteria)));
-        $response = $response->withStatus($statusCode);
-        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
-
-        return $response;
-    }
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @return array
      */
-    protected function transformContent(Criteria $criteria)
+    protected function transformBaseContent()
     {
         $content = [];
 

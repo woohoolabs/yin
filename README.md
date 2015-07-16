@@ -79,8 +79,8 @@ which should show:
     "relationships": {
       "authors": {
         "data": [
-          { "type": "author", "id": "11111"},
-          { "type": "author", "id": "11112"}
+          { "type": "author", "id": "11111" },
+          { "type": "author", "id": "11112" }
         ]
       },
       "publisher": {
@@ -115,7 +115,7 @@ which should show:
 ```
 
 You can also play with the users example:
-``examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone_number,email&include=contacts``
+``examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts``
 
 Notice how transformation of resource attributes and relationships works (e.g.:
 [`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 

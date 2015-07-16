@@ -6,10 +6,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class AuthorResourceTransformer extends AbstractResourceTransformer
 {
-    public function __construct()
-    {
-    }
-
     /**
      * @param mixed $resource
      * @return string
@@ -32,7 +28,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return array
      */
-    protected function getMeta($resource)
+    public function getMeta($resource)
     {
         return [];
     }
@@ -42,7 +38,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    protected function getLinks($resource, $relationshipPath)
+    public function getLinks($resource, $relationshipPath)
     {
         return null;
     }
@@ -51,7 +47,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
-    protected function getAttributes($resource)
+    public function getAttributes($resource)
     {
         return new Attributes(
             [
@@ -64,7 +60,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    protected function getRelationships($resource)
+    public function getRelationships($resource)
     {
         return null;
     }

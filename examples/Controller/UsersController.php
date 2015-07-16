@@ -54,12 +54,8 @@ class UsersController
             ]
         ];
 
-        $document = new UsersDocument(
-            $response,
-            $resource,
-            new UserResourceTransformer(new ContactResourceTransformer())
-        );
+        $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getResponse(200, new Criteria($request));
+        return $document->getResponse($response, $resource, new Criteria($request));
     }
 }

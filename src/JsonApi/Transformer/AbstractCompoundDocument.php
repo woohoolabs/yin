@@ -23,21 +23,30 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     protected $included;
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
-     */
-    public function __construct(ResponseInterface $response, $resource)
-    {
-        parent::__construct($response);
-        $this->resource = $resource;
-        $this->included = new Included();
-    }
-
-    /**
-     * @param mixed $resource
+     * Set the value of the "data" and "included" properties based on the "resource" property.
+     *
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      */
-    abstract protected function setContent($resource, Criteria $criteria);
+    abstract protected function setContent(Criteria $criteria);
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param int $responseCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getResponse(ResponseInterface $response, $resource, Criteria $criteria, $responseCode = 200)
+    {
+        $this->resource = $resource;
+        $this->included = new Included();
+
+        $response->getBody()->write(json_encode($this->transformContent($criteria)));
+        $response = $response->withStatus($responseCode);
+        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
+
+        return $response;
+    }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
@@ -45,10 +54,10 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      */
     protected function transformContent(Criteria $criteria)
     {
-        $content = parent::transformContent($criteria);
+        $content = $this->transformBaseContent();
 
         // DATA
-        $this->setContent($this->resource, $criteria);
+        $this->setContent($criteria);
         $content["data"] = $this->data;
 
         // INCLUDED

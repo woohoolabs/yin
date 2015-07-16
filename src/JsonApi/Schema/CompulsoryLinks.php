@@ -1,9 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
-use WoohooLabs\Yin\JsonApi\Transformer\TransformerTrait;
-
 class CompulsoryLinks extends Links
 {
     /**
@@ -14,8 +11,14 @@ class CompulsoryLinks extends Links
     public function __construct(Link $self = null, Link $related = null, array $links = [])
     {
         parent::__construct([]);
-        $this->addOptionalItemToArray($this->links, "self", $self);
-        $this->addOptionalItemToArray($this->links, "related", $related);
+
+        if ($self !== null) {
+            $this->links["self"] = $self;
+        }
+
+        if ($related !== null) {
+            $this->links["related"] = $related;
+        }
 
         $this->links = array_merge($this->links, $links);
     }

@@ -1,7 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
-use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Schema\CompulsoryLinks;
@@ -16,13 +15,10 @@ class BookDocument extends AbstractSingleResourceDocument
     protected $bookTransformer;
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
      * @param BookResourceTransformer $bookTransformer
      */
-    public function __construct(ResponseInterface $response, $resource, BookResourceTransformer $bookTransformer)
+    public function __construct(BookResourceTransformer $bookTransformer)
     {
-        parent::__construct($response, $resource);
         $this->bookTransformer = $bookTransformer;
     }
 
@@ -43,7 +39,7 @@ class BookDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
     protected function getLinks()
     {
@@ -53,11 +49,10 @@ class BookDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     * @param mixed $resource
      * @param Criteria $criteria
      */
-    protected function setContent($resource, Criteria $criteria)
+    protected function setContent(Criteria $criteria)
     {
-        $this->data = $this->bookTransformer->transformToResource($resource, $criteria, $this->included);
+        $this->data = $this->bookTransformer->transformToResource($this->resource, $criteria, $this->included);
     }
 }

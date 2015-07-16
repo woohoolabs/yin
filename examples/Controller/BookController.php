@@ -38,11 +38,9 @@ class BookController
         ];
 
         $document = new BookDocument(
-            $response,
-            $resource,
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $document->getResponse(200, new Criteria($request));
+        return $document->getResponse($response, $resource, new Criteria($request));
     }
 }

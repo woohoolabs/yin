@@ -5,6 +5,7 @@
 #### Added
 
 #### Changed
+- Siplified document creation and transformation 
 
 #### Removed
 
