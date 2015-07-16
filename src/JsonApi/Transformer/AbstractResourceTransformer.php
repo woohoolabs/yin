@@ -45,10 +45,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @return array
+     * @return array|null
      */
     public function transformToResourceIdentifier($resource)
     {
+        if ($resource === null) {
+            return null;
+        }
+
         $result = [
             "type" => $this->getType($resource),
             "id" => $this->getId($resource),
@@ -68,10 +72,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipPath
-     * @return array
+     * @return array|null
      */
     public function transformToResource($resource, Criteria $criteria, Included $included, $relationshipPath = "")
     {
+        if ($resource === null) {
+            return null;
+        }
+
         $result = $this->transformToResourceIdentifier($resource);
 
         // LINKS

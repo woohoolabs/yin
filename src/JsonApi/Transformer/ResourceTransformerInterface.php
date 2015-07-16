@@ -8,7 +8,7 @@ interface ResourceTransformerInterface
 {
     /**
      * @param mixed $resource
-     * @return array
+     * @return array|null
      */
     public function transformToResourceIdentifier($resource);
 
@@ -17,7 +17,7 @@ interface ResourceTransformerInterface
      * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipPath
-     * @return array
+     * @return array|null
      */
     public function transformToResource($resource, Criteria $criteria, Included $included, $relationshipPath = "");
 }
