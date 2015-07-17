@@ -21,6 +21,7 @@ class BookController
         $resource = [
             "id" => "12345",
             "title" => "Example Book",
+            "pages" => "200",
             "authors" => [
                 [
                     "id" => "11111",

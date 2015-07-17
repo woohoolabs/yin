@@ -3,9 +3,12 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\Criteria;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\TransformerTrait;
 
 abstract class AbstractResourceTransformer implements ResourceTransformerInterface
 {
+    use TransformerTrait;
+
     /**
      * @param mixed $resource
      * @return string

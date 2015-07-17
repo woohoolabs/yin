@@ -3,13 +3,16 @@
 ### 0.2.0 - Unreleased
 
 #### Added
+- Convenience methods to ``AbstractResourceTransformer`` to support transformation
 
 #### Changed
-- Siplified document creation and transformation 
+- Simplified document creation and transformation 
 
 #### Removed
 
 #### Fixed
+- Transformation of meta element at the top level
+- Transformation of null resources
 
 ### 0.1.5 - 2015-07-15
 

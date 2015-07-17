@@ -63,7 +63,7 @@ the controllers).
 
 If you are able to open ``examples/index.php``, let's see the response of the book example:
 
-``examples/index.php?example=book&fields[book]=title,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
+``examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
 which should show:
 ```json
 {
@@ -74,7 +74,8 @@ which should show:
     "type": "book",
     "id": "12345",
     "attributes": {
-      "title": "Example Book"
+      "title": "Example Book",
+      "pages": 200
     },
     "relationships": {
       "authors": {
