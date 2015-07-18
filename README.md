@@ -55,11 +55,11 @@ now) which you have to extend:
 
 And there is an ``AbstractResourceTransformer`` class for resource transformation.
 
-Have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples) if you want to get to know more
-how Yin works: set up a web server and visit ``examples/index.php?example=EXAMPLE_NAME``, where ``EXAMPLE_NAME`` can be
-"book" or "users". But don't forget first to run ``composer install`` in Yin's root directory. You can also restrict
-which fields and attributes should be fetched (the original resources - which are transformed - can be found in
-the controllers).
+If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
+set up a web server and visit ``examples/index.php?example=EXAMPLE_NAME``, where ``EXAMPLE_NAME`` can be
+"book" or "users". But don't forget to run ``composer install`` first in Yin's root directory. You can also restrict
+which fields and attributes should be fetched. The original resources - which are transformed by Yin - can be found in
+the controllers.
 
 If you are able to open ``examples/index.php``, let's see the response of the book example:
 
@@ -118,9 +118,9 @@ which should show:
 You can also play with the users example:
 ``examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts``
 
-Notice how transformation of resource attributes and relationships works (e.g.:
+Notice how attribute and relationship transformation works (e.g.:
 [`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 
-you have to define anonymous functions for each attribute and relationship. This design allows us
+you have to define an anonymous function for each attribute and relationship. This design allows us
 to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
 are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).
 
