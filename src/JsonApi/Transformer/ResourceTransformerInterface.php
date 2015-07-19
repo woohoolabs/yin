@@ -29,5 +29,11 @@ interface ResourceTransformerInterface
      * @param string $baseRelationshipPath
      * @return array|null
      */
-    public function transformRelationship($resource, Request $request, Included $included, $relationshipName, $baseRelationshipPath = "");
+    public function transformRelationship(
+        $resource,
+        Request $request,
+        Included $included,
+        $relationshipName,
+        $baseRelationshipPath = ""
+    );
 }

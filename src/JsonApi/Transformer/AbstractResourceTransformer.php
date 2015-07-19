@@ -78,11 +78,11 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      */
     public function transformToResource($resource, Request $request, Included $included, $baseRelationshipPath = "")
     {
-        if ($resource === null) {
+        $result = $this->transformToResourceIdentifier($resource);
+
+        if ($result === null) {
             return null;
         }
-
-        $result = $this->transformToResourceIdentifier($resource);
 
         // Links
         $this->transformLinksObject($result, $resource);

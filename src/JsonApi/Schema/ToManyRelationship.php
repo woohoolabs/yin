@@ -9,7 +9,8 @@ class ToManyRelationship extends AbstractRelationship
     /**
      * @return $this
      */
-    public static function create() {
+    public static function create()
+    {
         return new self();
     }
 
@@ -17,7 +18,8 @@ class ToManyRelationship extends AbstractRelationship
      * @param array $meta
      * @return $this
      */
-    public static function createWithMeta(array $meta) {
+    public static function createWithMeta(array $meta)
+    {
         return new self($meta);
     }
 
@@ -25,7 +27,8 @@ class ToManyRelationship extends AbstractRelationship
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links $links
      * @return $this
      */
-    public static function createWithLinks(Links $links) {
+    public static function createWithLinks(Links $links)
+    {
         return new self([], $links);
     }
 
@@ -41,9 +44,9 @@ class ToManyRelationship extends AbstractRelationship
 
     /**
      * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links $links
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface|null $resourceTransformer
      */
     public function __construct(
         array $meta = [],
@@ -51,7 +54,7 @@ class ToManyRelationship extends AbstractRelationship
         array $data = [],
         ResourceTransformerInterface $resourceTransformer = null
     ) {
-        parent::__construct($data, $resourceTransformer);
+        parent::__construct($data, $resourceTransformer, $data, $resourceTransformer);
     }
 
     /**
