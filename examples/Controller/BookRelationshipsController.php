@@ -9,7 +9,7 @@ use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 
-class BookAuthorsRelationshipController
+class BookRelationshipsController
 {
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
@@ -42,6 +42,12 @@ class BookAuthorsRelationshipController
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $document->getRelationshipResponse("authors", $response, $resource, new Request($request));
+        if (isset($_GET["relationship"])) {
+            $relationshipName = $_GET["relationship"];
+        } else {
+            die("You must define the 'relationship' query parameter with a value of 'authors' or 'publisher'!");
+        }
+
+        return $document->getRelationshipResponse($relationshipName, $response, $resource, new Request($request));
     }
 }

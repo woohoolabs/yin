@@ -107,7 +107,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                         ->setLinks(
                             new Links(
                                 [
-                                    "self" => new Link("http://example.com/api/books/relationships/authors")
+                                    "self" => new Link("http://example.com/api/books/relationships/publisher")
                                 ]
                             )
                         )
