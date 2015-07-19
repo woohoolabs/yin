@@ -20,11 +20,19 @@ abstract class AbstractRelationship
     protected $resourceTransformer;
 
     /**
+     * @param array $meta
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param mixed $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface|null $resourceTransformer
      */
-    public function __construct($data, ResourceTransformerInterface $resourceTransformer)
-    {
+    public function __construct(
+        array $meta = [],
+        Links $links = null,
+        $data = null,
+        ResourceTransformerInterface $resourceTransformer = null
+    ) {
+        $this->meta = $meta;
+        $this->links = $links;
         $this->data = $data;
         $this->resourceTransformer = $resourceTransformer;
     }
@@ -42,6 +50,19 @@ abstract class AbstractRelationship
         $baseRelationshipPath,
         $relationshipName
     );
+
+    /**
+     * @param mixed $data
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
+     * @return $this
+     */
+    public function setData($data, ResourceTransformerInterface $resourceTransformer)
+    {
+        $this->data = $data;
+        $this->resourceTransformer = $resourceTransformer;
+
+        return $this;
+    }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Request $request

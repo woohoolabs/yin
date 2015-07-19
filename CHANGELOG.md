@@ -4,14 +4,19 @@
 
 #### Added
 - Convenience methods to ``AbstractResourceTransformer`` to support transformation
+- Convenience methods for links and relationships
 
 #### Changed
 - Simplified document creation and transformation
 - Renamed ``Criteria`` to ``Request`` for future purposes
+- Renamed ``OneToManyTraversableRelationship`` to ``ToManyRelationship``
+- Renamed ``OneToOneRelationship`` to ``ToOneRelationship``
 
 #### Removed
+- ``CompulsoryLinks`` and ``PaginatedLinks``
 
 #### Fixed
+- Transformation of resource relationships
 - Transformation of meta element at the top level
 - Transformation of null resources
 

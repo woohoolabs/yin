@@ -10,6 +10,33 @@ class Links implements SimpleTransformableInterface
 
     /**
      * @param array $links
+     * @return $this
+     */
+    public static function create(array $links = [])
+    {
+        return new self($links);
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
+     * @return $this
+     */
+    public static function createWithSelf(Link $self)
+    {
+        return new self(["self" => $self]);
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
+     * @return $this
+     */
+    public static function createWithRelated(Link $related)
+    {
+        return new self(["related" => $related]);
+    }
+
+    /**
+     * @param array $links
      */
     public function __construct(array $links = [])
     {
@@ -65,6 +92,82 @@ class Links implements SimpleTransformableInterface
     public function setRelated(Link $related)
     {
         $this->links["related"] = $related;
+
+        return $this;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getFirst()
+    {
+        return isset($this->links["first"]) ? $this->links["first"] : null;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $first
+     * @return $this
+     */
+    public function setFirst(Link $first)
+    {
+        $this->links["first"] = $first;
+
+        return $this;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getLast()
+    {
+        return isset($this->links["last"]) ? $this->links["last"] : null;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $last
+     * @return $this
+     */
+    public function setLast(Link $last)
+    {
+        $this->links["last"] = $last;
+
+        return $this;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getPrev()
+    {
+        return isset($this->links["prev"]) ? $this->links["prev"] : null;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $prev
+     * @return $this
+     */
+    public function setPrev(Link $prev)
+    {
+        $this->links["prev"] = $prev;
+
+        return $this;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getNext()
+    {
+        return isset($this->links["next"]) ? $this->links["next"] : null;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $next
+     * @return $this
+     */
+    public function setNext(Link $next)
+    {
+        $this->links["next"] = $next;
 
         return $this;
     }

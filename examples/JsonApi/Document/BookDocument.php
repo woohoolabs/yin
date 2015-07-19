@@ -3,8 +3,8 @@ namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Schema\CompulsoryLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 
 class BookDocument extends AbstractSingleResourceDocument
@@ -43,9 +43,8 @@ class BookDocument extends AbstractSingleResourceDocument
      */
     protected function getLinks()
     {
-        return new CompulsoryLinks(
-            new Link("http://example.com/api/books/" . $this->bookTransformer->getId($this->resource))
-        );
+        return Links::create()
+            ->setSelf(new Link("http://example.com/api/books/" . $this->bookTransformer->getId($this->resource)));
     }
 
     /**

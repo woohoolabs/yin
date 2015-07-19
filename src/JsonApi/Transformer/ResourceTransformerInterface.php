@@ -20,6 +20,4 @@ interface ResourceTransformerInterface
      * @return array|null
      */
     public function transformToResource($resource, Request $request, Included $included, $baseRelationshipPath = "");
-
-    public function transformToRelationship($resource, Request $request, Included $included, $relationshipName);
 }

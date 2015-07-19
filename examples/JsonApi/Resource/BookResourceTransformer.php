@@ -2,8 +2,10 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
-use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\OneToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
@@ -60,10 +62,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource, $relationshipPath)
+    public function getLinks($resource)
     {
         return null;
     }
@@ -84,17 +85,34 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships
+     * @param string $baseRelationshipPath
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($resource, $baseRelationshipPath)
     {
         return new Relationships(
             [
-                "authors" => function($resource) {
-                    return new OneToManyTraversableRelationship($resource["authors"], $this->authorTransformer);
+                "authors" => function($resource, $baseRelationshipPath) {
+                    return ToManyRelationship::create()
+                        ->setLinks(
+                            Links::create(
+                                [
+                                    "self" => new Link($baseRelationshipPath . "/relationships/authors")
+                                ]
+                            )
+                        )
+                        ->setData($resource["authors"], $this->authorTransformer);
                 },
-                "publisher" => function($resource) {
-                    return new OneToOneRelationship($resource["publisher"], $this->publisherTransformer);
+                "publisher" => function($resource, $baseRelationshipPath) {
+                    return ToOneRelationship::create()
+                        ->setLinks(
+                            Links::create(
+                                [
+                                    "self" => new Link($baseRelationshipPath . "/relationships/authors")
+                                ]
+                            )
+                        )
+                        ->setData($resource["publisher"], $this->publisherTransformer);
                 }
             ]
         );

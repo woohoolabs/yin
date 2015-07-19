@@ -56,11 +56,11 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     {
         $content = $this->transformBaseContent();
 
-        // DATA
+        // Data
         $this->setContent($request);
         $content["data"] = $this->data;
 
-        // INCLUDED
+        // Included
         if ($this->included !== null) {
             $content["included"] = $this->included->transform($this->resource, $request);
         }

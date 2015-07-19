@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
-use WoohooLabs\Yin\JsonApi\Schema\OneToManyTraversableRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
@@ -50,10 +50,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource, $relationshipPath)
+    public function getLinks($resource)
     {
         return null;
     }
@@ -74,14 +73,16 @@ class UserResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
+     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($resource, $baseRelationshipPath)
     {
         return new Relationships(
             [
-                "contacts" => function($resource) {
-                    return new OneToManyTraversableRelationship($resource["contacts"], $this->contactTransformer);
+                "contacts" => function($resource, $baseRelationshipPath) {
+                    return ToManyRelationship::create()
+                        ->setData($resource["contacts"], $this->contactTransformer);
                 }
             ]
         );

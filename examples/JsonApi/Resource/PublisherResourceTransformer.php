@@ -35,10 +35,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource, $relationshipPath)
+    public function getLinks($resource)
     {
         return null;
     }
@@ -56,9 +55,10 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
+     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($resource, $baseRelationshipPath)
     {
         return null;
     }

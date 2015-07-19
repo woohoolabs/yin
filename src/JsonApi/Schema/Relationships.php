@@ -49,7 +49,7 @@ class Relationships
 
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-            $relationship = $relationshipCallback($resource);
+            $relationship = $relationshipCallback($resource, $baseRelationshipPath);
 
             $relationships[$relationshipName] = $relationship->transform(
                 $request,

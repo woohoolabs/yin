@@ -29,10 +29,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @param string $relationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    abstract public function getLinks($resource, $relationshipPath);
+    abstract public function getLinks($resource);
 
     /**
      * @param mixed $resource
@@ -42,9 +41,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
+     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    abstract public function getRelationships($resource);
+    abstract public function getRelationships($resource, $baseRelationshipPath);
 
     /**
      * @param mixed $resource
@@ -86,13 +86,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $result = $this->transformToResourceIdentifier($resource);
 
         // LINKS
-        $this->transformLinks($result, $resource, $baseRelationshipPath);
+        $this->transformLinksObject($result, $resource);
 
         // ATTRIBUTES
-        $this->transformAttributes($result, $resource, $request);
+        $this->transformAttributesObject($result, $resource, $request);
 
         //RELATIONSHIPS
-        $this->transformRelationships($result, $resource, $request, $included, $baseRelationshipPath);
+        $this->transformRelationshipsObject($result, $resource, $request, $included, $baseRelationshipPath);
 
         return $result;
     }
@@ -100,11 +100,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param array $array
      * @param mixed $resource
-     * @param string $relationshipPath
      */
-    private function transformLinks(array &$array, $resource, $relationshipPath)
+    private function transformLinksObject(array &$array, $resource)
     {
-        $links = $this->getLinks($resource, $relationshipPath);
+        $links = $this->getLinks($resource);
 
         if (empty($links) === false) {
             $array["links"] = $links->transform();
@@ -116,7 +115,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      */
-    private function transformAttributes(array &$array, $resource, Request $request)
+    private function transformAttributesObject(array &$array, $resource, Request $request)
     {
         $attributes = $this->getAttributes($resource);
         if ($attributes !== null) {
@@ -131,14 +130,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      */
-    private function transformRelationships(
+    private function transformRelationshipsObject(
         array &$array,
         $resource,
         Request $request,
         Included $included,
         $baseRelationshipPath
     ) {
-        $relationships = $this->getRelationships($resource);
+        $relationships = $this->getRelationships($resource, $baseRelationshipPath);
 
         if ($relationships !== null) {
             $array["relationships"] = $relationships->transform(
