@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
@@ -51,14 +51,14 @@ class UsersDocument extends AbstractCollectionDocument
     }
 
     /**
-     * @param Criteria $criteria
+     * @param Request $request
      */
-    protected function setContent(Criteria $criteria)
+    protected function setContent(Request $request)
     {
         $this->data = [];
 
         foreach ($this->resource as $item) {
-            $this->data[] = $this->userTransformer->transformToResource($item, $criteria, $this->included);
+            $this->data[] = $this->userTransformer->transformToResource($item, $request, $this->included);
         }
     }
 }

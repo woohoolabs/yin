@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\CompulsoryLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
@@ -49,10 +49,10 @@ class BookDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     * @param Criteria $criteria
+     * @param Request $request
      */
-    protected function setContent(Criteria $criteria)
+    protected function setContent(Request $request)
     {
-        $this->data = $this->bookTransformer->transformToResource($this->resource, $criteria, $this->included);
+        $this->data = $this->bookTransformer->transformToResource($this->resource, $request, $this->included);
     }
 }

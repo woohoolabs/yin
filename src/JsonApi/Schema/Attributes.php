@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 
 class Attributes
 {
@@ -37,17 +37,17 @@ class Attributes
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param string $resourceType
      * @return array
      */
-    public function transform($resource, Criteria $criteria, $resourceType)
+    public function transform($resource, Request $request, $resourceType)
     {
         $attributes = [];
 
         foreach ($this->attributes as $name => $attribute) {
-            if ($criteria->isIncludedField($resourceType, $name)) {
-                $attributes[$name] = $attribute($resource, $criteria);
+            if ($request->isIncludedField($resourceType, $name)) {
+                $attributes[$name] = $attribute($resource, $request);
             }
         }
 

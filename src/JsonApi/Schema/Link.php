@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 
 class Link implements SimpleTransformableInterface
 {

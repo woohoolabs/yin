@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 abstract class AbstractRelationship
@@ -30,21 +30,21 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @return array
      */
     abstract protected function transformData(
-        Criteria $criteria,
+        Request $request,
         Included $included,
         $baseRelationshipPath,
         $relationshipName
     );
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
@@ -52,7 +52,7 @@ abstract class AbstractRelationship
      * @return array|null
      */
     public function transform(
-        Criteria $criteria,
+        Request $request,
         Included $included,
         $resourceType,
         $baseRelationshipPath,
@@ -60,9 +60,9 @@ abstract class AbstractRelationship
     ) {
         $relationship = null;
 
-        $data = $this->transformData($criteria, $included, $baseRelationshipPath, $relationshipName);
+        $data = $this->transformData($request, $included, $baseRelationshipPath, $relationshipName);
 
-        if ($criteria->isIncludedField($resourceType, $relationshipName)) {
+        if ($request->isIncludedField($resourceType, $relationshipName)) {
             $relationship = [];
 
             // LINKS
@@ -84,7 +84,7 @@ abstract class AbstractRelationship
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
@@ -92,16 +92,16 @@ abstract class AbstractRelationship
      */
     protected function transformResource(
         $resource,
-        Criteria $criteria,
+        Request $request,
         Included $included,
         $baseRelationshipPath,
         $relationshipName
     ) {
-        if ($criteria->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
+        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
             $included->addIncludedResource(
                 $this->resourceTransformer->transformToResource(
                     $resource,
-                    $criteria,
+                    $request,
                     $included,
                     $baseRelationshipPath
                 )

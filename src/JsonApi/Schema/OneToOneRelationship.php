@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 class OneToOneRelationship extends AbstractRelationship
@@ -16,18 +16,18 @@ class OneToOneRelationship extends AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @return array
      */
-    protected function transformData(Criteria $criteria, Included $included, $baseRelationshipPath, $relationshipName)
+    protected function transformData(Request $request, Included $included, $baseRelationshipPath, $relationshipName)
     {
         if ($this->data !== null) {
             return $this->transformResource(
                 $this->data,
-                $criteria,
+                $request,
                 $included,
                 $baseRelationshipPath,
                 $relationshipName

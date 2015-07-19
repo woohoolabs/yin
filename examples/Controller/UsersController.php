@@ -6,7 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\JsonApi\Document\UsersDocument;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 
 class UsersController
 {
@@ -56,6 +56,6 @@ class UsersController
 
         $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getResponse($response, $resource, new Criteria($request));
+        return $document->getResponse($response, $resource, new Request($request));
     }
 }

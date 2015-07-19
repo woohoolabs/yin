@@ -1,14 +1,14 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 
 interface TransformableInterface
 {
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @return array
      */
-    public function transform($resource, Criteria $criteria);
+    public function transform($resource, Request $request);
 }

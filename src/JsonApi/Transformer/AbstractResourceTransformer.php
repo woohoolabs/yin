@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\TransformerTrait;
 
@@ -72,12 +72,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
-     * @param string $relationshipPath
+     * @param string $baseRelationshipPath
      * @return array|null
      */
-    public function transformToResource($resource, Criteria $criteria, Included $included, $relationshipPath = "")
+    public function transformToResource($resource, Request $request, Included $included, $baseRelationshipPath = "")
     {
         if ($resource === null) {
             return null;
@@ -86,13 +86,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $result = $this->transformToResourceIdentifier($resource);
 
         // LINKS
-        $this->transformLinks($result, $resource, $relationshipPath);
+        $this->transformLinks($result, $resource, $baseRelationshipPath);
 
         // ATTRIBUTES
-        $this->transformAttributes($result, $resource, $criteria);
+        $this->transformAttributes($result, $resource, $request);
 
         //RELATIONSHIPS
-        $this->transformRelationships($result, $resource, $criteria, $included, $relationshipPath);
+        $this->transformRelationships($result, $resource, $request, $included, $baseRelationshipPath);
 
         return $result;
     }
@@ -114,27 +114,27 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param array $array
      * @param $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      */
-    private function transformAttributes(array &$array, $resource, Criteria $criteria)
+    private function transformAttributes(array &$array, $resource, Request $request)
     {
         $attributes = $this->getAttributes($resource);
         if ($attributes !== null) {
-            $array["attributes"] = $attributes->transform($resource, $criteria, $this->getType($resource));
+            $array["attributes"] = $attributes->transform($resource, $request, $this->getType($resource));
         }
     }
 
     /**
      * @param array $array
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      */
     private function transformRelationships(
         array &$array,
         $resource,
-        Criteria $criteria,
+        Request $request,
         Included $included,
         $baseRelationshipPath
     ) {
@@ -143,7 +143,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         if ($relationships !== null) {
             $array["relationships"] = $relationships->transform(
                 $resource,
-                $criteria,
+                $request,
                 $included,
                 $this->getType($resource),
                 $baseRelationshipPath

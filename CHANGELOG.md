@@ -6,7 +6,8 @@
 - Convenience methods to ``AbstractResourceTransformer`` to support transformation
 
 #### Changed
-- Simplified document creation and transformation 
+- Simplified document creation and transformation
+- Renamed ``Criteria`` to ``Request`` for future purposes
 
 #### Removed
 

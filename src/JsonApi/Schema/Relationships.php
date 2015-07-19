@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Criteria;
+use WoohooLabs\Yin\JsonApi\Request\Request;
 
 class Relationships
 {
@@ -37,13 +37,13 @@ class Relationships
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Criteria $criteria
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
      * @return array
      */
-    public function transform($resource, Criteria $criteria, Included $included, $resourceType, $baseRelationshipPath)
+    public function transform($resource, Request $request, Included $included, $resourceType, $baseRelationshipPath)
     {
         $relationships = [];
 
@@ -52,7 +52,7 @@ class Relationships
             $relationship = $relationshipCallback($resource);
 
             $relationships[$relationshipName] = $relationship->transform(
-                $criteria,
+                $request,
                 $included,
                 $resourceType,
                 $baseRelationshipPath,
