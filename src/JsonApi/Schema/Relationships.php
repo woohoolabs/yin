@@ -27,12 +27,12 @@ class Relationships
     }
 
     /**
-     * @param string $rel
+     * @param string $name
      * @param \Closure $relationship
      */
-    public function setRelationship($rel, \Closure $relationship)
+    public function setRelationship($name, \Closure $relationship)
     {
-        $this->relationships[$rel] = $relationship;
+        $this->relationships[$name] = $relationship;
     }
 
     /**
@@ -48,18 +48,50 @@ class Relationships
         $relationships = [];
 
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
-            /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-            $relationship = $relationshipCallback($resource, $baseRelationshipPath);
-
-            $relationships[$relationshipName] = $relationship->transform(
+            $relationships[$relationshipName] = $this->transformRelationship(
+                $relationshipName,
+                $resource,
                 $request,
                 $included,
                 $resourceType,
-                $baseRelationshipPath,
-                $relationshipName
+                $baseRelationshipPath
             );
         }
 
         return $relationships;
+    }
+
+    /**
+     * @param string $relationshipName
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $resourceType
+     * @param string $baseRelationshipPath
+     * @return array|null
+     */
+    public function transformRelationship(
+        $relationshipName,
+        $resource,
+        Request $request,
+        Included $included,
+        $resourceType,
+        $baseRelationshipPath
+    ) {
+        if (isset($this->relationships[$relationshipName]) === false) {
+            return null;
+        }
+
+        $relationshipCallback = $this->relationships[$relationshipName];
+        /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
+        $relationship = $relationshipCallback($resource);
+
+        return $relationship->transform(
+            $request,
+            $included,
+            $resourceType,
+            $baseRelationshipPath,
+            $relationshipName
+        );
     }
 }

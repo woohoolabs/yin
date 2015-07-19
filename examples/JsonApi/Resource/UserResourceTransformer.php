@@ -9,12 +9,12 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class UserResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var ContactResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer
      */
     private $contactTransformer;
 
     /**
-     * @param ContactResourceTransformer $contactTransformer
+     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer $contactTransformer
      */
     public function __construct(ContactResourceTransformer $contactTransformer)
     {
@@ -73,14 +73,13 @@ class UserResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource, $baseRelationshipPath)
+    public function getRelationships($resource)
     {
         return new Relationships(
             [
-                "contacts" => function($resource, $baseRelationshipPath) {
+                "contacts" => function($resource) {
                     return ToManyRelationship::create()
                         ->setData($resource["contacts"], $this->contactTransformer);
                 }

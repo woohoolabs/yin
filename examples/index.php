@@ -5,8 +5,7 @@ use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
 // Routing
-$example = isset($_GET["example"]) ? $_GET["example"] : "book";
-$example = strtoupper($example[0]) . substr($example, 1);
+$example = isset($_GET["example"]) ? $_GET["example"] : "Book";
 
 // Invoking the controller
 $className = "WoohooLabs\\Yin\\Examples\\Controller\\" . $example . "Controller";

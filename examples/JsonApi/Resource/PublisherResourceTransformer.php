@@ -55,10 +55,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource, $baseRelationshipPath)
+    public function getRelationships($resource)
     {
         return null;
     }

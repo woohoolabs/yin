@@ -2,7 +2,6 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
@@ -10,16 +9,11 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
 class UsersDocument extends AbstractCollectionDocument
 {
     /**
-     * @var UserResourceTransformer
+     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer $transformer
      */
-    protected $userTransformer;
-
-    /**
-     * @param UserResourceTransformer $bookTransformer
-     */
-    public function __construct(UserResourceTransformer $bookTransformer)
+    public function __construct(UserResourceTransformer $transformer)
     {
-        $this->userTransformer = $bookTransformer;
+        parent::__construct($transformer);
     }
 
     /**
@@ -48,17 +42,5 @@ class UsersDocument extends AbstractCollectionDocument
                 "self" => new Link("http://example.com/api/users")
             ]
         );
-    }
-
-    /**
-     * @param Request $request
-     */
-    protected function setContent(Request $request)
-    {
-        $this->data = [];
-
-        foreach ($this->resource as $item) {
-            $this->data[] = $this->userTransformer->transformToResource($item, $request, $this->included);
-        }
     }
 }

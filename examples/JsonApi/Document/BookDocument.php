@@ -2,7 +2,6 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
@@ -10,16 +9,11 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 class BookDocument extends AbstractSingleResourceDocument
 {
     /**
-     * @var BookResourceTransformer
+     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer $transformer
      */
-    protected $bookTransformer;
-
-    /**
-     * @param BookResourceTransformer $bookTransformer
-     */
-    public function __construct(BookResourceTransformer $bookTransformer)
+    public function __construct(BookResourceTransformer $transformer)
     {
-        $this->bookTransformer = $bookTransformer;
+        parent::__construct($transformer);
     }
 
     /**
@@ -43,15 +37,10 @@ class BookDocument extends AbstractSingleResourceDocument
      */
     protected function getLinks()
     {
-        return Links::create()
-            ->setSelf(new Link("http://example.com/api/books/" . $this->bookTransformer->getId($this->resource)));
-    }
-
-    /**
-     * @param Request $request
-     */
-    protected function setContent(Request $request)
-    {
-        $this->data = $this->bookTransformer->transformToResource($this->resource, $request, $this->included);
+        return new Links(
+            [
+                "self" => new Link("http://example.com/api/books/" . $this->transformer->getId($this->resource))
+            ]
+        );
     }
 }

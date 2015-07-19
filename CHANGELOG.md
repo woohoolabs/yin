@@ -3,6 +3,7 @@
 ### 0.2.0 - Unreleased
 
 #### Added
+- Support for proper and automatic fetching of relationships
 - Convenience methods to ``AbstractResourceTransformer`` to support transformation
 - Convenience methods for links and relationships
 

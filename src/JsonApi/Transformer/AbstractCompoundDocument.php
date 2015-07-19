@@ -30,6 +30,13 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     abstract protected function setContent(Request $request);
 
     /**
+     * @param string $relationshipName
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @return array
+     */
+    abstract protected function getRelationshipContent($relationshipName, Request $request);
+
+    /**
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
@@ -49,6 +56,31 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     }
 
     /**
+     * @param string $relationshipName
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param int $responseCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getRelationshipResponse(
+        $relationshipName,
+        ResponseInterface $response,
+        $resource,
+        Request $request,
+        $responseCode = 200
+    ) {
+        $this->resource = $resource;
+        $this->included = new Included();
+
+        $response->getBody()->write(json_encode($this->transformRelationshipContent($relationshipName, $request)));
+        $response = $response->withStatus($responseCode);
+        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
+
+        return $response;
+    }
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
      * @return array
      */
@@ -59,6 +91,23 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         // Data
         $this->setContent($request);
         $content["data"] = $this->data;
+
+        // Included
+        if ($this->included !== null) {
+            $content["included"] = $this->included->transform($this->resource, $request);
+        }
+
+        return $content;
+    }
+
+    /**
+     * @param string $relationshipName
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @return array
+     */
+    protected function transformRelationshipContent($relationshipName, Request $request)
+    {
+        $content = $this->getRelationshipContent($relationshipName, $request);
 
         // Included
         if ($this->included !== null) {

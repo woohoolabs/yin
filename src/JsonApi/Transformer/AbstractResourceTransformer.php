@@ -41,10 +41,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    abstract public function getRelationships($resource, $baseRelationshipPath);
+    abstract public function getRelationships($resource);
 
     /**
      * @param mixed $resource
@@ -85,16 +84,49 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         $result = $this->transformToResourceIdentifier($resource);
 
-        // LINKS
+        // Links
         $this->transformLinksObject($result, $resource);
 
-        // ATTRIBUTES
+        // Attributes
         $this->transformAttributesObject($result, $resource, $request);
 
-        //RELATIONSHIPS
+        // Relationships
         $this->transformRelationshipsObject($result, $resource, $request, $included, $baseRelationshipPath);
 
         return $result;
+    }
+
+    /**
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $relationshipName
+     * @param string $baseRelationshipPath
+     * @return array|null
+     */
+    public function transformRelationship(
+        $resource,
+        Request $request,
+        Included $included,
+        $relationshipName,
+        $baseRelationshipPath = ""
+    ) {
+        $relationships = $this->getRelationships($resource);
+
+        if ($relationships === null) {
+            return null;
+        }
+
+        $relationship = $relationships->transformRelationship(
+            $relationshipName,
+            $resource,
+            $request,
+            $included,
+            $this->getType($resource),
+            $baseRelationshipPath
+        );
+
+        return $relationship;
     }
 
     /**
@@ -137,7 +169,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         Included $included,
         $baseRelationshipPath
     ) {
-        $relationships = $this->getRelationships($resource, $baseRelationshipPath);
+        $relationships = $this->getRelationships($resource);
 
         if ($relationships !== null) {
             $array["relationships"] = $relationships->transform(

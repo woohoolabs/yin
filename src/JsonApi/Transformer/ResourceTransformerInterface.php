@@ -20,4 +20,14 @@ interface ResourceTransformerInterface
      * @return array|null
      */
     public function transformToResource($resource, Request $request, Included $included, $baseRelationshipPath = "");
+
+    /**
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $relationshipName
+     * @param string $baseRelationshipPath
+     * @return array|null
+     */
+    public function transformRelationship($resource, Request $request, Included $included, $relationshipName, $baseRelationshipPath = "");
 }

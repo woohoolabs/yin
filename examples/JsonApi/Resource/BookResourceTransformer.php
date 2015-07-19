@@ -12,18 +12,18 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class BookResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var AuthorResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\AuthorResourceTransformer
      */
     private $authorTransformer;
 
     /**
-     * @var PublisherResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer
      */
     private $publisherTransformer;
 
     /**
-     * @param AuthorResourceTransformer $authorTransformer
-     * @param PublisherResourceTransformer $publisherTransformer
+     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
+     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
      */
     public function __construct(
         AuthorResourceTransformer $authorTransformer,
@@ -85,30 +85,29 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource, $baseRelationshipPath)
+    public function getRelationships($resource)
     {
         return new Relationships(
             [
-                "authors" => function($resource, $baseRelationshipPath) {
+                "authors" => function($resource) {
                     return ToManyRelationship::create()
                         ->setLinks(
-                            Links::create(
+                            new Links(
                                 [
-                                    "self" => new Link($baseRelationshipPath . "/relationships/authors")
+                                    "self" => new Link("http://example.com/api/books/relationships/authors")
                                 ]
                             )
                         )
                         ->setData($resource["authors"], $this->authorTransformer);
                 },
-                "publisher" => function($resource, $baseRelationshipPath) {
+                "publisher" => function($resource) {
                     return ToOneRelationship::create()
                         ->setLinks(
-                            Links::create(
+                            new Links(
                                 [
-                                    "self" => new Link($baseRelationshipPath . "/relationships/authors")
+                                    "self" => new Link("http://example.com/api/books/relationships/authors")
                                 ]
                             )
                         )

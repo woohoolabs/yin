@@ -2,6 +2,8 @@
 namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
+use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class ContactResourceTransformer extends AbstractResourceTransformer
@@ -39,7 +41,11 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getLinks($resource)
     {
-        return null;
+        return new Links(
+            [
+                "self" => new Link("http://example.com/api/contacts/" . $this->getId($resource))
+            ]
+        );
     }
 
     /**
@@ -57,10 +63,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource, $baseRelationshipPath)
+    public function getRelationships($resource)
     {
         return null;
     }

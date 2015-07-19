@@ -21,7 +21,6 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($resource)
     {
-        if (isset($resource["id"]) === false) { print_r($resource); exit(); }
         return $resource["id"];
     }
 
@@ -58,10 +57,9 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
 
     /**
      * @param mixed $resource
-     * @param string $baseRelationshipPath
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource, $baseRelationshipPath)
+    public function getRelationships($resource)
     {
         return null;
     }
