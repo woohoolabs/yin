@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class Attributes
 {
@@ -37,11 +37,11 @@ class Attributes
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param string $resourceType
      * @return array
      */
-    public function transform($resource, Request $request, $resourceType)
+    public function transform($resource, RequestInterface $request, $resourceType)
     {
         $attributes = [];
 

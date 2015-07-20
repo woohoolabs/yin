@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class Included implements TransformableInterface
 {
@@ -27,10 +27,10 @@ class Included implements TransformableInterface
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    public function transform($resource, Request $request)
+    public function transform($resource, RequestInterface $request)
     {
         $included = [];
 

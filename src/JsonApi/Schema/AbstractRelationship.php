@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 abstract class AbstractRelationship
@@ -38,14 +38,14 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @return array
      */
     abstract protected function transformData(
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $baseRelationshipPath,
         $relationshipName
@@ -65,7 +65,7 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
@@ -73,7 +73,7 @@ abstract class AbstractRelationship
      * @return array|null
      */
     public function transform(
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $resourceType,
         $baseRelationshipPath,
@@ -105,7 +105,7 @@ abstract class AbstractRelationship
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
@@ -113,7 +113,7 @@ abstract class AbstractRelationship
      */
     protected function transformResource(
         $resource,
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $baseRelationshipPath,
         $relationshipName

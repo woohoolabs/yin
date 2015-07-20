@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 
 abstract class AbstractCompoundDocument extends AbstractDocument
@@ -25,25 +25,25 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     /**
      * Set the value of the "data" and "included" properties based on the "resource" property.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    abstract protected function setContent(Request $request);
+    abstract protected function setContent(RequestInterface $request);
 
     /**
      * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    abstract protected function getRelationshipContent($relationshipName, Request $request);
+    abstract protected function getRelationshipContent($relationshipName, RequestInterface $request);
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $resource, Request $request, $responseCode = 200)
+    public function getResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode = 200)
     {
         $this->resource = $resource;
         $this->included = new Included();
@@ -59,7 +59,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      * @param string $relationshipName
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -67,7 +67,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         $relationshipName,
         ResponseInterface $response,
         $resource,
-        Request $request,
+        RequestInterface $request,
         $responseCode = 200
     ) {
         $this->resource = $resource;
@@ -81,10 +81,10 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    protected function transformContent(Request $request)
+    protected function transformContent(RequestInterface $request)
     {
         $content = $this->transformBaseContent();
 
@@ -102,19 +102,12 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    protected function transformRelationshipContent($relationshipName, Request $request)
+    protected function transformRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $content = $this->getRelationshipContent($relationshipName, $request);
-
-        // Included
-        if ($this->included !== null) {
-            $content["included"] = $this->included->transform($this->resource, $request);
-        }
-
-        return $content;
+        return $this->getRelationshipContent($relationshipName, $request);
     }
 
     /**

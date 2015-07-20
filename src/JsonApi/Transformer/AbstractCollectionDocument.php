@@ -1,7 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RelationshipRequest;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractCollectionDocument extends AbstractCompoundDocument
 {
@@ -19,9 +20,9 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    protected function setContent(Request $request)
+    protected function setContent(RequestInterface $request)
     {
         $this->data = [];
 
@@ -32,11 +33,12 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
 
     /**
      * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    protected function getRelationshipContent($relationshipName, Request $request)
+    protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
+        $request = new RelationshipRequest($request, $this->transformer->getType($this->resource), $relationshipName);
         $content = [];
 
         foreach ($this->resource as $item) {

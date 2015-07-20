@@ -8,7 +8,7 @@ use Zend\Diactoros\Response;
 $example = isset($_GET["example"]) ? $_GET["example"] : "Book";
 
 // Invoking the controller
-$className = "WoohooLabs\\Yin\\Examples\\Controller\\" . $example . "Controller";
+$className = "WoohooLabs\\Yin\\Examples\\Controller\\" . $example;
 $class = new $className();
 $response = call_user_func([$class, "__invoke"], ServerRequestFactory::fromGlobals(), new Response());
 

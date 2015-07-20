@@ -6,6 +6,7 @@
 - Support for proper and automatic fetching of relationships
 - Convenience methods to ``AbstractResourceTransformer`` to support transformation
 - Convenience methods for links and relationships
+- Examples about relationships
 
 #### Changed
 - Simplified document creation and transformation

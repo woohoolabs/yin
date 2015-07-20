@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class Relationships
 {
@@ -37,14 +37,19 @@ class Relationships
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
      * @return array
      */
-    public function transform($resource, Request $request, Included $included, $resourceType, $baseRelationshipPath)
-    {
+    public function transform(
+        $resource,
+        RequestInterface $request,
+        Included $included,
+        $resourceType,
+        $baseRelationshipPath
+    ) {
         $relationships = [];
 
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
@@ -64,7 +69,7 @@ class Relationships
     /**
      * @param string $relationshipName
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
@@ -73,7 +78,7 @@ class Relationships
     public function transformRelationship(
         $relationshipName,
         $resource,
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $resourceType,
         $baseRelationshipPath

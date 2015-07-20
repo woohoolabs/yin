@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\TransformerTrait;
 
@@ -71,13 +71,17 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @return array|null
      */
-    public function transformToResource($resource, Request $request, Included $included, $baseRelationshipPath = "")
-    {
+    public function transformToResource(
+        $resource,
+        RequestInterface $request,
+        Included $included,
+        $baseRelationshipPath = ""
+    ) {
         $result = $this->transformToResourceIdentifier($resource);
 
         if ($result === null) {
@@ -98,7 +102,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipName
      * @param string $baseRelationshipPath
@@ -106,7 +110,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      */
     public function transformRelationship(
         $resource,
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $relationshipName,
         $baseRelationshipPath = ""
@@ -145,9 +149,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param array $array
      * @param $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    private function transformAttributesObject(array &$array, $resource, Request $request)
+    private function transformAttributesObject(array &$array, $resource, RequestInterface $request)
     {
         $attributes = $this->getAttributes($resource);
         if ($attributes !== null) {
@@ -158,14 +162,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param array $array
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      */
     private function transformRelationshipsObject(
         array &$array,
         $resource,
-        Request $request,
+        RequestInterface $request,
         Included $included,
         $baseRelationshipPath
     ) {

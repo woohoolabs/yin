@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 class ToManyRelationship extends AbstractRelationship
@@ -58,14 +58,18 @@ class ToManyRelationship extends AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @return array
      */
-    protected function transformData(Request $request, Included $included, $baseRelationshipPath, $relationshipName)
-    {
+    protected function transformData(
+        RequestInterface $request,
+        Included $included,
+        $baseRelationshipPath,
+        $relationshipName
+    ) {
         if ($this->data === null || $this->resourceTransformer === null) {
             return [];
         }

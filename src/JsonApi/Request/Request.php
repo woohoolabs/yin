@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class Request
+class Request implements RequestInterface
 {
     /**
      * @var \Psr\Http\Message\ServerRequestInterface
