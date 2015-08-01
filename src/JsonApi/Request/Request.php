@@ -49,7 +49,7 @@ class Request implements RequestInterface
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @return $this
      */
-    public static function fromRequest(ServerRequestInterface $request)
+    public static function fromServerRequest(ServerRequestInterface $request)
     {
         $body = json_decode($request->getBody()->getContents(), true);
 

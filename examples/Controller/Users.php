@@ -22,6 +22,6 @@ class Users
 
         $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getResponse($response, $resource, Request::fromRequest($request));
+        return $document->getResponse($response, $resource, Request::fromServerRequest($request));
     }
 }

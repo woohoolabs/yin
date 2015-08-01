@@ -25,6 +25,6 @@ class Book
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $document->getResponse($response, $resource, Request::fromRequest($request));
+        return $document->getResponse($response, $resource, Request::fromServerRequest($request));
     }
 }

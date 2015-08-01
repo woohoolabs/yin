@@ -38,7 +38,7 @@ class UserRelationships
             $relationshipName,
             $response,
             $resource,
-            Request::fromRequest($request)
+            Request::fromServerRequest($request)
         );
     }
 }

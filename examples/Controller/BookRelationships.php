@@ -35,7 +35,7 @@ class BookRelationships
             $relationshipName,
             $response,
             $resource,
-            Request::fromRequest($request)
+            Request::fromServerRequest($request)
         );
     }
 }

@@ -1,5 +1,13 @@
 # Change Log
 
+### 0.3.0 - Unreleased
+
+#### Added
+- Support for resource creation and update via ``Hydrators``
+
+#### Changed
+- Renamed ``Request::fromRequest()`` method to ``Request::fromServerRequest()``
+
 ### 0.2.0 - 2015-08-01
 
 #### Added
