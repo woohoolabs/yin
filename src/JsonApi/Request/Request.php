@@ -51,10 +51,12 @@ class Request implements RequestInterface
      */
     public static function fromRequest(ServerRequestInterface $request)
     {
+        $body = json_decode($request->getBody()->getContents(), true);
+
         return new self(
             $request->getQueryParams(),
             $request->getAttributes(),
-            json_decode($request->getBody()->getContents(), true)
+            is_array($body) ? $body : []
         );
     }
 
