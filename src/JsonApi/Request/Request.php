@@ -49,6 +49,7 @@ class Request implements RequestInterface
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @return $this
      */
+    public static function fromRequest(ServerRequestInterface $request)
     {
         return new self(
             $request->getQueryParams(),
