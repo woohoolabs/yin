@@ -6,9 +6,19 @@ use Psr\Http\Message\ServerRequestInterface;
 class Request implements RequestInterface
 {
     /**
-     * @var \Psr\Http\Message\ServerRequestInterface
+     * @var array
      */
-    private $request;
+    private $queryParams = [];
+
+    /**
+     * @var array
+     */
+    private $attributes = [];
+
+    /**
+     * @var array
+     */
+    private $body;
 
     /**
      * @var array
@@ -37,10 +47,26 @@ class Request implements RequestInterface
 
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @return $this
      */
-    public function __construct(ServerRequestInterface $request)
     {
-        $this->request = $request;
+        return new self(
+            $request->getQueryParams(),
+            $request->getAttributes(),
+            json_decode($request->getBody()->getContents(), true)
+        );
+    }
+
+    /**
+     * @param array $queryParams
+     * @param array $attributes
+     * @param array $body
+     */
+    public function __construct(array $queryParams, array $attributes, array $body)
+    {
+        $this->queryParams = $queryParams;
+        $this->attributes = $attributes;
+        $this->body = $body;
 
         $this->setIncludedRelationships();
         $this->setIncludedFields();
@@ -168,7 +194,7 @@ class Request implements RequestInterface
      */
     public function getAttribute($name, $default = null)
     {
-        return $this->request->getAttribute($name, $default);
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : $default;
     }
 
     /**
@@ -178,6 +204,6 @@ class Request implements RequestInterface
      */
     public function getQueryParam($name, $default = null)
     {
-        return isset($this->request->getQueryParams()[$name]) ? $this->request->getQueryParams()[$name] : $default;
+        return isset($this->queryParams[$name]) ? $this->queryParams[$name] : $default;
     }
 }

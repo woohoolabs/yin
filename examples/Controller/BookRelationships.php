@@ -31,6 +31,11 @@ class BookRelationships
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $document->getRelationshipResponse($relationshipName, $response, $resource, new Request($request));
+        return $document->getRelationshipResponse(
+            $relationshipName,
+            $response,
+            $resource,
+            Request::fromRequest($request)
+        );
     }
 }

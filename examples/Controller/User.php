@@ -28,6 +28,6 @@ class User
 
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getResponse($response, $resource, new Request($request));
+        return $document->getResponse($response, $resource, Request::fromRequest($request));
     }
 }

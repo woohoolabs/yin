@@ -34,6 +34,11 @@ class UserRelationships
 
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getRelationshipResponse($relationshipName, $response, $resource, new Request($request));
+        return $document->getRelationshipResponse(
+            $relationshipName,
+            $response,
+            $resource,
+            Request::fromRequest($request)
+        );
     }
 }
