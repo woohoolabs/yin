@@ -16,6 +16,26 @@ class ResourceIdentifier
     private $id;
 
     /**
+     * @param array $array
+     * @return $this
+     */
+    public static function fromArray(array $array)
+    {
+        if (isset($array["type"]) === false || isset($array["id"]) === false) {
+            return null;
+        }
+
+        $resourceIdentifier = new self();
+        $resourceIdentifier->setType($array["type"]);
+        $resourceIdentifier->setId($array["id"]);
+        if (isset($array["meta"]) === true) {
+            $resourceIdentifier->setMeta($array["meta"]);
+        }
+
+        return $resourceIdentifier;
+    }
+
+    /**
      * @return string
      */
     public function getType()

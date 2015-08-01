@@ -1,5 +1,4 @@
 <?php
-
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 class InclusionNotSupported extends \Exception

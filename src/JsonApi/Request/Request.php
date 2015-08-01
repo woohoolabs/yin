@@ -209,4 +209,22 @@ class Request implements RequestInterface
     {
         return isset($this->queryParams[$name]) ? $this->queryParams[$name] : $default;
     }
+
+    /**
+     * @return array
+     */
+    public function getBody()
+    {
+        return $this->getBody();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getBodyData()
+    {
+        $body = $this->getBody();
+
+        return isset($body["data"]) ? $body["data"] : null;
+    }
 }
