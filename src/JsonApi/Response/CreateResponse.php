@@ -25,7 +25,7 @@ class CreateResponse extends AbstractResponse
 
         $links = $document->getLinks();
         if ($links !== null && $links->getSelf() !== null) {
-            $response = $response->withHeader("location", $links->getSelf());
+            $response = $response->withHeader("location", $links->getSelf()->getHref());
         }
 
         return $response;

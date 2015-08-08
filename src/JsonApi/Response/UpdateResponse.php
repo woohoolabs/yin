@@ -15,8 +15,12 @@ class UpdateResponse extends AbstractResponse
      * @param mixed $resource
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public static function ok(Request $request, ResponseInterface $response, AbstractCompoundDocument $document, $resource)
-    {
+    public static function ok(
+        Request $request,
+        ResponseInterface $response,
+        AbstractCompoundDocument $document,
+        $resource
+    ) {
         return self::getDocumentResourceResponse($request, $response, $document, $resource, 200);
     }
 

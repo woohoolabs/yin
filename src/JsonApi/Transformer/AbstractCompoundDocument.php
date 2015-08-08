@@ -48,7 +48,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         $this->initializeDocument($resource);
         $content = $this->transformContent($request);
 
-        return $this->doGetResponse($response, $resource, $content, $responseCode);
+        return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         $content = $this->transformContent($request);
         $content["data"] = ["meta" => isset($content["data"]["meta"]) ? $content["data"]["meta"] : []];
 
-        return $this->doGetResponse($response, $resource, $content, $responseCode);
+        return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
@@ -85,7 +85,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         $this->initializeDocument($resource);
         $content = $this->transformRelationshipContent($relationshipName, $request);
 
-        return $this->doGetResponse($response, $resource, $content, $responseCode);
+        return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
@@ -99,12 +99,11 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
-     * @param array $content
      * @param int $responseCode
+     * @param array $content
      * @return \Psr\Http\Message\ResponseInterface
      */
-    private function doGetResponse(ResponseInterface $response, $resource, array $content, $responseCode)
+    private function doGetResponse(ResponseInterface $response, $responseCode, array $content)
     {
         $response->getBody()->write(json_encode($content));
         $response = $response->withStatus($responseCode);
