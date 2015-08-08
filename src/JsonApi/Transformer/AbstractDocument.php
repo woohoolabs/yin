@@ -6,7 +6,7 @@ abstract class AbstractDocument
     /**
      * @return array
      */
-    protected function getExtensions()
+    public function getExtensions()
     {
         return [];
     }
@@ -14,7 +14,7 @@ abstract class AbstractDocument
     /**
      * @return array
      */
-    protected function getSupportedExtensions()
+    public function getSupportedExtensions()
     {
         return [];
     }
@@ -22,17 +22,17 @@ abstract class AbstractDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
      */
-    abstract protected function getJsonApi();
+    abstract public function getJsonApi();
 
     /**
      * @return array
      */
-    abstract protected function getMeta();
+    abstract public function getMeta();
 
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    abstract protected function getLinks();
+    abstract public function getLinks();
 
     /**
      * @return array
@@ -41,25 +41,44 @@ abstract class AbstractDocument
     {
         $content = [];
 
-        // JsonApi
+        $this->transformJsonApiContent($content);
+        $this->transformMetaContent($content);
+        $this->transformLinksContent($content);
+
+        return $content;
+    }
+
+    /**
+     * @param array $content
+     */
+    protected function transformJsonApiContent(&$content)
+    {
         $jsonApi = $this->getJsonApi();
         if ($jsonApi !== null) {
             $content["jsonApi"] = $jsonApi->transform();
         }
+    }
 
-        // Meta
+    /**
+     * @param array $content
+     */
+    protected function transformMetaContent(&$content)
+    {
         $meta = $this->getMeta();
         if (empty($meta) === false) {
             $content["meta"] = $meta;
         }
+    }
 
-        // Links
+    /**
+     * @param array $content
+     */
+    protected function transformLinksContent(&$content)
+    {
         $links = $this->getLinks();
         if ($links !== null) {
             $content["links"] = $links->transform();
         }
-
-        return $content;
     }
 
     /**

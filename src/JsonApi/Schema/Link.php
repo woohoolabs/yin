@@ -1,8 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\Request;
-
 class Link implements SimpleTransformableInterface
 {
     /**
@@ -16,6 +14,14 @@ class Link implements SimpleTransformableInterface
     public function __construct($href)
     {
         $this->href = $href;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
     }
 
     /**

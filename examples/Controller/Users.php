@@ -8,6 +8,7 @@ use WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\Examples\Repository\UserRepository;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Response\FetchResponse;
 
 class Users
 {
@@ -22,6 +23,6 @@ class Users
 
         $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $document->getResponse($response, $resource, Request::fromServerRequest($request));
+        return FetchResponse::ok(Request::fromServerRequest($request), $response, $document, $resource);
     }
 }

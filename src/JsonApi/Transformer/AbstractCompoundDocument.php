@@ -43,16 +43,28 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode = 200)
+    public function getResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode)
     {
-        $this->resource = $resource;
-        $this->included = new Included();
+        $this->initializeDocument($resource);
+        $content = $this->transformContent($request);
 
-        $response->getBody()->write(json_encode($this->transformContent($request)));
-        $response = $response->withStatus($responseCode);
-        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
+        return $this->doGetResponse($response, $resource, $content, $responseCode);
+    }
 
-        return $response;
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param mixed $resource
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param int $responseCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getMetaResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode)
+    {
+        $this->initializeDocument($resource);
+        $content = $this->transformContent($request);
+        $content["data"] = ["meta" => isset($content["data"]["meta"]) ? $content["data"]["meta"] : []];
+
+        return $this->doGetResponse($response, $resource, $content, $responseCode);
     }
 
     /**
@@ -68,12 +80,33 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         ResponseInterface $response,
         $resource,
         RequestInterface $request,
-        $responseCode = 200
+        $responseCode
     ) {
+        $this->initializeDocument($resource);
+        $content = $this->transformRelationshipContent($relationshipName, $request);
+
+        return $this->doGetResponse($response, $resource, $content, $responseCode);
+    }
+
+    /**
+     * @param mixed $resource
+     */
+    private function initializeDocument($resource)
+    {
         $this->resource = $resource;
         $this->included = new Included();
+    }
 
-        $response->getBody()->write(json_encode($this->transformRelationshipContent($relationshipName, $request)));
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param mixed $resource
+     * @param array $content
+     * @param int $responseCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    private function doGetResponse(ResponseInterface $response, $resource, array $content, $responseCode)
+    {
+        $response->getBody()->write(json_encode($content));
         $response = $response->withStatus($responseCode);
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());
 

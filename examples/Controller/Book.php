@@ -9,6 +9,7 @@ use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\Examples\Repository\BookRepository;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Response\FetchResponse;
 
 class Book
 {
@@ -25,6 +26,6 @@ class Book
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $document->getResponse($response, $resource, Request::fromServerRequest($request));
+        return FetchResponse::ok(Request::fromServerRequest($request), $response, $document, $resource);
     }
 }

@@ -19,7 +19,7 @@ class UsersDocument extends AbstractCollectionDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
      */
-    protected function getJsonApi()
+    public function getJsonApi()
     {
         return null;
     }
@@ -27,7 +27,7 @@ class UsersDocument extends AbstractCollectionDocument
     /**
      * @return array
      */
-    protected function getMeta()
+    public function getMeta()
     {
         return [];
     }
@@ -35,7 +35,7 @@ class UsersDocument extends AbstractCollectionDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    protected function getLinks()
+    public function getLinks()
     {
         return new Links(
             [

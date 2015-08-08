@@ -24,7 +24,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
      */
-    protected function getJsonApi()
+    public function getJsonApi()
     {
         return $this->jsonApi;
     }
@@ -40,7 +40,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return array
      */
-    protected function getMeta()
+    public function getMeta()
     {
         return $this->meta;
     }
@@ -56,7 +56,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links
      */
-    protected function getLinks()
+    public function getLinks()
     {
         return $this->links;
     }

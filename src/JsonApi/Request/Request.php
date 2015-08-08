@@ -227,4 +227,24 @@ class Request implements RequestInterface
 
         return isset($body["data"]) ? $body["data"] : null;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataType()
+    {
+        $data = $this->getBodyData();
+
+        return isset($data["type"]) ? $data["type"] : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataId()
+    {
+        $data = $this->getBodyData();
+
+        return isset($data["id"]) ? $data["id"] : null;
+    }
 }

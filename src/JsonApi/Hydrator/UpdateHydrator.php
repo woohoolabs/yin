@@ -37,7 +37,7 @@ abstract class UpdateHydrator extends AbstractHydrator
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
-    public function hydrate(Request $request, $resource = null)
+    public function hydrate(Request $request, $resource)
     {
         $data = $request->getBodyData();
         if ($data === null) {

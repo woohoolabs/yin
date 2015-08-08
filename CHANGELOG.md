@@ -3,10 +3,14 @@
 ### 0.3.0 - Unreleased
 
 #### Added
-- Support for resource creation and update via ``Hydrators``
+- Support for creation and update of resources via ``Hydrators``
+- Added response classes
+- ``Link::getHref()`` method
 
 #### Changed
 - Renamed ``Request::fromRequest()`` method to ``Request::fromServerRequest()``
+- Several methods of ``AbstractDocument`` became public instead of protected
+- Improved and more extensive documentation
 
 ### 0.2.0 - 2015-08-01
 
