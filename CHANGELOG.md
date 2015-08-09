@@ -10,7 +10,6 @@
 #### Changed
 - Renamed ``Request::fromRequest()`` method to ``Request::fromServerRequest()``
 - Several methods of ``AbstractDocument`` became public instead of protected
-- Improved and more extensive documentation
 
 ### 0.2.0 - 2015-08-01
 
