@@ -215,7 +215,7 @@ class Request implements RequestInterface
      */
     public function getBody()
     {
-        return $this->getBody();
+        return $this->body;
     }
 
     /**
