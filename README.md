@@ -16,13 +16,9 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API defi
 
 #### Features
 
-As Woohoo Labs. Yin's development is in its very early stage, it lacks many features and should only be used to
-experiment with it. But that's why all contributing is highly appreciated!
-
-For now, Yin only supports some basic use-cases: single resource, collection and error documents can be sent as
-responses, and retrieved fieldsets and included resources can be restricted. While documents can be compiled in quite a
-spec-compliant way, we plan a lot more features like easier error-handling, support for create and update operations
-and more restrictions (sorting, pagination and filtering).
+As Woohoo Labs. Yin's development is in its very early stage, it lacks some features and should only be used to
+experiment with it. For now, Yin doesn't support all the concepts of Json API (examples are filtering, pagination
+and other fetch criterias, or proper error handling). But contributing is highly appreciated!
 
 ## Install
 
