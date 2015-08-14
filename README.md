@@ -45,21 +45,21 @@ When using Woohoo Labs. Yin, you will create documents and resource transformers
 There are three main types of documents in the JSON API spec, and we provide an abstract class for each (at least for
 now) which you have to extend: 
 
-- ``AbstractSingleResourceDocument``: A class for single resource documents
-- ``AbstractCollectionDocument``: A class for collection documents
-- ``AbstractErrorDocument``: A class for error documents
+- `AbstractSingleResourceDocument`: A class for single resource documents
+- `AbstractCollectionDocument`: A class for collection documents
+- `AbstractErrorDocument`: A class for error documents
 
-And there is an ``AbstractResourceTransformer`` class for resource transformation.
+And there is an `AbstractResourceTransformer` class for resource transformation.
 
 If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
-set up a web server and visit ``examples/index.php?example=EXAMPLE_NAME``, where ``EXAMPLE_NAME`` can be
-"Book", "BookRelationships", "Users", "User" or "UserRelationships". But don't forget to run ``composer install`` first
+set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `EXAMPLE_NAME` can be
+"Book", "BookRelationships", "Users", "User" or "UserRelationships". But don't forget to run `composer install` first
 in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
 which are transformed by Yin - can be found in the controllers.
 
-If you are able to open ``examples/index.php``, let's see the response of the book example:
+If you are able to open `examples/index.php`, let's see the response of the book example:
 
-``examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher``
+`examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
 which should show:
 ```json
 {
@@ -112,7 +112,7 @@ which should show:
 ```
 
 You can also play with the users example:
-``examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts``
+`examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts`
 
 Notice how attribute and relationship transformation works (e.g.:
 [`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 
