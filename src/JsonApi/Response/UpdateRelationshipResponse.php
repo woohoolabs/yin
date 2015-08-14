@@ -3,19 +3,15 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Response\Traits\AcceptedTrait;
-use WoohooLabs\Yin\JsonApi\Response\Traits\ForbiddenTrait;
-use WoohooLabs\Yin\JsonApi\Response\Traits\NoContentTrait;
-use WoohooLabs\Yin\JsonApi\Response\Traits\RelationshipOkTrait;
-use WoohooLabs\Yin\JsonApi\Response\Traits\RelationshipResponseTrait;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
 class UpdateRelationshipResponse extends AbstractResponse
 {
-    use RelationshipResponseTrait
-    use RelationshipOkTrait;
-    use AcceptedTrait;
-    use NoContentTrait;
-    use ForbiddenTrait;
+    /**
+     * @var string
+     */
+    protected $relationshipName;
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -26,5 +22,48 @@ class UpdateRelationshipResponse extends AbstractResponse
     {
         parent::__construct($request, $response);
         $this->relationshipName = $relationshipName;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param mixed $resource
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function ok(AbstractCompoundDocument $document, $resource)
+    {
+        return $this->getDocumentRelationshipResponse(
+            $this->relationshipName,
+            $this->request,
+            $this->response,
+            $document,
+            $resource,
+            200
+        );
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface $response
+     */
+    public function accepted()
+    {
+        return $this->response->withStatus(202);
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface $response
+     */
+    public function noContent()
+    {
+        return $this->response->withStatus(204);
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param array $errors
+     * @return \Psr\Http\Message\ResponseInterface $response
+     */
+    public function forbidden(AbstractErrorDocument $document, array $errors = [])
+    {
+        return $this->getErrorResponse($this->response, $document, $errors, 403);
     }
 }
