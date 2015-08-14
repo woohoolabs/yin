@@ -45,7 +45,7 @@ class JsonApi
     /**
      * @return \WoohooLabs\Yin\JsonApi\Response\DeleteResponse
      */
-    public function DeleteResponse()
+    public function deleteResponse()
     {
         return new DeleteResponse(Request::fromServerRequest($this->request), $this->response);
     }
