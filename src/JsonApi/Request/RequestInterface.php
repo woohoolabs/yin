@@ -57,4 +57,24 @@ interface RequestInterface
      * @return array|string
      */
     public function getQueryParam($name, $default = null);
+
+    /**
+     * @return array
+     */
+    public function getBody();
+
+    /**
+     * @return array|null
+     */
+    public function getBodyData();
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataType();
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataId();
 }

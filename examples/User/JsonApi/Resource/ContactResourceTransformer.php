@@ -1,22 +1,24 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
+use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class PublisherResourceTransformer extends AbstractResourceTransformer
+class ContactResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return string
      */
     public function getType($resource)
     {
-        return "publisher";
+        return "contact";
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return string
      */
     public function getId($resource)
@@ -25,7 +27,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return array
      */
     public function getMeta($resource)
@@ -34,27 +36,33 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
     public function getLinks($resource)
     {
-        return null;
+        return new Links(
+            [
+                "self" => new Link("http://example.com/api/contacts/" . $this->getId($resource))
+            ]
+        );
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     public function getAttributes($resource)
     {
-        return new Attributes([
-            "name" => function($resource) { return $resource["name"]; },
-        ]);
+        return new Attributes(
+            [
+                $resource["type"] => function($resource) { return $resource["value"]; },
+            ]
+        );
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     public function getRelationships($resource)

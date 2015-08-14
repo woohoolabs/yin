@@ -111,4 +111,36 @@ class RelationshipRequest implements RequestInterface
     {
         return $this->request->getQueryParam($name, $default);
     }
+
+    /**
+     * @return array
+     */
+    public function getBody()
+    {
+        return $this->request->getBody();
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getBodyData()
+    {
+        return $this->request->getBodyData();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataType()
+    {
+        return $this->request->getBodyDataType();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBodyDataId()
+    {
+        return $this->request->getBodyDataId();
+    }
 }

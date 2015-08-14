@@ -1,16 +1,36 @@
 <?php
 include_once "../vendor/autoload.php";
 
+use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
+use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
+use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
+use WoohooLabs\Yin\JsonApi\JsonApi;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
-// Routing
-$example = isset($_GET["example"]) ? $_GET["example"] : "Book";
+// Defining routes
+$routes = [
+    ["method"=> "GET", "example" => "book", "action" => GetBookAction::class],
+    ["method"=> "GET", "example" => "users", "action" => GetUsersAction::class],
+    ["method"=> "GET", "example" => "user", "action" => GetUserAction::class],
+];
 
-// Invoking the controller
-$className = "WoohooLabs\\Yin\\Examples\\Controller\\" . $example;
-$class = new $className();
-$response = call_user_func([$class, "__invoke"], ServerRequestFactory::fromGlobals(), new Response());
+// Routing
+$method = "GET";
+$example = isset($_GET["example"]) ? $_GET["example"] : die("You must provide the \"example\" query parameter!");
+$action = "";
+foreach ($routes as $route) {
+    if ($method === $route["method"] && $example === $route["example"]) {
+        $action = $route["action"];
+        break;
+    }
+}
+if ($action === "") {
+    die("Route not found!");
+}
+
+// Invoking the current action
+$response = call_user_func(new $action(), new JsonApi(ServerRequestFactory::fromGlobals(), new Response()));
 
 // Emitting the response
 $emitter = new \Zend\Diactoros\Response\SapiEmitter();

@@ -1,3 +1,5 @@
+* text eol=lf
+
 /tests export-ignore
 /vendor export-ignore
 .gitattributes export-ignore

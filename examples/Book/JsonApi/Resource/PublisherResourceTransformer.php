@@ -1,12 +1,10 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
-class ContactResourceTransformer extends AbstractResourceTransformer
+class PublisherResourceTransformer extends AbstractResourceTransformer
 {
     /**
      * @param mixed $resource
@@ -14,7 +12,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($resource)
     {
-        return "contact";
+        return "publisher";
     }
 
     /**
@@ -41,11 +39,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getLinks($resource)
     {
-        return new Links(
-            [
-                "self" => new Link("http://example.com/api/contacts/" . $this->getId($resource))
-            ]
-        );
+        return null;
     }
 
     /**
@@ -54,11 +48,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getAttributes($resource)
     {
-        return new Attributes(
-            [
-                $resource["type"] => function($resource) { return $resource["value"]; },
-            ]
-        );
+        return new Attributes([
+            "name" => function($resource) { return $resource["name"]; },
+        ]);
     }
 
     /**

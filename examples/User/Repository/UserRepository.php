@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\Examples\Repository;
+namespace WoohooLabs\Yin\Examples\User\Repository;
 
 class UserRepository
 {

@@ -1,7 +1,7 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Document;
+namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 
-use WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
 class UsersDocument extends AbstractCollectionDocument
 {
     /**
-     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\UserResourceTransformer $transformer
+     * @param \WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer $transformer
      */
     public function __construct(UserResourceTransformer $transformer)
     {

@@ -1,7 +1,7 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Document;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 
-use WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 class BookDocument extends AbstractSingleResourceDocument
 {
     /**
-     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\BookResourceTransformer $transformer
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer $transformer
      */
     public function __construct(BookResourceTransformer $transformer)
     {

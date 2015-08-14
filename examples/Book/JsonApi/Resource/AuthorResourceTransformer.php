@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;

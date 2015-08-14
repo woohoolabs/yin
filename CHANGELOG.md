@@ -4,12 +4,14 @@
 
 #### Added
 - Support for creation and update of resources via ``Hydrators``
+- Added ``JsonApi`` class
 - Added response classes
 - ``Link::getHref()`` method
 
 #### Changed
 - Renamed ``Request::fromRequest()`` method to ``Request::fromServerRequest()``
 - Several methods of ``AbstractDocument`` became public instead of protected
+- Substantially refactored and improved examples
 
 ### 0.2.0 - 2015-08-01
 

@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
@@ -9,12 +9,12 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class UserResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer
      */
     private $contactTransformer;
 
     /**
-     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\ContactResourceTransformer $contactTransformer
+     * @param \WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer $contactTransformer
      */
     public function __construct(ContactResourceTransformer $contactTransformer)
     {
@@ -22,7 +22,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return string
      */
     public function getType($resource)
@@ -31,7 +31,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return string
      */
     public function getId($resource)
@@ -40,7 +40,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return array
      */
     public function getMeta($resource)
@@ -49,7 +49,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
     public function getLinks($resource)
@@ -58,7 +58,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     public function getAttributes($resource)
@@ -72,7 +72,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     public function getRelationships($resource)

@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\Examples\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
@@ -12,18 +12,18 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class BookResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\AuthorResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer
      */
     private $authorTransformer;
 
     /**
-     * @var \WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer
+     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer
      */
     private $publisherTransformer;
 
     /**
-     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
-     * @param \WoohooLabs\Yin\Examples\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
      */
     public function __construct(
         AuthorResourceTransformer $authorTransformer,
