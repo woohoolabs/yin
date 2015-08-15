@@ -3,33 +3,33 @@
 ### 0.3.0 - Unreleased
 
 #### Added
-- Support for creation and update of resources via ``Hydrators``
-- Added ``JsonApi`` class
+- Support for creation and update of resources via `Hydrators`
+- Added `JsonApi` class
 - Added response classes
-- ``Link::getHref()`` method
+- `Link::getHref()` method
 
 #### Changed
-- Renamed ``Request::fromRequest()`` method to ``Request::fromServerRequest()``
-- Several methods of ``AbstractDocument`` became public instead of protected
+- `RequestInterface` extends `PSR\Http\Message\ServerRequestInterface`
+- Several methods of `AbstractDocument` became public instead of protected
 - Substantially refactored and improved examples
 
 ### 0.2.0 - 2015-08-01
 
 #### Added
 - Support for proper and automatic fetching of relationships
-- Convenience methods to ``AbstractResourceTransformer`` to support transformation
+- Convenience methods to `AbstractResourceTransformer` to support transformation
 - Convenience methods for links and relationships
 - Examples about relationships
 
 #### Changed
-- Decoupled ``Request`` from PSR-7 ``ServerRequestInterface``
+- Decoupled `Request` from PSR-7 `ServerRequestInterface`
 - Simplified document creation and transformation
-- Renamed ``Criteria`` to ``Request`` for future purposes
-- Renamed ``OneToManyTraversableRelationship`` to ``ToManyRelationship``
-- Renamed ``OneToOneRelationship`` to ``ToOneRelationship``
+- Renamed `Criteria` to `Request` for future purposes
+- Renamed `OneToManyTraversableRelationship` to `ToManyRelationship`
+- Renamed `OneToOneRelationship` to `ToOneRelationship`
 
 #### Removed
-- ``CompulsoryLinks`` and ``PaginatedLinks``
+- `CompulsoryLinks` and `PaginatedLinks`
 
 #### Fixed
 - Transformation of resource relationships

@@ -16,9 +16,8 @@ class GetBookRelationshipsAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        if (isset($_GET["relationship"])) {
-            $relationshipName = $_GET["relationship"];
-        } else {
+        $relationshipName = $jsonApi->getRequest()->getQueryParam("relationship");
+        if ($relationshipName === null) {
             die("You must define the 'relationship' query parameter with a value of 'authors' or 'publisher'!");
         }
 

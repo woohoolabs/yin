@@ -18,12 +18,12 @@ abstract class AbstractHydrator
     /**
      * @return array
      */
-    abstract protected function getAttributeHydrators();
+    abstract protected function getAttributeHydrator();
 
     /**
      * @return array
      */
-    abstract protected function getRelationshipHydrators();
+    abstract protected function getRelationshipHydrator();
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
@@ -36,7 +36,7 @@ abstract class AbstractHydrator
     }
 
     /**
-     * @param array $data
+     * @param object $data
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeNotAcceptable
      */
@@ -52,7 +52,7 @@ abstract class AbstractHydrator
     }
 
     /**
-     * @param array $data
+     * @param object $data
      * @param mixed $resource
      */
     protected function hydrateAttributes($data, &$resource)
@@ -61,7 +61,7 @@ abstract class AbstractHydrator
             return;
         }
 
-        $attributeHydrators = $this->getAttributeHydrators();
+        $attributeHydrators = $this->getAttributeHydrator();
         foreach ($attributeHydrators as $attribute => $hydrator) {
             if (isset($data["attributes"][$attribute]) === false) {
                 continue;
@@ -75,7 +75,7 @@ abstract class AbstractHydrator
     }
 
     /**
-     * @param array $data
+     * @param object $data
      * @param mixed $resource
      */
     protected function hydrateRelationships($data, &$resource)
@@ -84,7 +84,7 @@ abstract class AbstractHydrator
             return;
         }
 
-        $relationshipHydrators = $this->getRelationshipHydrators();
+        $relationshipHydrators = $this->getRelationshipHydrator();
         foreach ($relationshipHydrators as $relationship => $hydrator) {
             if (isset($data["relationships"][$relationship]) === false) {
                 continue;
@@ -108,7 +108,7 @@ abstract class AbstractHydrator
             return null;
         }
 
-        if ($this->isAssociativeArray($relationship["data"]) === true) {
+        if (is_object($relationship["data"]) === true) {
             $result = new ToOneRelationship(ResourceIdentifier::fromArray($relationship["data"]));
         } else {
             $result = new ToManyRelationship();
@@ -118,14 +118,5 @@ abstract class AbstractHydrator
         }
 
         return $result;
-    }
-
-    /**
-     * @param array $array
-     * @return bool
-     */
-    private function isAssociativeArray(array $array)
-    {
-        return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
 }

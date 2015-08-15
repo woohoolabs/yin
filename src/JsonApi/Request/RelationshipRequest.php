@@ -1,13 +1,10 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request;
 
-class RelationshipRequest implements RequestInterface
-{
-    /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
-     */
-    private $request;
+use Psr\Http\Message\ServerRequestInterface;
 
+class RelationshipRequest extends Request
+{
     /**
      * @var string
      */
@@ -19,13 +16,13 @@ class RelationshipRequest implements RequestInterface
     private $relationshipName;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param string $resourceType
      * @param string $relationshipName
      */
-    public function __construct(RequestInterface $request, $resourceType, $relationshipName)
+    public function __construct(ServerRequestInterface $request, $resourceType, $relationshipName)
     {
-        $this->request = $request;
+        parent::__construct($request);
         $this->resourceType = $resourceType;
         $this->relationshipName = $relationshipName;
     }
@@ -66,81 +63,5 @@ class RelationshipRequest implements RequestInterface
     public function isIncludedRelationship($baseRelationshipPath, $relationshipName)
     {
         return false;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSorting()
-    {
-        return $this->request->getSorting();
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getPagination()
-    {
-        return $this->request->getPagination();
-    }
-
-    /**
-     * @return array
-     */
-    public function getFiltering()
-    {
-        return $this->request->getPagination();
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $default
-     * @return mixed
-     */
-    public function getAttribute($name, $default = null)
-    {
-        return $this->request->getAttribute($name, $default);
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $default
-     * @return array|string
-     */
-    public function getQueryParam($name, $default = null)
-    {
-        return $this->request->getQueryParam($name, $default);
-    }
-
-    /**
-     * @return array
-     */
-    public function getBody()
-    {
-        return $this->request->getBody();
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getBodyData()
-    {
-        return $this->request->getBodyData();
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBodyDataType()
-    {
-        return $this->request->getBodyDataType();
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getBodyDataId()
-    {
-        return $this->request->getBodyDataId();
     }
 }

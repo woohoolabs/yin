@@ -6,8 +6,6 @@ use WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer;
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\Examples\User\Repository\UserRepository;
 use WoohooLabs\Yin\JsonApi\JsonApi;
-use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Response\FetchRelationshipResponse;
 
 class GetUserRelationshipsAction
 {
@@ -17,15 +15,13 @@ class GetUserRelationshipsAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        if (isset($_GET["id"])) {
-            $id = $_GET["id"];
-        } else {
+        $id = $jsonApi->getRequest()->getQueryParam("id");
+        if ($id === null) {
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 
-        if (isset($_GET["relationship"])) {
-            $relationshipName = $_GET["relationship"];
-        } else {
+        $relationshipName = $jsonApi->getRequest()->getQueryParam("relationship");
+        if ($relationshipName === null) {
             die("You must define the 'relationship' query parameter with a value of 'contacts'!");
         }
 

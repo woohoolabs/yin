@@ -15,9 +15,8 @@ class GetUserAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        if (isset($_GET["id"])) {
-            $id = $_GET["id"];
-        } else {
+        $id = $jsonApi->getRequest()->getQueryParam("id");
+        if ($id === null) {
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 

@@ -58,7 +58,7 @@ abstract class InsertHydrator extends AbstractHydrator
     }
 
     /**
-     * @param array $data
+     * @param object $data
      * @param mixed $resource
      */
     protected function hydrateId($data, &$resource)

@@ -1,10 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi;
 
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RelationshipRequest;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
 use WoohooLabs\Yin\JsonApi\Response\DeleteResponse;
 use WoohooLabs\Yin\JsonApi\Response\FetchRelationshipResponse;
@@ -15,7 +14,7 @@ use WoohooLabs\Yin\JsonApi\Response\UpdateResponse;
 class JsonApi
 {
     /**
-     * @var \Psr\Http\Message\ServerRequestInterface
+     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
      */
     private $request;
 
@@ -25,13 +24,21 @@ class JsonApi
     private $response;
 
     /**
-     * @param \Psr\Http\Message\ServerRequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      */
-    public function __construct(ServerRequestInterface $request, ResponseInterface $response)
+    public function __construct(RequestInterface $request, ResponseInterface $response)
     {
         $this->request = $request;
         $this->response = $response;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Request\RequestInterface
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     /**
@@ -39,7 +46,7 @@ class JsonApi
      */
     public function createResponse()
     {
-        return new CreateResponse(Request::fromServerRequest($this->request), $this->response);
+        return new CreateResponse($this->request, $this->response);
     }
 
     /**
@@ -47,7 +54,7 @@ class JsonApi
      */
     public function deleteResponse()
     {
-        return new DeleteResponse(Request::fromServerRequest($this->request), $this->response);
+        return new DeleteResponse($this->request, $this->response);
     }
 
     /**
@@ -55,7 +62,7 @@ class JsonApi
      */
     public function fetchResponse()
     {
-        return new FetchResponse(Request::fromServerRequest($this->request), $this->response);
+        return new FetchResponse($this->request, $this->response);
     }
 
     /**
@@ -66,7 +73,7 @@ class JsonApi
     public function fetchRelationshipResponse($resourceType, $relationshipName)
     {
         return new FetchRelationshipResponse(
-            new RelationshipRequest(Request::fromServerRequest($this->request), $resourceType, $relationshipName),
+            new RelationshipRequest($this->request, $resourceType, $relationshipName),
             $this->response,
             $relationshipName
         );
@@ -80,7 +87,7 @@ class JsonApi
     public function updateRelationshipResponse($resourceType, $relationshipName)
     {
         return new UpdateRelationshipResponse(
-            new RelationshipRequest(Request::fromServerRequest($this->request), $resourceType, $relationshipName),
+            new RelationshipRequest($this->request, $resourceType, $relationshipName),
             $this->response,
             $relationshipName
         );
@@ -91,22 +98,6 @@ class JsonApi
      */
     public function updateResponse()
     {
-        return new UpdateResponse(Request::fromServerRequest($this->request), $this->response);
-    }
-
-    /**
-     * @return \Psr\Http\Message\ServerRequestInterface
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getResponse()
-    {
-        return $this->response;
+        return new UpdateResponse($this->request, $this->response);
     }
 }

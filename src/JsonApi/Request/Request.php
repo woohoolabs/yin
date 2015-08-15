@@ -2,23 +2,15 @@
 namespace WoohooLabs\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 class Request implements RequestInterface
 {
     /**
-     * @var array
+     * @var \Psr\Http\Message\ServerRequestInterface
      */
-    private $queryParams = [];
-
-    /**
-     * @var array
-     */
-    private $attributes = [];
-
-    /**
-     * @var array
-     */
-    private $body;
+    private $serverRequest;
 
     /**
      * @var array
@@ -47,29 +39,10 @@ class Request implements RequestInterface
 
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
-     * @return $this
      */
-    public static function fromServerRequest(ServerRequestInterface $request)
+    public function __construct(ServerRequestInterface $request)
     {
-        $body = json_decode($request->getBody()->getContents(), true);
-
-        return new self(
-            $request->getQueryParams(),
-            $request->getAttributes(),
-            is_array($body) ? $body : []
-        );
-    }
-
-    /**
-     * @param array $queryParams
-     * @param array $attributes
-     * @param array $body
-     */
-    public function __construct(array $queryParams, array $attributes, array $body)
-    {
-        $this->queryParams = $queryParams;
-        $this->attributes = $attributes;
-        $this->body = $body;
+        $this->serverRequest = $request;
 
         $this->setIncludedRelationships();
         $this->setIncludedFields();
@@ -193,39 +166,23 @@ class Request implements RequestInterface
     /**
      * @param string $name
      * @param mixed $default
-     * @return mixed
-     */
-    public function getAttribute($name, $default = null)
-    {
-        return isset($this->attributes[$name]) ? $this->attributes[$name] : $default;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $default
      * @return array|string
      */
     public function getQueryParam($name, $default = null)
     {
-        return isset($this->queryParams[$name]) ? $this->queryParams[$name] : $default;
+        $queryParams = $this->serverRequest->getQueryParams();
+
+        return isset($queryParams[$name]) ? $queryParams[$name] : $default;
     }
 
     /**
-     * @return array
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @return array|null
+     * @return object|null
      */
     public function getBodyData()
     {
-        $body = $this->getBody();
+        $body = $this->serverRequest->getParsedBody();
 
-        return isset($body["data"]) ? $body["data"] : null;
+        return isset($body["data"])? $body["data"] : null;
     }
 
     /**
@@ -246,5 +203,245 @@ class Request implements RequestInterface
         $data = $this->getBodyData();
 
         return isset($data["id"]) ? $data["id"] : null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProtocolVersion()
+    {
+        return $this->serverRequest->getProtocolVersion();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withProtocolVersion($version)
+    {
+        return $this->serverRequest->withProtocolVersion($version);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeaders()
+    {
+        return $this->serverRequest->getHeaders();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasHeader($name)
+    {
+        return $this->serverRequest->hasHeader($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeader($name)
+    {
+        return $this->serverRequest->getHeader($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHeaderLine($name)
+    {
+        return $this->serverRequest->getHeaderLine($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withHeader($name, $value)
+    {
+        return $this->serverRequest->withHeader($name, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withAddedHeader($name, $value)
+    {
+        return $this->serverRequest->withAddedHeader($name, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withoutHeader($name)
+    {
+        return $this->serverRequest->withoutHeader($name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBody()
+    {
+        return $this->serverRequest->getBody();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withBody(StreamInterface $body)
+    {
+        return $this->serverRequest->withBody($body);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRequestTarget()
+    {
+        return $this->serverRequest->getRequestTarget();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withRequestTarget($requestTarget)
+    {
+        return $this->serverRequest->withRequestTarget($requestTarget);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMethod()
+    {
+        return $this->serverRequest->getMethod();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withMethod($method)
+    {
+        return $this->serverRequest->withMethod($method);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUri()
+    {
+        return $this->serverRequest->getUri();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withUri(UriInterface $uri, $preserveHost = false)
+    {
+        return $this->serverRequest->withUri($uri, $preserveHost);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getServerParams()
+    {
+        return $this->serverRequest->getServerParams();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCookieParams()
+    {
+        return $this->serverRequest->getCookieParams();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withCookieParams(array $cookies)
+    {
+        return $this->serverRequest->withCookieParams($cookies);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQueryParams()
+    {
+        return $this->serverRequest->getQueryParams();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withQueryParams(array $query)
+    {
+        return $this->serverRequest->withQueryParams($query);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUploadedFiles()
+    {
+        return $this->serverRequest->getUploadedFiles();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withUploadedFiles(array $uploadedFiles)
+    {
+        return $this->serverRequest->withUploadedFiles($uploadedFiles);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getParsedBody()
+    {
+        return $this->serverRequest->getParsedBody();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withParsedBody($data)
+    {
+        return $this->serverRequest->withParsedBody($data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttributes()
+    {
+        return $this->serverRequest->getAttributes();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttribute($name, $default = null)
+    {
+        return $this->serverRequest->getAttribute($name, $default);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withAttribute($name, $value)
+    {
+        return $this->serverRequest->withAttribute($name, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withoutAttribute($name)
+    {
+        return $this->serverRequest->withoutAttribute($name);
     }
 }

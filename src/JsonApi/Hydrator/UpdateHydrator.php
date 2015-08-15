@@ -53,7 +53,7 @@ abstract class UpdateHydrator extends AbstractHydrator
     }
 
     /**
-     * @param array $data
+     * @param object $data
      * @param mixed $resource
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */

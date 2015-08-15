@@ -1,7 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request;
 
-interface RequestInterface
+use Psr\Http\Message\ServerRequestInterface;
+
+interface RequestInterface extends ServerRequestInterface
 {
     /**
      * @param string $resourceType
@@ -47,21 +49,9 @@ interface RequestInterface
     /**
      * @param string $name
      * @param mixed $default
-     * @return mixed
-     */
-    public function getAttribute($name, $default = null);
-
-    /**
-     * @param string $name
-     * @param mixed $default
      * @return array|string
      */
     public function getQueryParam($name, $default = null);
-
-    /**
-     * @return array
-     */
-    public function getBody();
 
     /**
      * @return array|null
