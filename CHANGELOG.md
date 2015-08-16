@@ -1,6 +1,8 @@
 # Change Log
 
-### 0.3.0 - Unreleased
+### 0.4.0 - Unreleased
+
+### 0.3.0 - 2015-08-16
 
 #### Added
 - Support for creation and update of resources via `Hydrators`
