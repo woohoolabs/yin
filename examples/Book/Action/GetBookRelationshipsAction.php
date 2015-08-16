@@ -27,6 +27,6 @@ class GetBookRelationshipsAction
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $jsonApi->fetchRelationshipResponse($relationshipName, "")->ok($document, $resource);
+        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $resource);
    }
 }

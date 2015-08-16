@@ -121,7 +121,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             return null;
         }
 
-        $relationship = $relationships->transformRelationship(
+        return $relationships->transformRelationship(
             $relationshipName,
             $resource,
             $request,
@@ -129,8 +129,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             $this->getType($resource),
             $baseRelationshipPath
         );
-
-        return $relationship;
     }
 
     /**

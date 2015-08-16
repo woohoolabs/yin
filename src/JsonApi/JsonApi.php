@@ -2,7 +2,6 @@
 namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\RelationshipRequest;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
 use WoohooLabs\Yin\JsonApi\Response\DeleteResponse;
@@ -66,31 +65,21 @@ class JsonApi
     }
 
     /**
-     * @param string $resourceType
      * @param string $relationshipName
      * @return \WoohooLabs\Yin\JsonApi\Response\FetchRelationshipResponse
      */
-    public function fetchRelationshipResponse($resourceType, $relationshipName)
+    public function fetchRelationshipResponse($relationshipName)
     {
-        return new FetchRelationshipResponse(
-            new RelationshipRequest($this->request, $resourceType, $relationshipName),
-            $this->response,
-            $relationshipName
-        );
+        return new FetchRelationshipResponse($this->request, $this->response, $relationshipName);
     }
 
     /**
-     * @param string $resourceType
      * @param string $relationshipName
      * @return \WoohooLabs\Yin\JsonApi\Response\UpdateRelationshipResponse
      */
-    public function updateRelationshipResponse($resourceType, $relationshipName)
+    public function updateRelationshipResponse($relationshipName)
     {
-        return new UpdateRelationshipResponse(
-            new RelationshipRequest($this->request, $resourceType, $relationshipName),
-            $this->response,
-            $relationshipName
-        );
+        return new UpdateRelationshipResponse($this->request, $this->response, $relationshipName);
     }
 
     /**

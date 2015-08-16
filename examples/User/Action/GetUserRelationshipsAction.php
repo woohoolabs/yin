@@ -29,6 +29,6 @@ class GetUserRelationshipsAction
 
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $jsonApi->fetchRelationshipResponse($relationshipName, "")->ok($document, $resource);
+        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $resource);
     }
 }
