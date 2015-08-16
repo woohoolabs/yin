@@ -27,10 +27,37 @@ abstract class AbstractErrorDocument extends AbstractDocument
     public function getResponse(ResponseInterface $response, $responseCode = null)
     {
         $response->getBody()->write(json_encode($this->transformContent()));
-        $response = $response->withStatus($responseCode);
+        $response = $response->withStatus($this->getResponseCode($responseCode));
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());
 
         return $response;
+    }
+
+    /**
+     * @param int $responseCode
+     * @return int
+     */
+    protected function getResponseCode($responseCode)
+    {
+        if ($responseCode !== null) {
+            return $responseCode;
+        }
+
+        if (count($this->errors) === 1) {
+            return $this->errors[0]->getStatus();
+        }
+
+        $responseCode = 500;
+        foreach ($this->errors as $error) {
+            /** @var \WoohooLabs\Yin\JsonApi\Schema\Error $error */
+            $roundedStatusCode = intval($error->getStatus() / 100) * 100;
+
+            if (abs($error->getStatus() - $roundedStatusCode) >= 100) {
+                $responseCode = $roundedStatusCode;
+            }
+        }
+
+        return $responseCode;
     }
 
     /**

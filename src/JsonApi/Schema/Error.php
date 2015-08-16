@@ -12,7 +12,7 @@ class Error implements SimpleTransformableInterface
     private $id;
 
     /**
-     * @var string
+     * @var int
      */
     private $status;
 
@@ -55,7 +55,7 @@ class Error implements SimpleTransformableInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getStatus()
     {
@@ -63,7 +63,7 @@ class Error implements SimpleTransformableInterface
     }
 
     /**
-     * @param string $status
+     * @param int $status
      * @return $this
      */
     public function setStatus($status)

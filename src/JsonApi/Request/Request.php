@@ -166,7 +166,7 @@ class Request implements RequestInterface
     /**
      * @param string $name
      * @param mixed $default
-     * @return array|string
+     * @return array|string|null
      */
     public function getQueryParam($name, $default = null)
     {
