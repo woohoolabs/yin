@@ -62,7 +62,11 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     {
         $this->initializeDocument($resource);
         $content = $this->transformContent($request);
-        $content["data"] = ["meta" => isset($content["data"]["meta"]) ? $content["data"]["meta"] : []];
+        $content["data"] = [
+            "jsonApi" => isset($content["data"]["jsonApi"]) ? $content["data"]["jsonApi"] : [],
+            "links" => isset($content["data"]["links"]) ? $content["data"]["links"] : [],
+            "meta" => isset($content["data"]["meta"]) ? $content["data"]["meta"] : []
+        ];
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
