@@ -61,8 +61,8 @@ abstract class AbstractHydrator
             return;
         }
 
-        $attributeHydrators = $this->getAttributeHydrator();
-        foreach ($attributeHydrators as $attribute => $hydrator) {
+        $attributeHydrator = $this->getAttributeHydrator();
+        foreach ($attributeHydrator as $attribute => $hydrator) {
             if (isset($data["attributes"][$attribute]) === false) {
                 continue;
             }
@@ -84,15 +84,18 @@ abstract class AbstractHydrator
             return;
         }
 
-        $relationshipHydrators = $this->getRelationshipHydrator();
-        foreach ($relationshipHydrators as $relationship => $hydrator) {
+        $relationshipHydrator = $this->getRelationshipHydrator();
+        foreach ($relationshipHydrator as $relationship => $hydrator) {
             if (isset($data["relationships"][$relationship]) === false) {
                 continue;
             }
 
-            $result = $hydrator($resource, $this->createRelationship($data["relationships"][$relationship]), $data);
-            if ($result) {
-                $resource = $result;
+            $relatiopnship = $this->createRelationship($data["relationships"][$relationship]);
+            if ($relationship !== null) {
+                $result = $hydrator($resource, $relatiopnship, $data);
+                if ($result) {
+                    $resource = $result;
+                }
             }
         }
     }

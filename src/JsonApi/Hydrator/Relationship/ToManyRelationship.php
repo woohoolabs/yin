@@ -25,4 +25,32 @@ class ToManyRelationship
     {
         return $this->resourceIdentifiers;
     }
+
+    /**
+     * @return array
+     */
+    public function getResourceIdentifierTypes()
+    {
+        $types = [];
+        foreach ($this->resourceIdentifiers as $resourceIdentifier) {
+            /** @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier */
+            $types[] = $resourceIdentifier->getType();
+        }
+
+        return $types;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResourceIdentifierIds()
+    {
+        $ids = [];
+        foreach ($this->resourceIdentifiers as $resourceIdentifier) {
+            /** @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier */
+            $ids[] = $resourceIdentifier->getId();
+        }
+
+        return $ids;
+    }
 }

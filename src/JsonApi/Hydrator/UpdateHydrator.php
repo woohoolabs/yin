@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class UpdateHydrator extends AbstractHydrator
 {
@@ -22,22 +22,22 @@ abstract class UpdateHydrator extends AbstractHydrator
     abstract protected function setId($resource, $id);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return string|null
      */
-    public function getId(Request $request)
+    public function getId(RequestInterface $request)
     {
         $data = $request->getBodyData();
         return isset($data["id"]) ? $data["id"] : null;
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param mixed $resource
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
-    public function hydrate(Request $request, $resource)
+    public function hydrate(RequestInterface $request, $resource)
     {
         $data = $request->getBodyData();
         if ($data === null) {
