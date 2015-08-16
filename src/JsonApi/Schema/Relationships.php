@@ -53,7 +53,7 @@ class Relationships
         $relationships = [];
 
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
-            $relationships[$relationshipName] = $this->transformRelationship(
+            $relationship = $this->transformRelationship(
                 $relationshipName,
                 $resource,
                 $request,
@@ -61,6 +61,10 @@ class Relationships
                 $resourceType,
                 $baseRelationshipPath
             );
+
+            if ($relationship !== null) {
+                $relationships[$relationshipName] = $relationship;
+            }
         }
 
         return $relationships;
