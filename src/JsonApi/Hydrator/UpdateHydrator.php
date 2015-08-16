@@ -17,7 +17,7 @@ abstract class UpdateHydrator extends AbstractHydrator
     /**
      * @param mixed $resource
      * @param string $id
-     * @return mixed
+     * @return mixed|null
      */
     abstract protected function setId($resource, $id);
 
@@ -53,7 +53,7 @@ abstract class UpdateHydrator extends AbstractHydrator
     }
 
     /**
-     * @param object $data
+     * @param array $data
      * @param mixed $resource
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */

@@ -42,7 +42,7 @@ class Request implements RequestInterface
      */
     public function __construct(ServerRequestInterface $request)
     {
-        $this->serverRequest = $request;
+        $this->serverRequest = $request->withParsedBody(json_decode($request->getBody()->getContents(), true));
 
         $this->setIncludedRelationships();
         $this->setIncludedFields();
@@ -176,12 +176,11 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return object|null
+     * @return array|null
      */
     public function getBodyData()
     {
         $body = $this->serverRequest->getParsedBody();
-
         return isset($body["data"])? $body["data"] : null;
     }
 

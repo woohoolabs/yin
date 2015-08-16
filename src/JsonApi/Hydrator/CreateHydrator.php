@@ -2,9 +2,9 @@
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-abstract class InsertHydrator extends AbstractHydrator
+abstract class CreateHydrator extends AbstractHydrator
 {
     /**
      * @param string $clientGeneratedId
@@ -15,34 +15,34 @@ abstract class InsertHydrator extends AbstractHydrator
     abstract protected function validateClientGeneratedId($clientGeneratedId);
 
     /**
-     * @return mixed
+     * @return string
      */
     abstract protected function generateId();
 
     /**
      * @param mixed $resource
      * @param string $id
-     * @return mixed
+     * @return mixed|null
      */
     abstract protected function setId($resource, $id);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return string|null
      */
-    public function getClientGeneratedId(Request $request)
+    public function getClientGeneratedId(RequestInterface $request)
     {
         $data = $request->getBodyData();
         return isset($data["id"]) ? $data["id"] : null;
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param mixed $resource
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
-    public function hydrate(Request $request, $resource)
+    public function hydrate(RequestInterface $request, $resource)
     {
         $data = $request->getBodyData();
         if ($data === null) {
@@ -58,7 +58,7 @@ abstract class InsertHydrator extends AbstractHydrator
     }
 
     /**
-     * @param object $data
+     * @param array $data
      * @param mixed $resource
      */
     protected function hydrateId($data, &$resource)

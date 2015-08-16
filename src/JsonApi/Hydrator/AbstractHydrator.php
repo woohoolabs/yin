@@ -5,7 +5,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeNotAcceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 abstract class AbstractHydrator
@@ -26,17 +26,17 @@ abstract class AbstractHydrator
     abstract protected function getRelationshipHydrator();
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\Request $request
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return string|null
      */
-    public function getType(Request $request)
+    public function getType(RequestInterface $request)
     {
         $data = $request->getBodyData();
         return isset($data["type"]) ? $data["type"] : null;
     }
 
     /**
-     * @param object $data
+     * @param array $data
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeNotAcceptable
      */
@@ -52,7 +52,7 @@ abstract class AbstractHydrator
     }
 
     /**
-     * @param object $data
+     * @param array $data
      * @param mixed $resource
      */
     protected function hydrateAttributes($data, &$resource)
@@ -75,7 +75,7 @@ abstract class AbstractHydrator
     }
 
     /**
-     * @param object $data
+     * @param array $data
      * @param mixed $resource
      */
     protected function hydrateRelationships($data, &$resource)
@@ -108,7 +108,7 @@ abstract class AbstractHydrator
             return null;
         }
 
-        if (is_object($relationship["data"]) === true) {
+        if ($this->isAssociativeArray($relationship["data"]) === true) {
             $result = new ToOneRelationship(ResourceIdentifier::fromArray($relationship["data"]));
         } else {
             $result = new ToManyRelationship();
@@ -118,5 +118,14 @@ abstract class AbstractHydrator
         }
 
         return $result;
+    }
+
+    /**
+     * @param array $array
+     * @return bool
+     */
+    private function isAssociativeArray(array $array)
+    {
+        return (bool)count(array_filter(array_keys($array), 'is_string'));
     }
 }
