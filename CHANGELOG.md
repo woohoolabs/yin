@@ -2,6 +2,11 @@
 
 ### 0.4.0 - Unreleased
 
+### 0.3.1 - 2015-08-17
+
+#### Fixed
+- Automatically determine the status code of an error document if it is not explicitly set
+
 ### 0.3.0 - 2015-08-16
 
 #### Added
