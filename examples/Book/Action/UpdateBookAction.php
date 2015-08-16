@@ -3,12 +3,13 @@ namespace WoohooLabs\Yin\Examples\Book\Action;
 
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\CreateBookHydator;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\UpdateBookHydator;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
-class CreateBookAction
+class UpdateBookAction
 {
     /**
      * @param \WoohooLabs\Yin\JsonApi\JsonApi
@@ -16,16 +17,23 @@ class CreateBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
+        // Retrieving the book to be updated
+        $id = $jsonApi->getRequest()->getBodyDataId();
+        $book = BookRepository::getBook($id);
+        if ($book === null) {
+            die("A book with an ID of '$id' can't be found!");
+        }
+
         // Hydrating the book from the request
-        $hydrator = new CreateBookHydator();
-        $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
+        $hydrator = new UpdateBookHydator();
+        $resource = $hydrator->hydrate($jsonApi->getRequest(), $book);
 
         // Creating the BookDocument to be sent as the response
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        // Responding with 201 Created status code and returning the new book resource
-        return $jsonApi->createResponse()->created($document, $resource);
+        // Responding with 200 Ok status code and returning the new book resource
+        return $jsonApi->updateResponse()->ok($document, $resource);
     }
 }

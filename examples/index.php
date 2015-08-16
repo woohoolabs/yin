@@ -4,6 +4,7 @@ include_once "../vendor/autoload.php";
 use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
 use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
+use WoohooLabs\Yin\Examples\Book\Action\UpdateBookAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
@@ -21,6 +22,7 @@ $routes = [
     ["method"=> "GET", "example" => "book", "action" => GetBookAction::class],
     ["method"=> "GET", "example" => "book-rel", "action" => GetBookRelationshipsAction::class],
     ["method"=> "POST", "example" => "book", "action" => CreateBookAction::class],
+    ["method"=> "PATCH", "example" => "book", "action" => UpdateBookAction::class],
 
     ["method"=> "GET", "example" => "users", "action" => GetUsersAction::class],
     ["method"=> "GET", "example" => "user", "action" => GetUserAction::class],

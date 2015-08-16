@@ -1,11 +1,14 @@
 <?php
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
+use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydrator;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 
-class BookHydator extends CreateHydrator
+class CreateBookHydator extends CreateHydrator
 {
     /**
      * @return string|array
@@ -63,7 +66,14 @@ class BookHydator extends CreateHydrator
     protected function getRelationshipHydrator()
     {
         return [
+            "authors" => function(array $resource, ToManyRelationship $authors, $data) {
+                $resource["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
+                return $resource;
+            },
+            "publisher" => function(array &$resource, ToOneRelationship $publisher, $data) {
+                $resource["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+            }
         ];
     }
 }
