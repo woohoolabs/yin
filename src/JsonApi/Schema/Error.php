@@ -151,32 +151,32 @@ class Error
     {
         $content = [];
 
-        if ($this->getId()) {
-            $content["id"] = $this->getId();
+        if ($this->id) {
+            $content["id"] = $this->id;
         }
 
-        if ($this->getLinks()) {
+        if ($this->links) {
             $content["links"] = $this->links->transform();
         }
 
-        if ($this->getStatus()) {
-            $content["status"] = $this->getStatus();
+        if ($this->status) {
+            $content["status"] = $this->status;
         }
 
-        if ($this->getCode()) {
-            $content["code"] = $this->getCode();
+        if ($this->code) {
+            $content["code"] = $this->code;
         }
 
-        if ($this->getTitle()) {
-            $content["title"] = $this->getTitle();
+        if ($this->title) {
+            $content["title"] = $this->title;
         }
 
-        if ($this->getDetail()) {
-            $content["detail"] = $this->getDetail();
+        if ($this->detail) {
+            $content["detail"] = $this->detail;
         }
 
-        if ($this->getSource()) {
-            $content["source"] = $this->getSource()->transform();
+        if ($this->source) {
+            $content["source"] = $this->source->transform();
         }
 
         return $content;
