@@ -2,6 +2,12 @@
 
 ### 0.4.0 - Unreleased
 
+#### Added
+- `LinksTrait` and `MetaTrait` support retrieval of their properties
+
+### Removed
+- `TransformableInterface` and `SimpleTransformableInterface` as they were useless
+
 ### 0.3.2 - 2015-08-17
 
 #### Fixed

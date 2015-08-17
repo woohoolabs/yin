@@ -8,6 +8,15 @@ trait MetaTrait
      */
     protected $meta = [];
 
+
+    /**
+     * @return array
+     */
+    public function getMeta()
+    {
+        return $this->meta;
+    }
+
     /**
      * @param array $meta
      * @return $this
