@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Link implements SimpleTransformableInterface
+class Link
 {
     /**
      * @var string

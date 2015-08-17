@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Links implements SimpleTransformableInterface
+class Links
 {
     /**
      * @var array

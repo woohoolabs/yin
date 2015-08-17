@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class JsonApi implements SimpleTransformableInterface
+class JsonApi
 {
     use MetaTrait;
 
@@ -42,13 +42,5 @@ class JsonApi implements SimpleTransformableInterface
     public function getVersion()
     {
         return $this->version;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMeta()
-    {
-        return $this->meta;
     }
 }

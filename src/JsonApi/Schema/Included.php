@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-class Included implements TransformableInterface
+class Included
 {
     /**
      * @var array
