@@ -6,6 +6,7 @@
 
 #### Fixed
 - Errors now don't contain null fields
+- Errors can contain links and a source
 
 ### 0.3.1 - 2015-08-17
 
