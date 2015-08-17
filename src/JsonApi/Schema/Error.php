@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Error implements SimpleTransformableInterface
+class Error
 {
     use MetaTrait;
     use LinksTrait;
@@ -32,7 +32,7 @@ class Error implements SimpleTransformableInterface
     private $detail;
 
     /**
-     * @var mixed
+     * @var \WoohooLabs\Yin\JsonApi\Schema\ErrorSource
      */
     private $source;
 
@@ -127,7 +127,7 @@ class Error implements SimpleTransformableInterface
     }
 
     /**
-     * @return mixed
+     * @return \WoohooLabs\Yin\JsonApi\Schema\ErrorSource
      */
     public function getSource()
     {
@@ -135,10 +135,10 @@ class Error implements SimpleTransformableInterface
     }
 
     /**
-     * @param mixed $source
+     * @param \WoohooLabs\Yin\JsonApi\Schema\ErrorSource $source
      * @return $this
      */
-    public function setSource($source)
+    public function setSource(ErrorSource $source)
     {
         $this->source = $source;
         return $this;
@@ -149,13 +149,35 @@ class Error implements SimpleTransformableInterface
      */
     public function transform()
     {
-        $content = [
-            "id" => $this->getId(),
-            "status" => $this->getStatus(),
-            "code" => $this->getCode(),
-            "title" => $this->getTitle(),
-            "detail" => $this->getDetail()
-        ];
+        $content = [];
+
+        if ($this->getId()) {
+            $content["id"] = $this->getId();
+        }
+
+        if ($this->getLinks()) {
+            $content["links"] = $this->links->transform();
+        }
+
+        if ($this->getStatus()) {
+            $content["status"] = $this->getStatus();
+        }
+
+        if ($this->getCode()) {
+            $content["code"] = $this->getCode();
+        }
+
+        if ($this->getTitle()) {
+            $content["title"] = $this->getTitle();
+        }
+
+        if ($this->getDetail()) {
+            $content["detail"] = $this->getDetail();
+        }
+
+        if ($this->getSource()) {
+            $content["source"] = $this->getSource()->transform();
+        }
 
         return $content;
     }

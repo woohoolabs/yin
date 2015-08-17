@@ -2,6 +2,11 @@
 
 ### 0.4.0 - Unreleased
 
+### 0.3.2 - 2015-08-17
+
+#### Fixed
+- Errors now don't contain null fields
+
 ### 0.3.1 - 2015-08-17
 
 #### Fixed
@@ -11,8 +16,8 @@
 
 #### Added
 - Support for creation and update of resources via `Hydrators`
-- Added `JsonApi` class
-- Added response classes
+- `JsonApi` class
+- Response classes
 - `Link::getHref()` method
 
 #### Changed
