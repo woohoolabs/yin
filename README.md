@@ -62,65 +62,57 @@ set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `
 in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
 which are transformed by Yin - can be found in the controllers.
 
-If you are able to open `examples/index.php`, let's see the response of the book example:
+Some example URL-s to play with:
 
 `examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
-which should show:
-```json
-{
-  "links": {
-    "self": "http://example.com/api/books/12345"
-  },
-  "data": {
-    "type": "book",
-    "id": "12345",
-    "attributes": {
-      "title": "Example Book",
-      "pages": 200
-    },
-    "relationships": {
-      "authors": {
-        "data": [
-          { "type": "author", "id": "11111" },
-          { "type": "author", "id": "11112" }
-        ]
-      },
-      "publisher": {
-        "data": { "type": "publisher", "id": "12346" }
-      }
-    }
-  },
-  "included": [
-    {
-      "type": "author",
-      "id": "11111",
-      "attributes": {
-        "name": "John Doe"
-      }
-    },
-    {
-      "type": "author",
-      "id": "11112",
-      "attributes": {
-        "name": "Jane Doe"
-      }
-    },
-    {
-      "type": "publisher",
-      "id": "12346",
-      "attributes": {
-        "name": "Example Publisher"
-      }
-    }
-  ]
-}
-```
-
-You can also play with the users example:
 `examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts`
 
+#### Example resource fetch
+
+```php
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getBook(JsonApi $jsonApi)
+    {
+        $resource = BookRepository::getBook(1);
+
+        $document = new BookDocument(
+            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        );
+
+        return $jsonApi->fetchResponse()->ok($document, $resource);
+    }
+```
+
+#### Example resource creation
+
+```php
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function updateBook(JsonApi $jsonApi)
+    {
+        // Hydrating the book from the request
+        $hydrator = new CreateBookHydator();
+        $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
+
+        // Creating the BookDocument to be sent as the response
+        $document = new BookDocument(
+            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        );
+
+        // Responding with 201 Created status code and returning the new book resource
+        return $jsonApi->createResponse()->created($document, $resource);
+    }
+```
+
+## Internals
+
 Notice how attribute and relationship transformation works (e.g.:
-[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/JsonApi/Resource/BookResourceTransformer.php#L75)): 
+[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/Book/JsonApi/Resource/BookResourceTransformer.php#L80)): 
 you have to define an anonymous function for each attribute and relationship. This design allows us
 to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
 are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).

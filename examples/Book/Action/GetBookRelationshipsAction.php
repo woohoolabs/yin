@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\JsonApi;
 class GetBookRelationshipsAction
 {
     /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi
+     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function __invoke(JsonApi $jsonApi)
