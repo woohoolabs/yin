@@ -109,6 +109,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      */
     private function doGetResponse(ResponseInterface $response, $responseCode, array $content)
     {
+        $response->getBody()->rewind();
         $response->getBody()->write(json_encode($content));
         $response = $response->withStatus($responseCode);
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());

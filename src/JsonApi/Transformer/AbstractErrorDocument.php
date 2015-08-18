@@ -26,6 +26,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
      */
     public function getResponse(ResponseInterface $response, $responseCode = null)
     {
+        $response->getBody()->rewind();
         $response->getBody()->write(json_encode($this->transformContent()));
         $response = $response->withStatus($this->getResponseCode($responseCode));
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());
