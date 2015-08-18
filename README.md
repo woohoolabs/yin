@@ -59,45 +59,45 @@ And there is an `AbstractResourceTransformer` class for resource transformation.
 #### Example resource fetch
 
 ```php
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getBook(JsonApi $jsonApi)
-    {
-        $resource = BookRepository::getBook(1);
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function getBook(JsonApi $jsonApi)
+{
+    $resource = BookRepository::getBook(1);
 
-        $document = new BookDocument(
-            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
-        );
+    $document = new BookDocument(
+        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+    );
 
-        return $jsonApi->fetchResponse()->ok($document, $resource);
-    }
+    return $jsonApi->fetchResponse()->ok($document, $resource);
+}
 ```
 
 #### Example resource creation
 
 ```php
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function createBook(JsonApi $jsonApi)
-    {
-        // Hydrating the book from the request
-        $hydrator = new CreateBookHydator();
-        $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
-        
-        // Saving the newly created book
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function createBook(JsonApi $jsonApi)
+{
+    // Hydrating the book from the request
+    $hydrator = new CreateBookHydator();
+    $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
 
-        // Creating the BookDocument to be sent as the response
-        $document = new BookDocument(
-            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
-        );
+    // Saving the newly created book
 
-        // Responding with 201 Created status code and returning the new book resource
-        return $jsonApi->createResponse()->created($document, $resource);
-    }
+    // Creating the BookDocument to be sent as the response
+    $document = new BookDocument(
+        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+    );
+
+    // Responding with 201 Created status code and returning the new book resource
+    return $jsonApi->createResponse()->created($document, $resource);
+}
 ```
 
 #### How to try it out
