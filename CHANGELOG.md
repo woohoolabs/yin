@@ -7,6 +7,11 @@
 #### Changed
 - Improved and more extensive documentation
 
+### 0.3.4 - 2015-08-18
+
+#### Fixed
+- Do not mutate the original responses
+
 ### 0.3.3 - 2015-08-18
 
 #### Changed
