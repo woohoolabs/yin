@@ -1,6 +1,7 @@
 # Woohoo Labs. Yin
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f.svg)](https://insight.sensiolabs.com/projects/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f)
 [![Build Status](https://img.shields.io/travis/woohoolabs/yin.svg)](https://travis-ci.org/woohoolabs/yin)
 [![Code Coverage](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
 [![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
