@@ -6,6 +6,8 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 class ToOneRelationship extends AbstractRelationship
 {
+    use RelationshipFactoryTrait;
+
     /**
      * @return $this
      */
