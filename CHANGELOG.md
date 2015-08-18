@@ -3,6 +3,11 @@
 ### 0.4.0 - Unreleased
 
 #### Added
+
+#### Changed
+- Improved and more extensive documentation
+
+#### Changed
 - `LinksTrait` and `MetaTrait` support retrieval of their properties
 
 ### Removed
