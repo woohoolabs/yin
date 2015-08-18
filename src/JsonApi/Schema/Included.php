@@ -9,6 +9,14 @@ class Included
     private $included = [];
 
     /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->included);
+    }
+
+    /**
      * @param array $transformedResource
      * @return $this
      */

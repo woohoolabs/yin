@@ -7,6 +7,11 @@
 #### Changed
 - Improved and more extensive documentation
 
+### 0.3.5 - 2015-08-19
+
+#### Fixed
+- The included key is not sent if it is empty
+
 ### 0.3.4 - 2015-08-18
 
 #### Fixed
