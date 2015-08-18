@@ -109,8 +109,8 @@ which are transformed by Yin - can be found in the controllers.
 
 Some example URL-s to play with:
 
-- `examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
-- `examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts`
+- `examples/index.php?example=book&id=1&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
+- `examples/index.php?example=users&fields[user]=firstname,contacts&fields[contact]=phone_number,email&include=contacts`
 
 ## Internals
 

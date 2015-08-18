@@ -16,7 +16,12 @@ class GetBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        $resource = BookRepository::getBook(1);
+        $id = $jsonApi->getRequest()->getQueryParam("id");
+        if ($id === null) {
+            die("You must define the 'id' query parameter with a value of '1'!");
+        }
+
+        $resource = BookRepository::getBook($id);
 
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
