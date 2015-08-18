@@ -5,7 +5,6 @@
 [![Build Status](https://img.shields.io/travis/woohoolabs/yin.svg)](https://travis-ci.org/woohoolabs/yin)
 [![Code Coverage](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
 [![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
-[![Downloads](https://img.shields.io/packagist/dt/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 [![License](https://img.shields.io/packagist/l/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 
 **Woohoo Labs. Yin is a PSR-7 compatible library for HATEOAS API-s to transform resources into JSON API format
