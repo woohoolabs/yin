@@ -93,11 +93,13 @@ Some example URL-s to play with:
      * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function updateBook(JsonApi $jsonApi)
+    public function createBook(JsonApi $jsonApi)
     {
         // Hydrating the book from the request
         $hydrator = new CreateBookHydator();
         $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
+        
+        // Saving the newly created book
 
         // Creating the BookDocument to be sent as the response
         $document = new BookDocument(
