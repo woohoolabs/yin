@@ -56,17 +56,6 @@ now) which you have to extend:
 
 And there is an `AbstractResourceTransformer` class for resource transformation.
 
-If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
-set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `EXAMPLE_NAME` can be
-"Book", "BookRelationships", "Users", "User" or "UserRelationships". But don't forget to run `composer install` first
-in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
-which are transformed by Yin - can be found in the controllers.
-
-Some example URL-s to play with:
-
-`examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
-`examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts`
-
 #### Example resource fetch
 
 ```php
@@ -110,6 +99,18 @@ Some example URL-s to play with:
         return $jsonApi->createResponse()->created($document, $resource);
     }
 ```
+
+#### How to try it out
+If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
+set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `EXAMPLE_NAME` can be
+"Book", "BookRelationships", "Users", "User" or "UserRelationships". But don't forget to run `composer install` first
+in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
+which are transformed by Yin - can be found in the controllers.
+
+Some example URL-s to play with:
+
+- `examples/index.php?example=book&fields[book]=title,pages,authors,publisher&fields[author]=name&fields[publisher]=name&include=authors,publisher`
+- `examples/index.php?example=users&fields[user]=firstname,lastname,contacts&fields[contact]=phone,email&include=contacts`
 
 ## Internals
 
