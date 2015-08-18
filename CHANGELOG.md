@@ -12,10 +12,10 @@
 #### Changed
 - `LinksTrait` and `MetaTrait` support retrieval of their properties
 
-### Removed
+#### Removed
 - `TransformableInterface` and `SimpleTransformableInterface` as they were useless
 
-### Fixed
+#### Fixed
 - The response body is cleared before assembling the response
 
 ### 0.3.2 - 2015-08-17
