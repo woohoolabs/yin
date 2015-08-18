@@ -130,7 +130,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
         // Included
         if ($this->included !== null) {
-            $content["included"] = $this->included->transform($this->resource, $request);
+            $content["included"] = $this->included->transform();
         }
 
         return $content;

@@ -1,8 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-
 class Included
 {
     /**
@@ -26,11 +24,9 @@ class Included
     }
 
     /**
-     * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
      */
-    public function transform($resource, RequestInterface $request)
+    public function transform()
     {
         $included = [];
 
