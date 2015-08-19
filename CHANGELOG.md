@@ -7,6 +7,11 @@
 #### Changed
 - Improved and more extensive documentation
 
+### 0.3.6 - 2015-08-19
+
+#### Fixed
+- Fixed issue with possible request body parsing
+
 ### 0.3.5 - 2015-08-19
 
 #### Fixed

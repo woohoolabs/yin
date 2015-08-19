@@ -18,7 +18,7 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API defi
 
 #### Features
 
-- 100% PSR-7 compatible
+- 100% PSR-7 compatibility
 - Developed for efficiency and ease of use
 - Supports most of the JSON API specification
 - Provides Documents and Transformers to fetch resources

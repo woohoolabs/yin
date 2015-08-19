@@ -42,7 +42,7 @@ class Request implements RequestInterface
      */
     public function __construct(ServerRequestInterface $request)
     {
-        $this->serverRequest = $request->withParsedBody(json_decode($request->getBody()->getContents(), true));
+        $this->serverRequest = $request->withParsedBody(json_decode($request->getBody(), true));
 
         $this->setIncludedRelationships();
         $this->setIncludedFields();
