@@ -23,7 +23,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     protected $included;
 
     /**
-     * Set the value of the "data" and "included" properties based on the "resource" property.
+     * Sets the value of the "data" and "included" properties based on the "resource" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
@@ -62,13 +62,21 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     {
         $this->initializeDocument($resource);
         $content = $this->transformContent($request);
-        $content["data"] = [
-            "jsonApi" => isset($content["data"]["jsonApi"]) ? $content["data"]["jsonApi"] : [],
-            "links" => isset($content["data"]["links"]) ? $content["data"]["links"] : [],
-            "meta" => isset($content["data"]["meta"]) ? $content["data"]["meta"] : []
-        ];
 
-        return $this->doGetResponse($response, $responseCode, $content);
+        $metaContent = [];
+        if (isset($content["jsonApi"])) {
+            $metaContent = $content["jsonApi"];
+        }
+
+        if (isset($content["links"])) {
+            $metaContent = $content["links"];
+        }
+
+        if (isset($content["meta"])) {
+            $metaContent = $content["meta"];
+        }
+
+        return $this->doGetResponse($response, $responseCode, $metaContent);
     }
 
     /**
