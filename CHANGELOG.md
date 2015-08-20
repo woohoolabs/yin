@@ -3,6 +3,7 @@
 ### 0.4.0 - Unreleased
 
 #### Added
+- Support for proper content negotiation 
 
 #### Changed
 - Improved and more extensive documentation
