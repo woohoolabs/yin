@@ -99,7 +99,8 @@ class Request implements RequestInterface
      * @param string $headerName
      * @return array
      */
-    protected function getHeaderExtensions($headerName) {
+    protected function getHeaderExtensions($headerName)
+    {
         $extensions = [];
 
         $contentTypeHeader = $this->parseMediaTypeHeader($headerName);
@@ -118,7 +119,8 @@ class Request implements RequestInterface
      * @param string $headerName
      * @return string|null
      */
-    protected function getInvalidHeaderMediaType($headerName) {
+    protected function getInvalidHeaderMediaType($headerName)
+    {
         foreach ($this->parseMediaTypeHeader($headerName) as $mediaType) {
             if ($mediaType["name"] !== "application/vnd.api+json") {
                 return $mediaType["raw"];
