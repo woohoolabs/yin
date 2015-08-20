@@ -80,8 +80,7 @@ class Request implements RequestInterface
     public function validateQueryParams()
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
-            if (
-                preg_match("/^([a-z]*)$*/", $queryParamName) &&
+            if (preg_match("/^([a-z]*)$*/", $queryParamName) &&
                 in_array($queryParamName, ["fields", "include", "sort", "page", "filter"])
             ) {
                 throw new QueryParamUnrecognized($queryParamName);
