@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeNotAcceptable;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -38,7 +38,7 @@ abstract class AbstractHydrator
     /**
      * @param array $data
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeNotAcceptable
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
     protected function hydrateType($data)
     {
@@ -47,7 +47,7 @@ abstract class AbstractHydrator
         }
 
         if ($data["type"] !== $this->getAcceptedType() && in_array($data["type"], $this->getAcceptedType()) === false) {
-            throw new ResourceTypeNotAcceptable($data["type"]);
+            throw new ResourceTypeUnacceptable($data["type"]);
         }
     }
 

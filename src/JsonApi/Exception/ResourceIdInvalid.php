@@ -13,7 +13,7 @@ class ResourceIdInvalid extends \Exception
      */
     public function __construct($id)
     {
-        parent::__construct("The resource ID \"$id\" is invalid!");
+        parent::__construct("The resource ID '$id' is invalid!");
         $this->id = $id;
     }
 

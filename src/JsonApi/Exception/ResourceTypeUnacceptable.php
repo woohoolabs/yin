@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-class ResourceTypeNotAcceptable extends \Exception
+class ResourceTypeUnacceptable extends \Exception
 {
     /**
      * @var string
@@ -10,7 +10,7 @@ class ResourceTypeNotAcceptable extends \Exception
 
     public function __construct($type)
     {
-        parent::__construct("Resource type \"$type\" can't be accepted by Hydrator!");
+        parent::__construct("Resource type '$type' can't be accepted by the Hydrator!");
         $this->type = $type;
     }
 
