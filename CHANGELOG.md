@@ -3,10 +3,15 @@
 ### 0.4.0 - Unreleased
 
 #### Added
-- Support for proper content negotiation 
+- Support for proper content negotiation
+- Support for validation of query parameters
+- Support for retrieving the requested extensions
 
 #### Changed
 - Improved and more extensive documentation
+
+#### Fixed
+- Meta responses follow the specification
 
 ### 0.3.6 - 2015-08-19
 
