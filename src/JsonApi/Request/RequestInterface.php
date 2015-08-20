@@ -6,6 +6,28 @@ use Psr\Http\Message\ServerRequestInterface;
 interface RequestInterface extends ServerRequestInterface
 {
     /**
+     * @return true
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
+     */
+    public function validateContentTypeHeader();
+
+    /**
+     * @return true
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
+     */
+    public function validateAcceptHeader();
+
+    /**
+     * @return array
+     */
+    public function getExtensions();
+
+    /**
+     * @return array
+     */
+    public function getRequiredExtensions();
+
+    /**
      * @param string $resourceType
      * @return array
      */
