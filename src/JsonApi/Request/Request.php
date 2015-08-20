@@ -6,6 +6,7 @@ use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 
 class Request implements RequestInterface
 {
@@ -52,7 +53,6 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return true
      * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateContentTypeHeader()
@@ -61,12 +61,9 @@ class Request implements RequestInterface
         if ($invalidHeaderMediaType !== null) {
             throw new MediaTypeUnsupported($invalidHeaderMediaType);
         }
-
-        return true;
     }
 
     /**
-     * @return true
      * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
     public function validateAcceptHeader()
@@ -75,8 +72,21 @@ class Request implements RequestInterface
         if ($invalidHeaderMediaType !== null) {
             throw new MediaTypeUnacceptable($invalidHeaderMediaType);
         }
+    }
 
-        return true;
+    /**
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
+     */
+    public function validateQueryParams()
+    {
+        foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
+            if (
+                preg_match("/^([a-z]*)$*/", $queryParamName) &&
+                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"])
+            ) {
+                throw new QueryParamUnrecognized($queryParamName);
+            }
+        }
     }
 
     /**
@@ -225,6 +235,14 @@ class Request implements RequestInterface
                 $dot1 = $dot2;
             };
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasIncludedRelationships()
+    {
+        return empty($this->includedRelationships) === false;
     }
 
     /**

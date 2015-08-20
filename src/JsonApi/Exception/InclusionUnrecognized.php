@@ -3,22 +3,25 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 class InclusionUnrecognized extends \Exception
 {
-    private $path;
+    /**
+     * @var array
+     */
+    private $includes;
 
     /**
-     * @param string $queryParam
+     * @param array $includes
      */
-    public function __construct($queryParam)
+    public function __construct(array $includes)
     {
-        parent::__construct("Included path '$queryParam' can't be recognized!");
-        $this->path = $queryParam;
+        parent::__construct("Included paths '" . implode(", ", $includes) . "' can't be recognized!");
+        $this->includes = $includes;
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getPath()
+    public function getIncludes()
     {
-        return $this->path;
+        return $this->includes;
     }
 }

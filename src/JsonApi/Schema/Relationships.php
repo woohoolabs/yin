@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class Relationships
@@ -52,6 +53,8 @@ class Relationships
     ) {
         $relationships = [];
 
+        $this->validateRelationships($request, $baseRelationshipPath, $relationships);
+
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
             $relationship = $this->transformRelationship(
                 $relationshipName,
@@ -102,5 +105,25 @@ class Relationships
             $baseRelationshipPath,
             $relationshipName
         );
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param string $baseRelationshipPath
+     * @param array $relationships
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
+     */
+    protected function validateRelationships(RequestInterface $request, $baseRelationshipPath, array $relationships)
+    {
+        $requestedRelationships = $request->getIncludedRelationships($baseRelationshipPath);
+
+        $nonExistentRelationships = array_diff($requestedRelationships, array_keys($relationships));
+        if (empty($nonExistentRelationships) === false) {
+            foreach ($nonExistentRelationships as &$relationship) {
+                $relationship = ($baseRelationshipPath ? $baseRelationshipPath . "." : "") . $relationship;
+            }
+
+            throw new InclusionUnrecognized($nonExistentRelationships);
+        }
     }
 }

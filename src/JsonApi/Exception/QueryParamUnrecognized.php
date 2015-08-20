@@ -6,12 +6,12 @@ class QueryParamUnrecognized extends \Exception
     private $queryParam;
 
     /**
-     * @param string $queryParam
+     * @param string $includes
      */
-    public function __construct($queryParam)
+    public function __construct($includes)
     {
-        parent::__construct("Query param '$queryParam' can't be recognized!");
-        $this->queryParam = $queryParam;
+        parent::__construct("Query param '$includes' can't be recognized!");
+        $this->queryParam = $includes;
     }
 
     /**

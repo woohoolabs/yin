@@ -6,16 +6,19 @@ use Psr\Http\Message\ServerRequestInterface;
 interface RequestInterface extends ServerRequestInterface
 {
     /**
-     * @return true
      * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateContentTypeHeader();
 
     /**
-     * @return true
      * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
     public function validateAcceptHeader();
+
+    /**
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
+     */
+    public function validateQueryParams();
 
     /**
      * @return array
@@ -39,6 +42,11 @@ interface RequestInterface extends ServerRequestInterface
      * @return bool
      */
     public function isIncludedField($resourceType, $field);
+
+    /**
+     * @return bool
+     */
+    public function hasIncludedRelationships();
 
     /**
      * @param string $baseRelationshipPath
