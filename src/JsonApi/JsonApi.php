@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
 use WoohooLabs\Yin\JsonApi\Response\DeleteResponse;
@@ -38,6 +39,16 @@ class JsonApi
     public function getRequest()
     {
         return $this->request;
+    }
+
+    /**
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported
+     */
+    public function disableIncludes()
+    {
+        if ($this->request->hasIncludedRelationships()) {
+            throw new InclusionNotSupported();
+        }
     }
 
     /**
