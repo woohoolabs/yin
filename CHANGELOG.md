@@ -6,6 +6,8 @@
 - Support for proper content negotiation
 - Support for validation of query parameters
 - Support for retrieving the requested extensions
+- Full replacement and removal of relationships can be prohibited
+- Exception can be raised when an unrecognized sorting parameter is received
 
 #### Changed
 - Improved and more extensive documentation
