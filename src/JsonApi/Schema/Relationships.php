@@ -53,7 +53,7 @@ class Relationships
     ) {
         $relationships = [];
 
-        $this->validateRelationships($request, $baseRelationshipPath, $relationships);
+        $this->validateRelationships($request, $baseRelationshipPath, $this->relationships);
 
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
             $relationship = $this->transformRelationship(
