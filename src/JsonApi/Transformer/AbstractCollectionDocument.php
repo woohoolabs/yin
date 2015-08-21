@@ -20,6 +20,8 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     }
 
     /**
+     * Sets the value of the "data" and "included" properties based on the "resource" property.
+     *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
     protected function setContent(RequestInterface $request)
@@ -32,6 +34,8 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     }
 
     /**
+     * Returns a response whose primary data is a relationship object with $relationshipName name.
+     *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array

@@ -30,6 +30,8 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     abstract protected function setContent(RequestInterface $request);
 
     /**
+     * Returns a response whose primary data is a relationship object with $relationshipName name.
+     *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return array
@@ -37,6 +39,9 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     abstract protected function getRelationshipContent($relationshipName, RequestInterface $request);
 
     /**
+     * Returns a response with a status code of $responseCode, containing all the provided sections of the document,
+     * assembled based on the $resource.
+     *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -52,6 +57,9 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     }
 
     /**
+     * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
+     * the "included" sections) about the document, assembled based on the $resource.
+     *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -80,6 +88,9 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     }
 
     /**
+     * Returns a response with a status code of $responseCode, containing the $relationshipName relationship object as
+     * the primary data, assembled based on the $resource.
+     *
      * @param string $relationshipName
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource

@@ -1,23 +1,29 @@
 <?php
 namespace WoohooLabs\Yin;
 
+use DateTime;
+
 trait TransformerTrait
 {
     /**
+     * Transforms a value to a decimal which precision is $precision.
+     *
      * @param mixed $value
-     * @param int $length
+     * @param int $precision
      * @return float
      */
-    public static function toDecimal($value, $length = 12)
+    public static function toDecimal($value, $precision = 12)
     {
         if (is_numeric($value)) {
-            $value= round($value, $length);
+            $value= round($value, $precision);
         }
 
         return $value;
     }
 
     /**
+     * Transforms a value to an integer.
+     *
      * @param string $value
      * @return int
      */
@@ -27,11 +33,13 @@ trait TransformerTrait
     }
 
     /**
+     * Transforms a DateTime object to an ISO 8601 format date time string.
+     *
      * @param \DateTime $dateTime
      * @return string
      */
-    public static function toISO8601(\DateTime $dateTime)
+    public static function toISO8601(DateTime $dateTime)
     {
-        return $dateTime->format(\DateTime::ISO8601);
+        return $dateTime->format(DateTime::ISO8601);
     }
 }

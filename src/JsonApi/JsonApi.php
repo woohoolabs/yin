@@ -34,6 +34,8 @@ class JsonApi
     }
 
     /**
+     * Returns the current JSON API request.
+     *
      * @return \WoohooLabs\Yin\JsonApi\Request\RequestInterface
      */
     public function getRequest()
@@ -42,6 +44,10 @@ class JsonApi
     }
 
     /**
+     * Disables inclusion of related resources.
+     *
+     * If the current request asks for inclusion of related resources, it throws an InclusionNotSupported exception.
+     *
      * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported
      */
     public function disableIncludes()

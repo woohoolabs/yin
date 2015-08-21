@@ -12,6 +12,8 @@ abstract class AbstractErrorDocument extends AbstractDocument
     protected $errors = [];
 
     /**
+     * Includes a new error in the error document.
+     *
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error $error
      */
     public function addError(Error $error)
@@ -20,6 +22,9 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
+     * Returns a response with a status code of $responseCode, containing all the provided sections of the error
+     * document.
+     *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface

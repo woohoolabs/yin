@@ -10,42 +10,72 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     use TransformerTrait;
 
     /**
+     * Provides information about the "type" section of the current resource.
+     *
+     * The method returns the type of the current resource.
+     *
      * @param mixed $resource
      * @return string
      */
     abstract public function getType($resource);
 
     /**
+     * Provides information about the "meta" section of the current resource.
+     *
+     * The method returns the ID of the current resource which should be a UID.
+     *
      * @param mixed $resource
      * @return string
      */
     abstract public function getId($resource);
 
     /**
+     * Provides information about the "meta" section of the current resource.
+     *
+     * The method returns an array of non-standard meta information about the resource. If
+     * this array is empty, the section won't appear in the response.
+     *
      * @param mixed $resource
      * @return array
      */
     abstract public function getMeta($resource);
 
     /**
+     * Provides information about the "links" section of the current resource.
+     *
+     * The method returns a new Links schema object if you want to provide linkage
+     * data about the resource or null if it should be omitted from the response.
+     *
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
     abstract public function getLinks($resource);
 
     /**
+     * Provides information about the "attributes" section of the current resource.
+     *
+     * The method returns a new Attributes schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
     abstract public function getAttributes($resource);
 
     /**
+     * Provides information about the "relationships" section of the current resource.
+     *
+     * The method returns a new Relationships schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
      * @param mixed $resource
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
     abstract public function getRelationships($resource);
 
     /**
+     * Transforms the original resource to a JSON API resource identifier.
+     *
      * @param mixed $resource
      * @return array|null
      */
@@ -70,6 +100,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
+     * Transforms the original resource to a JSON API resource.
+     *
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
@@ -101,6 +133,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
+     * Transforms a relationship with a name of $relationshipName of the original resource to a JSON API relationship.
+     *
      * @param mixed $resource
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
