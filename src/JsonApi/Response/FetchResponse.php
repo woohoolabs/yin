@@ -18,6 +18,12 @@ class FetchResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "200 Ok" response, containing a document in the body with the resource.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST respond to a successful request to fetch an individual resource or resource
+     * collection with a 200 OK response."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @return \Psr\Http\Message\ResponseInterface
@@ -28,6 +34,12 @@ class FetchResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "200 Ok" response, containing a document in the body with the resource meta data.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST respond to a successful request to fetch an individual resource or resource
+     * collection with a 200 OK response."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @return \Psr\Http\Message\ResponseInterface
@@ -38,6 +50,13 @@ class FetchResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "404 Not Found" response, containing a document in the body with the errors.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST respond with 404 Not Found when processing a request to fetch a single resource that
+     * does not exist, except when the request warrants a 200 OK response with null as the primary
+     * data (as described above)."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
      * @param array $errors
      * @return \Psr\Http\Message\ResponseInterface $response

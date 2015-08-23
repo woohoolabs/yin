@@ -29,6 +29,8 @@ abstract class AbstractResponse
     }
 
     /**
+     * Returns a successful response with the given status code.
+     *
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface $response
      */
@@ -38,6 +40,8 @@ abstract class AbstractResponse
     }
 
     /**
+     * Returns an error response with the given status code, containing a document in the body with the errors.
+     *
      * @param int $statusCode
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
      * @param array $errors
@@ -49,6 +53,8 @@ abstract class AbstractResponse
     }
 
     /**
+     * Returns the original PSR-7 response object.
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getResponse()

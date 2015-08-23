@@ -25,6 +25,13 @@ class UpdateRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "200 Ok" response, containing a document with the relationship in the body.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "If a server accepts an update but also changes the targeted relationship(s) in other ways than those
+     * specified by the request, it MUST return a 200 OK response. The response document MUST include a
+     * representation of the updated relationship(s)."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @return \Psr\Http\Message\ResponseInterface
@@ -42,6 +49,36 @@ class UpdateRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "200 Ok" response, containing a document with the relationship meta data in the body.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST return a 200 OK status code if an update is successful, the client's current data
+     * remain up to date, and the server responds only with top-level meta data. In this case the server
+     * MUST NOT include a representation of the updated relationship(s)."
+     *
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param mixed $resource
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function okWithMeta(AbstractCompoundDocument $document, $resource)
+    {
+        return $this->getDocumentRelationshipResponse(
+            $this->relationshipName,
+            $this->request,
+            $this->response,
+            $document,
+            $resource,
+            200
+        );
+    }
+
+    /**
+     * Returns a "202 Accepted" response.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "If a relationship update request has been accepted for processing, but the processing has not been
+     * completed by the time the server responds, the server MUST return a 202 Accepted status code."
+     *
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function accepted()
@@ -50,6 +87,12 @@ class UpdateRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "204 No Content" response.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST return a 204 No Content status code if an update is successful and the representation
+     * of the resource in the request matches the result."
+     *
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function noContent()
@@ -58,6 +101,11 @@ class UpdateRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "403 Forbidden" response, containing a document in the body with the errors.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST return 403 Forbidden in response to an unsupported request to update a relationship."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
      * @param array $errors
      * @return \Psr\Http\Message\ResponseInterface $response

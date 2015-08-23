@@ -25,6 +25,11 @@ class FetchRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "200 Ok" response, containing a document in the body with the relationship.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST respond to a successful request to fetch a relationship with a 200 OK response."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
      * @return \Psr\Http\Message\ResponseInterface
@@ -42,6 +47,12 @@ class FetchRelationshipResponse extends AbstractResponse
     }
 
     /**
+     * Returns a "404 Not Found" response, containing a document in the body with the errors.
+     *
+     * According to the JSON API specification, this response is applicable in the following conditions:
+     * "A server MUST return 404 Not Found when processing a request to fetch a relationship link URL
+     * that does not exist."
+     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
      * @param array $errors
      * @return \Psr\Http\Message\ResponseInterface $response
