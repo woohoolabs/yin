@@ -21,6 +21,27 @@ trait UpdateHydratorTrait
     abstract protected function setId($domainObject, $id);
 
     /**
+     * @param array $data
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     */
+    abstract protected function hydrateType($data);
+
+    /**
+     * @param array $data
+     * @param mixed $domainObject
+     * @return mixed
+     */
+    abstract protected function hydrateAttributes($data, $domainObject);
+
+    /**
+     * @param array $data
+     * @param mixed $domainObject
+     * @return mixed
+     */
+    abstract protected function hydrateRelationships($data, $domainObject);
+
+    /**
      * Hydrates the domain object from the updating request.
      *
      * The domain object's attributes and relationships are hydrated

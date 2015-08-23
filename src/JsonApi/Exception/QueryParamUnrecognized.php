@@ -3,10 +3,13 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 class QueryParamUnrecognized extends \Exception
 {
+    /**
+     * @var string
+     */
     private $queryParam;
 
     /**
-     * @param string $includes
+     * @param string $queryParam
      */
     public function __construct($queryParam)
     {
