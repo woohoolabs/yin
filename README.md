@@ -46,25 +46,25 @@ require "vendor/autoload.php"
 
 ## Basic Usage
 
-Before learning about Woohoo Labs. Yin, please make sure you understand at least the basic concepts of the
-[JSON API specification](http://jsonapi.org).
+**Important:** Before learning about Woohoo Labs. Yin, please make sure you understand at least the basic concepts
+of the [JSON API specification](http://jsonapi.org).
 
 When using Woohoo Labs. Yin, you will create:
-- documents and resource transformers in order to transform your domain model to a JSON API response
-- hydrators in order to transform creating or updating requests to domain objects
+- documents and resource transformers in order to map your domain model to JSON API responses
+- hydrators in order to transform created or updated JSON API resources to domain objects
 
-And a `JsonApi` class will be responsible for the instrumentation. Let's have a look at them!
+And a `JsonApi` class will be responsible for the instrumentation.
 
 #### Documents
 
 The JSON API spec differentiates three main types of documents: documents containing information about a resource,
-documents containing information about a collection of resources and finally error documents. Woohoo Labs. Yin
+documents containing information about a collection of resources and error documents. Woohoo Labs. Yin
 provides an abstract class for each use-case which you have to extend:
 
 ##### `AbstractSingleResourceDocument`
 
-It can be used for responses which returns information about a single resource.
- 
+It can be used for responses which return information about a single resource.
+
 ```php
 class BookDocument extends AbstractSingleResourceDocument
 {
@@ -106,14 +106,23 @@ class BookDocument extends AbstractSingleResourceDocument
 }
 ```
 
-##### `AbstractCollectionDocument`: A class for collection documents
+##### `AbstractCollectionDocument`
 
+It can be used for responses which return information about a collection of resources.
 
-##### `AbstractErrorDocument`: A class for error documents
+##### `AbstractErrorDocument`
 
-And there is an `AbstractResourceTransformer` class for resource transformation.
+It can be used for responses which contain errors.
 
-#### Example resource fetch
+#### Transformers
+
+There is an `AbstractResourceTransformer` class for resource transformation.
+
+#### `JsonApi` class
+
+#### Examples
+
+##### Example resource fetching
 
 ```php
 /**
