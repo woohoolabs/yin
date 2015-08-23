@@ -16,7 +16,7 @@ easily and efficiently.**
 API-s as this specification makes APIs more robust and future-proof than they have ever been. Woohoo Labs. Yin (named
 after Yin-Yang) was born to bring efficiency and elegance for your JSON API server implementations.
 
-#### Features
+## Features
 
 - 100% PSR-7 compatibility
 - 99% JSON API compatibility (approximately)
@@ -50,7 +50,7 @@ require "vendor/autoload.php"
 of the [JSON API specification](http://jsonapi.org).
 
 When using Woohoo Labs. Yin, you will create:
-- documents and resource transformers in order to map your domain model to JSON API responses
+- documents and resource transformers in order to map a domain model to JSON API responses
 - hydrators in order to transform created or updated JSON API resources to domain objects
 
 And a `JsonApi` class will be responsible for the instrumentation.
