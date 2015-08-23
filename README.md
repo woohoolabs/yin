@@ -19,8 +19,9 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 #### Features
 
 - 100% PSR-7 compatibility
+- 99% JSON API compatibility (approximately)
 - Developed for efficiency and ease of use
-- Supports most of the JSON API specification
+- Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
 - Provides Hydrators to create and update resources
 - [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for the easier kickstart and debugging
