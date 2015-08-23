@@ -14,7 +14,7 @@ easily and efficiently.**
 
 [JSON API](http://jsonapi.org/) specification reached 1.0 on 29th May 2015 and we believe it is a big day for RESTful
 API-s as this specification makes APIs more robust and future-proof than they have ever been. Woohoo Labs. Yin (named
-after Yin-Yang) was born to bring efficiency and elegance for your JSON API definitions.
+after Yin-Yang) was born to bring efficiency and elegance for your JSON API server implementations.
 
 #### Features
 
@@ -23,7 +23,7 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API defi
 - Supports most of the JSON API specification
 - Provides Documents and Transformers to fetch resources
 - Provides Hydrators to create and update resources
-- [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for easier kickstarting and debugging
+- [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for the easier kickstart and debugging
 
 ## Install
 
@@ -45,14 +45,70 @@ require "vendor/autoload.php"
 
 ## Basic Usage
 
-When using Woohoo Labs. Yin, you will create documents and resource transformers:
+Before learning about Woohoo Labs. Yin, please make sure you understand at least the basic concepts of the
+[JSON API specification](http://jsonapi.org).
 
-There are three main types of documents in the JSON API spec, and we provide an abstract class for each (at least for
-now) which you have to extend: 
+When using Woohoo Labs. Yin, you will create:
+- documents and resource transformers in order to transform your domain model to a JSON API response
+- hydrators in order to transform creating or updating requests to domain objects
 
-- `AbstractSingleResourceDocument`: A class for single resource documents
-- `AbstractCollectionDocument`: A class for collection documents
-- `AbstractErrorDocument`: A class for error documents
+And a `JsonApi` class will be responsible for the instrumentation. Let's have a look at them!
+
+#### Documents
+
+The JSON API spec differentiates three main types of documents: documents containing information about a resource,
+documents containing information about a collection of resources and finally error documents. Woohoo Labs. Yin
+provides an abstract class for each use-case which you have to extend:
+
+##### `AbstractSingleResourceDocument`
+
+It can be used for responses which returns information about a single resource.
+ 
+```php
+class BookDocument extends AbstractSingleResourceDocument
+{
+    /**
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer $transformer
+     */
+    public function __construct(BookResourceTransformer $transformer)
+    {
+        parent::__construct($transformer);
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+     */
+    public function getJsonApi()
+    {
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMeta()
+    {
+        return [];
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     */
+    public function getLinks()
+    {
+        return new Links(
+            [
+                "self" => new Link("http://example.com/api/books/" . $this->transformer->getId($this->resource))
+            ]
+        );
+    }
+}
+```
+
+##### `AbstractCollectionDocument`: A class for collection documents
+
+
+##### `AbstractErrorDocument`: A class for error documents
 
 And there is an `AbstractResourceTransformer` class for resource transformation.
 
@@ -68,7 +124,10 @@ public function getBook(JsonApi $jsonApi)
     $resource = BookRepository::getBook(1);
 
     $document = new BookDocument(
-        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        new BookResourceTransformer(
+            new AuthorResourceTransformer(),
+            new PublisherResourceTransformer()
+        )
     );
 
     return $jsonApi->fetchResponse()->ok($document, $resource);
@@ -92,7 +151,10 @@ public function createBook(JsonApi $jsonApi)
 
     // Creating the BookDocument to be sent as the response
     $document = new BookDocument(
-        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        new BookResourceTransformer(
+            new AuthorResourceTransformer(), 
+            new PublisherResourceTransformer()
+        )
     );
 
     // Responding with 201 Created status code and returning the new book resource

@@ -4,14 +4,14 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
-use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydrator;
+use WoohooLabs\Yin\JsonApi\Hydrator\AbstractCreateHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 
-class CreateBookHydator extends CreateHydrator
+class CreateBookHydator extends AbstractCreateHydrator
 {
     /**
-     * @return string|array
+     * @return string
      */
     protected function getAcceptedType()
     {
@@ -20,7 +20,6 @@ class CreateBookHydator extends CreateHydrator
 
     /**
      * @param string $clientGeneratedId
-     * @return true
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      */
@@ -50,9 +49,10 @@ class CreateBookHydator extends CreateHydrator
     }
 
     /**
+     * @param array $resource
      * @return array
      */
-    protected function getAttributeHydrator()
+    protected function getAttributeHydrator($resource)
     {
         return [
             "title" => function(array $resource, $attribute, $data)  { $resource["title"] = $attribute; return $resource; },
@@ -61,9 +61,10 @@ class CreateBookHydator extends CreateHydrator
     }
 
     /**
+     * @parm array $resource
      * @return array
      */
-    protected function getRelationshipHydrator()
+    protected function getRelationshipHydrator($resource)
     {
         return [
             "authors" => function(array $resource, ToManyRelationship $authors, $data) {

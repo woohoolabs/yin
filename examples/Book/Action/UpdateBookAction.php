@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\Examples\Book\Action;
 
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\UpdateBookHydator;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\BookHydator;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
@@ -25,7 +25,7 @@ class UpdateBookAction
         }
 
         // Hydrating the book from the request
-        $hydrator = new UpdateBookHydator();
+        $hydrator = new BookHydator();
         $resource = $hydrator->hydrate($jsonApi->getRequest(), $book);
 
         // Creating the BookDocument to be sent as the response

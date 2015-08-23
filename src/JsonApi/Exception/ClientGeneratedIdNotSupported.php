@@ -9,9 +9,15 @@ class ClientGeneratedIdNotSupported extends \Exception
     private $clientGeneratedId;
 
     /**
-     * @param string|null $clientGeneratedId
+     * @var string
      */
-    public function __construct($clientGeneratedId)
+    private $reason;
+
+    /**
+     * @param string|null $clientGeneratedId
+     * @param string $reason
+     */
+    public function __construct($clientGeneratedId, $reason = "")
     {
         parent::__construct(
             "Client generated ID " .
@@ -20,6 +26,7 @@ class ClientGeneratedIdNotSupported extends \Exception
         );
 
         $this->clientGeneratedId = $clientGeneratedId;
+        $this->reason = $reason;
     }
 
     /**
@@ -28,5 +35,13 @@ class ClientGeneratedIdNotSupported extends \Exception
     public function getClientGeneratedId()
     {
         return $this->clientGeneratedId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReason()
+    {
+        return $this->reason;
     }
 }

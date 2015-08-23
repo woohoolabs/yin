@@ -2,11 +2,13 @@
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
+use WoohooLabs\Yin\Examples\Utils\Uuid;
+use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
+use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Hydrator\AbstractUpdateHydrator;
 
-class UpdateBookHydator extends AbstractUpdateHydrator
+class BookHydator extends AbstractHydrator
 {
     /**
      * @return string
@@ -17,9 +19,27 @@ class UpdateBookHydator extends AbstractUpdateHydrator
     }
 
     /**
+     * @param string $clientGeneratedId
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
+     */
+    protected function validateClientGeneratedId($clientGeneratedId)
+    {
+        throw new ClientGeneratedIdNotSupported($clientGeneratedId);
+    }
+
+    /**
+     * @return string
+     */
+    protected function generateId()
+    {
+        return Uuid::generate();
+    }
+
+    /**
      * @param array $resource
      * @param string $id
-     * @return mixed|null
+     * @return mixed
      */
     protected function setId($resource, $id)
     {
@@ -41,7 +61,7 @@ class UpdateBookHydator extends AbstractUpdateHydrator
     }
 
     /**
-     * @param array $resource
+     * @parm array $resource
      * @return array
      */
     protected function getRelationshipHydrator($resource)

@@ -10,6 +10,9 @@
 - Exception can be raised when an unrecognized sorting parameter is received
 
 #### Changed
+- `CreateHydratior` was renamed to `AbstractCreateHydrator`
+- `UpdateHydratior` was renamed to `AbstractUpdateHydrator`
+- `AbstractHydrator` can be used for update and create requests too
 - Improved and more extensive documentation
 
 #### Fixed

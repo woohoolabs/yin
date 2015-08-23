@@ -22,7 +22,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Provides information about the "meta" section of the current resource.
      *
-     * The method returns the ID of the current resource which should be a UID.
+     * The method returns the ID of the current resource which should be a UUID.
      *
      * @param mixed $resource
      * @return string
