@@ -63,7 +63,7 @@ provides an abstract class for each use-case which you have to extend:
 
 ##### `AbstractSingleResourceDocument`
 
-It can be used for responses which return information about a single resource.
+It can be used for successful responses containing information about a single resource.
 
 ```php
 class BookDocument extends AbstractSingleResourceDocument
@@ -108,11 +108,11 @@ class BookDocument extends AbstractSingleResourceDocument
 
 ##### `AbstractCollectionDocument`
 
-It can be used for responses which return information about a collection of resources.
+It can be used for successful responses containing information about a collection of resources.
 
 ##### `AbstractErrorDocument`
 
-It can be used for responses which contain errors.
+It can be used for error responses.
 
 #### Transformers
 
