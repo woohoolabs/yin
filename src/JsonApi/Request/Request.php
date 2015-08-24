@@ -105,6 +105,8 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns a list of extensions in a given header, found in the "ext" media type parameter.
+     *
      * @param string $headerName
      * @return array
      */
@@ -125,6 +127,8 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns an invalid media type parameter in a given header of the request if present, or null otherwise.
+     *
      * @param string $headerName
      * @return string|null
      */
@@ -146,6 +150,7 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns a list of media type information, extracted from a given header in the current request.
      *
      * @param string $headerName
      * @return array
