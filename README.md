@@ -1,25 +1,27 @@
 # Woohoo Labs. Yin
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f.svg)](https://insight.sensiolabs.com/projects/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f)
 [![Build Status](https://img.shields.io/travis/woohoolabs/yin.svg)](https://travis-ci.org/woohoolabs/yin)
 [![Code Coverage](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f.svg)](https://insight.sensiolabs.com/projects/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f)
 [![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 [![License](https://img.shields.io/packagist/l/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 
-**Woohoo Labs. Yin is a PSR-7 compatible library for HATEOAS API-s to transform resources into JSON API format
-easily and efficiently.**
+**Woohoo Labs. Yin is a [PSR-7](http://www.php-fig.org/psr/psr-7/) compatible PHP library for HATEOAS API-s.**
+
+Our aim was to create an elegant framework which helps you to build beautiful HATEOAS API-s for your clients.
+Woohoo labs. Yin currently supports the recently released [JSON API](http://jsonapi.org/) 1.0 specification.
 
 ## Introduction
 
-[JSON API](http://jsonapi.org/) specification reached 1.0 on 29th May 2015 and we believe it is a big day for RESTful
+[JSON API](http://jsonapi.org) specification reached 1.0 on 29th May 2015 and we believe it is a big day for RESTful
 API-s as this specification makes APIs more robust and future-proof than they have ever been. Woohoo Labs. Yin (named
 after Yin-Yang) was born to bring efficiency and elegance for your JSON API server implementations.
 
 ## Features
 
-- 100% PSR-7 compatibility
-- 99% JSON API compatibility (approximately)
+- 100% [PSR-7](http://www.php-fig.org/psr/psr-7/ compatibility
+- 99% [JSON API](http://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
@@ -131,7 +133,7 @@ There is an `AbstractResourceTransformer` class for resource transformation.
  */
 public function getBook(JsonApi $jsonApi)
 {
-    $resource = BookRepository::getBook(1);
+    $book = BookRepository::getBook(1);
 
     $document = new BookDocument(
         new BookResourceTransformer(
@@ -140,11 +142,11 @@ public function getBook(JsonApi $jsonApi)
         )
     );
 
-    return $jsonApi->fetchResponse()->ok($document, $resource);
+    return $jsonApi->fetchResponse()->ok($document, $book);
 }
 ```
 
-#### Example resource creation
+##### Example resource creation
 
 ```php
 /**
@@ -155,7 +157,7 @@ public function createBook(JsonApi $jsonApi)
 {
     // Hydrating the book from the request
     $hydrator = new CreateBookHydator();
-    $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
+    $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
     // Saving the newly created book
 
@@ -168,7 +170,7 @@ public function createBook(JsonApi $jsonApi)
     );
 
     // Responding with 201 Created status code and returning the new book resource
-    return $jsonApi->createResponse()->created($document, $resource);
+    return $jsonApi->createResponse()->created($document, $book);
 }
 ```
 
