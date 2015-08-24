@@ -69,22 +69,9 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     public function getMetaResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode)
     {
         $this->initializeDocument($resource);
-        $content = $this->transformContent($request);
+        $content = $this->transformBaseContent();
 
-        $metaContent = [];
-        if (isset($content["jsonApi"])) {
-            $metaContent = $content["jsonApi"];
-        }
-
-        if (isset($content["links"])) {
-            $metaContent = $content["links"];
-        }
-
-        if (isset($content["meta"])) {
-            $metaContent = $content["meta"];
-        }
-
-        return $this->doGetResponse($response, $responseCode, $metaContent);
+        return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
