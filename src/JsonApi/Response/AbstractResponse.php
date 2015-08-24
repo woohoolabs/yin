@@ -81,7 +81,6 @@ abstract class AbstractResponse
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
      * @param mixed $resource
@@ -89,13 +88,12 @@ abstract class AbstractResponse
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentMetaResponse(
-        RequestInterface $request,
         ResponseInterface $response,
         AbstractCompoundDocument $document,
         $resource,
         $statusCode
     ) {
-        return $document->getMetaResponse($response, $resource, $request, $statusCode);
+        return $document->getMetaResponse($response, $resource, $statusCode);
     }
 
     /**

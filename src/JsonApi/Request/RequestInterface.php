@@ -6,6 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 interface RequestInterface extends ServerRequestInterface
 {
     /**
+     * Validates if the current request's Content-Type header suits the JSON API schema.
+     *
      * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateContentTypeHeader();

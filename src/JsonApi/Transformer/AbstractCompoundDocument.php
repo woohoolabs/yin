@@ -62,11 +62,10 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param mixed $resource
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getMetaResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode)
+    public function getMetaResponse(ResponseInterface $response, $resource, $responseCode)
     {
         $this->initializeDocument($resource);
         $content = $this->transformBaseContent();

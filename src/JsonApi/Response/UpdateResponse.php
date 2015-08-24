@@ -48,7 +48,7 @@ class UpdateResponse extends AbstractResponse
      */
     public function okWithMeta(AbstractCompoundDocument $document, $resource)
     {
-        return $this->getDocumentMetaResponse($this->request, $this->response, $document, $resource, 200);
+        return $this->getDocumentMetaResponse($this->response, $document, $resource, 200);
     }
 
     /**
