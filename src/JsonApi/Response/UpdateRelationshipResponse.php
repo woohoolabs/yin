@@ -33,17 +33,17 @@ class UpdateRelationshipResponse extends AbstractResponse
      * representation of the updated relationship(s)."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $resource)
+    public function ok(AbstractCompoundDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,
             $this->request,
             $this->response,
             $document,
-            $resource,
+            $domainObject,
             200
         );
     }
@@ -57,17 +57,17 @@ class UpdateRelationshipResponse extends AbstractResponse
      * MUST NOT include a representation of the updated relationship(s)."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $resource)
+    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,
             $this->request,
             $this->response,
             $document,
-            $resource,
+            $domainObject,
             200
         );
     }

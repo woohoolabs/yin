@@ -31,17 +31,17 @@ class FetchRelationshipResponse extends AbstractResponse
      * "A server MUST respond to a successful request to fetch a relationship with a 200 OK response."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $resource)
+    public function ok(AbstractCompoundDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,
             $this->request,
             $this->response,
             $document,
-            $resource,
+            $domainObject,
             200
         );
     }

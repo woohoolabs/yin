@@ -20,10 +20,10 @@ class GetUserAction
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 
-        $resource = UserRepository::getUser($id);
+        $user = UserRepository::getUser($id);
 
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $jsonApi->fetchResponse()->ok($document, $resource);
+        return $jsonApi->fetchResponse()->ok($document, $user);
     }
 }

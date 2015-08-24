@@ -18,7 +18,7 @@ class CreateBookAction
     {
         // Hydrating the book from the request
         $hydrator = new BookHydator();
-        $resource = $hydrator->hydrate($jsonApi->getRequest(), []);
+        $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
         // Creating the BookDocument to be sent as the response
         $document = new BookDocument(
@@ -26,6 +26,6 @@ class CreateBookAction
         );
 
         // Responding with 201 Created status code and returning the new book resource
-        return $jsonApi->createResponse()->created($document, $resource);
+        return $jsonApi->createResponse()->created($document, $book);
     }
 }

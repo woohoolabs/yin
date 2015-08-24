@@ -22,66 +22,66 @@ class UserResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return string
      */
-    public function getType($resource)
+    public function getType($user)
     {
         return "user";
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return string
      */
-    public function getId($resource)
+    public function getId($user)
     {
-        return $resource["id"];
+        return $user["id"];
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return array
      */
-    public function getMeta($resource)
+    public function getMeta($user)
     {
         return [];
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource)
+    public function getLinks($user)
     {
         return null;
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
-    public function getAttributes($resource)
+    public function getAttributes($user)
     {
         return new Attributes(
             [
-                "firstname" => function($resource) { return $resource["firstname"]; },
-                "surname" => function($resource) { return $resource["lastname"]; },
+                "firstname" => function(array $user) { return $user["firstname"]; },
+                "surname" => function(array $user) { return $user["lastname"]; },
             ]
         );
     }
 
     /**
-     * @param array $resource
+     * @param array $user
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($user)
     {
         return new Relationships(
             [
-                "contacts" => function($resource) {
+                "contacts" => function(array $user) {
                     return ToManyRelationship::create()
-                        ->setData($resource["contacts"], $this->contactTransformer);
+                        ->setData($user["contacts"], $this->contactTransformer);
                 }
             ]
         );

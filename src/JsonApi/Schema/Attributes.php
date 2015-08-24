@@ -36,18 +36,18 @@ class Attributes
     }
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param string $resourceType
      * @return array
      */
-    public function transform($resource, RequestInterface $request, $resourceType)
+    public function transform($domainObject, RequestInterface $request, $resourceType)
     {
         $attributes = [];
 
         foreach ($this->attributes as $name => $attribute) {
             if ($request->isIncludedField($resourceType, $name)) {
-                $attributes[$name] = $attribute($resource, $request);
+                $attributes[$name] = $attribute($domainObject, $request);
             }
         }
 

@@ -26,7 +26,7 @@ class UpdateBookAction
 
         // Hydrating the book from the request
         $hydrator = new BookHydator();
-        $resource = $hydrator->hydrate($jsonApi->getRequest(), $book);
+        $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
 
         // Creating the BookDocument to be sent as the response
         $document = new BookDocument(
@@ -34,6 +34,6 @@ class UpdateBookAction
         );
 
         // Responding with 200 Ok status code and returning the new book resource
-        return $jsonApi->updateResponse()->ok($document, $resource);
+        return $jsonApi->updateResponse()->ok($document, $book);
     }
 }

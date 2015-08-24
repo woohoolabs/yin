@@ -37,43 +37,43 @@ class BookHydator extends AbstractHydrator
     }
 
     /**
-     * @param array $resource
+     * @param array $book
      * @param string $id
      * @return mixed
      */
-    protected function setId($resource, $id)
+    protected function setId($book, $id)
     {
-        $resource["id"] = $id;
+        $book["id"] = $id;
 
-        return $resource;
+        return $book;
     }
 
     /**
-     * @param array $resource
+     * @param array $book
      * @return array
      */
-    protected function getAttributeHydrator($resource)
+    protected function getAttributeHydrator($book)
     {
         return [
-            "title" => function(array $resource, $attribute, $data)  { $resource["title"] = $attribute; return $resource; },
-            "pages" => function(array &$resource, $attribute, $data) { $resource["pages"] = $attribute; }
+            "title" => function(array $book, $attribute, $data)  { $book["title"] = $attribute; return $book; },
+            "pages" => function(array &$book, $attribute, $data) { $book["pages"] = $attribute; }
         ];
     }
 
     /**
-     * @parm array $resource
+     * @parm array $book
      * @return array
      */
-    protected function getRelationshipHydrator($resource)
+    protected function getRelationshipHydrator($book)
     {
         return [
-            "authors" => function(array $resource, ToManyRelationship $authors, $data) {
-                $resource["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
+            "authors" => function(array $book, ToManyRelationship $authors, $data) {
+                $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
-                return $resource;
+                return $book;
             },
-            "publisher" => function(array &$resource, ToOneRelationship $publisher, $data) {
-                $resource["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+            "publisher" => function(array &$book, ToOneRelationship $publisher, $data) {
+                $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];
     }

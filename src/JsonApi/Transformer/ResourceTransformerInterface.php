@@ -7,27 +7,27 @@ use WoohooLabs\Yin\JsonApi\Schema\Included;
 interface ResourceTransformerInterface
 {
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return array|null
      */
-    public function transformToResourceIdentifier($resource);
+    public function transformToResourceIdentifier($domainObject);
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @return array|null
      */
     public function transformToResource(
-        $resource,
+        $domainObject,
         RequestInterface $request,
         Included $included,
         $baseRelationshipPath = ""
     );
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $relationshipName
@@ -35,7 +35,7 @@ interface ResourceTransformerInterface
      * @return array|null
      */
     public function transformRelationship(
-        $resource,
+        $domainObject,
         RequestInterface $request,
         Included $included,
         $relationshipName,

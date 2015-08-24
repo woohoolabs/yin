@@ -7,57 +7,57 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class PublisherResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return string
      */
-    public function getType($resource)
+    public function getType($publisher)
     {
         return "publisher";
     }
 
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return string
      */
-    public function getId($resource)
+    public function getId($publisher)
     {
-        return $resource["id"];
+        return $publisher["id"];
     }
 
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return array
      */
-    public function getMeta($resource)
+    public function getMeta($publisher)
     {
         return [];
     }
 
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource)
+    public function getLinks($publisher)
     {
         return null;
     }
 
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
-    public function getAttributes($resource)
+    public function getAttributes($publisher)
     {
         return new Attributes([
-            "name" => function($resource) { return $resource["name"]; },
+            "name" => function(array $publisher) { return $publisher["name"]; },
         ]);
     }
 
     /**
-     * @param mixed $resource
+     * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($publisher)
     {
         return null;
     }

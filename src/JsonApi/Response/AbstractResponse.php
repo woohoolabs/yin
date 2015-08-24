@@ -66,7 +66,7 @@ abstract class AbstractResponse
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -74,26 +74,26 @@ abstract class AbstractResponse
         RequestInterface $request,
         ResponseInterface $response,
         AbstractCompoundDocument $document,
-        $resource,
+        $domainObject,
         $statusCode
     ) {
-        return $document->getResponse($response, $resource, $request, $statusCode);
+        return $document->getResponse($response, $domainObject, $request, $statusCode);
     }
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentMetaResponse(
         ResponseInterface $response,
         AbstractCompoundDocument $document,
-        $resource,
+        $domainObject,
         $statusCode
     ) {
-        return $document->getMetaResponse($response, $resource, $statusCode);
+        return $document->getMetaResponse($response, $domainObject, $statusCode);
     }
 
     /**
@@ -101,7 +101,7 @@ abstract class AbstractResponse
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -110,10 +110,10 @@ abstract class AbstractResponse
         RequestInterface $request,
         ResponseInterface $response,
         AbstractCompoundDocument $document,
-        $resource,
+        $domainObject,
         $statusCode
     ) {
-        return $document->getRelationshipResponse($relationshipName, $response, $resource, $request, $statusCode);
+        return $document->getRelationshipResponse($relationshipName, $response, $domainObject, $request, $statusCode);
     }
 
     /**

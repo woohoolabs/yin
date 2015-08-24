@@ -25,12 +25,12 @@ class CreateResponse extends AbstractResponse
      * successfully, the server MUST return a 201 Created status code."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function created(AbstractCompoundDocument $document, $resource)
+    public function created(AbstractCompoundDocument $document, $domainObject)
     {
-        $response = self::getDocumentResourceResponse($this->request, $this->response, $document, $resource, 201);
+        $response = self::getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 201);
 
         $links = $document->getLinks();
         if ($links !== null && $links->getSelf() !== null) {

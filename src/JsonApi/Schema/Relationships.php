@@ -37,7 +37,7 @@ class Relationships
     }
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
@@ -45,7 +45,7 @@ class Relationships
      * @return array
      */
     public function transform(
-        $resource,
+        $domainObject,
         RequestInterface $request,
         Included $included,
         $resourceType,
@@ -58,7 +58,7 @@ class Relationships
         foreach ($this->relationships as $relationshipName => $relationshipCallback) {
             $relationship = $this->transformRelationship(
                 $relationshipName,
-                $resource,
+                $domainObject,
                 $request,
                 $included,
                 $resourceType,
@@ -75,7 +75,7 @@ class Relationships
 
     /**
      * @param string $relationshipName
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
@@ -84,7 +84,7 @@ class Relationships
      */
     public function transformRelationship(
         $relationshipName,
-        $resource,
+        $domainObject,
         RequestInterface $request,
         Included $included,
         $resourceType,
@@ -96,7 +96,7 @@ class Relationships
 
         $relationshipCallback = $this->relationships[$relationshipName];
         /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-        $relationship = $relationshipCallback($resource);
+        $relationship = $relationshipCallback($domainObject);
 
         return $relationship->transform(
             $request,

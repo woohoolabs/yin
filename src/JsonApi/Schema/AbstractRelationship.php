@@ -104,7 +104,7 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
@@ -112,7 +112,7 @@ abstract class AbstractRelationship
      * @return array
      */
     protected function transformResource(
-        $resource,
+        $domainObject,
         RequestInterface $request,
         Included $included,
         $baseRelationshipPath,
@@ -121,7 +121,7 @@ abstract class AbstractRelationship
         if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
             $included->addIncludedResource(
                 $this->resourceTransformer->transformToResource(
-                    $resource,
+                    $domainObject,
                     $request,
                     $included,
                     $baseRelationshipPath
@@ -129,6 +129,6 @@ abstract class AbstractRelationship
             );
         }
 
-        return $this->resourceTransformer->transformToResourceIdentifier($resource);
+        return $this->resourceTransformer->transformToResourceIdentifier($domainObject);
     }
 }

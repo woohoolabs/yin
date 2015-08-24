@@ -34,64 +34,64 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return string
      */
-    public function getType($resource)
+    public function getType($book)
     {
         return "book";
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return string
      */
-    public function getId($resource)
+    public function getId($book)
     {
-        return $resource["id"];
+        return $book["id"];
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return array
      */
-    public function getMeta($resource)
+    public function getMeta($book)
     {
         return [];
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource)
+    public function getLinks($book)
     {
         return null;
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
      */
-    public function getAttributes($resource)
+    public function getAttributes($book)
     {
         return new Attributes(
             [
-                "title" => function($resource) { return $resource["title"]; },
-                "pages" => function($resource) { return $this->toInt($resource["pages"]); },
+                "title" => function(array $book) { return $book["title"]; },
+                "pages" => function(array $book) { return $this->toInt($book["pages"]); },
             ]
         );
     }
 
     /**
-     * @param mixed $resource
+     * @param array $book
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($book)
     {
         return new Relationships(
             [
-                "authors" => function($resource) {
+                "authors" => function(array $book) {
                     return ToManyRelationship::create()
                         ->setLinks(
                             new Links(
@@ -100,9 +100,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
                                 ]
                             )
                         )
-                        ->setData($resource["authors"], $this->authorTransformer);
+                        ->setData($book["authors"], $this->authorTransformer);
                 },
-                "publisher" => function($resource) {
+                "publisher" => function($book) {
                     return ToOneRelationship::create()
                         ->setLinks(
                             new Links(
@@ -111,7 +111,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                                 ]
                             )
                         )
-                        ->setData($resource["publisher"], $this->publisherTransformer);
+                        ->setData($book["publisher"], $this->publisherTransformer);
                 }
             ]
         );

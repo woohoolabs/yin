@@ -26,12 +26,12 @@ class UpdateResponse extends AbstractResponse
      * a 200 OK response."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $resource)
+    public function ok(AbstractCompoundDocument $document, $domainObject)
     {
-        return $this->getDocumentResourceResponse($this->request, $this->response, $document, $resource, 200);
+        return $this->getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 200);
     }
 
     /**
@@ -43,12 +43,12 @@ class UpdateResponse extends AbstractResponse
      * MUST NOT include a representation of the updated resource(s)."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $resource)
+    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
     {
-        return $this->getDocumentMetaResponse($this->response, $document, $resource, 200);
+        return $this->getDocumentMetaResponse($this->response, $document, $domainObject, 200);
     }
 
     /**

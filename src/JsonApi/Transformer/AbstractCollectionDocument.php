@@ -28,7 +28,7 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     {
         $this->data = [];
 
-        foreach ($this->resource as $item) {
+        foreach ($this->domainObject as $item) {
             $this->data[] = $this->transformer->transformToResource($item, $request, $this->included);
         }
     }
@@ -42,10 +42,10 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $request = new RelationshipRequest($request, $this->transformer->getType($this->resource), $relationshipName);
+        $request = new RelationshipRequest($request, $this->transformer->getType($this->domainObject), $relationshipName);
         $content = [];
 
-        foreach ($this->resource as $item) {
+        foreach ($this->domainObject as $item) {
             $this->data[] = $this->transformer->transformRelationship(
                 $item,
                 $request,

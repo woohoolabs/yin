@@ -10,7 +10,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     /**
      * @var mixed
      */
-    protected $resource;
+    protected $domainObject;
 
     /**
      * @var mixed
@@ -40,17 +40,17 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * Returns a response with a status code of $responseCode, containing all the provided sections of the document,
-     * assembled based on the $resource.
+     * assembled based on the $domainObject.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $resource, RequestInterface $request, $responseCode)
+    public function getResponse(ResponseInterface $response, $domainObject, RequestInterface $request, $responseCode)
     {
-        $this->initializeDocument($resource);
+        $this->initializeDocument($domainObject);
         $content = $this->transformContent($request);
 
         return $this->doGetResponse($response, $responseCode, $content);
@@ -58,16 +58,16 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
-     * the "included" sections) about the document, assembled based on the $resource.
+     * the "included" sections) about the document, assembled based on the $domainObject.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getMetaResponse(ResponseInterface $response, $resource, $responseCode)
+    public function getMetaResponse(ResponseInterface $response, $domainObject, $responseCode)
     {
-        $this->initializeDocument($resource);
+        $this->initializeDocument($domainObject);
         $content = $this->transformBaseContent();
 
         return $this->doGetResponse($response, $responseCode, $content);
@@ -75,11 +75,11 @@ abstract class AbstractCompoundDocument extends AbstractDocument
 
     /**
      * Returns a response with a status code of $responseCode, containing the $relationshipName relationship object as
-     * the primary data, assembled based on the $resource.
+     * the primary data, assembled based on the $domainObject.
      *
      * @param string $relationshipName
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -87,22 +87,22 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     public function getRelationshipResponse(
         $relationshipName,
         ResponseInterface $response,
-        $resource,
+        $domainObject,
         RequestInterface $request,
         $responseCode
     ) {
-        $this->initializeDocument($resource);
+        $this->initializeDocument($domainObject);
         $content = $this->transformRelationshipContent($relationshipName, $request);
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
-     * @param mixed $resource
+     * @param mixed $domainObject
      */
-    private function initializeDocument($resource)
+    private function initializeDocument($domainObject)
     {
-        $this->resource = $resource;
+        $this->domainObject = $domainObject;
         $this->included = new Included();
     }
 

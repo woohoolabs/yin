@@ -15,10 +15,10 @@ class GetUsersAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        $resource = UserRepository::getUsers();
+        $user = UserRepository::getUsers();
 
         $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
-        return $jsonApi->fetchResponse()->ok($document, $resource);
+        return $jsonApi->fetchResponse()->ok($document, $user);
     }
 }

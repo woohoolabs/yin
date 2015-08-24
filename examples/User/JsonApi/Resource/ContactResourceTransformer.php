@@ -9,63 +9,63 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class ContactResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @param array $resource
+     * @param array $contact
      * @return string
      */
-    public function getType($resource)
+    public function getType($contact)
     {
         return "contact";
     }
 
     /**
-     * @param array $resource
+     * @param array $contact
      * @return string
      */
-    public function getId($resource)
+    public function getId($contact)
     {
-        return $resource["id"];
+        return $contact["id"];
     }
 
     /**
-     * @param array $resource
+     * @param array $contact
      * @return array
      */
-    public function getMeta($resource)
+    public function getMeta($contact)
     {
         return [];
     }
 
     /**
-     * @param array $resource
+     * @param array $contact
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
-    public function getLinks($resource)
+    public function getLinks($contact)
     {
         return new Links(
             [
-                "self" => new Link("http://example.com/api/contacts/" . $this->getId($resource))
+                "self" => new Link("http://example.com/api/contacts/" . $this->getId($contact))
             ]
         );
     }
 
     /**
-     * @param array $resource
+     * @param array $contact
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
-    public function getAttributes($resource)
+    public function getAttributes($contact)
     {
         return new Attributes(
             [
-                $resource["type"] => function($resource) { return $resource["value"]; },
+                $contact["type"] => function(array $contact) { return $contact["value"]; },
             ]
         );
     }
 
     /**
-     * @param array $resource
+     * @param array $contact
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */
-    public function getRelationships($resource)
+    public function getRelationships($contact)
     {
         return null;
     }

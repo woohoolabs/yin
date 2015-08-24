@@ -21,12 +21,12 @@ class GetBookRelationshipsAction
             die("You must define the 'relationship' query parameter with a value of 'authors' or 'publisher'!");
         }
 
-        $resource = BookRepository::getBook(1);
+        $book = BookRepository::getBook(1);
 
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $resource);
+        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $book);
    }
 }

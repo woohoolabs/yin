@@ -21,12 +21,12 @@ class GetBookAction
             die("You must define the 'id' query parameter with a value of '1'!");
         }
 
-        $resource = BookRepository::getBook($id);
+        $book = BookRepository::getBook($id);
 
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        return $jsonApi->fetchResponse()->ok($document, $resource);
+        return $jsonApi->fetchResponse()->ok($document, $book);
     }
 }

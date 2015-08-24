@@ -24,12 +24,12 @@ class DeleteResponse extends AbstractResponse
      * with only top-level meta data."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
-     * @param mixed $resource
+     * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $resource)
+    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
     {
-        return $this->getDocumentMetaResponse($this->response, $document, $resource, 200);
+        return $this->getDocumentMetaResponse($this->response, $document, $domainObject, 200);
     }
 
     /**
