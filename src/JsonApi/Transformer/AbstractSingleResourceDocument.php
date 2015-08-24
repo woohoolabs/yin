@@ -38,7 +38,11 @@ abstract class AbstractSingleResourceDocument extends AbstractCompoundDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $request = new RelationshipRequest($request, $this->transformer->getType($this->domainObject), $relationshipName);
+        $request = new RelationshipRequest(
+            $request,
+            $this->transformer->getType($this->domainObject),
+            $relationshipName
+        );
 
         return $this->transformer->transformRelationship(
             $this->domainObject,
