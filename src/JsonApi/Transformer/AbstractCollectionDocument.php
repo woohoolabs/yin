@@ -42,7 +42,11 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $request = new RelationshipRequest($request, $this->transformer->getType($this->domainObject), $relationshipName);
+        $request = new RelationshipRequest(
+            $request,
+            $this->transformer->getType($this->domainObject),
+            $relationshipName
+        );
         $content = [];
 
         foreach ($this->domainObject as $item) {
