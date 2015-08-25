@@ -65,14 +65,8 @@ provides an abstract class for each use-case which you have to extend.
 
 ##### Documents for successful responses
 
-Depending on the cardinality of the resources to be retrieved, you can extend the following classes:
-
-- `AbstractSingleResourceDocument`: It can be used for successful responses containing information about a
-single resource
-- `AbstractCollectionDocument`: It can be used for successful responses containing information about a collection
-of resources
-
-They have the same abstract methods which you have to implement:
+Depending on the cardinality of the resources to be retrieved, you can extend either `AbstractSingleResourceDocument` or
+`AbstractCollectionDocument`. They have the same abstract methods which you have to implement:
 
 ```php
 /**
@@ -90,7 +84,7 @@ public function getJsonApi()
 ```
 
 The description says it very clear: if you want a jsonApi section in your response, then create a new `JsonApi` object.
-Its constructor expects a JSON API version number and an optional meta object (as an array).
+Its constructor expects the JSON API version number and an optional meta object (as an array).
 
 ```php
 /**
@@ -104,7 +98,7 @@ Its constructor expects a JSON API version number and an optional meta object (a
 public function getMeta()
 {
     return [
-        "profile" => "http://api.example.com/profile"
+        "profile" => "http://api.example.com/profile",
         "page" => [
             "offset" => $this->domainObject->getOffset(),
             "limit" => $this->domainObject->getLimit(),
@@ -118,8 +112,8 @@ Documents can also have a meta section which can contain any non-standard inform
 [profile](http://jsonapi.org/extensions/#profiles) to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is an imaginary collection),
-which is transformed into the primary resource. Important to know that it is lazily instantiated: instantiation takes
-place when the transformation starts (hence just before these abstract methods are invoked).
+which will be transformed into the primary resource. Important to know that it is lazily instantiated:
+it takes place when the transformation starts (hence just before these abstract methods are invoked).
 
 ```php
 /**
@@ -144,7 +138,7 @@ This time, we want a self link to appear in the document. For this purpose, we u
 to obtain the ID of the primary resource.
 
 The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in that they
-regard to `domainObject` in different ways: the first one regards it as a single entity while the latter regards it
+regard the `domainObject` in different ways: the first one regards it as a single entity while the latter regards it
 as an iterable collection of entities.
 
 ##### Documents for error responses
