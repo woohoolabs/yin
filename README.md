@@ -137,8 +137,8 @@ public function getLinks()
 This time, we want a self link to appear in the document. For this purpose, we utilize the resource transformer
 to obtain the ID of the primary resource.
 
-The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in that they
-regard the `domainObject` in different ways: the first one regards it as a single entity while the latter regards it
+The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in the way they
+regard the `domainObject`: the first one regards it as a single entity while the latter regards it
 as an iterable collection of entities.
 
 ##### Documents for error responses
