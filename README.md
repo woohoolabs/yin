@@ -7,10 +7,10 @@
 [![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 [![License](https://img.shields.io/packagist/l/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
 
-**Woohoo Labs. Yin is a [PSR-7](http://www.php-fig.org/psr/psr-7/) compatible PHP library for HATEOAS API-s.**
+**Woohoo Labs. Yin is a PSR-7 compatible PHP library for HATEOAS API-s.**
 
-Our aim was to create an elegant framework which helps you to build beautiful HATEOAS API-s for your clients.
-Woohoo labs. Yin currently supports the recently released [JSON API](http://jsonapi.org/) 1.0 specification.
+Our aim was to create an elegant framework which helps you to build beautifully crafted HATEOAS API-s.
+Currently, Woohoo labs. Yin only supports the JSON API specification.
 
 ## Introduction
 
@@ -61,60 +61,96 @@ And a `JsonApi` class will be responsible for the instrumentation.
 
 The JSON API spec differentiates three main types of documents: documents containing information about a resource,
 documents containing information about a collection of resources and error documents. Woohoo Labs. Yin
-provides an abstract class for each use-case which you have to extend:
+provides an abstract class for each use-case which you have to extend.
 
-##### `AbstractSingleResourceDocument`
+##### Documents for successful responses
 
-It can be used for successful responses containing information about a single resource.
+Depending on the cardinality of the resources to be retrieved, you can extend the following classes:
+
+- `AbstractSingleResourceDocument`: It can be used for successful responses containing information about a
+single resource
+- `AbstractCollectionDocument`: It can be used for successful responses containing information about a collection
+of resources
+
+They have the same abstract methods which you have to implement:
 
 ```php
-class BookDocument extends AbstractSingleResourceDocument
+/**
+ * Provides information about the "jsonApi" section of the current document.
+ *
+ * The method returns a new JsonApi schema object if this section should be present or null
+ * if it should be omitted from the response.
+ *
+ * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+ */
+public function getJsonApi()
 {
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer $transformer
-     */
-    public function __construct(BookResourceTransformer $transformer)
-    {
-        parent::__construct($transformer);
-    }
-
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
-     */
-    public function getJsonApi()
-    {
-        return null;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMeta()
-    {
-        return [];
-    }
-
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
-     */
-    public function getLinks()
-    {
-        return new Links(
-            [
-                "self" => new Link("http://example.com/api/books/" . $this->transformer->getId($this->resource))
-            ]
-        );
-    }
+    return new JsonApi("1.0");
 }
 ```
 
-##### `AbstractCollectionDocument`
+The description says it very clear: if you want a jsonApi section in your response, then create a new `JsonApi` object.
+Its constructor expects a JSON API version number and an optional meta object (as an array).
 
-It can be used for successful responses containing information about a collection of resources.
+```php
+/**
+ * Provides information about the "meta" section of the current document.
+ *
+ * The method returns an array of non-standard meta information about the document. If
+ * this array is empty, the section won't appear in the response.
+ *
+ * @return array
+ */
+public function getMeta()
+{
+    return [
+        "profile" => "http://api.example.com/profile"
+        "page" => [
+            "offset" => $this->domainObject->getOffset(),
+            "limit" => $this->domainObject->getLimit(),
+            "total" => $this->domainObject->getCount()
+        ] 
+    ];
+}
+```
 
-##### `AbstractErrorDocument`
+Documents can also have a meta section which can contain any non-standard information. The example above adds a
+[profile](http://jsonapi.org/extensions/#profiles) to the document.
 
-It can be used for error responses.
+Note that the `domainObject` property is a variable of any type (in this case it is an imaginary collection),
+which is transformed into the primary resource. Important to know that it is lazily instantiated: instantiation takes
+place when the transformation starts (hence just before these abstract methods are invoked).
+
+```php
+/**
+ * Provides information about the "links" section of the current document.
+ *
+ * The method returns a new Links schema object if you want to provide linkage data
+ * for the document or null if the section should be omitted from the response.
+ *
+ * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+ */
+public function getLinks()
+{
+    return new Links(
+        [
+            "self" => new Link("http://example.com/api/books/" . $this->transformer->getId($this->domainObject))
+        ]
+    );
+}
+```
+
+This time, we want a self link to appear in the document. For this purpose, we utilize the resource transformer
+to obtain the ID of the primary resource.
+
+The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in that they
+regard to `domainObject` in different ways: the first one regards it as a single entity while the latter regards it
+as an iterable collection of entities.
+
+##### Documents for error responses
+
+- `AbstractErrorDocument`: It can be used to create reusable error responses
+- `ErrorDocument`: It can be used to build error responses on-the-fly
 
 #### Transformers
 
