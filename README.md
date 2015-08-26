@@ -143,12 +143,173 @@ as an iterable collection of entities.
 
 ##### Documents for error responses
 
-- `AbstractErrorDocument`: It can be used to create reusable error responses
-- `ErrorDocument`: It can be used to build error responses on-the-fly
+An `AbstractErrorDocument` can be used to create reusable documents for error responses. It requires the same
+abstract methods to be implemented as the successful ones, but they differ from their usage: the `addError()`
+method of the `AbstractErrorDocument` can be used to add errors to it.
 
-#### Transformers
+```php
+/** @var AbstractErrorDocument $errorDocument */
+$errorDocument = new MyErrorDocument();
+$errorDocument->addError(new MyError());
+```
 
-There is an `AbstractResourceTransformer` class for resource transformation.
+There is an `ErrorDocument` too, which makes it possible to build error responses on-the-fly:
+
+```php
+/** @var ErrorDocument $errorDocument */
+$errorDocument = new ErrorDocument();
+$errorDocument->setJsonApi(new JsonApi("1.0"));
+$errorDocument->setLinks(Links::withSelf("http://example.com/api/errors/404")));
+```
+
+#### Resource transformers
+
+Documents for successful responses contain one or more resources. A resource is regarded by Woohoo Labs. Yin as a
+domain object which is transformed according to the rules of the JSON API specification. The 
+`AbstractResourceTransformer` class is responsible for this job. It needs several abstract methods to be implemented,
+most of which are the same as it was seen with the documents. Here is an example resource transformer:
+
+```php
+class BookResourceTransformer extends AbstractResourceTransformer
+    /**
+     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer
+     */
+    private $authorTransformer;
+
+    /**
+     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer
+     */
+    private $publisherTransformer;
+
+    /**
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
+     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
+     */
+    public function __construct(
+        AuthorResourceTransformer $authorTransformer,
+        PublisherResourceTransformer $publisherTransformer
+    ) {
+        $this->authorTransformer = $authorTransformer;
+        $this->publisherTransformer = $publisherTransformer;
+    }
+
+    /**
+     * Provides information about the "type" section of the current resource.
+     *
+     * The method returns the type of the current resource.
+     *
+     * @param array $book
+     * @return string
+     */
+    public function getType($book)
+    {
+        return "book";
+    }
+
+    /**
+     * Provides information about the "meta" section of the current resource.
+     *
+     * The method returns the ID of the current resource which should be a UUID.
+     *
+     * @param array $book
+     * @return string
+     */
+    public function getId($book)
+    {
+        return $book["id"];
+    }
+
+    /**
+     * Provides information about the "meta" section of the current resource.
+     *
+     * The method returns an array of non-standard meta information about the resource. If
+     * this array is empty, the section won't appear in the response.
+     *
+     * @param array $book
+     * @return array
+     */
+    public function getMeta($book)
+    {
+        return [];
+    }
+
+    /**
+     * Provides information about the "links" section of the current resource.
+     *
+     * The method returns a new Links schema object if you want to provide linkage
+     * data about the resource or null if it should be omitted from the response.
+     *
+     * @param array $book
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     */
+    public function getLinks($book)
+    {
+        return new Links(
+            [
+                "self" => "http://example.com/api/books/" . $this->getId($book)
+            ]
+        );
+    }
+
+    /**
+     * Provides information about the "attributes" section of the current resource.
+     *
+     * The method returns a new Attributes schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
+     * @param array $book
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes
+     */
+    public function getAttributes($book)
+    {
+        return new Attributes(
+            [
+                "title" => function(array $book) { return $book["title"]; },
+                "pages" => function(array $book) { return $this->toInt($book["pages"]); },
+            ]
+        );
+    }
+
+    /**
+     * Provides information about the "relationships" section of the current resource.
+     *
+     * The method returns a new Relationships schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
+     * @param array $book
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     */
+    public function getRelationships($book)
+    {
+        return new Relationships(
+            [
+                "authors" => function(array $book) {
+                    return ToManyRelationship::create()
+                        ->setLinks(
+                            new Links(
+                                [
+                                    "self" => new Link("http://example.com/api/books/relationships/authors")
+                                ]
+                            )
+                        )
+                        ->setData($book["authors"], $this->authorTransformer);
+                },
+                "publisher" => function($book) {
+                    return ToOneRelationship::create()
+                        ->setLinks(
+                            new Links(
+                                [
+                                    "self" => new Link("http://example.com/api/books/relationships/publisher")
+                                ]
+                            )
+                        )
+                        ->setData($book["publisher"], $this->publisherTransformer);
+                }
+            ]
+        );
+    }
+}
+```
 
 #### `JsonApi` class
 
@@ -163,8 +324,10 @@ There is an `AbstractResourceTransformer` class for resource transformation.
  */
 public function getBook(JsonApi $jsonApi)
 {
+    // Fetching the book with an ID of 1
     $book = BookRepository::getBook(1);
 
+    // Instantiating the book document
     $document = new BookDocument(
         new BookResourceTransformer(
             new AuthorResourceTransformer(),
@@ -172,6 +335,7 @@ public function getBook(JsonApi $jsonApi)
         )
     );
 
+    // Responging with "200 Ok" status code along with the book document
     return $jsonApi->fetchResponse()->ok($document, $book);
 }
 ```
@@ -191,7 +355,7 @@ public function createBook(JsonApi $jsonApi)
 
     // Saving the newly created book
 
-    // Creating the BookDocument to be sent as the response
+    // Creating the book document to be sent as the response
     $document = new BookDocument(
         new BookResourceTransformer(
             new AuthorResourceTransformer(), 
@@ -199,7 +363,7 @@ public function createBook(JsonApi $jsonApi)
         )
     );
 
-    // Responding with 201 Created status code and returning the new book resource
+    // Responding with "201 Created" status code along with the new book document
     return $jsonApi->createResponse()->created($document, $book);
 }
 ```
