@@ -6,13 +6,13 @@ CHANGED:
 
 FIXED:
 
-## 0.4.1 - Unreleased
+## 0.4.1 - 2015-08-26
 
 FIXED:
 
 - Some exceptions had errorous namespaces
 
-## 0.4.0 - 201-08-26
+## 0.4.0 - 2015-08-26
 
 ADDED:
 
