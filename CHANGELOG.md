@@ -1,4 +1,12 @@
-## 0.4.0 - Unreleased
+## 0.5.0 - Unreleased
+
+ADDED:
+
+CHANGED:
+
+FIXED:
+
+## 0.4.0 - 201-08-26
 
 ADDED:
 

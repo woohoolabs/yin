@@ -308,6 +308,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
 }
 ```
 
+#### Hydrators
+
 #### `JsonApi` class
 
 #### Examples
