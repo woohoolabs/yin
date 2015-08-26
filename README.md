@@ -286,16 +286,20 @@ class BookResourceTransformer extends AbstractResourceTransformer
             [
                 "authors" => function(array $book) {
                     return ToManyRelationship::create()
-                        ->setLinks(new Links([
-                            "self" => new Link("http://example.com/api/books/relationships/authors")
-                        ]))
+                        ->setLinks(
+                            Links::withSelf(
+                                new Link("http://example.com/api/books/relationships/authors")
+                            )
+                        )
                         ->setData($book["authors"], $this->authorTransformer);
                 },
                 "publisher" => function($book) {
                     return ToOneRelationship::create()
-                        ->setLinks(new Links([
-                            "self" => new Link("http://example.com/api/books/relationships/publisher")
-                        ]))
+                        ->setLinks(
+                            Links::withSelf(
+                                new Link("http://example.com/api/books/relationships/publisher")
+                            )
+                        )
                         ->setData($book["publisher"], $this->publisherTransformer);
                 }
             ]
@@ -376,7 +380,7 @@ Some example URL-s to play with:
 ## Internals
 
 Notice how attribute and relationship transformation works (e.g.:
-[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/Book/JsonApi/Resource/BookResourceTransformer.php#L80)): 
+[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/Book/JsonApi/Resource/BookResourceTransformer.php#L85)): 
 you have to define an anonymous function for each attribute and relationship. This design allows us
 to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
 are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).
