@@ -7,6 +7,10 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class PublisherResourceTransformer extends AbstractResourceTransformer
 {
     /**
+     * Provides information about the "type" section of the current resource.
+     *
+     * The method returns the type of the current resource.
+     *
      * @param array $publisher
      * @return string
      */
@@ -16,6 +20,10 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Provides information about the "id" section of the current resource.
+     *
+     * The method returns the ID of the current resource which should be a UUID.
+     *
      * @param array $publisher
      * @return string
      */
@@ -25,6 +33,11 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Provides information about the "meta" section of the current resource.
+     *
+     * The method returns an array of non-standard meta information about the resource. If
+     * this array is empty, the section won't appear in the response.
+     *
      * @param array $publisher
      * @return array
      */
@@ -34,6 +47,11 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Provides information about the "links" section of the current resource.
+     *
+     * The method returns a new Links schema object if you want to provide linkage
+     * data about the resource or null if it should be omitted from the response.
+     *
      * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */
@@ -43,6 +61,11 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Provides information about the "attributes" section of the current resource.
+     *
+     * The method returns a new Attributes schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
      * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
      */
@@ -54,6 +77,11 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Provides information about the "relationships" section of the current resource.
+     *
+     * The method returns a new Relationships schema object if you want the section to
+     * appear in the response of null if it should be omitted.
+     *
      * @param array $publisher
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
      */

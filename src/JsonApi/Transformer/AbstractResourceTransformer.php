@@ -20,7 +20,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     abstract public function getType($domainObject);
 
     /**
-     * Provides information about the "meta" section of the current resource.
+     * Provides information about the "id" section of the current resource.
      *
      * The method returns the ID of the current resource which should be a UUID.
      *

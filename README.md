@@ -66,7 +66,7 @@ provides an abstract class for each use-case which you have to extend.
 ##### Documents for successful responses
 
 Depending on the cardinality of the resources to be retrieved, you can extend either `AbstractSingleResourceDocument` or
-`AbstractCollectionDocument`. They have the same abstract methods which you have to implement:
+`AbstractCollectionDocument`. They require the same abstract methods to be implemented:
 
 ```php
 /**
@@ -143,8 +143,8 @@ as an iterable collection of entities.
 
 ##### Documents for error responses
 
-An `AbstractErrorDocument` can be used to create reusable documents for error responses. It requires the same
-abstract methods to be implemented as the successful ones, but they differ from their usage: the `addError()`
+An `AbstractErrorDocument` can be used to create reusable documents for error responses. It also requires the same
+abstract methods to be implemented as the successful documents, but they differ from their usage: the `addError()`
 method of the `AbstractErrorDocument` can be used to add errors to it.
 
 ```php
@@ -160,6 +160,7 @@ There is an `ErrorDocument` too, which makes it possible to build error response
 $errorDocument = new ErrorDocument();
 $errorDocument->setJsonApi(new JsonApi("1.0"));
 $errorDocument->setLinks(Links::withSelf("http://example.com/api/errors/404")));
+$errorDocument->addError(new MyError());
 ```
 
 #### Resource transformers
@@ -285,24 +286,16 @@ class BookResourceTransformer extends AbstractResourceTransformer
             [
                 "authors" => function(array $book) {
                     return ToManyRelationship::create()
-                        ->setLinks(
-                            new Links(
-                                [
-                                    "self" => new Link("http://example.com/api/books/relationships/authors")
-                                ]
-                            )
-                        )
+                        ->setLinks(new Links([
+                            "self" => new Link("http://example.com/api/books/relationships/authors")
+                        ]))
                         ->setData($book["authors"], $this->authorTransformer);
                 },
                 "publisher" => function($book) {
                     return ToOneRelationship::create()
-                        ->setLinks(
-                            new Links(
-                                [
-                                    "self" => new Link("http://example.com/api/books/relationships/publisher")
-                                ]
-                            )
-                        )
+                        ->setLinks(new Links([
+                            "self" => new Link("http://example.com/api/books/relationships/publisher")
+                        ]))
                         ->setData($book["publisher"], $this->publisherTransformer);
                 }
             ]
