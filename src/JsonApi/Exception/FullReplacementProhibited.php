@@ -1,5 +1,5 @@
 <?php
-namespace Src\WoohooLabs\Yin\JsonApi\Exception;
+namespace WoohooLabs\Yin\JsonApi\Exception;
 
 class FullReplacementProhibited extends \Exception
 {
