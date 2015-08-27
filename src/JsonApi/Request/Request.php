@@ -135,9 +135,7 @@ class Request implements RequestInterface
     protected function getInvalidHeaderMediaType($headerName)
     {
         foreach ($this->parseMediaTypeHeader($headerName) as $mediaType) {
-            if ($mediaType["name"] !== "application/vnd.api+json") {
-                return $mediaType["raw"];
-            } else {
+            if ($mediaType["name"] === "application/vnd.api+json") {
                 foreach ($mediaType["parameters"] as $paramName => $paramValue) {
                     if ($paramName !== "ext") {
                         return $mediaType["raw"];
@@ -405,7 +403,7 @@ class Request implements RequestInterface
      */
     public function withHeader($name, $value)
     {
-        return $this->serverRequest->withHeader($name, $value);
+        return new self($this->serverRequest->withHeader($name, $value));
     }
 
     /**
@@ -413,7 +411,7 @@ class Request implements RequestInterface
      */
     public function withAddedHeader($name, $value)
     {
-        return $this->serverRequest->withAddedHeader($name, $value);
+        return new self($this->serverRequest->withAddedHeader($name, $value));
     }
 
     /**
@@ -421,7 +419,7 @@ class Request implements RequestInterface
      */
     public function withoutHeader($name)
     {
-        return $this->serverRequest->withoutHeader($name);
+        return new self($this->serverRequest->withoutHeader($name));
     }
 
     /**
@@ -437,7 +435,7 @@ class Request implements RequestInterface
      */
     public function withBody(StreamInterface $body)
     {
-        return $this->serverRequest->withBody($body);
+        return new self($this->serverRequest->withBody($body));
     }
 
     /**
@@ -453,7 +451,7 @@ class Request implements RequestInterface
      */
     public function withRequestTarget($requestTarget)
     {
-        return $this->serverRequest->withRequestTarget($requestTarget);
+        return new self($this->serverRequest->withRequestTarget($requestTarget));
     }
 
     /**
@@ -469,7 +467,7 @@ class Request implements RequestInterface
      */
     public function withMethod($method)
     {
-        return $this->serverRequest->withMethod($method);
+        return new self($this->serverRequest->withMethod($method));
     }
 
     /**
@@ -485,7 +483,7 @@ class Request implements RequestInterface
      */
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
-        return $this->serverRequest->withUri($uri, $preserveHost);
+        return new self($this->serverRequest->withUri($uri, $preserveHost));
     }
 
     /**
@@ -509,7 +507,7 @@ class Request implements RequestInterface
      */
     public function withCookieParams(array $cookies)
     {
-        return $this->serverRequest->withCookieParams($cookies);
+        return new self($this->serverRequest->withCookieParams($cookies));
     }
 
     /**
@@ -525,7 +523,7 @@ class Request implements RequestInterface
      */
     public function withQueryParams(array $query)
     {
-        return $this->serverRequest->withQueryParams($query);
+        return new self($this->serverRequest->withQueryParams($query));
     }
 
     /**
@@ -541,7 +539,7 @@ class Request implements RequestInterface
      */
     public function withUploadedFiles(array $uploadedFiles)
     {
-        return $this->serverRequest->withUploadedFiles($uploadedFiles);
+        return new self($this->serverRequest->withUploadedFiles($uploadedFiles));
     }
 
     /**
@@ -557,7 +555,7 @@ class Request implements RequestInterface
      */
     public function withParsedBody($data)
     {
-        return $this->serverRequest->withParsedBody($data);
+        return new self($this->serverRequest->withParsedBody($data));
     }
 
     /**
@@ -581,7 +579,7 @@ class Request implements RequestInterface
      */
     public function withAttribute($name, $value)
     {
-        return $this->serverRequest->withAttribute($name, $value);
+        return new self($this->serverRequest->withAttribute($name, $value));
     }
 
     /**
@@ -589,6 +587,6 @@ class Request implements RequestInterface
      */
     public function withoutAttribute($name)
     {
-        return $this->serverRequest->withoutAttribute($name);
+        return new self($this->serverRequest->withoutAttribute($name));
     }
 }

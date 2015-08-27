@@ -6,11 +6,13 @@ CHANGED:
 
 FIXED:
 
-## 0.4.1 - 2015-08-26
+## 0.4.2 - 2015-08-27
 
 FIXED:
 
 - Some exceptions had errorous namespaces
+- `Request::with*` methods returned an instance of PSR `ServerRequestInterface`
+- Validation of the `Content-Type` and the `Accept` headers is now compliant with the spec
 
 ## 0.4.0 - 2015-08-26
 
