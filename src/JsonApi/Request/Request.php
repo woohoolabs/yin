@@ -7,6 +7,9 @@ use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
 
 class Request implements RequestInterface
 {
@@ -18,27 +21,27 @@ class Request implements RequestInterface
     /**
      * @var array
      */
-    private $includedFields = [];
+    private $includedFields;
 
     /**
      * @var array
      */
-    private $includedRelationships = [];
+    private $includedRelationships;
 
     /**
      * @var array
      */
-    private $sorting = [];
+    private $sorting;
 
     /**
      * @var array
      */
-    private $pagination = [];
+    private $pagination;
 
     /**
      * @var array
      */
-    private $filtering = [];
+    private $filtering;
 
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
@@ -46,10 +49,6 @@ class Request implements RequestInterface
     public function __construct(ServerRequestInterface $request)
     {
         $this->serverRequest = $request->withParsedBody(json_decode($request->getBody(), true));
-
-        $this->setIncludedRelationships();
-        $this->setIncludedFields();
-        $this->setSorting();
     }
 
     /**
@@ -189,6 +188,7 @@ class Request implements RequestInterface
 
     protected function setIncludedFields()
     {
+        $this->includedFields = [];
         foreach ($this->getQueryParam("fields", []) as $resourceType => $fields) {
             $this->includedFields[$resourceType] = array_flip(explode(",", $fields));
         }
@@ -200,6 +200,10 @@ class Request implements RequestInterface
      */
     public function getIncludedFields($resourceType)
     {
+        if ($this->includedFields === null) {
+            $this->setIncludedFields();
+        }
+
         return isset($this->includedFields[$resourceType]) ? array_keys($this->includedFields[$resourceType]) : [];
     }
 
@@ -210,6 +214,10 @@ class Request implements RequestInterface
      */
     public function isIncludedField($resourceType, $field)
     {
+        if ($this->includedFields === null) {
+            $this->setIncludedFields();
+        }
+
         return isset($this->includedFields[$resourceType][$field]);
     }
 
@@ -218,6 +226,8 @@ class Request implements RequestInterface
      */
     protected function setIncludedRelationships()
     {
+        $this->includedRelationships = [];
+
         $relationshipNames = explode(",", $this->getQueryParam("include", ""));
         foreach ($relationshipNames as $relationship) {
             $relationship = ".$relationship.";
@@ -244,6 +254,10 @@ class Request implements RequestInterface
      */
     public function hasIncludedRelationships()
     {
+        if ($this->includedRelationships === null) {
+            $this->setIncludedRelationships();
+        }
+
         return empty($this->includedRelationships) === false;
     }
 
@@ -267,6 +281,10 @@ class Request implements RequestInterface
      */
     public function isIncludedRelationship($baseRelationshipPath, $relationshipName)
     {
+        if ($this->includedRelationships === null) {
+            $this->setIncludedRelationships();
+        }
+
         return isset($this->includedRelationships[$baseRelationshipPath][$relationshipName]);
     }
 
@@ -280,6 +298,10 @@ class Request implements RequestInterface
      */
     public function getSorting()
     {
+        if ($this->sorting === null) {
+            $this->setSorting();
+        }
+
         return $this->sorting;
     }
 
@@ -293,12 +315,40 @@ class Request implements RequestInterface
      */
     public function getPagination()
     {
+        if ($this->pagination === null) {
+            $this->setPagination();
+        }
+
         return $this->pagination;
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     */
+    public function getPageBasedPagination()
+    {
+        return PagePagination::fromPaginationQueryParams($this->getPagination());
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination
+     */
+    public function getOffsetBasedPagination()
+    {
+        return OffsetPagination::fromPaginationQueryParams($this->getPagination());
+    }
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination
+     */
+    public function getCursorBasedPagination()
+    {
+        return CursorPagination::fromPaginationQueryParams($this->getPagination());
     }
 
     protected function setFiltering()
     {
-        $this->filtering = $this->getQueryParam("filter", null);
+        $this->filtering = $this->getQueryParam("filter", []);
     }
 
     /**
@@ -306,6 +356,10 @@ class Request implements RequestInterface
      */
     public function getFiltering()
     {
+        if ($this->filtering === null) {
+            $this->setFiltering();
+        }
+
         return $this->filtering;
     }
 
@@ -319,6 +373,15 @@ class Request implements RequestInterface
         $queryParams = $this->serverRequest->getQueryParams();
 
         return isset($queryParams[$name]) ? $queryParams[$name] : $default;
+    }
+
+    protected function initializeParsedQueryParams()
+    {
+        $this->includedFields = null;
+        $this->includedRelationships = null;
+        $this->sorting = null;
+        $this->pagination = null;
+        $this->filtering = null;
     }
 
     /**
@@ -403,7 +466,9 @@ class Request implements RequestInterface
      */
     public function withHeader($name, $value)
     {
-        return new self($this->serverRequest->withHeader($name, $value));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withHeader($name, $value);
+        return $self;
     }
 
     /**
@@ -411,7 +476,9 @@ class Request implements RequestInterface
      */
     public function withAddedHeader($name, $value)
     {
-        return new self($this->serverRequest->withAddedHeader($name, $value));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
+        return $self;
     }
 
     /**
@@ -419,7 +486,9 @@ class Request implements RequestInterface
      */
     public function withoutHeader($name)
     {
-        return new self($this->serverRequest->withoutHeader($name));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withoutHeader($name);
+        return $self;
     }
 
     /**
@@ -435,7 +504,9 @@ class Request implements RequestInterface
      */
     public function withBody(StreamInterface $body)
     {
-        return new self($this->serverRequest->withBody($body));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withBody($body);
+        return $self;
     }
 
     /**
@@ -451,7 +522,9 @@ class Request implements RequestInterface
      */
     public function withRequestTarget($requestTarget)
     {
-        return new self($this->serverRequest->withRequestTarget($requestTarget));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withRequestTarget($requestTarget);
+        return $self;
     }
 
     /**
@@ -467,7 +540,9 @@ class Request implements RequestInterface
      */
     public function withMethod($method)
     {
-        return new self($this->serverRequest->withMethod($method));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withMethod($method);
+        return $self;
     }
 
     /**
@@ -483,7 +558,9 @@ class Request implements RequestInterface
      */
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
-        return new self($this->serverRequest->withUri($uri, $preserveHost));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withUri($uri, $preserveHost);
+        return $self;
     }
 
     /**
@@ -507,7 +584,9 @@ class Request implements RequestInterface
      */
     public function withCookieParams(array $cookies)
     {
-        return new self($this->serverRequest->withCookieParams($cookies));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withCookieParams($cookies);
+        return $self;
     }
 
     /**
@@ -523,7 +602,10 @@ class Request implements RequestInterface
      */
     public function withQueryParams(array $query)
     {
-        return new self($this->serverRequest->withQueryParams($query));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withQueryParams($query);
+        $this->initializeParsedQueryParams();
+        return $self;
     }
 
     /**
@@ -539,7 +621,9 @@ class Request implements RequestInterface
      */
     public function withUploadedFiles(array $uploadedFiles)
     {
-        return new self($this->serverRequest->withUploadedFiles($uploadedFiles));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withUploadedFiles($uploadedFiles);
+        return $self;
     }
 
     /**
@@ -555,7 +639,9 @@ class Request implements RequestInterface
      */
     public function withParsedBody($data)
     {
-        return new self($this->serverRequest->withParsedBody($data));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withParsedBody($data);
+        return $self;
     }
 
     /**
@@ -579,7 +665,9 @@ class Request implements RequestInterface
      */
     public function withAttribute($name, $value)
     {
-        return new self($this->serverRequest->withAttribute($name, $value));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withAttribute($name, $value);
+        return $self;
     }
 
     /**
@@ -587,6 +675,8 @@ class Request implements RequestInterface
      */
     public function withoutAttribute($name)
     {
-        return new self($this->serverRequest->withoutAttribute($name));
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withoutAttribute($name);
+        return $self;
     }
 }

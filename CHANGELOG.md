@@ -1,10 +1,12 @@
 ## 0.5.0 - Unreleased
 
 ADDED:
+- Much better support for pagination
 
 CHANGED:
 
 FIXED:
+- Instantiation of `Request` could take significant time
 
 ## 0.4.2 - 2015-08-27
 

@@ -173,6 +173,28 @@ class Links
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
+     * @return $this
+     */
+    public function setPaginationLinks(array $links)
+    {
+        if (isset($links["first"])) {
+            $this->setFirst($links["first"]);
+        }
+        if (isset($links["last"])) {
+            $this->setLast($links["last"]);
+        }
+        if (isset($links["next"])) {
+            $this->setNext($links["next"]);
+        }
+        if (isset($links["prev"])) {
+            $this->setPrev($links["prev"]);
+        }
+
+        return $this;
+    }
+
+    /**
      * @param string $rel
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $link
      * @return $this

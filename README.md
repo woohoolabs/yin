@@ -21,7 +21,7 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 ## Features
 
 - 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
-- 99% [JSON API](http://jsonapi.org/) compatibility (approximately)
+- 99% [JSON API 1.0](http://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
