@@ -20,6 +20,19 @@ abstract class AbstractSingleResourceDocument extends AbstractCompoundDocument
     }
 
     /**
+     * Returns the resource ID for the given domain object.
+     *
+     * It is a shortcut of calling the resource transformer's getId() method.
+     *
+     * @param mixed $domainObject
+     * @return string
+     */
+    public function getResourceId($domainObject)
+    {
+        return $this->transformer->getId($domainObject);
+    }
+
+    /**
      * Sets the value of the "data" and "included" properties based on the "resource" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
