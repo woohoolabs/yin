@@ -165,7 +165,7 @@ class Request implements RequestInterface
         foreach ($this->getHeader($headerName) as $headerValue) {
             $parsedMediaType = [];
             preg_match_all('/'.$mediaTypeRegex.'/', $headerValue, $parsedMediaType, PREG_SET_ORDER);
-            if (is_array($parsedMediaType)) {
+            if (is_array($parsedMediaType) === false) {
                 continue;
             }
 
