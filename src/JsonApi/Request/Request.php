@@ -19,27 +19,27 @@ class Request implements RequestInterface
     private $serverRequest;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $includedFields;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $includedRelationships;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $sorting;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $pagination;
 
     /**
-     * @var array
+     * @var array|null
      */
     private $filtering;
 
