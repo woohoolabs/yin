@@ -128,14 +128,15 @@ public function getLinks()
 {
     return new Links(
         [
-            "self" => new Link("http://example.com/api/books/" . $this->transformer->getId($this->domainObject))
+            "self" => new Link("http://example.com/api/books/" . $this->getResourceId())
         ]
     );
 }
 ```
 
-This time, we want a self link to appear in the document. For this purpose, we utilize the resource transformer
-to obtain the ID of the primary resource.
+This time, we want a self link to appear in the document. For this purpose, we utilize the `getResourceId()` method,
+which is a shortcut of calling the resource transformer to obtain the ID of the
+primary resource (`$this->transformer->getId($this->domainObject)`).
 
 The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in the way they
 regard the `domainObject`: the first one regards it as a single entity while the latter regards it

@@ -20,16 +20,15 @@ abstract class AbstractSingleResourceDocument extends AbstractCompoundDocument
     }
 
     /**
-     * Returns the resource ID for the given domain object.
+     * Returns the resource ID for the current domain object.
      *
      * It is a shortcut of calling the resource transformer's getId() method.
      *
-     * @param mixed $domainObject
      * @return string
      */
-    public function getResourceId($domainObject)
+    public function getResourceId()
     {
-        return $this->transformer->getId($domainObject);
+        return $this->transformer->getId($this->domainObject);
     }
 
     /**
