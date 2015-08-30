@@ -165,6 +165,9 @@ class Request implements RequestInterface
         foreach ($this->getHeader($headerName) as $headerValue) {
             $parsedMediaType = [];
             preg_match_all('/'.$mediaTypeRegex.'/', $headerValue, $parsedMediaType, PREG_SET_ORDER);
+            if (is_array($parsedMediaType)) {
+                continue;
+            }
 
             foreach ($parsedMediaType as $parsed) {
                 $mediaType = ["name" => "", "parameters" => [], "raw" => ""];
@@ -320,7 +323,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return array|null
+     * @return array
      */
     public function getPagination()
     {
