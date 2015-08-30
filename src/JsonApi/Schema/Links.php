@@ -52,7 +52,7 @@ class Links
 
         foreach ($this->links as $rel => $link) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
-            $links[$rel] = $link->transform();
+            $links[$rel] = $link->transformAbsolute();
         }
 
         return $links;

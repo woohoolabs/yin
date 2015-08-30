@@ -248,7 +248,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     {
         return new Links(
             [
-                "self" => "http://example.com/api/books/" . $this->getId($book)
+                "self" => new Link("http://example.com/api/books/" . $this->getId($book))
             ]
         );
     }

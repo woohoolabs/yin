@@ -4,6 +4,7 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\RelativeLinks;
 use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationships;
@@ -86,9 +87,18 @@ class BookResourceTransformer extends AbstractResourceTransformer
     {
         return new Links(
             [
-                "self" => "http://example.com/api/books/" . $this->getId($book)
+                "self" => new Link($this->getSelfLinkHref($book))
             ]
         );
+    }
+
+    /**
+     * @param array $book
+     * @return string
+     */
+    public function getSelfLinkHref(array $book)
+    {
+        return "http://example.com/api/books/" . $this->getId($book);
     }
 
     /**
@@ -125,24 +135,22 @@ class BookResourceTransformer extends AbstractResourceTransformer
             [
                 "authors" => function(array $book) {
                     return ToManyRelationship::create()
-                        ->setLinks(
-                            new Links(
-                                [
-                                    "self" => new Link("http://example.com/api/books/relationships/authors")
-                                ]
-                            )
-                        )
+                        ->setLinks(new RelativeLinks(
+                            $this->getSelfLinkHref($book),
+                            [
+                                "self" => new Link("/relationships/authors")
+                            ]
+                        ))
                         ->setData($book["authors"], $this->authorTransformer);
                 },
                 "publisher" => function($book) {
                     return ToOneRelationship::create()
-                        ->setLinks(
-                            new Links(
-                                [
-                                    "self" => new Link("http://example.com/api/books/relationships/publisher")
-                                ]
-                            )
-                        )
+                        ->setLinks(new RelativeLinks(
+                            $this->getSelfLinkHref($book),
+                            [
+                                "self" => new Link("/relationships/publisher")
+                            ]
+                        ))
                         ->setData($book["publisher"], $this->publisherTransformer);
                 }
             ]

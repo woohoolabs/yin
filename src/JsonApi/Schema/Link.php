@@ -27,8 +27,17 @@ class Link
     /**
      * @return string
      */
-    public function transform()
+    public function transformAbsolute()
     {
-        return $this->href;
+        return $this->transformRelative("");
+    }
+
+    /**
+     * @param string $baseUri
+     * @return string
+     */
+    public function transformRelative($baseUri)
+    {
+        return $baseUri . $this->href;
     }
 }

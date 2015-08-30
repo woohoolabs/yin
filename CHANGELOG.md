@@ -3,6 +3,7 @@
 ADDED:
 - Much better support for pagination
 - Shortcut to get the resource ID in an `AbstractSingleResourceDocument`
+- Support for relative URI-s
 
 CHANGED:
 
