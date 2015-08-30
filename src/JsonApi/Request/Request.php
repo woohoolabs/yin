@@ -189,8 +189,15 @@ class Request implements RequestInterface
     protected function setIncludedFields()
     {
         $this->includedFields = [];
-        foreach ($this->getQueryParam("fields", []) as $resourceType => $fields) {
-            $this->includedFields[$resourceType] = array_flip(explode(",", $fields));
+        $fields = $this->getQueryParam("fields", []);
+        if (is_array($fields) === false) {
+            return;
+        }
+
+        foreach ($fields as $resourceType => $resourceFields) {
+            if (is_string($resourceFields)) {
+                $this->includedFields[$resourceType] = array_flip(explode(",", $resourceFields));
+            }
         }
     }
 
@@ -290,7 +297,8 @@ class Request implements RequestInterface
 
     protected function setSorting()
     {
-        $this->sorting = explode(",", $this->getQueryParam("sort", ""));
+        $sorting = explode(",", $this->getQueryParam("sort", ""));
+        $this->sorting = is_array($sorting) ? $sorting : [];
     }
 
     /**
@@ -307,7 +315,8 @@ class Request implements RequestInterface
 
     protected function setPagination()
     {
-        $this->pagination = $this->getQueryParam("page", null);
+        $pagination =  $this->getQueryParam("page", null);
+        $this->pagination = is_array($pagination) ? $pagination : [];
     }
 
     /**
@@ -348,7 +357,8 @@ class Request implements RequestInterface
 
     protected function setFiltering()
     {
-        $this->filtering = $this->getQueryParam("filter", []);
+        $filtering = $this->getQueryParam("filter", []);
+        $this->filtering = is_array($filtering) ? $filtering : [];
     }
 
     /**
