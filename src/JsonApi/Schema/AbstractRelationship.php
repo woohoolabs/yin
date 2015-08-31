@@ -20,21 +20,29 @@ abstract class AbstractRelationship
     protected $resourceTransformer;
 
     /**
+     * @var bool
+     */
+    protected $isDefault;
+
+    /**
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param mixed $data
      * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface|null $resourceTransformer
+     * @param bool $isDefault
      */
     public function __construct(
         array $meta = [],
         Links $links = null,
         $data = null,
-        ResourceTransformerInterface $resourceTransformer = null
+        ResourceTransformerInterface $resourceTransformer = null,
+        $isDefault = false
     ) {
         $this->meta = $meta;
         $this->links = $links;
         $this->data = $data;
         $this->resourceTransformer = $resourceTransformer;
+        $this->isDefault = $isDefault;
     }
 
     /**
@@ -65,6 +73,24 @@ abstract class AbstractRelationship
     }
 
     /**
+     * @return bool
+     */
+    public function isDefault()
+    {
+        return $this->isDefault;
+    }
+
+    /**
+     * @param bool $isDefault
+     * @return AbstractRelationship
+     */
+    public function setDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+        return $this;
+    }
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
@@ -83,7 +109,7 @@ abstract class AbstractRelationship
 
         $data = $this->transformData($request, $included, $baseRelationshipPath, $relationshipName);
 
-        if ($request->isIncludedField($resourceType, $relationshipName)) {
+        if ($request->isIncludedField($resourceType, $relationshipName) || $this->isDefault === true) {
             $relationship = [];
 
             // LINKS
@@ -118,7 +144,7 @@ abstract class AbstractRelationship
         $baseRelationshipPath,
         $relationshipName
     ) {
-        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
+        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName) || $this->isDefault === true) {
             $included->addIncludedResource(
                 $this->resourceTransformer->transformToResource(
                     $domainObject,

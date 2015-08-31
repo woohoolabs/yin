@@ -9,6 +9,7 @@ CHANGED:
 
 FIXED:
 - Instantiation of `Request` could take significant time
+- Sparse fieldsets and inclusion of relationships are now fully compliant with the spec
 
 ## 0.4.2 - 2015-08-27
 

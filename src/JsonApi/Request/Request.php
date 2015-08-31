@@ -228,6 +228,10 @@ class Request implements RequestInterface
             $this->setIncludedFields();
         }
 
+        if (empty($this->includedFields) === true) {
+            return true;
+        }
+
         return isset($this->includedFields[$resourceType][$field]);
     }
 
