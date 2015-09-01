@@ -28,13 +28,15 @@ class ToManyRelationship extends AbstractRelationship
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
+     * @param array $defaultRelationships
      * @return array
      */
     protected function transformData(
         RequestInterface $request,
         Included $included,
         $baseRelationshipPath,
-        $relationshipName
+        $relationshipName,
+        array $defaultRelationships
     ) {
         if ($this->data === null || $this->resourceTransformer === null) {
             return [];
@@ -47,7 +49,8 @@ class ToManyRelationship extends AbstractRelationship
                 $request,
                 $included,
                 $baseRelationshipPath,
-                $relationshipName
+                $relationshipName,
+                $defaultRelationships
             );
         }
         return $result;

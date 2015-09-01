@@ -65,6 +65,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     abstract public function getAttributes($domainObject);
 
     /**
+     * Returns an array of relationship names which are included in the response by default.
+     *
+     * @param $domainObject
+     * @return array
+     */
+    abstract public function getDefaultRelationships($domainObject);
+
+    /**
      * Provides information about the "relationships" section of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
@@ -153,7 +161,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $baseRelationshipPath = ""
     ) {
         $relationships = $this->getRelationships($domainObject);
-
         if (empty($relationships) === true) {
             return null;
         }
@@ -165,7 +172,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             $request,
             $included,
             $this->getType($domainObject),
-            $baseRelationshipPath
+            $baseRelationshipPath,
+            $this->getDefaultRelationships($domainObject)
         );
     }
 
@@ -260,9 +268,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $resourceType,
         $baseRelationshipPath
     ) {
-        $result = [];
-
         $this->validateRelationships($request, $baseRelationshipPath, $relationships);
+
+        $result = [];
+        $defaultRelationships = array_flip($this->getDefaultRelationships($domainObject));
 
         foreach ($relationships as $relationshipName => $relationshipCallback) {
             $relationship = $this->transformRelationshipObject(
@@ -272,7 +281,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
                 $request,
                 $included,
                 $resourceType,
-                $baseRelationshipPath
+                $baseRelationshipPath,
+                $defaultRelationships
             );
 
             if ($relationship !== null) {
@@ -291,6 +301,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $resourceType
      * @param string $baseRelationshipPath
+     * @param array $defaultRelationships
      * @return array|null
      */
     private function transformRelationshipObject(
@@ -300,21 +311,27 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         RequestInterface $request,
         Included $included,
         $resourceType,
-        $baseRelationshipPath
+        $baseRelationshipPath,
+        array $defaultRelationships
     ) {
-        if (isset($relationships[$relationshipName]) === false) {
+        if (
+            $request->isIncludedField($resourceType, $relationshipName) === false &&
+            $request->isIncludedRelationship($baseRelationshipPath, $relationshipName, $defaultRelationships) === false
+        ) {
             return null;
         }
 
+        $relationshipCallback = $relationships[$relationshipName];
         /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-        $relationship = $relationships[$relationshipName]($domainObject);
+        $relationship = $relationshipCallback($domainObject);
 
         return $relationship->transform(
             $request,
             $included,
             $resourceType,
             $baseRelationshipPath,
-            $relationshipName
+            $relationshipName,
+            $defaultRelationships
         );
     }
 

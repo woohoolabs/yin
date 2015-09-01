@@ -270,6 +270,17 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "pages" => function(array $book) { return $this->toInt($book["pages"]); },
         ];
     }
+    
+    /**
+     * Returns an array of relationship names which are included in the response by default.
+     *
+     * @param $domainObject
+     * @return array
+     */
+    public function getDefaultRelationships($domainObject)
+    {
+        return ["authors"];
+    }
 
     /**
      * Provides information about the "relationships" section of the current resource.

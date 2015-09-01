@@ -35,7 +35,7 @@ class BookRepository extends AbstractRepository
             "title" => "Example Book",
             "pages" => "200",
             "authors" => ["11111", "11112"],
-            "publisher" => ["12346"]
+            "publisher" => "12346"
         ]
     ];
 

@@ -28,13 +28,15 @@ class ToOneRelationship extends AbstractRelationship
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
      * @param string $baseRelationshipPath
      * @param string $relationshipName
+     * @param array $defaultRelationships
      * @return array
      */
     protected function transformData(
         RequestInterface $request,
         Included $included,
         $baseRelationshipPath,
-        $relationshipName
+        $relationshipName,
+        array $defaultRelationships
     ) {
         if ($this->data === null || $this->resourceTransformer === null) {
             return null;
@@ -45,7 +47,8 @@ class ToOneRelationship extends AbstractRelationship
             $request,
             $included,
             $baseRelationshipPath,
-            $relationshipName
+            $relationshipName,
+            $defaultRelationships
         );
     }
 }

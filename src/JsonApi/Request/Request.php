@@ -246,7 +246,12 @@ class Request implements RequestInterface
     {
         $this->includedRelationships = [];
 
-        $relationshipNames = explode(",", $this->getQueryParam("include", ""));
+        $includeQueryParams = $this->getQueryParam("include", "");
+        if ($includeQueryParams === "") {
+            return;
+        }
+
+        $relationshipNames = explode(",", $includeQueryParams);
         foreach ($relationshipNames as $relationship) {
             $relationship = ".$relationship.";
             $length = strlen($relationship);
@@ -295,12 +300,17 @@ class Request implements RequestInterface
     /**
      * @param string $baseRelationshipPath
      * @param string $relationshipName
+     * @param array $defaultRelationships
      * @return bool
      */
-    public function isIncludedRelationship($baseRelationshipPath, $relationshipName)
+    public function isIncludedRelationship($baseRelationshipPath, $relationshipName, array $defaultRelationships)
     {
         if ($this->includedRelationships === null) {
             $this->setIncludedRelationships();
+        }
+
+        if (empty($this->includedRelationships) && array_key_exists($relationshipName, $defaultRelationships)) {
+            return true;
         }
 
         return isset($this->includedRelationships[$baseRelationshipPath][$relationshipName]);

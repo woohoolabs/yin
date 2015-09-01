@@ -82,9 +82,10 @@ interface RequestInterface extends ServerRequestInterface
      *
      * @param string $baseRelationshipPath
      * @param string $relationshipName
+     * @param array $defaultRelationships
      * @return bool
      */
-    public function isIncludedRelationship($baseRelationshipPath, $relationshipName);
+    public function isIncludedRelationship($baseRelationshipPath, $relationshipName, array $defaultRelationships);
 
     /**
      * @return array

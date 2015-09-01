@@ -120,6 +120,17 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
+     * Returns an array of relationship names which are included in the response by default.
+     *
+     * @param $domainObject
+     * @return array
+     */
+    public function getDefaultRelationships($domainObject)
+    {
+        return ["authors"];
+    }
+
+    /**
      * Provides information about the "relationships" section of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
