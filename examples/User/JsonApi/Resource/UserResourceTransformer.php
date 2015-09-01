@@ -94,10 +94,10 @@ class UserResourceTransformer extends AbstractResourceTransformer
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
-     * @param $domainObject
+     * @param array $user
      * @return array
      */
-    public function getDefaultRelationships($domainObject)
+    public function getDefaultRelationships($user)
     {
         return [];
     }

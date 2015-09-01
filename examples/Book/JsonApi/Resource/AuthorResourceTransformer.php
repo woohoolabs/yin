@@ -79,10 +79,10 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
-     * @param $domainObject
+     * @param array $author
      * @return array
      */
-    public function getDefaultRelationships($domainObject)
+    public function getDefaultRelationships($author)
     {
         return [];
     }

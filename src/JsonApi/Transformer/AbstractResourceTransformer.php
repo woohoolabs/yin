@@ -67,7 +67,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
-     * @param $domainObject
+     * @param mixed $domainObject
      * @return array
      */
     abstract public function getDefaultRelationships($domainObject);
@@ -192,7 +192,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param array $array
-     * @param $domainObject
+     * @param array $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
     private function transformAttributesObject(array &$array, $domainObject, RequestInterface $request)
