@@ -62,11 +62,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns an array of attributes if you want the section to
-     * appear in the response or null if it should be omitted. In the returned array,
-     * the keys signify the attribute names, while the values are closures receiving the
-     * domain object as an argument, and they should return the value of the corresponding
-     * attribute.
+     * The method returns an array where the keys signify the attribute names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return the value of the corresponding attribute.
      *
      * @param array $publisher
      * @return array
@@ -81,14 +79,15 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "relationships" section of the current resource.
      *
-     * The method returns a new Relationships schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array where the keys signify the relationship names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $publisher
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     * @return array
      */
     public function getRelationships($publisher)
     {
-        return null;
+        return [];
     }
 }

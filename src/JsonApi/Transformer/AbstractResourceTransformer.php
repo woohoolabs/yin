@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\TransformerTrait;
@@ -54,11 +55,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns an array of attributes if you want the section to
-     * appear in the response or null if it should be omitted. In the returned array,
-     * the keys signify the attribute names, while the values are closures receiving the
-     * domain object as an argument, and they should return the value of the corresponding
-     * attribute.
+     * The method returns an array where the keys signify the attribute names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return the value of the corresponding attribute.
      *
      * @param mixed $domainObject
      * @return array
@@ -68,11 +67,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Provides information about the "relationships" section of the current resource.
      *
-     * The method returns a new Relationships schema object if you want the section to
-     * appear in the response or null if it should be omitted.
+     * The method returns an array where the keys signify the relationship names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return a new relationship instance (to-one or to-many).
      *
      * @param mixed $domainObject
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     * @return array
      */
     abstract public function getRelationships($domainObject);
 
@@ -154,11 +154,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     ) {
         $relationships = $this->getRelationships($domainObject);
 
-        if ($relationships === null) {
+        if (empty($relationships) === true) {
             return null;
         }
 
-        return $relationships->transformRelationship(
+        return $this->transformRelationshipObject(
+            $relationships,
             $relationshipName,
             $domainObject,
             $request,
@@ -230,8 +231,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     ) {
         $relationships = $this->getRelationships($domainObject);
 
-        if ($relationships !== null) {
-            $array["relationships"] = $relationships->transform(
+        if (empty($relationships) === false) {
+            $array["relationships"] = $this->transformRelationships(
+                $relationships,
                 $domainObject,
                 $request,
                 $included,
@@ -241,5 +243,98 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         }
     }
 
+    /**
+     * @param array $relationships
+     * @param mixed $domainObject
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $resourceType
+     * @param string $baseRelationshipPath
+     * @return array
+     */
+    private function transformRelationships(
+        array $relationships,
+        $domainObject,
+        RequestInterface $request,
+        Included $included,
+        $resourceType,
+        $baseRelationshipPath
+    ) {
+        $result = [];
 
+        $this->validateRelationships($request, $baseRelationshipPath, $relationships);
+
+        foreach ($relationships as $relationshipName => $relationshipCallback) {
+            $relationship = $this->transformRelationshipObject(
+                $relationships,
+                $relationshipName,
+                $domainObject,
+                $request,
+                $included,
+                $resourceType,
+                $baseRelationshipPath
+            );
+
+            if ($relationship !== null) {
+                $result[$relationshipName] = $relationship;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $relationships
+     * @param string $relationshipName
+     * @param mixed $domainObject
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param string $resourceType
+     * @param string $baseRelationshipPath
+     * @return array|null
+     */
+    private function transformRelationshipObject(
+        array $relationships,
+        $relationshipName,
+        $domainObject,
+        RequestInterface $request,
+        Included $included,
+        $resourceType,
+        $baseRelationshipPath
+    ) {
+        if (isset($relationships[$relationshipName]) === false) {
+            return null;
+        }
+
+        /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
+        $relationship = $relationships[$relationshipName]($domainObject);
+
+        return $relationship->transform(
+            $request,
+            $included,
+            $resourceType,
+            $baseRelationshipPath,
+            $relationshipName
+        );
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param string $baseRelationshipPath
+     * @param array $relationships
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
+     */
+    private function validateRelationships(RequestInterface $request, $baseRelationshipPath, array $relationships)
+    {
+        $requestedRelationships = $request->getIncludedRelationships($baseRelationshipPath);
+
+        $nonExistentRelationships = array_diff($requestedRelationships, array_keys($relationships));
+        if (empty($nonExistentRelationships) === false) {
+            foreach ($nonExistentRelationships as &$relationship) {
+                $relationship = ($baseRelationshipPath ? $baseRelationshipPath . "." : "") . $relationship;
+            }
+
+            throw new InclusionUnrecognized($nonExistentRelationships);
+        }
+    }
 }

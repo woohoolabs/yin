@@ -256,11 +256,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns an array of attributes if you want the section to
-     * appear in the response or null if it should be omitted. In the returned array,
-     * the keys signify the attribute names, while the values are closures receiving the
-     * domain object as an argument, and they should return the value of the corresponding
-     * attribute.
+     * The method returns an array where the keys signify the attribute names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return the value of the corresponding attribute.
      *
      * @param array $book
      * @return array
@@ -276,36 +274,33 @@ class BookResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "relationships" section of the current resource.
      *
-     * The method returns a new Relationships schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array where the keys signify the relationship names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $book
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     * @return array
      */
     public function getRelationships($book)
     {
-        return new Relationships(
-            [
-                "authors" => function(array $book) {
-                    return ToManyRelationship::create()
-                        ->setLinks(
-                            Links::withSelf(
-                                new Link("http://example.com/api/books/relationships/authors")
-                            )
-                        )
-                        ->setData($book["authors"], $this->authorTransformer);
-                },
-                "publisher" => function($book) {
-                    return ToOneRelationship::create()
-                        ->setLinks(
-                            Links::withSelf(
-                                new Link("http://example.com/api/books/relationships/publisher")
-                            )
-                        )
-                        ->setData($book["publisher"], $this->publisherTransformer);
-                }
-            ]
-        );
+        return [
+            "authors" => function(array $book) {
+                return ToManyRelationship::create()
+                    ->setLinks(
+                        Links::withSelf(new Link("http://example.com/api/books/relationships/authors"))
+                    )
+                    ->setData($book["authors"], $this->authorTransformer)
+                ;
+            },
+            "publisher" => function($book) {
+                return ToOneRelationship::create()
+                    ->setLinks(
+                        Links::withSelf(new Link("http://example.com/api/books/relationships/publisher"))
+                    )
+                    ->setData($book["publisher"], $this->publisherTransformer)
+                ;
+            }
+        ];
     }
 }
 ```

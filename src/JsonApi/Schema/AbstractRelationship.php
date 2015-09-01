@@ -20,11 +20,6 @@ abstract class AbstractRelationship
     protected $resourceTransformer;
 
     /**
-     * @var bool
-     */
-    protected $isDefault;
-
-    /**
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param mixed $data
@@ -69,24 +64,6 @@ abstract class AbstractRelationship
         $this->data = $data;
         $this->resourceTransformer = $resourceTransformer;
 
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDefault()
-    {
-        return $this->isDefault;
-    }
-
-    /**
-     * @param bool $isDefault
-     * @return AbstractRelationship
-     */
-    public function setDefault($isDefault)
-    {
-        $this->isDefault = $isDefault;
         return $this;
     }
 
@@ -144,7 +121,7 @@ abstract class AbstractRelationship
         $baseRelationshipPath,
         $relationshipName
     ) {
-        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName) || $this->isDefault === true) {
+        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName)) {
             $included->addIncludedResource(
                 $this->resourceTransformer->transformToResource(
                     $domainObject,

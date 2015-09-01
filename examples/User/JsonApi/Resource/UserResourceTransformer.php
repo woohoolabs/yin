@@ -1,9 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class UserResourceTransformer extends AbstractResourceTransformer
@@ -78,40 +76,40 @@ class UserResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns a new Attributes schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array where the keys signify the attribute names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return the value of the corresponding attribute.
      *
      * @param array $user
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
+     * @return array
      */
     public function getAttributes($user)
     {
-        return new Attributes(
-            [
-                "firstname" => function(array $user) { return $user["firstname"]; },
-                "surname" => function(array $user) { return $user["lastname"]; },
-            ]
-        );
+        return [
+            "firstname" => function(array $user) { return $user["firstname"]; },
+            "surname" => function(array $user) { return $user["lastname"]; },
+        ];
     }
 
     /**
      * Provides information about the "relationships" section of the current resource.
      *
-     * The method returns a new Relationships schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array where the keys signify the relationship names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $user
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     * @return array
      */
     public function getRelationships($user)
     {
-        return new Relationships(
-            [
-                "contacts" => function(array $user) {
-                    return ToManyRelationship::create()
-                        ->setData($user["contacts"], $this->contactTransformer);
-                }
-            ]
-        );
+        return [
+            "contacts" => function(array $user) {
+                return
+                    ToManyRelationship::create()
+                        ->setData($user["contacts"], $this->contactTransformer)
+                    ;
+            }
+        ];
     }
 }

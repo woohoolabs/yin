@@ -6,7 +6,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\RelativeLinks;
 use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Relationships;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class BookResourceTransformer extends AbstractResourceTransformer
@@ -123,37 +122,44 @@ class BookResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "relationships" section of the current resource.
      *
-     * The method returns a new Relationships schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array where the keys signify the relationship names,
+     * while the values are closures receiving the domain object as an argument,
+     * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $book
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
+     * @return array
      */
     public function getRelationships($book)
     {
-        return new Relationships(
-            [
-                "authors" => function(array $book) {
-                    return ToManyRelationship::create()
-                        ->setLinks(new RelativeLinks(
-                            $this->getSelfLinkHref($book),
-                            [
-                                "self" => new Link("/relationships/authors")
-                            ]
-                        ))
-                        ->setData($book["authors"], $this->authorTransformer);
-                },
-                "publisher" => function($book) {
-                    return ToOneRelationship::create()
-                        ->setLinks(new RelativeLinks(
-                            $this->getSelfLinkHref($book),
-                            [
-                                "self" => new Link("/relationships/publisher")
-                            ]
-                        ))
-                        ->setData($book["publisher"], $this->publisherTransformer);
-                }
-            ]
-        );
+        return [
+            "authors" => function(array $book) {
+                return
+                    ToManyRelationship::create()
+                        ->setLinks(
+                            new RelativeLinks(
+                                $this->getSelfLinkHref($book),
+                                [
+                                    "self" => new Link("/relationships/authors")
+                                ]
+                            )
+                        )
+                        ->setData($book["authors"], $this->authorTransformer)
+                    ;
+            },
+            "publisher" => function($book) {
+                return
+                    ToOneRelationship::create()
+                        ->setLinks(
+                            new RelativeLinks(
+                                $this->getSelfLinkHref($book),
+                                [
+                                    "self" => new Link("/relationships/publisher")
+                                ]
+                            )
+                        )
+                        ->setData($book["publisher"], $this->publisherTransformer)
+                    ;
+            }
+        ];
     }
 }
