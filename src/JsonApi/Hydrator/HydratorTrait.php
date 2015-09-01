@@ -28,11 +28,11 @@ trait HydratorTrait
      * The method returns an array of attribute hydrators, where a hydrator is a key-value pair:
      * the key is the specific attribute name which comes from the request and the value is an
      * anonymous function which hydrate the previous attribute.
-     * These anonymous functions receive the domain object (which will be hydrated),
+     * These closures receive the domain object (which will be hydrated),
      * the value of the currently processed attribute and the "data" part of the request as their
      * arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the anonymous functions should return the domain object.
+     * the closures should return the domain object.
      * @param mixed $domainObject
      * @return array
      */
@@ -44,12 +44,12 @@ trait HydratorTrait
      * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
      * the key is the specific relationship name which comes from the request and the value is an
      * anonymous function which hydrate the previous relationship.
-     * These anonymous functions receive the domain object (which will be hydrated),
+     * These closures receive the domain object (which will be hydrated),
      * an object representing the currently processed relationship (it can be a ToOneRelationship or
      * a ToManyRelationship object) and the "data" part of the request as their arguments, and they
      * should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the anonymous functions should return the domain object.
+     * the closures should return the domain object.
      * @param mixed $domainObject
      * @return array
      */

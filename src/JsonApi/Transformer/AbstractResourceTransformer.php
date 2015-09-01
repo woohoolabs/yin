@@ -54,11 +54,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns a new Attributes schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array of attributes if you want the section to
+     * appear in the response or null if it should be omitted. In the returned array,
+     * the keys signify the attribute names, while the values are closures receiving the
+     * domain object as an argument, and they should return the value of the corresponding
+     * attribute.
      *
      * @param mixed $domainObject
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
+     * @return array
      */
     abstract public function getAttributes($domainObject);
 
@@ -66,7 +69,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * Provides information about the "relationships" section of the current resource.
      *
      * The method returns a new Relationships schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * appear in the response or null if it should be omitted.
      *
      * @param mixed $domainObject
      * @return \WoohooLabs\Yin\JsonApi\Schema\Relationships|null
@@ -186,9 +189,29 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     private function transformAttributesObject(array &$array, $domainObject, RequestInterface $request)
     {
         $attributes = $this->getAttributes($domainObject);
-        if ($attributes !== null) {
-            $array["attributes"] = $attributes->transform($domainObject, $request, $this->getType($domainObject));
+        if (empty($attributes) === false) {
+            $array["attributes"] = $this->transformAttributes($attributes, $domainObject, $request, $this->getType($domainObject));
         }
+    }
+
+    /**
+     * @param array $attributes
+     * @param mixed $domainObject
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param string $resourceType
+     * @return array
+     */
+    private function transformAttributes(array $attributes, $domainObject, RequestInterface $request, $resourceType)
+    {
+        $result = [];
+
+        foreach ($attributes as $name => $attribute) {
+            if ($request->isIncludedField($resourceType, $name)) {
+                $result[$name] = $attribute($domainObject, $request);
+            }
+        }
+
+        return $result;
     }
 
     /**
@@ -217,4 +240,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             );
         }
     }
+
+
 }

@@ -1,7 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Attributes;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class AuthorResourceTransformer extends AbstractResourceTransformer
@@ -63,19 +62,20 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "attributes" section of the current resource.
      *
-     * The method returns a new Attributes schema object if you want the section to
-     * appear in the response of null if it should be omitted.
+     * The method returns an array of attributes if you want the section to
+     * appear in the response or null if it should be omitted. In the returned array,
+     * the keys signify the attribute names, while the values are closures receiving the
+     * domain object as an argument, and they should return the value of the corresponding
+     * attribute.
      *
      * @param array $author
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Attributes|null
+     * @return array
      */
     public function getAttributes($author)
     {
-        return new Attributes(
-            [
-                "name" => function(array $author) { return $author["name"]; },
-            ]
-        );
+        return [
+            "name" => function(array $author) { return $author["name"]; },
+        ];
     }
 
     /**
