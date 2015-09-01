@@ -199,7 +199,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     {
         $attributes = $this->getAttributes($domainObject);
         if (empty($attributes) === false) {
-            $array["attributes"] = $this->transformAttributes($attributes, $domainObject, $request, $this->getType($domainObject));
+            $array["attributes"] = $this->transformAttributes(
+                $attributes,
+                $domainObject,
+                $request,
+                $this->getType($domainObject)
+            );
         }
     }
 
@@ -314,8 +319,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $baseRelationshipPath,
         array $defaultRelationships
     ) {
-        if (
-            $request->isIncludedField($resourceType, $relationshipName) === false &&
+        if ($request->isIncludedField($resourceType, $relationshipName) === false &&
             $request->isIncludedRelationship($baseRelationshipPath, $relationshipName, $defaultRelationships) === false
         ) {
             return null;
