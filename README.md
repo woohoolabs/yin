@@ -32,18 +32,12 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 
 The steps of this process are quite straightforward. The only thing you need is [Composer](http://getcomposer.org).
 
-#### Add Yin to your composer.json:
+##### Add Yin to your composer.json:
 
 To install this library, run the command below and you will get the latest version:
 
 ```bash
 $ composer require woohoolabs/yin
-```
-
-#### Autoload in your bootstrap:
-
-```php
-require "vendor/autoload.php"
 ```
 
 ## Basic Usage
@@ -423,8 +417,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 
-The MIT License (MIT). Please see the [License File](LICENSE.md)
-for more information.
+The MIT License (MIT). Please see the [License File](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/woohoolabs/yin.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
