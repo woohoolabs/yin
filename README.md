@@ -1,16 +1,16 @@
 # Woohoo Labs. Yin
 
-[![Build Status](https://img.shields.io/travis/woohoolabs/yin.svg)](https://travis-ci.org/woohoolabs/yin)
-[![Code Coverage](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/woohoolabs/yin/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/woohoolabs/yin/?branch=master)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f.svg)](https://insight.sensiolabs.com/projects/2e1d0616-e47a-4ae7-bfed-07dec4d29d5f)
-[![Stable Release](https://img.shields.io/packagist/v/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
-[![License](https://img.shields.io/packagist/l/woohoolabs/yin.svg)](https://packagist.org/packages/woohoolabs/yin)
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE.md)
+[![Build Status][ico-travis]][link-travis]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
-**Woohoo Labs. Yin is a PSR-7 compatible PHP library for HATEOAS API-s.**
+**Woohoo Labs. Yin is a PSR-7 compatible PHP library for RESTful API-s.**
 
-Our aim was to create an elegant framework which helps you to build beautifully crafted HATEOAS API-s.
-Currently, Woohoo labs. Yin only supports the JSON API specification.
+Our aim was to create an elegant framework which helps you to build beautifully crafted RESTful API-s compliant to
+to the JSON API specification.
 
 ## Introduction
 
@@ -109,11 +109,10 @@ public function getMeta()
 ```
 
 Documents can also have a meta section which can contain any non-standard information. The example above adds a
-[profile](http://jsonapi.org/extensions/#profiles) to the document.
+[profile](http://jsonapi.org/extensions/#profiles) and some information about pagination to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is an imaginary collection),
-which will be transformed into the primary resource. Important to know that it is lazily instantiated:
-it takes place when the transformation starts (hence just before these abstract methods are invoked).
+which will be transformed into the primary resource.
 
 ```php
 /**
@@ -138,7 +137,7 @@ This time, we want a self link to appear in the document. For this purpose, we u
 which is a shortcut of calling the resource transformer to obtain the ID of the
 primary resource (`$this->transformer->getId($this->domainObject)`).
 
-The difference between the `AbstractSingleResourceDocument` and the `AbstractCollectionDocument` lies in the way they
+The difference between `AbstractSingleResourceDocument` and `AbstractCollectionDocument` lies in the way they
 regard the `domainObject`: the first one regards it as a single entity while the latter regards it
 as an iterable collection of entities.
 
@@ -173,6 +172,7 @@ most of which are the same as it was seen with the documents. Here is an example
 
 ```php
 class BookResourceTransformer extends AbstractResourceTransformer
+{
     /**
      * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer
      */
@@ -209,7 +209,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "meta" section of the current resource.
+     * Provides information about the "id" section of the current resource.
      *
      * The method returns the ID of the current resource which should be a UUID.
      *
@@ -342,7 +342,7 @@ public function getBook(JsonApi $jsonApi)
         )
     );
 
-    // Responging with "200 Ok" status code along with the book document
+    // Responding with "200 Ok" status code along with the book document
     return $jsonApi->fetchResponse()->ok($document, $book);
 }
 ```
@@ -378,9 +378,9 @@ public function createBook(JsonApi $jsonApi)
 #### How to try it out
 If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
 set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `EXAMPLE_NAME` can be
-"Book", "BookRelationships", "Users", "User" or "UserRelationships". But don't forget to run `composer install` first
+"book", "book-rel", "users", "user" or "user-rel". But don't forget to run `composer install` first
 in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
-which are transformed by Yin - can be found in the controllers.
+which are transformed by Yin - can be found in the actions.
 
 Some example URL-s to play with:
 
@@ -395,7 +395,48 @@ you have to define an anonymous function for each attribute and relationship. Th
 to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
 are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).
 
+## Versioning
+
+This library follows [SemVer v2.0.0](http://semver.org/).
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Testing
+
+Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder
+after you have copied phpunit.xml.dist to phpunit.xml:
+
+``` bash
+$ phpunit
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+
+- [Máté Kocsis][link-author]
+- [All Contributors][link-contributors]
+
 ## License
 
-The MIT License (MIT). Please see the [License File](https://github.com/woohoolabs/yin/blob/master/LICENSE.md)
+The MIT License (MIT). Please see the [License File](LICENSE.md)
 for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/woohoolabs/yin.svg
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[ico-travis]: https://img.shields.io/travis/woohoolabs/yin/master.svg
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/woohoolabs/yin.svg
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/woohoolabs/yin.svg
+[ico-downloads]: https://img.shields.io/packagist/dt/woohoolabs/yin.svg
+
+[link-packagist]: https://packagist.org/packages/woohoolabs/yin
+[link-travis]: https://travis-ci.org/woohoolabs/yin
+[link-scrutinizer]: https://scrutinizer-ci.com/g/woohoolabs/yin/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/woohoolabs/yin
+[link-downloads]: https://packagist.org/packages/woohoolabs/yin
+[link-author]: https://github.com/kocsismate
+[link-contributors]: ../../contributors

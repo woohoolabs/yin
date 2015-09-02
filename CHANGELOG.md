@@ -6,6 +6,7 @@ ADDED:
 - Support for relative URI-s
 
 CHANGED:
+- Improved transformation performance
 
 FIXED:
 - Instantiation of `Request` could take significant time
