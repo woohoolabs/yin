@@ -30,7 +30,8 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 
 ## Install
 
-To install this library, run the command below and you will get the latest version:
+You need [Composer](https://getcomposer.org) to install this library. Run the command below and you will get the latest
+version:
 
 ```bash
 $ composer require woohoolabs/yin
