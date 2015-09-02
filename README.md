@@ -30,10 +30,6 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 
 ## Install
 
-The steps of this process are quite straightforward. The only thing you need is [Composer](http://getcomposer.org).
-
-##### Add Yin to your composer.json:
-
 To install this library, run the command below and you will get the latest version:
 
 ```bash
