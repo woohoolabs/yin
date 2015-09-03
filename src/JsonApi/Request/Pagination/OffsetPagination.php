@@ -55,4 +55,14 @@ class OffsetPagination
     {
         return $this->limit;
     }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @return string
+     */
+    public static function getPaginationQueryString($offset, $limit)
+    {
+        return "page[offset]=$offset&page[limit]=$limit";
+    }
 }

@@ -55,4 +55,14 @@ class PagePagination
     {
         return $this->size;
     }
+
+    /**
+     * @param int $page
+     * @param int $size
+     * @return string
+     */
+    public static function getPaginationQueryString($page, $size)
+    {
+        return "page[number]=$page&page[size]=$size";
+    }
 }
