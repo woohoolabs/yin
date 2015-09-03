@@ -9,6 +9,11 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 class UserDocument extends AbstractSingleResourceDocument
 {
     /**
+     * @var array
+     */
+    protected $domainObject;
+
+    /**
      * @param \WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer $transformer
      */
     public function __construct(UserResourceTransformer $transformer)

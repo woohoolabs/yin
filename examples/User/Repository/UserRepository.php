@@ -41,11 +41,23 @@ class UserRepository
     ];
 
     /**
+     * @param int $page
+     * @param int $size
      * @return array
      */
-    public static function getUsers()
+    public static function getUsers($page = null, $size = null)
     {
-        return self::$users;
+        if ($page === null) {
+            $page = 1;
+        }
+
+        if ($size === null) {
+            $size = 10;
+        }
+
+        $users = self::$users;
+
+        return array_slice($users, ($page - 1) * $size, $size);
     }
 
     /**

@@ -15,12 +15,17 @@ class PagePagination
 
     /**
      * @param array $paginationQueryParams
+     * @param mixed $defaultPage
+     * @param mixed $defaultSize
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams)
-    {
-        $page = isset($paginationQueryParams["page"]) ? $paginationQueryParams["page"] : null;
-        $size = isset($paginationQueryParams["size"]) ? $paginationQueryParams["size"] : null;
+    public static function fromPaginationQueryParams(
+        array $paginationQueryParams,
+        $defaultPage = null,
+        $defaultSize = null
+    ) {
+        $page = isset($paginationQueryParams["number"]) ? $paginationQueryParams["number"] : $defaultPage;
+        $size = isset($paginationQueryParams["size"]) ? $paginationQueryParams["size"] : $defaultSize;
 
         return new self($page, $size);
     }
@@ -29,7 +34,7 @@ class PagePagination
      * @param int|null $page
      * @param int|null $size
      */
-    public function construct($page, $size)
+    public function __construct($page, $size)
     {
         $this->page = $page;
         $this->size = $size;

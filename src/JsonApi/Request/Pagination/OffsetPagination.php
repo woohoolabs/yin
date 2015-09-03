@@ -15,12 +15,17 @@ class OffsetPagination
 
     /**
      * @param array $paginationQueryParams
+     * @param mixed $defaultOffset
+     * @param mixed $defaultLimit
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams)
-    {
-        $offset = isset($paginationQueryParams["offset"]) ? $paginationQueryParams["offset"] : null;
-        $limit = isset($paginationQueryParams["limit"]) ? $paginationQueryParams["limit"] : null;
+    public static function fromPaginationQueryParams(
+        array $paginationQueryParams,
+        $defaultOffset = null,
+        $defaultLimit = null
+    ) {
+        $offset = isset($paginationQueryParams["offset"]) ? $paginationQueryParams["offset"] : $defaultOffset;
+        $limit = isset($paginationQueryParams["limit"]) ? $paginationQueryParams["limit"] : $defaultLimit;
 
         return new self($offset, $limit);
     }
@@ -29,7 +34,7 @@ class OffsetPagination
      * @param int|null $offset
      * @param int|null $limit
      */
-    public function construct($offset, $limit)
+    public function __construct($offset, $limit)
     {
         $this->offset = $offset;
         $this->limit = $limit;

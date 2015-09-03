@@ -10,6 +10,11 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractSingleResourceDocument;
 class BookDocument extends AbstractSingleResourceDocument
 {
     /**
+     * @var array
+     */
+    protected $domainObject;
+
+    /**
      * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer $transformer
      */
     public function __construct(BookResourceTransformer $transformer)

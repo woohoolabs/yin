@@ -353,27 +353,34 @@ class Request implements RequestInterface
     }
 
     /**
+     * @param mixed $defaultPage
+     * @param mixed $defaultSize
      * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
      */
-    public function getPageBasedPagination()
+    public function getPageBasedPagination($defaultPage = null, $defaultSize = null)
     {
-        return PagePagination::fromPaginationQueryParams($this->getPagination());
+        $pagination = PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
+
+        return $pagination;
     }
 
     /**
+     * @param mixed $defaultOffset
+     * @param mixed $defaultLimit
      * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination
      */
-    public function getOffsetBasedPagination()
+    public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null)
     {
-        return OffsetPagination::fromPaginationQueryParams($this->getPagination());
+        return OffsetPagination::fromPaginationQueryParams($this->getPagination(), $defaultLimit, $defaultOffset);
     }
 
     /**
+     * @param mixed $defaultCursor
      * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination
      */
-    public function getCursorBasedPagination()
+    public function getCursorBasedPagination($defaultCursor = null)
     {
-        return CursorPagination::fromPaginationQueryParams($this->getPagination());
+        return CursorPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
     }
 
     protected function setFiltering()

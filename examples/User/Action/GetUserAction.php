@@ -15,15 +15,19 @@ class GetUserAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
+        // Checking if the "id" query parameter is set
         $id = $jsonApi->getRequest()->getQueryParam("id");
         if ($id === null) {
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 
+        // Fetching the user with an ID of $id
         $user = UserRepository::getUser($id);
 
+        // Instantiating the user document
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
+        // Responding with "200 Ok" status code along with the user document
         return $jsonApi->fetchResponse()->ok($document, $user);
     }
 }

@@ -98,6 +98,26 @@ interface RequestInterface extends ServerRequestInterface
     public function getPagination();
 
     /**
+     * @param mixed $defaultPage
+     * @param mixed $defaultSize
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     */
+    public function getPageBasedPagination($defaultPage = null, $defaultSize = null);
+
+    /**
+     * @param mixed $defaultOffset
+     * @param mixed $defaultLimit
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination
+     */
+    public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null);
+
+    /**
+     * @param mixed $defaultCursor
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination
+     */
+    public function getCursorBasedPagination($defaultCursor = null);
+
+    /**
      * @return array
      */
     public function getFiltering();
