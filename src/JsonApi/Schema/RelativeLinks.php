@@ -10,7 +10,7 @@ class RelativeLinks extends Links
 
     /**
      * @param string $baseUri
-     * @param array $links
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      * @return $this
      */
     public static function create($baseUri, array $links = [])
@@ -40,7 +40,7 @@ class RelativeLinks extends Links
 
     /**
      * @param string $baseUri
-     * @param array $links
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      */
     public function __construct($baseUri, array $links = [])
     {
@@ -57,7 +57,7 @@ class RelativeLinks extends Links
 
         foreach ($this->links as $rel => $link) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
-            $links[$rel] = $link->transformRelative($this->baseUri);
+            $links[$rel] = $link ? $link->transform($this->baseUri) : null;
         }
 
         return $links;

@@ -25,18 +25,10 @@ class Link
     }
 
     /**
-     * @return string
-     */
-    public function transformAbsolute()
-    {
-        return $this->transformRelative("");
-    }
-
-    /**
      * @param string $baseUri
      * @return string
      */
-    public function transformRelative($baseUri)
+    public function transform($baseUri)
     {
         return $baseUri . $this->href;
     }

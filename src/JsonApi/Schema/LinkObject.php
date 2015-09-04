@@ -16,20 +16,12 @@ class LinkObject extends Link
     }
 
     /**
-     * @return array
-     */
-    public function transformAbsolute()
-    {
-        return $this->transformRelative("");
-    }
-
-    /**
      * @param string $baseUri
      * @return string
      */
-    public function transformRelative($baseUri)
+    public function transform($baseUri)
     {
-        $link = ["href" => parent::transformRelative($baseUri)];
+        $link = ["href" => parent::transform($baseUri)];
 
         if (empty($this->meta) === false) {
             $link["meta"] = $this->meta;
