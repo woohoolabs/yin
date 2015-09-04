@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 class CursorPagination
 {
     /**
-     * @var int|null
+     * @var mixed|null
      */
     protected $cursor;
 
@@ -21,7 +21,7 @@ class CursorPagination
     }
 
     /**
-     * @param int|null $cursor
+     * @param mixed|null $cursor
      */
     public function __construct($cursor)
     {
@@ -29,7 +29,7 @@ class CursorPagination
     }
 
     /**
-     * @return int|null
+     * @return mixed|null
      */
     public function getCursor()
     {
@@ -37,7 +37,7 @@ class CursorPagination
     }
 
     /**
-     * @param int $cursor
+     * @param mixed $cursor
      * @return string
      */
     public static function getPaginationQueryString($cursor)

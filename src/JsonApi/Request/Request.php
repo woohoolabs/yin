@@ -354,6 +354,17 @@ class Request implements RequestInterface
 
     /**
      * @param mixed $defaultPage
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     */
+    public function getFixedPageBasedPagination($defaultPage = null)
+    {
+        $pagination = PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
+
+        return $pagination;
+    }
+
+    /**
+     * @param mixed $defaultPage
      * @param mixed $defaultSize
      * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
      */

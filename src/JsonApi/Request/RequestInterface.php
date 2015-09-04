@@ -99,6 +99,12 @@ interface RequestInterface extends ServerRequestInterface
 
     /**
      * @param mixed $defaultPage
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination
+     */
+    public function getFixedPageBasedPagination($defaultPage = null);
+
+    /**
+     * @param mixed $defaultPage
      * @param mixed $defaultSize
      * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
      */
