@@ -101,7 +101,12 @@ trait CursorBasedPaginationProviderTrait
      */
     protected function appendQueryStringToUrl($url, $queryString)
     {
-        $separator = (parse_url($url, PHP_URL_QUERY) == null) ? '?' : '&';
+        if (parse_url($url, PHP_URL_QUERY) === null) {
+            $separator = substr($url, -1, 1) !== "?" ? "?" : "";
+        } else {
+            $separator = "&";
+        }
+
         return $url . $separator . $queryString;
     }
 }
