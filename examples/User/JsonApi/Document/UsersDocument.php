@@ -9,6 +9,11 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
 class UsersDocument extends AbstractCollectionDocument
 {
     /**
+     * @var \WoohooLabs\Yin\Examples\Utils\Collection
+     */
+    protected $domainObject;
+
+    /**
      * @param \WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer $transformer
      */
     public function __construct(UserResourceTransformer $transformer)
@@ -52,10 +57,13 @@ class UsersDocument extends AbstractCollectionDocument
      */
     public function getLinks()
     {
-        return new Links(
-            [
-                "self" => new Link("http://example.com/api/users")
-            ]
-        );
+        return
+            Links::create(
+                [
+                    "self" => new Link("http://example.com/api/users")
+                ]
+            )
+            ->setPagination("http://example.com/api/users", $this->domainObject)
+        ;
     }
 }

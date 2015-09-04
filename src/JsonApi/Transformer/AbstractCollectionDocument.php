@@ -7,6 +7,11 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 abstract class AbstractCollectionDocument extends AbstractCompoundDocument
 {
     /**
+     * @var \Traversable|array
+     */
+    protected $domainObject;
+
+    /**
      * @var \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer
      */
     protected $transformer;

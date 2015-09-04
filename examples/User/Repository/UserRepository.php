@@ -1,6 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\Examples\User\Repository;
 
+use WoohooLabs\Yin\Examples\Utils\Collection;
+
 class UserRepository
 {
     private static $users = [
@@ -43,7 +45,7 @@ class UserRepository
     /**
      * @param int $page
      * @param int $size
-     * @return array
+     * @return \Traversable
      */
     public static function getUsers($page = null, $size = null)
     {
@@ -55,9 +57,8 @@ class UserRepository
             $size = 10;
         }
 
-        $users = self::$users;
-
-        return array_slice($users, ($page - 1) * $size, $size);
+        $users = array_slice(self::$users, ($page - 1) * $size, $size);
+        return new Collection($users, count(self::$users), $page, $size);
     }
 
     /**
