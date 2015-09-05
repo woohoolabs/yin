@@ -13,7 +13,7 @@ trait CollectionFilterTrait
      */
     protected function sortByFields(&$data, Included $included, array $sortingFields)
     {
-        $comparator = function($a, $b) use ($sortingFields, $included) {
+        $comparator = function ($a, $b) use ($sortingFields, $included) {
             foreach ($sortingFields as $sorting) {
                 foreach ($sorting["orderBy"] as $field) {
                     $a = $this->getResourceField($a, $field, $included);
@@ -52,8 +52,7 @@ trait CollectionFilterTrait
             return $resource["attributes"][$field];
         }
 
-        if (
-            isset($resource["relationships"][$field]["data"]["type"]) &&
+        if (isset($resource["relationships"][$field]["data"]["type"]) &&
             isset($resource["relationships"][$field]["data"]["id"])
         ) {
             $type = $resource["relationships"][$field]["data"]["type"];
@@ -99,7 +98,7 @@ trait CollectionFilterTrait
      */
     private function compareNull($x, $y)
     {
-        return $x !== null && $y === null ? 1 : ($y === null && $y == null ? 0 : -1);
+        return $x !== null && $y === null ? 1 : ($y === null && $y === null ? 0 : -1);
     }
 
     /**
