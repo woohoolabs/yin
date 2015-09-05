@@ -77,7 +77,7 @@ trait CollectionFilterTrait
         }
 
         if ($x === null || $y === null) {
-            $this->compareNull($x, $y);
+            return $this->compareNull($x, $y);
         }
 
         if (is_bool($x) && is_bool($y)) {
