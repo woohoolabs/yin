@@ -93,6 +93,11 @@ interface RequestInterface extends ServerRequestInterface
     public function getSorting();
 
     /**
+     * @return array
+     */
+    public function getSortingByFields();
+
+    /**
      * @return array|null
      */
     public function getPagination();

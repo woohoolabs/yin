@@ -20,7 +20,7 @@ class Included
      * @param array $transformedResource
      * @return $this
      */
-    public function addIncludedResource(array $transformedResource)
+    public function addResource(array $transformedResource)
     {
         if (isset($this->included[$transformedResource["type"]]) === false) {
             $this->included[$transformedResource["type"]] = [];
@@ -29,6 +29,16 @@ class Included
         $this->included[$transformedResource["type"]][$transformedResource["id"]] = $transformedResource;
 
         return $this;
+    }
+
+    /**
+     * @param string $type
+     * @param string $id
+     * @return array|null
+     */
+    public function getResource($type, $id)
+    {
+        return isset($this->included[$type][$id]) ? $this->included[$type][$id] : null;
     }
 
     /**

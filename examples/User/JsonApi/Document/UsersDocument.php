@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractCollectionDocument;
@@ -65,5 +66,13 @@ class UsersDocument extends AbstractCollectionDocument
             )
             ->setPagination("http://example.com/api/users", $this->domainObject)
         ;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     */
+    protected function filterContent(RequestInterface $request)
+    {
+        $this->sortCollection($request);
     }
 }

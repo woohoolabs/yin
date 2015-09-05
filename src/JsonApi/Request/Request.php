@@ -246,12 +246,12 @@ class Request implements RequestInterface
     {
         $this->includedRelationships = [];
 
-        $includeQueryParams = $this->getQueryParam("include", "");
-        if ($includeQueryParams === "") {
+        $includeQueryParam = $this->getQueryParam("include", "");
+        if ($includeQueryParam === "") {
             return;
         }
 
-        $relationshipNames = explode(",", $includeQueryParams);
+        $relationshipNames = explode(",", $includeQueryParam);
         foreach ($relationshipNames as $relationship) {
             $relationship = ".$relationship.";
             $length = strlen($relationship);
@@ -318,7 +318,13 @@ class Request implements RequestInterface
 
     protected function setSorting()
     {
-        $sorting = explode(",", $this->getQueryParam("sort", ""));
+        $sortingQueryParam = $this->getQueryParam("sort", "");
+        if ($sortingQueryParam === "") {
+            $this->sorting = [];
+            return;
+        }
+
+        $sorting = explode(",", $sortingQueryParam);
         $this->sorting = is_array($sorting) ? $sorting : [];
     }
 
@@ -333,6 +339,29 @@ class Request implements RequestInterface
 
         return $this->sorting;
     }
+
+    /**
+     * @return array
+     */
+    public function getSortingByFields()
+    {
+        $sortFields = [];
+        foreach ($this->getSorting() as $field) {
+            $sortField = [];
+            if ($field[0] === "-") {
+                $sortField["direction"] = -1;
+                $field = substr($field, 1);
+            } else {
+                $sortField["direction"] = 1;
+            }
+            $sortField["orderBy"] = explode(".", $field);
+            $sortField["field"] = $field;
+            $sortFields[] = $sortField;
+        }
+
+        return $sortFields;
+    }
+
 
     protected function setPagination()
     {

@@ -131,7 +131,7 @@ abstract class AbstractRelationship
         array $defaultRelationships
     ) {
         if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName, $defaultRelationships)) {
-            $included->addIncludedResource(
+            $included->addResource(
                 $this->resourceTransformer->transformToResource(
                     $domainObject,
                     $request,
