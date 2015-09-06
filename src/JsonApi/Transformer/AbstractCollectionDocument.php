@@ -35,9 +35,13 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param string $defaultSorting
      */
-    protected function sortCollection(RequestInterface $request)
+    protected function sortCollection(RequestInterface $request, $defaultSorting = "")
     {
+        if (empty($request->getQueryParam("sort"))) {
+            $request = $request->withQueryParam("sort", $defaultSorting);
+        }
         $this->sortByFields($this->data, $this->included, $request->getSortingByFields());
     }
 

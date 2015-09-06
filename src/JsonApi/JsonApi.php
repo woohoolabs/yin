@@ -3,6 +3,7 @@ namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
 use WoohooLabs\Yin\JsonApi\Response\DeleteResponse;
@@ -52,8 +53,22 @@ class JsonApi
      */
     public function disableIncludes()
     {
-        if ($this->request->hasIncludedRelationships()) {
+        if ($this->request->getQueryParam("include") !== null) {
             throw new InclusionNotSupported();
+        }
+    }
+
+    /**
+     * Disables sorting.
+     *
+     * If the current request contains sorting criteria, it throws a SortingNotSupported exception.
+     *
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported
+     */
+    public function disableSorting()
+    {
+        if ($this->request->getQueryParam("sort") !== null) {
+            throw new SortingNotSupported();
         }
     }
 

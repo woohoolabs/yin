@@ -143,6 +143,15 @@ interface RequestInterface extends ServerRequestInterface
     public function getQueryParam($name, $default = null);
 
     /**
+     * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return $this
+     */
+    public function withQueryParam($name, $value);
+
+    /**
      * Returns the "data" part of the request if it is present in the body, or null otherwise.
      *
      * @return array|null

@@ -453,6 +453,23 @@ class Request implements RequestInterface
         return isset($queryParams[$name]) ? $queryParams[$name] : $default;
     }
 
+    /**
+     * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return $this
+     */
+    public function withQueryParam($name, $value)
+    {
+        $self = clone $this;
+        $queryParams = $this->serverRequest->getQueryParams();
+        $queryParams[$name] = $value;
+        $self->serverRequest = $this->serverRequest->withQueryParams($queryParams);
+        $self->initializeParsedQueryParams();
+        return $self;
+    }
+
     protected function initializeParsedQueryParams()
     {
         $this->includedFields = null;
@@ -682,7 +699,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withQueryParams($query);
-        $this->initializeParsedQueryParams();
+        $self->initializeParsedQueryParams();
         return $self;
     }
 

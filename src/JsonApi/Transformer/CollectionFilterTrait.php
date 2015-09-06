@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\SortingCriteriaUnsupported;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 
 trait CollectionFilterTrait
@@ -68,12 +68,12 @@ trait CollectionFilterTrait
      * @param mixed $x
      * @param mixed $y
      * @return int
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingCriteriaUnsupported
      */
     private function compare($fieldName, $x, $y)
     {
         if (($x !== null && is_scalar($x) === false) || ($y !== null && is_scalar($y) === false)) {
-            throw new SortingUnsupported($fieldName);
+            throw new SortingCriteriaUnsupported($fieldName);
         }
 
         if ($x === null || $y === null) {

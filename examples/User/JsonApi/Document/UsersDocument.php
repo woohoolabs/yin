@@ -73,6 +73,6 @@ class UsersDocument extends AbstractCollectionDocument
      */
     protected function filterContent(RequestInterface $request)
     {
-        $this->sortCollection($request);
+        $this->sortCollection($request, "id");
     }
 }
