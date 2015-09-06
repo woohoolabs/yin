@@ -197,7 +197,7 @@ trait CollectionFilterTrait
     {
         if (is_bool($x)) {
             $y = boolval($y);
-        } elseif(is_long($x)) {
+        } elseif (is_long($x)) {
             $y = intval($y);
         } elseif (is_double($x)) {
             $y = doubleval($y);
