@@ -9,11 +9,37 @@ class Included
     private $included = [];
 
     /**
+     * @return array
+     */
+    public function getResources()
+    {
+        return $this->included;
+    }
+
+    /**
+     * @param string $type
+     * @param string $id
+     * @return array|null
+     */
+    public function getResource($type, $id)
+    {
+        return isset($this->included[$type][$id]) ? $this->included[$type][$id] : null;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
     {
         return empty($this->included);
+    }
+
+    /**
+     * @param array $resources
+     */
+    public function setResources(array $resources)
+    {
+        $this->included = $resources;
     }
 
     /**
@@ -32,13 +58,17 @@ class Included
     }
 
     /**
-     * @param string $type
-     * @param string $id
-     * @return array|null
+     * @param \Closure $filter
      */
-    public function getResource($type, $id)
+    public function filterResources(\Closure $filter)
     {
-        return isset($this->included[$type][$id]) ? $this->included[$type][$id] : null;
+        foreach ($this->included as $type => $items) {
+            foreach ($items as $id => $item) {
+                if ($filter($type, $id) === false) {
+                    unset($this->included[$type][$id]);
+                }
+            }
+        }
     }
 
     /**
@@ -48,9 +78,9 @@ class Included
     {
         $included = [];
 
-        foreach ($this->included as $types) {
-            ksort($types);
-            foreach ($types as $item) {
+        ksort($this->included);
+        foreach ($this->included as $id) {
+            foreach ($id as $item) {
                 $included[] = $item;
             }
         }

@@ -29,9 +29,7 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    protected function filterContent(RequestInterface $request)
-    {
-    }
+    abstract protected function filterContent(RequestInterface $request);
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -43,6 +41,14 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
             $request = $request->withQueryParam("sort", $defaultSorting);
         }
         $this->sortByFields($this->data, $this->included, $request->getSortingByFields());
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     */
+    protected function filterCollection(RequestInterface $request)
+    {
+        $this->filterByFields($this->data, $this->included, $request->getFilteringByFields());
     }
 
     /**

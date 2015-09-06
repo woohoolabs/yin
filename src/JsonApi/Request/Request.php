@@ -362,7 +362,6 @@ class Request implements RequestInterface
         return $sortFields;
     }
 
-
     protected function setPagination()
     {
         $pagination =  $this->getQueryParam("page", null);
@@ -439,6 +438,35 @@ class Request implements RequestInterface
         }
 
         return $this->filtering;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilteringByFields()
+    {
+        $filteringFields = [];
+        foreach ($this->getFiltering() as $field => $value) {
+            $sortField = [];
+            $sortField["originalField"] = $field;
+            if ($field[0] === ">" || $field[0] === "<") {
+                $sortField["operator"] = $field[0];
+                $field = substr($field, 1);
+
+                if ($field[0] === "=") {
+                    $sortField["operator"] .= $field[0];
+                    $field = substr($field, 1);
+                }
+            } else {
+                $sortField["operator"] = "=";
+            }
+
+            $sortField["field"] = explode(".", $field);
+            $sortField["value"] = $value;
+            $filteringFields[] = $sortField;
+        }
+
+        return $filteringFields;
     }
 
     /**

@@ -134,6 +134,11 @@ interface RequestInterface extends ServerRequestInterface
     public function getFiltering();
 
     /**
+     * @return array
+     */
+    public function getFilteringByFields();
+
+    /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
      *
      * @param string $name

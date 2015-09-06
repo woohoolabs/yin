@@ -1,12 +1,14 @@
 ## 0.5.0 - Unreleased
 
 ADDED:
-- Much better support for pagination
+- Support for much easier generation of pagination links
+- Support for automatic sorting, pagination and filtering
 - Shortcut to get the resource ID in an `AbstractSingleResourceDocument`
 - Support for relative URI-s
 
 CHANGED:
 - Improved transformation performance
+- Included resources are now sorted by type instead of ID
 
 FIXED:
 - Instantiation of `Request` could take significant time
