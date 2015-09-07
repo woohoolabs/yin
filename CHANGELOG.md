@@ -10,6 +10,9 @@ CHANGED:
 - Improved transformation performance
 - Included resources are now sorted by type instead of ID
 
+REMOVED:
+- `RelationshipRequest` became useless, thus it was removed
+
 FIXED:
 - Instantiation of `Request` could take significant time
 - Sparse fieldsets and inclusion of relationships are now fully compliant with the spec
