@@ -149,7 +149,14 @@ abstract class AbstractCompoundDocument extends AbstractDocument
      */
     protected function transformRelationshipContent($relationshipName, RequestInterface $request)
     {
-        return $this->getRelationshipContent($relationshipName, $request);
+        $response = $this->getRelationshipContent($relationshipName, $request);
+
+        // Included
+        if ($this->included->isEmpty() === false) {
+            $response["included"] = $this->included->transform();
+        }
+
+        return $response;
     }
 
     /**

@@ -16,12 +16,17 @@ class GetBookRelationshipsAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
+        $id = $jsonApi->getRequest()->getQueryParam("id");
+        if ($id === null) {
+            die("You must define the 'id' query parameter with a value of '1'!");
+        }
+
         $relationshipName = $jsonApi->getRequest()->getQueryParam("relationship");
         if ($relationshipName === null) {
             die("You must define the 'relationship' query parameter with a value of 'authors' or 'publisher'!");
         }
 
-        $book = BookRepository::getBook(1);
+        $book = BookRepository::getBook($id);
 
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())

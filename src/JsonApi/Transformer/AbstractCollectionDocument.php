@@ -1,7 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Request\RelationshipRequest;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractCollectionDocument extends AbstractCompoundDocument
@@ -76,11 +75,6 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $request = new RelationshipRequest(
-            $request,
-            $this->transformer->getType($this->domainObject),
-            $relationshipName
-        );
         $content = [];
 
         foreach ($this->domainObject as $item) {
