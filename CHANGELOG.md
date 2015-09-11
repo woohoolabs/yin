@@ -1,8 +1,7 @@
-## 0.5.0 - Unreleased
+## 0.5.0 - 2015-09-11
 
 ADDED:
 - Support for much easier generation of pagination links
-- Support for automatic sorting, pagination and filtering
 - Shortcut to get the resource ID in an `AbstractSingleResourceDocument`
 - Support for relative URI-s
 
