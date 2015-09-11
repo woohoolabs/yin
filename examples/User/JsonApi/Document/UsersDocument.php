@@ -67,13 +67,4 @@ class UsersDocument extends AbstractCollectionDocument
             ->setPagination("http://example.com/api/users", $this->domainObject)
         ;
     }
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     */
-    protected function filterContent(RequestInterface $request)
-    {
-        $this->filterCollection($request);
-        $this->sortCollection($request, "id");
-    }
 }

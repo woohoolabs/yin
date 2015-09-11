@@ -16,39 +16,39 @@ class Request implements RequestInterface
     /**
      * @var \Psr\Http\Message\ServerRequestInterface
      */
-    private $serverRequest;
+    protected $serverRequest;
 
     /**
      * @var array|null
      */
-    private $includedFields;
+    protected $includedFields;
 
     /**
      * @var array|null
      */
-    private $includedRelationships;
+    protected $includedRelationships;
 
     /**
      * @var array|null
      */
-    private $sorting;
+    protected $sorting;
 
     /**
      * @var array|null
      */
-    private $pagination;
+    protected $pagination;
 
     /**
      * @var array|null
      */
-    private $filtering;
+    protected $filtering;
 
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
      */
     public function __construct(ServerRequestInterface $request)
     {
-        $this->serverRequest = $request->withParsedBody(json_decode($request->getBody(), true));
+        $this->serverRequest = $request;
     }
 
     /**
@@ -754,6 +754,12 @@ class Request implements RequestInterface
      */
     public function getParsedBody()
     {
+        if ($this->serverRequest->getBody()->getSize() && $this->serverRequest->getParsedBody() === null) {
+            $this->serverRequest = $this->serverRequest->withParsedBody(
+                json_decode($this->serverRequest->getBody(), true)
+            );
+        }
+
         return $this->serverRequest->getParsedBody();
     }
 

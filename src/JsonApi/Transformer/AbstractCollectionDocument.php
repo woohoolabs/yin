@@ -5,8 +5,6 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractCollectionDocument extends AbstractCompoundDocument
 {
-    use CollectionFilterTrait;
-
     /**
      * @var \Traversable|array
      */
@@ -26,31 +24,6 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     */
-    abstract protected function filterContent(RequestInterface $request);
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $defaultSorting
-     */
-    protected function sortCollection(RequestInterface $request, $defaultSorting = "")
-    {
-        if (empty($request->getQueryParam("sort"))) {
-            $request = $request->withQueryParam("sort", $defaultSorting);
-        }
-        $this->sortByFields($this->data, $this->included, $request->getSortingByFields());
-    }
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     */
-    protected function filterCollection(RequestInterface $request)
-    {
-        $this->filterByFields($this->data, $this->included, $request->getFilteringByFields());
-    }
-
-    /**
      * Sets the value of the "data" and "included" properties based on the "resource" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -62,8 +35,6 @@ abstract class AbstractCollectionDocument extends AbstractCompoundDocument
         foreach ($this->domainObject as $item) {
             $this->data[] = $this->transformer->transformToResource($item, $request, $this->included);
         }
-
-        $this->filterContent($request);
     }
 
     /**
