@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Exception;
+namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;

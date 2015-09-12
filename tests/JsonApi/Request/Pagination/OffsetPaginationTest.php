@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Exception;
+namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
@@ -12,7 +12,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         $limit = 10;
         $query = ["offset" => $offset, "limit" => $limit];
 
-        $this->assertEquals($this->createPagination($offset, $limit), OffsetPagination::fromPaginationQueryParams($query));
+        $this->assertEquals(
+            $this->createPagination($offset, $limit),
+            OffsetPagination::fromPaginationQueryParams($query)
+        );
     }
 
     public function testCreateFromMissingPaginationQueryParams()
