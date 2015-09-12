@@ -151,38 +151,71 @@ class Error
     {
         $content = [];
 
+        $this->transformId($content);
+        $this->transformMeta($content);
+        $this->transformLinks($content);
+        $this->transformStatus($content);
+        $this->transformCode($content);
+        $this->transformTitle($content);
+        $this->transformDetail($content);
+        $this->transformSource($content);
+
+        return $content;
+    }
+
+    protected function transformId(array &$content)
+    {
         if ($this->id) {
             $content["id"] = $this->id;
         }
+    }
 
+    protected function transformMeta(array &$content)
+    {
         if (empty($this->meta) === false) {
             $content["meta"] = $this->meta;
         }
+    }
 
+    protected function transformLinks(array &$content)
+    {
         if ($this->links) {
             $content["links"] = $this->links->transform();
         }
+    }
 
+    protected function transformStatus(array &$content)
+    {
         if ($this->status) {
             $content["status"] = $this->status;
         }
+    }
 
+    protected function transformCode(array &$content)
+    {
         if ($this->code) {
             $content["code"] = $this->code;
         }
+    }
 
+    protected function transformTitle(array &$content)
+    {
         if ($this->title) {
             $content["title"] = $this->title;
         }
+    }
 
+    protected function transformDetail(array &$content)
+    {
         if ($this->detail) {
             $content["detail"] = $this->detail;
         }
+    }
 
+    protected function transformSource(array &$content)
+    {
         if ($this->source) {
             $content["source"] = $this->source->transform();
         }
-
-        return $content;
     }
 }
