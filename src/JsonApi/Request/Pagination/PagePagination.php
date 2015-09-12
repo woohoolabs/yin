@@ -24,8 +24,8 @@ class PagePagination
         $defaultPage = null,
         $defaultSize = null
     ) {
-        $page = isset($paginationQueryParams["number"]) ? $paginationQueryParams["number"] : $defaultPage;
-        $size = isset($paginationQueryParams["size"]) ? $paginationQueryParams["size"] : $defaultSize;
+        $page = empty($paginationQueryParams["number"]) ? $defaultPage : $paginationQueryParams["number"];
+        $size = empty($paginationQueryParams["size"]) ? $defaultSize : $paginationQueryParams["size"];
 
         return new self($page, $size);
     }
