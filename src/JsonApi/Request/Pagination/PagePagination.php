@@ -1,8 +1,13 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-class PagePagination extends FixedPagePagination
+class PagePagination
 {
+    /**
+     * @var int|null
+     */
+    protected $page;
+
     /**
      * @var int|null
      */
@@ -31,8 +36,16 @@ class PagePagination extends FixedPagePagination
      */
     public function __construct($page, $size)
     {
-        parent::__construct($page);
+        $this->page = $page;
         $this->size = $size;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPage()
+    {
+        return $this->page;
     }
 
     /**
