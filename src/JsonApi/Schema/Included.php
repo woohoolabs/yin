@@ -58,20 +58,6 @@ class Included
     }
 
     /**
-     * @param \Closure $filter
-     */
-    public function filterResources(\Closure $filter)
-    {
-        foreach ($this->included as $type => $items) {
-            foreach ($items as $id => $item) {
-                if ($filter($type, $id) === false) {
-                    unset($this->included[$type][$id]);
-                }
-            }
-        }
-    }
-
-    /**
      * @return array
      */
     public function transform()

@@ -8,20 +8,27 @@ class LinkTest extends PHPUnit_Framework_TestCase
 {
     public function testGetHref()
     {
-        $link = $this->createLink("http://example.com");
-        $this->assertEquals("http://example.com", $link->getHref());
+        $href = "http://example.com";
+
+        $link = $this->createLink($href);
+        $this->assertEquals($href, $link->getHref());
     }
 
     public function testAbsoluteLinkTransform()
     {
-        $link = $this->createLink("http://example.com");
-        $this->assertEquals("http://example.com", $link->transform(""));
+        $href = "http://example.com/api/users";
+
+        $link = $this->createLink($href);
+        $this->assertEquals($href, $link->transform(""));
     }
 
     public function testRelativeLinkTransform()
     {
-        $link = $this->createLink("/api/users");
-        $this->assertEquals("http://example.com/api/users", $link->transform("http://example.com"));
+        $baseUri = "http://example.com/api";
+        $href = "/users";
+
+        $link = $this->createLink($href);
+        $this->assertEquals($baseUri . $href, $link->transform($baseUri));
     }
 
     private function createLink($href)

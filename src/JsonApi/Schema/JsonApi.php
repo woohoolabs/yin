@@ -25,9 +25,11 @@ class JsonApi
      */
     public function transform()
     {
-        $result = [
-            "version" => $this->version
-        ];
+        $result = [];
+
+        if ($this->version) {
+            $result["version"] = $this->version;
+        }
 
         if (empty($this->meta) === false) {
             $result["meta"] = $this->meta;

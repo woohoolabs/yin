@@ -155,6 +155,10 @@ class Error
             $content["id"] = $this->id;
         }
 
+        if ($this->meta) {
+            $content["meta"] = $this->meta;
+        }
+
         if ($this->links) {
             $content["links"] = $this->links->transform();
         }

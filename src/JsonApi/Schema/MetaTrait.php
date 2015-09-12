@@ -8,7 +8,6 @@ trait MetaTrait
      */
     protected $meta = [];
 
-
     /**
      * @return array
      */
