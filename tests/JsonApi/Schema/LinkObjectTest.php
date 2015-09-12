@@ -48,7 +48,6 @@ class LinkObjectTest extends PHPUnit_Framework_TestCase
     {
         $baseUri = "http://example.com/api";
         $href = "/users";
-        $meta = ["abc" => "def"];
 
         $link = $this->createLink($href);
 

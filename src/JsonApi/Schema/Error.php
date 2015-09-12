@@ -155,7 +155,7 @@ class Error
             $content["id"] = $this->id;
         }
 
-        if ($this->meta) {
+        if (empty($this->meta) === false) {
             $content["meta"] = $this->meta;
         }
 
