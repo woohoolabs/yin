@@ -58,8 +58,9 @@ class UserDocument extends AbstractSingleResourceDocument
     public function getLinks()
     {
         return new Links(
+            "http://example.com/api",
             [
-                "self" => new Link("http://example.com/api/users/" . $this->getResourceId())
+                "self" => new Link("/users/" . $this->getResourceId())
             ]
         );
     }

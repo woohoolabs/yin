@@ -58,13 +58,6 @@ class UsersDocument extends AbstractCollectionDocument
      */
     public function getLinks()
     {
-        return
-            Links::create(
-                [
-                    "self" => new Link("http://example.com/api/users")
-                ]
-            )
-            ->setPagination("http://example.com/api/users", $this->domainObject)
-        ;
+        return Links::createRelativeWithPagination("http://example.com/api", "/users", $this->domainObject);
     }
 }

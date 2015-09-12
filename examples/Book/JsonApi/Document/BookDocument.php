@@ -59,8 +59,9 @@ class BookDocument extends AbstractSingleResourceDocument
     public function getLinks()
     {
         return new Links(
+            "http://example.com/api",
             [
-                "self" => new Link("http://example.com/api/books/" . $this->getResourceId())
+                "self" => new Link("/books/" . $this->getResourceId())
             ]
         );
     }

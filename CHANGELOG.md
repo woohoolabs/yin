@@ -1,3 +1,14 @@
+## 0.6.0 - Unreleased
+
+ADDED:
+
+CHANGED:
+- Simplified relative links
+
+REMOVED:
+
+FIXED:
+
 ## 0.5.0 - 2015-09-11
 
 ADDED:

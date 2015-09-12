@@ -59,8 +59,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
     public function getLinks($contact)
     {
         return new Links(
+            "http://example.com/api",
             [
-                "self" => new Link("http://example.com/api/contacts/" . $this->getId($contact))
+                "self" => new Link("/contacts/" . $this->getId($contact))
             ]
         );
     }

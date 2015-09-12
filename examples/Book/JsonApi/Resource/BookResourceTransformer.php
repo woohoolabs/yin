@@ -3,7 +3,6 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Schema\RelativeLinks;
 use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
@@ -84,6 +83,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getLinks($book)
     {
         return new Links(
+            "http://example.com/api",
             [
                 "self" => new Link($this->getSelfLinkHref($book))
             ]
@@ -96,7 +96,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     public function getSelfLinkHref(array $book)
     {
-        return "http://example.com/api/books/" . $this->getId($book);
+        return "/books/" . $this->getId($book);
     }
 
     /**
@@ -147,8 +147,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return
                     ToManyRelationship::create()
                         ->setLinks(
-                            new RelativeLinks(
-                                $this->getSelfLinkHref($book),
+                            new Links(
+                                "http://example.com/api" . $this->getSelfLinkHref($book),
                                 [
                                     "self" => new Link("/relationships/authors")
                                 ]
@@ -161,8 +161,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return
                     ToOneRelationship::create()
                         ->setLinks(
-                            new RelativeLinks(
-                                $this->getSelfLinkHref($book),
+                            new Links(
+                                "http://example.com/api" . $this->getSelfLinkHref($book),
                                 [
                                     "self" => new Link("/relationships/publisher")
                                 ]

@@ -6,6 +6,11 @@ use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 class Links
 {
     /**
+     * @var string
+     */
+    protected $baseUri;
+
+    /**
      * @var array
      */
     protected $links;
@@ -14,34 +19,91 @@ class Links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      * @return $this
      */
-    public static function create(array $links = [])
+    public static function createAbsolute(array $links = [])
     {
-        return new self($links);
+        return new self("", $links);
+    }
+
+    /**
+     * @param string $baseUri
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
+     * @return $this
+     */
+    public static function createRelative($baseUri, array $links = [])
+    {
+        return new self($baseUri, $links);
     }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
      * @return $this
      */
-    public static function createWithSelf(Link $self)
+    public static function createAbsoluteWithSelf(Link $self)
     {
-        return new self(["self" => $self]);
+        return new self("", ["self" => $self]);
+    }
+
+    /**
+     * @param string $baseUri
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
+     * @return $this
+     */
+    public static function createRelativeWithSelf($baseUri, Link $self)
+    {
+        return new self($baseUri, ["self" => $self]);
     }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
      * @return $this
      */
-    public static function createWithRelated(Link $related)
+    public static function createAbsoluteWithRelated(Link $related)
     {
-        return new self(["related" => $related]);
+        return new self("", ["related" => $related]);
     }
 
     /**
+     * @param string $baseUri
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
+     * @return $this
+     */
+    public static function createRelativeWithRelated($baseUri, Link $related)
+    {
+        return new self($baseUri, ["related" => $related]);
+    }
+
+    /**
+     * @param string $uri
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $pagination
+     * @return $this
+     */
+    public static function createAbsoluteWithPagination($uri, PaginationLinkProviderInterface $pagination)
+    {
+        $links = new self("");
+
+        return $links->setPagination($uri, $pagination);
+    }
+
+    /**
+     * @param string $baseUri
+     * @param string $uri
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $pagination
+     * @return $this
+     */
+    public static function createRelativeWithPagination($baseUri, $uri, PaginationLinkProviderInterface $pagination)
+    {
+        $links = new self($baseUri);
+
+        return $links->setPagination($uri, $pagination);
+    }
+
+    /**
+     * @param string $baseUri
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      */
-    public function __construct(array $links = [])
+    public function __construct($baseUri = "", array $links = [])
     {
+        $this->baseUri = $baseUri;
         $this->links = $links;
     }
 
@@ -54,7 +116,7 @@ class Links
 
         foreach ($this->links as $rel => $link) {
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
-            $links[$rel] = $link ? $link->transform("") : null;
+            $links[$rel] = $link ? $link->transform($this->baseUri) : null;
         }
 
         return $links;

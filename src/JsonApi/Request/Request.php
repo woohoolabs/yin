@@ -8,6 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
 
@@ -382,11 +383,11 @@ class Request implements RequestInterface
 
     /**
      * @param mixed $defaultPage
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination
      */
     public function getFixedPageBasedPagination($defaultPage = null)
     {
-        $pagination = PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
+        $pagination = FixedPagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
 
         return $pagination;
     }
