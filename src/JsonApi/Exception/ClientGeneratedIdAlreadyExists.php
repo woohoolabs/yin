@@ -13,12 +13,7 @@ class ClientGeneratedIdAlreadyExists extends \Exception
      */
     public function __construct($clientGeneratedId)
     {
-        parent::__construct(
-            "Client generated ID " .
-            ($clientGeneratedId ? "\"$clientGeneratedId\" " : "") .
-            "already exists!"
-        );
-
+        parent::__construct("Client generated ID '$clientGeneratedId' already exists!");
         $this->clientGeneratedId = $clientGeneratedId;
     }
 

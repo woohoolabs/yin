@@ -88,7 +88,7 @@ class UpdateResponse extends AbstractResponse
      * relationship."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function forbidden(AbstractErrorDocument $document, array $errors = [])
@@ -105,7 +105,7 @@ class UpdateResponse extends AbstractResponse
      * does not exist."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function notFound(AbstractErrorDocument $document, array $errors = [])
@@ -123,7 +123,7 @@ class UpdateResponse extends AbstractResponse
      * which the resource object's type and id do not match the server's endpoint."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function conflict(AbstractErrorDocument $document, array $errors = [])

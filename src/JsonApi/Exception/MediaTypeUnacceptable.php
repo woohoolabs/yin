@@ -15,7 +15,7 @@ class MediaTypeUnacceptable extends \Exception
     {
         parent::__construct("The media type '" . $mediaTypeName . "' is unacceptable in the 'Accept' header!");
 
-        $this->$mediaTypeName = $mediaTypeName;
+        $this->mediaTypeName = $mediaTypeName;
     }
 
     /**

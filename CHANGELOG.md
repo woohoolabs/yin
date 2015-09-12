@@ -13,6 +13,7 @@ FIXED:
 - Meta data didn't appear in error objects
 - Empty version information appeared in jsonApi object
 - Constructor of `ToOneRelationships` and `ToManyRelationships` were messed up
+- Getters in `MediaTypeUnacceptable` and `MediaTypeUnsupported` didn't return the media type name
 
 ## 0.5.0 - 2015-09-11
 

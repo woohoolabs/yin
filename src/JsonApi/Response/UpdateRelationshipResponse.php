@@ -107,7 +107,7 @@ class UpdateRelationshipResponse extends AbstractResponse
      * "A server MUST return 403 Forbidden in response to an unsupported request to update a relationship."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function forbidden(AbstractErrorDocument $document, array $errors = [])

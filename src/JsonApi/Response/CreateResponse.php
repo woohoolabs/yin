@@ -77,7 +77,7 @@ class CreateResponse extends AbstractResponse
      * "A server MAY return 403 Forbidden in response to an unsupported request to create a resource."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function forbidden(AbstractErrorDocument $document, array $errors = [])
@@ -95,7 +95,7 @@ class CreateResponse extends AbstractResponse
      * collection represented by the endpoint."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function conflict(AbstractErrorDocument $document, array $errors = [])

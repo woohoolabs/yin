@@ -13,9 +13,8 @@ class MediaTypeUnsupported extends \Exception
      */
     public function __construct($mediaTypeName)
     {
-        parent::__construct("The media type '" . $mediaTypeName . "'' is unsupported in the Content-Type header!");
-
-        $this->$mediaTypeName = $mediaTypeName;
+        parent::__construct("The media type '$mediaTypeName' is unsupported in the Content-Type header!");
+        $this->mediaTypeName = $mediaTypeName;
     }
 
     /**

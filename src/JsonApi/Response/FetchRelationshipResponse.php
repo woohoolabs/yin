@@ -54,7 +54,7 @@ class FetchRelationshipResponse extends AbstractResponse
      * that does not exist."
      *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function notFound(AbstractErrorDocument $document, array $errors = [])

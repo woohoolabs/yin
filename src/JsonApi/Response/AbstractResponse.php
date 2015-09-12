@@ -44,7 +44,7 @@ abstract class AbstractResponse
      *
      * @param int $statusCode
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     public function genericError($statusCode, AbstractErrorDocument $document, array $errors = [])
@@ -119,7 +119,7 @@ abstract class AbstractResponse
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param array $errors
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface $response
      */
