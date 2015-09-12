@@ -1,13 +1,18 @@
 ## 0.6.0 - Unreleased
 
 ADDED:
+- Much more unit tests
 
 CHANGED:
 - Simplified relative links
+- Included resources are now sorted by type and id
 
 REMOVED:
 
 FIXED:
+- Meta data didn't appear in error objects
+- Empty version information appeared in jsonApi object
+- Constructor of `ToOneRelationships` and `ToManyRelationships` were messed up
 
 ## 0.5.0 - 2015-09-11
 

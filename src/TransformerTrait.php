@@ -33,13 +33,51 @@ trait TransformerTrait
     }
 
     /**
-     * Transforms a DateTime object to an ISO 8601 format date time string.
+     * Transforms a DateTime object to an ISO 8601 compatible date-time string.
      *
      * @param \DateTime $dateTime
      * @return string
      */
-    public static function toISO8601(DateTime $dateTime)
+    public static function toIso8601Date(DateTime $dateTime)
+    {
+        return $dateTime->format("Y-m-d");
+    }
+
+    /**
+     * Transforms a DateTime object to an ISO 8601 compatible date-time string.
+     *
+     * @param \DateTime $dateTime
+     * @return string
+     */
+    public static function toIso8601Time(DateTime $dateTime)
     {
         return $dateTime->format(DateTime::ISO8601);
+    }
+
+    /**
+     * Transforms an SQL compatible date-time string to an ISO 8601 compatible date-time string.
+     *
+     * @param string $string
+     * @param string $timeZoneName
+     * @return string
+     */
+    public static function fromSqlToIso8601Time($string, $timeZoneName = "")
+    {
+        return DateTime::createFromFormat(
+            "Y-m-d H:i:s",
+            $string,
+            $timeZoneName ? new \DateTimeZone($timeZoneName) : null
+        )->format(DateTime::ISO8601);
+    }
+
+    /**
+     * Transforms an SQL compatible date-time string to an ISO 8601 compatible UTC date-time string.
+     *
+     * @param string $string
+     * @return string
+     */
+    public static function fromSqlToUtcIso8601Time($string)
+    {
+        return self::fromSqlToIso8601Time($string, "UTC");
     }
 }

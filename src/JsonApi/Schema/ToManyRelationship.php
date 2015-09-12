@@ -20,7 +20,7 @@ class ToManyRelationship extends AbstractRelationship
         array $data = [],
         ResourceTransformerInterface $resourceTransformer = null
     ) {
-        parent::__construct($data, $resourceTransformer, $data, $resourceTransformer);
+        parent::__construct($meta, $links, $data, $resourceTransformer);
     }
 
     /**

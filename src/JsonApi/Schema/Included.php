@@ -9,14 +9,6 @@ class Included
     private $included = [];
 
     /**
-     * @return array
-     */
-    public function getResources()
-    {
-        return $this->included;
-    }
-
-    /**
      * @param string $type
      * @param string $id
      * @return array|null
@@ -36,10 +28,15 @@ class Included
 
     /**
      * @param array $resources
+     * @return $this
      */
     public function setResources(array $resources)
     {
-        $this->included = $resources;
+        foreach ($resources as $resource) {
+            $this->addResource($resource);
+        }
+
+        return $this;
     }
 
     /**
@@ -66,6 +63,7 @@ class Included
 
         ksort($this->included);
         foreach ($this->included as $id) {
+            ksort($id);
             foreach ($id as $item) {
                 $included[] = $item;
             }
