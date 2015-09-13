@@ -80,8 +80,8 @@ class Request implements RequestInterface
     public function validateQueryParams()
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
-            if (preg_match("/^([a-z]*)$*/", $queryParamName) &&
-                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"])
+            if (preg_match("/^([a-z]+)$/", $queryParamName) &&
+                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"]) === false
             ) {
                 throw new QueryParamUnrecognized($queryParamName);
             }
@@ -137,7 +137,7 @@ class Request implements RequestInterface
         foreach ($this->parseMediaTypeHeader($headerName) as $mediaType) {
             if ($mediaType["name"] === "application/vnd.api+json") {
                 foreach ($mediaType["parameters"] as $paramName => $paramValue) {
-                    if ($paramName !== "ext") {
+                    if ($paramName !== "ext" && $paramName !== "supported-ext") {
                         return $mediaType["raw"];
                     }
                 }
@@ -291,8 +291,12 @@ class Request implements RequestInterface
      */
     public function getIncludedRelationships($baseRelationshipPath)
     {
+        if ($this->includedRelationships === null) {
+            $this->setIncludedRelationships();
+        }
+
         if (isset($this->includedRelationships[$baseRelationshipPath])) {
-            return $this->includedRelationships[$baseRelationshipPath];
+            return array_values($this->includedRelationships[$baseRelationshipPath]);
         } else {
             return [];
         }
@@ -310,7 +314,7 @@ class Request implements RequestInterface
             $this->setIncludedRelationships();
         }
 
-        if (empty($this->includedRelationships) && array_key_exists($relationshipName, $defaultRelationships)) {
+        if (empty($this->includedRelationships) || array_key_exists($relationshipName, $defaultRelationships)) {
             return true;
         }
 

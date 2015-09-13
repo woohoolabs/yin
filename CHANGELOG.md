@@ -15,6 +15,9 @@ FIXED:
 - Constructors of `ToOneRelationships` and `ToManyRelationships` were messed up
 - Getters in `MediaTypeUnacceptable` and `MediaTypeUnsupported` didn't return the media type name
 - Pagination objects are now correctly instantiated from query parameters
+- Validation of query parameters didn't work
+- Getting the list of included relationships didn't work as expected
+- Relationships included by default didn't work as expected
 
 ## 0.5.0 - 2015-09-11
 
