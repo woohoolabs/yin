@@ -34,7 +34,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testValidateContentTypeHeaderWithExtensionMediaTypes()
     {
-        $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2,ext3"');
+        $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2"');
     }
 
     /**
@@ -331,19 +331,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(
             $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
         );
-    }
-
-    private function createRequest()
-    {
-        $psrRequest = new DiactorosRequest();
-        return new Request($psrRequest);
-    }
-
-    private function createRequestWithJsonBody(array $body)
-    {
-        $psrRequest = new DiactorosRequest();
-        $psrRequest = $psrRequest->withParsedBody($body);
-        return new Request($psrRequest);
     }
 
     private function createRequestWithHeader($headerName, $headerValue)
