@@ -314,7 +314,7 @@ class Request implements RequestInterface
             $this->setIncludedRelationships();
         }
 
-        if (empty($this->includedRelationships) || array_key_exists($relationshipName, $defaultRelationships)) {
+        if (empty($this->includedRelationships) && array_key_exists($relationshipName, $defaultRelationships)) {
             return true;
         }
 
@@ -345,28 +345,6 @@ class Request implements RequestInterface
         return $this->sorting;
     }
 
-    /**
-     * @return array
-     */
-    public function getSortingByFields()
-    {
-        $sortFields = [];
-        foreach ($this->getSorting() as $field) {
-            $sortField = [];
-            if ($field[0] === "-") {
-                $sortField["direction"] = -1;
-                $field = substr($field, 1);
-            } else {
-                $sortField["direction"] = 1;
-            }
-            $sortField["orderBy"] = explode(".", $field);
-            $sortField["field"] = $field;
-            $sortFields[] = $sortField;
-        }
-
-        return $sortFields;
-    }
-
     protected function setPagination()
     {
         $pagination =  $this->getQueryParam("page", null);
@@ -391,9 +369,7 @@ class Request implements RequestInterface
      */
     public function getFixedPageBasedPagination($defaultPage = null)
     {
-        $pagination = FixedPagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
-
-        return $pagination;
+        return FixedPagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
     }
 
     /**
@@ -403,9 +379,7 @@ class Request implements RequestInterface
      */
     public function getPageBasedPagination($defaultPage = null, $defaultSize = null)
     {
-        $pagination = PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
-
-        return $pagination;
+        return PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
     }
 
     /**
@@ -443,35 +417,6 @@ class Request implements RequestInterface
         }
 
         return $this->filtering;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFilteringByFields()
-    {
-        $filteringFields = [];
-        foreach ($this->getFiltering() as $field => $value) {
-            $sortField = [];
-            $sortField["originalField"] = $field;
-            if ($field[0] === ">" || $field[0] === "<") {
-                $sortField["operator"] = $field[0];
-                $field = substr($field, 1);
-
-                if ($field[0] === "=") {
-                    $sortField["operator"] .= $field[0];
-                    $field = substr($field, 1);
-                }
-            } else {
-                $sortField["operator"] = "=";
-            }
-
-            $sortField["field"] = explode(".", $field);
-            $sortField["value"] = $value;
-            $filteringFields[] = $sortField;
-        }
-
-        return $filteringFields;
     }
 
     /**

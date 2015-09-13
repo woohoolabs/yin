@@ -2,6 +2,10 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\ServerRequest as DiactorosRequest;
 
@@ -72,18 +76,26 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertValidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"');
     }
 
+    /**
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
+     */
     public function testValidateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
-        $this->assertValidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
+        $this->assertInvalidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
     }
 
     private function assertValidAcceptHeader($value)
     {
         try {
-            $this->createRequestWithHeader("Accept", $value)->validateContentTypeHeader();
+            $this->createRequestWithHeader("Accept", $value)->validateAcceptHeader();
         } catch (\Exception $e) {
             $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
         }
+    }
+
+    private function assertInvalidAcceptHeader($value)
+    {
+        $this->createRequestWithHeader("Accept", $value)->validateAcceptHeader();
     }
 
     public function testValidateEmptyQueryParams()
@@ -289,7 +301,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $queryParams = ["include" => ""];
 
         $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue(
+        $this->assertFalse(
             $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
         );
     }
@@ -302,7 +314,20 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $queryParams = [];
 
         $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue(
+        $this->assertFalse(
+            $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
+        );
+    }
+
+    public function testIsIncludedRelationshipForPrimaryResourceWithDefault()
+    {
+        $baseRelationshipPath = "";
+        $requiredRelationship = "authors";
+        $defaultRelationships = ["publisher" => true];
+        $queryParams = ["include" => "editors"];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertFalse(
             $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
         );
     }
@@ -324,13 +349,242 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $baseRelationshipPath = "authors";
         $requiredRelationship = "contacts";
-        $defaultRelationships = ["contacts"];
+        $defaultRelationships = ["contacts" => true];
         $queryParams = ["include" => ""];
 
         $request = $this->createRequestWithQueryParams($queryParams);
         $this->assertTrue(
             $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
         );
+    }
+
+    public function testGetSortingWhenEmpty()
+    {
+        $sorting = [];
+        $queryParams = ["sort" => ""];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($sorting, $request->getSorting());
+    }
+
+    public function testGetSortingWhenNotEmpty()
+    {
+        $sorting = ["name", "age", "sex"];
+        $queryParams = ["sort" => implode(",", $sorting)];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($sorting, $request->getSorting());
+    }
+
+    public function testGetPaginationWhenEmpty()
+    {
+        $pagination = [];
+        $queryParams = ["page" => ""];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getPagination());
+    }
+
+    public function testGetPaginationWhenNotEmpty()
+    {
+        $pagination = ["number" => "1", "size" => "10"];
+        $queryParams = ["page" => $pagination];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getPagination());
+    }
+
+    public function testGetFixedPageBasedPagination()
+    {
+        $pagination = new FixedPagePagination(1);
+        $queryParams = ["page" => ["number" => $pagination->getPage()]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getFixedPageBasedPagination());
+    }
+
+    public function testGetPageBasedPagination()
+    {
+        $pagination = new PagePagination(1, 10);
+        $queryParams = ["page" => ["number" => $pagination->getPage(), "size" => $pagination->getSize()]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getPageBasedPagination());
+    }
+
+    public function testGetOffsetBasedPagination()
+    {
+        $pagination = new OffsetPagination(1, 10);
+        $queryParams = ["page" => ["offset" => $pagination->getOffset(), "limit" => $pagination->getLimit()]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getOffsetBasedPagination());
+    }
+
+    public function testGetCursorBasedPagination()
+    {
+        $pagination = new CursorPagination("abcdefg");
+        $queryParams = ["page" => ["cursor" => $pagination->getCursor()]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($pagination, $request->getCursorBasedPagination());
+    }
+
+    public function testGetFilteringWhenEmpty()
+    {
+        $filtering = [];
+        $queryParams = ["filter" => $filtering];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($filtering, $request->getFiltering());
+    }
+
+    public function testGetFilteringWhenNotEmpty()
+    {
+        $filtering = ["name" => "John", "age" => "40", "sex" => "male"];
+        $queryParams = ["filter" => $filtering];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($filtering, $request->getFiltering());
+    }
+
+    public function testGetQueryParamWhenNotFound()
+    {
+        $queryParams = [];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals("xyz", $request->getQueryParam("a_b", "xyz"));
+    }
+
+    public function testGetQueryParamWhenNotEmpty()
+    {
+        $queryParamName = "abc";
+        $queryParamValue = "cde";
+        $queryParams = [$queryParamName => $queryParamValue];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals($queryParamValue, $request->getQueryParam($queryParamName));
+    }
+
+    public function testWithQueryParam()
+    {
+        $queryParams = [];
+        $addedQueryParamName = "abc";
+        $addedQueryParamValue = "def";
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $newRequest = $request->withQueryParam($addedQueryParamName, $addedQueryParamValue);
+        $this->assertNull($request->getQueryParam($addedQueryParamName));
+        $this->assertEquals($addedQueryParamValue, $newRequest->getQueryParam($addedQueryParamName));
+    }
+
+    public function testGetBodyDataWhenEmpty()
+    {
+        $body = [];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertNull($request->getBodyData());
+    }
+
+    public function testGetBodyData()
+    {
+        $body = [
+          "data" => []
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertEquals($body["data"], $request->getBodyData());
+    }
+
+    public function testGetBodyDataTypeWhenEmpty()
+    {
+        $body = [];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertNull($request->getBodyDataType());
+    }
+
+    public function testGetBodyDataType()
+    {
+        $body = [
+            "data" => [
+                "type" => "user"
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertEquals($body["data"]["type"], $request->getBodyDataType());
+    }
+
+    public function testGetBodyDataIdWhenEmpty()
+    {
+        $body = [
+            "data" => []
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertNull($request->getBodyDataId());
+    }
+
+    public function testGetBodyDataId()
+    {
+        $body = [
+            "data" => [
+                "id" => "1"
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertEquals($body["data"]["id"], $request->getBodyDataId());
+    }
+
+    public function testGetProtocolVersion()
+    {
+        $protocolVersion = "2";
+
+        $request = $this->createRequest()->withProtocolVersion($protocolVersion);
+        $this->assertEquals($protocolVersion, $request->getProtocolVersion());
+    }
+
+    public function testGetHeaders()
+    {
+        $header1Name = "a";
+        $header1Value = "b";
+        $header2Name = "c";
+        $header2Value = "d";
+        $headers = [$header1Name => [$header1Value], $header2Name => [$header2Value]];
+
+        $request = $this->createRequestWithHeader($header1Name, $header1Value)->withHeader($header2Name, $header2Value);
+        $this->assertEquals($headers, $request->getHeaders());
+    }
+
+    public function testHasHeaderWhenHeaderNotExists()
+    {
+        $request = $this->createRequestWithHeader("a", "b");
+
+        $this->assertFalse($request->hasHeader("c"));
+    }
+
+    public function testHasHeaderWhenHeaderExists()
+    {
+      $request = $this->createRequestWithHeader("a", "b");
+
+      $this->assertTrue($request->hasHeader("a"));
+    }
+
+
+
+    private function createRequest()
+    {
+        $psrRequest = new DiactorosRequest();
+        return new Request($psrRequest);
+    }
+
+    private function createRequestWithJsonBody(array $body)
+    {
+        $psrRequest = new DiactorosRequest();
+        $psrRequest = $psrRequest->withParsedBody($body);
+        return new Request($psrRequest);
     }
 
     private function createRequestWithHeader($headerName, $headerValue)

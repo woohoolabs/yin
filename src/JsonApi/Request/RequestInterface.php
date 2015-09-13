@@ -93,11 +93,6 @@ interface RequestInterface extends ServerRequestInterface
     public function getSorting();
 
     /**
-     * @return array
-     */
-    public function getSortingByFields();
-
-    /**
      * @return array|null
      */
     public function getPagination();
@@ -132,11 +127,6 @@ interface RequestInterface extends ServerRequestInterface
      * @return array
      */
     public function getFiltering();
-
-    /**
-     * @return array
-     */
-    public function getFilteringByFields();
 
     /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
