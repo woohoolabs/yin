@@ -567,12 +567,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testHasHeaderWhenHeaderExists()
     {
-      $request = $this->createRequestWithHeader("a", "b");
+        $request = $this->createRequestWithHeader("a", "b");
 
-      $this->assertTrue($request->hasHeader("a"));
+        $this->assertTrue($request->hasHeader("a"));
     }
-
-
 
     private function createRequest()
     {
