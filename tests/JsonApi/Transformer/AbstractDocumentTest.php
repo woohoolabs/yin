@@ -5,7 +5,6 @@ use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractDocument;
-use Zend\Diactoros\Response;
 
 class AbstractDocumentTest extends PHPUnit_Framework_TestCase
 {
