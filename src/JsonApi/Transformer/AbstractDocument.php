@@ -109,12 +109,12 @@ abstract class AbstractDocument
 
         $extensions = $this->getExtensions();
         if (empty($extensions) === false) {
-            $contentType .= '; ext="' . implode(";", $extensions) . '"';
+            $contentType .= '; ext="' . implode(",", $extensions) . '"';
         }
 
         $supportedExtensions = $this->getSupportedExtensions();
         if (empty($supportedExtensions) === false) {
-            $contentType .= '; supported-ext="' . implode(";", $supportedExtensions) . '"';
+            $contentType .= '; supported-ext="' . implode(",", $supportedExtensions) . '"';
         }
 
         return $contentType;

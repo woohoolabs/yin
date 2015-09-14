@@ -7,18 +7,28 @@ use WoohooLabs\Yin\JsonApi\Schema\Error;
 abstract class AbstractErrorDocument extends AbstractDocument
 {
     /**
-     * @var array
+     * @var \WoohooLabs\Yin\JsonApi\Schema\Error[]
      */
     protected $errors = [];
+
+    /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Error[]
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
 
     /**
      * Includes a new error in the error document.
      *
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error $error
+     * @return $this
      */
     public function addError(Error $error)
     {
         $this->errors[] = $error;
+        return $this;
     }
 
     /**
@@ -58,7 +68,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
             /** @var \WoohooLabs\Yin\JsonApi\Schema\Error $error */
             $roundedStatusCode = intval($error->getStatus() / 100) * 100;
 
-            if (abs($error->getStatus() - $roundedStatusCode) >= 100) {
+            if (abs($responseCode - $roundedStatusCode) >= 100) {
                 $responseCode = $roundedStatusCode;
             }
         }

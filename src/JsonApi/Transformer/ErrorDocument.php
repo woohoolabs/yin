@@ -31,10 +31,12 @@ class ErrorDocument extends AbstractErrorDocument
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi $jsonApi
+     * @return $this
      */
     public function setJsonApi(JsonApi $jsonApi)
     {
         $this->jsonApi = $jsonApi;
+        return $this;
     }
 
     /**
@@ -47,10 +49,12 @@ class ErrorDocument extends AbstractErrorDocument
 
     /**
      * @param array $meta
+     * @return $this
      */
     public function setMeta(array $meta)
     {
         $this->meta = $meta;
+        return $this;
     }
 
     /**
@@ -63,9 +67,11 @@ class ErrorDocument extends AbstractErrorDocument
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links $links
+     * @return $this
      */
     public function setLinks(Links $links)
     {
         $this->links = $links;
+        return $this;
     }
 }

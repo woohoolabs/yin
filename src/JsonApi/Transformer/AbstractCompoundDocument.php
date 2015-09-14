@@ -23,14 +23,14 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     protected $included;
 
     /**
-     * Sets the value of the "data" and "included" properties based on the "resource" property.
+     * Sets the value of the "data" and "included" properties based on the "domainObject" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
     abstract protected function setContent(RequestInterface $request);
 
     /**
-     * Returns a response whose primary data is a relationship object with $relationshipName name.
+     * Returns a response content whose primary data is a relationship object with $relationshipName name.
      *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -98,6 +98,14 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Included
+     */
+    public function getIncluded()
+    {
+        return $this->included;
+    }
+
+    /**
      * @param mixed $domainObject
      */
     private function initializeDocument($domainObject)
@@ -115,7 +123,7 @@ abstract class AbstractCompoundDocument extends AbstractDocument
     private function doGetResponse(ResponseInterface $response, $responseCode, array $content)
     {
         $response = $response->withStatus($responseCode);
-        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
+        $response = $response->withHeader("Content-Type", $this->getContentType());
         $response->getBody()->rewind();
         $response->getBody()->write(json_encode($content));
 
@@ -157,13 +165,5 @@ abstract class AbstractCompoundDocument extends AbstractDocument
         }
 
         return $response;
-    }
-
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Included
-     */
-    public function getIncluded()
-    {
-        return $this->included;
     }
 }
