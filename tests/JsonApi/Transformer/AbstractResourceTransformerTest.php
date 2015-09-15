@@ -104,6 +104,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 $this->assertInstanceOf(RequestInterface::class, $request);
                 return "James Bond";
             },
+            "birth" => function (array $object) {
                 return 2015 - $object["age"];
             }
         ];
