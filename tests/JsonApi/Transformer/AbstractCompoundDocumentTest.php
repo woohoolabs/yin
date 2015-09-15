@@ -76,7 +76,7 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
 
         $document = $this->createDocument([], [], null, [], $links, []);
         $response = $document->getResponse(new Response(), [], $request, 200);
-        $this->assertEquals(2, count($this->getContentFromResponse("links", $response)));
+        $this->assertCount(2, $this->getContentFromResponse("links", $response));
     }
 
     public function testGetEmptyDataResponseWithEmptyIncludes()

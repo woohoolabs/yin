@@ -327,7 +327,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         $relationshipCallback = $relationships[$relationshipName];
         /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
-        $relationship = $relationshipCallback($domainObject);
+        $relationship = $relationshipCallback($domainObject, $request);
 
         return $relationship->transform(
             $request,

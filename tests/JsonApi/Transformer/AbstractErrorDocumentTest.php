@@ -42,7 +42,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
             ->getResponse(new Response());
 
         $this->assertEquals(404, $response->getStatusCode());
-        $this->assertEquals(1, count($this->getErrorsContentFromResponse($response)));
+        $this->assertCount(1, $this->getErrorsContentFromResponse($response));
     }
 
     public function testGetResponseWithMultipleErrors()
@@ -55,7 +55,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
             ->getResponse(new Response());
 
         $this->assertEquals(400, $response->getStatusCode());
-        $this->assertEquals(3, count($this->getErrorsContentFromResponse($response)));
+        $this->assertCount(3, $this->getErrorsContentFromResponse($response));
     }
 
     private function getErrorsContentFromResponse(ResponseInterface $response)
