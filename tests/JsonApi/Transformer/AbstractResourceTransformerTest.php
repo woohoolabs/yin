@@ -99,12 +99,11 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
             "age" => 50
         ];
         $attributes = [
-            "full_name" => function(array $object, RequestInterface $request) use ($domainObject) {
+            "full_name" => function (array $object, RequestInterface $request) use ($domainObject) {
                 $this->assertEquals($object, $domainObject);
                 $this->assertInstanceOf(RequestInterface::class, $request);
                 return "James Bond";
             },
-            "birth" => function(array $object) use ($domainObject) {
                 return 2015 - $object["age"];
             }
         ];
@@ -127,7 +126,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         ];
         $defaultRelationships = ["father"];
         $relationships = [
-            "father" => function(array $object, RequestInterface $request) use ($domainObject) {
+            "father" => function (array $object, RequestInterface $request) use ($domainObject) {
                 $this->assertEquals($object, $domainObject);
                 $this->assertInstanceOf(RequestInterface::class, $request);
 
@@ -152,7 +151,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
     {
         $defaultRelationships = [];
         $relationships = [
-            "father" => function() {
+            "father" => function () {
                 $relationship = new ToOneRelationship();
                 $relationship->setData([], new StubResourceTransformer("user", "2"));
                 return $relationship;
@@ -175,7 +174,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
     {
         $defaultRelationships = ["father"];
         $relationships = [
-            "father" => function() {
+            "father" => function () {
                 return new ToOneRelationship();
             }
         ];
@@ -202,7 +201,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
     {
         $defaultRelationships = ["father"];
         $relationships = [
-            "father" => function() {
+            "father" => function () {
                 $relationship = new ToOneRelationship();
                 $relationship->setData([], new StubResourceTransformer("user", "2"));
                 return $relationship;
