@@ -75,7 +75,7 @@ class StubCompoundDocument extends AbstractCompoundDocument
         $this->meta = $meta;
         $this->links = $links;
         $this->dataResult = $data;
-        $this->includedResult = $included;
+        $this->includedResult = $included ? $included : new Included();
         $this->relationshipResponseContent = $relationshipResponseContent;
     }
 
@@ -142,7 +142,7 @@ class StubCompoundDocument extends AbstractCompoundDocument
     protected function setContent(RequestInterface $request)
     {
         $this->data = $this->dataResult;
-        $this->included = $this->includedResult ? $this->includedResult : new Included();
+        $this->included = $this->includedResult;
     }
 
     /**

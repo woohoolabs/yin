@@ -129,7 +129,7 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
 
         $document = $this->createDocument([], [], null, [], null, [], $included);
         $this->assertEquals(null, $document->getIncluded());
-        $document->getResponse(new Response(), [],  new Request(new ServerRequest()), 200);
+        $document->getResponse(new Response(), [], new Request(new ServerRequest()), 200);
         $this->assertEquals($included, $document->getIncluded());
     }
 
@@ -145,8 +145,8 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
         ];
 
         $document = $this->createDocument([], [], null, [], null, [], null, $relationshipResponseContent);
-        //$response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
-        //$this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
+        $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
+        $this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
     }
 
     public function testGetRelationshipResponseWithIncluded()
