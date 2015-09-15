@@ -4,9 +4,11 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabsTest\Yin\JsonApi\Utils\StubCompoundDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
@@ -67,14 +69,106 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($data, $this->getContentFromResponse("data", $response));
     }
 
+    public function testGetResponseWithLinks()
+    {
+        $request = new Request(new ServerRequest());
+        $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
+
+        $document = $this->createDocument([], [], null, [], $links, []);
+        $response = $document->getResponse(new Response(), [], $request, 200);
+        $this->assertEquals(2, count($this->getContentFromResponse("links", $response)));
+    }
+
     public function testGetEmptyDataResponseWithEmptyIncludes()
     {
         $request = new Request(new ServerRequest());
-        $included = [];
+        $included = null;
 
         $document = $this->createDocument([], [], null, [], null, [], $included);
         $response = $document->getResponse(new Response(), [], $request, 200);
-        $this->assertEquals($included, $this->getContentFromResponse("included", $response));
+        $this->assertEquals([], $this->getContentFromResponse("included", $response));
+    }
+
+    public function testGetEmptyDataResponseWithIncludes()
+    {
+        $request = new Request(new ServerRequest());
+        $included = new Included();
+        $included->setResources(
+            [
+                [
+                    "type" => "user",
+                    "id" => "1"
+                ],
+                [
+                    "type" => "user",
+                    "id" => "2"
+                ]
+            ]
+        );
+
+        $document = $this->createDocument([], [], null, [], null, [], $included);
+        $response = $document->getResponse(new Response(), [], $request, 200);
+        $this->assertEquals($included->transform(), $this->getContentFromResponse("included", $response));
+    }
+
+    public function testGetIncludes()
+    {
+        $included = new Included();
+        $included->setResources(
+            [
+                [
+                    "type" => "user",
+                    "id" => "1"
+                ],
+                [
+                    "type" => "user",
+                    "id" => "2"
+                ]
+            ]
+        );
+
+        $document = $this->createDocument([], [], null, [], null, [], $included);
+        $this->assertEquals(null, $document->getIncluded());
+        $document->getResponse(new Response(), [],  new Request(new ServerRequest()), 200);
+        $this->assertEquals($included, $document->getIncluded());
+    }
+
+    public function testGetRelationshipResponse()
+    {
+        $request = new Request(new ServerRequest());
+        $relationshipResponseContentData = [
+            "type" => "user",
+            "id" => "1"
+        ];
+        $relationshipResponseContent = [
+            "data" => $relationshipResponseContentData
+        ];
+
+        $document = $this->createDocument([], [], null, [], null, [], null, $relationshipResponseContent);
+        //$response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
+        //$this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
+    }
+
+    public function testGetRelationshipResponseWithIncluded()
+    {
+        $request = new Request(new ServerRequest());
+        $included = new Included();
+        $included->setResources(
+            [
+                [
+                    "type" => "user",
+                    "id" => "1"
+                ],
+                [
+                    "type" => "user",
+                    "id" => "2"
+                ]
+            ]
+        );
+
+        $document = $this->createDocument([], [], null, [], null, [], $included, []);
+        $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
+        $this->assertEquals($included->transform(), $this->getContentFromResponse("included", $response));
     }
 
     /**
@@ -96,7 +190,7 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param array $data
-     * @param array $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Included|null $included
      * @param array $relationshipResponseContent
      * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument
      */
@@ -107,60 +201,18 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
         array $meta = [],
         Links $links = null,
         array $data = [],
-        array $included = [],
+        Included $included = null,
         array $relationshipResponseContent = []
     ) {
-        $mock = $this->getMockForAbstractClass(
-            AbstractCompoundDocument::class,
-            [],
-            "",
-            true,
-            true,
-            true,
-            ["getExtensions", "getSupportedExtensions"]
+        return new StubCompoundDocument(
+            $extensions,
+            $supportedExtensions,
+            $jsonApi,
+            $meta,
+            $links,
+            $data,
+            $included,
+            $relationshipResponseContent
         );
-
-        $mock
-            ->method("getExtensions")
-            ->willReturn($extensions);
-        $mock
-            ->method("getSupportedExtensions")
-            ->willReturn($supportedExtensions);
-        $mock
-            ->method("getJsonApi")
-            ->willReturn($jsonApi);
-        $mock
-            ->method("getMeta")
-            ->withAnyParameters()
-            ->willReturn($meta);
-        $mock
-            ->method("getLinks")
-            ->withAnyParameters()
-            ->willReturn($links);
-        $mock
-            ->method("setContent")
-            ->withAnyParameters();
-        $mock
-            ->method("getRelationshipContent")
-            ->withAnyParameters()
-            ->willReturn($relationshipResponseContent);
-
-        $this->setObjectProperty($mock, "data", $data);
-        $this->setObjectProperty($mock, "included", $included);
-
-        return $mock;
-    }
-
-    /**
-     * @param mixed $object
-     * @param string $propertyName
-     * @param mixed $value
-     */
-    private function setObjectProperty($object, $propertyName, $value)
-    {
-        $reflection = new \ReflectionClass($object);
-        $property = $reflection->getProperty($propertyName);
-        $property->setAccessible(true);
-        $property->setValue($object, $value);
     }
 }

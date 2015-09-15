@@ -6,6 +6,19 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 {
+    public function testFromArray()
+    {
+        $type = "user";
+        $id = "1";
+
+        $resourceIdentifierArray = [
+            "type" => $type,
+            "id" => $id
+        ];
+        $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id);
+        $this->assertEquals($resourceIdentifier, ResourceIdentifier::fromArray($resourceIdentifierArray));
+    }
+
     public function testGetType()
     {
         $type = "book";

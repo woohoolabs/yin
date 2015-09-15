@@ -4,7 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
+use WoohooLabsTest\Yin\JsonApi\Utils\StubErrorDocument;
 use Zend\Diactoros\Response;
 
 class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
@@ -23,6 +23,15 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(500, $response->getStatusCode());
         $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
+    }
+
+    public function testGetResponseWithDefinedResponseCode()
+    {
+        $response = $this
+            ->createErrorDocument()
+            ->getResponse(new Response(), 500);
+
+        $this->assertEquals(500, $response->getStatusCode());
     }
 
     public function testGetResponseWithOneError()
@@ -61,20 +70,6 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
      */
     private function createErrorDocument()
     {
-        $mock = $this->getMockForAbstractClass(AbstractErrorDocument::class);
-
-        $mock
-            ->method("getJsonApi")
-            ->willReturn(null);
-        $mock
-            ->method("getMeta")
-            ->withAnyParameters()
-            ->willReturn([]);
-        $mock
-            ->method("getLinks")
-            ->withAnyParameters()
-            ->willReturn(null);
-
-        return $mock;
+        return new StubErrorDocument();
     }
 }

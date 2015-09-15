@@ -4,7 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractDocument;
+use WoohooLabsTest\Yin\JsonApi\Utils\StubDocument;
 
 class AbstractDocumentTest extends PHPUnit_Framework_TestCase
 {
@@ -28,20 +28,6 @@ class AbstractDocumentTest extends PHPUnit_Framework_TestCase
      */
     private function createDocument(JsonApi $jsonApi = null, array $meta = [], Links $links = null)
     {
-        $mock = $this->getMockForAbstractClass(AbstractDocument::class);
-
-        $mock
-            ->method("getJsonApi")
-            ->willReturn($jsonApi);
-        $mock
-            ->method("getMeta")
-            ->withAnyParameters()
-            ->willReturn($meta);
-        $mock
-            ->method("getLinks")
-            ->withAnyParameters()
-            ->willReturn($links);
-
-        return $mock;
+        return new StubDocument($jsonApi, $meta, $links);
     }
 }
