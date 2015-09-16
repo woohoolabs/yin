@@ -13,17 +13,19 @@ class ToOneRelationship
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
      */
-    public function __construct(ResourceIdentifier $resourceIdentifier)
+    public function __construct(ResourceIdentifier $resourceIdentifier = null)
     {
         $this->resourceIdentifier = $resourceIdentifier;
     }
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @return $this
      */
     public function setResourceIdentifier(ResourceIdentifier $resourceIdentifier)
     {
         $this->resourceIdentifier = $resourceIdentifier;
+        return $this;
     }
 
     /**

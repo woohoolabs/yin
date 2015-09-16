@@ -12,10 +12,12 @@ class ToManyRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @return $this
      */
     public function addResourceIdentifier(ResourceIdentifier $resourceIdentifier)
     {
         $this->resourceIdentifiers[] = $resourceIdentifier;
+        return $this;
     }
 
     /**

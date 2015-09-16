@@ -7,6 +7,13 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 trait CreateHydratorTrait
 {
     /**
+     * @param array $data
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     */
+    abstract protected function validateType($data);
+
+    /**
      * Validates a client-generated ID.
      *
      * If the $clientGeneratedId is not a valid ID for the domain object, then
@@ -44,24 +51,17 @@ trait CreateHydratorTrait
 
     /**
      * @param array $data
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     * @param mixed $domainObject
+     * @return mixed
      */
-    abstract protected function hydrateType($data);
+    abstract protected function hydrateAttributes($domainObject, $data);
 
     /**
      * @param array $data
      * @param mixed $domainObject
      * @return mixed
      */
-    abstract protected function hydrateAttributes($data, $domainObject);
-
-    /**
-     * @param array $data
-     * @param mixed $domainObject
-     * @return mixed
-     */
-    abstract protected function hydrateRelationships($data, $domainObject);
+    abstract protected function hydrateRelationships($domainObject, $data);
 
     /**
      * Hydrates the domain object from the creating request.
@@ -77,14 +77,14 @@ trait CreateHydratorTrait
     public function hydrateForCreate(RequestInterface $request, $domainObject)
     {
         $data = $request->getBodyData();
-        if ($data === null) {
+        if (empty($data)) {
             throw new ResourceTypeMissing();
         }
 
-        $this->hydrateType($data);
-        $domainObject = $this->hydrateIdForCreate($data, $domainObject);
-        $domainObject = $this->hydrateAttributes($data, $domainObject);
-        $domainObject = $this->hydrateRelationships($data, $domainObject);
+        $this->validateType($data);
+        $domainObject = $this->hydrateIdForCreate($domainObject, $data);
+        $domainObject = $this->hydrateAttributes($domainObject, $data);
+        $domainObject = $this->hydrateRelationships($domainObject, $data);
 
         return $domainObject;
     }
@@ -94,7 +94,7 @@ trait CreateHydratorTrait
      * @param mixed $domainObject
      * @return mixed
      */
-    protected function hydrateIdForCreate($data, $domainObject)
+    protected function hydrateIdForCreate($domainObject, $data)
     {
         if (isset($data["id"]) === true) {
             $this->validateClientGeneratedId($data["id"]);

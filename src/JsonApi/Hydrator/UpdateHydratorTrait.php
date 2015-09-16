@@ -8,6 +8,13 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 trait UpdateHydratorTrait
 {
     /**
+     * @param array $data
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     */
+    abstract protected function validateType($data);
+
+    /**
      * Sets the given ID for the domain object.
      *
      * The method mutates the domain object and sets the given ID for it.
@@ -21,25 +28,18 @@ trait UpdateHydratorTrait
     abstract protected function setId($domainObject, $id);
 
     /**
-     * @param array $data
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
-     */
-    abstract protected function hydrateType($data);
-
-    /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
      * @return mixed
      */
-    abstract protected function hydrateAttributes($data, $domainObject);
+    abstract protected function hydrateAttributes($domainObject, $data);
 
     /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
      * @return mixed
      */
-    abstract protected function hydrateRelationships($data, $domainObject);
+    abstract protected function hydrateRelationships($domainObject, $data);
 
     /**
      * Hydrates the domain object from the updating request.
@@ -55,27 +55,27 @@ trait UpdateHydratorTrait
     public function hydrateForUpdate(RequestInterface $request, $domainObject)
     {
         $data = $request->getBodyData();
-        if ($data === null) {
+        if (empty($data)) {
             throw new ResourceTypeMissing();
         }
 
-        $this->hydrateType($data);
-        $domainObject = $this->hydrateIdForUpdate($data, $domainObject);
-        $domainObject = $this->hydrateAttributes($data, $domainObject);
-        $domainObject = $this->hydrateRelationships($data, $domainObject);
+        $this->validateType($data);
+        $domainObject = $this->hydrateIdForUpdate($domainObject, $data);
+        $domainObject = $this->hydrateAttributes($domainObject, $data);
+        $domainObject = $this->hydrateRelationships($domainObject, $data);
 
         return $domainObject;
     }
 
     /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */
-    protected function hydrateIdForUpdate($data, $domainObject)
+    protected function hydrateIdForUpdate($domainObject, $data)
     {
-        if (isset($data["id"]) === false) {
+        if (empty($data["id"])) {
             throw new ResourceIdMissing();
         }
 

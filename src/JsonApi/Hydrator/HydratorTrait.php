@@ -60,7 +60,7 @@ trait HydratorTrait
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
-    protected function hydrateType($data)
+    protected function validateType($data)
     {
         if (isset($data["type"]) === false) {
             throw new ResourceTypeMissing();
@@ -72,11 +72,11 @@ trait HydratorTrait
     }
 
     /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
      * @return mixed
      */
-    protected function hydrateAttributes($data, $domainObject)
+    protected function hydrateAttributes($domainObject, $data)
     {
         if (isset($data["attributes"]) === false) {
             return $domainObject;
