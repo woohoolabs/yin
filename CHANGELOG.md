@@ -18,7 +18,7 @@ FIXED:
 - Validation of query parameters didn't work
 - Getting the list of included relationships didn't work as expected
 - Status code of error responses was always "500" when the document contained multiple errors
-- Content-Type header media types of responses are correctly assembled when using extensions
+- Content-Type header media types of responses are now correctly assembled when using extensions
 
 ## 0.5.0 - 2015-09-11
 
