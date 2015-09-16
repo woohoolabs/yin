@@ -17,6 +17,14 @@ class UpdateResponseTest extends UpdateRelationshipResponseTest
         $this->assertEquals(403, $response->getStatusCode());
     }
 
+    public function testNotFound()
+    {
+        $document = new ErrorDocument();
+
+        $response = $this->createResponse()->notFound($document, []);
+        $this->assertEquals(404, $response->getStatusCode());
+    }
+
     public function testConflict()
     {
         $document = new ErrorDocument();

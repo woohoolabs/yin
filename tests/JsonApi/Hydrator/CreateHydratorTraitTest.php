@@ -11,24 +11,6 @@ use Zend\Diactoros\Stream;
 class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
-     */
-    public function testHydrateWhenBodyDataIdNotSupported()
-    {
-        $type = "user";
-        $id = "1";
-        $body = [
-            "data" => [
-                "type" => $type,
-                "id" => $id
-            ]
-        ];
-
-        $hydrator = $this->createHydrator(new ClientGeneratedIdNotSupported($id), $id);
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
-    }
-
-    /**
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
     public function testHydrateWhenBodyEmpty()
@@ -59,6 +41,40 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $body = [
             "data" => [
                 "type" => $type
+            ]
+        ];
+
+        $hydrator = $this->createHydrator(false, $id);
+        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $this->assertEquals(["id" => $id], $domainObject);
+    }
+
+    /**
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
+     */
+    public function testHydrateWhenBodyDataIdNotSupported()
+    {
+        $type = "user";
+        $id = "1";
+        $body = [
+            "data" => [
+                "type" => $type,
+                "id" => $id
+            ]
+        ];
+
+        $hydrator = $this->createHydrator(true, $id);
+        $hydrator->hydrateForCreate($this->createRequest($body), []);
+    }
+    
+    public function testHydrateBodyDataId()
+    {
+        $type = "user";
+        $id = "1";
+        $body = [
+            "data" => [
+                "type" => $type,
+                "id" => $id
             ]
         ];
 
