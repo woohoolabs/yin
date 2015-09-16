@@ -2,7 +2,6 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -66,7 +65,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $hydrator = $this->createHydrator(true, $id);
         $hydrator->hydrateForCreate($this->createRequest($body), []);
     }
-    
+
     public function testHydrateBodyDataId()
     {
         $type = "user";
