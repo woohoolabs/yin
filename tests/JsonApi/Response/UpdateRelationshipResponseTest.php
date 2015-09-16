@@ -48,7 +48,7 @@ class UpdateRelationshipResponseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(403, $response->getStatusCode());
     }
 
-    private function createResponse()
+    protected function createResponse()
     {
         return new UpdateRelationshipResponse(new Request(new ServerRequest()), new Response(), "");
     }
