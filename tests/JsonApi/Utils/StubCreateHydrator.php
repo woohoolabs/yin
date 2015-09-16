@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
+use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
 
 class StubCreateHydrator
@@ -8,9 +9,9 @@ class StubCreateHydrator
     use CreateHydratorTrait;
 
     /**
-     * @var \Exception
+     * @var bool
      */
-    private $clientGeneratedIdException;
+    private $isClientGeneratedIdException;
 
     /**
      * @var string
@@ -18,12 +19,12 @@ class StubCreateHydrator
     private $generatedId;
 
     /**
-     * @param \Exception $clientGeneratedIdException
+     * @param bool $isClientGeneratedIdException
      * @param string $generatedId
      */
-    public function __construct(\Exception $clientGeneratedIdException = null, $generatedId = "")
+    public function __construct($isClientGeneratedIdException = false, $generatedId = "")
     {
-        $this->clientGeneratedIdException = $clientGeneratedIdException;
+        $this->isClientGeneratedIdException = $isClientGeneratedIdException;
         $this->generatedId = $generatedId;
     }
 
@@ -51,8 +52,8 @@ class StubCreateHydrator
      */
     protected function validateClientGeneratedId($clientGeneratedId)
     {
-        if ($this->clientGeneratedIdException !== null) {
-            throw $this->clientGeneratedIdException;
+        if ($this->isClientGeneratedIdException) {
+            throw new ClientGeneratedIdNotSupported($clientGeneratedId);
         }
     }
 

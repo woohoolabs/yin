@@ -47,7 +47,7 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $hydrator = $this->createHydrator();
         $hydrator->hydrateForUpdate($this->createRequest($body), []);
     }
-    
+
     public function testHydrateId()
     {
         $id = "1";

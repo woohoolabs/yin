@@ -35,7 +35,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
     {
         $body = [];
 
-        $hydrator = $this->createHydrator(null, "1");
+        $hydrator = $this->createHydrator(false, "1");
         $hydrator->hydrateForCreate($this->createRequest($body), []);
     }
 
@@ -48,7 +48,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
             "data" => []
         ];
 
-        $hydrator = $this->createHydrator(null, "1");
+        $hydrator = $this->createHydrator(false, "1");
         $hydrator->hydrateForCreate($this->createRequest($body), []);
     }
 
@@ -62,7 +62,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $hydrator = $this->createHydrator(null, $id);
+        $hydrator = $this->createHydrator(false, $id);
         $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
@@ -81,11 +81,11 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param \Exception $clientGeneratedIdException
+     * @param bool $clientGeneratedIdException
      * @param string $generatedId
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait
      */
-    private function createHydrator(\Exception $clientGeneratedIdException = null, $generatedId = "")
+    private function createHydrator($clientGeneratedIdException = false, $generatedId = "")
     {
         return new StubCreateHydrator($clientGeneratedIdException, $generatedId);
     }
