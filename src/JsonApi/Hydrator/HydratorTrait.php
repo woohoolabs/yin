@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
@@ -66,7 +67,13 @@ trait HydratorTrait
             throw new ResourceTypeMissing();
         }
 
-        if ($data["type"] !== $this->getAcceptedType() && in_array($data["type"], $this->getAcceptedType()) === false) {
+        $acceptedType = $this->getAcceptedType();
+
+        if (is_string($acceptedType) === true && $data["type"] !== $acceptedType) {
+            throw new ResourceTypeUnacceptable($data["type"]);
+        }
+
+        if (is_array($acceptedType) && in_array($data["type"], $acceptedType) === false) {
             throw new ResourceTypeUnacceptable($data["type"]);
         }
     }
@@ -78,7 +85,7 @@ trait HydratorTrait
      */
     protected function hydrateAttributes($domainObject, $data)
     {
-        if (isset($data["attributes"]) === false) {
+        if (empty($data["attributes"])) {
             return $domainObject;
         }
 
@@ -98,13 +105,13 @@ trait HydratorTrait
     }
 
     /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
      * @return mixed
      */
-    protected function hydrateRelationships($data, $domainObject)
+    protected function hydrateRelationships($domainObject, $data)
     {
-        if (isset($data["relationships"]) === false) {
+        if (empty($data["relationships"])) {
             return $domainObject;
         }
 
@@ -114,9 +121,15 @@ trait HydratorTrait
                 continue;
             }
 
-            $relatiopnship = $this->createRelationship($data["relationships"][$relationship]);
-            if ($relationship !== null) {
-                $result = $hydrator($domainObject, $relatiopnship, $data);
+            $relationshipObject = $this->createRelationship($data["relationships"][$relationship]);
+            if ($relationshipObject !== null) {
+                $result = $this->getRelationshipHydratorResult(
+                    $relationship,
+                    $hydrator,
+                    $domainObject,
+                    $relationshipObject,
+                    $data
+                );
                 if ($result) {
                     $domainObject = $result;
                 }
@@ -124,6 +137,51 @@ trait HydratorTrait
         }
 
         return $domainObject;
+    }
+
+    /**
+     * @param string $relationshipName
+     * @param \Closure $hydrator
+     * @param mixed $domainObject
+     * @param mixed $relationshipObject
+     * @param array $data
+     * @return mixed
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
+     * @throws \Exception
+     */
+    protected function getRelationshipHydratorResult(
+        $relationshipName,
+        \Closure $hydrator,
+        $domainObject,
+        $relationshipObject,
+        array $data
+    ) {
+        try {
+            $value = $hydrator($domainObject, $relationshipObject, $data);
+            if ($value) {
+                return $value;
+            }
+
+            return $domainObject;
+        } catch (\Exception $e) {
+            if ($e->getCode() === 4096) {
+                $relationshipType = $this->getRelationshipTypeFromObject($relationshipObject);
+                throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType);
+            }
+
+            throw $e;
+        }
+    }
+
+    protected function getRelationshipTypeFromObject($object)
+    {
+        if ($object instanceof ToOneRelationship) {
+            return "to-one";
+        } elseif ($object instanceof ToManyRelationship) {
+            return "to-many";
+        }
+
+        return "unknown";
     }
 
     /**
