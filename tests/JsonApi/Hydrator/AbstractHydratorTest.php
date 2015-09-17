@@ -80,7 +80,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $attributeHydrator = [
-            "weight" => function(array &$elephant, $attribute) {
+            "weight" => function (array &$elephant, $attribute) {
                 $elephant["weight"] = $attribute;
             }
         ];
@@ -103,7 +103,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $attributeHydrator = [
-            "weight" => function(array &$elephant, $attribute) {
+            "weight" => function (array &$elephant, $attribute) {
                 $elephant["weight"] = $attribute;
             }
         ];
@@ -126,7 +126,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $attributeHydrator = [
-            "weight" => function(array $elephant, $attribute)  {
+            "weight" => function (array $elephant, $attribute) {
                 $elephant["weight"] = $attribute;
                 return $elephant;
             }
@@ -149,7 +149,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $relationshipHydrator = [
-            "children" => function(array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = ["Dumbo", "Mambo"];
             }
         ];
@@ -179,7 +179,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $relationshipHydrator = [
-            "children" => function(array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = $children->getResourceIdentifiers();
             }
         ];
@@ -213,11 +213,11 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
             ]
         ];
         $relationshipHydrator = [
-            "owner" => function(array $elephant, ToOneRelationship $owner) {
+            "owner" => function (array $elephant, ToOneRelationship $owner) {
                 $elephant["owner"] = $owner->getResourceIdentifier()->getId();
                 return $elephant;
             },
-            "children" => function(array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = $children->getResourceIdentifierIds();
             }
         ];

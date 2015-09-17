@@ -143,7 +143,7 @@ trait HydratorTrait
      * @param string $relationshipName
      * @param \Closure $hydrator
      * @param mixed $domainObject
-     * @param mixed $relationshipObject
+     * @param ToOneRelationship|ToManyRelationship $relationshipObject
      * @param array $data
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
@@ -164,12 +164,8 @@ trait HydratorTrait
 
             return $domainObject;
         } catch (\Exception $e) {
-            if ($e->getCode() === 4096) {
-                $relationshipType = $this->getRelationshipTypeFromObject($relationshipObject);
-                throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType);
-            }
-
-            throw $e;
+            $relationshipType = $this->getRelationshipTypeFromObject($relationshipObject);
+            throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType);
         }
     }
 
