@@ -8,24 +8,14 @@ class StubUpdateHydrator
     use UpdateHydratorTrait;
 
     /**
-     * @param array $data
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     * @inheritDoc
      */
     protected function validateType($data)
     {
     }
 
     /**
-     * Sets the given ID for the domain object.
-     *
-     * The method mutates the domain object and sets the given ID for it.
-     * If it is an immutable object or an array the whole, updated domain
-     * object can be returned.
-     *
-     * @param array $domainObject
-     * @param string $id
-     * @return mixed|null
+     * @inheritDoc
      */
     protected function setId($domainObject, $id)
     {
@@ -35,9 +25,7 @@ class StubUpdateHydrator
     }
 
     /**
-     * @param array $domainObject
-     * @param array $data
-     * @return array
+     * @inheritDoc
      */
     protected function hydrateAttributes($domainObject, $data)
     {
@@ -45,9 +33,7 @@ class StubUpdateHydrator
     }
 
     /**
-     * @param array $domainObject
-     * @param array $data
-     * @return array
+     * @inheritDoc
      */
     protected function hydrateRelationships($domainObject, $data)
     {

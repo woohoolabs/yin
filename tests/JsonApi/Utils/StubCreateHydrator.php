@@ -29,26 +29,14 @@ class StubCreateHydrator
     }
 
     /**
-     * @param array $data
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     * @inheritDoc
      */
     protected function validateType($data)
     {
     }
 
     /**
-     * Validates a client-generated ID.
-     *
-     * If the $clientGeneratedId is not a valid ID for the domain object, then
-     * the appropriate exception should be thrown: if it is not well-formed then
-     * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
-     * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
-     *
-     * @param string $clientGeneratedId
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
-     * @throws \Exception
+     * @inheritDoc
      */
     protected function validateClientGeneratedId($clientGeneratedId)
     {
@@ -58,11 +46,7 @@ class StubCreateHydrator
     }
 
     /**
-     * Produces a new ID for the domain objects.
-     *
-     * UUID-s are preferred according to the JSON API specification.
-     *
-     * @return string
+     * @inheritDoc
      */
     protected function generateId()
     {
@@ -70,15 +54,7 @@ class StubCreateHydrator
     }
 
     /**
-     * Sets the given ID for the domain object.
-     *
-     * The method mutates the domain object and sets the given ID for it.
-     * If it is an immutable object or an array the whole, updated domain
-     * object can be returned.
-     *
-     * @param array $domainObject
-     * @param string $id
-     * @return array
+     * @inheritDoc
      */
     protected function setId($domainObject, $id)
     {
@@ -88,9 +64,7 @@ class StubCreateHydrator
     }
 
     /**
-     * @param array $domainObject
-     * @param array $data
-     * @return array
+     * @inheritDoc
      */
     protected function hydrateAttributes($domainObject, $data)
     {
@@ -98,9 +72,7 @@ class StubCreateHydrator
     }
 
     /**
-     * @param array $domainObject
-     * @param array $data
-     * @return array
+     * @inheritDoc
      */
     protected function hydrateRelationships($domainObject, $data)
     {

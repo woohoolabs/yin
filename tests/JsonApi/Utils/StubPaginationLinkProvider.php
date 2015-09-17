@@ -7,8 +7,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 class StubPaginationLinkProvider implements PaginationLinkProviderInterface
 {
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @inheritDoc
      */
     public function getSelfLink($uri)
     {
@@ -16,8 +15,7 @@ class StubPaginationLinkProvider implements PaginationLinkProviderInterface
     }
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @inheritDoc
      */
     public function getFirstLink($uri)
     {
@@ -25,8 +23,7 @@ class StubPaginationLinkProvider implements PaginationLinkProviderInterface
     }
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @inheritDoc
      */
     public function getLastLink($uri)
     {
@@ -34,8 +31,7 @@ class StubPaginationLinkProvider implements PaginationLinkProviderInterface
     }
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @inheritDoc
      */
     public function getPrevLink($uri)
     {
@@ -43,8 +39,7 @@ class StubPaginationLinkProvider implements PaginationLinkProviderInterface
     }
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @inheritDoc
      */
     public function getNextLink($uri)
     {
