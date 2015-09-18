@@ -45,6 +45,19 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("{$url}page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
     }
 
+    public function testGetSelfLinkWhenQueryStringIsProvided()
+    {
+        $url = "http://example.com/api/users?a=b";
+        $firstItem = 0;
+        $lastItem = 4;
+        $currentItem = 2;
+        $previousItem = 1;
+        $nextItem = 3;
+
+        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
+        $this->assertEquals("{$url}&page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
+    }
+
     public function testGetFirstLinkWhenFirstItemIsNull()
     {
         $url = "http://example.com/api/users?";

@@ -83,7 +83,7 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenPathProvided()
+    public function testGetSelfLinkWhenPathIsProvided()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -94,7 +94,7 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenPathWithQueryStringSeparatorProvided()
+    public function testGetSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
     {
         $url = "http://example.com/api/users?";
         $totalItems = 10;
@@ -103,6 +103,17 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
 
         $provider = $this->createProvider($totalItems, $page, $size);
         $this->assertEquals("{$url}page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
+    }
+
+    public function testGetSelfLinkWhenPathWithQueryStringIsProvided()
+    {
+        $url = "http://example.com/api/users?a=b";
+        $totalItems = 10;
+        $page = 1;
+        $size = 10;
+
+        $provider = $this->createProvider($totalItems, $page, $size);
+        $this->assertEquals("{$url}&page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
     }
 
     public function testGetFirstLinkWhenTotalItemsIsZero()
@@ -136,6 +147,17 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
 
         $provider = $this->createProvider($totalItems, $page, $size);
         $this->assertEquals("$url?page[number]=1&page[size]=$size", $provider->getFirstLink($url)->getHref());
+    }
+
+    public function testGetLastLinkWhenTotalItemsIsZero()
+    {
+        $url = "http://example.com/api/users";
+        $totalItems = 0;
+        $page = 2;
+        $size = 10;
+
+        $provider = $this->createProvider($totalItems, $page, $size);
+        $this->assertNull($provider->getLastLink($url));
     }
 
     public function testGetLastLink()

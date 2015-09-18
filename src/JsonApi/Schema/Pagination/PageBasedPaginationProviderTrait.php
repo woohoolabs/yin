@@ -53,7 +53,7 @@ trait PageBasedPaginationProviderTrait
             return null;
         }
 
-        $page = floor(($this->getTotalItems() -1) / $this->getSize()) + 1;
+        $page = floor(($this->getTotalItems() - 1) / $this->getSize()) + 1;
         return $this->createPaginatedLink($url, $page, $this->getSize());
     }
 
