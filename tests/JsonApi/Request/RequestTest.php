@@ -572,6 +572,117 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($request->hasHeader("a"));
     }
 
+    public function testGetHeaderWhenHeaderExists()
+    {
+        $request = $this->createRequestWithHeader("a", "b");
+
+        $this->assertEquals(["b"], $request->getHeader("a"));
+    }
+
+    public function testGetHeaderLineWhenHeaderNotExists()
+    {
+        $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
+
+        $this->assertEquals("", $request->getHeaderLine("b"));
+    }
+
+    public function testGetHeaderLineWhenHeaderExists()
+    {
+        $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
+
+        $this->assertEquals("b,c,d", $request->getHeaderLine("a"));
+    }
+
+    public function testWithHeader()
+    {
+        $headers = [];
+        $headerName = "a";
+        $headerValue = "b";
+
+        $request = $this->createRequestWithHeaders($headers);
+        $newRequest = $request->withHeader($headerName, $headerValue);
+        $this->assertEquals([], $request->getHeader($headerName));
+        $this->assertEquals([$headerValue], $newRequest->getHeader($headerName));
+    }
+
+    public function testWithAddedHeader()
+    {
+        $headerName = "a";
+        $headerValue = "b";
+        $headers = [$headerName => $headerValue];
+
+        $request = $this->createRequestWithHeaders($headers);
+        $newRequest = $request->withAddedHeader($headerName, $headerValue);
+        $this->assertEquals([$headerValue], $request->getHeader($headerName));
+        $this->assertEquals([$headerValue, $headerValue], $newRequest->getHeader($headerName));
+    }
+
+    public function testWithoutHeader()
+    {
+        $headerName = "a";
+        $headerValue = "b";
+        $headers = [$headerName => $headerValue];
+
+        $request = $this->createRequestWithHeaders($headers);
+        $newRequest = $request->withoutHeader($headerName);
+        $this->assertEquals([$headerValue], $request->getHeader($headerName));
+        $this->assertEquals([], $newRequest->getHeader($headerName));
+    }
+
+    public function testGetMethod()
+    {
+        $method = "PUT";
+
+        $request = $this->createRequest();
+        $newRequest = $request->withMethod($method);
+        $this->assertEquals("GET", $request->getMethod());
+        $this->assertEquals($method, $newRequest->getMethod());
+    }
+
+    public function testGetQueryParams()
+    {
+        $queryParamName = "abc";
+        $queryParamValue = "cde";
+        $queryParams = [$queryParamName => $queryParamValue];
+
+        $request = $this->createRequest();
+        $newRequest = $request->withQueryParams($queryParams);
+        $this->assertEquals([], $request->getQueryParams());
+        $this->assertEquals($queryParams, $newRequest->getQueryParams());
+    }
+
+    public function testGetParsedBody()
+    {
+        $parsedBody = [
+            "data" => [
+                "type" => "cat",
+                "id" => "tOm"
+            ]
+        ];
+
+        $request = $this->createRequest();
+        $newRequest = $request->withParsedBody($parsedBody);
+        $this->assertEquals(null, $request->getParsedBody());
+        $this->assertEquals($parsedBody, $newRequest->getParsedBody());
+    }
+
+    public function testGetAttributes()
+    {
+        $attribute1Key = "a";
+        $attribute1Value = true;
+        $attribute2Key = "b";
+        $attribute2Value = 123456;
+        $attributes = [$attribute1Key => $attribute1Value, $attribute2Key => $attribute2Value];
+
+        $request = $this->createRequest();
+        $newRequest = $request
+            ->withAttribute($attribute1Key, $attribute1Value)
+            ->withAttribute($attribute2Key, $attribute2Value);
+        $this->assertEquals([], $request->getAttributes());
+        $this->assertEquals($attributes, $newRequest->getAttributes());
+        $this->assertEquals($attribute1Value, $newRequest->getAttribute($attribute1Key));
+    }
+
     private function createRequest()
     {
         $psrRequest = new DiactorosRequest();
@@ -582,6 +693,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
+        return new Request($psrRequest);
+    }
+
+    private function createRequestWithHeaders(array $headers)
+    {
+        $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", $headers);
         return new Request($psrRequest);
     }
 
