@@ -21,6 +21,7 @@ FIXED:
 - Status code of error responses was always "500" when the document contained multiple errors
 - Content-Type header media types of responses are now correctly assembled when using extensions
 - Fatal error when the hydrated resource type didn't match the acceptable type
+- Various issues of pagination providers 
 
 ## 0.5.0 - 2015-09-11
 

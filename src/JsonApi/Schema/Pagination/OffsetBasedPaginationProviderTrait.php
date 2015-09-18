@@ -49,11 +49,11 @@ trait OffsetBasedPaginationProviderTrait
      */
     public function getLastLink($url)
     {
-        if ($this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
+        if ($this->getTotalItems() <= $this->getLimit()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getOffset() + $this->getLimit() - 1, $this->getLimit());
+        return $this->createPaginatedLink($url, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
     }
 
     /**
