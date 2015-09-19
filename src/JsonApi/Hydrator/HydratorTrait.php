@@ -183,7 +183,7 @@ trait HydratorTrait
         $reflection = new \ReflectionFunction($function);
         $arguments  = $reflection->getParameters();
 
-        if ($arguments && isset($arguments[1]) && $arguments[1]->getClass()) {
+        if (empty($arguments) === false && isset($arguments[1]) && $arguments[1]->getClass()) {
             return $arguments[1]->getClass()->getName();
         }
 
