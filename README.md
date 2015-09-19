@@ -7,16 +7,20 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Woohoo Labs. Yin is a PSR-7 compatible PHP library for RESTful API-s.**
+**Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON API-s.**
 
-Our aim was to create an elegant framework which helps you to build beautifully crafted RESTful API-s compliant to
-to the JSON API specification.
+We envisioned a framework of high quality that facilitates building API-s which are compliant to the
+JSON API specification. We wanted a framework that is able to meet every single requirement of the spec
+while enabling clean application architecture and domain modeling. Woohoo Labs. Yin is the manifestation
+of our vision.
 
 ## Introduction
 
-[JSON API](http://jsonapi.org) specification reached 1.0 on 29th May 2015 and we believe it is a big day for RESTful
-API-s as this specification makes APIs more robust and future-proof than they have ever been. Woohoo Labs. Yin (named
-after Yin-Yang) was born to bring efficiency and elegance for your JSON API server implementations.
+[JSON API](http://jsonapi.org) specification
+[reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
+and we also believe it is a big day for RESTful API-s as this specification makes APIs more robust and future-proof
+than they have ever been. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your
+JSON API server implementations.
 
 ## Features
 
@@ -27,6 +31,27 @@ after Yin-Yang) was born to bring efficiency and elegance for your JSON API serv
 - Provides Documents and Transformers to fetch resources
 - Provides Hydrators to create and update resources
 - [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for the easier kickstart and debugging
+
+## Why Yin?
+
+#### Complete JSON API Framework
+
+Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
+capabilities for content negotiation, error handling, pagination, fetch, creation, update, deletion of resources.
+Although Yin consists of many loosely coupled packages and classes which can also be used separately, but the
+framework is the most powerful when it is used in its entirety.
+
+#### Efficiency
+
+We designed the transformation processes so that attributes and relationships are transformed only and if only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a rarely required
+transformation is very expensive.
+
+#### Supplementary Middlewares
+
+[There are some additional middlewares](https://github.com/woohoolabs/yin-middlewares) for Woohoo Labs. Yin you might find
+useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API error
+messages), dispatching JSON API-aware controllers or debugging (via synthax checking and validation of requests and
+responses).
 
 ## Install
 
@@ -379,14 +404,6 @@ Some example URL-s to play with:
 
 - `examples/index.php?example=book&id=1&include=authors,publisher`
 - `examples/index.php?example=users&include=contacts`
-
-## Internals
-
-Notice how attribute and relationship transformation works (e.g.:
-[`BookResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/Book/JsonApi/Resource/BookResourceTransformer.php#L85)): 
-you have to define an anonymous function for each attribute and relationship. This design allows us
-to transform an attribute or a relationship only and if only it is requested. This is extremely advantageous when there
-are a lot of resources to transform or a transformation is very expensive (I mean O(n<sup>2</sup>) or more).
 
 ## Versioning
 

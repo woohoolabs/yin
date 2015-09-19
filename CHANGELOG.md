@@ -2,7 +2,7 @@
 
 ADDED:
 - More convenient handling of inappropriate relationship types during hydration
-- Much more unit tests (300+ tests, 91% coverage)
+- Much more unit tests (320+ tests, 92% coverage)
 - Better and more documentation
 
 CHANGED:
