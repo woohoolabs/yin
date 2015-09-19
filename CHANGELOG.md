@@ -2,13 +2,12 @@
 
 ADDED:
 - More convenient handling of inappropriate relationship types during hydration
-- Much more unit tests
+- Much more unit tests (300+ tests, 91% coverage)
+- Better and more documentation
 
 CHANGED:
 - Simplified relative links
 - Included resources are now sorted by type and id
-
-REMOVED:
 
 FIXED:
 - Meta data didn't appear in error objects

@@ -22,6 +22,14 @@ class RelationshipTypeNotAppropriateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($type, $exception->getRelationshipType());
     }
 
+    public function testGetExpectedRelationshipType()
+    {
+        $expectedType = "to-one";
+
+        $exception = $this->createException("", "", $expectedType);
+        $this->assertEquals($expectedType, $exception->getExpectedRelationshipType());
+    }
+
     private function createException($name, $type, $expectedType)
     {
         return new RelationshipTypeNotAppropriate($name, $type, $expectedType);

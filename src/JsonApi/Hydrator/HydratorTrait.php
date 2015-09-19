@@ -156,28 +156,53 @@ trait HydratorTrait
         $relationshipObject,
         array $data
     ) {
-        try {
-            $value = $hydrator($domainObject, $relationshipObject, $data);
-            if ($value) {
-                return $value;
-            }
-
-            return $domainObject;
-        } catch (\Exception $e) {
-            $relationshipType = $this->getRelationshipTypeFromObject($relationshipObject);
-            throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType);
+        // Checking if the current and expected relationship types match
+        $relationshipType = $this->getRelationshipType($relationshipObject);
+        $expectedRelationshipType = $this->getRelationshipType($this->getArgumentTypeHintFromClosure($hydrator));
+        if ($expectedRelationshipType !== null && $relationshipType !== $expectedRelationshipType) {
+            throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType, $expectedRelationshipType);
         }
+
+        // Returning if the hydrator returns the hydrated domain object
+        $value = $hydrator($domainObject, $relationshipObject, $data);
+        if ($value) {
+            return $value;
+        }
+
+        // Returning the domain object which was mutated but not returned by the hydrator
+        return $domainObject;
     }
 
-    protected function getRelationshipTypeFromObject($object)
+    /**
+     * @param \Closure $closure
+     * @return string|null
+     */
+    protected function getArgumentTypeHintFromClosure(\Closure $closure)
     {
-        if ($object instanceof ToOneRelationship) {
+        $function = &$closure;
+        $reflection = new \ReflectionFunction($function);
+        $arguments  = $reflection->getParameters();
+
+        if($arguments && isset($arguments[1]) && $arguments[1]->getClass()) {
+            return $arguments[1]->getClass()->getName();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param object|string|null $object
+     * @return string|null
+     */
+    protected function getRelationshipType($object)
+    {
+        if ($object instanceof ToOneRelationship || $object === ToOneRelationship::class) {
             return "to-one";
-        } elseif ($object instanceof ToManyRelationship) {
+        } elseif ($object instanceof ToManyRelationship || $object === ToManyRelationship::class) {
             return "to-many";
         }
 
-        return "unknown";
+        return null;
     }
 
     /**

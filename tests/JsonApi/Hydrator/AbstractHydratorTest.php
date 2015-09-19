@@ -164,8 +164,6 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
      */
     public function testHydrateRelationshipsWhenCardinalityInappropriate()
     {
-        $this->markTestSkipped("TypeError in PHP 7 breaks the test.");
-
         $body = [
             "data" => [
                 "type" => "elephant",
@@ -188,6 +186,66 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
         $hydrator->hydrateForUpdate($this->createRequest($body), []);
+    }
+
+    /**
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
+     */
+    public function testHydrateRelationshipsWhenCardinalityInappropriate2()
+    {
+        $body = [
+            "data" => [
+                "type" => "elephant",
+                "id" => "1",
+                "relationships" => [
+                    "children" => [
+                        "data" => [
+                            [
+                                "type" => "elephant",
+                                "id" => "2"
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $relationshipHydrator = [
+            "children" => function (array &$elephant, ToOneRelationship $children) {
+                $elephant["children"] = $children->getResourceIdentifier();
+            }
+        ];
+
+        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+    }
+
+    public function testHydrateRelationshipsWhenExpectedCardinalityIsNotSet()
+    {
+        $body = [
+            "data" => [
+                "type" => "elephant",
+                "id" => "1",
+                "relationships" => [
+                    "children" => [
+                        "data" => [
+                            [
+                                "type" => "elephant",
+                                "id" => "2"
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $relationshipHydrator = [
+            "children" => function (array &$elephant, $children) {
+                $elephant["children"] = "Dumbo";
+            }
+        ];
+
+        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $this->assertEquals(["children" => "Dumbo"], $domainObject);
     }
 
     public function testHydrateRelationships()

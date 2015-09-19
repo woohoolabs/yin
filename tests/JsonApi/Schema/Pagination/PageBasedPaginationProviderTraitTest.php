@@ -160,6 +160,17 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getLastLink($url));
     }
 
+    public function testGetLastLinkWhenSizeIsZero()
+    {
+        $url = "http://example.com/api/users";
+        $totalItems = 50;
+        $page = 2;
+        $size = 0;
+
+        $provider = $this->createProvider($totalItems, $page, $size);
+        $this->assertNull($provider->getLastLink($url));
+    }
+
     public function testGetLastLink()
     {
         $url = "http://example.com/api/users";
