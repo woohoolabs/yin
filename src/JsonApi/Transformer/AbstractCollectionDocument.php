@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-abstract class AbstractCollectionDocument extends AbstractCompoundDocument
+abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 {
     /**
      * @var \Traversable|array

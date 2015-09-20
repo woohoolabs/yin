@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
 class CreateResponse extends AbstractResponse
@@ -24,11 +24,11 @@ class CreateResponse extends AbstractResponse
      * "If a POST request did not include a Client-Generated ID and the requested resource has been created
      * successfully, the server MUST return a 201 Created status code."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function created(AbstractCompoundDocument $document, $domainObject)
+    public function created(AbstractSuccessfulDocument $document, $domainObject)
     {
         $response = self::getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 201);
 

@@ -8,11 +8,11 @@ use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubCompoundDocument;
+use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
-class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
+class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
 {
     public function testGetResponse()
     {
@@ -192,7 +192,7 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
      * @param array $data
      * @param \WoohooLabs\Yin\JsonApi\Schema\Included|null $included
      * @param array $relationshipResponseContent
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument
+     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument
      */
     private function createDocument(
         array $extensions = [],
@@ -204,7 +204,7 @@ class AbstractCompoundDocumentTest extends PHPUnit_Framework_TestCase
         Included $included = null,
         array $relationshipResponseContent = []
     ) {
-        return new StubCompoundDocument(
+        return new StubSuccessfulDocument(
             $extensions,
             $supportedExtensions,
             $jsonApi,

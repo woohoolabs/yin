@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocument;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubCompoundDocument;
+use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 
@@ -15,7 +15,7 @@ class CreateResponseTest extends PHPUnit_Framework_TestCase
 {
     public function testCreated()
     {
-        $document = new StubCompoundDocument();
+        $document = new StubSuccessfulDocument();
 
         $response = $this->createResponse()->created($document, []);
         $this->assertEquals(201, $response->getStatusCode());
@@ -24,7 +24,7 @@ class CreateResponseTest extends PHPUnit_Framework_TestCase
     public function testCreatedWithLinks()
     {
         $href = "http://example.com/users";
-        $document = new StubCompoundDocument([], [], null, [], Links::createAbsoluteWithSelf(new Link($href)));
+        $document = new StubSuccessfulDocument([], [], null, [], Links::createAbsoluteWithSelf(new Link($href)));
 
         $response = $this->createResponse()->created($document, []);
         $this->assertEquals([$href], $response->getHeader("location"));

@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
@@ -65,7 +65,7 @@ abstract class AbstractResponse
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -73,7 +73,7 @@ abstract class AbstractResponse
     protected function getDocumentResourceResponse(
         RequestInterface $request,
         ResponseInterface $response,
-        AbstractCompoundDocument $document,
+        AbstractSuccessfulDocument $document,
         $domainObject,
         $statusCode
     ) {
@@ -82,14 +82,14 @@ abstract class AbstractResponse
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentMetaResponse(
         ResponseInterface $response,
-        AbstractCompoundDocument $document,
+        AbstractSuccessfulDocument $document,
         $domainObject,
         $statusCode
     ) {
@@ -100,7 +100,7 @@ abstract class AbstractResponse
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -109,7 +109,7 @@ abstract class AbstractResponse
         $relationshipName,
         RequestInterface $request,
         ResponseInterface $response,
-        AbstractCompoundDocument $document,
+        AbstractSuccessfulDocument $document,
         $domainObject,
         $statusCode
     ) {

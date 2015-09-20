@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
 class FetchRelationshipResponse extends AbstractResponse
@@ -30,11 +30,11 @@ class FetchRelationshipResponse extends AbstractResponse
      * According to the JSON API specification, this response is applicable in the following conditions:
      * "A server MUST respond to a successful request to fetch a relationship with a 200 OK response."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $domainObject)
+    public function ok(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,

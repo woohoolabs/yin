@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
 class UpdateRelationshipResponse extends AbstractResponse
@@ -32,11 +32,11 @@ class UpdateRelationshipResponse extends AbstractResponse
      * specified by the request, it MUST return a 200 OK response. The response document MUST include a
      * representation of the updated relationship(s)."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $domainObject)
+    public function ok(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,
@@ -56,11 +56,11 @@ class UpdateRelationshipResponse extends AbstractResponse
      * remain up to date, and the server responds only with top-level meta data. In this case the server
      * MUST NOT include a representation of the updated relationship(s)."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,

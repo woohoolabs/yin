@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-abstract class AbstractSingleResourceDocument extends AbstractCompoundDocument
+abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
     /**
      * @var \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer

@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 
 class DeleteResponse extends AbstractResponse
 {
@@ -23,11 +23,11 @@ class DeleteResponse extends AbstractResponse
      * "A server MUST return a 200 OK status code if a deletion request is successful and the server responds
      * with only top-level meta data."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentMetaResponse($this->response, $document, $domainObject, 200);
     }

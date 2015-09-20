@@ -5,7 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 
-abstract class AbstractCompoundDocument extends AbstractDocument
+abstract class AbstractSuccessfulDocument extends AbstractDocument
 {
     /**
      * @var mixed

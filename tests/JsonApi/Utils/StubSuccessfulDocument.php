@@ -5,9 +5,9 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Included;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 
-class StubCompoundDocument extends AbstractCompoundDocument
+class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
     /**
      * @var array

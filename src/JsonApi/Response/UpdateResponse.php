@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
 class UpdateResponse extends AbstractResponse
@@ -25,11 +25,11 @@ class UpdateResponse extends AbstractResponse
      * by the request (for example, updating the updated-at attribute or a computed sha), it MUST return
      * a 200 OK response."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractCompoundDocument $document, $domainObject)
+    public function ok(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 200);
     }
@@ -42,11 +42,11 @@ class UpdateResponse extends AbstractResponse
      * remain up to date, and the server responds only with top-level meta data. In this case the server
      * MUST NOT include a representation of the updated resource(s)."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractCompoundDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractCompoundDocument $document, $domainObject)
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
         return $this->getDocumentMetaResponse($this->response, $document, $domainObject, 200);
     }

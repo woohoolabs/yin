@@ -8,6 +8,7 @@ ADDED:
 CHANGED:
 - Simplified relative links
 - Included resources are now sorted by type and id
+- Renamed `AbstractCompoundDocument` to `AbstractSuccessfulDocument` 
 
 FIXED:
 - Meta data didn't appear in error objects
