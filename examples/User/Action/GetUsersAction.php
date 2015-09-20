@@ -21,7 +21,7 @@ class GetUsersAction
         // Retrieving a paginated collection of user domain models
         $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
-        // Instantiating the users document
+        // Instantiating a users document
         $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
         // Responding with "200 Ok" status code along with the users document

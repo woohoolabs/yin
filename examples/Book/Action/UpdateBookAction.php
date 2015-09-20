@@ -28,7 +28,7 @@ class UpdateBookAction
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
 
-        // Instantiating the user document
+        // Instantiating a book document
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );

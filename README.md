@@ -22,10 +22,11 @@ of our vision.
 * [Install](#install)
 * [Basic Usage](#basic-usage)
     * [Documents](#documents)
-    * [Resource Transformers](#resource-transformers)
+    * [Resource transformers](#resource-transformers)
     * [Hydrators](#hydrators)
     * [JsonApi class](#jsonapi-class)
     * [Examples](#examples)
+    * [How to try it out](#how-to-try-it-out)
 * [Versioning](#versioning)
 * [Change Log](#change-log)
 * [Testing](#testing)
@@ -53,7 +54,7 @@ JSON API server implementations.
 
 #### Why Yin?
 
-##### Complete JSON API Framework
+##### Complete JSON API framework
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
 capabilities for content negotiation, error handling, pagination, fetch, creation, update, deletion of resources.
@@ -66,7 +67,7 @@ We designed the transformation processes so that attributes and relationships ar
 are requested. This feature is extremely advantageous when there are a lot of resources to transform or a rarely
 required transformation is very expensive.
 
-##### Supplementary Middlewares
+##### Supplementary middlewares
 
 [There are some additional middlewares](https://github.com/woohoolabs/yin-middlewares) for Woohoo Labs. Yin you might
 find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API
@@ -367,7 +368,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
 #### Examples
 
-##### Fetching A Single Resource
+##### Fetching a single resource
 
 ```php
 /**
@@ -376,13 +377,13 @@ class BookResourceTransformer extends AbstractResourceTransformer
  */
 public function getBook(JsonApi $jsonApi)
 {
-    // Getting the "id" of the requested book
+    // Getting the "id" of the currently requested book
     $id = $jsonApi->getRequest()->getAttribute("id");
 
     // Retrieving a book domain model with an ID of $id
     $book = BookRepository::getBook($id);
 
-    // Instantiating the book document
+    // Instantiating a book document
     $document = new BookDocument(
         new BookResourceTransformer(
             new AuthorResourceTransformer(),
@@ -395,7 +396,7 @@ public function getBook(JsonApi $jsonApi)
 }
 ```
 
-##### Fetching a Collection of Resources
+##### Fetching a collection of resources
 
 ```php
 /**
@@ -410,7 +411,7 @@ public function getUsers(JsonApi $jsonApi)
     // Fetching a paginated collection of user domain models
     $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
-    // Instantiating the users document
+    // Instantiating a users document
     $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
     // Responding with "200 Ok" status code along with the users document
@@ -418,7 +419,33 @@ public function getUsers(JsonApi $jsonApi)
 }
 ```
 
-##### Creating Resources
+```php
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function getBookRelationships(JsonApi $jsonApi)
+{
+    // Getting the "id" of the currently requested book
+    $id = $jsonApi->getRequest()->getAttribute("id");
+    
+    // Getting the currently requested relationship's name
+    $relationshipName = $jsonApi->getRequest()->getAttribute("relationship");
+    
+    // Retrieving a book domain model with an ID of $id
+    $book = BookRepository::getBook($id);
+
+    // Instantiating a book document
+    $document = new BookDocument(
+        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+    );
+
+    // Responding with "200 Ok" status code along with the requested relationship document
+    return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $book);
+}
+```
+
+##### Creating a new resource
 
 ```php
 /**
@@ -447,7 +474,7 @@ public function createBook(JsonApi $jsonApi)
 }
 ```
 
-##### Updating Resources
+##### Updating a resource
 
 ```php
 /**
@@ -475,23 +502,22 @@ public function updateBook(JsonApi $jsonApi)
 ```
 
 #### How to try it out
-If you want to get to know more how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples):
-set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `EXAMPLE_NAME` can be
-"book", "book-rel", "users", "user" or "user-rel". But don't forget to run `composer install` first
-in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
-which are transformed by Yin - can be found in the actions.
+If you want to get to know more how Yin works, have a look at the
+[examples](https://github.com/woohoolabs/yin/tree/master/examples): set up a web server, run `composer install` in
+Yin's root directory and visit the URL-s listed below. You can restrict the retrieved fields and relationships with
+the `fields` and `include` parameters as specified by JSON API.
 
 Example URL-s for the book resources:
-- `GET examples/index.php?example=books&id=1`
-- `GET examples/index.php?example=books-rel&id=1&relationship=authors`
-- `GET examples/index.php?example=books-rel&id=1&relationship=publishers`
-- `POST examples/index.php?example=books`
-- `PATCH examples/index.php?example=books&id=1`
+- Fetching a book: `GET examples/index.php?example=books&id=1`
+- Fetching the authors relationship: `GET examples/index.php?example=books-rel&id=1&rel=authors`:
+- Fetching the publisher relationship: `GET examples/index.php?example=books-rel&id=1&rel=publisher`
+- Creating a new book: `POST examples/index.php?example=books`
+- Updating a book: `PATCH examples/index.php?example=books&id=1`
 
 Example URL-s for the user resources:
-- `GET examples/index.php?example=users`
-- `GET examples/index.php?example=users&id=1`
-- `GET examples/index.php?example=users-rel&id=1&relationship=contacts`
+- Fetching users: `GET examples/index.php?example=users`
+- Fetching a user: `GET examples/index.php?example=users&id=1`
+- Fetching the contacts relationship: `GET examples/index.php?example=users-rel&id=1&rel=contacts`
 
 ## Versioning
 

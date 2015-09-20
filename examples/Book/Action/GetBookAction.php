@@ -16,7 +16,7 @@ class GetBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Checking if the "id" query parameter is set
+        // Checking the "id" of the currently requested book
         $id = $jsonApi->getRequest()->getQueryParam("id");
         if ($id === null) {
             die("You must define the 'id' query parameter with a value of '1'!");
@@ -25,7 +25,7 @@ class GetBookAction
         // Retrieving a book domain model with an ID of $id
         $book = BookRepository::getBook($id);
 
-        // Instantiating the book document
+        // Instantiating a book document
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );

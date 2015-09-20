@@ -15,20 +15,25 @@ class GetUserRelationshipsAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
+        // Checking the "id" of the currently requested user
         $id = $jsonApi->getRequest()->getQueryParam("id");
         if ($id === null) {
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 
-        $relationshipName = $jsonApi->getRequest()->getQueryParam("relationship");
+        // Checking the currently requested relationship's name
+        $relationshipName = $jsonApi->getRequest()->getQueryParam("rel");
         if ($relationshipName === null) {
-            die("You must define the 'relationship' query parameter with a value of 'contacts'!");
+            die("You must define the 'rel' query parameter with a value of 'contacts'!");
         }
 
+        // Retrieving a user domain model with an ID of $id
         $user = UserRepository::getUser($id);
 
+        // Instantiating a book document
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
+        // Responding with "200 Ok" status code along with the requested relationship document
         return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $user);
     }
 }

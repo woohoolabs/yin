@@ -20,7 +20,7 @@ class CreateBookAction
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
-        // Instantiating the book document
+        // Instantiating a book document
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
