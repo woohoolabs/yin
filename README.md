@@ -111,8 +111,23 @@ three abstract classes that help you to create your own documents for the differ
 - `AbstractSingleResourceDocument`: A base class for documents about a single top-level resource
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
 
-The `AbstractSuccessfulDocument` is useful for special use-cases (e.g. when a document can contain resources
-of multiple types), therefore we will only introduce the other two abstract classes.
+As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
+of multiple types), we will not cover it here.
+
+`AbstractSingleResourceDocument` or `AbstractCollectionDocument` both need a
+[resource transformer](#resource-transformers) to work, which is a concept introduced in the following sections.
+For now, it is enough to know that one must be passed for the documents during instantiation. This means that a
+minimal constructor of your documents must look like this:
+
+```php
+/**
+ * @param MyResourceTransformer $transformer
+ */
+public function __construct(MyResourceTransformer $transformer)
+{
+    parent::__construct($transformer);
+}
+```
 
 When you extend either `AbstractSingleResourceDocument` or `AbstractCollectionDocument`, they both require
 you to implement the following methods:
@@ -161,7 +176,7 @@ Documents can also have a meta section which can contain any non-standard inform
 [profile](http://jsonapi.org/extensions/#profiles) and some information about pagination to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is an imaginary collection),
-which will be transformed into the primary resource.
+and this is the main "subject" of the document.
 
 ```php
 /**
@@ -189,18 +204,28 @@ public function getLinks()
 ```
 
 This time, we want a self link to appear in the document. For this purpose, we utilize the `getResourceId()` method,
-which is a shortcut of calling the resource transformer to obtain the ID of the
+which is a shortcut of calling the resource transformer (which is introduced below) to obtain the ID of the
 primary resource (`$this->transformer->getId($this->domainObject)`).
 
-The difference between `AbstractSingleResourceDocument` and `AbstractCollectionDocument` lies in the way they
-regard the `domainObject`: the first one regards it as a single entity while the latter regards it
-as an iterable collection of entities.
+The only difference between `AbstractSingleResourceDocument` and `AbstractCollectionDocument` lies in the way they
+regard the `domainObject`: the first one regards it as a single domain object while the latter regards it
+as an iterable collection of domain objects.
+
+###### Usage
+
+Documents are to be transformed to HTTP responses. The easiest way to achieve this is to use the
+[`JsonApi` class](#jsonapi-class) and chose the appropriate response type. Successful documents support three
+kinds of responses:
+
+- normal: All the top-level members can be present in the response
+- meta: Only the meta top-level member will be present in the response
+- relationship: Only the specified relationship object will be present in the response
 
 ##### Documents for error responses
 
 An `AbstractErrorDocument` can be used to create reusable documents for error responses. It also requires the same
-abstract methods to be implemented as the successful documents, but they differ from their usage: the `addError()`
-method of the `AbstractErrorDocument` can be used to add errors to it.
+abstract methods to be implemented as the successful ones, but additionally an `addError()` method  can be used
+to include error items to it.
 
 ```php
 /** @var AbstractErrorDocument $errorDocument */
@@ -220,10 +245,19 @@ $errorDocument->addError(new MyError());
 
 #### Resource transformers
 
-Documents for successful responses contain one or more resources. A resource is regarded by Woohoo Labs. Yin as a
-domain object which is transformed according to the rules of the JSON API specification. The 
-`AbstractResourceTransformer` class is responsible for this job. It needs several abstract methods to be implemented,
-most of which are the same as it was seen with the documents. Here is an example resource transformer:
+Documents for successful responses can contain one or more top-level resources, an array of included resources and
+resource identifier objects as relationships. That's why resource transformers are responsible to convert a
+domain object into a JSON API resource or resource identifier.
+
+Although you are encouraged to create one transformer for each resource types, there is possibility to define
+"composite" resource transformers too following the Composite design pattern if you need more sophistication.
+
+Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can extend
+the `AbstractResourceTransformer` class too.
+
+Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented, most of which
+are the same as it was seen at the documents. The following example illustrates a resource transformer dealing with
+a book domain object and its "authors" and "publisher" relationships.
 
 ```php
 class BookResourceTransformer extends AbstractResourceTransformer
@@ -307,6 +341,11 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 "self" => new Link("/books/" . $this->getId($book))
             ]
         );
+        
+        // This is equivalent to the following:
+        // return Links::createRelativeWithSelf("http://example.com/api", "/books/" . $this->getResourceId());
+        // or:
+        // return Links::createAbsoluteWithSelf("http://example.com/api/books/" . $this->getResourceId());
     }
 
     /**
@@ -354,7 +393,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "authors" => function(array $book) {
                 return ToManyRelationship::create()
                     ->setLinks(
-                        Links::createAbsolutewithSelf(new Link("http://example.com/api/books/relationships/authors"))
+                        Links::createAbsoluteWithSelf(new Link("http://example.com/api/books/relationships/authors"))
                     )
                     ->setData($book["authors"], $this->authorTransformer)
                 ;
@@ -371,6 +410,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 }
 ```
+
+Generally, you don't use resource transformers directly. Only documents need them to be able to fill the "data",
+the "included" and the "relationship" sections in the responses.
 
 #### Hydrators
 
