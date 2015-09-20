@@ -25,7 +25,12 @@ of our vision.
     * [Resource transformers](#resource-transformers)
     * [Hydrators](#hydrators)
     * [JsonApi class](#jsonapi-class)
-    * [Examples](#examples)
+* [Examples](#examples)
+    * [Fetching a single resource](#fetching-a-single-resource)
+    * [Fetching a collection of resources](#fetching-a-collection-of-resources)
+    * [Fetching a relationship](#fetching-a-relationship)
+    * [Creating a new resource](#creating-a-new-resource)
+    * [Updating a resource](#updating-a-resource)
     * [How to try it out](#how-to-try-it-out)
 * [Versioning](#versioning)
 * [Change Log](#change-log)
@@ -366,9 +371,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
 #### `JsonApi` class
 
-#### Examples
+## Examples
 
-##### Fetching a single resource
+#### Fetching a single resource
 
 ```php
 /**
@@ -396,7 +401,7 @@ public function getBook(JsonApi $jsonApi)
 }
 ```
 
-##### Fetching a collection of resources
+#### Fetching a collection of resources
 
 ```php
 /**
@@ -418,6 +423,8 @@ public function getUsers(JsonApi $jsonApi)
     return $jsonApi->fetchResponse()->ok($document, $users);
 }
 ```
+
+#### Fetching a relationship
 
 ```php
 /**
@@ -445,7 +452,7 @@ public function getBookRelationships(JsonApi $jsonApi)
 }
 ```
 
-##### Creating a new resource
+#### Creating a new resource
 
 ```php
 /**
@@ -474,7 +481,7 @@ public function createBook(JsonApi $jsonApi)
 }
 ```
 
-##### Updating a resource
+#### Updating a resource
 
 ```php
 /**
