@@ -196,10 +196,18 @@ public function getLinks()
         ]
     );
     
-    // This is equivalent to the following:
-    // return Links::createRelativeWithSelf("http://example.com/api", "/books/" . $this->getResourceId());
-    // or:
-    // return Links::createAbsoluteWithSelf("http://example.com/api/books/" . $this->getResourceId());
+    /* This is equivalent to the following:
+    return Links::createRelativeWithSelf(
+        "http://example.com/api",
+        new Link("/books/" . $this->getResourceId())
+    );
+    
+    or:
+    
+    return Links::createAbsoluteWithSelf(
+        new Link("http://example.com/api/books/" . $this->getResourceId())
+    );
+    */
 }
 ```
 
@@ -207,19 +215,19 @@ This time, we want a self link to appear in the document. For this purpose, we u
 which is a shortcut of calling the resource transformer (which is introduced below) to obtain the ID of the
 primary resource (`$this->transformer->getId($this->domainObject)`).
 
-The only difference between `AbstractSingleResourceDocument` and `AbstractCollectionDocument` lies in the way they
+The only difference between the `AbstractSingleResourceDocument` and `AbstractCollectionDocument` is the way they
 regard the `domainObject`: the first one regards it as a single domain object while the latter regards it
 as an iterable collection of domain objects.
 
 ###### Usage
 
 Documents are to be transformed to HTTP responses. The easiest way to achieve this is to use the
-[`JsonApi` class](#jsonapi-class) and chose the appropriate response type. Successful documents support three
+[`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
 kinds of responses:
 
-- normal: All the top-level members can be present in the response
-- meta: Only the meta top-level member will be present in the response
-- relationship: Only the specified relationship object will be present in the response
+- normal: All the top-level members can be present in the response (except of the "errors")
+- meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
+- relationship: The specified relationship object will be the primary data of the response
 
 ##### Documents for error responses
 
@@ -342,10 +350,18 @@ class BookResourceTransformer extends AbstractResourceTransformer
             ]
         );
         
-        // This is equivalent to the following:
-        // return Links::createRelativeWithSelf("http://example.com/api", "/books/" . $this->getResourceId());
-        // or:
-        // return Links::createAbsoluteWithSelf("http://example.com/api/books/" . $this->getResourceId());
+        /* This is equivalent to the following:
+        return Links::createRelativeWithSelf(
+           "http://example.com/api",
+           new Link("/books/" . $this->getResourceId())
+        );
+        
+        or:
+        
+        return Links::createAbsoluteWithSelf(
+            new Link("http://example.com/api/books/" . $this->getResourceId())
+        );
+        */
     }
 
     /**
