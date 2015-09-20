@@ -28,7 +28,7 @@ class GetBookRelationshipsAction
             die("You must define the 'rel' query parameter with a value of 'authors' or 'publisher'!");
         }
 
-        // Retrieving a book domain model with an ID of $id
+        // Retrieving a book domain object with an ID of $id
         $book = BookRepository::getBook($id);
 
         // Instantiating a book document

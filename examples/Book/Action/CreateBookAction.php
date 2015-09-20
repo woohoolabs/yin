@@ -16,7 +16,7 @@ class CreateBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Hydrating a new book domain model from the request
+        // Hydrating a new book domain object from the request
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 

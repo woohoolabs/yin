@@ -17,14 +17,14 @@ class UpdateBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Retrieving a book domain model with an ID of $id
+        // Retrieving a book domain object with an ID of $id
         $id = $jsonApi->getRequest()->getBodyDataId();
         $book = BookRepository::getBook($id);
         if ($book === null) {
             die("A book with an ID of '$id' can't be found!");
         }
 
-        // Hydrating the retrieved book domain model from the request
+        // Hydrating the retrieved book domain object from the request
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
 

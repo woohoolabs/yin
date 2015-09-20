@@ -27,7 +27,7 @@ class GetUserRelationshipsAction
             die("You must define the 'rel' query parameter with a value of 'contacts'!");
         }
 
-        // Retrieving a user domain model with an ID of $id
+        // Retrieving a user domain object with an ID of $id
         $user = UserRepository::getUser($id);
 
         // Instantiating a book document

@@ -18,7 +18,7 @@ class GetUsersAction
         // Extracting pagination information from the request, page = 1, size = 10 if it is missing
         $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 
-        // Retrieving a paginated collection of user domain models
+        // Retrieving a paginated collection of user domain objects
         $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
         // Instantiating a users document

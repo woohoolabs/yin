@@ -152,7 +152,7 @@ public function getMeta()
             "offset" => $this->domainObject->getOffset(),
             "limit" => $this->domainObject->getLimit(),
             "total" => $this->domainObject->getCount()
-        ] 
+        ]
     ];
 }
 ```
@@ -180,6 +180,11 @@ public function getLinks()
             "self" => new Link("/books/" . $this->getResourceId())
         ]
     );
+    
+    // This is equivalent to the following:
+    // return Links::createRelativeWithSelf("http://example.com/api", "/books/" . $this->getResourceId());
+    // or:
+    // return Links::createAbsoluteWithSelf("http://example.com/api/books/" . $this->getResourceId());
 }
 ```
 
@@ -385,7 +390,7 @@ public function getBook(JsonApi $jsonApi)
     // Getting the "id" of the currently requested book
     $id = $jsonApi->getRequest()->getAttribute("id");
 
-    // Retrieving a book domain model with an ID of $id
+    // Retrieving a book domain object with an ID of $id
     $book = BookRepository::getBook($id);
 
     // Instantiating a book document
@@ -413,7 +418,7 @@ public function getUsers(JsonApi $jsonApi)
     // Extracting pagination information from the request, page = 1, size = 10 if it is missing
     $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 
-    // Fetching a paginated collection of user domain models
+    // Fetching a paginated collection of user domain objects
     $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
     // Instantiating a users document
@@ -439,7 +444,7 @@ public function getBookRelationships(JsonApi $jsonApi)
     // Getting the currently requested relationship's name
     $relationshipName = $jsonApi->getRequest()->getAttribute("relationship");
     
-    // Retrieving a book domain model with an ID of $id
+    // Retrieving a book domain object with an ID of $id
     $book = BookRepository::getBook($id);
 
     // Instantiating a book document
@@ -461,7 +466,7 @@ public function getBookRelationships(JsonApi $jsonApi)
  */
 public function createBook(JsonApi $jsonApi)
 {
-    // Hydrating a new book domain model from the request
+    // Hydrating a new book domain object from the request
     $hydrator = new CreateBookHydator();
     $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
@@ -490,11 +495,11 @@ public function createBook(JsonApi $jsonApi)
  */
 public function updateBook(JsonApi $jsonApi)
 {
-    // Retrieving a book domain model with an ID of $id
+    // Retrieving a book domain object with an ID of $id
     $id = $jsonApi->getRequest()->getBodyDataId();
     $book = BookRepository::getBook($id);
 
-    // Hydrating the retrieved book domain model from the request
+    // Hydrating the retrieved book domain object from the request
     $hydrator = new BookHydator();
     $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
 

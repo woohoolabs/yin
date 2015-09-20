@@ -22,7 +22,7 @@ class GetBookAction
             die("You must define the 'id' query parameter with a value of '1'!");
         }
 
-        // Retrieving a book domain model with an ID of $id
+        // Retrieving a book domain object with an ID of $id
         $book = BookRepository::getBook($id);
 
         // Instantiating a book document
