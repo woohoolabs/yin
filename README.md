@@ -14,6 +14,25 @@ JSON API specification. We wanted a framework that is able to meet every single 
 while enabling clean application architecture and domain modeling. Woohoo Labs. Yin is the manifestation
 of our vision.
 
+## Table of Contents
+
+* [Introduction](#introduction)
+    * [Features](#features)
+    * [Why Yin?](#why-yin)
+* [Install](#install)
+* [Basic Usage](#basic-usage)
+    * [Documents](#documents)
+    * [Resource Transformers](#resource-transformers)
+    * [Hydrators](#hydrators)
+    * [JsonApi class](#jsonapi-class)
+    * [Examples](#examples)
+* [Versioning](#versioning)
+* [Change Log](#change-log)
+* [Testing](#testing)
+* [Contributing](#contributing)
+* [Credits](#credits)
+* [License](#license)
+
 ## Introduction
 
 [JSON API](http://jsonapi.org) specification
@@ -22,7 +41,7 @@ and we also believe it is a big day for RESTful API-s as this specification make
 than they have ever been. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your
 JSON API server implementations.
 
-## Features
+#### Features
 
 - 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
 - 99% [JSON API 1.0](http://jsonapi.org/) compatibility (approximately)
@@ -32,26 +51,27 @@ JSON API server implementations.
 - Provides Hydrators to create and update resources
 - [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for the easier kickstart and debugging
 
-## Why Yin?
+#### Why Yin?
 
-#### Complete JSON API Framework
+##### Complete JSON API Framework
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
 capabilities for content negotiation, error handling, pagination, fetch, creation, update, deletion of resources.
 Although Yin consists of many loosely coupled packages and classes which can also be used separately, but the
 framework is the most powerful when it is used in its entirety.
 
-#### Efficiency
+##### Efficiency
 
-We designed the transformation processes so that attributes and relationships are transformed only and if only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a rarely required
-transformation is very expensive.
+We designed the transformation processes so that attributes and relationships are transformed only and if only they
+are requested. This feature is extremely advantageous when there are a lot of resources to transform or a rarely
+required transformation is very expensive.
 
-#### Supplementary Middlewares
+##### Supplementary Middlewares
 
-[There are some additional middlewares](https://github.com/woohoolabs/yin-middlewares) for Woohoo Labs. Yin you might find
-useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API error
-messages), dispatching JSON API-aware controllers or debugging (via synthax checking and validation of requests and
-responses).
+[There are some additional middlewares](https://github.com/woohoolabs/yin-middlewares) for Woohoo Labs. Yin you might
+find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API
+error messages), dispatching JSON API-aware controllers or debugging (via synthax checking and validation of requests
+and responses).
 
 ## Install
 
@@ -64,25 +84,32 @@ $ composer require woohoolabs/yin
 
 ## Basic Usage
 
-**Important:** Before learning about Woohoo Labs. Yin, please make sure you understand at least the basic concepts
-of the [JSON API specification](http://jsonapi.org).
-
 When using Woohoo Labs. Yin, you will create:
 - documents and resource transformers in order to map domain objects to JSON API responses
-- hydrators in order to transform created or updated JSON API resources to domain objects
+- hydrators in order to transform resources in a POST or PATCH request to domain objects
 
-And a `JsonApi` class will be responsible for the instrumentation.
+Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
+`Request` class provides functionalities you commonly need.
 
 #### Documents
 
-The JSON API spec differentiates three main types of documents: documents containing information about a resource,
-documents containing information about a collection of resources and error documents. Woohoo Labs. Yin
-provides an abstract class for each use-case which you have to extend.
+The following sections will guide you through how to create documents for successful responses and
+how to create or build error documents.
 
 ##### Documents for successful responses
 
-Depending on the cardinality of the resources to be retrieved, you can extend either `AbstractSingleResourceDocument` or
-`AbstractCollectionDocument`. They require the same abstract methods to be implemented:
+For successful requests, you have to return information about one or more resources. Woohoo Labs. Yin provides
+three abstract classes that help you to create your own documents for the different use cases:
+
+- `AbstractSuccessfulDocument`: A generic base document for successful responses
+- `AbstractSingleResourceDocument`: A base class for documents about a single top-level resource
+- `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
+
+A `AbstractSuccessfulDocument` is useful for special use-cases (e.g. when a document can contain resources
+of multiple types), therefore we will only introduce the other two abstract classes.
+
+When you extend either `AbstractSingleResourceDocument` or `AbstractCollectionDocument`, they both require
+you to implement the following methods:
 
 ```php
 /**
