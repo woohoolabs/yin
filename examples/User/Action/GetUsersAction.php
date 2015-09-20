@@ -15,10 +15,10 @@ class GetUsersAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Retrieving pagination information from the request, page = 1, size = 10 if it is missing
+        // Extracting pagination information from the request, page = 1, size = 10 if it is missing
         $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 
-        // Fetching users of the current page
+        // Retrieving a paginated collection of user domain models
         $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
         // Instantiating the users document

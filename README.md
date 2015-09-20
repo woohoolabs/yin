@@ -105,7 +105,7 @@ three abstract classes that help you to create your own documents for the differ
 - `AbstractSingleResourceDocument`: A base class for documents about a single top-level resource
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
 
-A `AbstractSuccessfulDocument` is useful for special use-cases (e.g. when a document can contain resources
+The `AbstractSuccessfulDocument` is useful for special use-cases (e.g. when a document can contain resources
 of multiple types), therefore we will only introduce the other two abstract classes.
 
 When you extend either `AbstractSingleResourceDocument` or `AbstractCollectionDocument`, they both require
@@ -367,7 +367,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
 #### Examples
 
-##### Example resource fetching
+##### Fetching A Single Resource
 
 ```php
 /**
@@ -376,8 +376,11 @@ class BookResourceTransformer extends AbstractResourceTransformer
  */
 public function getBook(JsonApi $jsonApi)
 {
-    // Fetching the book with an ID of 1
-    $book = BookRepository::getBook(1);
+    // Getting the "id" of the requested book
+    $id = $jsonApi->getRequest()->getAttribute("id");
+
+    // Retrieving a book domain model with an ID of $id
+    $book = BookRepository::getBook($id);
 
     // Instantiating the book document
     $document = new BookDocument(
@@ -392,7 +395,30 @@ public function getBook(JsonApi $jsonApi)
 }
 ```
 
-##### Example resource creation
+##### Fetching a Collection of Resources
+
+```php
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function getUsers(JsonApi $jsonApi)
+{
+    // Extracting pagination information from the request, page = 1, size = 10 if it is missing
+    $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
+
+    // Fetching a paginated collection of user domain models
+    $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
+
+    // Instantiating the users document
+    $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
+
+    // Responding with "200 Ok" status code along with the users document
+    return $jsonApi->fetchResponse()->ok($document, $users);
+}
+```
+
+##### Creating Resources
 
 ```php
 /**
@@ -401,11 +427,12 @@ public function getBook(JsonApi $jsonApi)
  */
 public function createBook(JsonApi $jsonApi)
 {
-    // Hydrating the book from the request
+    // Hydrating a new book domain model from the request
     $hydrator = new CreateBookHydator();
     $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
     // Saving the newly created book
+    // ...
 
     // Creating the book document to be sent as the response
     $document = new BookDocument(
@@ -415,8 +442,35 @@ public function createBook(JsonApi $jsonApi)
         )
     );
 
-    // Responding with "201 Created" status code along with the new book document
+    // Responding with "201 Created" status code along with the book document
     return $jsonApi->createResponse()->created($document, $book);
+}
+```
+
+##### Updating Resources
+
+```php
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function updateBook(JsonApi $jsonApi)
+{
+    // Retrieving a book domain model with an ID of $id
+    $id = $jsonApi->getRequest()->getBodyDataId();
+    $book = BookRepository::getBook($id);
+
+    // Hydrating the retrieved book domain model from the request
+    $hydrator = new BookHydator();
+    $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
+
+    // Instantiating the user document
+    $document = new BookDocument(
+        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+    );
+
+    // Responding with "200 Ok" status code along with the book document
+    return $jsonApi->updateResponse()->ok($document, $book);
 }
 ```
 
@@ -427,10 +481,17 @@ set up a web server and visit `examples/index.php?example=EXAMPLE_NAME`, where `
 in Yin's root directory. You can also restrict which fields and attributes should be fetched. The original resources -
 which are transformed by Yin - can be found in the actions.
 
-Some example URL-s to play with:
+Example URL-s for the book resources:
+- `GET examples/index.php?example=books&id=1`
+- `GET examples/index.php?example=books-rel&id=1&relationship=authors`
+- `GET examples/index.php?example=books-rel&id=1&relationship=publishers`
+- `POST examples/index.php?example=books`
+- `PATCH examples/index.php?example=books&id=1`
 
-- `examples/index.php?example=book&id=1&include=authors,publisher`
-- `examples/index.php?example=users&include=contacts`
+Example URL-s for the user resources:
+- `GET examples/index.php?example=users`
+- `GET examples/index.php?example=users&id=1`
+- `GET examples/index.php?example=users-rel&id=1&relationship=contacts`
 
 ## Versioning
 

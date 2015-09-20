@@ -17,23 +17,23 @@ class UpdateBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Retrieving the book to be updated
+        // Retrieving a book domain model with an ID of $id
         $id = $jsonApi->getRequest()->getBodyDataId();
         $book = BookRepository::getBook($id);
         if ($book === null) {
             die("A book with an ID of '$id' can't be found!");
         }
 
-        // Hydrating the book from the request
+        // Hydrating the retrieved book domain model from the request
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
 
-        // Creating the BookDocument to be sent as the response
+        // Instantiating the user document
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        // Responding with 200 Ok status code and returning the new book resource
+        // Responding with "200 Ok" status code along with the book document
         return $jsonApi->updateResponse()->ok($document, $book);
     }
 }

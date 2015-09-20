@@ -16,16 +16,16 @@ class CreateBookAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-        // Hydrating the book from the request
+        // Hydrating a new book domain model from the request
         $hydrator = new BookHydator();
         $book = $hydrator->hydrate($jsonApi->getRequest(), []);
 
-        // Creating the BookDocument to be sent as the response
+        // Instantiating the book document
         $document = new BookDocument(
             new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
         );
 
-        // Responding with 201 Created status code and returning the new book resource
+        // Responding with "201 Created" status code along with the book document
         return $jsonApi->createResponse()->created($document, $book);
     }
 }

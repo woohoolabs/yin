@@ -21,7 +21,7 @@ class GetUserAction
             die("You must define the 'id' query parameter with a value of '1' or '2'!");
         }
 
-        // Fetching the user with an ID of $id
+        // Retrieving a user domain model with an ID of $id
         $user = UserRepository::getUser($id);
 
         // Instantiating the user document
