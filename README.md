@@ -508,16 +508,16 @@ Yin's root directory and visit the URL-s listed below. You can restrict the retr
 the `fields` and `include` parameters as specified by JSON API.
 
 Example URL-s for the book resources:
-- Fetching a book: `GET examples/index.php?example=books&id=1`
-- Fetching the authors relationship: `GET examples/index.php?example=books-rel&id=1&rel=authors`:
-- Fetching the publisher relationship: `GET examples/index.php?example=books-rel&id=1&rel=publisher`
-- Creating a new book: `POST examples/index.php?example=books`
-- Updating a book: `PATCH examples/index.php?example=books&id=1`
+- `GET examples/index.php?example=books&id=1`: Fetch a book
+- `GET examples/index.php?example=books-rel&id=1&rel=authors`: Fetch the authors relationship
+- `GET examples/index.php?example=books-rel&id=1&rel=publisher`: Fetch the publisher relationship
+- `POST examples/index.php?example=books`: Create a new book
+- `PATCH examples/index.php?example=books&id=1`: Update a book
 
 Example URL-s for the user resources:
-- Fetching users: `GET examples/index.php?example=users`
-- Fetching a user: `GET examples/index.php?example=users&id=1`
-- Fetching the contacts relationship: `GET examples/index.php?example=users-rel&id=1&rel=contacts`
+- `GET examples/index.php?example=users`: Fetch users
+- `GET examples/index.php?example=users&id=1`: Fetch a user
+- `GET examples/index.php?example=users-rel&id=1&rel=contacts`: Fetch the contacts relationship
 
 ## Versioning
 
