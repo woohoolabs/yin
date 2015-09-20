@@ -11,14 +11,14 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     protected $domainObject;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer
+     * @var \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface
      */
     protected $transformer;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer $transformer
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $transformer
      */
-    public function __construct(AbstractResourceTransformer $transformer)
+    public function __construct(ResourceTransformerInterface $transformer)
     {
         $this->transformer = $transformer;
     }
