@@ -114,7 +114,7 @@ three abstract classes that help you to create your own documents for the differ
 As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
 of multiple types), we will not cover it here.
 
-`AbstractSingleResourceDocument` or `AbstractCollectionDocument` both need a
+`AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a
 [resource transformer](#resource-transformers) to work, which is a concept introduced in the following sections.
 For now, it is enough to know that one must be passed for the documents during instantiation. This means that a
 minimal constructor of your documents must look like this:
@@ -221,7 +221,7 @@ as an iterable collection of domain objects.
 
 ###### Usage
 
-Documents are to be transformed to HTTP responses. The easiest way to achieve this is to use the
+Documents can be transformed to HTTP responses. The easiest way to achieve this is to use the
 [`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
 kinds of responses:
 
@@ -257,7 +257,7 @@ Documents for successful responses can contain one or more top-level resources, 
 resource identifier objects as relationships. That's why resource transformers are responsible to convert a
 domain object into a JSON API resource or resource identifier.
 
-Although you are encouraged to create one transformer for each resource types, there is possibility to define
+Although you are encouraged to create one transformer for each resource type, there is possibility to define
 "composite" resource transformers too following the Composite design pattern if you need more sophistication.
 
 Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can extend
