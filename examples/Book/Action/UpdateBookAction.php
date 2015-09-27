@@ -25,8 +25,7 @@ class UpdateBookAction
         }
 
         // Hydrating the retrieved book domain object from the request
-        $hydrator = new BookHydator();
-        $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
+        $book = $jsonApi->hydrate(new BookHydator(), $book);
 
         // Instantiating a book document
         $document = new BookDocument(
@@ -34,6 +33,6 @@ class UpdateBookAction
         );
 
         // Responding with "200 Ok" status code along with the book document
-        return $jsonApi->updateResponse()->ok($document, $book);
+        return $jsonApi->respond()->ok($document, $book);
     }
 }

@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-abstract class AbstractResponse
+abstract class AbstractResponder
 {
     /**
      * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
@@ -26,40 +26,6 @@ abstract class AbstractResponse
     {
         $this->request = $request;
         $this->response = $response;
-    }
-
-    /**
-     * Returns a successful response with the given status code.
-     *
-     * @param int $statusCode
-     * @return \Psr\Http\Message\ResponseInterface $response
-     */
-    public function genericSuccess($statusCode)
-    {
-        return $this->response->withStatus($statusCode);
-    }
-
-    /**
-     * Returns an error response with the given status code, containing a document in the body with the errors.
-     *
-     * @param int $statusCode
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @return \Psr\Http\Message\ResponseInterface $response
-     */
-    public function genericError($statusCode, AbstractErrorDocument $document, array $errors = [])
-    {
-        return $this->getErrorResponse($this->response, $document, $errors, $statusCode);
-    }
-
-    /**
-     * Returns the original PSR-7 response object.
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getResponse()
-    {
-        return $this->response;
     }
 
     /**
@@ -106,6 +72,26 @@ abstract class AbstractResponse
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentRelationshipResponse(
+        $relationshipName,
+        RequestInterface $request,
+        ResponseInterface $response,
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        $statusCode
+    ) {
+        return $document->getRelationshipResponse($relationshipName, $response, $domainObject, $request, $statusCode);
+    }
+
+    /**
+     * @param string $relationshipName
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param mixed $domainObject
+     * @param int $statusCode
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function getDocumentRelationshipMetaResponse(
         $relationshipName,
         RequestInterface $request,
         ResponseInterface $response,

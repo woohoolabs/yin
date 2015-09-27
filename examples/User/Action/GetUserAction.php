@@ -28,6 +28,6 @@ class GetUserAction
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
         // Responding with "200 Ok" status code along with the user document
-        return $jsonApi->fetchResponse()->ok($document, $user);
+        return $jsonApi->respond()->ok($document, $user);
     }
 }

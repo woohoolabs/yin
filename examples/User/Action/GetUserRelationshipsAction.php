@@ -34,6 +34,6 @@ class GetUserRelationshipsAction
         $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
         // Responding with "200 Ok" status code along with the requested relationship document
-        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $user);
+        return $jsonApi->respondWithRelationship($relationshipName)->ok($document, $user);
     }
 }

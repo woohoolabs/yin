@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-abstract class AbstractUpdateHydrator
+abstract class AbstractUpdateHydrator implements HydratorInterface
 {
     use HydratorTrait;
     use UpdateHydratorTrait;

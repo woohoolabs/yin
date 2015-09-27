@@ -4,9 +4,8 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
 
-class FetchRelationshipResponse extends AbstractResponse
+class RelationshipResponder extends AbstractResponder
 {
     /**
      * @var string
@@ -27,9 +26,6 @@ class FetchRelationshipResponse extends AbstractResponse
     /**
      * Returns a "200 Ok" response, containing a document in the body with the relationship.
      *
-     * According to the JSON API specification, this response is applicable in the following conditions:
-     * "A server MUST respond to a successful request to fetch a relationship with a 200 OK response."
-     *
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
@@ -47,18 +43,21 @@ class FetchRelationshipResponse extends AbstractResponse
     }
 
     /**
-     * Returns a "404 Not Found" response, containing a document in the body with the errors.
+     * Returns a "200 Ok" response, containing a document with the relationship meta data in the body.
      *
-     * According to the JSON API specification, this response is applicable in the following conditions:
-     * "A server MUST return 404 Not Found when processing a request to fetch a relationship link URL
-     * that does not exist."
-     *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param mixed $domainObject
+     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function notFound(AbstractErrorDocument $document, array $errors = [])
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getErrorResponse($this->response, $document, $errors, 404);
+        return $this->getDocumentRelationshipResponse(
+            $this->relationshipName,
+            $this->request,
+            $this->response,
+            $document,
+            $domainObject,
+            200
+        );
     }
 }

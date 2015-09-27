@@ -31,6 +31,6 @@ class GetBookAction
         );
 
         // Responding with "200 Ok" status code along with the book document
-        return $jsonApi->fetchResponse()->ok($document, $book);
+        return $jsonApi->respond()->ok($document, $book);
     }
 }

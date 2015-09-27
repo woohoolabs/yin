@@ -37,6 +37,6 @@ class GetBookRelationshipsAction
         );
 
         // Responding with "200 Ok" status code along with the requested relationship document
-        return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $book);
+        return $jsonApi->respondWithRelationship($relationshipName)->ok($document, $book);
    }
 }
