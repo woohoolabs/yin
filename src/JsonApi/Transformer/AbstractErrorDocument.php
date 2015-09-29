@@ -79,7 +79,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
     /**
      * @return array
      */
-    protected function transformContent()
+    public function transformContent()
     {
         $content = $this->transformBaseContent();
 

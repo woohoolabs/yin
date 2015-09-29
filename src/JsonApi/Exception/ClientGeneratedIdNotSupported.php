@@ -1,7 +1,10 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-class ClientGeneratedIdNotSupported extends \Exception
+use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+
+class ClientGeneratedIdNotSupported extends JsonApiException
 {
     /**
      * @var string
@@ -9,24 +12,30 @@ class ClientGeneratedIdNotSupported extends \Exception
     private $clientGeneratedId;
 
     /**
-     * @var string
-     */
-    private $reason;
-
-    /**
      * @param string|null $clientGeneratedId
-     * @param string $reason
      */
-    public function __construct($clientGeneratedId, $reason = "")
+    public function __construct($clientGeneratedId)
     {
         parent::__construct(
-            "Client generated ID " .
-            ($clientGeneratedId ? "\"$clientGeneratedId\" " : "") .
+            "Client generated ID " . ($clientGeneratedId ? "'$clientGeneratedId' " : "") .
             "is not supported!"
         );
-
         $this->clientGeneratedId = $clientGeneratedId;
-        $this->reason = $reason;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getErrors()
+    {
+        return [
+            Error::create()
+                ->setStatus(403)
+                ->setCode("CLIENT_GENERATED_ID_NOT_SUPPORTED")
+                ->setTitle("Client generated ID is not supported")
+                ->setDetail($this->getMessage())
+                ->setSource(ErrorSource::fromPointer("/data/id"))
+        ];
     }
 
     /**
@@ -35,13 +44,5 @@ class ClientGeneratedIdNotSupported extends \Exception
     public function getClientGeneratedId()
     {
         return $this->clientGeneratedId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReason()
-    {
-        return $this->reason;
     }
 }

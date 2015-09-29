@@ -1,24 +1,46 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-class ResourceTypeUnacceptable extends \Exception
+use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+
+class ResourceTypeUnacceptable extends JsonApiException
 {
     /**
      * @var string
      */
-    private $type;
+    private $currentType;
 
-    public function __construct($type)
+    /**
+     * @param string $currentType
+     * @param array $acceptedTypes
+     */
+    public function __construct($currentType, array $acceptedTypes)
     {
-        parent::__construct("Resource type '$type' can't be accepted by the Hydrator!");
-        $this->type = $type;
+        parent::__construct("Resource type '$currentType' can't be accepted by the Hydrator!");
+        $this->currentType = $currentType;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getErrors()
+    {
+        return [
+            Error::create()
+                ->setStatus(400)
+                ->setCode("RESOURCE_TYPE_UNACCEPTABLE")
+                ->setTitle("Resource type is unacceptable")
+                ->setDetail("Resource type '$this->currentType' is unacceptable!")
+                ->setSource(ErrorSource::fromPointer("/data/type"))
+        ];
     }
 
     /**
      * @return string
      */
-    public function getType()
+    public function getCurrentType()
     {
-        return $this->type;
+        return $this->currentType;
     }
 }

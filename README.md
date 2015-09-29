@@ -526,7 +526,7 @@ public function createBook(JsonApi $jsonApi)
 {
     // Hydrating a new book domain object from the request
     $hydrator = new CreateBookHydator();
-    $book = $hydrator->hydrate($jsonApi->getRequest(), []);
+    $book = $jsonApi->hydrate(new BookHydator(), []);
 
     // Saving the newly created book
     // ...
@@ -558,8 +558,7 @@ public function updateBook(JsonApi $jsonApi)
     $book = BookRepository::getBook($id);
 
     // Hydrating the retrieved book domain object from the request
-    $hydrator = new BookHydator();
-    $book = $hydrator->hydrate($jsonApi->getRequest(), $book);
+    $book = $jsonApi->hydrate(new BookHydator(), []);
 
     // Instantiating the user document
     $document = new BookDocument(

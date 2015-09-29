@@ -9,13 +9,14 @@ use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
 use WoohooLabs\Yin\JsonApi\JsonApi;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
 // Initializing JsonApi
 $request = new Request(ServerRequestFactory::fromGlobals());
-$jsonApi = new JsonApi($request, new Response());
+$jsonApi = new JsonApi($request, new Response(), new ExceptionFactory());
 
 // Defining routes
 $routes = [

@@ -1,7 +1,10 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-class MediaTypeUnacceptable extends \Exception
+use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+
+class MediaTypeUnacceptable extends JsonApiException
 {
     /**
      * @var string
@@ -14,8 +17,22 @@ class MediaTypeUnacceptable extends \Exception
     public function __construct($mediaTypeName)
     {
         parent::__construct("The media type '" . $mediaTypeName . "' is unacceptable in the 'Accept' header!");
-
         $this->mediaTypeName = $mediaTypeName;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getErrors()
+    {
+        return [
+            Error::create()
+                ->setStatus(406)
+                ->setCode("MEDIA_TYPE_UNACCEPTABLE")
+                ->setTitle("The provided media type is unacceptable")
+                ->setDetail($this->getMessage())
+                ->setSource(ErrorSource::fromParameter("Accept"))
+        ];
     }
 
     /**

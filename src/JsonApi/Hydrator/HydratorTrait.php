@@ -1,9 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
-use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
@@ -58,23 +56,23 @@ trait HydratorTrait
 
     /**
      * @param array $data
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @throws \Exception
      */
-    protected function validateType($data)
+    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
         if (isset($data["type"]) === false) {
-            throw new ResourceTypeMissing();
+            throw $exceptionFactory->createResourceTypeMissingException();
         }
 
         $acceptedType = $this->getAcceptedType();
 
         if (is_string($acceptedType) === true && $data["type"] !== $acceptedType) {
-            throw new ResourceTypeUnacceptable($data["type"]);
+            throw $exceptionFactory->createResourceTypeUnacceptableException($data["type"], [$acceptedType]);
         }
 
         if (is_array($acceptedType) && in_array($data["type"], $acceptedType) === false) {
-            throw new ResourceTypeUnacceptable($data["type"]);
+            throw $exceptionFactory->createResourceTypeUnacceptableException($data["type"], $acceptedType);
         }
     }
 
@@ -107,9 +105,10 @@ trait HydratorTrait
     /**
      * @param mixed $domainObject
      * @param array $data
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
-    protected function hydrateRelationships($domainObject, $data)
+    protected function hydrateRelationships($domainObject, $data, ExceptionFactoryInterface $exceptionFactory)
     {
         if (empty($data["relationships"])) {
             return $domainObject;
@@ -128,7 +127,8 @@ trait HydratorTrait
                     $hydrator,
                     $domainObject,
                     $relationshipObject,
-                    $data
+                    $data,
+                    $exceptionFactory
                 );
                 if ($result) {
                     $domainObject = $result;
@@ -145,8 +145,9 @@ trait HydratorTrait
      * @param mixed $domainObject
      * @param ToOneRelationship|ToManyRelationship $relationshipObject
      * @param array $data
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      * @throws \Exception
      */
     protected function getRelationshipHydratorResult(
@@ -154,13 +155,18 @@ trait HydratorTrait
         \Closure $hydrator,
         $domainObject,
         $relationshipObject,
-        array $data
+        array $data,
+        ExceptionFactoryInterface $exceptionFactory
     ) {
         // Checking if the current and expected relationship types match
         $relationshipType = $this->getRelationshipType($relationshipObject);
         $expectedRelationshipType = $this->getRelationshipType($this->getArgumentTypeHintFromClosure($hydrator));
         if ($expectedRelationshipType !== null && $relationshipType !== $expectedRelationshipType) {
-            throw new RelationshipTypeNotAppropriate($relationshipName, $relationshipType, $expectedRelationshipType);
+            throw $exceptionFactory->createRelationshipTypeInappropriateException(
+                $relationshipName,
+                $relationshipType,
+                $expectedRelationshipType
+            );
         }
 
         // Returning if the hydrator returns the hydrated domain object

@@ -1,10 +1,15 @@
 ## 0.7.0 - unreleased
 
 ADDED:
+- A separate responder
+- Helper method for hydration in the `JsonApi` class
 
 CHANGED:
+- Improved exception handling
+- Refactored transformation
 
 FIXED:
+- Compound documents now can't include more than one resource object for each type and id pair
 
 ## 0.6.0 - 2015-09-22
 

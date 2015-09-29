@@ -11,7 +11,7 @@ class InclusionUnrecognizedTest extends PHPUnit_Framework_TestCase
         $includes = ["a", "b", "c"];
 
         $exception = $this->createException($includes);
-        $this->assertEquals($includes, $exception->getIncludes());
+        $this->assertEquals($includes, $exception->getUnrecognizedIncludes());
     }
 
     private function createException(array $includes)

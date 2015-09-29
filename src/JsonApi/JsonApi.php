@@ -2,8 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported;
-use WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
@@ -22,13 +21,23 @@ class JsonApi
     public $response;
 
     /**
+     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     */
+    public $exceptionFactory;
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
      */
-    public function __construct(RequestInterface $request, ResponseInterface $response)
-    {
+    public function __construct(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
         $this->request = $request;
         $this->response = $response;
+        $this->exceptionFactory = $exceptionFactory;
     }
 
     /**
@@ -89,7 +98,7 @@ class JsonApi
      */
     public function hydrate(HydratorInterface $hydrator, $domainObject)
     {
-        return $hydrator->hydrate($this->request, $domainObject);
+        return $hydrator->hydrate($this->request, $this->exceptionFactory, $domainObject);
     }
 
     /**
@@ -97,12 +106,12 @@ class JsonApi
      *
      * If the current request asks for inclusion of related resources, it throws an InclusionNotSupported exception.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function disableIncludes()
     {
-        if ($this->getRequest()->getQueryParam("include") !== null) {
-            throw new InclusionNotSupported();
+        if ($this->request->getQueryParam("include") !== null) {
+            throw $this->exceptionFactory->createInclusionUnsupportedException($this->request);
         }
     }
 
@@ -111,12 +120,12 @@ class JsonApi
      *
      * If the current request contains sorting criteria, it throws a SortingNotSupported exception.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function disableSorting()
     {
-        if ($this->getRequest()->getQueryParam("sort") !== null) {
-            throw new SortingNotSupported();
+        if ($this->request->getQueryParam("sort") !== null) {
+            throw $this->exceptionFactory->createSortingUnsupportedException($this->request);
         }
     }
 }

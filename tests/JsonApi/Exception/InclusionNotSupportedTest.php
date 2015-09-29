@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Exception;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 
 class InclusionNotSupportedTest extends PHPUnit_Framework_TestCase
 {
@@ -14,6 +14,6 @@ class InclusionNotSupportedTest extends PHPUnit_Framework_TestCase
 
     private function createException()
     {
-        return new InclusionNotSupported();
+        return new InclusionUnsupported();
     }
 }

@@ -1,27 +1,45 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-class QueryParamUnrecognized extends \Exception
+use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+
+class QueryParamUnrecognized extends JsonApiException
 {
     /**
      * @var string
      */
-    private $queryParam;
+    private $unrecognizedQueryParam;
 
     /**
-     * @param string $queryParam
+     * @param string $unrecognizedQueryParam
      */
-    public function __construct($queryParam)
+    public function __construct($unrecognizedQueryParam)
     {
-        parent::__construct("Query parameter '$queryParam' can't be recognized!");
-        $this->queryParam = $queryParam;
+        parent::__construct("Query parameter '$unrecognizedQueryParam' can't be recognized!");
+        $this->unrecognizedQueryParam = $unrecognizedQueryParam;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getErrors()
+    {
+        return [
+            Error::create()
+                ->setStatus(400)
+                ->setCode("QUERY_PARAM_UNRECOGNIZED")
+                ->setTitle("Query parameter is unrecognized")
+                ->setDetail("Query parameter '$this->unrecognizedQueryParam' can't be recognized by the endpoint!")
+                ->setSource(ErrorSource::fromParameter($this->unrecognizedQueryParam))
+        ];
     }
 
     /**
      * @return string
      */
-    public function getQueryParam()
+    public function getUnrecognizedQueryParam()
     {
-        return $this->queryParam;
+        return $this->unrecognizedQueryParam;
     }
 }

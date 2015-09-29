@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractHydrator implements HydratorInterface
@@ -17,16 +18,17 @@ abstract class AbstractHydrator implements HydratorInterface
      * hydrated as an update.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
-    public function hydrate(RequestInterface $request, $domainObject)
+    public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
         if ($request->getMethod() === "POST") {
-            $domainObject = $this->hydrateForCreate($request, $domainObject);
+            $domainObject = $this->hydrateForCreate($request, $exceptionFactory, $domainObject);
         } elseif ($request->getMethod() === "PATCH") {
-            $domainObject = $this->hydrateForUpdate($request, $domainObject);
+            $domainObject = $this->hydrateForUpdate($request, $exceptionFactory, $domainObject);
         }
 
         return $domainObject;

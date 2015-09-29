@@ -2,7 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 
 interface ResourceTransformerInterface
 {
@@ -89,29 +89,29 @@ interface ResourceTransformerInterface
     /**
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
-     * @return array|null
+     * @return array
      */
     public function transformToResource(
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath = ""
     );
 
     /**
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $relationshipName
      * @param string $baseRelationshipPath
-     * @return array|null
+     * @return array
      */
     public function transformRelationship(
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $relationshipName,
         $baseRelationshipPath = ""
     );

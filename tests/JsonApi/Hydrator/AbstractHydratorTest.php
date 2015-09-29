@@ -160,7 +160,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
     public function testHydrateRelationshipsWhenCardinalityInappropriate()
     {
@@ -189,7 +189,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeNotAppropriate
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
     public function testHydrateRelationshipsWhenCardinalityInappropriate2()
     {

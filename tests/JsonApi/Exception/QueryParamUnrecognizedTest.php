@@ -11,7 +11,7 @@ class QueryParamUnrecognizedTest extends PHPUnit_Framework_TestCase
         $queryParam = "id";
 
         $exception = $this->createException($queryParam);
-        $this->assertEquals($queryParam, $exception->getQueryParam());
+        $this->assertEquals($queryParam, $exception->getUnrecognizedQueryParam());
     }
 
     private function createException($queryParam)

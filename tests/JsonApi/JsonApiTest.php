@@ -37,7 +37,7 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function testDisableIncludesWhenEmpty()
     {
@@ -48,7 +48,7 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionNotSupported
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function testDisableIncludesWhenSet()
     {
@@ -70,7 +70,7 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function testDisableSortingWhenEmpty()
     {
@@ -81,7 +81,7 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingNotSupported
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function testDisableSortingWhenSet()
     {

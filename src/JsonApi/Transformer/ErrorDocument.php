@@ -22,6 +22,16 @@ class ErrorDocument extends AbstractErrorDocument
     protected $links;
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
+     */
+    public function __construct(array $errors = [])
+    {
+        foreach ($errors as $error) {
+            $this->addError($error);
+        }
+    }
+
+    /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
      */
     public function getJsonApi()

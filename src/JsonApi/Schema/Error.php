@@ -9,32 +9,40 @@ class Error
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @var int
      */
-    private $status;
+    protected $status;
 
     /**
      * @var string
      */
-    private $code;
+    protected $code;
 
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      */
-    private $detail;
+    protected $detail;
 
     /**
      * @var \WoohooLabs\Yin\JsonApi\Schema\ErrorSource
      */
-    private $source;
+    protected $source;
+
+    /**
+     * @return $this
+     */
+    public static function create()
+    {
+        return new self();
+    }
 
     /**
      * @return string

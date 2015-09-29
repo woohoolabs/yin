@@ -1,17 +1,19 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 trait CreateHydratorTrait
 {
     /**
      * @param array $data
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
+     * @throws \Exception
      */
-    abstract protected function validateType($data);
+    abstract protected function validateType($data, ExceptionFactoryInterface $exceptionFactory);
 
     /**
      * Validates a client-generated ID.
@@ -70,18 +72,22 @@ trait CreateHydratorTrait
      * according to the JSON API specification.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws \Exception
      */
-    public function hydrateForCreate(RequestInterface $request, $domainObject)
-    {
+    public function hydrateForCreate(
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject
+    ) {
         $data = $request->getBodyData();
         if (empty($data)) {
-            throw new ResourceTypeMissing();
+            throw $exceptionFactory->createResourceTypeMissingException();
         }
 
-        $this->validateType($data);
+        $this->validateType($data, $exceptionFactory);
         $domainObject = $this->hydrateIdForCreate($domainObject, $data);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
         $domainObject = $this->hydrateRelationships($domainObject, $data);

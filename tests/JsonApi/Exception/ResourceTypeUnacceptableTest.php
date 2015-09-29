@@ -11,7 +11,7 @@ class ResourceTypeUnacceptableTest extends PHPUnit_Framework_TestCase
         $type = "book";
 
         $exception = $this->createException($type);
-        $this->assertEquals($type, $exception->getType());
+        $this->assertEquals($type, $exception->getCurrentType());
     }
 
     private function createException($type)
