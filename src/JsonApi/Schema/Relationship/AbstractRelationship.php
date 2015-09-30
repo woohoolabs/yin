@@ -1,7 +1,11 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
+use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 abstract class AbstractRelationship
@@ -21,7 +25,7 @@ abstract class AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
@@ -29,7 +33,7 @@ abstract class AbstractRelationship
      */
     abstract protected function transformData(
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
@@ -68,7 +72,7 @@ abstract class AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $resourceType
      * @param string $baseRelationshipPath
      * @param string $relationshipName
@@ -77,7 +81,7 @@ abstract class AbstractRelationship
      */
     public function transform(
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $resourceType,
         $baseRelationshipPath,
         $relationshipName,
@@ -85,9 +89,9 @@ abstract class AbstractRelationship
     ) {
         $relationship = null;
 
-        $data = $this->transformData(
+        $transformedData = $this->transformData(
             $request,
-            $included,
+            $data,
             $baseRelationshipPath,
             $relationshipName,
             $defaultRelationships
@@ -107,7 +111,7 @@ abstract class AbstractRelationship
             }
 
             // DATA
-            $relationship["data"] = $data;
+            $relationship["data"] = $transformedData;
         }
 
         return $relationship;
@@ -116,7 +120,7 @@ abstract class AbstractRelationship
     /**
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
@@ -125,20 +129,18 @@ abstract class AbstractRelationship
     protected function transformResource(
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
     ) {
         if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName, $defaultRelationships)) {
-            $included->addResource(
-                $this->resourceTransformer->transformToResource(
-                    $domainObject,
-                    $request,
-                    $included,
-                    $baseRelationshipPath
-                )
-            );
+            $data->addIncludedResource($this->resourceTransformer->transformToResource(
+                $domainObject,
+                $request,
+                $data,
+                $baseRelationshipPath
+            ));
         }
 
         return $this->resourceTransformer->transformToResourceIdentifier($domainObject);

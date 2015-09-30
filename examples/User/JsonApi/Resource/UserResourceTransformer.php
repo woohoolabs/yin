@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class UserResourceTransformer extends AbstractResourceTransformer

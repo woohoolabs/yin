@@ -3,8 +3,8 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Schema\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class BookResourceTransformer extends AbstractResourceTransformer

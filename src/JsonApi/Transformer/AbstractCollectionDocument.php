@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
 
 abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 {
@@ -24,16 +25,22 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
+     */
+    protected function instantiateData()
+    {
+        return new CollectionData();
+    }
+
+    /**
      * Sets the value of the "data" and "included" properties based on the "resource" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    protected function setContent(RequestInterface $request)
+    protected function setData(RequestInterface $request)
     {
-        $this->data = [];
-
         foreach ($this->domainObject as $item) {
-            $this->data[] = $this->transformer->transformToResource($item, $request, $this->included);
+            $this->data->addPrimaryResource($this->transformer->transformToResource($item, $request, $this->data));
         }
     }
 
@@ -46,17 +53,20 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $content = [];
+        if (empty($this->domainObject)) {
+            return [];
+        }
 
+        $result = [];
         foreach ($this->domainObject as $item) {
-            $this->data[] = $this->transformer->transformRelationship(
+            $result[] = $this->transformer->transformRelationship(
                 $item,
                 $request,
-                $this->included,
+                $this->data,
                 $relationshipName
             );
         }
 
-        return $content;
+        return $result;
     }
 }

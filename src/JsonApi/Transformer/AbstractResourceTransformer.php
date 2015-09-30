@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\TransformerTrait;
 
 abstract class AbstractResourceTransformer implements ResourceTransformerInterface
@@ -41,14 +41,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      *
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
-     * @return array|null
+     * @return array
      */
     public function transformToResource(
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath = ""
     ) {
         $result = $this->transformToResourceIdentifier($domainObject);
@@ -64,7 +64,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $this->transformAttributesObject($result, $domainObject, $request);
 
         // Relationships
-        $this->transformRelationshipsObject($result, $domainObject, $request, $included, $baseRelationshipPath);
+        $this->transformRelationshipsObject($result, $domainObject, $request, $data, $baseRelationshipPath);
 
         return $result;
     }
@@ -74,7 +74,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      *
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $relationshipName
      * @param string $baseRelationshipPath
      * @return array|null
@@ -82,7 +82,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     public function transformRelationship(
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $relationshipName,
         $baseRelationshipPath = ""
     ) {
@@ -96,7 +96,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             $relationshipName,
             $domainObject,
             $request,
-            $included,
+            $data,
             $this->getType($domainObject),
             $baseRelationshipPath,
             $this->getDefaultRelationships($domainObject)
@@ -158,14 +158,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $array
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
      */
     private function transformRelationshipsObject(
         array &$array,
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath
     ) {
         $relationships = $this->getRelationships($domainObject);
@@ -175,7 +175,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
                 $relationships,
                 $domainObject,
                 $request,
-                $included,
+                $data,
                 $this->getType($domainObject),
                 $baseRelationshipPath
             );
@@ -186,7 +186,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $relationships
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $resourceType
      * @param string $baseRelationshipPath
      * @return array
@@ -195,7 +195,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         array $relationships,
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $resourceType,
         $baseRelationshipPath
     ) {
@@ -210,7 +210,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
                 $relationshipName,
                 $domainObject,
                 $request,
-                $included,
+                $data,
                 $resourceType,
                 $baseRelationshipPath,
                 $defaultRelationships
@@ -229,7 +229,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param string $relationshipName
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $resourceType
      * @param string $baseRelationshipPath
      * @param array $defaultRelationships
@@ -240,7 +240,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $relationshipName,
         $domainObject,
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $resourceType,
         $baseRelationshipPath,
         array $defaultRelationships
@@ -252,12 +252,12 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         }
 
         $relationshipCallback = $relationships[$relationshipName];
-        /** @var \WoohooLabs\Yin\JsonApi\Schema\AbstractRelationship $relationship */
+        /** @var \WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship $relationship */
         $relationship = $relationshipCallback($domainObject, $request);
 
         return $relationship->transform(
             $request,
-            $included,
+            $data,
             $resourceType,
             $baseRelationshipPath,
             $relationshipName,

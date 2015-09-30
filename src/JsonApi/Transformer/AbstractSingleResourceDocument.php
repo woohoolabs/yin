@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
@@ -31,13 +32,23 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
+     */
+    protected function instantiateData()
+    {
+        return new SingleResourceData();
+    }
+
+    /**
      * Sets the value of the "data" and "included" properties based on the "resource" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    protected function setContent(RequestInterface $request)
+    protected function setData(RequestInterface $request)
     {
-        $this->data = $this->transformer->transformToResource($this->domainObject, $request, $this->included);
+        $this->data->addPrimaryResource(
+            $this->transformer->transformToResource($this->domainObject, $request, $this->data)
+        );
     }
 
     /**
@@ -52,7 +63,7 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
         return $this->transformer->transformRelationship(
             $this->domainObject,
             $request,
-            $this->included,
+            $this->data,
             $relationshipName
         );
     }

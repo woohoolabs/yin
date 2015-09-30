@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
@@ -37,16 +37,6 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     /**
      * @var array
      */
-    protected $dataResult;
-
-    /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Included
-     */
-    protected $includedResult;
-
-    /**
-     * @var array
-     */
     protected $relationshipResponseContent;
 
     /**
@@ -55,8 +45,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
      * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included|null $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param array $relationshipResponseContent
      */
     public function __construct(
@@ -65,8 +54,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         JsonApi $jsonApi = null,
         array $meta = [],
         Links $links = null,
-        array $data = [],
-        Included $included = null,
+        DataInterface $data = null,
         array $relationshipResponseContent = []
     ) {
         $this->extensions = $extensions;
@@ -74,8 +62,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         $this->jsonApi = $jsonApi;
         $this->meta = $meta;
         $this->links = $links;
-        $this->dataResult = $data;
-        $this->includedResult = $included ? $included : new Included();
+        $this->data = $data;
         $this->relationshipResponseContent = $relationshipResponseContent;
     }
 
@@ -120,14 +107,20 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     }
 
     /**
+     * @inheritDoc
+     */
+    protected function instantiateData()
+    {
+        return $this->data ? $this->data : new DummyData();
+    }
+
+    /**
      * Sets the value of the "data" and "included" properties based on the "domainObject" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    protected function setContent(RequestInterface $request)
+    protected function setData(RequestInterface $request)
     {
-        $this->data = $this->dataResult;
-        $this->included = $this->includedResult;
     }
 
     /**
@@ -139,7 +132,6 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
      */
     protected function getRelationshipContent($relationshipName, RequestInterface $request)
     {
-        $this->included = $this->includedResult;
         return $this->relationshipResponseContent;
     }
 }

@@ -3,7 +3,6 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
 {
@@ -13,21 +12,21 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     protected $domainObject;
 
     /**
-     * @var mixed
+     * @var \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
      */
     protected $data;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Included
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
      */
-    protected $included;
+    abstract protected function instantiateData();
 
     /**
      * Sets the value of the "data" and "included" properties based on the "domainObject" property.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      */
-    abstract protected function setContent(RequestInterface $request);
+    abstract protected function setData(RequestInterface $request);
 
     /**
      * Returns a response content whose primary data is a relationship object with $relationshipName name.
@@ -98,11 +97,11 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Included
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
      */
-    public function getIncluded()
+    public function getData()
     {
-        return $this->included;
+        return $this->data;
     }
 
     /**
@@ -111,7 +110,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     private function initializeDocument($domainObject)
     {
         $this->domainObject = $domainObject;
-        $this->included = new Included();
+        $this->data = $this->instantiateData();
     }
 
     /**
@@ -139,12 +138,12 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $content = $this->transformBaseContent();
 
         // Data
-        $this->setContent($request);
-        $content["data"] = $this->data;
+        $this->setData($request);
+        $content["data"] = $this->data->transformPrimaryResources();
 
         // Included
-        if ($this->included->isEmpty() === false) {
-            $content["included"] = $this->included->transform();
+        if ($this->data->hasIncludedResources()) {
+            $content["included"] = $this->data->transformIncludedResources();
         }
 
         return $content;
@@ -160,8 +159,8 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $response = $this->getRelationshipContent($relationshipName, $request);
 
         // Included
-        if ($this->included->isEmpty() === false) {
-            $response["included"] = $this->included->transform();
+        if ($this->data->hasIncludedResources()) {
+            $response["included"] = $this->data->transformIncludedResources();
         }
 
         return $response;

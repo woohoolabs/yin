@@ -1,6 +1,7 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
 trait RelationshipFactoryTrait

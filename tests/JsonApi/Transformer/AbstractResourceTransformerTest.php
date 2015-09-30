@@ -4,10 +4,11 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Schema\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
@@ -137,15 +138,15 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
             }
         ];
 
-        $included = new Included();
+        $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $this->transformToResource($transformer, $domainObject, null, $included);
+        $transformedResource = $this->transformToResource($transformer, $domainObject, null, $data);
         $this->assertArrayHasKey("father", $transformedResource["relationships"]);
         $this->assertEquals("user", $transformedResource["relationships"]["father"]["data"]["type"]);
         $this->assertEquals("2", $transformedResource["relationships"]["father"]["data"]["id"]);
         $this->assertArrayNotHasKey("name", $transformedResource["relationships"]);
         $this->assertArrayNotHasKey("age", $transformedResource["relationships"]);
-        $this->assertInternalType("array", $included->getResource("user", "2"));
+        $this->assertInternalType("array", $data->getResource("user", "2"));
     }
 
     public function testTransformToResourceWithoutIncludedRelationship()
@@ -161,11 +162,11 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $request = new Request(new DiactorosServerRequest());
         $request = $request->withQueryParams(["fields" => ["user" => ""]]);
 
-        $included = new Included();
+        $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $this->transformToResource($transformer, [], $request, $included);
+        $transformedResource = $this->transformToResource($transformer, [], $request, $data);
         $this->assertArrayNotHasKey("father", $transformedResource["relationships"]);
-        $this->assertNull($included->getResource("user", "2"));
+        $this->assertNull($data->getResource("user", "2"));
     }
 
     /**
@@ -192,9 +193,9 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $relationships = [];
 
         $request = new Request(new DiactorosServerRequest());
-        $included = new Included();
+        $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $transformer->transformRelationship([], $request, $included, "father", "");
+        $transformedResource = $transformer->transformRelationship([], $request, $data, "father", "");
         $this->assertNull($transformedResource);
     }
 
@@ -210,9 +211,9 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         ];
 
         $request = new Request(new DiactorosServerRequest());
-        $included = new Included();
+        $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $transformer->transformRelationship([], $request, $included, "father", "");
+        $transformedResource = $transformer->transformRelationship([], $request, $data, "father", "");
         $this->assertEquals("user", $transformedResource["data"]["type"]);
         $this->assertEquals("2", $transformedResource["data"]["id"]);
     }
@@ -221,19 +222,19 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
      * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer $transformer
      * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @return array|null
      */
     protected function transformToResource(
         AbstractResourceTransformer $transformer,
         $domainObject,
         RequestInterface $request = null,
-        Included $included = null
+        DataInterface $data = null
     ) {
         return $transformer->transformToResource(
             $domainObject,
             $request ? $request : new Request(new DiactorosServerRequest()),
-            $included ? $included : new Included(),
+            $data ? $data : new SingleResourceData(),
             ""
         );
     }

@@ -1,10 +1,12 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
-class ToManyRelationship extends AbstractRelationship
+class ToOneRelationship extends AbstractRelationship
 {
     use RelationshipFactoryTrait;
 
@@ -25,7 +27,7 @@ class ToManyRelationship extends AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
@@ -33,26 +35,22 @@ class ToManyRelationship extends AbstractRelationship
      */
     protected function transformData(
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
     ) {
-        if ($this->data === null || $this->resourceTransformer === null) {
-            return [];
+        if (empty($this->data) || $this->resourceTransformer === null) {
+            return null;
         }
 
-        $result = [];
-        foreach ($this->data as $item) {
-            $result[] = $this->transformResource(
-                $item,
-                $request,
-                $included,
-                $baseRelationshipPath,
-                $relationshipName,
-                $defaultRelationships
-            );
-        }
-        return $result;
+        return $this->transformResource(
+            $this->data,
+            $request,
+            $data,
+            $baseRelationshipPath,
+            $relationshipName,
+            $defaultRelationships
+        );
     }
 }

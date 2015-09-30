@@ -2,9 +2,9 @@
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 
-class IncludedTest extends PHPUnit_Framework_TestCase
+class DataTest extends PHPUnit_Framework_TestCase
 {
     public function testGetNonExistentResource()
     {
@@ -15,9 +15,9 @@ class IncludedTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $included = $this->createIncluded()->setResources($resources);
-        $this->assertNull($included->getResource("resource", "2"));
-        $this->assertNull($included->getResource("resources", "1"));
+        $data = $this->createData()->setIncludedResources($resources);
+        $this->assertNull($data->getResource("resource", "2"));
+        $this->assertNull($data->getResource("resources", "1"));
     }
 
     public function testGetResource()
@@ -27,14 +27,14 @@ class IncludedTest extends PHPUnit_Framework_TestCase
             "id" => "1"
         ];
 
-        $included = $this->createIncluded()->addResource($resource);
-        $this->assertEquals($resource, $included->getResource("resource", "1"));
+        $data = $this->createData()->addIncludedResource($resource);
+        $this->assertEquals($resource, $data->getResource("resource", "1"));
     }
 
     public function testIsEmptyByDefault()
     {
-        $included = $this->createIncluded();
-        $this->assertTrue($included->isEmpty());
+        $included = $this->createData();
+        $this->assertFalse($included->hasIncludedResources());
     }
 
     public function testIsEmptyWhenIncludingNoResource()
@@ -46,16 +46,16 @@ class IncludedTest extends PHPUnit_Framework_TestCase
             ]
         ];
 
-        $included = $this->createIncluded()->setResources($resources);
-        $this->assertFalse($included->isEmpty());
+        $data = $this->createData()->setIncludedResources($resources);
+        $this->assertTrue($data->hasIncludedResources());
     }
 
     public function testIsEmptyWhenIncludingResources()
     {
         $resources = [];
 
-        $included = $this->createIncluded()->setResources($resources);
-        $this->assertTrue($included->isEmpty());
+        $data = $this->createData()->setIncludedResources($resources);
+        $this->assertFalse($data->hasIncludedResources());
     }
 
     public function testAddResource()
@@ -65,15 +65,15 @@ class IncludedTest extends PHPUnit_Framework_TestCase
             "id" => "1"
         ];
 
-        $included = $this->createIncluded()->addResource($resource);
-        $this->assertEquals($resource, $included->getResource("resource", "1"));
+        $data = $this->createData()->addIncludedResource($resource);
+        $this->assertEquals($resource, $data->getResource("resource", "1"));
     }
 
     public function testTransformEmpty()
     {
-        $included = $this->createIncluded();
+        $data = $this->createData();
 
-        $this->assertEquals([], $included->transform());
+        $this->assertEquals([], $data->transformIncludedResources());
     }
 
     public function testTransform()
@@ -85,14 +85,14 @@ class IncludedTest extends PHPUnit_Framework_TestCase
 
         $resources = [$item1, $resource2, $resource1, $item2, $item1, $resource1];
 
-        $included = $this->createIncluded()->setResources($resources);
+        $data = $this->createData()->setIncludedResources($resources);
 
         $transformedIncluded = [$item1, $item2, $resource1, $resource2];
-        $this->assertEquals($transformedIncluded, $included->transform());
+        $this->assertEquals($transformedIncluded, $data->transformIncludedResources());
     }
 
-    private function createIncluded()
+    private function createData()
     {
-        return new Included();
+        return new SingleResourceData();
     }
 }

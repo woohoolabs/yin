@@ -37,7 +37,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
     protected $defaultRelationships;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Included
+     * @var array
      */
     protected $relationships;
 

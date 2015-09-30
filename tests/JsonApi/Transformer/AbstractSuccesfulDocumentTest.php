@@ -4,7 +4,8 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Schema\Included;
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
@@ -62,11 +63,11 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
     public function testGetEmptyDataResponse()
     {
         $request = new Request(new ServerRequest());
-        $data = [];
+        $data = new SingleResourceData();
 
         $document = $this->createDocument([], [], null, [], null, $data);
         $response = $document->getResponse(new Response(), [], $request, 200);
-        $this->assertEquals($data, $this->getContentFromResponse("data", $response));
+        $this->assertNull($this->getContentFromResponse("data", $response));
     }
 
     public function testGetResponseWithLinks()
@@ -74,7 +75,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $request = new Request(new ServerRequest());
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
-        $document = $this->createDocument([], [], null, [], $links, []);
+        $document = $this->createDocument([], [], null, [], $links);
         $response = $document->getResponse(new Response(), [], $request, 200);
         $this->assertCount(2, $this->getContentFromResponse("links", $response));
     }
@@ -82,9 +83,9 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
     public function testGetEmptyDataResponseWithEmptyIncludes()
     {
         $request = new Request(new ServerRequest());
-        $included = null;
+        $data = null;
 
-        $document = $this->createDocument([], [], null, [], null, [], $included);
+        $document = $this->createDocument([], [], null, [], null, $data);
         $response = $document->getResponse(new Response(), [], $request, 200);
         $this->assertEquals([], $this->getContentFromResponse("included", $response));
     }
@@ -92,8 +93,8 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
     public function testGetEmptyDataResponseWithIncludes()
     {
         $request = new Request(new ServerRequest());
-        $included = new Included();
-        $included->setResources(
+        $data = new SingleResourceData();
+        $data->setIncludedResources(
             [
                 [
                     "type" => "user",
@@ -106,15 +107,15 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
             ]
         );
 
-        $document = $this->createDocument([], [], null, [], null, [], $included);
+        $document = $this->createDocument([], [], null, [], null, $data);
         $response = $document->getResponse(new Response(), [], $request, 200);
-        $this->assertEquals($included->transform(), $this->getContentFromResponse("included", $response));
+        $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
     }
 
     public function testGetIncludes()
     {
-        $included = new Included();
-        $included->setResources(
+        $data = new SingleResourceData();
+        $data->setIncludedResources(
             [
                 [
                     "type" => "user",
@@ -127,10 +128,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
             ]
         );
 
-        $document = $this->createDocument([], [], null, [], null, [], $included);
-        $this->assertEquals(null, $document->getIncluded());
+        $document = $this->createDocument([], [], null, [], null, $data);
+        $this->assertEquals(null, $document->getData());
         $document->getResponse(new Response(), [], new Request(new ServerRequest()), 200);
-        $this->assertEquals($included, $document->getIncluded());
+        $this->assertEquals($data, $document->getData());
     }
 
     public function testGetRelationshipResponse()
@@ -144,7 +145,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
             "data" => $relationshipResponseContentData
         ];
 
-        $document = $this->createDocument([], [], null, [], null, [], null, $relationshipResponseContent);
+        $document = $this->createDocument([], [], null, [], null, null, $relationshipResponseContent);
         $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
         $this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
     }
@@ -152,8 +153,8 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
     public function testGetRelationshipResponseWithIncluded()
     {
         $request = new Request(new ServerRequest());
-        $included = new Included();
-        $included->setResources(
+        $data = new SingleResourceData();
+        $data->setIncludedResources(
             [
                 [
                     "type" => "user",
@@ -166,9 +167,9 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
             ]
         );
 
-        $document = $this->createDocument([], [], null, [], null, [], $included, []);
+        $document = $this->createDocument([], [], null, [], null, $data, []);
         $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
-        $this->assertEquals($included->transform(), $this->getContentFromResponse("included", $response));
+        $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
     }
 
     /**
@@ -189,8 +190,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
      * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included|null $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface|null $data
      * @param array $relationshipResponseContent
      * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument
      */
@@ -200,8 +200,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         JsonApi $jsonApi = null,
         array $meta = [],
         Links $links = null,
-        array $data = [],
-        Included $included = null,
+        DataInterface $data = null,
         array $relationshipResponseContent = []
     ) {
         return new StubSuccessfulDocument(
@@ -211,7 +210,6 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
             $meta,
             $links,
             $data,
-            $included,
             $relationshipResponseContent
         );
     }

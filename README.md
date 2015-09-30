@@ -460,7 +460,7 @@ public function getBook(JsonApi $jsonApi)
     );
 
     // Responding with "200 Ok" status code along with the book document
-    return $jsonApi->fetchResponse()->ok($document, $book);
+    return $jsonApi->respond()->ok($document, $book);
 }
 ```
 
@@ -483,7 +483,7 @@ public function getUsers(JsonApi $jsonApi)
     $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
 
     // Responding with "200 Ok" status code along with the users document
-    return $jsonApi->fetchResponse()->ok($document, $users);
+    return $jsonApi->respond()->ok($document, $users);
 }
 ```
 
@@ -511,7 +511,7 @@ public function getBookRelationships(JsonApi $jsonApi)
     );
 
     // Responding with "200 Ok" status code along with the requested relationship document
-    return $jsonApi->fetchRelationshipResponse($relationshipName)->ok($document, $book);
+    return $jsonApi->respondWithRelationship($relationshipName)->ok($document, $book);
 }
 ```
 
@@ -525,7 +525,6 @@ public function getBookRelationships(JsonApi $jsonApi)
 public function createBook(JsonApi $jsonApi)
 {
     // Hydrating a new book domain object from the request
-    $hydrator = new CreateBookHydator();
     $book = $jsonApi->hydrate(new BookHydator(), []);
 
     // Saving the newly created book
@@ -540,7 +539,7 @@ public function createBook(JsonApi $jsonApi)
     );
 
     // Responding with "201 Created" status code along with the book document
-    return $jsonApi->createResponse()->created($document, $book);
+    return $jsonApi->respond()->created($document, $book);
 }
 ```
 
@@ -566,7 +565,7 @@ public function updateBook(JsonApi $jsonApi)
     );
 
     // Responding with "200 Ok" status code along with the book document
-    return $jsonApi->updateResponse()->ok($document, $book);
+    return $jsonApi->respond()->ok($document, $book);
 }
 ```
 

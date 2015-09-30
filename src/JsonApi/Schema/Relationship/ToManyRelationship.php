@@ -1,10 +1,12 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 
-class ToOneRelationship extends AbstractRelationship
+class ToManyRelationship extends AbstractRelationship
 {
     use RelationshipFactoryTrait;
 
@@ -25,7 +27,7 @@ class ToOneRelationship extends AbstractRelationship
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Included $included
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
@@ -33,22 +35,27 @@ class ToOneRelationship extends AbstractRelationship
      */
     protected function transformData(
         RequestInterface $request,
-        Included $included,
+        DataInterface $data,
         $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
     ) {
-        if ($this->data === null || $this->resourceTransformer === null) {
-            return null;
+        if (empty($this->data) || $this->resourceTransformer === null) {
+            return [];
         }
 
-        return $this->transformResource(
-            $this->data,
-            $request,
-            $included,
-            $baseRelationshipPath,
-            $relationshipName,
-            $defaultRelationships
-        );
+        $content = [];
+        foreach ($this->data as $item) {
+            $content[] = $this->transformResource(
+                $item,
+                $request,
+                $data,
+                $baseRelationshipPath,
+                $relationshipName,
+                $defaultRelationships
+            );
+        }
+
+        return $content;
     }
 }
