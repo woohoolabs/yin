@@ -67,7 +67,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
 
         $document = $this->createDocument([], [], null, [], null, $data);
         $response = $document->getResponse(new Response(), [], $request, 200);
-        $this->assertNull($this->getContentFromResponse("data", $response));
+        $this->assertEmpty($this->getContentFromResponse("data", $response));
     }
 
     public function testGetResponseWithLinks()
@@ -129,7 +129,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         );
 
         $document = $this->createDocument([], [], null, [], null, $data);
-        $this->assertEquals(null, $document->getData());
+        $this->assertNull($document->getData()->transformPrimaryResources());
         $document->getResponse(new Response(), [], new Request(new ServerRequest()), 200);
         $this->assertEquals($data, $document->getData());
     }

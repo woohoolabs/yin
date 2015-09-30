@@ -40,7 +40,7 @@ class ToOneRelationship extends AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
-        if (empty($this->data) || $this->resourceTransformer === null) {
+        if ($this->data === null || $this->resourceTransformer === null) {
             return null;
         }
 
