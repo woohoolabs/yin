@@ -63,7 +63,7 @@ interface ExceptionFactoryInterface
     /**
      * @param string $relationshipName
      * @param string $currentRelationshipType
-     * @param array $expectedRelationshipType
+     * @param string $expectedRelationshipType
      * @return \Exception
      */
     public function createRelationshipTypeInappropriateException(
