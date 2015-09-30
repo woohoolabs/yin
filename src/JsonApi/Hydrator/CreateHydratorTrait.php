@@ -59,11 +59,16 @@ trait CreateHydratorTrait
     abstract protected function hydrateAttributes($domainObject, $data);
 
     /**
-     * @param array $data
      * @param mixed $domainObject
+     * @param array $data
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
-    abstract protected function hydrateRelationships($domainObject, $data);
+    abstract protected function hydrateRelationships(
+        $domainObject,
+        array $data,
+        ExceptionFactoryInterface $exceptionFactory
+    );
 
     /**
      * Hydrates the domain object from the creating request.
@@ -90,7 +95,7 @@ trait CreateHydratorTrait
         $this->validateType($data, $exceptionFactory);
         $domainObject = $this->hydrateIdForCreate($domainObject, $data);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
-        $domainObject = $this->hydrateRelationships($domainObject, $data);
+        $domainObject = $this->hydrateRelationships($domainObject, $data, $exceptionFactory);
 
         return $domainObject;
     }

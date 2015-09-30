@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -17,7 +18,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $body = [];
 
         $hydrator = $this->createHydrator(false, "1");
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -30,7 +31,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(false, "1");
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     public function testHydrateWhenGeneratingId()
@@ -44,7 +45,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(false, $id);
-        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
 
@@ -63,7 +64,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(true, $id);
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     public function testHydrateBodyDataId()
@@ -78,7 +79,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(false, $id);
-        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
 

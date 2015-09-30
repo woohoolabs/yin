@@ -3,14 +3,10 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ServerRequestInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Response\CreateResponse;
-use WoohooLabs\Yin\JsonApi\Response\DeleteResponse;
-use WoohooLabs\Yin\JsonApi\Response\FetchResponse;
-use WoohooLabs\Yin\JsonApi\Response\FetchRelationshipResponse;
-use WoohooLabs\Yin\JsonApi\Response\UpdateRelationshipResponse;
-use WoohooLabs\Yin\JsonApi\Response\UpdateResponse;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
@@ -91,45 +87,16 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->createJsonApi($request)->disableSorting();
     }
 
-    public function testCreateResponse()
-    {
-        $response = $this->createJsonApi()->createResponse();
-        $this->assertInstanceOf(CreateResponse::class, $response);
-    }
-
-    public function testDeleteResponse()
-    {
-        $response = $this->createJsonApi()->deleteResponse();
-        $this->assertInstanceOf(DeleteResponse::class, $response);
-    }
-
-    public function testFetchResponse()
-    {
-        $response = $this->createJsonApi()->fetchResponse();
-        $this->assertInstanceOf(FetchResponse::class, $response);
-    }
-
-    public function testFetchRelationshipResponse()
-    {
-        $response = $this->createJsonApi()->fetchRelationshipResponse("");
-        $this->assertInstanceOf(FetchRelationshipResponse::class, $response);
-    }
-
-    public function testUpdateResponse()
-    {
-        $response = $this->createJsonApi()->updateResponse();
-        $this->assertInstanceOf(UpdateResponse::class, $response);
-    }
-
-    public function testUpdateRelationshipResponse()
-    {
-        $response = $this->createJsonApi()->updateRelationshipResponse("");
-        $this->assertInstanceOf(UpdateRelationshipResponse::class, $response);
-    }
-
-    private function createJsonApi(Request $request = null, Response $response = null)
-    {
-        return new JsonApi($request ? $request : $this->createRequest(), $response ? $response : new Response());
+    private function createJsonApi(
+        Request $request = null,
+        Response $response = null,
+        ExceptionFactoryInterface $exceptionFactory = null
+    ) {
+        return new JsonApi(
+            $request ? $request : $this->createRequest(),
+            $response ? $response : new Response(),
+            $exceptionFactory ? $exceptionFactory : new ExceptionFactory()
+        );
     }
 
     private function createRequest(ServerRequestInterface $request = null)

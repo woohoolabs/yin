@@ -108,7 +108,7 @@ trait HydratorTrait
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
-    protected function hydrateRelationships($domainObject, $data, ExceptionFactoryInterface $exceptionFactory)
+    protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         if (empty($data["relationships"])) {
             return $domainObject;

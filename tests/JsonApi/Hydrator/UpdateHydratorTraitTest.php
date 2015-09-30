@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubUpdateHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -17,7 +18,7 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $body = [];
 
         $hydrator = $this->createHydrator();
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -30,7 +31,7 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator();
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -45,7 +46,7 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator();
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     public function testHydrateId()
@@ -59,7 +60,7 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator();
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
 

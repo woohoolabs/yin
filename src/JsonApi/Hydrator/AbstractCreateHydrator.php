@@ -11,13 +11,13 @@ abstract class AbstractCreateHydrator implements HydratorInterface
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param mixed $domainObject
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      * @see \WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait::hydrateForCreate()
      */
-    public function hydrate(RequestInterface $request, $domainObject, ExceptionFactoryInterface $exceptionFactory)
+    public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
         return $this->hydrateForCreate($request, $domainObject, $exceptionFactory);
     }

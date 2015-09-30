@@ -14,16 +14,8 @@ class ClientGeneratedIdNotSupportedTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($id, $exception->getClientGeneratedId());
     }
 
-    public function testGetReason()
+    private function createException($id)
     {
-        $reason = "Just because.";
-
-        $exception = $this->createException("", $reason);
-        $this->assertEquals($reason, $exception->getReason());
-    }
-
-    private function createException($id, $reason = "")
-    {
-        return new ClientGeneratedIdNotSupported($id, $reason);
+        return new ClientGeneratedIdNotSupported($id);
     }
 }

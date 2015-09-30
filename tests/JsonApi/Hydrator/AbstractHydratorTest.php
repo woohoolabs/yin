@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
@@ -21,7 +22,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator();
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -36,7 +37,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("fox");
-        $hydrator->hydrateForCreate($this->createRequest($body), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -51,7 +52,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(["fox", "wolf"]);
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     public function testHydrateAttributesWhenEmpty()
@@ -64,7 +65,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant");
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
 
@@ -86,7 +87,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", $attributeHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
 
@@ -109,7 +110,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", $attributeHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
 
@@ -133,7 +134,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", $attributeHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
 
@@ -155,7 +156,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
 
@@ -185,7 +186,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     /**
@@ -216,7 +217,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
-        $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
     public function testHydrateRelationshipsWhenExpectedCardinalityIsNotSet()
@@ -244,7 +245,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["children" => "Dumbo"], $domainObject);
     }
 
@@ -283,7 +284,7 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
-        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), []);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
         $this->assertEquals(["owner" => "1", "children" => ["2"]], $domainObject);
     }
 

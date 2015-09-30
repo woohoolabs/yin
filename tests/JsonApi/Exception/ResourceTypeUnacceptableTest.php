@@ -10,12 +10,20 @@ class ResourceTypeUnacceptableTest extends PHPUnit_Framework_TestCase
     {
         $type = "book";
 
-        $exception = $this->createException($type);
+        $exception = $this->createException($type, []);
         $this->assertEquals($type, $exception->getCurrentType());
     }
 
-    private function createException($type)
+    public function testGetAcceptedTypes()
     {
-        return new ResourceTypeUnacceptable($type);
+        $acceptedTypes = ["book"];
+
+        $exception = $this->createException("", $acceptedTypes);
+        $this->assertEquals(["book"], $exception->getAcceptedTypes());
+    }
+
+    private function createException($type, array $acceptedTypes)
+    {
+        return new ResourceTypeUnacceptable($type, $acceptedTypes);
     }
 }
