@@ -66,7 +66,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument
+     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
      */
     private function createErrorDocument()
     {

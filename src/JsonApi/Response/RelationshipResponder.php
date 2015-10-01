@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 
 class RelationshipResponder extends AbstractResponder
 {
@@ -26,7 +26,7 @@ class RelationshipResponder extends AbstractResponder
     /**
      * Returns a "200 Ok" response, containing a document in the body with the relationship.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -45,7 +45,7 @@ class RelationshipResponder extends AbstractResponder
     /**
      * Returns a "200 Ok" response, containing a document with the relationship meta data in the body.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */

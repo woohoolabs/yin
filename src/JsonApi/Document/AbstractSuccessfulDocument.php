@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\JsonApi\Document;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;

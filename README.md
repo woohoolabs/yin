@@ -557,9 +557,9 @@ public function updateBook(JsonApi $jsonApi)
     $book = BookRepository::getBook($id);
 
     // Hydrating the retrieved book domain object from the request
-    $book = $jsonApi->hydrate(new BookHydator(), []);
+    $book = $jsonApi->hydrate(new BookHydator(), $book);
 
-    // Instantiating the user document
+    // Instantiating the book document
     $document = new BookDocument(
         new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
     );

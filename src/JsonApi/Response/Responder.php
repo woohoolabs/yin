@@ -3,8 +3,8 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 
 class Responder extends AbstractResponder
 {
@@ -24,7 +24,7 @@ class Responder extends AbstractResponder
      * "A server MUST respond to a successful request to fetch an individual resource or resource
      * collection with a 200 OK response."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -40,7 +40,7 @@ class Responder extends AbstractResponder
      * "A server MUST return a 200 OK status code if a deletion request is successful and the server responds
      * with only top-level meta data."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -52,7 +52,7 @@ class Responder extends AbstractResponder
     /**
      * Returns a "201 Created" response, containing a document in the body with the newly created resource.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -91,7 +91,7 @@ class Responder extends AbstractResponder
     /**
      * Returns a "403 Forbidden" response, containing a document in the body with the errors.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
@@ -103,7 +103,7 @@ class Responder extends AbstractResponder
     /**
      * Returns a "404 Not Found" response, containing a document in the body with the errors.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
@@ -115,7 +115,7 @@ class Responder extends AbstractResponder
     /**
      * Returns a "409 Conflict" response, containing a document in the body with the errors.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @return \Psr\Http\Message\ResponseInterface $response
      */
@@ -138,7 +138,7 @@ class Responder extends AbstractResponder
     /**
      * Returns an error response, containing a document in the body with the errors.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @param int|null $statusCode
      * @return \Psr\Http\Message\ResponseInterface $response

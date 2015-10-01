@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\JsonApi\Document;
 
 abstract class AbstractDocument
 {

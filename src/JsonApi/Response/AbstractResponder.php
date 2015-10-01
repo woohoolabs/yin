@@ -2,8 +2,8 @@
 namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractResponder
@@ -31,7 +31,7 @@ abstract class AbstractResponder
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -48,7 +48,7 @@ abstract class AbstractResponder
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -66,7 +66,7 @@ abstract class AbstractResponder
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -86,7 +86,7 @@ abstract class AbstractResponder
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
@@ -104,7 +104,7 @@ abstract class AbstractResponder
 
     /**
      * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument $document
+     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface $response

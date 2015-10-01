@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;

@@ -192,7 +192,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface|null $data
      * @param array $relationshipResponseContent
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument
+     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument
      */
     private function createDocument(
         array $extensions = [],

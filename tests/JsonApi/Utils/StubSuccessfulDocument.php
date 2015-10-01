@@ -5,7 +5,7 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {

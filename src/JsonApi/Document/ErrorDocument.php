@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;

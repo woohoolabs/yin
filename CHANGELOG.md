@@ -2,11 +2,16 @@
 
 ADDED:
 - A separate responder
-- Helper method for hydration in the `JsonApi` class
+- `ExceptionFactoryInterface` which helps to fully customize error messages
+- `JsonApi::hydrate()` helper method to make hydration easier
 
 CHANGED:
-- Improved exception handling
-- Refactored transformation
+- JSON API exceptions extend `JsonApiException` thus they can be catched easier
+- Documents are moved to `JsonApi\Document` namespace from `JsonApi\Transfomer`
+- Refactored transformation to fix inclusion of multiple identical resource objects
+
+REMOVED:
+- Different types of responses (e.g.: `FetchResponse`)
 
 FIXED:
 - Compound documents now can't include more than one resource object for each type and id pair
@@ -41,7 +46,7 @@ FIXED:
 
 ADDED:
 - Support for much easier generation of pagination links
-- Shortcut to get the resource ID in an `AbstractSingleResourceDocument`
+- Shortcut to get the resource ID in `AbstractSingleResourceDocument`
 - Support for relative URI-s
 
 CHANGED:
@@ -122,7 +127,7 @@ CHANGED:
 ADDED:
 
 - Support for proper and automatic fetching of relationships
-- Convenience methods to `AbstractResourceTransformer` to support transformation
+- Convenience methods for `AbstractResourceTransformer` to support transformation
 - Convenience methods for links and relationships
 - Examples about relationships
 

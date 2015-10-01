@@ -5,7 +5,7 @@ use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
 

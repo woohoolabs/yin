@@ -24,7 +24,7 @@ class AbstractDocumentTest extends PHPUnit_Framework_TestCase
      * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractDocument
+     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractDocument
      */
     private function createDocument(JsonApi $jsonApi = null, array $meta = [], Links $links = null)
     {
