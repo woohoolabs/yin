@@ -81,7 +81,7 @@ trait HydratorTrait
      * @param array $data
      * @return mixed
      */
-    protected function hydrateAttributes($domainObject, $data)
+    protected function hydrateAttributes($domainObject, array $data)
     {
         if (empty($data["attributes"])) {
             return $domainObject;

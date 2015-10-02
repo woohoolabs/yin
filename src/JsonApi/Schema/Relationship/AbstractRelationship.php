@@ -1,12 +1,11 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractRelationship
 {
@@ -24,17 +23,13 @@ abstract class AbstractRelationship
     protected $resourceTransformer;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param string $baseRelationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param string $relationshipName
      * @param array $defaultRelationships
      * @return array
      */
     abstract protected function transformData(
-        RequestInterface $request,
-        DataInterface $data,
-        $baseRelationshipPath,
+        Transformation $transformation,
         $relationshipName,
         array $defaultRelationships
     );
@@ -71,33 +66,22 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param string $resourceType
-     * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
      * @return array|null
      */
     public function transform(
-        RequestInterface $request,
-        DataInterface $data,
+        Transformation $transformation,
         $resourceType,
-        $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
     ) {
         $relationship = null;
+        $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
 
-        $transformedData = $this->transformData(
-            $request,
-            $data,
-            $baseRelationshipPath,
-            $relationshipName,
-            $defaultRelationships
-        );
-
-        if ($request->isIncludedField($resourceType, $relationshipName)) {
+        if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
             $relationship = [];
 
             // LINKS
@@ -118,29 +102,26 @@ abstract class AbstractRelationship
     }
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param string $baseRelationshipPath
      * @param string $relationshipName
      * @param array $defaultRelationships
      * @return array
      */
     protected function transformResource(
+        Transformation $transformation,
         $domainObject,
-        RequestInterface $request,
-        DataInterface $data,
-        $baseRelationshipPath,
         $relationshipName,
         array $defaultRelationships
     ) {
-        if ($request->isIncludedRelationship($baseRelationshipPath, $relationshipName, $defaultRelationships)) {
-            $data->addIncludedResource($this->resourceTransformer->transformToResource(
-                $domainObject,
-                $request,
-                $data,
-                $baseRelationshipPath
-            ));
+        if ($transformation->request->isIncludedRelationship(
+            $transformation->basePath,
+            $relationshipName,
+            $defaultRelationships)
+        ) {
+            $transformation->data->addIncludedResource(
+                $this->resourceTransformer->transformToResource($transformation, $domainObject)
+            );
         }
 
         return $this->resourceTransformer->transformToResourceIdentifier($domainObject);

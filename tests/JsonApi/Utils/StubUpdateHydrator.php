@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateHydratorTrait;
 
 class StubUpdateHydrator
@@ -10,7 +11,7 @@ class StubUpdateHydrator
     /**
      * @inheritDoc
      */
-    protected function validateType($data)
+    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
     }
 
@@ -27,7 +28,7 @@ class StubUpdateHydrator
     /**
      * @inheritDoc
      */
-    protected function hydrateAttributes($domainObject, $data)
+    protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
@@ -35,7 +36,7 @@ class StubUpdateHydrator
     /**
      * @inheritDoc
      */
-    protected function hydrateRelationships($domainObject, $data)
+    protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;
     }

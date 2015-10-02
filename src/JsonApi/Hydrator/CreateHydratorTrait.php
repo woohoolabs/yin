@@ -56,7 +56,7 @@ trait CreateHydratorTrait
      * @param mixed $domainObject
      * @return mixed
      */
-    abstract protected function hydrateAttributes($domainObject, $data);
+    abstract protected function hydrateAttributes($domainObject, array $data);
 
     /**
      * @param mixed $domainObject

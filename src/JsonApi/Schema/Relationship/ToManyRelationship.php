@@ -1,10 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToManyRelationship extends AbstractRelationship
 {
@@ -26,17 +25,10 @@ class ToManyRelationship extends AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param string $baseRelationshipPath
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @return array
+     * @inheritDoc
      */
     protected function transformData(
-        RequestInterface $request,
-        DataInterface $data,
-        $baseRelationshipPath,
+        Transformation $transformation,
         $relationshipName,
         array $defaultRelationships
     ) {
@@ -46,14 +38,7 @@ class ToManyRelationship extends AbstractRelationship
 
         $content = [];
         foreach ($this->data as $item) {
-            $content[] = $this->transformResource(
-                $item,
-                $request,
-                $data,
-                $baseRelationshipPath,
-                $relationshipName,
-                $defaultRelationships
-            );
+            $content[] = $this->transformResource($transformation, $item, $relationshipName, $defaultRelationships);
         }
 
         return $content;

@@ -79,7 +79,7 @@ class JsonApi
      */
     public function respond()
     {
-        return new Responder($this->request, $this->response);
+        return new Responder($this->request, $this->response, $this->exceptionFactory);
     }
 
     /**
@@ -88,7 +88,7 @@ class JsonApi
      */
     public function respondWithRelationship($relationship)
     {
-        return new RelationshipResponder($this->request, $this->response, $relationship);
+        return new RelationshipResponder($this->request, $this->response, $this->exceptionFactory, $relationship);
     }
 
     /**

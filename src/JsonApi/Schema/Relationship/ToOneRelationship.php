@@ -1,10 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToOneRelationship extends AbstractRelationship
 {
@@ -26,17 +25,10 @@ class ToOneRelationship extends AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param string $baseRelationshipPath
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @return array
+     * @inheritDoc
      */
     protected function transformData(
-        RequestInterface $request,
-        DataInterface $data,
-        $baseRelationshipPath,
+        Transformation $transformation,
         $relationshipName,
         array $defaultRelationships
     ) {
@@ -45,10 +37,8 @@ class ToOneRelationship extends AbstractRelationship
         }
 
         return $this->transformResource(
+            $transformation,
             $this->data,
-            $request,
-            $data,
-            $baseRelationshipPath,
             $relationshipName,
             $defaultRelationships
         );

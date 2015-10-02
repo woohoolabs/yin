@@ -33,7 +33,7 @@ trait UpdateHydratorTrait
      * @param array $data
      * @return mixed
      */
-    abstract protected function hydrateAttributes($domainObject, $data);
+    abstract protected function hydrateAttributes($domainObject, array $data);
 
     /**
      * @param mixed $domainObject

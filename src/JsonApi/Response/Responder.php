@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
@@ -11,10 +12,14 @@ class Responder extends AbstractResponder
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      */
-    public function __construct(RequestInterface $request, ResponseInterface $response)
-    {
-        parent::__construct($request, $response);
+    public function __construct(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
+        parent::__construct($request, $response, $exceptionFactory);
     }
 
     /**
@@ -30,7 +35,7 @@ class Responder extends AbstractResponder
      */
     public function ok(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 200);
+        return $this->getDocumentResourceResponse($document, $domainObject, 200);
     }
 
     /**
@@ -46,7 +51,7 @@ class Responder extends AbstractResponder
      */
     public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getDocumentMetaResponse($this->response, $document, $domainObject, 200);
+        return $this->getDocumentMetaResponse($document, $domainObject, 200);
     }
 
     /**
@@ -58,7 +63,7 @@ class Responder extends AbstractResponder
      */
     public function created(AbstractSuccessfulDocument $document, $domainObject)
     {
-        $response = self::getDocumentResourceResponse($this->request, $this->response, $document, $domainObject, 201);
+        $response = self::getDocumentResourceResponse($document, $domainObject, 201);
 
         $links = $document->getLinks();
         if ($links !== null && $links->getSelf() !== null) {

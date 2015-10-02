@@ -21,7 +21,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $version = "1.0";
 
         $document = $this->createDocument([], [], new JsonApi($version));
-        $response = $document->getMetaResponse(new Response(), [], $responseCode);
+        $response = $document->getMetaResponse(new Request(), new Response(), [], $responseCode);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
         $this->assertEquals("1.0", $this->getContentFromResponse("jsonApi", $response)["version"]);

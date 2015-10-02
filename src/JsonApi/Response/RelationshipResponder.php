@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 
@@ -15,11 +16,16 @@ class RelationshipResponder extends AbstractResponder
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param string $relationshipName
      */
-    public function __construct(RequestInterface $request, ResponseInterface $response, $relationshipName)
-    {
-        parent::__construct($request, $response);
+    public function __construct(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory,
+        $relationshipName
+    ) {
+        parent::__construct($request, $response, $exceptionFactory);
         $this->relationshipName = $relationshipName;
     }
 
@@ -51,7 +57,7 @@ class RelationshipResponder extends AbstractResponder
      */
     public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getDocumentRelationshipResponse(
+        return $this->getDocumentRelationshipMetaResponse(
             $this->relationshipName,
             $this->request,
             $this->response,

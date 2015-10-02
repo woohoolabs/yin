@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
@@ -109,28 +109,22 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function instantiateData()
+    protected function getData()
     {
         return $this->data ? $this->data : new DummyData();
     }
 
     /**
-     * Sets the value of the "data" and "included" properties based on the "domainObject" property.
-     *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @inheritDoc
      */
-    protected function setData(RequestInterface $request)
+    protected function fillData(Transformation $transformation)
     {
     }
 
     /**
-     * Returns a response content whose primary data is a relationship object with $relationshipName name.
-     *
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return array
+     * @inheritDoc
      */
-    protected function getRelationshipContent($relationshipName, RequestInterface $request)
+    protected function getRelationshipContent($relationshipName, Transformation $transformation)
     {
         return $this->relationshipResponseContent;
     }

@@ -2,7 +2,9 @@
 namespace WoohooLabs\Yin\JsonApi\Document;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
 {
@@ -12,45 +14,48 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     protected $domainObject;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
-     */
-    protected $data;
-
-    /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
      */
-    abstract protected function instantiateData();
+    abstract protected function getData();
 
     /**
-     * Sets the value of the "data" and "included" properties based on the "domainObject" property.
+     * Fills the transformation data based on the "domainObject" property.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      */
-    abstract protected function setData(RequestInterface $request);
+    abstract protected function fillData(Transformation $transformation);
 
     /**
      * Returns a response content whose primary data is a relationship object with $relationshipName name.
      *
      * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @return array
      */
-    abstract protected function getRelationshipContent($relationshipName, RequestInterface $request);
+    abstract protected function getRelationshipContent($relationshipName, Transformation $transformation);
 
     /**
      * Returns a response with a status code of $responseCode, containing all the provided sections of the document,
      * assembled based on the $domainObject.
      *
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param mixed $domainObject
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $domainObject, RequestInterface $request, $responseCode)
-    {
+    public function getResponse(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject,
+        $responseCode
+    ) {
+        $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
+
         $this->initializeDocument($domainObject);
-        $content = $this->transformContent($request);
+        $content = $this->transformContent($transformation);
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
@@ -59,13 +64,20 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
      * the "included" sections) about the document, assembled based on the $domainObject.
      *
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getMetaResponse(ResponseInterface $response, $domainObject, $responseCode)
-    {
+    public function getMetaResponse(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject,
+        $responseCode
+    ) {
         $this->initializeDocument($domainObject);
         $content = $this->transformBaseContent();
 
@@ -77,31 +89,26 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * the primary data, assembled based on the $domainObject.
      *
      * @param string $relationshipName
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param mixed $domainObject
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param mixed $domainObject
      * @param int $responseCode
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getRelationshipResponse(
         $relationshipName,
-        ResponseInterface $response,
-        $domainObject,
         RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject,
         $responseCode
     ) {
+        $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
         $this->initializeDocument($domainObject);
-        $content = $this->transformRelationshipContent($relationshipName, $request);
+        $content = $this->transformRelationshipContent($relationshipName, $transformation);
 
         return $this->doGetResponse($response, $responseCode, $content);
-    }
-
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
-     */
-    public function getData()
-    {
-        return $this->data;
     }
 
     /**
@@ -110,7 +117,6 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     private function initializeDocument($domainObject)
     {
         $this->domainObject = $domainObject;
-        $this->data = $this->instantiateData();
     }
 
     /**
@@ -130,20 +136,20 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @return array
      */
-    protected function transformContent(RequestInterface $request)
+    protected function transformContent(Transformation $transformation)
     {
         $content = $this->transformBaseContent();
 
         // Data
-        $this->setData($request);
-        $content["data"] = $this->data->transformPrimaryResources();
+        $this->fillData($transformation);
+        $content["data"] = $transformation->data->transformPrimaryResources();
 
         // Included
-        if ($this->data->hasIncludedResources()) {
-            $content["included"] = $this->data->transformIncludedResources();
+        if ($transformation->data->hasIncludedResources()) {
+            $content["included"] = $transformation->data->transformIncludedResources();
         }
 
         return $content;
@@ -151,16 +157,16 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
 
     /**
      * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @return array
      */
-    protected function transformRelationshipContent($relationshipName, RequestInterface $request)
+    protected function transformRelationshipContent($relationshipName, Transformation $transformation)
     {
-        $response = $this->getRelationshipContent($relationshipName, $request);
+        $response = $this->getRelationshipContent($relationshipName, $transformation);
 
         // Included
-        if ($this->data->hasIncludedResources()) {
-            $response["included"] = $this->data->transformIncludedResources();
+        if ($transformation->data->hasIncludedResources()) {
+            $response["included"] = $transformation->data->transformIncludedResources();
         }
 
         return $response;

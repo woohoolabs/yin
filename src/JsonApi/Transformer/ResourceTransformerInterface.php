@@ -1,9 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-
 interface ResourceTransformerInterface
 {
     /**
@@ -87,32 +84,17 @@ interface ResourceTransformerInterface
     public function transformToResourceIdentifier($domainObject);
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param string $baseRelationshipPath
      * @return array
      */
-    public function transformToResource(
-        $domainObject,
-        RequestInterface $request,
-        DataInterface $data,
-        $baseRelationshipPath = ""
-    );
+    public function transformToResource(Transformation $transformation, $domainObject);
 
     /**
-     * @param mixed $domainObject
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param string $relationshipName
-     * @param string $baseRelationshipPath
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
+     * @param mixed $domainObject
      * @return array
      */
-    public function transformRelationship(
-        $domainObject,
-        RequestInterface $request,
-        DataInterface $data,
-        $relationshipName,
-        $baseRelationshipPath = ""
-    );
+    public function transformRelationship($relationshipName, Transformation $transformation, $domainObject);
 }

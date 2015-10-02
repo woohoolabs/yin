@@ -1,9 +1,9 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Document;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
@@ -33,39 +33,28 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
+     * @inheritDoc
      */
-    protected function instantiateData()
+    protected function getData()
     {
         return new SingleResourceData();
     }
 
     /**
-     * Sets the value of the "data" and "included" properties based on the "resource" property.
-     *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @inheritDoc
      */
-    protected function setData(RequestInterface $request)
+    protected function fillData(Transformation $transformation)
     {
-        $this->data->addPrimaryResource(
-            $this->transformer->transformToResource($this->domainObject, $request, $this->data)
+        $transformation->data->addPrimaryResource(
+            $this->transformer->transformToResource($transformation, $this->domainObject)
         );
     }
 
     /**
-     * Returns a response whose primary data is a relationship object with $relationshipName name.
-     *
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return array
+     * @inheritDoc
      */
-    protected function getRelationshipContent($relationshipName, RequestInterface $request)
+    protected function getRelationshipContent($relationshipName, Transformation $transformation)
     {
-        return $this->transformer->transformRelationship(
-            $this->domainObject,
-            $request,
-            $this->data,
-            $relationshipName
-        );
+        return $this->transformer->transformRelationship($relationshipName, $transformation, $this->domainObject);
     }
 }

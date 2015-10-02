@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
 
 class StubCreateHydrator
@@ -31,7 +32,7 @@ class StubCreateHydrator
     /**
      * @inheritDoc
      */
-    protected function validateType($data)
+    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
     }
 
@@ -66,7 +67,7 @@ class StubCreateHydrator
     /**
      * @inheritDoc
      */
-    protected function hydrateAttributes($domainObject, $data)
+    protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
@@ -74,7 +75,7 @@ class StubCreateHydrator
     /**
      * @inheritDoc
      */
-    protected function hydrateRelationships($domainObject, $data)
+    protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;
     }
