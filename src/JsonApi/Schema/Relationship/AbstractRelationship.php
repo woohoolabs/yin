@@ -114,8 +114,7 @@ abstract class AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
-        if (
-        $transformation->request->isIncludedRelationship(
+        if ($transformation->request->isIncludedRelationship(
             $transformation->basePath,
             $relationshipName,
             $defaultRelationships
