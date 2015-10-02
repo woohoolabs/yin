@@ -62,8 +62,8 @@ abstract class AbstractResponder
      * @param int $statusCode
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function getDocumentMetaResponse(AbstractSuccessfulDocument $document, $domainObject, $statusCode
-    ) {
+    protected function getDocumentMetaResponse(AbstractSuccessfulDocument $document, $domainObject, $statusCode)
+    {
         return $document->getMetaResponse(
             $this->request,
             $this->response,
