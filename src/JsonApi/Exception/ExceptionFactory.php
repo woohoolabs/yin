@@ -87,6 +87,22 @@ class ExceptionFactory implements ExceptionFactoryInterface
     /**
      * @inheritDoc
      */
+    public function createRemovalProhibitedException($relationshipName)
+    {
+        return new RemovalProhibited($relationshipName);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createResourceIdInvalidException($id)
+    {
+        return new ResourceIdInvalid($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function createResourceIdMissingException()
     {
         return new ResourceIdMissing();
@@ -114,5 +130,13 @@ class ExceptionFactory implements ExceptionFactoryInterface
     public function createSortingUnsupportedException(RequestInterface $request)
     {
         return new SortingUnsupported();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createSortParamUnrecognizedException(RequestInterface $request, $paramName)
+    {
+        return new SortParamUnrecognized($paramName);
     }
 }

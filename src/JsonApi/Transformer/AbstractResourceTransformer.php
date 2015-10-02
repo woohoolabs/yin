@@ -1,7 +1,6 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\TransformerTrait;
 
 abstract class AbstractResourceTransformer implements ResourceTransformerInterface
@@ -214,7 +213,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param array $relationships
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
+     * @throws \Exception
      */
     private function validateRelationships(Transformation $transformation, array $relationships)
     {
@@ -226,7 +225,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
                 $relationship = ($transformation->basePath ? $transformation->basePath . "." : "") . $relationship;
             }
 
-            throw new InclusionUnrecognized($nonExistentRelationships);
+            throw $transformation->exceptionFactory->createInclusionUnrecognizedException(
+                $transformation->request,
+                $nonExistentRelationships
+            );
         }
     }
 }

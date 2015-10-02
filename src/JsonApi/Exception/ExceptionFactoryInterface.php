@@ -73,6 +73,18 @@ interface ExceptionFactoryInterface
     );
 
     /**
+     * @param string $relationshipName
+     * @return \Exception
+     */
+    public function createRemovalProhibitedException($relationshipName);
+
+    /**
+     * @param string $id
+     * @return \Exception
+     */
+    public function createResourceIdInvalidException($id);
+
+    /**
      * @return \Exception
      */
     public function createResourceIdMissingException();
@@ -94,4 +106,11 @@ interface ExceptionFactoryInterface
      * @return \Exception
      */
     public function createSortingUnsupportedException(RequestInterface $request);
+
+    /**
+     * @param string $paramName
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @return \Exception
+     */
+    public function createSortParamUnrecognizedException(RequestInterface $request, $paramName);
 }

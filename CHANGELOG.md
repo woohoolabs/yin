@@ -1,8 +1,8 @@
 ## 0.7.0 - unreleased
 
 ADDED:
-- A separate responder
-- `ExceptionFactoryInterface` which helps to fully customize error messages
+- A separate responder class
+- `ExceptionFactoryInterface` which helps you to fully customize error messages
 - `JsonApi::hydrate()` helper method to make hydration easier
 
 CHANGED:
