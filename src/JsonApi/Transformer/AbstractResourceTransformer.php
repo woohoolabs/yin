@@ -88,7 +88,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $array
      * @param mixed $domainObject
      */
-    private function transformLinksObject(array &$array, Transformation $domainObject)
+    private function transformLinksObject(array &$array, $domainObject)
     {
         $links = $this->getLinks($domainObject);
 
