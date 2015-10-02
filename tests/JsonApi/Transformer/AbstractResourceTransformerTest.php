@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -10,6 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
@@ -195,7 +197,8 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $request = new Request(new DiactorosServerRequest());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $transformer->transformRelationship([], $request, $data, "father", "");
+        $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
+        $transformedResource = $transformer->transformRelationship("father", $transformation, []);
         $this->assertNull($transformedResource);
     }
 
@@ -213,7 +216,8 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $request = new Request(new DiactorosServerRequest());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformedResource = $transformer->transformRelationship([], $request, $data, "father", "");
+        $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
+        $transformedResource = $transformer->transformRelationship("father", $transformation, []);
         $this->assertEquals("user", $transformedResource["data"]["type"]);
         $this->assertEquals("2", $transformedResource["data"]["id"]);
     }
@@ -231,12 +235,14 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         RequestInterface $request = null,
         DataInterface $data = null
     ) {
-        return $transformer->transformToResource(
-            $domainObject,
+        $transformation = new Transformation(
             $request ? $request : new Request(new DiactorosServerRequest()),
             $data ? $data : new SingleResourceData(),
+            new ExceptionFactory(),
             ""
         );
+
+        return $transformer->transformToResource($transformation, $domainObject);
     }
 
     /**

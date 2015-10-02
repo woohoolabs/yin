@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Response;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
@@ -29,6 +30,6 @@ class RelationshipResponderTest extends PHPUnit_Framework_TestCase
 
     private function createResponder()
     {
-        return new RelationshipResponder(new Request(new ServerRequest()), new Response(), "");
+        return new RelationshipResponder(new Request(new ServerRequest()), new Response(), new ExceptionFactory(), "");
     }
 }

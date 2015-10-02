@@ -38,14 +38,7 @@ class RelationshipResponder extends AbstractResponder
      */
     public function ok(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getDocumentRelationshipResponse(
-            $this->relationshipName,
-            $this->request,
-            $this->response,
-            $document,
-            $domainObject,
-            200
-        );
+        return $this->getDocumentRelationshipResponse($this->relationshipName, $document, $domainObject, 200);
     }
 
     /**
@@ -57,13 +50,6 @@ class RelationshipResponder extends AbstractResponder
      */
     public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
     {
-        return $this->getDocumentRelationshipMetaResponse(
-            $this->relationshipName,
-            $this->request,
-            $this->response,
-            $document,
-            $domainObject,
-            200
-        );
+        return $this->getDocumentRelationshipMetaResponse($this->relationshipName, $document, $domainObject, 200);
     }
 }

@@ -3,6 +3,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -17,11 +18,12 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
 {
     public function testGetResponse()
     {
+        $request = new Request(new ServerRequest());
         $responseCode = 200;
         $version = "1.0";
 
         $document = $this->createDocument([], [], new JsonApi($version));
-        $response = $document->getMetaResponse(new Request(), new Response(), [], $responseCode);
+        $response = $document->getMetaResponse($request, new Response(), new ExceptionFactory(), [], $responseCode);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
         $this->assertEquals("1.0", $this->getContentFromResponse("jsonApi", $response)["version"]);
@@ -29,11 +31,12 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
 
     public function testGetResponseWithExtensions()
     {
+        $request = new Request(new ServerRequest());
         $extensions = ["ext1", "ext2"];
         $supportedExtensions = ["ext1", "ext2", "ext3"];
 
         $document = $this->createDocument($extensions, $supportedExtensions, null, []);
-        $response = $document->getMetaResponse(new Response(), [], 200);
+        $response = $document->getMetaResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals(
             ['application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2,ext3"'],
             $response->getHeader("Content-Type")
@@ -42,21 +45,23 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
 
     public function testGetEmptyMetaResponse()
     {
+        $request = new Request(new ServerRequest());
         $meta = [];
         $responseCode = 200;
 
         $document = $this->createDocument([], [], null, $meta);
-        $response = $document->getMetaResponse(new Response(), [], $responseCode);
+        $response = $document->getMetaResponse($request, new Response(), new ExceptionFactory(), [], $responseCode);
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
     }
 
     public function testGetMetaResponse()
     {
+        $request = new Request(new ServerRequest());
         $meta = ["abc" => "def"];
 
         $document = $this->createDocument([], [], null, $meta);
-        $response = $document->getMetaResponse(new Response(), [], 200);
+        $response = $document->getMetaResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
     }
 
@@ -66,7 +71,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $data = new SingleResourceData();
 
         $document = $this->createDocument([], [], null, [], null, $data);
-        $response = $document->getResponse(new Response(), [], $request, 200);
+        $response = $document->getResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEmpty($this->getContentFromResponse("data", $response));
     }
 
@@ -76,7 +81,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
         $document = $this->createDocument([], [], null, [], $links);
-        $response = $document->getResponse(new Response(), [], $request, 200);
+        $response = $document->getResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertCount(2, $this->getContentFromResponse("links", $response));
     }
 
@@ -86,7 +91,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $data = null;
 
         $document = $this->createDocument([], [], null, [], null, $data);
-        $response = $document->getResponse(new Response(), [], $request, 200);
+        $response = $document->getResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals([], $this->getContentFromResponse("included", $response));
     }
 
@@ -108,30 +113,8 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         );
 
         $document = $this->createDocument([], [], null, [], null, $data);
-        $response = $document->getResponse(new Response(), [], $request, 200);
+        $response = $document->getResponse($request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
-    }
-
-    public function testGetIncludes()
-    {
-        $data = new SingleResourceData();
-        $data->setIncludedResources(
-            [
-                [
-                    "type" => "user",
-                    "id" => "1"
-                ],
-                [
-                    "type" => "user",
-                    "id" => "2"
-                ]
-            ]
-        );
-
-        $document = $this->createDocument([], [], null, [], null, $data);
-        $this->assertNull($document->getData()->transformPrimaryResources());
-        $document->getResponse(new Response(), [], new Request(new ServerRequest()), 200);
-        $this->assertEquals($data, $document->getData());
     }
 
     public function testGetRelationshipResponse()
@@ -146,7 +129,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         ];
 
         $document = $this->createDocument([], [], null, [], null, null, $relationshipResponseContent);
-        $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
+        $response = $document->getRelationshipResponse("", $request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
     }
 
@@ -168,7 +151,7 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         );
 
         $document = $this->createDocument([], [], null, [], null, $data, []);
-        $response = $document->getRelationshipResponse("", new Response(), [], $request, 200);
+        $response = $document->getRelationshipResponse("", $request, new Response(), new ExceptionFactory(), [], 200);
         $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
     }
 

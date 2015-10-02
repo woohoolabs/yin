@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Response;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
@@ -85,6 +86,6 @@ class ResponderTest extends PHPUnit_Framework_TestCase
 
     private function createResponder()
     {
-        return new Responder(new Request(new ServerRequest()), new Response());
+        return new Responder(new Request(new ServerRequest()), new Response(), new ExceptionFactory());
     }
 }

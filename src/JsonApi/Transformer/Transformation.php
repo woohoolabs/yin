@@ -35,7 +35,7 @@ class Transformation
      */
     public function __construct(
         RequestInterface $request,
-        DataInterface &$data,
+        DataInterface $data,
         ExceptionFactoryInterface $exceptionFactory,
         $basePath
     ) {
