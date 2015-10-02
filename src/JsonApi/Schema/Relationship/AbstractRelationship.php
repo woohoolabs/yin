@@ -45,8 +45,7 @@ abstract class AbstractRelationship
         Links $links = null,
         $data = null,
         ResourceTransformerInterface $resourceTransformer = null
-    )
-    {
+    ) {
         $this->meta = $meta;
         $this->links = $links;
         $this->data = $data;
@@ -78,8 +77,7 @@ abstract class AbstractRelationship
         $resourceType,
         $relationshipName,
         array $defaultRelationships
-    )
-    {
+    ) {
         $relationship = null;
         $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
 
@@ -115,15 +113,13 @@ abstract class AbstractRelationship
         $domainObject,
         $relationshipName,
         array $defaultRelationships
-    )
-    {
+    ) {
         if (
         $transformation->request->isIncludedRelationship(
             $transformation->basePath,
             $relationshipName,
             $defaultRelationships
-        )
-        ) {
+        )) {
             $transformation->data->addIncludedResource(
                 $this->resourceTransformer->transformToResource($transformation, $domainObject)
             );
