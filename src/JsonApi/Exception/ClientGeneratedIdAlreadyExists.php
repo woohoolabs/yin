@@ -9,7 +9,7 @@ class ClientGeneratedIdAlreadyExists extends JsonApiException
     /**
      * @var string
      */
-    private $clientGeneratedId;
+    protected $clientGeneratedId;
 
     /**
      * @param string|null $clientGeneratedId

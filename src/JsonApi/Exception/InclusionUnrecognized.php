@@ -9,7 +9,7 @@ class InclusionUnrecognized extends JsonApiException
     /**
      * @var array
      */
-    private $unrecognizedIncludes;
+    protected $unrecognizedIncludes;
 
     /**
      * @param array $unrecognizedIncludes

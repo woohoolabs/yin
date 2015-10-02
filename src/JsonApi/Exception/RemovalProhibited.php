@@ -9,7 +9,7 @@ class RemovalProhibited extends JsonApiException
     /**
      * @var string
      */
-    private $relationshipName;
+    protected $relationshipName;
 
     /**
      * @param string $relationshipName

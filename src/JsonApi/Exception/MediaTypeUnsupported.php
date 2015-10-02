@@ -9,7 +9,7 @@ class MediaTypeUnsupported extends JsonApiException
     /**
      * @var string
      */
-    private $mediaTypeName;
+    protected $mediaTypeName;
 
     /**
      * @param string $mediaTypeName

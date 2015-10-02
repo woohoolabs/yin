@@ -4,6 +4,7 @@ ADDED:
 - A separate responder class
 - `ExceptionFactoryInterface` which helps you to fully customize error messages
 - `JsonApi::hydrate()` helper method to make hydration easier
+- Integrated content negotiation and request/response validation from Woohoo Labs. Yin-Middlewares
 
 CHANGED:
 - JSON API exceptions extend `JsonApiException` thus they can be catched easier

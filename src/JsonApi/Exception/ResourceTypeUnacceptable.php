@@ -9,12 +9,12 @@ class ResourceTypeUnacceptable extends JsonApiException
     /**
      * @var string
      */
-    private $currentType;
+    protected $currentType;
 
     /**
      * @var array
      */
-    private $acceptedTypes;
+    protected $acceptedTypes;
 
     /**
      * @param string $currentType

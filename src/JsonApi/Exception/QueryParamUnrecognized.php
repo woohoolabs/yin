@@ -9,7 +9,7 @@ class QueryParamUnrecognized extends JsonApiException
     /**
      * @var string
      */
-    private $unrecognizedQueryParam;
+    protected $unrecognizedQueryParam;
 
     /**
      * @param string $unrecognizedQueryParam

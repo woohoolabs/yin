@@ -9,17 +9,17 @@ class RelationshipTypeInappropriate extends JsonApiException
     /**
      * @var string
      */
-    private $relationshipName;
+    protected $relationshipName;
 
     /**
      * @var string
      */
-    private $currentRelationshipType;
+    protected $currentRelationshipType;
 
     /**
      * @var string
      */
-    private $expectedRelationshipType;
+    protected $expectedRelationshipType;
 
     /**
      * @param string $relationshipName

@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
 class SortParamUnrecognized extends JsonApiException
 {
-    private $sortParam;
+    protected $sortParam;
 
     /**
      * @param string $sortParam

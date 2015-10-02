@@ -9,7 +9,7 @@ class ResourceIdInvalid extends JsonApiException
     /**
      * @var string
      */
-    private $id;
+    protected $id;
 
     /**
      * @param string $id

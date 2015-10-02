@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 interface ExceptionFactoryInterface
@@ -27,7 +28,7 @@ interface ExceptionFactoryInterface
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \WoohooLabs\Yin\JsonApi\Exception\JsonApiException
+     * @return \Exception
      */
     public function createInclusionUnsupportedException(RequestInterface $request);
 
@@ -79,6 +80,28 @@ interface ExceptionFactoryInterface
     public function createRemovalProhibitedException($relationshipName);
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param string $lintMessage
+     * @param boolean $includeOriginalBody
+     */
+    public function createRequestBodyInvalidJsonException(
+        RequestInterface $request,
+        $lintMessage,
+        $includeOriginalBody
+    );
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param array $validationErrors
+     * @param boolean $includeOriginalBody
+     */
+    public function createRequestBodyInvalidJsonApiException(
+        RequestInterface $request,
+        array $validationErrors,
+        $includeOriginalBody
+    );
+
+    /**
      * @param string $id
      * @return \Exception
      */
@@ -100,6 +123,30 @@ interface ExceptionFactoryInterface
      * @return \Exception
      */
     public function createResourceTypeUnacceptableException($currentType, array $acceptedTypes);
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param string $lintMessage
+     * @param boolean $includeOriginalBody
+     * @return \Exception
+     */
+    public function createResponseBodyInvalidJsonException(
+        ResponseInterface $response,
+        $lintMessage,
+        $includeOriginalBody
+    );
+
+    /**
+     * @param \Psr\Http\Message\ResponseInterface $response
+     * @param array $validationErrors
+     * @param boolean $includeOriginalBody
+     * @return \Exception
+     */
+    public function createResponseBodyInvalidJsonApiException(
+        ResponseInterface $response,
+        array $validationErrors,
+        $includeOriginalBody
+    );
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request

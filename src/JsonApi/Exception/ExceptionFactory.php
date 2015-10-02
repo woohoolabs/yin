@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class ExceptionFactory implements ExceptionFactoryInterface
@@ -95,6 +96,30 @@ class ExceptionFactory implements ExceptionFactoryInterface
     /**
      * @inheritDoc
      */
+    public function createRequestBodyInvalidJsonException(
+        RequestInterface $request,
+        $lintMessage,
+        $includeOriginalBody
+    )
+    {
+        return new RequestBodyInvalidJson($request, $lintMessage, $includeOriginalBody);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createRequestBodyInvalidJsonApiException(
+        RequestInterface $request,
+        array $validationErrors,
+        $includeOriginalBody
+    )
+    {
+        return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function createResourceIdInvalidException($id)
     {
         return new ResourceIdInvalid($id);
@@ -122,6 +147,30 @@ class ExceptionFactory implements ExceptionFactoryInterface
     public function createResourceTypeUnacceptableException($currentType, array $acceptedTypes)
     {
         return new ResourceTypeUnacceptable($currentType, $acceptedTypes);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createResponseBodyInvalidJsonException(
+        ResponseInterface $response,
+        $lintMessage,
+        $includeOriginalBody
+    )
+    {
+        return new ResponseBodyInvalidJson($response, $lintMessage, $includeOriginalBody);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createResponseBodyInvalidJsonApiException(
+        ResponseInterface $response,
+        array $validationErrors,
+        $includeOriginalBody
+    )
+    {
+        return new ResponseBodyInvalidJsonApi($response, $validationErrors, $includeOriginalBody);
     }
 
     /**
