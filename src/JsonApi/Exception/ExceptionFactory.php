@@ -100,8 +100,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
         RequestInterface $request,
         $lintMessage,
         $includeOriginalBody
-    )
-    {
+    ) {
         return new RequestBodyInvalidJson($request, $lintMessage, $includeOriginalBody);
     }
 
@@ -112,8 +111,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
         RequestInterface $request,
         array $validationErrors,
         $includeOriginalBody
-    )
-    {
+    ) {
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
@@ -156,8 +154,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
         ResponseInterface $response,
         $lintMessage,
         $includeOriginalBody
-    )
-    {
+    ) {
         return new ResponseBodyInvalidJson($response, $lintMessage, $includeOriginalBody);
     }
 
@@ -168,8 +165,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
         ResponseInterface $response,
         array $validationErrors,
         $includeOriginalBody
-    )
-    {
+    ) {
         return new ResponseBodyInvalidJsonApi($response, $validationErrors, $includeOriginalBody);
     }
 
