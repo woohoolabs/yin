@@ -49,7 +49,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         }
 
         // Links
-        $this->transformLinksObject($result, $transformation, $domainObject);
+        $this->transformLinksObject($result, $domainObject);
 
         // Attributes
         $this->transformAttributesObject($result, $transformation, $domainObject);
@@ -86,10 +86,9 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param array $array
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      */
-    private function transformLinksObject(array &$array, Transformation $transformation, $domainObject)
+    private function transformLinksObject(array &$array, Transformation $domainObject)
     {
         $links = $this->getLinks($domainObject);
 

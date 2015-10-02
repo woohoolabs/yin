@@ -1,12 +1,12 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 
 abstract class JsonApiException extends \Exception implements JsonApiExceptionInterface
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument
+     * @var \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
      */
     protected $errorDocument;
 
@@ -19,7 +19,7 @@ abstract class JsonApiException extends \Exception implements JsonApiExceptionIn
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument
+     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
      */
     protected function createErrorDocument()
     {
@@ -32,7 +32,7 @@ abstract class JsonApiException extends \Exception implements JsonApiExceptionIn
     abstract protected function getErrors();
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Transformer\AbstractErrorDocument
+     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
      */
     public function getErrorDocument()
     {
