@@ -2,6 +2,9 @@
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class RequestValidator extends MessageValidator
@@ -21,8 +24,14 @@ class RequestValidator extends MessageValidator
      */
     public function negotiate(RequestInterface $request)
     {
-        $request->validateContentTypeHeader();
-        $request->validateAcceptHeader();
+        try {
+            $request->validateContentTypeHeader();
+            $request->validateAcceptHeader();
+        } catch (MediaTypeUnacceptable $e) {
+            throw $this->exceptionFactory->createMediaTypeUnacceptableException($request, $e->getMediaTypeName());
+        } catch (MediaTypeUnsupported $e) {
+            throw $this->exceptionFactory->createMediaTypeUnsupportedException($request, $e->getMediaTypeName());
+        }
     }
 
     /**
@@ -31,7 +40,14 @@ class RequestValidator extends MessageValidator
      */
     public function validateQueryParams(RequestInterface $request)
     {
-        $request->validateQueryParams();
+        try {
+            $request->validateQueryParams();
+        } catch (QueryParamUnrecognized $e) {
+            throw $this->exceptionFactory->createQueryParamUnrecognizedException(
+                $request,
+                $e->getUnrecognizedQueryParam()
+            );
+        }
     }
 
     /**

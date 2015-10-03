@@ -10,6 +10,9 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 
 abstract class MessageValidator
 {
+    /**
+     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     */
     protected $exceptionFactory;
 
     /**
