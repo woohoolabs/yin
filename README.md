@@ -643,7 +643,7 @@ try {
 ```
 
 where `$response` is the instance of `Psr\Http\Message\ResponseInterface` and `sendResponse()` is a hypothetical
-function which sends the response received by its argument.
+function which sends the response received in its argument.
 
 To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
 which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
@@ -651,7 +651,7 @@ every transformer and hydrator, you can completely customize what kind of except
 
 The default [Exception Factory](src/JsonApi/Exception/ExceptionFactory) creates children
 of [`JsonApiException`-s](src/JsonApi/Exception) but you are free to create any type of exceptions (even the
-basic `\Exception` instances). When you want to customize the error document or the error objects of a
+basic `\Exception` instances). If you only want to customize the error document or the error objects of a
 `JsonApiException`, just extend it and override their `createErrorDocument()` or `getErrors()` method.
 
 #### `JsonApi` class

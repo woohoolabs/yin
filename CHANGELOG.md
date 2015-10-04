@@ -1,4 +1,14 @@
-## 0.7.0 - unreleased
+## 0.8.0 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 0.7.0 - 2015-10-04
 
 ADDED:
 - A separate responder class
@@ -11,7 +21,7 @@ CHANGED:
 - JSON API exceptions extend `JsonApiException` thus they can be catched easier
 - Documents are moved to `JsonApi\Document` namespace from `JsonApi\Transfomer`
 - Refactored transformation to fix inclusion of multiple identical resource objects
-- When the data member is missing from the top source, the approriate exception is thrown
+- When the data member is missing from the top source, the appropriate exception is thrown
 
 REMOVED:
 - Different types of responses (e.g.: `FetchResponse`)
