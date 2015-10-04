@@ -462,7 +462,7 @@ class Request implements RequestInterface
      */
     public function getBodyData()
     {
-        $body = $this->serverRequest->getParsedBody();
+        $body = $this->getParsedBody();
         return isset($body["data"])? $body["data"] : null;
     }
 
@@ -704,7 +704,7 @@ class Request implements RequestInterface
      */
     public function getParsedBody()
     {
-        if ($this->serverRequest->getBody()->getSize() && $this->serverRequest->getParsedBody() === null) {
+        if ($this->serverRequest->getBody()->getContents() && empty($this->serverRequest->getParsedBody())) {
             $this->serverRequest = $this->serverRequest->withParsedBody(
                 json_decode($this->serverRequest->getBody(), true)
             );

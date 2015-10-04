@@ -11,12 +11,15 @@ CHANGED:
 - JSON API exceptions extend `JsonApiException` thus they can be catched easier
 - Documents are moved to `JsonApi\Document` namespace from `JsonApi\Transfomer`
 - Refactored transformation to fix inclusion of multiple identical resource objects
+- When the data member is missing from the top source, the approriate exception is thrown
 
 REMOVED:
 - Different types of responses (e.g.: `FetchResponse`)
 
 FIXED:
 - Compound documents now can't include more than one resource object for each type and id pair
+- Request body was always null
+- 
 
 ## 0.6.0 - 2015-09-22
 
