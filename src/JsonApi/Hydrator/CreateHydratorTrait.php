@@ -90,7 +90,7 @@ trait CreateHydratorTrait
     ) {
         $data = $request->getBodyData();
         if (empty($data)) {
-            throw $exceptionFactory->createResourceTypeMissingException();
+            throw $exceptionFactory->createDataMemberMissingException($request);
         }
 
         $this->validateType($data, $exceptionFactory);

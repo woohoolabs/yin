@@ -21,6 +21,12 @@ interface ExceptionFactoryInterface
     public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, $currentId);
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @return \Exception
+     */
+    public function createDataMemberMissingException(RequestInterface $request);
+
+    /**
      * @param string $relationshipName
      * @return \Exception
      */

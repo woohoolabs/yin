@@ -33,6 +33,14 @@ class ExceptionFactory implements ExceptionFactoryInterface
     /**
      * @inheritDoc
      */
+    public function createDataMemberMissingException(RequestInterface $request)
+    {
+        return new DataMemberMissing();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function createInclusionUnsupportedException(RequestInterface $request)
     {
         return new InclusionUnsupported();
