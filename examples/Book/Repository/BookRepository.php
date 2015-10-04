@@ -10,19 +10,19 @@ class BookRepository extends AbstractRepository
      */
     private static $authors = [
         [
-            "id" => "11111",
-            "name" => "John Doe"
+            "id" => "100",
+            "name" => "Jez Humble"
         ],
         [
-            "id" => "11112",
-            "name" => "Jane Doe"
+            "id" => "101",
+            "name" => "David Farley"
         ]
     ];
 
     private static $publishers = [
         [
             "id" => "12346",
-            "name" => "Example Publisher"
+            "name" => "Addison-Wesley Professional"
         ]
     ];
 
@@ -32,9 +32,9 @@ class BookRepository extends AbstractRepository
     private static $books = [
         [
             "id" => "1",
-            "title" => "Example Book",
-            "pages" => "200",
-            "authors" => ["11111", "11112"],
+            "title" => "Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation",
+            "pages" => "512",
+            "authors" => ["100", "101"],
             "publisher" => "12346"
         ]
     ];

@@ -26,6 +26,7 @@ trait CreateHydratorTrait
      * @param string $clientGeneratedId
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
+     * @throws \Exception
      */
     abstract protected function validateClientGeneratedId($clientGeneratedId);
 

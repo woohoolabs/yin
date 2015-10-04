@@ -26,12 +26,13 @@ trait HydratorTrait
      *
      * The method returns an array of attribute hydrators, where a hydrator is a key-value pair:
      * the key is the specific attribute name which comes from the request and the value is an
-     * anonymous function which hydrate the previous attribute.
+     * anonymous function which hydrate the given attribute.
      * These closures receive the domain object (which will be hydrated),
      * the value of the currently processed attribute and the "data" part of the request as their
      * arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the closures should return the domain object.
+     *
      * @param mixed $domainObject
      * @return array
      */
@@ -49,6 +50,7 @@ trait HydratorTrait
      * should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the closures should return the domain object.
+     *
      * @param mixed $domainObject
      * @return array
      */

@@ -25,6 +25,11 @@ manifestation of our vision.
     * [Resource transformers](#resource-transformers)
     * [Hydrators](#hydrators)
     * [JsonApi class](#jsonapi-class)
+    * [Exceptions](#exceptions)
+* [Advanced usage](#advanced-usage)
+    * [Content negotiation](#content-negotiation)
+    * [Request/response validation](#request-response-validation)
+    * [Middlewares](#middlewares)
 * [Examples](#examples)
     * [Fetching a single resource](#fetching-a-single-resource)
     * [Fetching a collection of resources](#fetching-a-collection-of-resources)
@@ -432,7 +437,211 @@ the "included" and the "relationship" sections in the responses.
 
 #### Hydrators
 
+Hydrators allow us to initialize the properties of a domain object as required by the current HTTP request. This means
+when a client wants to create or update a resource, hydrators can help to instantiate a domain object which can then be
+validated, saved etc.
+
+There are three abstract hydrator classes in Woohoo Labs. Yin:
+
+- `AbstractCreateHydrator`: It can be used for requests to create a new resource
+- `AbstractUpdateHydrator`: It can be used for requests to update an existing resource
+- `AbstractHydrator`: It can be used for both type of requests
+
+For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of the
+`AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's see how an example hydrator looks like:
+
+```php
+class BookHydator extends AbstractHydrator
+{
+    /**
+     * Determines which resource type or types can be accepted by the hydrator.
+     *
+     * If the hydrator can only accept one type of resources, the method should
+     * return a string. If it accepts more types, then it should return an array
+     * of strings. When such a resource is received for hydration which can't be
+     * accepted (its type doesn't match the acceptable type or types of the hydrator),
+     * a ResourceTypeUnacceptable exception will be raised.
+     *
+     * @return string|array
+     */
+    protected function getAcceptedType()
+    {
+        return "book";
+    }
+
+    /**
+     * Validates a client-generated ID.
+     *
+     * If the $clientGeneratedId is not a valid ID for the domain object, then
+     * the appropriate exception should be thrown: if it is not well-formed then
+     * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
+     * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
+     *
+     * @param string $clientGeneratedId
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
+     * @throws \Exception
+     */
+    protected function validateClientGeneratedId($clientGeneratedId)
+    {
+        throw new ClientGeneratedIdNotSupported($clientGeneratedId);
+    }
+
+    /**
+     * Produces a new ID for the domain objects.
+     *
+     * UUID-s are preferred according to the JSON API specification.
+     *
+     * @return string
+     */
+    protected function generateId()
+    {
+        return Uuid::generate();
+    }
+
+    /**
+     * Sets the given ID for the domain object.
+     *
+     * The method mutates the domain object and sets the given ID for it.
+     * If it is an immutable object or an array the whole, updated domain
+     * object can be returned.
+     *
+     * @param array $book
+     * @param string $id
+     * @return mixed|null
+     */
+    protected function setId($book, $id)
+    {
+        $book["id"] = $id;
+
+        return $book;
+    }
+
+    /**
+     * Provides the attribute hydrators.
+     *
+     * The method returns an array of attribute hydrators, where a hydrator is a key-value pair:
+     * the key is the specific attribute name which comes from the request and the value is an
+     * anonymous function which hydrate the given attribute.
+     * These closures receive the domain object (which will be hydrated),
+     * the value of the currently processed attribute and the "data" part of the request as their
+     * arguments, and they should mutate the state of the domain object.
+     * If it is an immutable object or an array (and passing by reference isn't used),
+     * the closures should return the domain object.
+     *
+     * @param array $book
+     * @return array
+     */
+    protected function getAttributeHydrator($book)
+    {
+        return [
+            "title" => function(array $book, $attribute, $data)  { $book["title"] = $attribute; return $book; },
+            "pages" => function(array &$book, $attribute, $data) { $book["pages"] = $attribute; }
+        ];
+    }
+
+    /**
+     * Provides the relationship hydrators.
+     *
+     * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
+     * the key is the specific relationship name which comes from the request and the value is an
+     * anonymous function which hydrate the previous relationship.
+     * These closures receive the domain object (which will be hydrated),
+     * an object representing the currently processed relationship (it can be a ToOneRelationship or
+     * a ToManyRelationship object) and the "data" part of the request as their arguments, and they
+     * should mutate the state of the domain object.
+     * If it is an immutable object or an array (and passing by reference isn't used),
+     * the closures should return the domain object.
+     *
+     * @param array $book
+     * @return array
+     */
+    protected function getRelationshipHydrator($book)
+    {
+        return [
+            "authors" => function(array $book, ToManyRelationship $authors, $data) {
+                $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
+
+                return $book;
+            },
+            "publisher" => function(array &$book, ToOneRelationship $publisher, $data) {
+                $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+            }
+        ];
+    }
+}
+```
+
+According to the [book example](examples/Book), the following request:
+
+```
+POST /books HTTP/1.1
+Content-Type: application/vnd.api+json
+Accept: application/vnd.api+json
+
+{
+  "data": {
+    "type": "book",
+    "attributes": {
+      "title": "Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation",
+      "pages": 512
+    },
+    "relationships": {
+      "authors": {
+        "data": [
+            { "type": "author", "id": "100" },
+            { "type": "author", "id": "101" },
+        ]
+      }
+    }
+  }
+}
+```
+
+will result in the following `Book` domain object:
+
+```
+Array
+(
+    [id] => 1
+    [title] => Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation
+    [pages] => 512
+    [authors] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 100
+                    [name] => Jez Humble
+                )
+            [1] => Array
+                (
+                    [id] => 101
+                    [name] => David Farley
+                )
+        )
+    [publisher] => Array
+        (
+            [id] => 12346
+            [name] => Addison-Wesley Professional
+        )
+)
+```
+
 #### `JsonApi` class
+
+#### Exceptions
+
+Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible.
+
+## Advanced usage
+
+This section guides you through the advanced features of Yin.
+
+#### Content negotiation
+
+#### Request/response validation
+
+#### Middlewares
 
 ## Examples
 
