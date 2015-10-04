@@ -24,8 +24,8 @@ manifestation of our vision.
     * [Documents](#documents)
     * [Resource transformers](#resource-transformers)
     * [Hydrators](#hydrators)
-    * [JsonApi class](#jsonapi-class)
     * [Exceptions](#exceptions)
+    * [JsonApi class](#jsonapi-class)
 * [Advanced usage](#advanced-usage)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#request-response-validation)
@@ -93,7 +93,7 @@ version:
 $ composer require woohoolabs/yin
 ```
 
-## Basic Usage
+## Basic usage
 
 When using Woohoo Labs. Yin, you will create:
 - documents and resource transformers in order to map domain objects to JSON API responses
@@ -180,7 +180,7 @@ public function getMeta()
 Documents can also have a meta section which can contain any non-standard information. The example above adds a
 [profile](http://jsonapi.org/extensions/#profiles) and some information about pagination to the document.
 
-Note that the `domainObject` property is a variable of any type (in this case it is an imaginary collection),
+Note that the `domainObject` property is a variable of any type (in this case it is a hypothetical collection),
 and this is the main "subject" of the document.
 
 ```php
@@ -627,11 +627,37 @@ Array
 )
 ```
 
-#### `JsonApi` class
-
 #### Exceptions
 
-Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible.
+Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why
+all the default exceptions extend the `JsonApiException` class and contain
+an [error document](#documents-for-error-responses) with the appropriate error object(s). That said, if you
+only want to respond with an error document in case of an exception, you only need to do this:
+
+```php
+try {
+    // Do something which results in an exception
+} catch (JsonApiExceptionInterface $e) {
+    sendResponse($e->getErrorDocument()->getResponse($response));
+}
+```
+
+where `$response` is the instance of `Psr\Http\Message\ResponseInterface` and `sendResponse()` is a hypothetical
+function which sends the response received by its argument.
+
+To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
+which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
+every transformer and hydrator, you can completely customize what kind of exceptions you want to raise.
+
+The default [Exception Factory](src/JsonApi/Exception/ExceptionFactory) creates children
+of [`JsonApiException`-s](src/JsonApi/Exception) but you are free to create any type of exceptions (even the
+basic `\Exception` instances). When you want to customize the error document or the error objects of a
+`JsonApiException`, just extend it and override their `createErrorDocument()` or `getErrors()` method.
+
+#### `JsonApi` class
+
+The `JsonApi` class is the orchestrator of the whole framework. If you want to use the entire
+functionality of Woohoo Labs. Yin, it is highly recommended to utilize this class.
 
 ## Advanced usage
 
@@ -785,16 +811,16 @@ Yin's root directory and visit the URL-s listed below. You can restrict the retr
 the `fields` and `include` parameters as specified by JSON API.
 
 Example URL-s for the book resources:
-- `GET examples/index.php?example=books&id=1`: Fetch a book
-- `GET examples/index.php?example=books-rel&id=1&rel=authors`: Fetch the authors relationship
-- `GET examples/index.php?example=books-rel&id=1&rel=publisher`: Fetch the publisher relationship
+- `GET examples/index.php?example=book&id=1`: Fetch a book
+- `GET examples/index.php?example=book-rel&id=1&rel=authors`: Fetch the authors relationship
+- `GET examples/index.php?example=book-rel&id=1&rel=publisher`: Fetch the publisher relationship
 - `POST examples/index.php?example=books`: Create a new book
-- `PATCH examples/index.php?example=books&id=1`: Update a book
+- `PATCH examples/index.php?example=book&id=1`: Update a book
 
 Example URL-s for the user resources:
 - `GET examples/index.php?example=users`: Fetch users
-- `GET examples/index.php?example=users&id=1`: Fetch a user
-- `GET examples/index.php?example=users-rel&id=1&rel=contacts`: Fetch the contacts relationship
+- `GET examples/index.php?example=user&id=1`: Fetch a user
+- `GET examples/index.php?example=user-rel&id=1&rel=contacts`: Fetch the contacts relationship
 
 ## Versioning
 

@@ -20,10 +20,10 @@ $jsonApi = new JsonApi($request, new Response(), new ExceptionFactory());
 
 // Defining routes
 $routes = [
-    ["method"=> "GET", "example" => "books", "action" => GetBookAction::class],
-    ["method"=> "GET", "example" => "books-rel", "action" => GetBookRelationshipsAction::class],
+    ["method"=> "GET", "example" => "book", "action" => GetBookAction::class],
+    ["method"=> "GET", "example" => "book-rel", "action" => GetBookRelationshipsAction::class],
     ["method"=> "POST", "example" => "books", "action" => CreateBookAction::class],
-    ["method"=> "PATCH", "example" => "books", "action" => UpdateBookAction::class],
+    ["method"=> "PATCH", "example" => "book", "action" => UpdateBookAction::class],
 
     ["method"=> "GET", "example" => "users", "action" => GetUsersAction::class],
     ["method"=> "GET", "example" => "user", "action" => GetUserAction::class],
