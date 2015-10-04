@@ -19,7 +19,7 @@ REMOVED:
 FIXED:
 - Compound documents now can't include more than one resource object for each type and id pair
 - Request body was always null
-- 
+- Single resource documents didn't contain the data top-level member unless resource ID was 1
 
 ## 0.6.0 - 2015-09-22
 

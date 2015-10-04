@@ -590,7 +590,7 @@ Accept: application/vnd.api+json
       "authors": {
         "data": [
             { "type": "author", "id": "100" },
-            { "type": "author", "id": "101" },
+            { "type": "author", "id": "101" }
         ]
       }
     }
