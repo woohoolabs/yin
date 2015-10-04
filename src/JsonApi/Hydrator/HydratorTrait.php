@@ -63,7 +63,7 @@ trait HydratorTrait
      */
     protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
-        if (isset($data["type"]) === false) {
+        if (empty($data["type"])) {
             throw $exceptionFactory->createResourceTypeMissingException();
         }
 

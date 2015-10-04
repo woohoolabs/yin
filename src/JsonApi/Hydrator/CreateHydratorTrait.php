@@ -89,7 +89,7 @@ trait CreateHydratorTrait
         $domainObject
     ) {
         $data = $request->getBodyData();
-        if (empty($data)) {
+        if ($data === null) {
             throw $exceptionFactory->createDataMemberMissingException($request);
         }
 

@@ -11,24 +11,11 @@ use Zend\Diactoros\Stream;
 class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
     public function testHydrateWhenBodyEmpty()
     {
         $body = [];
-
-        $hydrator = $this->createHydrator(false, "1");
-        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
-    }
-
-    /**
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     */
-    public function testHydrateWhenBodyDataEmpty()
-    {
-        $body = [
-            "data" => []
-        ];
 
         $hydrator = $this->createHydrator(false, "1");
         $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
