@@ -8,6 +8,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 {
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ApplicationError
      */
     public function createApplicationErrorException(RequestInterface $request)
     {
@@ -16,6 +17,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      */
     public function createClientGeneratedIdNotSupportedException(RequestInterface $request, $currentId)
     {
@@ -24,6 +26,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      */
     public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, $currentId)
     {
@@ -32,6 +35,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\FullReplacementProhibited
      */
     public function createFullReplacementProhibitedException($relationshipName)
     {
@@ -40,6 +44,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
     public function createDataMemberMissingException(RequestInterface $request)
     {
@@ -48,6 +53,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function createInclusionUnsupportedException(RequestInterface $request)
     {
@@ -56,6 +62,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
      */
     public function createInclusionUnrecognizedException(RequestInterface $request, array $unrecognizedInclusions)
     {
@@ -64,6 +71,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
     public function createMediaTypeUnacceptableException(RequestInterface $request, $mediaTypeName)
     {
@@ -72,6 +80,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function createMediaTypeUnsupportedException(RequestInterface $request, $mediaTypeName)
     {
@@ -80,6 +89,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
      */
     public function createQueryParamUnrecognizedException(RequestInterface $request, $queryParamName)
     {
@@ -88,6 +98,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
     public function createRelationshipTypeInappropriateException(
         $relationshipName,
@@ -103,6 +114,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\RemovalProhibited
      */
     public function createRemovalProhibitedException($relationshipName)
     {
@@ -111,6 +123,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson
      */
     public function createRequestBodyInvalidJsonException(
         RequestInterface $request,
@@ -122,6 +135,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJsonApi
      */
     public function createRequestBodyInvalidJsonApiException(
         RequestInterface $request,
@@ -133,6 +147,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceIdInvalid
      */
     public function createResourceIdInvalidException($id)
     {
@@ -141,6 +156,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */
     public function createResourceIdMissingException()
     {
@@ -149,6 +165,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
     public function createResourceTypeMissingException()
     {
@@ -157,6 +174,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceNotFound
      */
     public function createResourceNotFoundException(RequestInterface $request)
     {
@@ -165,6 +183,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
     public function createResourceTypeUnacceptableException($currentType, array $acceptedTypes)
     {
@@ -173,6 +192,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson
      */
     public function createResponseBodyInvalidJsonException(
         ResponseInterface $response,
@@ -184,6 +204,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi
      */
     public function createResponseBodyInvalidJsonApiException(
         ResponseInterface $response,
@@ -195,6 +216,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function createSortingUnsupportedException(RequestInterface $request)
     {
@@ -203,6 +225,7 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\SortParamUnrecognized
      */
     public function createSortParamUnrecognizedException(RequestInterface $request, $paramName)
     {
