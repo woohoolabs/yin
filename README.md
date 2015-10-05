@@ -93,6 +93,14 @@ version:
 $ composer require woohoolabs/yin
 ```
 
+If you want to take advantage from request/response validation then you have to ask for the following
+dependencies too:
+
+```bash
+$ composer require justinrainbow/json-schema # version 1.5.0 is tested
+$ composer require seld/jsonlint # version 1.3.1 is tested
+```
+
 ## Basic usage
 
 When using Woohoo Labs. Yin, you will create:

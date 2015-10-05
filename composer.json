@@ -24,6 +24,10 @@
         "phpunit/PHPUnit": "^4.4.0",
         "squizlabs/php_codesniffer": "^2.3.1"
     },
+    "suggest": {
+        "justinrainbow/json-schema": "Allows to validate the request and response body against the JSON API schema (version 1.5.0 is tested)",
+        "seld/jsonlint": "Allows to lint the request and response body (version 1.3.1 is tested)"
+    },
     "autoload": {
         "psr-4": {
             "WoohooLabs\\Yin\\": "src/"
