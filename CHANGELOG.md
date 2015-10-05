@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 0.7.1 - 2015-10-05
+
+ADDED:
+- `ApplicationError` and `ResourceNotFound`
+- Mentioning optional Composer dependencies in the readme
+
 ## 0.7.0 - 2015-10-04
 
 ADDED:
