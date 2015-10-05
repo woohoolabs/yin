@@ -9,6 +9,14 @@ class ExceptionFactory implements ExceptionFactoryInterface
     /**
      * @inheritDoc
      */
+    public function createApplicationErrorException(RequestInterface $request)
+    {
+        return new ApplicationError();
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function createClientGeneratedIdNotSupportedException(RequestInterface $request, $currentId)
     {
         return new ClientGeneratedIdNotSupported($currentId);
@@ -145,6 +153,14 @@ class ExceptionFactory implements ExceptionFactoryInterface
     public function createResourceTypeMissingException()
     {
         return new ResourceTypeMissing();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createResourceNotFoundException(RequestInterface $request)
+    {
+        return new ResourceNotFound();
     }
 
     /**

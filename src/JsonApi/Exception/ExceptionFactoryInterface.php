@@ -8,6 +8,12 @@ interface ExceptionFactoryInterface
 {
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @return \Exception
+     */
+    public function createApplicationErrorException(RequestInterface $request);
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param string $currentId
      * @return \Exception
      */
@@ -117,6 +123,13 @@ interface ExceptionFactoryInterface
      * @return \Exception
      */
     public function createResourceIdMissingException();
+
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @return \Exception
+     */
+    public function createResourceNotFoundException(RequestInterface $request);
 
     /**
      * @return \Exception
