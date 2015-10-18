@@ -17,7 +17,7 @@ class LinkObject extends Link
 
     /**
      * @param string $baseUri
-     * @return string
+     * @return array
      */
     public function transform($baseUri)
     {

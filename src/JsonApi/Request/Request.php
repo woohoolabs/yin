@@ -499,7 +499,9 @@ class Request implements RequestInterface
      */
     public function withProtocolVersion($version)
     {
-        return $this->serverRequest->withProtocolVersion($version);
+        $self = clone $this;
+        $self->serverRequest = $this->serverRequest->withProtocolVersion($version);
+        return $self;
     }
 
     /**
