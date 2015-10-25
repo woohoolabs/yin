@@ -4,6 +4,7 @@ ADDED:
 
 CHANGED:
 
+- ID of the hydrated resource also gets validated when it is missing
 - The provided `ExceptionFactory` can be used when validating client-generated ID-s for hydration
 
 REMOVED:
