@@ -494,7 +494,9 @@ class BookHydator extends AbstractHydrator
      */
     protected function validateClientGeneratedId($clientGeneratedId, RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
-        throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
+        if ($clientGeneratedId === null) {
+            throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
+        }
     }
 
     /**
