@@ -1,7 +1,9 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class StubHydrator extends AbstractHydrator
 {
@@ -43,8 +45,11 @@ class StubHydrator extends AbstractHydrator
     /**
      * @inheritDoc
      */
-    protected function validateClientGeneratedId($clientGeneratedId)
-    {
+    protected function validateClientGeneratedId(
+        $clientGeneratedId,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
     }
 
     /**

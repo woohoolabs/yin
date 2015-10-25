@@ -486,13 +486,15 @@ class BookHydator extends AbstractHydrator
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
      * @param string $clientGeneratedId
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      * @throws \Exception
      */
-    protected function validateClientGeneratedId($clientGeneratedId)
+    protected function validateClientGeneratedId($clientGeneratedId, RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
-        throw new ClientGeneratedIdNotSupported($clientGeneratedId);
+        throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
     }
 
     /**

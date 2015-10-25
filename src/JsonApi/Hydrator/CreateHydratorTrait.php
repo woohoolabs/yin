@@ -24,11 +24,17 @@ trait CreateHydratorTrait
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
      * @param string $clientGeneratedId
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      * @throws \Exception
      */
-    abstract protected function validateClientGeneratedId($clientGeneratedId);
+    abstract protected function validateClientGeneratedId(
+        $clientGeneratedId,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    );
 
     /**
      * Produces a new ID for the domain objects.
@@ -94,7 +100,7 @@ trait CreateHydratorTrait
         }
 
         $this->validateType($data, $exceptionFactory);
-        $domainObject = $this->hydrateIdForCreate($domainObject, $data);
+        $domainObject = $this->hydrateIdForCreate($domainObject, $data, $request, $exceptionFactory);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
         $domainObject = $this->hydrateRelationships($domainObject, $data, $exceptionFactory);
 
@@ -104,12 +110,18 @@ trait CreateHydratorTrait
     /**
      * @param array $data
      * @param mixed $domainObject
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
-    protected function hydrateIdForCreate($domainObject, $data)
-    {
+    protected function hydrateIdForCreate(
+        $domainObject,
+        $data,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
         if (isset($data["id"]) === true) {
-            $this->validateClientGeneratedId($data["id"]);
+            $this->validateClientGeneratedId($data["id"], $request, $exceptionFactory);
             $id = $data["id"];
         } else {
             $id = $this->generateId();

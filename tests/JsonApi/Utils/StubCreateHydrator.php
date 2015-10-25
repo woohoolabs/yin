@@ -4,6 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Utils;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class StubCreateHydrator
 {
@@ -39,8 +40,11 @@ class StubCreateHydrator
     /**
      * @inheritDoc
      */
-    protected function validateClientGeneratedId($clientGeneratedId)
-    {
+    protected function validateClientGeneratedId(
+        $clientGeneratedId,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
         if ($this->isClientGeneratedIdException) {
             throw new ClientGeneratedIdNotSupported($clientGeneratedId);
         }

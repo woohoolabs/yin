@@ -3,10 +3,11 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
-use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class BookHydator extends AbstractHydrator
 {
@@ -35,13 +36,18 @@ class BookHydator extends AbstractHydrator
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
      * @param string $clientGeneratedId
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      * @throws \Exception
      */
-    protected function validateClientGeneratedId($clientGeneratedId)
-    {
-        throw new ClientGeneratedIdNotSupported($clientGeneratedId);
+    protected function validateClientGeneratedId(
+        $clientGeneratedId,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
+        throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
     }
 
     /**

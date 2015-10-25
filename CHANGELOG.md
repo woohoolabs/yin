@@ -4,6 +4,8 @@ ADDED:
 
 CHANGED:
 
+- The provided `ExceptionFactory` can be used when validating client-generated ID-s for hydration
+
 REMOVED:
 
 FIXED:
@@ -11,12 +13,14 @@ FIXED:
 ## 0.7.1 - 2015-10-05
 
 ADDED:
+
 - `ApplicationError` and `ResourceNotFound`
 - Mentioning optional Composer dependencies in the readme
 
 ## 0.7.0 - 2015-10-04
 
 ADDED:
+
 - A separate responder class
 - `ExceptionFactoryInterface` which helps you to fully customize error messages
 - `JsonApi::hydrate()` helper method to make hydration easier
@@ -24,15 +28,18 @@ ADDED:
 - Even more extensive documentation
 
 CHANGED:
+
 - JSON API exceptions extend `JsonApiException` thus they can be catched easier
 - Documents are moved to `JsonApi\Document` namespace from `JsonApi\Transfomer`
 - Refactored transformation to fix inclusion of multiple identical resource objects
 - When the data member is missing from the top source, the appropriate exception is thrown
 
 REMOVED:
+
 - Different types of responses (e.g.: `FetchResponse`)
 
 FIXED:
+
 - Compound documents now can't include more than one resource object for each type and id pair
 - Request body was always null
 - Single resource documents didn't contain the data top-level member unless resource ID was 1
@@ -40,17 +47,20 @@ FIXED:
 ## 0.6.0 - 2015-09-22
 
 ADDED:
+
 - More convenient handling of inappropriate relationship types during hydration
 - Much more unit tests (320+ tests, 92% coverage)
 - Better and more documentation
 
 CHANGED:
+
 - Simplified relative links
 - Included resources are now sorted by type and id
 - Renamed `AbstractCompoundDocument` to `AbstractSuccessfulDocument`
 - Documents now require a `ResourceTransformerInterface` instance instead of `AbstractResourceTransformer`
 
 FIXED:
+
 - Meta data didn't appear in error objects
 - Empty version information appeared in jsonApi object
 - Constructors of `ToOneRelationships` and `ToManyRelationships` were messed up
@@ -66,15 +76,18 @@ FIXED:
 ## 0.5.0 - 2015-09-11
 
 ADDED:
+
 - Support for much easier generation of pagination links
 - Shortcut to get the resource ID in `AbstractSingleResourceDocument`
 - Support for relative URI-s
 
 CHANGED:
+
 - Improved transformation performance
 - Included resources are now sorted by type instead of ID
 
 REMOVED:
+
 - `RelationshipRequest` became useless, thus it was removed
 
 FIXED:
