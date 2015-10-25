@@ -120,10 +120,10 @@ trait CreateHydratorTrait
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
-        if (isset($data["id"]) === true) {
-            $this->validateClientGeneratedId($data["id"], $request, $exceptionFactory);
-            $id = $data["id"];
-        } else {
+        $id = isset($data["id"]) ? $data["id"] : null;
+        $this->validateClientGeneratedId($id, $request, $exceptionFactory);
+
+        if ($id === null) {
             $id = $this->generateId();
         }
 
