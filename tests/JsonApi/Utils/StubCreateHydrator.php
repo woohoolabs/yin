@@ -46,7 +46,7 @@ class StubCreateHydrator
         ExceptionFactoryInterface $exceptionFactory
     ) {
         if ($this->isClientGeneratedIdException) {
-            throw new ClientGeneratedIdNotSupported($clientGeneratedId);
+            throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
         }
     }
 
