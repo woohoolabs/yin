@@ -151,25 +151,25 @@ interface RequestInterface extends ServerRequestInterface
      *
      * @return array|null
      */
-    public function getBodyData();
+    public function getResource();
 
     /**
      * Returns the "type" key's value in the "data" part of the request if it is present in the body, or null otherwise.
      *
      * @return string|null
      */
-    public function getBodyDataType();
+    public function getResourceType();
 
     /**
      * Returns the "id" key's value in the "data" part of the request if it is present in the body, or null otherwise.
      *
      * @return string|null
      */
-    public function getBodyDataId();
+    public function getResourceId();
 
     /**
      * @param string $attribute
      * @return mixed|null
      */
-    public function getBodyDataAttribute($attribute);
+    public function getResourceAttribute($attribute);
 }

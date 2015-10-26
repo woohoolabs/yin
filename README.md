@@ -800,7 +800,7 @@ public function createBook(JsonApi $jsonApi)
 public function updateBook(JsonApi $jsonApi)
 {
     // Retrieving a book domain object with an ID of $id
-    $id = $jsonApi->getRequest()->getBodyDataId();
+    $id = $jsonApi->getRequest()->getResourceId();
     $book = BookRepository::getBook($id);
 
     // Hydrating the retrieved book domain object from the request

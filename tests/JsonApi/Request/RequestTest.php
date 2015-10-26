@@ -478,33 +478,33 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($addedQueryParamValue, $newRequest->getQueryParam($addedQueryParamName));
     }
 
-    public function testGetBodyDataWhenEmpty()
+    public function testGetResourceWhenEmpty()
     {
         $body = [];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getBodyData());
+        $this->assertNull($request->getResource());
     }
 
-    public function testGetBodyData()
+    public function testGetResource()
     {
         $body = [
           "data" => []
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"], $request->getBodyData());
+        $this->assertEquals($body["data"], $request->getResource());
     }
 
-    public function testGetBodyDataTypeWhenEmpty()
+    public function testGetResourceTypeWhenEmpty()
     {
         $body = [];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getBodyDataType());
+        $this->assertNull($request->getResourceType());
     }
 
-    public function testGetBodyDataType()
+    public function testGetResourceType()
     {
         $body = [
             "data" => [
@@ -513,20 +513,20 @@ class RequestTest extends PHPUnit_Framework_TestCase
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"]["type"], $request->getBodyDataType());
+        $this->assertEquals($body["data"]["type"], $request->getResourceType());
     }
 
-    public function testGetBodyDataIdWhenEmpty()
+    public function testGetResourceIdWhenEmpty()
     {
         $body = [
             "data" => []
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getBodyDataId());
+        $this->assertNull($request->getResourceId());
     }
 
-    public function testGetBodyDataId()
+    public function testGetResourceId()
     {
         $body = [
             "data" => [
@@ -535,7 +535,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"]["id"], $request->getBodyDataId());
+        $this->assertEquals($body["data"]["id"], $request->getResourceId());
     }
 
     public function testGetProtocolVersion()

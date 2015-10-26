@@ -94,7 +94,7 @@ trait CreateHydratorTrait
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {
-        $data = $request->getBodyData();
+        $data = $request->getResource();
         if ($data === null) {
             throw $exceptionFactory->createDataMemberMissingException($request);
         }

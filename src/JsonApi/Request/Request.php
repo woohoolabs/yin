@@ -460,7 +460,7 @@ class Request implements RequestInterface
     /**
      * @return array|null
      */
-    public function getBodyData()
+    public function getResource()
     {
         $body = $this->getParsedBody();
         return isset($body["data"])? $body["data"] : null;
@@ -469,9 +469,9 @@ class Request implements RequestInterface
     /**
      * @return string|null
      */
-    public function getBodyDataType()
+    public function getResourceType()
     {
-        $data = $this->getBodyData();
+        $data = $this->getResource();
 
         return isset($data["type"]) ? $data["type"] : null;
     }
@@ -479,9 +479,9 @@ class Request implements RequestInterface
     /**
      * @return string|null
      */
-    public function getBodyDataId()
+    public function getResourceId()
     {
-        $data = $this->getBodyData();
+        $data = $this->getResource();
 
         return isset($data["id"]) ? $data["id"] : null;
     }
@@ -490,9 +490,9 @@ class Request implements RequestInterface
      * @param string $attribute
      * @return mixed|null
      */
-    public function getBodyDataAttribute($attribute)
+    public function getResourceAttribute($attribute)
     {
-        $data = $this->getBodyData();
+        $data = $this->getResource();
 
         return isset($data["attributes"][$attribute]) ? $data["attributes"][$attribute] : null;
     }
