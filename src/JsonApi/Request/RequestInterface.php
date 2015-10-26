@@ -166,4 +166,10 @@ interface RequestInterface extends ServerRequestInterface
      * @return string|null
      */
     public function getBodyDataId();
+
+    /**
+     * @param string $attribute
+     * @return mixed|null
+     */
+    public function getBodyDataAttribute($attribute);
 }
