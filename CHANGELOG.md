@@ -2,6 +2,8 @@
 
 ADDED:
 
+- Attributes of the resource in the request body can be retrieved easier
+
 CHANGED:
 
 - ID of the hydrated resource also gets validated when it is missing
