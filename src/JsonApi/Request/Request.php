@@ -487,6 +487,17 @@ class Request implements RequestInterface
     }
 
     /**
+     * @param string $attribute
+     * @return mixed|null
+     */
+    public function getBodyDataAttribute($attribute)
+    {
+        $data = $this->getBodyData();
+
+        return isset($data["attributes"][$attribute]) ? $data["attributes"][$attribute] : null;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getProtocolVersion()
