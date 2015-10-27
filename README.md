@@ -26,7 +26,7 @@ manifestation of our vision.
     * [Hydrators](#hydrators)
     * [Exceptions](#exceptions)
     * [JsonApi class](#jsonapi-class)
-* [Advanced usage](#advanced-usage)
+* [Advanced Usage](#advanced-usage)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#request-response-validation)
     * [Middlewares](#middlewares)
@@ -101,7 +101,7 @@ $ composer require justinrainbow/json-schema # version 1.5.0 is tested
 $ composer require seld/jsonlint # version 1.3.1 is tested
 ```
 
-## Basic usage
+## Basic Usage
 
 When using Woohoo Labs. Yin, you will create:
 - documents and resource transformers in order to map domain objects to JSON API responses
@@ -671,7 +671,7 @@ basic `\Exception` instances). If you only want to customize the error document 
 The `JsonApi` class is the orchestrator of the whole framework. If you want to use the entire
 functionality of Woohoo Labs. Yin, it is highly recommended to utilize this class.
 
-## Advanced usage
+## Advanced Usage
 
 This section guides you through the advanced features of Yin.
 
@@ -838,7 +838,7 @@ Example URL-s for the user resources:
 
 This library follows [SemVer v2.0.0](http://semver.org/).
 
-## Change log
+## Change Log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
