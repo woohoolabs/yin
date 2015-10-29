@@ -3,6 +3,7 @@
 ADDED:
 
 - Attributes of the resource in the request body can be retrieved easier
+- Even better support for relative links via the `RelativeLinks` class
 
 CHANGED:
 
