@@ -1,7 +1,5 @@
 <?php
-namespace Src\Utils\Hateoas;
-
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+namespace WoohooLabs\Yin\JsonApi\Schema;
 
 class RelativeLinks extends Links
 {
