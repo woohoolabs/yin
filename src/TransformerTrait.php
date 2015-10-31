@@ -33,6 +33,17 @@ trait TransformerTrait
     }
 
     /**
+     * Transforms a value to boolean.
+     *
+     * @param mixed $value
+     * @return bool
+     */
+    public static function toBool($value)
+    {
+        return $value == true ? true : false;
+    }
+
+    /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
      *
      * @param \DateTime $dateTime
