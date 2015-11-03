@@ -12,7 +12,7 @@ trait TransformerTrait
      * @param int $precision
      * @return float
      */
-    public static function toDecimal($value, $precision = 12)
+    public function toDecimal($value, $precision = 12)
     {
         if (is_numeric($value)) {
             $value= round($value, $precision);
@@ -27,7 +27,7 @@ trait TransformerTrait
      * @param string $value
      * @return int
      */
-    public static function toInt($value)
+    public function toInt($value)
     {
         return intval($value);
     }
@@ -38,7 +38,7 @@ trait TransformerTrait
      * @param mixed $value
      * @return bool
      */
-    public static function toBool($value)
+    public function toBool($value)
     {
         return $value == true ? true : false;
     }
@@ -49,7 +49,7 @@ trait TransformerTrait
      * @param \DateTime $dateTime
      * @return string
      */
-    public static function toIso8601Date(DateTime $dateTime)
+    public function toIso8601Date(DateTime $dateTime)
     {
         return $dateTime->format("Y-m-d");
     }
@@ -60,7 +60,7 @@ trait TransformerTrait
      * @param \DateTime $dateTime
      * @return string
      */
-    public static function toIso8601Time(DateTime $dateTime)
+    public function toIso8601Time(DateTime $dateTime)
     {
         return $dateTime->format(DateTime::ISO8601);
     }
@@ -72,7 +72,7 @@ trait TransformerTrait
      * @param string $timeZoneName
      * @return string
      */
-    public static function fromSqlToIso8601Time($string, $timeZoneName = "")
+    public function fromSqlToIso8601Time($string, $timeZoneName = "")
     {
         return DateTime::createFromFormat(
             "Y-m-d H:i:s",
@@ -87,7 +87,7 @@ trait TransformerTrait
      * @param string $string
      * @return string
      */
-    public static function fromSqlToUtcIso8601Time($string)
+    public function fromSqlToUtcIso8601Time($string)
     {
         return self::fromSqlToIso8601Time($string, "UTC");
     }
