@@ -15,6 +15,8 @@ REMOVED:
 
 FIXED:
 
+- Methods of `TransformerTrait` were intended to be non-static
+
 ## 0.7.1 - 2015-10-05
 
 ADDED:
