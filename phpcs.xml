@@ -2,13 +2,15 @@
 <ruleset name="Woohoo Labs. Coding Standard">
     <description>Woohoo Labs. Coding Standard</description>
 
+    <!-- Options -->
     <arg value="p"/>
     <arg name="colors"/>
 
+    <!-- Rules -->
     <rule ref="PSR2"/>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
-    <!-- Paths to check -->
+    <!-- Paths -->
     <file>src</file>
     <file>tests</file>
 </ruleset>
