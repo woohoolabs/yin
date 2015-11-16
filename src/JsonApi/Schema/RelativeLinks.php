@@ -8,6 +8,6 @@ class RelativeLinks extends Links
      */
     public function __construct(array $links)
     {
-        parent::__construct($_SERVER["HTTP_HOST"], $links);
+        parent::__construct("", $links);
     }
 }
