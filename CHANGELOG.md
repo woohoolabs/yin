@@ -21,8 +21,6 @@ CHANGED:
 - The provided `ExceptionFactory` can be used when validating client-generated ID-s for hydration
 - Renamed `RequestInterface::getBodyData*` methods to `RequestInterface::getResource*`
 
-REMOVED:
-
 FIXED:
 
 - Methods of `TransformerTrait` were intended to be non-static
