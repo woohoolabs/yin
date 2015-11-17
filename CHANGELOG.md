@@ -8,6 +8,8 @@ REMOVED:
 
 FIXED:
 
+- PHP version constraint in composer.json
+
 ## 0.8.0 - 2015-11-16
 
 ADDED:
