@@ -401,7 +401,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param array $book
      * @return array
      */
-    public function getDefaultRelationships($book)
+    public function getDefaultIncludedRelationships($book)
     {
         return ["authors"];
     }

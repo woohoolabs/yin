@@ -111,7 +111,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
     /**
      * @inheritDoc
      */
-    public function getDefaultRelationships($domainObject)
+    public function getDefaultIncludedRelationships($domainObject)
     {
         return $this->defaultRelationships;
     }

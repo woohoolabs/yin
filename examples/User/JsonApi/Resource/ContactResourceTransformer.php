@@ -72,7 +72,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * @param array $contact
      * @return array
      */
-    public function getDefaultRelationships($contact)
+    public function getDefaultIncludedRelationships($contact)
     {
         return [];
     }

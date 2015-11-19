@@ -63,7 +63,7 @@ interface ResourceTransformerInterface
      * @param mixed $domainObject
      * @return array
      */
-    public function getDefaultRelationships($domainObject);
+    public function getDefaultIncludedRelationships($domainObject);
 
     /**
      * Provides information about the "relationships" section of the current resource.

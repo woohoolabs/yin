@@ -97,7 +97,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * @param array $user
      * @return array
      */
-    public function getDefaultRelationships($user)
+    public function getDefaultIncludedRelationships($user)
     {
         return [];
     }

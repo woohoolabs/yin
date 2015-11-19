@@ -82,7 +82,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * @param array $publisher
      * @return array
      */
-    public function getDefaultRelationships($publisher)
+    public function getDefaultIncludedRelationships($publisher)
     {
         return [];
     }

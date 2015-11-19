@@ -4,6 +4,8 @@ ADDED:
 
 CHANGED:
 
+- Renamed `getDefaultRelationships()` to `getDefaultIncludedRelationships()` in transformers to better reflect its meaning
+
 REMOVED:
 
 FIXED:

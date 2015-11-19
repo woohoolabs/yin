@@ -82,7 +82,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return array
      */
-    public function getDefaultRelationships($author)
+    public function getDefaultIncludedRelationships($author)
     {
         return [];
     }

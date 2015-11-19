@@ -156,7 +156,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $this->validateRelationships($transformation, $relationships);
 
         $result = [];
-        $defaultRelationships = array_flip($this->getDefaultRelationships($domainObject));
+        $defaultRelationships = array_flip($this->getDefaultIncludedRelationships($domainObject));
 
         foreach ($relationships as $relationshipName => $relationshipCallback) {
             $relationship = $this->transformRelationshipObject(
