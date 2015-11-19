@@ -69,13 +69,15 @@ JSON API server implementations.
 Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
 capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
 deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
-separately, framework is the most powerful when it is used in its entirety.
+separately, the framework is the most powerful when it is used in its entirety.
 
 ##### Efficiency
 
-We designed the library so that attributes and relationships are transformed only and if only they are requested.
-This feature is extremely advantageous when there are a lot of resources to transform or a rarely required
-transformation is very expensive.
+We designed Yin to be as efficient as possible. That's why attributes and relationships are transformed only and if
+only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
+rarely required transformation is very expensive. Furthermore, as transformers are stateless, the overhead of having a
+separate model object for each resource is avoided. Additionally, due to statelessness, the overall library works really
+well with dependency injection.
 
 ##### Supplementary middlewares
 
