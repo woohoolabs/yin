@@ -67,15 +67,15 @@ JSON API server implementations.
 ##### Complete JSON API framework
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
-capabilities for content negotiation, error handling, pagination, fetch, creation, update, deletion of resources.
-Although Yin consists of many loosely coupled packages and classes which can also be used separately, but the
-framework is the most powerful when it is used in its entirety.
+capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
+deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
+separately, framework is the most powerful when it is used in its entirety.
 
 ##### Efficiency
 
-We designed the transformation processes so that attributes and relationships are transformed only and if only they
-are requested. This feature is extremely advantageous when there are a lot of resources to transform or a rarely
-required transformation is very expensive.
+We designed the library so that attributes and relationships are transformed only and if only they are requested.
+This feature is extremely advantageous when there are a lot of resources to transform or a rarely required
+transformation is very expensive.
 
 ##### Supplementary middlewares
 
@@ -230,7 +230,7 @@ primary resource (`$this->transformer->getId($this->domainObject)`).
 
 The only difference between the `AbstractSingleResourceDocument` and `AbstractCollectionDocument` is the way they
 regard the `domainObject`: the first one regards it as a single domain object while the latter regards it
-as an iterable collection of domain objects.
+as an iterable collection.
 
 ###### Usage
 
@@ -245,8 +245,8 @@ kinds of responses:
 ##### Documents for error responses
 
 An `AbstractErrorDocument` can be used to create reusable documents for error responses. It also requires the same
-abstract methods to be implemented as the successful ones, but additionally an `addError()` method  can be used
-to include error items to it.
+abstract methods to be implemented as the successful ones, but additionally an `addError()` method can be used
+to include error items.
 
 ```php
 /** @var AbstractErrorDocument $errorDocument */
