@@ -52,7 +52,12 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 
         $result = [];
         foreach ($this->domainObject as $item) {
-            $result[] = $this->transformer->transformRelationship($relationshipName, $transformation, $item);
+            $result[] = $this->transformer->transformRelationship(
+                $relationshipName,
+                $transformation,
+                $item,
+                $additionalMeta
+            );
         }
 
         return $result;

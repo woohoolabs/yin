@@ -94,7 +94,13 @@ interface ResourceTransformerInterface
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return array
      */
-    public function transformRelationship($relationshipName, Transformation $transformation, $domainObject);
+    public function transformRelationship(
+        $relationshipName,
+        Transformation $transformation,
+        $domainObject,
+        array $additionalMeta = []
+    );
 }

@@ -66,10 +66,15 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return array|null
      */
-    public function transformRelationship($relationshipName, Transformation $transformation, $domainObject)
-    {
+    public function transformRelationship(
+        $relationshipName,
+        Transformation $transformation,
+        $domainObject,
+        array $additionalMeta = []
+    ) {
         $relationships = $this->getRelationships($domainObject);
         if (empty($relationships) === true) {
             return null;
@@ -80,7 +85,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
             $domainObject,
             $relationshipName,
             $relationships,
-            []
+            [],
+            $additionalMeta
         );
     }
 
@@ -181,6 +187,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param string $relationshipName
      * @param array $relationships
      * @param array $defaultRelationships
+     * @param array $additionalMeta
      * @return array|null
      */
     private function transformRelationshipObject(
@@ -188,7 +195,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         $domainObject,
         $relationshipName,
         array $relationships,
-        array $defaultRelationships
+        array $defaultRelationships,
+        array $additionalMeta = []
     ) {
         $resourceType = $this->getType($domainObject);
 
@@ -206,7 +214,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         /** @var \WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship $relationship */
         $relationship = $relationshipCallback($domainObject, $transformation->request);
 
-        return $relationship->transform($transformation, $resourceType, $relationshipName, $defaultRelationships);
+        return $relationship->transform(
+            $transformation,
+            $resourceType,
+            $relationshipName,
+            $defaultRelationships,
+            $additionalMeta
+        );
     }
 
     /**

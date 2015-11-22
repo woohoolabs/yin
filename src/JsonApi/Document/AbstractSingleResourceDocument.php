@@ -53,8 +53,16 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getRelationshipContent($relationshipName, Transformation $transformation)
-    {
-        return $this->transformer->transformRelationship($relationshipName, $transformation, $this->domainObject);
+    protected function getRelationshipContent(
+        $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    ) {
+        return $this->transformer->transformRelationship(
+            $relationshipName,
+            $transformation,
+            $this->domainObject,
+            $additionalMeta
+        );
     }
 }
