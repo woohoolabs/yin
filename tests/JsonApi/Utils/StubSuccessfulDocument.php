@@ -124,8 +124,11 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getRelationshipContent($relationshipName, Transformation $transformation)
-    {
+    protected function getRelationshipContent(
+        $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    ) {
         return $this->relationshipResponseContent;
     }
 }

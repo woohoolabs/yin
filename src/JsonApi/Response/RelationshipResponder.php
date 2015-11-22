@@ -30,26 +30,36 @@ class RelationshipResponder extends AbstractResponder
     }
 
     /**
-     * Returns a "200 Ok" response, containing a document in the body with the relationship.
+     * Returns a "200 Ok" response, containing a document in the body with the relationship.  You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractSuccessfulDocument $document, $domainObject)
+    public function ok(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
         return $this->getDocumentRelationshipResponse($this->relationshipName, $document, $domainObject, 200);
     }
 
     /**
-     * Returns a "200 Ok" response, containing a document with the relationship meta data in the body.
+     * Returns a "200 Ok" response, containing a document with the relationship meta data in the body. You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
-        return $this->getDocumentRelationshipMetaResponse($this->relationshipName, $document, $domainObject, 200);
+        return $this->getDocumentRelationshipMetaResponse(
+            $this->relationshipName,
+            $document,
+            $domainObject,
+            200,
+            $additionalMeta
+        );
     }
 }

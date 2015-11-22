@@ -41,8 +41,11 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getRelationshipContent($relationshipName, Transformation $transformation)
-    {
+    protected function getRelationshipContent(
+        $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    ) {
         if (empty($this->domainObject)) {
             return [];
         }

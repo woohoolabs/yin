@@ -43,16 +43,22 @@ abstract class AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function getDocumentResourceResponse(AbstractSuccessfulDocument $document, $domainObject, $statusCode)
-    {
+    protected function getDocumentResourceResponse(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        $statusCode,
+        array $additionalMeta = []
+    ) {
         return $document->getResponse(
             $this->request,
             $this->response,
             $this->exceptionFactory,
             $domainObject,
-            $statusCode
+            $statusCode,
+            $additionalMeta
         );
     }
 
@@ -60,16 +66,22 @@ abstract class AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    protected function getDocumentMetaResponse(AbstractSuccessfulDocument $document, $domainObject, $statusCode)
-    {
+    protected function getDocumentMetaResponse(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        $statusCode,
+        array $additionalMeta = []
+    ) {
         return $document->getMetaResponse(
             $this->request,
             $this->response,
             $this->exceptionFactory,
             $domainObject,
-            $statusCode
+            $statusCode,
+            $additionalMeta
         );
     }
 
@@ -78,13 +90,15 @@ abstract class AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentRelationshipResponse(
         $relationshipName,
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode
+        $statusCode,
+        array $additionalMeta = []
     ) {
         return $document->getRelationshipResponse(
             $relationshipName,
@@ -92,7 +106,8 @@ abstract class AbstractResponder
             $this->response,
             $this->exceptionFactory,
             $domainObject,
-            $statusCode
+            $statusCode,
+            $additionalMeta
         );
     }
 
@@ -101,13 +116,15 @@ abstract class AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
      * @param int $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentRelationshipMetaResponse(
         $relationshipName,
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode
+        $statusCode,
+        array $additionalMeta = []
     ) {
         return $document->getRelationshipResponse(
             $relationshipName,
@@ -115,7 +132,8 @@ abstract class AbstractResponder
             $this->response,
             $this->exceptionFactory,
             $domainObject,
-            $statusCode
+            $statusCode,
+            $additionalMeta
         );
     }
 
@@ -124,18 +142,20 @@ abstract class AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @param int $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface $response
      */
     protected function getErrorResponse(
         ResponseInterface $response,
         AbstractErrorDocument $document,
         array $errors,
-        $statusCode
+        $statusCode,
+        array $additionalMeta = []
     ) {
         foreach ($errors as $error) {
             $document->addError($error);
         }
 
-        return $document->getResponse($response, $statusCode);
+        return $document->getResponse($response, $statusCode, $additionalMeta);
     }
 }

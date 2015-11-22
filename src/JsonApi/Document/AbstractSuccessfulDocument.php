@@ -26,23 +26,31 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     abstract protected function fillData(Transformation $transformation);
 
     /**
-     * Returns a response content whose primary data is a relationship object with $relationshipName name.
+     * Returns a response content whose primary data is a relationship object with $relationshipName name. You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
+     * @param array $additionalMeta
      * @return array
      */
-    abstract protected function getRelationshipContent($relationshipName, Transformation $transformation);
+    abstract protected function getRelationshipContent(
+        $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    );
 
     /**
      * Returns a response with a status code of $responseCode, containing all the provided sections of the document,
-     * assembled based on the $domainObject.
+     * assembled based on the $domainObject. You can also pass additional meta information for the document in the
+     * $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @param int $responseCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getResponse(
@@ -50,25 +58,28 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
-        $responseCode
+        $responseCode,
+        array $additionalMeta = []
     ) {
         $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
 
         $this->initializeDocument($domainObject);
-        $content = $this->transformContent($transformation);
+        $content = $this->transformContent($transformation, $additionalMeta);
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
      * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
-     * the "included" sections) about the document, assembled based on the $domainObject.
+     * the "included" sections) about the document, assembled based on the $domainObject. You can also pass additional
+     * meta information to the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @param int $responseCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getMetaResponse(
@@ -76,17 +87,19 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
-        $responseCode
+        $responseCode,
+        array $additionalMeta = []
     ) {
         $this->initializeDocument($domainObject);
-        $content = $this->transformBaseContent();
+        $content = $this->transformBaseContent($additionalMeta);
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
 
     /**
      * Returns a response with a status code of $responseCode, containing the $relationshipName relationship object as
-     * the primary data, assembled based on the $domainObject.
+     * the primary data, assembled based on the $domainObject. You can also pass additional meta information to the
+     * document in the $additionalMeta argument.
      *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -94,6 +107,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @param int $responseCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getRelationshipResponse(
@@ -102,11 +116,12 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
-        $responseCode
+        $responseCode,
+        array $additionalMeta = []
     ) {
         $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
         $this->initializeDocument($domainObject);
-        $content = $this->transformRelationshipContent($relationshipName, $transformation);
+        $content = $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
 
         return $this->doGetResponse($response, $responseCode, $content);
     }
@@ -136,12 +151,13 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     }
 
     /**
+     * @param array $additionalMeta
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @return array
      */
-    protected function transformContent(Transformation $transformation)
+    protected function transformContent(Transformation $transformation, array $additionalMeta = [])
     {
-        $content = $this->transformBaseContent();
+        $content = $this->transformBaseContent($additionalMeta);
 
         // Data
         $this->fillData($transformation);
@@ -158,11 +174,15 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     /**
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
+     * @param array $additionalMeta
      * @return array
      */
-    protected function transformRelationshipContent($relationshipName, Transformation $transformation)
-    {
-        $response = $this->getRelationshipContent($relationshipName, $transformation);
+    protected function transformRelationshipContent(
+        $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    ) {
+        $response = $this->getRelationshipContent($relationshipName, $transformation, $additionalMeta);
 
         // Included
         if ($transformation->data->hasIncludedResources()) {

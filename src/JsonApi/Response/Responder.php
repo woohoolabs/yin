@@ -31,11 +31,12 @@ class Responder extends AbstractResponder
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractSuccessfulDocument $document, $domainObject)
+    public function ok(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
-        return $this->getDocumentResourceResponse($document, $domainObject, 200);
+        return $this->getDocumentResourceResponse($document, $domainObject, 200, $additionalMeta);
     }
 
     /**
@@ -47,23 +48,26 @@ class Responder extends AbstractResponder
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject)
+    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
-        return $this->getDocumentMetaResponse($document, $domainObject, 200);
+        return $this->getDocumentMetaResponse($document, $domainObject, 200, $additionalMeta);
     }
 
     /**
-     * Returns a "201 Created" response, containing a document in the body with the newly created resource.
+     * Returns a "201 Created" response, containing a document in the body with the newly created resource. You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function created(AbstractSuccessfulDocument $document, $domainObject)
+    public function created(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
-        $response = self::getDocumentResourceResponse($document, $domainObject, 201);
+        $response = $this->getDocumentResourceResponse($document, $domainObject, 201, $additionalMeta);
 
         $links = $document->getLinks();
         if ($links !== null && $links->getSelf() !== null) {
@@ -94,39 +98,45 @@ class Responder extends AbstractResponder
     }
 
     /**
-     * Returns a "403 Forbidden" response, containing a document in the body with the errors.
+     * Returns a "403 Forbidden" response, containing a document in the body with the errors. You can also pass
+     * additional meta information for the error document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function forbidden(AbstractErrorDocument $document, array $errors = [])
+    public function forbidden(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
     {
-        return $this->getErrorResponse($this->response, $document, $errors, 403);
+        return $this->getErrorResponse($this->response, $document, $errors, 403, $additionalMeta);
     }
 
     /**
-     * Returns a "404 Not Found" response, containing a document in the body with the errors.
+     * Returns a "404 Not Found" response, containing a document in the body with the errors. You can also pass
+     * additional meta information for the error document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function notFound(AbstractErrorDocument $document, array $errors = [])
+    public function notFound(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
     {
-        return $this->getErrorResponse($this->response, $document, $errors, 404);
+        return $this->getErrorResponse($this->response, $document, $errors, 404, $additionalMeta);
     }
 
     /**
-     * Returns a "409 Conflict" response, containing a document in the body with the errors.
+     * Returns a "409 Conflict" response, containing a document in the body with the errors. You can also pass
+     * additional meta information for the error document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function conflict(AbstractErrorDocument $document, array $errors = [])
+    public function conflict(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
     {
-        return $this->getErrorResponse($this->response, $document, $errors, 409);
+        return $this->getErrorResponse($this->response, $document, $errors, 409, $additionalMeta);
     }
 
     /**
@@ -141,15 +151,21 @@ class Responder extends AbstractResponder
     }
 
     /**
-     * Returns an error response, containing a document in the body with the errors.
+     * Returns an error response, containing a document in the body with the errors. You can also pass additional
+     * meta information to the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
      * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
      * @param int|null $statusCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function genericError(AbstractErrorDocument $document, array $errors = [], $statusCode = null)
-    {
-        return $this->getErrorResponse($this->response, $document, $errors, $statusCode);
+    public function genericError(
+        AbstractErrorDocument $document,
+        array $errors = [],
+        $statusCode = null,
+        array $additionalMeta = []
+    ) {
+        return $this->getErrorResponse($this->response, $document, $errors, $statusCode, $additionalMeta);
     }
 }

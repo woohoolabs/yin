@@ -54,14 +54,15 @@ abstract class AbstractDocument
     abstract public function getLinks();
 
     /**
+     * @param array $additionalMeta
      * @return array
      */
-    protected function transformBaseContent()
+    protected function transformBaseContent(array $additionalMeta = [])
     {
         $content = [];
 
         $this->transformJsonApiContent($content);
-        $this->transformMetaContent($content);
+        $this->transformMetaContent($content, $additionalMeta);
         $this->transformLinksContent($content);
 
         return $content;
@@ -80,10 +81,11 @@ abstract class AbstractDocument
 
     /**
      * @param array $content
+     * @param array $additionalMeta
      */
-    protected function transformMetaContent(&$content)
+    protected function transformMetaContent(&$content, array $additionalMeta = [])
     {
-        $meta = $this->getMeta();
+        $meta = array_merge($this->getMeta(), $additionalMeta);
         if (empty($meta) === false) {
             $content["meta"] = $meta;
         }

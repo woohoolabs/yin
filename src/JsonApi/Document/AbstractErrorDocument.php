@@ -33,18 +33,19 @@ abstract class AbstractErrorDocument extends AbstractDocument
 
     /**
      * Returns a response with a status code of $responseCode, containing all the provided sections of the error
-     * document.
+     * document. You can also pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param int $responseCode
+     * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $responseCode = null)
+    public function getResponse(ResponseInterface $response, $responseCode = null, array $additionalMeta = [])
     {
         $response = $response->withStatus($this->getResponseCode($responseCode));
         $response = $response->withAddedHeader("Content-Type", $this->getContentType());
         $response->getBody()->rewind();
-        $response->getBody()->write(json_encode($this->transformContent()));
+        $response->getBody()->write(json_encode($this->transformContent($additionalMeta)));
 
         return $response;
     }
@@ -77,11 +78,12 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
+     * @param array $additionalMeta
      * @return array
      */
-    public function transformContent()
+    public function transformContent(array $additionalMeta = [])
     {
-        $content = $this->transformBaseContent();
+        $content = $this->transformBaseContent($additionalMeta);
 
         // ERRORS
         if (empty($this->errors) === false) {

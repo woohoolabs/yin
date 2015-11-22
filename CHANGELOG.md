@@ -2,6 +2,8 @@
 
 ADDED:
 
+- Possibility to pass additional meta information for documents when fetching the response
+
 CHANGED:
 
 - Renamed `getDefaultRelationships()` to `getDefaultIncludedRelationships()` in transformers to better reflect its meaning
@@ -10,6 +12,7 @@ REMOVED:
 
 FIXED:
 
+- `Responder::getDocumentResourceResponse()` was called statically wrongly
 - PHP version constraint in composer.json
 
 ## 0.8.0 - 2015-11-16

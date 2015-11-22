@@ -70,13 +70,15 @@ abstract class AbstractRelationship
      * @param string $resourceType
      * @param string $relationshipName
      * @param array $defaultRelationships
+     * @param array $additionalMeta
      * @return array|null
      */
     public function transform(
         Transformation $transformation,
         $resourceType,
         $relationshipName,
-        array $defaultRelationships
+        array $defaultRelationships,
+        array $additionalMeta = []
     ) {
         $relationship = null;
         $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
@@ -90,8 +92,9 @@ abstract class AbstractRelationship
             }
 
             // META
-            if (empty($this->meta) === false) {
-                $relationship["meta"] = $this->meta;
+            $meta = array_merge($this->meta, $additionalMeta);
+            if (empty($meta) === false) {
+                $relationship["meta"] = $meta;
             }
 
             // DATA
