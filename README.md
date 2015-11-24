@@ -27,6 +27,7 @@ manifestation of our vision.
     * [Exceptions](#exceptions)
     * [JsonApi class](#jsonapi-class)
 * [Advanced Usage](#advanced-usage)
+    * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#request-response-validation)
     * [Middlewares](#middlewares)
@@ -676,6 +677,8 @@ functionality of Woohoo Labs. Yin, it is highly recommended to utilize this clas
 ## Advanced Usage
 
 This section guides you through the advanced features of Yin.
+
+#### Loading relationship data efficiently
 
 #### Content negotiation
 

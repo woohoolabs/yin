@@ -118,7 +118,10 @@ class UserResourceTransformer extends AbstractResourceTransformer
             "contacts" => function(array $user) {
                 return
                     ToManyRelationship::create()
-                        ->setData($user["contacts"], $this->contactTransformer)
+                        ->setDataAsCallable(function() use ($user) {
+                            return $user["contacts"];
+                        }, $this->contactTransformer)
+                        ->omitWhenNotIncluded()
                     ;
             }
         ];

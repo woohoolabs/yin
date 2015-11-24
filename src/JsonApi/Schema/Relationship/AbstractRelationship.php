@@ -15,7 +15,17 @@ abstract class AbstractRelationship
     /**
      * @var mixed
      */
-    protected $data;
+    private $data;
+
+    /**
+     * @var bool
+     */
+    protected $isCallableData;
+
+    /**
+     * @var bool
+     */
+    protected $omitDataWhenNotIncluded;
 
     /**
      * @var \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface
@@ -49,6 +59,8 @@ abstract class AbstractRelationship
         $this->meta = $meta;
         $this->links = $links;
         $this->data = $data;
+        $this->isCallableData = false;
+        $this->omitDataWhenNotIncluded = false;
         $this->resourceTransformer = $resourceTransformer;
     }
 
@@ -60,7 +72,29 @@ abstract class AbstractRelationship
     public function setData($data, ResourceTransformerInterface $resourceTransformer)
     {
         $this->data = $data;
+        $this->isCallableData = false;
         $this->resourceTransformer = $resourceTransformer;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $data
+     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
+     * @return $this
+     */
+    public function setDataAsCallable(callable $data, ResourceTransformerInterface $resourceTransformer)
+    {
+        $this->data = $data;
+        $this->isCallableData = true;
+        $this->resourceTransformer = $resourceTransformer;
+
+        return $this;
+    }
+
+    public function omitWhenNotIncluded()
+    {
+        $this->omitDataWhenNotIncluded = true;
 
         return $this;
     }
@@ -81,7 +115,18 @@ abstract class AbstractRelationship
         array $additionalMeta = []
     ) {
         $relationship = null;
-        $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
+
+        if ($this->omitDataWhenNotIncluded === false ||
+            $transformation->request->isIncludedRelationship(
+                $transformation->basePath,
+                $relationshipName,
+                $defaultRelationships
+            )
+        ) {
+            $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
+        } else {
+            $transformedData = null;
+        }
 
         if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
             $relationship = [];
@@ -98,7 +143,9 @@ abstract class AbstractRelationship
             }
 
             // DATA
-            $relationship["data"] = $transformedData;
+            if (isset($transformedData) === true) {
+                $relationship["data"] = $transformedData;
+            }
         }
 
         return $relationship;
@@ -128,5 +175,13 @@ abstract class AbstractRelationship
         }
 
         return $this->resourceTransformer->transformToResourceIdentifier($domainObject);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function retrieveData()
+    {
+        return $this->isCallableData ? call_user_func($this->data, $this) : $this->data;
     }
 }

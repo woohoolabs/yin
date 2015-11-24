@@ -32,12 +32,13 @@ class ToManyRelationship extends AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
-        if (empty($this->data) || $this->resourceTransformer === null) {
-            return [];
+        $data = $this->retrieveData();
+        if (empty($data) || $this->resourceTransformer === null) {
+            return null;
         }
 
         $content = [];
-        foreach ($this->data as $item) {
+        foreach ($data as $item) {
             $content[] = $this->transformResource($transformation, $item, $relationshipName, $defaultRelationships);
         }
 

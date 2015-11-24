@@ -135,7 +135,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 $this->assertInstanceOf(RequestInterface::class, $request);
 
                 $relationship = new ToOneRelationship();
-                $relationship->setData([], new StubResourceTransformer("user", "2"));
+                $relationship->setData(["Father Vader"], new StubResourceTransformer("user", "2"));
                 return $relationship;
             }
         ];
@@ -208,7 +208,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $relationships = [
             "father" => function () {
                 $relationship = new ToOneRelationship();
-                $relationship->setData([], new StubResourceTransformer("user", "2"));
+                $relationship->setData(["Father Vader"], new StubResourceTransformer("user", "2"));
                 return $relationship;
             }
         ];

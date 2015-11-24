@@ -32,13 +32,14 @@ class ToOneRelationship extends AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
-        if ($this->data === null || $this->resourceTransformer === null) {
+        $data = $this->retrieveData();
+        if (isset($data) === false || $this->resourceTransformer === null) {
             return null;
         }
 
         return $this->transformResource(
             $transformation,
-            $this->data,
+            $data,
             $relationshipName,
             $defaultRelationships
         );

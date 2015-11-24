@@ -3,10 +3,12 @@
 ADDED:
 
 - Possibility to pass additional meta information for documents when fetching the response
+- Possibility to only load relationship data when the relationship itself is included
 
 CHANGED:
 
 - Renamed `getDefaultRelationships()` to `getDefaultIncludedRelationships()` in transformers to better reflect its meaning
+- The "data" key of relationships won't be present in the response when it is empty
 
 REMOVED:
 
