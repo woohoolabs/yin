@@ -42,7 +42,7 @@ class ResponderTest extends PHPUnit_Framework_TestCase
     public function testCreatedWithLinks()
     {
         $href = "http://example.com/users";
-        $document = new StubSuccessfulDocument([], [], null, [], Links::createAbsoluteWithSelf(new Link($href)));
+        $document = new StubSuccessfulDocument([], [], null, [], new Links("", ["self" => new Link($href)]));
 
         $response = $this->createResponder()->created($document, []);
         $this->assertEquals([$href], $response->getHeader("location"));

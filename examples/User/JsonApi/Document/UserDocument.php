@@ -57,8 +57,7 @@ class UserDocument extends AbstractSingleResourceDocument
      */
     public function getLinks()
     {
-        return new Links(
-            "http://example.com/api",
+        return Links::createWithoutBaseUri(
             [
                 "self" => new Link("/users/" . $this->getResourceId())
             ]

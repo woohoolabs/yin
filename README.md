@@ -213,17 +213,12 @@ public function getLinks()
     );
     
     /* This is equivalent to the following:
-    return Links::createRelativeWithSelf(
+    return Links::createWithBaseUri(
         "http://example.com/api",
-        new Link("/books/" . $this->getResourceId())
+        [
+            new Link("/books/" . $this->getResourceId())
+        ]
     );
-    
-    or:
-    
-    return Links::createAbsoluteWithSelf(
-        new Link("http://example.com/api/books/" . $this->getResourceId())
-    );
-    */
 }
 ```
 
@@ -263,7 +258,7 @@ There is an `ErrorDocument` too, which makes it possible to build error response
 /** @var ErrorDocument $errorDocument */
 $errorDocument = new ErrorDocument();
 $errorDocument->setJsonApi(new JsonApi("1.0"));
-$errorDocument->setLinks(Links::createAbsoluteWithSelf("http://example.com/api/errors/404")));
+$errorDocument->setLinks(Links::createWithoutBaseUri()->setSelf("http://example.com/api/errors/404")));
 $errorDocument->addError(new MyError());
 ```
 
@@ -360,24 +355,17 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getLinks($book)
     {
         return new Links(
-            "http://example.com/api"
             [
                 "self" => new Link("/books/" . $this->getId($book))
             ]
         );
         
         /* This is equivalent to the following:
-        return Links::createRelativeWithSelf(
-           "http://example.com/api",
-           new Link("/books/" . $this->getResourceId())
+        return Links::createWithoutBaseUri(
+            [
+                "self" => new Link("/books/" . $this->getResourceId())
+            ]
         );
-        
-        or:
-        
-        return Links::createAbsoluteWithSelf(
-            new Link("http://example.com/api/books/" . $this->getResourceId())
-        );
-        */
     }
 
     /**
@@ -425,7 +413,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "authors" => function(array $book) {
                 return ToManyRelationship::create()
                     ->setLinks(
-                        Links::createAbsoluteWithSelf(new Link("http://example.com/api/books/relationships/authors"))
+                        Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
                     )
                     ->setData($book["authors"], $this->authorTransformer)
                 ;
@@ -433,7 +421,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "publisher" => function($book) {
                 return ToOneRelationship::create()
                     ->setLinks(
-                        Links::createAbsoluteWithSelf(new Link("http://example.com/api/books/relationships/publisher"))
+                        Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
                     )
                     ->setData($book["publisher"], $this->publisherTransformer)
                 ;

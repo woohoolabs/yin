@@ -8,80 +8,6 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubPaginationLinkProvider;
 
 class LinksTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateAbsolute()
-    {
-        $links = ["self" => new Link("http://example.com/api/users")];
-
-        $linksObject = $this->createLinks("", $links);
-        $this->assertEquals($linksObject, Links::createAbsolute($links));
-    }
-
-    public function testCreateRelative()
-    {
-        $baseUri = "http://example.com/api";
-        $links = ["self" => new Link("/users")];
-
-        $linksObject = $this->createLinks($baseUri, $links);
-        $this->assertEquals($linksObject, Links::createRelative($baseUri, $links));
-    }
-
-    public function testCreateAbsoluteWithSelf()
-    {
-        $self = new Link("http://example.com/api/users");
-        $links = ["self" => $self];
-
-        $linksObject = $this->createLinks("", $links);
-        $this->assertEquals($linksObject, Links::createAbsoluteWithSelf($self));
-    }
-
-    public function testCreateRelativeWithSelf()
-    {
-        $baseUri = "http://example.com/api";
-        $self = new Link("/users");
-        $links = ["self" => $self];
-
-        $linksObject = $this->createLinks($baseUri, $links);
-        $this->assertEquals($linksObject, Links::createRelativeWithSelf($baseUri, $self));
-    }
-
-    public function testCreateAbsoluteWithRelated()
-    {
-        $self = new Link("http://example.com/api/users");
-        $links = ["related" => $self];
-
-        $linksObject = $this->createLinks("", $links);
-        $this->assertEquals($linksObject, Links::createAbsoluteWithRelated($self));
-    }
-
-    public function testCreateRelativeWithRelated()
-    {
-        $baseUri = "http://example.com/api";
-        $self = new Link("/users");
-        $links = ["related" => $self];
-
-        $linksObject = $this->createLinks($baseUri, $links);
-        $this->assertEquals($linksObject, Links::createRelativeWithRelated($baseUri, $self));
-    }
-
-    public function testCreateAbsoluteWithPagination()
-    {
-        $uri = "http://example.com/api/users/";
-        $pagination = new StubPaginationLinkProvider();
-
-        $linksObject = $this->createLinks("")->setPagination($uri, $pagination);
-        $this->assertEquals($linksObject, Links::createAbsoluteWithPagination($uri, $pagination));
-    }
-
-    public function testCreateRelativeWithPagination()
-    {
-        $baseUri = "http://example.com/api";
-        $uri = "/users";
-        $pagination = new StubPaginationLinkProvider();
-
-        $linksObject = $this->createLinks($baseUri)->setPagination($uri, $pagination);
-        $this->assertEquals($linksObject, Links::createRelativeWithPagination($baseUri, $uri, $pagination));
-    }
-
     public function testTransform()
     {
         $self = new Link("http://example.com/api/users");
@@ -169,7 +95,7 @@ class LinksTest extends PHPUnit_Framework_TestCase
     {
         $self = new Link("http://example.com/api/users");
 
-        $linksObject = $this->createLinks()->addLink("self", $self);
+        $linksObject = $this->createLinks()->setLink("self", $self);
         $this->assertEquals($self, $linksObject->getLink("self"));
     }
 
@@ -179,7 +105,7 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $related = new Link("http://example.com/api/people/1");
         $links = ["self" => $self, "related" => $related];
 
-        $linksObject = $this->createLinks()->addLinks($links);
+        $linksObject = $this->createLinks()->setLinks($links);
         $this->assertEquals($self, $linksObject->getLink("self"));
         $this->assertEquals($related, $linksObject->getLink("related"));
     }

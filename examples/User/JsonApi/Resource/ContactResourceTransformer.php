@@ -58,8 +58,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getLinks($contact)
     {
-        return new Links(
-            "http://example.com/api",
+        return Links::createWithoutBaseUri(
             [
                 "self" => new Link("/contacts/" . $this->getId($contact))
             ]

@@ -87,7 +87,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
     public function testTransformToResourceWithLinks()
     {
         $domainObject = [];
-        $links = Links::createAbsoluteWithSelf(new Link("http://example.com/api/users"));
+        $links = Links::createWithoutBaseUri()->setSelf(new Link("http://example.com/api/users"));
 
         $transformer = $this->createTransformer("", "", [], $links);
         $transformedResource = $this->transformToResource($transformer, $domainObject);

@@ -19,7 +19,7 @@ class Links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      * @return $this
      */
-    public static function createAbsolute(array $links = [])
+    public static function createWithoutBaseUri(array $links = [])
     {
         return new self("", $links);
     }
@@ -29,72 +29,9 @@ class Links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      * @return $this
      */
-    public static function createRelative($baseUri, array $links = [])
+    public static function createWithBaseUri($baseUri, array $links = [])
     {
         return new self($baseUri, $links);
-    }
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
-     * @return $this
-     */
-    public static function createAbsoluteWithSelf(Link $self)
-    {
-        return new self("", ["self" => $self]);
-    }
-
-    /**
-     * @param string $baseUri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
-     * @return $this
-     */
-    public static function createRelativeWithSelf($baseUri, Link $self)
-    {
-        return new self($baseUri, ["self" => $self]);
-    }
-
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
-     * @return $this
-     */
-    public static function createAbsoluteWithRelated(Link $related)
-    {
-        return new self("", ["related" => $related]);
-    }
-
-    /**
-     * @param string $baseUri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
-     * @return $this
-     */
-    public static function createRelativeWithRelated($baseUri, Link $related)
-    {
-        return new self($baseUri, ["related" => $related]);
-    }
-
-    /**
-     * @param string $uri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $pagination
-     * @return $this
-     */
-    public static function createAbsoluteWithPagination($uri, PaginationLinkProviderInterface $pagination)
-    {
-        $links = new self("");
-
-        return $links->setPagination($uri, $pagination);
-    }
-
-    /**
-     * @param string $baseUri
-     * @param string $uri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $pagination
-     * @return $this
-     */
-    public static function createRelativeWithPagination($baseUri, $uri, PaginationLinkProviderInterface $pagination)
-    {
-        $links = new self($baseUri);
-
-        return $links->setPagination($uri, $pagination);
     }
 
     /**
@@ -120,6 +57,25 @@ class Links
         }
 
         return $links;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUri()
+    {
+        return $this->baseUri;
+    }
+
+    /**
+     * @param string $baseUri
+     * @return $this
+     */
+    public function setBaseUri($baseUri)
+    {
+        $this->baseUri = $baseUri;
+
+        return $this;
     }
 
     /**
@@ -265,10 +221,10 @@ class Links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
      * @return $this
      */
-    public function addLinks(array $links)
+    public function setLinks(array $links)
     {
         foreach ($links as $rel => $link) {
-            $this->addLink($rel, $link);
+            $this->setLink($rel, $link);
         }
 
         return $this;
@@ -279,7 +235,7 @@ class Links
      * @param \WoohooLabs\Yin\JsonApi\Schema\Link $link
      * @return $this
      */
-    public function addLink($name, Link $link = null)
+    public function setLink($name, Link $link = null)
     {
         $this->links[$name] = $link;
 

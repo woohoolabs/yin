@@ -82,8 +82,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     public function getLinks($book)
     {
-        return new Links(
-            "http://example.com/api",
+        return Links::createWithoutBaseUri(
             [
                 "self" => new Link($this->getSelfLinkHref($book))
             ]
@@ -148,7 +147,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                     ToManyRelationship::create()
                         ->setLinks(
                             new Links(
-                                "http://example.com/api" . $this->getSelfLinkHref($book),
+                                $this->getSelfLinkHref($book),
                                 [
                                     "self" => new Link("/relationships/authors")
                                 ]
@@ -162,7 +161,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                     ToOneRelationship::create()
                         ->setLinks(
                             new Links(
-                                "http://example.com/api" . $this->getSelfLinkHref($book),
+                                $this->getSelfLinkHref($book),
                                 [
                                     "self" => new Link("/relationships/publisher")
                                 ]
