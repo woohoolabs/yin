@@ -1,4 +1,14 @@
-## 0.9.0 - unreleased
+## 0.10.0 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 0.9.0 - 2015-11-26
 
 ADDED:
 
@@ -9,7 +19,7 @@ CHANGED:
 
 - Renamed `getDefaultRelationships()` to `getDefaultIncludedRelationships()` in transformers to better reflect its meaning
 - The "data" key of relationships won't be present in the response when it is empty
-- Renamed `Links::addLinks()` to `Links::setLinks` and `Links::addLink()` to `Links::setLink()`
+- Renamed `Links::addLinks()` to `Links::setLinks()` and `Links::addLink()` to `Links::setLink()`
 
 REMOVED:
 
