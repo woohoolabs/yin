@@ -2,6 +2,9 @@
 
 ADDED:
 
+- `AbstractSimpleResourceDocument` to define documents containing information about a single resource without
+the need of a resource transformer
+
 CHANGED:
 
 REMOVED:

@@ -23,7 +23,7 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getData()
+    protected function createData()
     {
         return new CollectionData();
     }

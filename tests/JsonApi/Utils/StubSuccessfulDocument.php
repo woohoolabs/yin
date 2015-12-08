@@ -109,7 +109,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getData()
+    protected function createData()
     {
         return $this->data ? $this->data : new DummyData();
     }

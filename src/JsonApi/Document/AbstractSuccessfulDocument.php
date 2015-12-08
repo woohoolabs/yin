@@ -16,7 +16,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     /**
      * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
      */
-    abstract protected function getData();
+    abstract protected function createData();
 
     /**
      * Fills the transformation data based on the "domainObject" property.
@@ -61,7 +61,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $responseCode,
         array $additionalMeta = []
     ) {
-        $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
+        $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
 
         $this->initializeDocument($domainObject);
         $content = $this->transformContent($transformation, $additionalMeta);
@@ -119,7 +119,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $responseCode,
         array $additionalMeta = []
     ) {
-        $transformation = new Transformation($request, $this->getData(), $exceptionFactory, "");
+        $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
         $this->initializeDocument($domainObject);
         $content = $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
 

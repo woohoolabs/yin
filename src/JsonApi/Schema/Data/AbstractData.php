@@ -65,13 +65,13 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array $resources
+     * @param \Traversable|array $transformedResources
      * @return $this
      */
-    public function setPrimaryResources($resources)
+    public function setPrimaryResources($transformedResources)
     {
         $this->primaryKeys = [];
-        foreach ($resources as $resource) {
+        foreach ($transformedResources as $resource) {
             $this->addPrimaryResource($resource);
         }
 
@@ -97,13 +97,13 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array $resources
+     * @param \Traversable|array $transformedResources
      * @return $this
      */
-    public function setIncludedResources($resources)
+    public function setIncludedResources($transformedResources)
     {
         $this->includedKeys = [];
-        foreach ($resources as $resource) {
+        foreach ($transformedResources as $resource) {
             $this->addIncludedResource($resource);
         }
 

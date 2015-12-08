@@ -28,6 +28,7 @@ manifestation of our vision.
     * [JsonApi class](#jsonapi-class)
 * [Advanced Usage](#advanced-usage)
     * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
+    * [Injecting metadata into documents](#injecting-metadata-into-documents)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#request-response-validation)
     * [Middlewares](#middlewares)
@@ -121,11 +122,16 @@ how to create or build error documents.
 ##### Documents for successful responses
 
 For successful requests, you have to return information about one or more resources. Woohoo Labs. Yin provides
-three abstract classes that help you to create your own documents for the different use cases:
+multiple abstract classes that help you to create your own documents for the different use cases:
 
 - `AbstractSuccessfulDocument`: A generic base document for successful responses
-- `AbstractSingleResourceDocument`: A base class for documents about a single top-level resource
+- `AbstractSimpleResourceDocument`: A base class for documents about a single, very simple top-level resource
+- `AbstractSingleResourceDocument`: A base class for documents about a single, more complex top-level resource
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
+
+The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
+the first one doesn't need a [resource transformer](#resource-transformers) so it is preferable to use for really simple
+domain objects (like messages) while the latter works better for more complex domain objects (like users or addresses).
 
 As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
 of multiple types), we will not cover it here.
@@ -355,6 +361,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getLinks($book)
     {
         return new Links(
+            "",
             [
                 "self" => new Link("/books/" . $this->getId($book))
             ]
@@ -668,6 +675,10 @@ This section guides you through the advanced features of Yin.
 
 #### Loading relationship data efficiently
 
+
+
+#### Injecting metadata into documents
+
 #### Content negotiation
 
 #### Request/response validation
@@ -798,6 +809,9 @@ public function updateBook(JsonApi $jsonApi)
 
     // Hydrating the retrieved book domain object from the request
     $book = $jsonApi->hydrate(new BookHydator(), $book);
+    
+    // Updating the book
+    // ...
 
     // Instantiating the book document
     $document = new BookDocument(

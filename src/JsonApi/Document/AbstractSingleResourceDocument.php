@@ -35,7 +35,7 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @inheritDoc
      */
-    protected function getData()
+    protected function createData()
     {
         return new SingleResourceData();
     }
