@@ -47,7 +47,7 @@ class BookHydator extends AbstractHydrator
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
-        if ($clientGeneratedId === null) {
+        if ($clientGeneratedId !== null) {
             throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
         }
     }
