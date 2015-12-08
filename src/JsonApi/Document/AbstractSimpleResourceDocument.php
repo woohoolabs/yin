@@ -9,7 +9,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @return array
      */
-    abstract protected function getData();
+    abstract protected function getResource();
 
     /**
      * @inheritDoc
@@ -24,7 +24,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
      */
     protected function fillData(Transformation $transformation)
     {
-        $transformation->data->addPrimaryResource($this->getData());
+        $transformation->data->addPrimaryResource($this->getResource());
     }
 
     /**
@@ -35,7 +35,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         Transformation $transformation,
         array $additionalMeta = []
     ) {
-        $relationship = $this->getRelationshipFromResource($this->getData(), $relationshipName);
+        $relationship = $this->getRelationshipFromResource($this->getResource(), $relationshipName);
         if ($relationship !== null) {
             $transformation->data->addPrimaryResource($relationship);
         }
