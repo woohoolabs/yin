@@ -11,6 +11,8 @@ REMOVED:
 
 FIXED:
 
+- Parameter order in `AbstractCreateHydrator::hydrate()`
+
 ## 0.9.0 - 2015-11-26
 
 ADDED:

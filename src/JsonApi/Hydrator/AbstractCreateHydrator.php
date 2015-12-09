@@ -19,6 +19,6 @@ abstract class AbstractCreateHydrator implements HydratorInterface
      */
     public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
-        return $this->hydrateForCreate($request, $domainObject, $exceptionFactory);
+        return $this->hydrateForCreate($request, $exceptionFactory, $domainObject);
     }
 }
