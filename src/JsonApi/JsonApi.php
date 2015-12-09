@@ -75,6 +75,22 @@ class JsonApi
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     */
+    public function getExceptionFactory()
+    {
+        return $this->exceptionFactory;
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     */
+    public function setExceptionFactory($exceptionFactory)
+    {
+        $this->exceptionFactory = $exceptionFactory;
+    }
+
+    /**
      * @return \WoohooLabs\Yin\JsonApi\Response\Responder
      */
     public function respond()
