@@ -35,6 +35,15 @@ class ExceptionFactory implements ExceptionFactoryInterface
 
     /**
      * @inheritDoc
+     * @return \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdRequired
+     */
+    public function createClientGeneratedIdRequiredException(RequestInterface $request)
+    {
+        return new ClientGeneratedIdRequired();
+    }
+
+    /**
+     * @inheritDoc
      * @return \WoohooLabs\Yin\JsonApi\Exception\FullReplacementProhibited
      */
     public function createFullReplacementProhibitedException($relationshipName)

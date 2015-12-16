@@ -30,6 +30,12 @@ interface ExceptionFactoryInterface
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @return \Exception
      */
+    public function createClientGeneratedIdRequiredException(RequestInterface $request);
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @return \Exception
+     */
     public function createDataMemberMissingException(RequestInterface $request);
 
     /**
