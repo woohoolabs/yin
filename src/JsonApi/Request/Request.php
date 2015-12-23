@@ -7,10 +7,13 @@ use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
+use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class Request implements RequestInterface
 {
@@ -495,6 +498,41 @@ class Request implements RequestInterface
         $data = $this->getResource();
 
         return isset($data["attributes"][$attribute]) ? $data["attributes"][$attribute] : null;
+    }
+
+    /**
+     * @param string $relationship
+     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|null
+     */
+    public function getResourceToOneRelationship($relationship)
+    {
+        $data = $this->getResource();
+
+        if (isset($data["relationships"][$relationship]) === false) {
+            return null;
+        }
+
+        new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]));
+    }
+
+    /**
+     * @param string $relationship
+     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
+     */
+    public function getResourceToManyRelationship($relationship)
+    {
+        $data = $this->getResource();
+
+        if (isset($data["relationships"][$relationship]) === false) {
+            return null;
+        }
+
+        $resourceIdentifiers = [];
+        foreach ($data["relationships"][$relationship] as $item) {
+            $resourceIdentifiers[] = ResourceIdentifier::fromArray($item);
+        }
+
+        new ToManyRelationship($resourceIdentifiers);
     }
 
     /**

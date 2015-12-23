@@ -11,6 +11,16 @@ class ToManyRelationship
     protected $resourceIdentifiers = [];
 
     /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier[] $resourceIdentifiers
+     */
+    public function __construct(array $resourceIdentifiers = [])
+    {
+        foreach ($resourceIdentifiers as $resourceIdentifier) {
+            $this->addResourceIdentifier($resourceIdentifier);
+        }
+    }
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
      * @return $this
      */

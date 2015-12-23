@@ -172,4 +172,16 @@ interface RequestInterface extends ServerRequestInterface
      * @return mixed|null
      */
     public function getResourceAttribute($attribute);
+
+    /**
+     * @param string $relationship
+     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|null
+     */
+    public function getResourceToOneRelationship($relationship);
+
+    /**
+     * @param string $relationship
+     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
+     */
+    public function getResourceToManyRelationship($relationship);
 }
