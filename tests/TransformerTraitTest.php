@@ -42,7 +42,7 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             "2015-06-30T16:00:00+0000",
-            $transformerTrait->toIso8601Time($this->createDateTime("2015-06-30 16:00:00"))
+            $transformerTrait->toIso8601DateTime($this->createDateTime("2015-06-30 16:00:00"))
         );
     }
 

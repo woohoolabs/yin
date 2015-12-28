@@ -9,6 +9,8 @@ the need of a resource transformer
 
 CHANGED:
 
+- `TransformerTrait` transformations are now type hinted against `DateTimeInterface` to support `DateTimeImmutable`
+
 REMOVED:
 
 FIXED:

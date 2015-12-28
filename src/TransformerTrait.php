@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin;
 
 use DateTime;
+use DateTimeInterface;
 
 trait TransformerTrait
 {
@@ -46,10 +47,10 @@ trait TransformerTrait
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
      *
-     * @param \DateTime $dateTime
+     * @param \DateTimeInterface $dateTime
      * @return string
      */
-    public function toIso8601Date(DateTime $dateTime)
+    public function toIso8601Date(DateTimeInterface $dateTime)
     {
         return $dateTime->format("Y-m-d");
     }
@@ -57,10 +58,10 @@ trait TransformerTrait
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
      *
-     * @param \DateTime $dateTime
+     * @param DateTimeInterface $dateTime
      * @return string
      */
-    public function toIso8601Time(DateTime $dateTime)
+    public function toIso8601DateTime(DateTimeInterface $dateTime)
     {
         return $dateTime->format(DateTime::ISO8601);
     }
