@@ -490,14 +490,24 @@ class Request implements RequestInterface
     }
 
     /**
+     * @return array
+     */
+    public function getResourceAttributes()
+    {
+        $data = $this->getResource();
+
+        return isset($data["attributes"]) ? $data["attributes"] : [];
+    }
+
+    /**
      * @param string $attribute
      * @return mixed|null
      */
     public function getResourceAttribute($attribute)
     {
-        $data = $this->getResource();
+        $attributes = $this->getResourceAttributes();
 
-        return isset($data["attributes"][$attribute]) ? $data["attributes"][$attribute] : null;
+        return isset($attributes[$attribute]) ? $attributes[$attribute] : null;
     }
 
     /**

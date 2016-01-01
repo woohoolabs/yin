@@ -5,6 +5,7 @@ ADDED:
 - `AbstractSimpleResourceDocument` to define documents containing information about a single resource without
 the need of a resource transformer
 - `ClientGeneratedIdRequired` exception
+- `getResourceAttributes()` method to `RequestInterface`
 - `getResourceToOneRelationship()` and `getResourceToManyRelationship()` methods to `RequestInterface`
 
 CHANGED:
