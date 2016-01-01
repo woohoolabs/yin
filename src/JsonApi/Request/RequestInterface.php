@@ -168,6 +168,11 @@ interface RequestInterface extends ServerRequestInterface
     public function getResourceId();
 
     /**
+     * @return array
+     */
+    public function getResourceAttributes();
+
+    /**
      * @param string $attribute
      * @return mixed|null
      */
