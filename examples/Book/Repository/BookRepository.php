@@ -22,7 +22,16 @@ class BookRepository extends AbstractRepository
     private static $publishers = [
         [
             "id" => "12346",
-            "name" => "Addison-Wesley Professional"
+            "name" => "Addison-Wesley Professional",
+            "representative" => "10"
+        ]
+    ];
+
+    private static $representatives = [
+        [
+            "id" => "10",
+            "name" => "Johnny Cash",
+            "email" => "cash@addison-wesley.com"
         ]
     ];
 
@@ -50,6 +59,10 @@ class BookRepository extends AbstractRepository
         if ($book !== null) {
             $book["authors"] = self::getItemsByIds($book["authors"], self::$authors);
             $book["publisher"] = self::getItemById($book["publisher"], self::$publishers);
+            $book["publisher"]["representative"] = self::getItemById(
+                $book["publisher"]["representative"],
+                self::$representatives
+            );
         }
 
         return $book;
