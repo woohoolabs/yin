@@ -17,6 +17,8 @@ REMOVED:
 FIXED:
 
 - Parameter order in `AbstractCreateHydrator::hydrate()`
+- [GH-3](https://github.com/woohoolabs/yin/issues/3): Fixed multi-level relationships
+- Issue when include query param is an empty string 
 
 ## 0.9.0 - 2015-11-26
 
