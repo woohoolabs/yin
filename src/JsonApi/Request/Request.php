@@ -317,6 +317,10 @@ class Request implements RequestInterface
             $this->setIncludedRelationships();
         }
 
+        if ($this->getQueryParam("include") === "") {
+            return false;
+        }
+
         if (empty($this->includedRelationships) && array_key_exists($relationshipName, $defaultRelationships)) {
             return true;
         }

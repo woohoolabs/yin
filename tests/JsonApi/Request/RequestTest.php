@@ -353,7 +353,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $queryParams = ["include" => ""];
 
         $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue(
+        $this->assertFalse(
             $request->isIncludedRelationship($baseRelationshipPath, $requiredRelationship, $defaultRelationships)
         );
     }
