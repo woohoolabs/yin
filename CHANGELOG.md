@@ -1,4 +1,20 @@
-## 0.10.0 - unreleased
+## 0.11.0 - unreleased
+
+This version will bring a completely rethinked hydration system while improving the docs, test coverage and quality.
+According to my plans, v11.0 may be the last minor release before v1.0.
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 0.10.0 - 2016-01-16
+
+This version incorporates some new methods to easily retrieve the content of the request body and some important bug
+fixes. It doesn't contain any breaking changes so updating to v10.0 is highly recommended.
 
 ADDED:
 
@@ -12,13 +28,11 @@ CHANGED:
 
 - `TransformerTrait` transformations are now type hinted against `DateTimeInterface` to support `DateTimeImmutable`
 
-REMOVED:
-
 FIXED:
 
 - Parameter order in `AbstractCreateHydrator::hydrate()`
 - [GH-3](https://github.com/woohoolabs/yin/issues/3): Fixed multi-level relationships
-- Issue when include query param is an empty string 
+- Issue when include query param is an empty string
 
 ## 0.9.0 - 2015-11-26
 
