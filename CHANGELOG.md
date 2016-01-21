@@ -1,6 +1,6 @@
 ## 0.11.0 - unreleased
 
-This version will bring a completely rethinked hydration system while improving the docs, test coverage and quality.
+This version will bring a completely rethinked hydration system while improving the docs, test coverage and test quality.
 According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
@@ -10,6 +10,12 @@ CHANGED:
 REMOVED:
 
 FIXED:
+
+## 0.10.1 - 2016-01-21
+
+FIXED:
+
+- Attributes and relationships objects are now omitted when empty instead of being serialized as empty arrays
 
 ## 0.10.0 - 2016-01-16
 
