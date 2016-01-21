@@ -167,7 +167,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformedResource = $this->transformToResource($transformer, [], $request, $data);
-        $this->assertArrayNotHasKey("father", $transformedResource["relationships"]);
+        $this->assertArrayNotHasKey("relationships", $transformedResource);
         $this->assertNull($data->getResource("user", "2"));
     }
 

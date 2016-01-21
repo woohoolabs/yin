@@ -96,10 +96,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      */
     private function transformLinksObject(array &$array, $domainObject)
     {
-        $links = $this->getLinks($domainObject);
+        $linksObject = $this->getLinks($domainObject);
 
-        if (empty($links) === false) {
-            $array["links"] = $links->transform();
+        if ($linksObject !== null) {
+            $array["links"] = $linksObject->transform();
         }
     }
 
@@ -111,8 +111,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     private function transformAttributesObject(array &$array, Transformation $transformation, $domainObject)
     {
         $attributes = $this->getAttributes($domainObject);
-        if (empty($attributes) === false) {
-            $array["attributes"] = $this->transformAttributes($transformation, $attributes, $domainObject);
+        $attributesObject = $this->transformAttributes($transformation, $attributes, $domainObject);
+
+        if (empty($attributesObject) === false) {
+            $array["attributes"] = $attributesObject;
         }
     }
 
@@ -144,9 +146,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     private function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject)
     {
         $relationships = $this->getRelationships($domainObject);
+        $relationshipsObject = $this->transformRelationships($transformation, $domainObject, $relationships);
 
-        if (empty($relationships) === false) {
-            $array["relationships"] = $this->transformRelationships($transformation, $domainObject, $relationships);
+        if (empty($relationshipsObject) === false) {
+            $array["relationships"] = $relationshipsObject;
         }
     }
 
