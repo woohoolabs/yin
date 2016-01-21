@@ -15,7 +15,7 @@ FIXED:
 
 FIXED:
 
-- Attributes and relationships objects are now omitted when empty instead of being serialized as empty arrays
+- [GH-5](https://github.com/woohoolabs/yin/issues/5): Attributes and relationships objects are now omitted when empty instead of being serialized as empty arrays
 
 ## 0.10.0 - 2016-01-16
 
