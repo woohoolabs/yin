@@ -69,6 +69,21 @@ class BookRepository extends AbstractRepository
     }
 
     /**
+     * @param string $bookId
+     * @return array
+     */
+    public static function getAuthorsOfBook($bookId)
+    {
+        $book = self::getItemById($bookId, self::$books);
+
+        if ($book === null) {
+            return [];
+        }
+
+        return self::getItemsByIds($book["authors"], self::$authors);
+    }
+
+    /**
      * @param array $ids
      * @return array
      */

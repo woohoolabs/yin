@@ -833,6 +833,7 @@ Example URL-s for the book resources:
 - `GET examples/index.php?example=book&id=1`: Fetch a book
 - `GET examples/index.php?example=book-rel&id=1&rel=authors`: Fetch the authors relationship
 - `GET examples/index.php?example=book-rel&id=1&rel=publisher`: Fetch the publisher relationship
+- `GET examples/index.php?example=book-authors&book-id=1`: Fetch the authors of a book
 - `POST examples/index.php?example=books`: Create a new book
 - `PATCH examples/index.php?example=book&id=1`: Update a book
 
