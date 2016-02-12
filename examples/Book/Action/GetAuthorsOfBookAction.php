@@ -20,10 +20,10 @@ class GetAuthorsOfBookAction
             die("You must define the 'book-id' query parameter with a value of '1'!");
         }
 
-        // Retrieving a book domain object with an ID of $id
+        // Retrieving the author domain objects for the book with an ID of $bookId
         $authors = BookRepository::getAuthorsOfBook($bookId);
 
-        // Instantiating a book document
+        // Instantiating an authors document
         $document = new AuthorsDocument(new AuthorResourceTransformer());
 
         // Responding with "200 Ok" status code along with the requested authors document
