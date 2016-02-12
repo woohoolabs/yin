@@ -5,11 +5,15 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
 
+- Missing sections to the read me
+
 CHANGED:
 
 REMOVED:
 
 FIXED:
+
+- [GH-6](https://github.com/woohoolabs/yin/issues/6): Fixed examples in order not to throw fatal error
 
 ## 0.10.1 - 2016-01-21
 

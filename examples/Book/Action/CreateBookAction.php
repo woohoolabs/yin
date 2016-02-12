@@ -6,6 +6,7 @@ use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\BookHydator;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
 class CreateBookAction
@@ -21,7 +22,12 @@ class CreateBookAction
 
         // Instantiating a book document
         $document = new BookDocument(
-            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+            new BookResourceTransformer(
+                new AuthorResourceTransformer(),
+                new PublisherResourceTransformer(
+                    new RepresentativeResourceTransformer()
+                )
+            )
         );
 
         // Responding with "201 Created" status code along with the book document

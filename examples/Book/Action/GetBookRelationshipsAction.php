@@ -5,6 +5,7 @@ use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
@@ -33,7 +34,12 @@ class GetBookRelationshipsAction
 
         // Instantiating a book document
         $document = new BookDocument(
-            new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+            new BookResourceTransformer(
+                new AuthorResourceTransformer(),
+                new PublisherResourceTransformer(
+                    new RepresentativeResourceTransformer()
+                )
+            )
         );
 
         // Responding with "200 Ok" status code along with the requested relationship document
