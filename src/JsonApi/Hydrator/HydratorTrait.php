@@ -95,7 +95,7 @@ trait HydratorTrait
                 continue;
             }
 
-            $result = $hydrator($domainObject, $data["attributes"][$attribute], $data);
+            $result = $hydrator($domainObject, $data["attributes"][$attribute], $data, $attribute);
             if ($result) {
                 $domainObject = $result;
             }
