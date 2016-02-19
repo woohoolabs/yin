@@ -248,4 +248,3 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         }
     }
 }
-p
