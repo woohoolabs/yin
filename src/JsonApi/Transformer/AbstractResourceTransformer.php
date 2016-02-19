@@ -94,7 +94,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $array
      * @param mixed $domainObject
      */
-    private function transformLinksObject(array &$array, $domainObject)
+    protected function transformLinksObject(array &$array, $domainObject)
     {
         $linksObject = $this->getLinks($domainObject);
 
@@ -108,7 +108,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      */
-    private function transformAttributesObject(array &$array, Transformation $transformation, $domainObject)
+    protected function transformAttributesObject(array &$array, Transformation $transformation, $domainObject)
     {
         $attributes = $this->getAttributes($domainObject);
         $attributesObject = $this->transformAttributes($transformation, $attributes, $domainObject);
@@ -124,14 +124,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param mixed $domainObject
      * @return array
      */
-    private function transformAttributes(Transformation $transformation, array $attributes, $domainObject)
+    protected function transformAttributes(Transformation $transformation, array $attributes, $domainObject)
     {
         $result = [];
         $resourceType = $this->getType($domainObject);
 
         foreach ($attributes as $name => $attribute) {
             if ($transformation->request->isIncludedField($resourceType, $name)) {
-                $result[$name] = $attribute($domainObject, $transformation->request);
+                $result[$name] = $attribute($domainObject, $transformation->request, $name);
             }
         }
 
@@ -143,7 +143,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      */
-    private function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject)
+    protected function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject)
     {
         $relationships = $this->getRelationships($domainObject);
         $relationshipsObject = $this->transformRelationships($transformation, $domainObject, $relationships);
@@ -160,7 +160,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $relationships
      * @return array
      */
-    private function transformRelationships(Transformation $transformation, $domainObject, array $relationships)
+    protected function transformRelationships(Transformation $transformation, $domainObject, array $relationships)
     {
         $this->validateRelationships($transformation, $relationships);
 
@@ -193,7 +193,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $additionalMeta
      * @return array|null
      */
-    private function transformRelationshipObject(
+    protected function transformRelationshipObject(
         Transformation $transformation,
         $domainObject,
         $relationshipName,
@@ -231,7 +231,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param array $relationships
      * @throws \Exception
      */
-    private function validateRelationships(Transformation $transformation, array $relationships)
+    protected function validateRelationships(Transformation $transformation, array $relationships)
     {
         $requestedRelationships = $transformation->request->getIncludedRelationships($transformation->basePath);
 
