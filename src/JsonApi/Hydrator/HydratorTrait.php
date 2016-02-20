@@ -172,7 +172,7 @@ trait HydratorTrait
         }
 
         // Returning if the hydrator returns the hydrated domain object
-        $value = $hydrator($domainObject, $relationshipObject, $data);
+        $value = $hydrator($domainObject, $relationshipObject, $data, $relationshipName);
         if ($value) {
             return $value;
         }
