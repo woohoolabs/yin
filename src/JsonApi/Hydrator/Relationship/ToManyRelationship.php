@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 class ToManyRelationship
 {
     /**
-     * @var array
+     * @var ResourceIdentifier[]
      */
     protected $resourceIdentifiers = [];
 
@@ -31,7 +31,7 @@ class ToManyRelationship
     }
 
     /**
-     * @return array
+     * @return ResourceIdentifier[]
      */
     public function getResourceIdentifiers()
     {
