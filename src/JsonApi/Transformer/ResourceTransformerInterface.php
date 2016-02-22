@@ -53,7 +53,7 @@ interface ResourceTransformerInterface
      * and they should return the value of the corresponding attribute.
      *
      * @param mixed $domainObject
-     * @return array
+     * @return callable[]
      */
     public function getAttributes($domainObject);
 
@@ -73,7 +73,7 @@ interface ResourceTransformerInterface
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param mixed $domainObject
-     * @return array
+     * @return callable[]
      */
     public function getRelationships($domainObject);
 
