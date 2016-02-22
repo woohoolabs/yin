@@ -25,13 +25,13 @@ trait HydratorTrait
      * Provides the attribute hydrators.
      *
      * The method returns an array of attribute hydrators, where a hydrator is a key-value pair:
-     * the key is the specific attribute name which comes from the request and the value is an
-     * anonymous function which hydrate the given attribute.
-     * These closures receive the domain object (which will be hydrated),
-     * the value of the currently processed attribute and the "data" part of the request as their
-     * arguments, and they should mutate the state of the domain object.
+     * the key is the specific attribute name which comes from the request and the value is a
+     * callable which hydrates the given attribute.
+     * These callables receive the domain object (which will be hydrated), the value of the
+     * currently processed attribute, the "data" part of the request and the name of the attribute
+     * to be hydrated as their arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the closures should return the domain object.
+     * the callable should return the domain object.
      *
      * @param mixed $domainObject
      * @return array
@@ -44,15 +44,15 @@ trait HydratorTrait
      * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
      * the key is the specific relationship name which comes from the request and the value is an
      * anonymous function which hydrate the previous relationship.
-     * These closures receive the domain object (which will be hydrated),
-     * an object representing the currently processed relationship (it can be a ToOneRelationship or
-     * a ToManyRelationship object) and the "data" part of the request as their arguments, and they
-     * should mutate the state of the domain object.
+     * These callables receive the domain object (which will be hydrated), an object representing the
+     * currently processed relationship (it can be a ToOneRelationship or a ToManyRelationship
+     * object), the "data" part of the request and the relationship name as their arguments, and
+     * they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the closures should return the domain object.
+     * the callable should return the domain object.
      *
      * @param mixed $domainObject
-     * @return array
+     * @return callable
      */
     abstract protected function getRelationshipHydrator($domainObject);
 
@@ -95,7 +95,7 @@ trait HydratorTrait
                 continue;
             }
 
-            $result = $hydrator($domainObject, $data["attributes"][$attribute], $data, $attribute);
+            $result = call_user_func_array($hydrator, [$domainObject, $data["attributes"][$attribute], $data, $attribute]);
             if ($result) {
                 $domainObject = $result;
             }
@@ -143,7 +143,7 @@ trait HydratorTrait
 
     /**
      * @param string $relationshipName
-     * @param \Closure $hydrator
+     * @param callable $hydrator
      * @param mixed $domainObject
      * @param ToOneRelationship|ToManyRelationship $relationshipObject
      * @param array $data
@@ -154,7 +154,7 @@ trait HydratorTrait
      */
     protected function getRelationshipHydratorResult(
         $relationshipName,
-        \Closure $hydrator,
+        callable $hydrator,
         $domainObject,
         $relationshipObject,
         array $data,
@@ -162,7 +162,7 @@ trait HydratorTrait
     ) {
         // Checking if the current and expected relationship types match
         $relationshipType = $this->getRelationshipType($relationshipObject);
-        $expectedRelationshipType = $this->getRelationshipType($this->getArgumentTypeHintFromClosure($hydrator));
+        $expectedRelationshipType = $this->getRelationshipType($this->getArgumentTypeHintFromCallable($hydrator));
         if ($expectedRelationshipType !== null && $relationshipType !== $expectedRelationshipType) {
             throw $exceptionFactory->createRelationshipTypeInappropriateException(
                 $relationshipName,
@@ -172,7 +172,7 @@ trait HydratorTrait
         }
 
         // Returning if the hydrator returns the hydrated domain object
-        $value = $hydrator($domainObject, $relationshipObject, $data, $relationshipName);
+        $value = call_user_func_array($hydrator, [$domainObject, $relationshipObject, $data, $relationshipName]);
         if ($value) {
             return $value;
         }
@@ -182,12 +182,12 @@ trait HydratorTrait
     }
 
     /**
-     * @param \Closure $closure
+     * @param callable $callable
      * @return string|null
      */
-    protected function getArgumentTypeHintFromClosure(\Closure $closure)
+    protected function getArgumentTypeHintFromCallable(callable $callable)
     {
-        $function = &$closure;
+        $function = &$callable;
         $reflection = new \ReflectionFunction($function);
         $arguments  = $reflection->getParameters();
 

@@ -120,7 +120,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param array $attributes
+     * @param callable[] $attributes
      * @param mixed $domainObject
      * @return array
      */
@@ -131,7 +131,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         foreach ($attributes as $name => $attribute) {
             if ($transformation->request->isIncludedField($resourceType, $name)) {
-                $result[$name] = $attribute($domainObject, $transformation->request, $name);
+                $result[$name] = call_user_func_array($attribute, [$domainObject, $transformation->request, $name]);
             }
         }
 
@@ -188,7 +188,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      * @param string $relationshipName
-     * @param array $relationships
+     * @param callable[] $relationships
      * @param array $defaultRelationships
      * @param array $additionalMeta
      * @return array|null
@@ -215,7 +215,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         $relationshipCallback = $relationships[$relationshipName];
         /** @var \WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship $relationship */
-        $relationship = $relationshipCallback($domainObject, $transformation->request, $relationshipName);
+        $relationship = call_user_func_array($relationshipCallback, [$domainObject, $transformation->request, $relationshipName]);
 
         return $relationship->transform(
             $transformation,
