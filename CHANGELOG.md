@@ -5,7 +5,7 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
 
-- Missing sections to the read me
+- Missing sections to the read me file
 
 CHANGED:
 
@@ -13,13 +13,25 @@ REMOVED:
 
 FIXED:
 
-- [GH-6](https://github.com/woohoolabs/yin/issues/6): Fixed examples in order not to throw fatal error
+## 0.10.2 - unreleased
+
+CHANGED:
+
+- [#8](https://github.com/woohoolabs/yin/issues/8): Pass attribute name to the attribute transformer
+- [#11](https://github.com/woohoolabs/yin/issues/11): Pass relationship name to the relationship transformer
+- [#10](https://github.com/woohoolabs/yin/issues/10): Pass attribute name to the attribute hydrator closure
+- [#13](https://github.com/woohoolabs/yin/issues/13): Pass relationship name to the relationship hydrator
+- [#14](https://github.com/woohoolabs/yin/issues/14): Expect callables instead of closures for hydrators/transformers
+
+FIXED:
+
+- [#6](https://github.com/woohoolabs/yin/issues/6): Fixed examples in order not to throw fatal error
 
 ## 0.10.1 - 2016-01-21
 
 FIXED:
 
-- [GH-5](https://github.com/woohoolabs/yin/issues/5): Attributes and relationships objects are now omitted when empty instead of being serialized as empty arrays
+- [#5](https://github.com/woohoolabs/yin/issues/5): Attributes and relationships objects are now omitted when empty instead of being serialized as empty arrays
 
 ## 0.10.0 - 2016-01-16
 
@@ -41,7 +53,7 @@ CHANGED:
 FIXED:
 
 - Parameter order in `AbstractCreateHydrator::hydrate()`
-- [GH-3](https://github.com/woohoolabs/yin/issues/3): Fixed multi-level relationships
+- [#3](https://github.com/woohoolabs/yin/issues/3): Fixed multi-level relationships
 - Issue when include query param is an empty string
 
 ## 0.9.0 - 2015-11-26
