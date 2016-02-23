@@ -131,7 +131,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         foreach ($attributes as $name => $attribute) {
             if ($transformation->request->isIncludedField($resourceType, $name)) {
-                $result[$name] = call_user_func_array($attribute, [$domainObject, $transformation->request, $name]);
+                $result[$name] = $attribute($domainObject, $transformation->request, $name);
             }
         }
 
@@ -215,7 +215,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         $relationshipCallback = $relationships[$relationshipName];
         /** @var \WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship $relationship */
-        $relationship = call_user_func_array($relationshipCallback, [$domainObject, $transformation->request, $relationshipName]);
+        $relationship = $relationshipCallback($domainObject, $transformation->request, $relationshipName);
 
         return $relationship->transform(
             $transformation,
