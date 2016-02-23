@@ -52,7 +52,7 @@ trait HydratorTrait
      * the callable should return the domain object.
      *
      * @param mixed $domainObject
-     * @return callable
+     * @return callable[]
      */
     abstract protected function getRelationshipHydrator($domainObject);
 
