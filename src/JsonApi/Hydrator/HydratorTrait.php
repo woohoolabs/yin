@@ -95,7 +95,7 @@ trait HydratorTrait
                 continue;
             }
 
-            $result = call_user_func_array($hydrator, [$domainObject, $data["attributes"][$attribute], $data, $attribute]);
+            $result = $hydrator($domainObject, $data["attributes"][$attribute], $data, $attribute);
             if ($result) {
                 $domainObject = $result;
             }
@@ -172,7 +172,7 @@ trait HydratorTrait
         }
 
         // Returning if the hydrator returns the hydrated domain object
-        $value = call_user_func_array($hydrator, [$domainObject, $relationshipObject, $data, $relationshipName]);
+        $value = $hydrator($domainObject, $relationshipObject, $data, $relationshipName);
         if ($value) {
             return $value;
         }
