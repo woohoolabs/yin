@@ -526,7 +526,7 @@ class Request implements RequestInterface
             return null;
         }
 
-        new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]));
+        return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]));
     }
 
     /**
@@ -546,7 +546,7 @@ class Request implements RequestInterface
             $resourceIdentifiers[] = ResourceIdentifier::fromArray($item);
         }
 
-        new ToManyRelationship($resourceIdentifiers);
+        return new ToManyRelationship($resourceIdentifiers);
     }
 
     /**
