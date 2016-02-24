@@ -522,11 +522,11 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        if (isset($data["relationships"][$relationship]) === false) {
+        if (isset($data["relationships"][$relationship]["data"]) === false) {
             return null;
         }
 
-        return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]));
+        return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]));
     }
 
     /**
@@ -537,12 +537,12 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        if (isset($data["relationships"][$relationship]) === false) {
+        if (isset($data["relationships"][$relationship]["data"]) === false) {
             return null;
         }
 
         $resourceIdentifiers = [];
-        foreach ($data["relationships"][$relationship] as $item) {
+        foreach ($data["relationships"][$relationship]["data"] as $item) {
             $resourceIdentifiers[] = ResourceIdentifier::fromArray($item);
         }
 

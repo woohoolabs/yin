@@ -538,6 +538,83 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body["data"]["id"], $request->getResourceId());
     }
 
+    public function testGetResourceAttributes()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "attributes" => [
+                    "name" => "Hot dog"
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertEquals($body["data"]["attributes"], $request->getResourceAttributes());
+    }
+
+    public function testGetResourceAttribute()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "attributes" => [
+                    "name" => "Hot dog"
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertEquals("Hot dog", $request->getResourceAttribute("name"));
+    }
+
+    public function testGetResourceToOneRelationship()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "relationships" => [
+                    "owner" => [
+                        "data" => ["type" => "human", "id" => "1"]
+                    ]
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $resourceIdentifier = $request->getResourceToOneRelationship("owner")->getResourceIdentifier();
+        $this->assertEquals("human", $resourceIdentifier->getType());
+        $this->assertEquals("1", $resourceIdentifier->getId());
+    }
+
+    public function testGetResourceToManyRelationship()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "relationships" => [
+                    "friends" => [
+                        "data" => [
+                            ["type" => "dog", "id" => "2"],
+                            ["type" => "dog", "id" => "3"]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $resourceIdentifiers = $request->getResourceToManyRelationship("friends")->getResourceIdentifiers();
+        $this->assertEquals("dog", $resourceIdentifiers[0]->getType());
+        $this->assertEquals("2", $resourceIdentifiers[0]->getId());
+        $this->assertEquals("dog", $resourceIdentifiers[1]->getType());
+        $this->assertEquals("3", $resourceIdentifiers[1]->getId());
+    }
+
     public function testGetProtocolVersion()
     {
         $protocolVersion = "2";
