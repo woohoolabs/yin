@@ -34,7 +34,7 @@ trait HydratorTrait
      * the callable should return the domain object.
      *
      * @param mixed $domainObject
-     * @return array
+     * @return callable[]
      */
     abstract protected function getAttributeHydrator($domainObject);
 
@@ -43,7 +43,7 @@ trait HydratorTrait
      *
      * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
      * the key is the specific relationship name which comes from the request and the value is an
-     * anonymous function which hydrate the previous relationship.
+     * callable which hydrate the previous relationship.
      * These callables receive the domain object (which will be hydrated), an object representing the
      * currently processed relationship (it can be a ToOneRelationship or a ToManyRelationship
      * object), the "data" part of the request and the relationship name as their arguments, and

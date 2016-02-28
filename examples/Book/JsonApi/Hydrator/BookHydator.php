@@ -86,16 +86,16 @@ class BookHydator extends AbstractHydrator
      * Provides the attribute hydrators.
      *
      * The method returns an array of attribute hydrators, where a hydrator is a key-value pair:
-     * the key is the specific attribute name which comes from the request and the value is an
-     * anonymous function which hydrate the given attribute.
-     * These closures receive the domain object (which will be hydrated),
-     * the value of the currently processed attribute and the "data" part of the request as their
-     * arguments, and they should mutate the state of the domain object.
+     * the key is the specific attribute name which comes from the request and the value is a
+     * callable which hydrates the given attribute.
+     * These callables receive the domain object (which will be hydrated), the value of the
+     * currently processed attribute, the "data" part of the request and the name of the attribute
+     * to be hydrated as their arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the closures should return the domain object.
+     * the callable should return the domain object.
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
     protected function getAttributeHydrator($book)
     {
@@ -109,27 +109,27 @@ class BookHydator extends AbstractHydrator
      * Provides the relationship hydrators.
      *
      * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
-     * the key is the specific relationship name which comes from the request and the value is an
-     * anonymous function which hydrate the previous relationship.
-     * These closures receive the domain object (which will be hydrated),
-     * an object representing the currently processed relationship (it can be a ToOneRelationship or
-     * a ToManyRelationship object) and the "data" part of the request as their arguments, and they
-     * should mutate the state of the domain object.
+     * the key is the specific relationship name which comes from the request and the value is a
+     * callable which hydrate the previous relationship.
+     * These callables receive the domain object (which will be hydrated), an object representing the
+     * currently processed relationship (it can be a ToOneRelationship or a ToManyRelationship
+     * object), the "data" part of the request and the relationship name as their arguments, and
+     * they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
-     * the closures should return the domain object.
+     * the callable should return the domain object.
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
     protected function getRelationshipHydrator($book)
     {
         return [
-            "authors" => function(array $book, ToManyRelationship $authors, $data) {
+            "authors" => function(array $book, ToManyRelationship $authors, $data, $relationshipName) {
                 $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
                 return $book;
             },
-            "publisher" => function(array &$book, ToOneRelationship $publisher, $data) {
+            "publisher" => function(array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];
