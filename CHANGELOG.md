@@ -5,8 +5,6 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
 
-- Missing sections to the read me file
-
 CHANGED:
 
 REMOVED:
@@ -15,17 +13,22 @@ FIXED:
 
 ## 0.10.2 - unreleased
 
+ADDED:
+
+- Missing sections to the read me file
+
 CHANGED:
 
 - [#8](https://github.com/woohoolabs/yin/issues/8): Pass attribute name to the attribute transformer
-- [#11](https://github.com/woohoolabs/yin/issues/11): Pass relationship name to the relationship transformer
-- [#10](https://github.com/woohoolabs/yin/issues/10): Pass attribute name to the attribute hydrator closure
-- [#13](https://github.com/woohoolabs/yin/issues/13): Pass relationship name to the relationship hydrator
-- [#14](https://github.com/woohoolabs/yin/issues/14): Expect callables instead of closures for hydrators/transformers
+- [#11](https://github.com/woohoolabs/yin/pull/11): Pass relationship name to the relationship transformer
+- [#10](https://github.com/woohoolabs/yin/pull/10): Pass attribute name to the attribute hydrator closure
+- [#13](https://github.com/woohoolabs/yin/pull/13): Pass relationship name to the relationship hydrator
+- [#14](https://github.com/woohoolabs/yin/pull/14): Expect callables instead of closures for hydrators/transformers
 
 FIXED:
 
 - [#6](https://github.com/woohoolabs/yin/issues/6): Fixed examples in order not to throw fatal error
+- [#16](https://github.com/woohoolabs/yin/issues/16): ResourceIdentifier does not consider "data" key
 
 ## 0.10.1 - 2016-01-21
 
