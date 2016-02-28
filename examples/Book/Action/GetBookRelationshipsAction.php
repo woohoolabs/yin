@@ -18,19 +18,16 @@ class GetBookRelationshipsAction
     public function __invoke(JsonApi $jsonApi)
     {
         // Checking the "id" of the currently requested book
-        $id = $jsonApi->getRequest()->getQueryParam("id");
-        if ($id === null) {
-            die("You must define the 'id' query parameter with a value of '1'!");
-        }
+        $id = $jsonApi->getRequest()->getAttribute("id");
 
         // Checking the currently requested relationship's name
-        $relationshipName = $jsonApi->getRequest()->getQueryParam("rel");
-        if ($relationshipName === null) {
-            die("You must define the 'rel' query parameter with a value of 'authors' or 'publisher'!");
-        }
+        $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
 
         // Retrieving a book domain object with an ID of $id
         $book = BookRepository::getBook($id);
+        if ($book === null) {
+            die("A book with an ID of '$id' can't be found!");
+        }
 
         // Instantiating a book document
         $document = new BookDocument(

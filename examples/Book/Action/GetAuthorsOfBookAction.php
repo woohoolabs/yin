@@ -15,16 +15,13 @@ class GetAuthorsOfBookAction
     public function __invoke(JsonApi $jsonApi)
     {
         // Checking the "id" of the currently requested book
-        $bookId = $jsonApi->getRequest()->getQueryParam("book-id");
-        if ($bookId === null) {
-            die("You must define the 'book-id' query parameter with a value of '1'!");
-        }
+        $bookId = $jsonApi->getRequest()->getAttribute("book_id");
 
         // Retrieving the author domain objects for the book with an ID of $bookId
         $authors = BookRepository::getAuthorsOfBook($bookId);
 
         // Instantiating an authors document
-        $document = new AuthorsDocument(new AuthorResourceTransformer());
+        $document = new AuthorsDocument(new AuthorResourceTransformer(), $bookId);
 
         // Responding with "200 Ok" status code along with the requested authors document
         return $jsonApi->respond()->ok($document, $authors);

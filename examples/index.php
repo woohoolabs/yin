@@ -15,49 +15,88 @@ use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
 
-// Initializing JsonApi
-$request = new Request(ServerRequestFactory::fromGlobals());
-$jsonApi = new JsonApi($request, new Response(), new ExceptionFactory());
-
 // Defining routes
 $routes = [
-    ["method"=> "GET", "example" => "book", "action" => GetBookAction::class],
-    ["method"=> "GET", "example" => "book-rel", "action" => GetBookRelationshipsAction::class],
-    ["method"=> "POST", "example" => "books", "action" => CreateBookAction::class],
-    ["method"=> "PATCH", "example" => "book", "action" => UpdateBookAction::class],
-    ["method"=> "GET", "example" => "book-authors", "action" => GetAuthorsOfBookAction::class],
+    "GET /books/{id}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", GetBookAction::class)
+            ->withAttribute("id", $matches[1]);
+    },
+    "GET /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", GetBookRelationshipsAction::class)
+            ->withAttribute("id", $matches[1])
+            ->withAttribute("rel", $matches[2]);
+    },
+    "GET /books/{id}/authors" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", GetAuthorsOfBookAction::class)
+            ->withAttribute("book_id", $matches[1]);
+    },
+    "POST /books" => function (Request $request) {
+        return $request
+            ->withAttribute("action", CreateBookAction::class);
+    },
+    "PATCH /books/{id}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", UpdateBookAction::class)
+            ->withAttribute("id", $matches[1]);
+    },
 
-    ["method"=> "GET", "example" => "users", "action" => GetUsersAction::class],
-    ["method"=> "GET", "example" => "user", "action" => GetUserAction::class],
-    ["method"=> "GET", "example" => "user-rel", "action" => GetUserRelationshipsAction::class],
+    "GET /users" => function (Request $request) {
+        return $request
+            ->withAttribute("action", GetUsersAction::class);
+    },
+    "GET /users/{id}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", GetUserAction::class)
+            ->withAttribute("id", $matches[1]);
+    },
+    "GET /users/{id}/relationships/{rel}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", GetUserRelationshipsAction::class)
+            ->withAttribute("id", $matches[1])
+            ->withAttribute("rel", $matches[2]);
+    },
 ];
 
-// Routing
-$method = $request->getMethod();
-$queryParams = $request->getQueryParams();
-$example = "";
-$action = "";
-
-if (isset($queryParams["example"])) {
-    $example = $queryParams["example"];
-} else {
-    die("You must provide the 'example' query parameter!");
-}
-
-foreach ($routes as $route) {
-    if ($method === $route["method"] && $example === $route["example"]) {
-        $action = $route["action"];
-        break;
-    }
-}
-
-if ($action === "") {
-    die("Route not found!");
-}
+// Find the current route
+$request = new Request(ServerRequestFactory::fromGlobals());
+$request = findRoute($request, $routes);
 
 // Invoking the current action
+$jsonApi = new JsonApi($request, new Response(), new ExceptionFactory());
+$action = $request->getAttribute("action");
 $response = call_user_func(new $action(), $jsonApi);
 
 // Emitting the response
 $emitter = new \Zend\Diactoros\Response\SapiEmitter();
 $emitter->emit($response);
+
+/**
+ * @param Request $request
+ * @param array $routes
+ * @return Request
+ */
+function findRoute(Request $request, array $routes)
+{
+    $queryParams = $request->getQueryParams();
+    if (isset($queryParams["path"]) === false) {
+        die("You must provide the 'path' query parameter!");
+    }
+
+    $method = $request->getMethod();
+    $path = $queryParams["path"];
+    $requestLine = $method . " " . $path;
+
+    foreach ($routes as $pattern => $route) {
+        $matches = [];
+        $pattern = str_replace("{id}", "([A-Za-z0-9-]+)", $pattern);
+        $pattern = str_replace("{rel}", "([A-Za-z0-9-]+)", $pattern);
+        if (preg_match("#^$pattern/{0,1}$#", $requestLine, $matches) === 1) {
+            return $route($request, $matches);
+        }
+    }
+
+    die("Resource not found!");
+}

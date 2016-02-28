@@ -534,8 +534,8 @@ class BookHydator extends AbstractHydrator
      * the key is the specific attribute name which comes from the request and the value is an
      * anonymous function which hydrate the given attribute.
      * These closures receive the domain object (which will be hydrated),
-     * the value of the currently processed attribute and the "data" part of the request as their
-     * arguments, and they should mutate the state of the domain object.
+     * the value of the currently processed attribute, the "data" part of the request and the name of
+     * the attribute as their arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the closures should return the domain object.
      *
@@ -545,8 +545,8 @@ class BookHydator extends AbstractHydrator
     protected function getAttributeHydrator($book)
     {
         return [
-            "title" => function(array $book, $attribute, $data)  { $book["title"] = $attribute; return $book; },
-            "pages" => function(array &$book, $attribute, $data) { $book["pages"] = $attribute; }
+            "title" => function(array $book, $attribute, $data, $attributeName)  { $book["title"] = $attribute; return $book; },
+            "pages" => function(array &$book, $attribute, $data, $attributeName) { $book["pages"] = $attribute; }
         ];
     }
 
@@ -558,8 +558,8 @@ class BookHydator extends AbstractHydrator
      * anonymous function which hydrate the previous relationship.
      * These closures receive the domain object (which will be hydrated),
      * an object representing the currently processed relationship (it can be a ToOneRelationship or
-     * a ToManyRelationship object) and the "data" part of the request as their arguments, and they
-     * should mutate the state of the domain object.
+     * a ToManyRelationship object), the "data" part of the request as their arguments, and the name
+     * of the relationship and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the closures should return the domain object.
      *
@@ -569,12 +569,12 @@ class BookHydator extends AbstractHydrator
     protected function getRelationshipHydrator($book)
     {
         return [
-            "authors" => function(array $book, ToManyRelationship $authors, $data) {
+            "authors" => function(array $book, ToManyRelationship $authors, $data, $relationshipName) {
                 $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
                 return $book;
             },
-            "publisher" => function(array &$book, ToOneRelationship $publisher, $data) {
+            "publisher" => function(array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];
@@ -751,7 +751,7 @@ public function getBookRelationships(JsonApi $jsonApi)
     $id = $jsonApi->getRequest()->getAttribute("id");
     
     // Getting the currently requested relationship's name
-    $relationshipName = $jsonApi->getRequest()->getAttribute("relationship");
+    $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
     
     // Retrieving a book domain object with an ID of $id
     $book = BookRepository::getBook($id);
@@ -830,17 +830,17 @@ Yin's root directory and visit the URL-s listed below. You can restrict the retr
 the `fields` and `include` parameters as specified by JSON API.
 
 Example URL-s for the book resources:
-- `GET examples/index.php?example=book&id=1`: Fetch a book
-- `GET examples/index.php?example=book-rel&id=1&rel=authors`: Fetch the authors relationship
-- `GET examples/index.php?example=book-rel&id=1&rel=publisher`: Fetch the publisher relationship
-- `GET examples/index.php?example=book-authors&book-id=1`: Fetch the authors of a book
-- `POST examples/index.php?example=books`: Create a new book
-- `PATCH examples/index.php?example=book&id=1`: Update a book
+- `GET examples/?path=/books/1`: Fetch a book
+- `GET examples/?path=/books/1/relationships/authors`: Fetch the authors relationship
+- `GET examples/?path=/books/1/relationships/publisher`: Fetch the publisher relationship
+- `GET examples/?path=/books/1/authors`: Fetch the authors of a book
+- `POST examples/?path=/books`: Create a new book
+- `PATCH examples/?path=/books/1`: Update a book
 
 Example URL-s for the user resources:
-- `GET examples/index.php?example=users`: Fetch users
-- `GET examples/index.php?example=user&id=1`: Fetch a user
-- `GET examples/index.php?example=user-rel&id=1&rel=contacts`: Fetch the contacts relationship
+- `GET examples/?path=/users`: Fetch users
+- `GET examples/?path=/users/1`: Fetch a user
+- `GET examples/?path=/users/1/relationships/contacts`: Fetch the contacts relationship
 
 ## Versioning
 

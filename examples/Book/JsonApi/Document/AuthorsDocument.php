@@ -9,6 +9,8 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class AuthorsDocument extends AbstractCollectionDocument
 {
+    protected $bookId;
+
     /**
      * @var array
      */
@@ -16,10 +18,12 @@ class AuthorsDocument extends AbstractCollectionDocument
 
     /**
      * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $transformer
+     * @param string $bookId
      */
-    public function __construct(AuthorResourceTransformer $transformer)
+    public function __construct(AuthorResourceTransformer $transformer, $bookId)
     {
         parent::__construct($transformer);
+        $this->bookId = $bookId;
     }
 
     /**
@@ -60,7 +64,7 @@ class AuthorsDocument extends AbstractCollectionDocument
     {
         return Links::createWithoutBaseUri(
             [
-                "self" => new Link("/books/authors")
+                "self" => new Link("/?path=/books/" . $this->bookId . "/authors")
             ]
         );
     }

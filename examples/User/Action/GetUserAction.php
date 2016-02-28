@@ -16,10 +16,7 @@ class GetUserAction
     public function __invoke(JsonApi $jsonApi)
     {
         // Checking the "id" of the currently requested user
-        $id = $jsonApi->getRequest()->getQueryParam("id");
-        if ($id === null) {
-            die("You must define the 'id' query parameter with a value of '1' or '2'!");
-        }
+        $id = $jsonApi->getRequest()->getAttribute("id");
 
         // Retrieving a user domain object with an ID of $id
         $user = UserRepository::getUser($id);

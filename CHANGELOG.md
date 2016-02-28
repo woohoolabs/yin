@@ -24,6 +24,7 @@ CHANGED:
 - [#10](https://github.com/woohoolabs/yin/pull/10): Pass attribute name to the attribute hydrator closure
 - [#13](https://github.com/woohoolabs/yin/pull/13): Pass relationship name to the relationship hydrator
 - [#14](https://github.com/woohoolabs/yin/pull/14): Expect callables instead of closures for hydrators/transformers
+- [#7](https://github.com/woohoolabs/yin/issues/7): More intuitive example URL-s
 
 FIXED:
 
