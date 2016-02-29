@@ -63,7 +63,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * Provides information about the "attributes" section of the current resource.
      *
      * The method returns an array where the keys signify the attribute names,
-     * while the values are closures receiving the domain object as an argument,
+     * while the values are callables receiving the domain object as an argument,
      * and they should return the value of the corresponding attribute.
      *
      * @param array $author
@@ -91,7 +91,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * Provides information about the "relationships" section of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
-     * while the values are closures receiving the domain object as an argument,
+     * while the values are callables receiving the domain object as an argument,
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $author

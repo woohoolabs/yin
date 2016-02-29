@@ -103,7 +103,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      *
      * The method returns an array of attributes if you want the section to
      * appear in the response or null if it should be omitted. In the returned array,
-     * the keys signify the attribute names, while the values are closures receiving the
+     * the keys signify the attribute names, while the values are callables receiving the
      * domain object as an argument, and they should return the value of the corresponding
      * attribute.
      *
@@ -133,7 +133,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * Provides information about the "relationships" section of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
-     * while the values are closures receiving the domain object as an argument,
+     * while the values are callables receiving the domain object as an argument,
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $book
