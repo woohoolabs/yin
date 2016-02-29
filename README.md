@@ -731,11 +731,33 @@ allowing your API to be as effective as possible.
 
 #### Injecting metadata into documents
 
+Metadata can be injected into documents on-the-fly. This might can handy if you want to customize/decorate your
+responses (e.g.: providing a cache ID to the returned document).
+
+The easiest way to check this functionality is to have a look at [the examples](#examples), where the first one responds
+with a book document:
+
+```php
+return $jsonApi->respond()->ok($document, $book);
+```
+
+If you would like to inject a cache ID, you could do this instead:
+
+```php
+// Calculate the cache ID
+$cacheId = calculateCacheId();
+
+// Respond with "200 Ok" status code along with the book document containing the cache ID in the meta data
+return $jsonApi->respond()->ok($document, $book, ["cache_id" => $cacheId]);
+```
+
+Usually, the last argument of each responder method can be used to add meta data to your documents.
+
 #### Content negotiation
 
 The JSON API standard specifies [some rules](#content-negotiation-servers) about content
-negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `RequestValidator` class. Let's see it in
-action! Let's first create a validator object:
+negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `RequestValidator` class. Let's first create
+a request validator to see it in action:
 
 ```php
 $requestValidator = new RequestValidator(new ExceptionFactory(), $includeOriginalMessageInResponse);
@@ -745,7 +767,7 @@ Providing an [Exception Factory](#exceptions) is necessary to be able to customi
 thrown. On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
 when you also want to return the original message in the error response which may be triggered by the exception.
 
-In order to validate if the current request's `Accept` and `Content-Type` headers conform the JSON API specification,
+In order to validate if the current request's `Accept` and `Content-Type` headers conform to the JSON API specification,
 use this method:
 
 ```php
@@ -754,7 +776,50 @@ $requestValidator->negotiate($request);
 
 #### Request/response validation
 
+You can use the following method to check if the query parameters of the current request are in line with
+[the naming rules](http://jsonapi.org/format/#query-parameters):
+
+```php
+$requestValidator->validateQueryParams($request);
+```
+
+> Note: In order to be able to apply the following validations, remember to install the
+> [optional dependencies](#install) of Yin.
+
+Furthermore, the request body can be validated if it is a well-formed JSON document:
+
+```php
+$requestValidator->lintBody($request);
+```
+
+Similarily, responses can be validated too. Let's create a response validator first:
+
+```php
+$responseValidator = new ResponseValidator(new ExceptionFactory(), $includeOriginalMessageInResponse);
+```
+
+To ensure that the response body is a well-formed JSON document, one can use the following method:
+
+```php
+$responseValidator->lintBody($response);
+```
+
+To ensure that the response body is a well-formed JSON API document, one can use the following method:
+
+```php
+$responseValidator->validateBody($response);
+```
+
+Validating the responses can be useful in a development environment to find possible bugs early.
+
 #### Middlewares
+
+If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://github.com/woohoolabs/harmony),
+[Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
+[Zend-Expressive](https://github.com/zendframework/zend-expressive/) or
+[Slim Framework 3](http://www.slimframework.com/)), you can find the
+[Yin-middlewares](https://github.com/woohoolabs/yin-middlewares) library quite useful. Read its documentation to
+learn about its advantages!
 
 ## Examples
 
