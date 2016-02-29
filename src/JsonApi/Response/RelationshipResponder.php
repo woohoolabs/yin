@@ -40,7 +40,13 @@ class RelationshipResponder extends AbstractResponder
      */
     public function ok(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
     {
-        return $this->getDocumentRelationshipResponse($this->relationshipName, $document, $domainObject, 200);
+        return $this->getDocumentRelationshipResponse(
+            $this->relationshipName,
+            $document,
+            $domainObject,
+            200,
+            $additionalMeta
+        );
     }
 
     /**
