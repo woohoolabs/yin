@@ -675,9 +675,65 @@ This section guides you through the advanced features of Yin.
 
 #### Loading relationship data efficiently
 
+Sometimes it can be beneficent or necessary to fine-tune the returned relationships' data. A possible scenario might be
+when you have a "to-many" relationship with lots of items. In this case you might want to only return a relationship's
+`data` key when the relationship itself is included in the response. This optimization can save you bandwidth with
+omitting the resource linkage.
 
+An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php):
+
+```php
+public function getRelationships($user)
+{
+    return [
+        "contacts" => function(array $user) {
+            return
+                ToManyRelationship::create()
+                    ->setData($user["contacts"], $this->contactTransformer)
+                    ->omitWhenNotIncluded()
+                ;
+        }
+    ];
+}
+```
+
+With the usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
+included.
+
+But sometimes this optimization is not enough alone: even though we can save bandwidth with the prior technique, the
+relationship still has to be loaded from the data source (probably from a database), because we pass it to the
+relationship object with the `setData()` method.
+
+The problem can be mitigated with the lazy-loading of the relationship. You only have to change `setData()` with the
+`setDataAsCallable()` method:
+
+```php
+public function getRelationships($user)
+{
+    return [
+        "contacts" => function(array $user) {
+            return
+                ToManyRelationship::create()
+                    ->setDataAsCallable(
+                        function() use ($user) {
+                            // Lazily load contacts from the data source
+                            return loadContactsFromDataSource();
+                        },
+                        $this->contactTransformer
+                    )
+                    ->omitWhenNotIncluded()
+                ;
+        }
+    ];
+}
+```
+
+This way, the contacts of a user will only be loaded when the given relationship's `data` key is present in the response
+allowing your API to be as effective as possible.
 
 #### Injecting metadata into documents
+
+
 
 #### Content negotiation
 
