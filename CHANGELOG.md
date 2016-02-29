@@ -65,7 +65,7 @@ FIXED:
 ADDED:
 
 - Possibility to pass additional meta information for documents when fetching the response
-- [#2](https://github.com/woohoolabs/yin/issues/2) Possibility to only load relationship data when the relationship itself is included
+- [#2](https://github.com/woohoolabs/yin/issues/2): Possibility to only load relationship data when the relationship itself is included
 
 CHANGED:
 

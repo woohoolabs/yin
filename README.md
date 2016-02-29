@@ -698,11 +698,9 @@ public function getRelationships($user)
 ```
 
 With the usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
-included.
-
-But sometimes this optimization is not enough alone: even though we can save bandwidth with the prior technique, the
-relationship still has to be loaded from the data source (probably from a database), because we pass it to the
-relationship object with the `setData()` method.
+included. But sometimes this optimization is not enough on its own: even though we can save bandwidth with the prior
+technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
+to the relationship object with the `setData()` method.
 
 The problem can be mitigated with the lazy-loading of the relationship. You only have to change `setData()` with the
 `setDataAsCallable()` method:
@@ -733,9 +731,26 @@ allowing your API to be as effective as possible.
 
 #### Injecting metadata into documents
 
-
-
 #### Content negotiation
+
+The JSON API standard specifies [some rules](#content-negotiation-servers) about content
+negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `RequestValidator` class. Let's see it in
+action! Let's first create a validator object:
+
+```php
+$requestValidator = new RequestValidator(new ExceptionFactory(), $includeOriginalMessageInResponse);
+```
+
+Providing an [Exception Factory](#exceptions) is necessary to be able to customize the exceptions which are possibly
+thrown. On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
+when you also want to return the original message in the error response which may be triggered by the exception.
+
+In order to validate if the current request's `Accept` and `Content-Type` headers conform the JSON API specification,
+use this method:
+
+```php
+$requestValidator->negotiate($request);
+```
 
 #### Request/response validation
 
