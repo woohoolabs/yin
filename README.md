@@ -676,11 +676,12 @@ This section guides you through the advanced features of Yin.
 #### Loading relationship data efficiently
 
 Sometimes it can be beneficent or necessary to fine-tune the returned relationships' data. A possible scenario might be
-when you have a "to-many" relationship with lots of items. In this case you might want to only return a relationship's
-`data` key when the relationship itself is included in the response. This optimization can save you bandwidth with
+when you have a "to-many" relationship with lots of items. In this case you might want to only return a data key of a
+relationship' when the relationship itself is included in the response. This optimization can save you bandwidth with
 omitting the resource linkage.
 
-An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php):
+An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php)
+example class:
 
 ```php
 public function getRelationships($user)
@@ -702,8 +703,8 @@ included. But sometimes this optimization is not enough on its own: even though 
 technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
 to the relationship object with the `setData()` method.
 
-The problem can be mitigated with the lazy-loading of the relationship. You only have to change `setData()` with the
-`setDataAsCallable()` method:
+The problem can be mitigated with the lazy-loading of the relationship. To do so, you only have to change `setData()`
+with the `setDataAsCallable()` method:
 
 ```php
 public function getRelationships($user)
@@ -715,7 +716,7 @@ public function getRelationships($user)
                     ->setDataAsCallable(
                         function() use ($user) {
                             // Lazily load contacts from the data source
-                            return loadContactsFromDataSource();
+                            return $user->loadContactsFromDataSource();
                         },
                         $this->contactTransformer
                     )
@@ -734,14 +735,14 @@ allowing your API to be as effective as possible.
 Metadata can be injected into documents on-the-fly. This might can handy if you want to customize/decorate your
 responses (e.g.: providing a cache ID to the returned document).
 
-The easiest way to check this functionality is to have a look at [the examples](#examples), where the first one responds
-with a book document:
+The easiest way to check this functionality is to have a look at the [first examples](#fetching-a-single-resource),
+which responds with a book document:
 
 ```php
 return $jsonApi->respond()->ok($document, $book);
 ```
 
-If you would like to inject a cache ID, you could do this instead:
+If you would like to inject a cache ID into it, you could write this instead:
 
 ```php
 // Calculate the cache ID
@@ -818,7 +819,7 @@ If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://
 [Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
 [Zend-Expressive](https://github.com/zendframework/zend-expressive/) or
 [Slim Framework 3](http://www.slimframework.com/)), you can find the
-[Yin-middlewares](https://github.com/woohoolabs/yin-middlewares) library quite useful. Read its documentation to
+[Yin-middlewares](https://github.com/woohoolabs/yin-middlewares) library quite useful. Read the documentation to
 learn about its advantages!
 
 ## Examples
