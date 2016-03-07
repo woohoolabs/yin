@@ -9,11 +9,6 @@
 
 **Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON API-s.**
 
-We envisioned a framework of a high quality that facilitates building API-s compliant to the
-JSON API specification. We wanted a framework that is able to meet every single requirement of the spec
-while enabling clean application architecture and supporting domain modeling. Woohoo Labs. Yin is the
-manifestation of our vision.
-
 ## Table of Contents
 
 * [Introduction](#introduction)
@@ -50,9 +45,7 @@ manifestation of our vision.
 
 [JSON API](http://jsonapi.org) specification
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
-and we also believe it is a big day for RESTful API-s as this specification makes APIs more robust and future-proof
-than they have ever been. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your
-JSON API server implementations.
+and we also believe it is a big day for RESTful API-s as this specification can help you to make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your JSON API servers.
 
 #### Features
 
@@ -68,7 +61,7 @@ JSON API server implementations.
 
 ##### Complete JSON API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the full JSON API specification: it provides various
+Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON API specification: it provides various
 capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
 deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
 separately, the framework is the most powerful when it is used in its entirety.
@@ -271,7 +264,7 @@ $errorDocument->addError(new MyError());
 #### Resource transformers
 
 Documents for successful responses can contain one or more top-level resources, an array of included resources and
-resource identifier objects as relationships. That's why resource transformers are responsible to convert a
+resource identifier objects as relationships. That's why resource transformers are responsible for converting a
 domain object into a JSON API resource or resource identifier.
 
 Although you are encouraged to create one transformer for each resource type, there is possibility to define
