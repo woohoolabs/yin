@@ -11,6 +11,8 @@ REMOVED:
 
 FIXED:
 
+- Application errors now have status code 500 instead of 400
+
 ## 0.10.2 - 2016-02-29
 
 ADDED:

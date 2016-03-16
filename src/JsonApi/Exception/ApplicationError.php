@@ -17,7 +17,7 @@ class ApplicationError extends JsonApiException
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus(500)
                 ->setCode("APPLICATION_ERROR")
                 ->setTitle("Application error")
                 ->setDetail("An application error has occurred!")
