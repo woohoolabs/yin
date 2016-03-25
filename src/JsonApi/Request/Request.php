@@ -769,9 +769,10 @@ class Request implements RequestInterface
      */
     public function getParsedBody()
     {
-        if ($this->serverRequest->getBody()->getContents() && empty($this->serverRequest->getParsedBody())) {
+        $content = $this->serverRequest->getBody()->getContents();
+        if ($content && empty($this->serverRequest->getParsedBody())) {
             $this->serverRequest = $this->serverRequest->withParsedBody(
-                json_decode($this->serverRequest->getBody(), true)
+                json_decode($content, true)
             );
         }
 
