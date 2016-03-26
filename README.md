@@ -34,6 +34,7 @@
     * [Creating a new resource](#creating-a-new-resource)
     * [Updating a resource](#updating-a-resource)
     * [How to try it out](#how-to-try-it-out)
+* [Integrations](#integrations)
 * [Versioning](#versioning)
 * [Change Log](#change-log)
 * [Testing](#testing)
@@ -971,6 +972,11 @@ Example URL-s for the user resources:
 - `GET examples/?path=/users`: Fetch users
 - `GET examples/?path=/users/1`: Fetch a user
 - `GET examples/?path=/users/1/relationships/contacts`: Fetch the contacts relationship
+
+## Integrations
+
+- [dimvic/yii-yin](https://github.com/dimvic/yii-yin): integration for Yii 1.1
+- [qpautrat/woohoolabs-yin-bundle](https://github.com/qpautrat/woohoolabs-yin-bundle): integration for Symfony
 
 ## Versioning
 
