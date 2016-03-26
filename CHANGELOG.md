@@ -20,7 +20,7 @@ ADDED:
 FIXED:
 
 - Application errors now have status code 500 instead of 400
-- (#17)[https://github.com/woohoolabs/yin/pull/17]: Avoid double stream reading
+- [#17](https://github.com/woohoolabs/yin/pull/17): Avoid double stream reading
 
 ## 0.10.2 - 2016-02-29
 
