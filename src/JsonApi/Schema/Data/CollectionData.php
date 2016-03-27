@@ -12,16 +12,6 @@ class CollectionData extends AbstractData
             return [];
         }
 
-        ksort($this->primaryKeys);
-
-        $result = [];
-        foreach ($this->primaryKeys as $type => $ids) {
-            ksort($ids);
-            foreach ($ids as $id => $value) {
-                $result[] = $this->resources[$type][$id];
-            }
-        }
-
-        return $result;
+        return array_values($this->primaryKeys);
     }
 }

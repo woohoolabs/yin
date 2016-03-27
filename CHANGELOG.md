@@ -11,6 +11,12 @@ REMOVED:
 
 FIXED:
 
+## 0.10.4 - unreleased
+
+FIXED:
+
+- [#18](https://github.com/woohoolabs/yin/issue/18): Sorting always happens on primary key in resource
+
 ## 0.10.3 - 2016-03-26
 
 ADDED:

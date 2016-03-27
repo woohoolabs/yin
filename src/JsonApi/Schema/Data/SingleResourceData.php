@@ -12,10 +12,9 @@ class SingleResourceData extends AbstractData
             return null;
         }
 
-        $ids = reset($this->primaryKeys);
+        reset($this->primaryKeys);
         $key = key($this->primaryKeys);
-        $id = key($ids);
 
-        return $this->resources[$key][$id];
+        return $this->resources[$key];
     }
 }

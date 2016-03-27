@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 
 class DataTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetNonExistentResource()
+    /**
+     * @test
+     */
+    public function getNonExistentResource()
     {
         $resources = [
             [
@@ -20,7 +23,10 @@ class DataTest extends PHPUnit_Framework_TestCase
         $this->assertNull($data->getResource("resources", "1"));
     }
 
-    public function testGetResource()
+    /**
+     * @test
+     */
+    public function getResource()
     {
         $resource = [
             "type" => "resource",
@@ -31,13 +37,19 @@ class DataTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resource, $data->getResource("resource", "1"));
     }
 
-    public function testIsEmptyByDefault()
+    /**
+     * @test
+     */
+    public function isEmptyByDefault()
     {
         $included = $this->createData();
         $this->assertFalse($included->hasIncludedResources());
     }
 
-    public function testIsEmptyWhenIncludingNoResource()
+    /**
+     * @test
+     */
+    public function isEmptyWhenIncludingNoResource()
     {
         $resources = [
             [
@@ -50,7 +62,10 @@ class DataTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($data->hasIncludedResources());
     }
 
-    public function testIsEmptyWhenIncludingResources()
+    /**
+     * @test
+     */
+    public function isEmptyWhenIncludingResources()
     {
         $resources = [];
 
@@ -58,7 +73,10 @@ class DataTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($data->hasIncludedResources());
     }
 
-    public function testAddResource()
+    /**
+     * @test
+     */
+    public function addResource()
     {
         $resource = [
             "type" => "resource",
@@ -69,14 +87,20 @@ class DataTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resource, $data->getResource("resource", "1"));
     }
 
-    public function testTransformEmpty()
+    /**
+     * @test
+     */
+    public function transformEmpty()
     {
         $data = $this->createData();
 
         $this->assertEquals([], $data->transformIncludedResources());
     }
 
-    public function testTransform()
+    /**
+     * @test
+     */
+    public function transform()
     {
         $resource1 = ["type" => "resource", "id" => "1"];
         $resource2 = ["type" => "resource", "id" => "2"];

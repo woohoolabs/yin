@@ -25,7 +25,7 @@ abstract class AbstractData implements DataInterface
      */
     public function getResource($type, $id)
     {
-        return isset($this->resources[$type][$id]) ? $this->resources[$type][$id] : null;
+        return isset($this->resources[$type . "." . $id]) ? $this->resources[$type . "." . $id] : null;
     }
 
     /**
@@ -43,7 +43,7 @@ abstract class AbstractData implements DataInterface
      */
     public function hasPrimaryResource($type, $id)
     {
-        return isset($this->primaryKeys[$type][$id]);
+        return isset($this->primaryKeys[$type . "." . $id]);
     }
 
     /**
@@ -61,7 +61,7 @@ abstract class AbstractData implements DataInterface
      */
     public function hasIncludedResource($type, $id)
     {
-        return isset($this->includedKeys[$type][$id]);
+        return isset($this->includedKeys[$type . "." . $id]);
     }
 
     /**
@@ -87,11 +87,10 @@ abstract class AbstractData implements DataInterface
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
         if ($this->hasIncludedResource($type, $id) === true) {
-            unset($this->includedKeys[$type][$id]);
-            $this->primaryKeys[$type][$id] = true;
-        } else {
-            $this->addResource($this->primaryKeys, $transformedResource);
+            unset($this->includedKeys[$type . "." . $id]);
         }
+
+        $this->addResourceToPrimaryData($transformedResource);
 
         return $this;
     }
@@ -117,7 +116,7 @@ abstract class AbstractData implements DataInterface
     public function addIncludedResource(array $transformedResource)
     {
         if ($this->hasPrimaryResource($transformedResource["type"], $transformedResource["id"]) === false) {
-            $this->addResource($this->includedKeys, $transformedResource);
+            $this->addResourceToIncludedData($transformedResource);
         }
 
         return $this;
@@ -130,23 +129,24 @@ abstract class AbstractData implements DataInterface
     {
         ksort($this->includedKeys);
 
-        $result = [];
-        foreach ($this->includedKeys as $type => $ids) {
-            ksort($ids);
-            foreach ($ids as $id => $value) {
-                $result[] = $this->resources[$type][$id];
-            }
-        }
-
-        return $result;
+        return array_values($this->includedKeys);
     }
 
-    protected function addResource(&$keys, array $transformedResource)
+    protected function addResourceToPrimaryData(array $transformedResource)
     {
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
 
-        $keys[$type][$id] = true;
-        $this->resources[$type][$id] = $transformedResource;
+        $this->resources[$type . "." . $id] = $transformedResource;
+        $this->primaryKeys[$type. "." . $id] = &$this->resources[$type . "." . $id];
+    }
+
+    protected function addResourceToIncludedData(array $transformedResource)
+    {
+        $type = $transformedResource["type"];
+        $id = $transformedResource["id"];
+
+        $this->resources[$type . "." . $id] = $transformedResource;
+        $this->includedKeys[$type . "." . $id] = &$this->resources[$type . "." . $id];
     }
 }
