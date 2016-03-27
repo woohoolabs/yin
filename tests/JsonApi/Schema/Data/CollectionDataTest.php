@@ -18,7 +18,8 @@ class CollectionDataTest extends PHPUnit_Framework_TestCase
             [
                 ["type" => "user", "id" => "1"]
             ],
-            $data->transformPrimaryResources());
+            $data->transformPrimaryResources()
+        );
     }
 
     /**
@@ -45,6 +46,7 @@ class CollectionDataTest extends PHPUnit_Framework_TestCase
                 ["type" => "dog", "id" => "3"],
                 ["type" => "user", "id" => "3"],
             ],
-            $data->transformPrimaryResources());
+            $data->transformPrimaryResources()
+        );
     }
 }
