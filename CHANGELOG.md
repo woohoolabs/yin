@@ -15,7 +15,7 @@ FIXED:
 
 FIXED:
 
-- [#18](https://github.com/woohoolabs/yin/issue/18): Sorting always happens on primary key in resource
+- [#18](https://github.com/woohoolabs/yin/issues/18): Sorting always happens on primary key in resource
 
 ## 0.10.3 - 2016-03-26
 
