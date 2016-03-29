@@ -11,7 +11,7 @@ REMOVED:
 
 FIXED:
 
-## 0.10.4 - unreleased
+## 0.10.4 - 2016-03-29
 
 FIXED:
 
