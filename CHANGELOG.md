@@ -5,6 +5,8 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
 
+- Support for PHPUnit 5.0
+
 CHANGED:
 
 REMOVED:
