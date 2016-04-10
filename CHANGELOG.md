@@ -6,10 +6,12 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 ADDED:
 
 - Support for PHPUnit 5.0
+- `Request::getFilteringParam()` method
 
 CHANGED:
 
 - Updated JSON API schema
+- A default value can be provided to `Request::getResourceAttribute()` method when the attribute is not present
 
 REMOVED:
 

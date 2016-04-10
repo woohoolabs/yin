@@ -427,6 +427,18 @@ class Request implements RequestInterface
     }
 
     /**
+     * @param string $param
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getFilteringParam($param, $default = null)
+    {
+        $filtering = $this->getFiltering();
+
+        return isset($filtering[$param]) ? $filtering[$param] : $default;
+    }
+
+    /**
      * @param string $name
      * @param mixed $default
      * @return array|string|null
@@ -505,13 +517,14 @@ class Request implements RequestInterface
 
     /**
      * @param string $attribute
+     * @param mixed $default
      * @return mixed|null
      */
-    public function getResourceAttribute($attribute)
+    public function getResourceAttribute($attribute, $default = null)
     {
         $attributes = $this->getResourceAttributes();
 
-        return isset($attributes[$attribute]) ? $attributes[$attribute] : null;
+        return isset($attributes[$attribute]) ? $attributes[$attribute] : $default;
     }
 
     /**
