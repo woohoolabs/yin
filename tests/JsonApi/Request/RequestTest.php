@@ -11,48 +11,68 @@ use Zend\Diactoros\ServerRequest as DiactorosRequest;
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {
-    public function testValidateJsonApiContentTypeHeader()
+    /**
+     * @test
+     */
+    public function validateJsonApiContentTypeHeader()
     {
         $this->assertValidContentTypeHeader("application/vnd.api+json");
     }
 
-    public function testValidateEmptyContentTypeHeader()
+    /**
+     * @test
+     */
+    public function validateEmptyContentTypeHeader()
     {
         $this->assertValidContentTypeHeader("");
     }
 
-    public function testValidateHtmlContentTypeHeader()
+    /**
+     * @test
+     */
+    public function validateHtmlContentTypeHeader()
     {
         $this->assertValidContentTypeHeader("text/html; charset=utf-8");
     }
 
-    public function testValidateContentTypeHeaderWithSupportedExtensionMediaType()
+    /**
+     * @test
+     */
+    public function validateContentTypeHeaderWithSupportedExtensionMediaType()
     {
         $this->assertValidContentTypeHeader('application/vnd.api+json; supported-ext="bulk,jsonpatch"');
     }
 
-    public function testValidateValidContentTypeHeaderWithExtMediaType()
+    /**
+     * @test
+     */
+    public function validateValidContentTypeHeaderWithExtMediaType()
     {
         $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
     }
 
-    public function testValidateContentTypeHeaderWithExtensionMediaTypes()
+    /**
+     * @test
+     */
+    public function validateContentTypeHeaderWithExtensionMediaTypes()
     {
         $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2"');
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
-    public function testValidateContentTypeHeaderWithCharsetMediaType()
+    public function validateContentTypeHeaderWithCharsetMediaType()
     {
         $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8");
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
-    public function testValidateContentTypeHeaderWithMultipleMediaTypes()
+    public function validateContentTypeHeaderWithMultipleMediaTypes()
     {
         $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8; lang=en");
     }
@@ -77,9 +97,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
-    public function testValidateJsonApiAcceptHeaderWithAdditionalMediaTypes()
+    public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
         $this->assertInvalidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
     }
@@ -105,7 +126,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertValidQueryParams($queryParams);
     }
 
-    public function testValidateBasicQueryParams()
+    /**
+     * @test
+     */
+    public function validateBasicQueryParams()
     {
         $queryParams = [
             "fields" => ["user" => "name, address"],
@@ -119,9 +143,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
      */
-    public function testValidateInvalidQueryParams()
+    public function validateInvalidQueryParams()
     {
         $queryParams = [
             "fields" => ["user" => "name, address"],
@@ -140,7 +165,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testGetExtensions()
+    /**
+     * @test
+     */
+    public function getExtensions()
     {
         $extensions = ["ext1", "ext2", "ext3"];
         $contentType = 'application/vnd.api+json; ext="' . implode(",", $extensions) . '"';
@@ -149,7 +177,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($extensions, $request->getExtensions());
     }
 
-    public function testGetRequiredExtensions()
+    /**
+     * @test
+     */
+    public function getRequiredExtensions()
     {
         $extensions = ["ext1", "ext2", "ext3"];
         $accept = 'application/vnd.api+json; ext="' . implode(",", $extensions) . '"';
@@ -158,7 +189,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($extensions, $request->getRequiredExtensions());
     }
 
-    public function testGetEmptyIncludedFields()
+    /**
+     * @test
+     */
+    public function getEmptyIncludedFields()
     {
         $resourceType = "";
         $includedFields = [];
@@ -168,7 +202,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedFields, $request->getIncludedFields($resourceType));
     }
 
-    public function testGetIncludedFieldsForResource()
+    /**
+     * @test
+     */
+    public function getIncludedFieldsForResource()
     {
         $resourceType = "book";
         $includedFields = ["title", "pages"];
@@ -178,7 +215,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedFields, $request->getIncludedFields($resourceType));
     }
 
-    public function testGetIncludedFieldsForUnspecifiedResource()
+    /**
+     * @test
+     */
+    public function getIncludedFieldsForUnspecifiedResource()
     {
         $resourceType = "newspaper";
         $includedFields = ["title", "pages"];
@@ -188,7 +228,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $request->getIncludedFields($resourceType));
     }
 
-    public function testIsIncludedFieldWhenAllFieldsRequested()
+    /**
+     * @test
+     */
+    public function isIncludedFieldWhenAllFieldsRequested()
     {
         $resourceType = "book";
         $field = "title";
@@ -205,7 +248,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($request->isIncludedField($resourceType, $field));
     }
 
-    public function testIsIncludedFieldWhenNoFieldRequested()
+    /**
+     * @test
+     */
+    public function isIncludedFieldWhenNoFieldRequested()
     {
         $resourceType = "book";
         $field = "title";
@@ -215,7 +261,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($request->isIncludedField($resourceType, $field));
     }
 
-    public function testIsIncludedFieldWhenGivenFieldIsSpecified()
+    /**
+     * @test
+     */
+    public function isIncludedFieldWhenGivenFieldIsSpecified()
     {
         $resourceType = "book";
         $field = "title";
@@ -225,7 +274,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($request->isIncludedField($resourceType, $field));
     }
 
-    public function testHasIncludedRelationshipsWhenTrue()
+    /**
+     * @test
+     */
+    public function hasIncludedRelationshipsWhenTrue()
     {
         $queryParams = ["include" => "authors"];
 
@@ -233,7 +285,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($request->hasIncludedRelationships());
     }
 
-    public function testHasIncludedRelationshipsWhenFalse()
+    /**
+     * @test
+     */
+    public function hasIncludedRelationshipsWhenFalse()
     {
         $queryParams = ["include" => ""];
 
@@ -246,7 +301,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($request->hasIncludedRelationships());
     }
 
-    public function testGetIncludedEmptyRelationshipsWhenEmpty()
+    /**
+     * @test
+     */
+    public function getIncludedEmptyRelationshipsWhenEmpty()
     {
         $baseRelationshipPath = "book";
         $includedRelationships = [];
@@ -263,7 +321,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedRelationships, $request->getIncludedRelationships($baseRelationshipPath));
     }
 
-    public function testGetIncludedRelationshipsForPrimaryResource()
+    /**
+     * @test
+     */
+    public function getIncludedRelationshipsForPrimaryResource()
     {
         $baseRelationshipPath = "";
         $includedRelationships = ["authors"];
@@ -273,7 +334,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedRelationships, $request->getIncludedRelationships($baseRelationshipPath));
     }
 
-    public function testGetIncludedRelationshipsForEmbeddedResource()
+    /**
+     * @test
+     */
+    public function getIncludedRelationshipsForEmbeddedResource()
     {
         $baseRelationshipPath = "book";
         $includedRelationships = ["authors"];
@@ -283,7 +347,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedRelationships, $request->getIncludedRelationships($baseRelationshipPath));
     }
 
-    public function testGetIncludedRelationshipsForMultipleEmbeddedResource()
+    /**
+     * @test
+     */
+    public function getIncludedRelationshipsForMultipleEmbeddedResource()
     {
         $baseRelationshipPath = "book.authors";
         $includedRelationships = ["contacts", "address"];
@@ -293,7 +360,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($includedRelationships, $request->getIncludedRelationships($baseRelationshipPath));
     }
 
-    public function testIsIncludedRelationshipForPrimaryResourceWhenEmpty()
+    /**
+     * @test
+     */
+    public function isIncludedRelationshipForPrimaryResourceWhenEmpty()
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -306,7 +376,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIsIncludedRelationshipForPrimaryResourceWhenEmptyWithDefault()
+    /**
+     * @test
+     */
+    public function isIncludedRelationshipForPrimaryResourceWhenEmptyWithDefault()
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -319,7 +392,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIsIncludedRelationshipForPrimaryResourceWithDefault()
+    /**
+     * @test
+     */
+    public function isIncludedRelationshipForPrimaryResourceWithDefault()
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -332,7 +408,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIsIncludedRelationshipForEmbeddedResource()
+    /**
+     * @test
+     */
+    public function isIncludedRelationshipForEmbeddedResource()
     {
         $baseRelationshipPath = "authors";
         $requiredRelationship = "contacts";
@@ -345,7 +424,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIsIncludedRelationshipForEmbeddedResourceWhenDefaulted()
+    /**
+     * @test
+     */
+    public function isIncludedRelationshipForEmbeddedResourceWhenDefaulted()
     {
         $baseRelationshipPath = "authors";
         $requiredRelationship = "contacts";
@@ -358,7 +440,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetSortingWhenEmpty()
+    /**
+     * @test
+     */
+    public function getSortingWhenEmpty()
     {
         $sorting = [];
         $queryParams = ["sort" => ""];
@@ -367,7 +452,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($sorting, $request->getSorting());
     }
 
-    public function testGetSortingWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getSortingWhenNotEmpty()
     {
         $sorting = ["name", "age", "sex"];
         $queryParams = ["sort" => implode(",", $sorting)];
@@ -376,7 +464,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($sorting, $request->getSorting());
     }
 
-    public function testGetPaginationWhenEmpty()
+    /**
+     * @test
+     */
+    public function getPaginationWhenEmpty()
     {
         $pagination = [];
         $queryParams = ["page" => ""];
@@ -385,7 +476,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getPagination());
     }
 
-    public function testGetPaginationWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getPaginationWhenNotEmpty()
     {
         $pagination = ["number" => "1", "size" => "10"];
         $queryParams = ["page" => $pagination];
@@ -394,7 +488,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getPagination());
     }
 
-    public function testGetFixedPageBasedPagination()
+    /**
+     * @test
+     */
+    public function getFixedPageBasedPagination()
     {
         $pagination = new FixedPagePagination(1);
         $queryParams = ["page" => ["number" => $pagination->getPage()]];
@@ -403,7 +500,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getFixedPageBasedPagination());
     }
 
-    public function testGetPageBasedPagination()
+    /**
+     * @test
+     */
+    public function getPageBasedPagination()
     {
         $pagination = new PagePagination(1, 10);
         $queryParams = ["page" => ["number" => $pagination->getPage(), "size" => $pagination->getSize()]];
@@ -412,7 +512,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getPageBasedPagination());
     }
 
-    public function testGetOffsetBasedPagination()
+    /**
+     * @test
+     */
+    public function getOffsetBasedPagination()
     {
         $pagination = new OffsetPagination(1, 10);
         $queryParams = ["page" => ["offset" => $pagination->getOffset(), "limit" => $pagination->getLimit()]];
@@ -421,7 +524,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getOffsetBasedPagination());
     }
 
-    public function testGetCursorBasedPagination()
+    /**
+     * @test
+     */
+    public function getCursorBasedPagination()
     {
         $pagination = new CursorPagination("abcdefg");
         $queryParams = ["page" => ["cursor" => $pagination->getCursor()]];
@@ -430,7 +536,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pagination, $request->getCursorBasedPagination());
     }
 
-    public function testGetFilteringWhenEmpty()
+    /**
+     * @test
+     */
+    public function getFilteringWhenEmpty()
     {
         $filtering = [];
         $queryParams = ["filter" => $filtering];
@@ -439,7 +548,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($filtering, $request->getFiltering());
     }
 
-    public function testGetFilteringWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getFilteringWhenNotEmpty()
     {
         $filtering = ["name" => "John", "age" => "40", "sex" => "male"];
         $queryParams = ["filter" => $filtering];
@@ -448,7 +560,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($filtering, $request->getFiltering());
     }
 
-    public function testGetQueryParamWhenNotFound()
+    /**
+     * @test
+     */
+    public function getQueryParamWhenNotFound()
     {
         $queryParams = [];
 
@@ -456,7 +571,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("xyz", $request->getQueryParam("a_b", "xyz"));
     }
 
-    public function testGetQueryParamWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getQueryParamWhenNotEmpty()
     {
         $queryParamName = "abc";
         $queryParamValue = "cde";
@@ -466,7 +584,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($queryParamValue, $request->getQueryParam($queryParamName));
     }
 
-    public function testWithQueryParam()
+    /**
+     * @test
+     */
+    public function withQueryParam()
     {
         $queryParams = [];
         $addedQueryParamName = "abc";
@@ -478,7 +599,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($addedQueryParamValue, $newRequest->getQueryParam($addedQueryParamName));
     }
 
-    public function testGetResourceWhenEmpty()
+    /**
+     * @test
+     */
+    public function getResourceWhenEmpty()
     {
         $body = [];
 
@@ -486,7 +610,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertNull($request->getResource());
     }
 
-    public function testGetResource()
+    /**
+     * @test
+     */
+    public function getResource()
     {
         $body = [
           "data" => []
@@ -496,7 +623,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body["data"], $request->getResource());
     }
 
-    public function testGetResourceTypeWhenEmpty()
+    /**
+     * @test
+     */
+    public function getResourceTypeWhenEmpty()
     {
         $body = [];
 
@@ -504,7 +634,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertNull($request->getResourceType());
     }
 
-    public function testGetResourceType()
+    /**
+     * @test
+     */
+    public function getResourceType()
     {
         $body = [
             "data" => [
@@ -516,7 +649,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body["data"]["type"], $request->getResourceType());
     }
 
-    public function testGetResourceIdWhenEmpty()
+    /**
+     * @test
+     */
+    public function getResourceIdWhenEmpty()
     {
         $body = [
             "data" => []
@@ -526,7 +662,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertNull($request->getResourceId());
     }
 
-    public function testGetResourceId()
+    /**
+     * @test
+     */
+    public function getResourceId()
     {
         $body = [
             "data" => [
@@ -538,7 +677,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body["data"]["id"], $request->getResourceId());
     }
 
-    public function testGetResourceAttributes()
+    /**
+     * @test
+     */
+    public function getResourceAttributes()
     {
         $body = [
             "data" => [
@@ -554,7 +696,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($body["data"]["attributes"], $request->getResourceAttributes());
     }
 
-    public function testGetResourceAttribute()
+    /**
+     * @test
+     */
+    public function getResourceAttribute()
     {
         $body = [
             "data" => [
@@ -570,7 +715,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("Hot dog", $request->getResourceAttribute("name"));
     }
 
-    public function testGetResourceToOneRelationship()
+    /**
+     * @test
+     */
+    public function getResourceToOneRelationship()
     {
         $body = [
             "data" => [
@@ -590,7 +738,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("1", $resourceIdentifier->getId());
     }
 
-    public function testGetResourceToManyRelationship()
+    /**
+     * @test
+     */
+    public function getResourceToManyRelationship()
     {
         $body = [
             "data" => [
@@ -615,7 +766,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("3", $resourceIdentifiers[1]->getId());
     }
 
-    public function testGetProtocolVersion()
+    /**
+     * @test
+     */
+    public function getProtocolVersion()
     {
         $protocolVersion = "2";
 
@@ -623,7 +777,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($protocolVersion, $request->getProtocolVersion());
     }
 
-    public function testGetHeaders()
+    /**
+     * @test
+     */
+    public function getHeaders()
     {
         $header1Name = "a";
         $header1Value = "b";
@@ -635,42 +792,60 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($headers, $request->getHeaders());
     }
 
-    public function testHasHeaderWhenHeaderNotExists()
+    /**
+     * @test
+     */
+    public function hasHeaderWhenHeaderNotExists()
     {
         $request = $this->createRequestWithHeader("a", "b");
 
         $this->assertFalse($request->hasHeader("c"));
     }
 
-    public function testHasHeaderWhenHeaderExists()
+    /**
+     * @test
+     */
+    public function hasHeaderWhenHeaderExists()
     {
         $request = $this->createRequestWithHeader("a", "b");
 
         $this->assertTrue($request->hasHeader("a"));
     }
 
-    public function testGetHeaderWhenHeaderExists()
+    /**
+     * @test
+     */
+    public function getHeaderWhenHeaderExists()
     {
         $request = $this->createRequestWithHeader("a", "b");
 
         $this->assertEquals(["b"], $request->getHeader("a"));
     }
 
-    public function testGetHeaderLineWhenHeaderNotExists()
+    /**
+     * @test
+     */
+    public function getHeaderLineWhenHeaderNotExists()
     {
         $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
 
         $this->assertEquals("", $request->getHeaderLine("b"));
     }
 
-    public function testGetHeaderLineWhenHeaderExists()
+    /**
+     * @test
+     */
+    public function getHeaderLineWhenHeaderExists()
     {
         $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
 
         $this->assertEquals("b,c,d", $request->getHeaderLine("a"));
     }
 
-    public function testWithHeader()
+    /**
+     * @test
+     */
+    public function withHeader()
     {
         $headers = [];
         $headerName = "a";
@@ -682,7 +857,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([$headerValue], $newRequest->getHeader($headerName));
     }
 
-    public function testWithAddedHeader()
+    /**
+     * @test
+     */
+    public function withAddedHeader()
     {
         $headerName = "a";
         $headerValue = "b";
@@ -694,7 +872,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([$headerValue, $headerValue], $newRequest->getHeader($headerName));
     }
 
-    public function testWithoutHeader()
+    /**
+     * @test
+     */
+    public function withoutHeader()
     {
         $headerName = "a";
         $headerValue = "b";
@@ -706,7 +887,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $newRequest->getHeader($headerName));
     }
 
-    public function testGetMethod()
+    /**
+     * @test
+     */
+    public function getMethod()
     {
         $method = "PUT";
 
@@ -716,7 +900,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($method, $newRequest->getMethod());
     }
 
-    public function testGetQueryParams()
+    /**
+     * @test
+     */
+    public function getQueryParams()
     {
         $queryParamName = "abc";
         $queryParamValue = "cde";
@@ -728,7 +915,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($queryParams, $newRequest->getQueryParams());
     }
 
-    public function testGetParsedBody()
+    /**
+     * @test
+     */
+    public function getParsedBody()
     {
         $parsedBody = [
             "data" => [
@@ -743,7 +933,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($parsedBody, $newRequest->getParsedBody());
     }
 
-    public function testGetAttributes()
+    /**
+     * @test
+     */
+    public function getAttributes()
     {
         $attribute1Key = "a";
         $attribute1Value = true;

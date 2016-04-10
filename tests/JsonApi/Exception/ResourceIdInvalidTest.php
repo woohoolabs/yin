@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceIdInvalid;
 
 class ResourceIdInvalidTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetId()
+    /**
+     * @test
+     */
+    public function getId()
     {
         $id = "1";
 

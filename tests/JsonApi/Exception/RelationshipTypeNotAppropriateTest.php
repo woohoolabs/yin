@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 
 class RelationshipTypeNotAppropriateTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetRelationshipName()
+    /**
+     * @test
+     */
+    public function getRelationshipName()
     {
         $name = "friends";
 
@@ -14,7 +17,10 @@ class RelationshipTypeNotAppropriateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($name, $exception->getRelationshipName());
     }
 
-    public function testGetRelationshipType()
+    /**
+     * @test
+     */
+    public function getRelationshipType()
     {
         $type = "to-many";
 
@@ -22,7 +28,10 @@ class RelationshipTypeNotAppropriateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($type, $exception->getCurrentRelationshipType());
     }
 
-    public function testGetExpectedRelationshipType()
+    /**
+     * @test
+     */
+    public function getExpectedRelationshipType()
     {
         $expectedType = "to-one";
 

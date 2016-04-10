@@ -6,7 +6,10 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubCursorBasedPaginationProvider;
 
 class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetSelfLinkWhenCurrentItemIsNull()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenCurrentItemIsNull()
     {
         $url = "http://example.com/api/users?";
         $firstItem = 0;
@@ -19,7 +22,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenOnlyPathProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenOnlyPathProvided()
     {
         $url = "http://example.com/api/users";
         $firstItem = 0;
@@ -32,7 +38,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenQueryStringSeparatorIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenQueryStringSeparatorIsProvided()
     {
         $url = "http://example.com/api/users?";
         $firstItem = 0;
@@ -45,7 +54,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("{$url}page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenQueryStringIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenQueryStringIsProvided()
     {
         $url = "http://example.com/api/users?a=b";
         $firstItem = 0;
@@ -58,7 +70,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("{$url}&page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetFirstLinkWhenFirstItemIsNull()
+    /**
+     * @test
+     */
+    public function getFirstLinkWhenFirstItemIsNull()
     {
         $url = "http://example.com/api/users?";
         $firstItem = null;
@@ -71,7 +86,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getFirstLink($url));
     }
 
-    public function testGetFirstLink()
+    /**
+     * @test
+     */
+    public function getFirstLink()
     {
         $url = "http://example.com/api/users";
         $firstItem = 0;
@@ -84,7 +102,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[cursor]=$firstItem", $provider->getFirstLink($url)->getHref());
     }
 
-    public function testGetLastLinkWhenLastItemIsNull()
+    /**
+     * @test
+     */
+    public function getLastLinkWhenLastItemIsNull()
     {
         $url = "http://example.com/api/users?";
         $firstItem = null;
@@ -97,7 +118,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getLastLink($url));
     }
 
-    public function testGetLastLink()
+    /**
+     * @test
+     */
+    public function getLastLink()
     {
         $url = "http://example.com/api/users";
         $firstItem = 0;
@@ -110,7 +134,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[cursor]=$lastItem", $provider->getLastLink($url)->getHref());
     }
 
-    public function testGetPrevLink()
+    /**
+     * @test
+     */
+    public function getPrevLink()
     {
         $url = "http://example.com/api/users";
         $firstItem = 0;
@@ -123,7 +150,10 @@ class CursorBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[cursor]=$previousItem", $provider->getPrevLink($url)->getHref());
     }
 
-    public function testGetNextLink()
+    /**
+     * @test
+     */
+    public function getNextLink()
     {
         $url = "http://example.com/api/users";
         $firstItem = 0;

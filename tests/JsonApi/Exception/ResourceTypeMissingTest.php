@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 
 class ResourceTypeMissingTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetMessage()
+    /**
+     * @test
+     */
+    public function getMessage()
     {
         $exception = $this->createException();
         $this->assertEquals("A resource type must be included in the document!", $exception->getMessage());

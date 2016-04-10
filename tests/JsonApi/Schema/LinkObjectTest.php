@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\LinkObject;
 
 class LinkObjectTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetHref()
+    /**
+     * @test
+     */
+    public function getHref()
     {
         $href = "http://example.com/api/users";
 
@@ -14,7 +17,10 @@ class LinkObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($href, $link->getHref());
     }
 
-    public function testGetEmptyMeta()
+    /**
+     * @test
+     */
+    public function getEmptyMeta()
     {
         $href = "http://example.com/api/users";
 
@@ -22,7 +28,10 @@ class LinkObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $link->getMeta());
     }
 
-    public function testGetMeta()
+    /**
+     * @test
+     */
+    public function getMeta()
     {
         $meta = ["abc" => "def"];
 
@@ -30,7 +39,10 @@ class LinkObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $link->getMeta());
     }
 
-    public function testAbsoluteLinkWithMetaTransform()
+    /**
+     * @test
+     */
+    public function transformAbsoluteLinkWithMeta()
     {
         $href = "http://example.com/api/users";
         $meta = ["abc" => "def"];
@@ -44,7 +56,10 @@ class LinkObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($transformedLink, $link->transform(""));
     }
 
-    public function testRelativeLinkWithoutMetaTransform()
+    /**
+     * @test
+     */
+    public function transformRelativeLinkWithoutMeta()
     {
         $baseUri = "http://example.com/api";
         $href = "/users";

@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 
 class MetaTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetMeta()
+    /**
+     * @test
+     */
+    public function getMeta()
     {
         $meta = ["abc" => "def"];
 

@@ -13,9 +13,10 @@ use Zend\Diactoros\Stream;
 class AbstractHydratorTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
-    public function testValidateTypeWhenMissing()
+    public function validateTypeWhenMissing()
     {
         $body = [
             "data" => []
@@ -26,9 +27,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
-    public function testValidateTypeWhenUnacceptableAndOnlyOneAcceptable()
+    public function validateTypeWhenUnacceptableAndOnlyOneAcceptable()
     {
         $body = [
             "data" => [
@@ -41,9 +43,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
-    public function testValidateTypeWhenUnacceptableAndMoreAcceptable()
+    public function validateTypeWhenUnacceptableAndMoreAcceptable()
     {
         $body = [
             "data" => [
@@ -55,7 +58,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
-    public function testHydrateAttributesWhenEmpty()
+    /**
+     * @test
+     */
+    public function hydrateAttributesWhenEmpty()
     {
         $body = [
             "data" => [
@@ -69,7 +75,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $domainObject);
     }
 
-    public function testHydrateAttributesWhenHydratorEmpty()
+    /**
+     * @test
+     */
+    public function hydrateAttributesWhenHydratorEmpty()
     {
         $body = [
             "data" => [
@@ -91,7 +100,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $domainObject);
     }
 
-    public function testHydrateAttributesWhenHydratorReturnByReference()
+    /**
+     * @test
+     */
+    public function hydrateAttributesWhenHydratorReturnByReference()
     {
         $weight = 1000;
         $body = [
@@ -114,7 +126,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
 
-    public function testHydrateAttributesWhenHydratorReturnByValue()
+    /**
+     * @test
+     */
+    public function hydrateAttributesWhenHydratorReturnByValue()
     {
         $weight = 1000;
         $body = [
@@ -138,7 +153,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
 
-    public function testHydrateRelationshipsWhenHydratorEmpty()
+    /**
+     * @test
+     */
+    public function hydrateRelationshipsWhenHydratorEmpty()
     {
         $body = [
             "data" => [
@@ -161,9 +179,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
-    public function testHydrateRelationshipsWhenCardinalityInappropriate()
+    public function hydrateRelationshipsWhenCardinalityInappropriate()
     {
         $body = [
             "data" => [
@@ -190,9 +209,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
-    public function testHydrateRelationshipsWhenCardinalityInappropriate2()
+    public function hydrateRelationshipsWhenCardinalityInappropriate2()
     {
         $body = [
             "data" => [
@@ -220,7 +240,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
-    public function testHydrateRelationshipsWhenExpectedCardinalityIsNotSet()
+    /**
+     * @test
+     */
+    public function hydrateRelationshipsWhenExpectedCardinalityIsNotSet()
     {
         $body = [
             "data" => [
@@ -249,7 +272,10 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(["children" => "Dumbo"], $domainObject);
     }
 
-    public function testHydrateRelationships()
+    /**
+     * @test
+     */
+    public function hydrateRelationships()
     {
         $body = [
             "data" => [

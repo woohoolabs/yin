@@ -6,14 +6,20 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 {
-    public function testFromEmptyArray()
+    /**
+     * @test
+     */
+    public function fromEmptyArray()
     {
         $resourceIdentifierArray = [];
 
         $this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray));
     }
 
-    public function testFromArray()
+    /**
+     * @test
+     */
+    public function fromArray()
     {
         $type = "user";
         $id = "1";
@@ -26,7 +32,10 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resourceIdentifier, ResourceIdentifier::fromArray($resourceIdentifierArray));
     }
 
-    public function testFromArrayWithMeta()
+    /**
+     * @test
+     */
+    public function fromArrayWithMeta()
     {
         $type = "user";
         $id = "1";
@@ -41,7 +50,10 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resourceIdentifier, ResourceIdentifier::fromArray($resourceIdentifierArray));
     }
 
-    public function testGetType()
+    /**
+     * @test
+     */
+    public function getType()
     {
         $type = "book";
 
@@ -49,7 +61,10 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($type, $link->getType());
     }
 
-    public function testGetId()
+    /**
+     * @test
+     */
+    public function getId()
     {
         $id = "123456789";
 

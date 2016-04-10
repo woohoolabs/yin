@@ -7,7 +7,10 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ToOneRelationshipTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetResourceIdentifierWhenSetInConstructor()
+    /**
+     * @test
+     */
+    public function getResourceIdentifierWhenSetInConstructor()
     {
         $resourceIdentifier = (new ResourceIdentifier())->setType("user")->setId("1");
 
@@ -15,7 +18,10 @@ class ToOneRelationshipTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($resourceIdentifier, $relationship->getResourceIdentifier());
     }
 
-    public function testGetResourceIdentifier()
+    /**
+     * @test
+     */
+    public function getResourceIdentifier()
     {
         $resourceIdentifier = (new ResourceIdentifier())->setType("user")->setId("1");
 

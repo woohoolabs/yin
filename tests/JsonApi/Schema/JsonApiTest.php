@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 
 class JsonApiTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetVersion()
+    /**
+     * @test
+     */
+    public function getVersion()
     {
         $version = "1.0";
 
@@ -14,7 +17,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($version, $jsonApi->getVersion());
     }
 
-    public function testGetMeta()
+    /**
+     * @test
+     */
+    public function getMeta()
     {
         $meta = ["abc" => "def"];
 
@@ -22,7 +28,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $jsonApi->getMeta());
     }
 
-    public function testSetMeta()
+    /**
+     * @test
+     */
+    public function setMeta()
     {
         $meta = ["abc" => "def"];
 
@@ -30,7 +39,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $jsonApi->getMeta());
     }
 
-    public function testTransformWithEmptyVersion()
+    /**
+     * @test
+     */
+    public function transformWithEmptyVersion()
     {
         $version = "";
         $meta = ["abc" => "def"];
@@ -43,7 +55,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($transformedJsonApi, $jsonApi->transform());
     }
 
-    public function testTransformWithEmptyMeta()
+    /**
+     * @test
+     */
+    public function transformWithEmptyMeta()
     {
         $version = "1.0";
         $meta = [];

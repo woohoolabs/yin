@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
 class ErrorSourceTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateFromPointer()
+    /**
+     * @test
+     */
+    public function createFromPointer()
     {
         $pointer = "/data/attributes/name";
 
@@ -14,7 +17,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($errorSource, ErrorSource::fromPointer($pointer));
     }
 
-    public function testCreateFromParameter()
+    /**
+     * @test
+     */
+    public function createFromParameter()
     {
         $parameter = "name";
 
@@ -22,7 +28,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($errorSource, ErrorSource::fromParameter($parameter));
     }
 
-    public function testGetPointer()
+    /**
+     * @test
+     */
+    public function getPointer()
     {
         $pointer = "/data/attributes/name";
 
@@ -30,7 +39,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($pointer, $errorSource->getPointer());
     }
 
-    public function testGetParameter()
+    /**
+     * @test
+     */
+    public function getParameter()
     {
         $parameter = "name";
 
@@ -38,7 +50,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($parameter, $errorSource->getParameter());
     }
 
-    public function testTransformWithPointer()
+    /**
+     * @test
+     */
+    public function transformWithPointer()
     {
         $pointer = "/data/attributes/name";
 
@@ -50,7 +65,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }
 
-    public function testTransformWithParameter()
+    /**
+     * @test
+     */
+    public function transformWithParameter()
     {
         $parameter = "name";
 
@@ -62,7 +80,10 @@ class ErrorSourceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }
 
-    public function testTransformWithBothAttributes()
+    /**
+     * @test
+     */
+    public function transformWithBothAttributes()
     {
         $pointer = "/data/attributes/name";
         $parameter = "name";

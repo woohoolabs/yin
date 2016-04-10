@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\FullReplacementProhibited;
 
 class FullReplacementProhibitedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetRelationshipName()
+    /**
+     * @test
+     */
+    public function getRelationshipName()
     {
         $relationshipName = "authors";
 

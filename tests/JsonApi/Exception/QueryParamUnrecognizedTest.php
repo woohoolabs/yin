@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 
 class QueryParamUnrecognizedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetQueryParam()
+    /**
+     * @test
+     */
+    public function getQueryParam()
     {
         $queryParam = "id";
 

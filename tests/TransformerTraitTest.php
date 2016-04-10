@@ -6,7 +6,10 @@ use WoohooLabs\Yin\TransformerTrait;
 
 class TransformerTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testTransformToDecimal()
+    /**
+     * @test
+     */
+    public function transformToDecimal()
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -16,7 +19,10 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(999.36, $transformerTrait->toDecimal("999.35621", 2));
     }
 
-    public function testTransformToInt()
+    /**
+     * @test
+     */
+    public function transformToInt()
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -26,7 +32,10 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(100, $transformerTrait->toInt("100.999"));
     }
 
-    public function testTransformToIso8601Date()
+    /**
+     * @test
+     */
+    public function transformToIso8601Date()
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -36,7 +45,10 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTransformToIso8601Time()
+    /**
+     * @test
+     */
+    public function transformToIso8601Time()
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -46,7 +58,10 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTransformFromSqlToIso8601Time()
+    /**
+     * @test
+     */
+    public function transformFromSqlToIso8601Time()
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -56,7 +71,10 @@ class TransformerTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTransformFromSqlToUtcIso8601Time()
+    /**
+     * @test
+     */
+    public function transformFromSqlToUtcIso8601Time()
     {
         $transformerTrait = $this->createTransformerTrait();
 

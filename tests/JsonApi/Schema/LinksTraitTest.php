@@ -7,7 +7,10 @@ use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
 
 class LinksTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetLinks()
+    /**
+     * @test
+     */
+    public function getLinks()
     {
         $links = new Links("http://example.com/api");
 

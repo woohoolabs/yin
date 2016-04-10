@@ -11,9 +11,10 @@ use Zend\Diactoros\Stream;
 class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
-    public function testHydrateWhenBodyEmpty()
+    public function hydrateWhenBodyEmpty()
     {
         $body = [];
 
@@ -21,7 +22,10 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
-    public function testHydrateWhenGeneratingId()
+    /**
+     * @test
+     */
+    public function hydrateWhenGeneratingId()
     {
         $type = "user";
         $id = "1";
@@ -37,6 +41,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      */
     public function testHydrateWhenBodyDataIdNotSupported()
@@ -54,7 +59,10 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
-    public function testHydrateBodyDataId()
+    /**
+     * @test
+     */
+    public function hydrateBodyDataId()
     {
         $type = "user";
         $id = "1";

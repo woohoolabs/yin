@@ -12,7 +12,10 @@ use Zend\Diactoros\Response;
 
 class AbstractResponderTest extends PHPUnit_Framework_TestCase
 {
-    public function testGenericSuccess()
+    /**
+     * @test
+     */
+    public function genericSuccess()
     {
         $statusCode = 201;
 
@@ -20,7 +23,10 @@ class AbstractResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($statusCode, $response->getStatusCode());
     }
 
-    public function testGenericError()
+    /**
+     * @test
+     */
+    public function genericError()
     {
         $statusCode = 418;
         $document = new ErrorDocument();

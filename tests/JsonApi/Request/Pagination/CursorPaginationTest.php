@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
 
 class CursorPaginationTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateFromPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromPaginationQueryParams()
     {
         $cursor = "abc";
         $query = ["cursor" => $cursor];
@@ -14,7 +17,10 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->createPagination($cursor), CursorPagination::fromPaginationQueryParams($query));
     }
 
-    public function testCreateFromMissingPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromMissingPaginationQueryParams()
     {
         $cursor = "abc";
         $query = [];
@@ -25,7 +31,10 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreateFromEmptyPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromEmptyPaginationQueryParams()
     {
         $cursor = "abc";
         $query = ["cursor" => ""];
@@ -36,7 +45,10 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetCursor()
+    /**
+     * @test
+     */
+    public function getCursor()
     {
         $cursor = "abc";
 
@@ -44,7 +56,10 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($cursor, $pagination->getCursor());
     }
 
-    public function testGetPaginationQueryString()
+    /**
+     * @test
+     */
+    public function getPaginationQueryString()
     {
         $cursor = "abc";
 

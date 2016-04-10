@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\SortParamUnrecognized;
 
 class SortParamUnrecognizedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetSortParam()
+    /**
+     * @test
+     */
+    public function getSortParam()
     {
         $sortParam = "id";
         $exception = $this->createException($sortParam);

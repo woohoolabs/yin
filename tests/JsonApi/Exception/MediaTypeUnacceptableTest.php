@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 
 class MediaTypeUnacceptableTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetMediaTypeName()
+    /**
+     * @test
+     */
+    public function getMediaTypeName()
     {
         $mediaType = "media-type";
 

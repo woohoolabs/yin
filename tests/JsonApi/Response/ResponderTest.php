@@ -14,7 +14,10 @@ use Zend\Diactoros\Response;
 
 class ResponderTest extends PHPUnit_Framework_TestCase
 {
-    public function testOk()
+    /**
+     * @test
+     */
+    public function ok()
     {
         $document = new StubSuccessfulDocument();
 
@@ -22,7 +25,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testOkWithMeta()
+    /**
+     * @test
+     */
+    public function okWithMeta()
     {
         $meta = ["abc" => "def"];
         $document = new StubSuccessfulDocument([], [], null, $meta);
@@ -31,7 +37,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testCreated()
+    /**
+     * @test
+     */
+    public function created()
     {
         $document = new StubSuccessfulDocument();
 
@@ -39,7 +48,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(201, $response->getStatusCode());
     }
 
-    public function testCreatedWithLinks()
+    /**
+     * @test
+     */
+    public function createdWithLinks()
     {
         $href = "http://example.com/users";
         $document = new StubSuccessfulDocument([], [], null, [], new Links("", ["self" => new Link($href)]));
@@ -48,19 +60,28 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([$href], $response->getHeader("location"));
     }
 
-    public function testAccepted()
+    /**
+     * @test
+     */
+    public function accepted()
     {
         $response = $this->createResponder()->accepted();
         $this->assertEquals(202, $response->getStatusCode());
     }
 
-    public function testNoContent()
+    /**
+     * @test
+     */
+    public function noContent()
     {
         $response = $this->createResponder()->noContent();
         $this->assertEquals(204, $response->getStatusCode());
     }
 
-    public function testForbidden()
+    /**
+     * @test
+     */
+    public function forbidden()
     {
         $document = new ErrorDocument();
 
@@ -68,7 +89,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(403, $response->getStatusCode());
     }
 
-    public function testNotFound()
+    /**
+     * @test
+     */
+    public function notFound()
     {
         $document = new ErrorDocument();
 
@@ -76,7 +100,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    public function testConflict()
+    /**
+     * @test
+     */
+    public function conflict()
     {
         $document = new ErrorDocument();
 

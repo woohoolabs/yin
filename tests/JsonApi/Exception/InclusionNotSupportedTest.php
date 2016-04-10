@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 
 class InclusionNotSupportedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetMessage()
+    /**
+     * @test
+     */
+    public function getMessage()
     {
         $exception = $this->createException();
         $this->assertEquals("Inclusion is not supported!", $exception->getMessage());

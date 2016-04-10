@@ -8,7 +8,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class ErrorTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetId()
+    /**
+     * @test
+     */
+    public function getId()
     {
         $id = "123456789";
 
@@ -16,7 +19,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($id, $error->getId());
     }
 
-    public function testGetStatus()
+    /**
+     * @test
+     */
+    public function getStatus()
     {
         $status = 500;
 
@@ -24,7 +30,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($status, $error->getStatus());
     }
 
-    public function testGetCode()
+    /**
+     * @test
+     */
+    public function getCode()
     {
         $code = "UNKNOWN_ERROR";
 
@@ -32,7 +41,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($code, $error->getCode());
     }
 
-    public function testGetTitle()
+    /**
+     * @test
+     */
+    public function getTitle()
     {
         $title = "Unknown error!";
 
@@ -40,7 +52,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($title, $error->getTitle());
     }
 
-    public function testGetDetail()
+    /**
+     * @test
+     */
+    public function getDetail()
     {
         $detail = "An unknown error has happened and no solution exists.";
 
@@ -48,7 +63,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($detail, $error->getDetail());
     }
 
-    public function testGetSource()
+    /**
+     * @test
+     */
+    public function getSource()
     {
         $source = new ErrorSource("/data/attributes/name", "name");
 
@@ -56,7 +74,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($source, $error->getSource());
     }
 
-    public function testTransformWithEmptyFields()
+    /**
+     * @test
+     */
+    public function transformWithEmptyFields()
     {
         $id = "123456789";
         $status = 500;
@@ -82,7 +103,10 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($transformedError, $error->transform());
     }
 
-    public function testTransform()
+    /**
+     * @test
+     */
+    public function transform()
     {
         $id = "123456789";
         $meta = ["abc" => "def"];

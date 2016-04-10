@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
 
 class PagePaginationTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateFromPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromPaginationQueryParams()
     {
         $page = 1;
         $size = 10;
@@ -15,7 +18,10 @@ class PagePaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->createPagination($page, $size), PagePagination::fromPaginationQueryParams($query));
     }
 
-    public function testCreateFromMissingPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromMissingPaginationQueryParams()
     {
         $page = 1;
         $size = 10;
@@ -27,7 +33,10 @@ class PagePaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreateFromEmptyPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromEmptyPaginationQueryParams()
     {
         $page = 1;
         $size = 10;
@@ -39,7 +48,10 @@ class PagePaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetPage()
+    /**
+     * @test
+     */
+    public function getPage()
     {
         $page = 1;
 
@@ -47,7 +59,10 @@ class PagePaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($page, $pagination->getPage());
     }
 
-    public function testGetSize()
+    /**
+     * @test
+     */
+    public function getSize()
     {
         $size = 10;
 
@@ -55,7 +70,10 @@ class PagePaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($size, $pagination->getSize());
     }
 
-    public function testGetPaginationQueryString()
+    /**
+     * @test
+     */
+    public function getPaginationQueryString()
     {
         $page = 1;
         $size = 10;

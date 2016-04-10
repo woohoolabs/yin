@@ -6,7 +6,10 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubOffsetBasedPaginationProvider;
 
 class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetSelfLinkWhenOffsetIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenOffsetIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -17,7 +20,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenOffsetIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenOffsetIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -28,7 +34,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=$offset&page[limit]=$limit", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenLimitIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenLimitIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -39,7 +48,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenLimitIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenLimitIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -50,7 +62,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenTotalItemsIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenTotalItemsIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = -30;
@@ -61,7 +76,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenTotalItemsIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenTotalItemsIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 0;
@@ -72,7 +90,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenOffsetIsTooMuch()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenOffsetIsTooMuch()
     {
         $url = "http://example.com/api/users";
         $totalItems = 30;
@@ -83,7 +104,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenOnlyPathIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenOnlyPathIsProvided()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -97,7 +121,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
     {
         $url = "http://example.com/api/users?";
         $totalItems = 10;
@@ -111,7 +138,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetSelfLinkWhenPathWithQueryStringIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathWithQueryStringIsProvided()
     {
         $url = "http://example.com/api/users?a=b";
         $totalItems = 10;
@@ -125,7 +155,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetFirstLinkWhenTotalItemsIsZero()
+    /**
+     * @test
+     */
+    public function getFirstLinkWhenTotalItemsIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 0;
@@ -136,7 +169,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getFirstLink($url));
     }
 
-    public function testGetFirstLinkWhenLimitIsZero()
+    /**
+     * @test
+     */
+    public function getFirstLinkWhenLimitIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -147,7 +183,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getFirstLink($url));
     }
 
-    public function testGetFirstLink()
+    /**
+     * @test
+     */
+    public function getFirstLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -158,7 +197,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=0&page[limit]=$limit", $provider->getFirstLink($url)->getHref());
     }
 
-    public function testGetLastLink()
+    /**
+     * @test
+     */
+    public function getLastLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -169,7 +211,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=39&page[limit]=$limit", $provider->getLastLink($url)->getHref());
     }
 
-    public function testGetLastLinkWhen()
+    /**
+     * @test
+     */
+    public function getLastLinkWhen()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -180,7 +225,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=39&page[limit]=$limit", $provider->getLastLink($url)->getHref());
     }
 
-    public function testGetPrevLinkWhenOffsetIsZero()
+    /**
+     * @test
+     */
+    public function getPrevLinkWhenOffsetIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -191,7 +239,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getPrevLink($url));
     }
 
-    public function testGetPrevLinkWhenPageIsTruncated()
+    /**
+     * @test
+     */
+    public function getPrevLinkWhenPageIsTruncated()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -202,7 +253,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=0&page[limit]=$limit", $provider->getPrevLink($url)->getHref());
     }
 
-    public function testGetPrevLink()
+    /**
+     * @test
+     */
+    public function getPrevLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -213,7 +267,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=0&page[limit]=$limit", $provider->getPrevLink($url)->getHref());
     }
 
-    public function testGetPrevLinkWhenOffsetIsMoreThanLimit()
+    /**
+     * @test
+     */
+    public function getPrevLinkWhenOffsetIsMoreThanLimit()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -224,7 +281,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[offset]=6&page[limit]=$limit", $provider->getPrevLink($url)->getHref());
     }
 
-    public function testGetNextLinkWhenOffsetIsLast()
+    /**
+     * @test
+     */
+    public function getNextLinkWhenOffsetIsLast()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -235,7 +295,10 @@ class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getNextLink($url));
     }
 
-    public function testGetNextLink()
+    /**
+     * @test
+     */
+    public function getNextLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;

@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 
 class SortingNotSupportedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetMessage()
+    /**
+     * @test
+     */
+    public function getMessage()
     {
         $exception = $this->createException();
 

@@ -17,7 +17,10 @@ use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
 class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
 {
-    public function testTransformToResourceIdentifierWhenDomainObjectIsNull()
+    /**
+     * @test
+     */
+    public function transformToResourceIdentifierWhenDomainObjectIsNull()
     {
         $domainObject = null;
 
@@ -26,7 +29,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertNull($transformedResourceIdentifier);
     }
 
-    public function testTransformToResourceIdentifierWhenDomainObjectIsNotNull()
+    /**
+     * @test
+     */
+    public function transformToResourceIdentifierWhenDomainObjectIsNotNull()
     {
         $domainObject = [];
         $type = "user";
@@ -39,7 +45,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey("meta", $transformedResourceIdentifier);
     }
 
-    public function testTransformToResourceIdentifierWithMeta()
+    /**
+     * @test
+     */
+    public function transformToResourceIdentifierWithMeta()
     {
         $domainObject = [];
         $meta = ["abc" => "def"];
@@ -49,7 +58,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $transformedResourceIdentifier["meta"]);
     }
 
-    public function testTransformToResourceWhenNull()
+    /**
+     * @test
+     */
+    public function transformToResourceWhenNull()
     {
         $domainObject = null;
 
@@ -58,7 +70,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertNull($transformedResource);
     }
 
-    public function testTransformToResourceWhenAlmostEmpty()
+    /**
+     * @test
+     */
+    public function transformToResourceWhenAlmostEmpty()
     {
         $domainObject = [];
         $type = "user";
@@ -74,7 +89,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey("relationships", $transformedResource);
     }
 
-    public function testTransformToResourceWithMeta()
+    /**
+     * @test
+     */
+    public function transformToResourceWithMeta()
     {
         $domainObject = [];
         $meta = ["abc" => "def"];
@@ -84,7 +102,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $transformedResource["meta"]);
     }
 
-    public function testTransformToResourceWithLinks()
+    /**
+     * @test
+     */
+    public function transformToResourceWithLinks()
     {
         $domainObject = [];
         $links = Links::createWithoutBaseUri()->setSelf(new Link("http://example.com/api/users"));
@@ -95,7 +116,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey("self", $transformedResource["links"]);
     }
 
-    public function testTransformToResourceWithAttributes()
+    /**
+     * @test
+     */
+    public function transformToResourceWithAttributes()
     {
         $domainObject = [
             "name" => "John Doe",
@@ -122,7 +146,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey("age", $transformedResource);
     }
 
-    public function testTransformToResourceWithDefaultRelationship()
+    /**
+     * @test
+     */
+    public function transformToResourceWithDefaultRelationship()
     {
         $domainObject = [
             "name" => "John Doe",
@@ -151,7 +178,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType("array", $data->getResource("user", "2"));
     }
 
-    public function testTransformToResourceWithoutIncludedRelationship()
+    /**
+     * @test
+     */
+    public function transformToResourceWithoutIncludedRelationship()
     {
         $defaultRelationships = [];
         $relationships = [
@@ -172,9 +202,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
      */
-    public function testTransformToResourceWithInvalidRelationship()
+    public function transformToResourceWithInvalidRelationship()
     {
         $defaultRelationships = ["father"];
         $relationships = [
@@ -189,7 +220,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->transformToResource($transformer, [], $request);
     }
 
-    public function testTransformToResourceToRelationshipWhenEmpty()
+    /**
+     * @test
+     */
+    public function transformToResourceToRelationshipWhenEmpty()
     {
         $defaultRelationships = ["father"];
         $relationships = [];
@@ -202,7 +236,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $this->assertNull($transformedResource);
     }
 
-    public function testTransformToRelationship()
+    /**
+     * @test
+     */
+    public function transformToRelationship()
     {
         $defaultRelationships = ["father"];
         $relationships = [

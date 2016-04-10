@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
 
 class ClientGeneratedIdAlreadyExistsTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetClientGeneratedId()
+    /**
+     * @test
+     */
+    public function getClientGeneratedId()
     {
         $id = "1";
 

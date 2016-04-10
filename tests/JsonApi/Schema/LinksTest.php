@@ -8,7 +8,10 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubPaginationLinkProvider;
 
 class LinksTest extends PHPUnit_Framework_TestCase
 {
-    public function testTransform()
+    /**
+     * @test
+     */
+    public function transform()
     {
         $self = new Link("http://example.com/api/users");
         $links = ["self" => $self, "related" => $self];
@@ -18,13 +21,19 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey("related", $linksObject->transform());
     }
 
-    public function testGetSelfWhenEmpty()
+    /**
+     * @test
+     */
+    public function getSelfWhenEmpty()
     {
         $linksObject = $this->createLinks();
         $this->assertNull($linksObject->getSelf());
     }
 
-    public function testGetSelfWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getSelfWhenNotEmpty()
     {
         $self = new Link("http://example.com/api/users");
 
@@ -32,7 +41,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($self, $linksObject->getSelf());
     }
 
-    public function testGetRelatedWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getRelatedWhenNotEmpty()
     {
         $related = new Link("http://example.com/api/users");
 
@@ -40,13 +52,19 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($related, $linksObject->getRelated());
     }
 
-    public function testGetFirstWhenEmpty()
+    /**
+     * @test
+     */
+    public function getFirstWhenEmpty()
     {
         $linksObject = $this->createLinks();
         $this->assertNull($linksObject->getFirst());
     }
 
-    public function testGetFirstWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getFirstWhenNotEmpty()
     {
         $first = new Link("http://example.com/api/users?page[number]=1");
 
@@ -54,7 +72,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($first, $linksObject->getFirst());
     }
 
-    public function testGetLastWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getLastWhenNotEmpty()
     {
         $last = new Link("http://example.com/api/users?page[number]=10");
 
@@ -62,7 +83,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($last, $linksObject->getLast());
     }
 
-    public function testGetPrevWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getPrevWhenNotEmpty()
     {
         $prev = new Link("http://example.com/api/users?page[number]=4");
 
@@ -70,7 +94,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($prev, $linksObject->getPrev());
     }
 
-    public function testGetNextWhenNotEmpty()
+    /**
+     * @test
+     */
+    public function getNextWhenNotEmpty()
     {
         $next = new Link("http://example.com/api/users?page[number]=6");
 
@@ -78,7 +105,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($next, $linksObject->getNext());
     }
 
-    public function testSetPagination()
+    /**
+     * @test
+     */
+    public function setPagination()
     {
         $uri = "http://example.com/api/users/";
         $pagination = new StubPaginationLinkProvider();
@@ -91,7 +121,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(new Link($uri . "next"), $linksObject->getNext());
     }
 
-    public function testGetLink()
+    /**
+     * @test
+     */
+    public function getLink()
     {
         $self = new Link("http://example.com/api/users");
 
@@ -99,7 +132,10 @@ class LinksTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($self, $linksObject->getLink("self"));
     }
 
-    public function testGetMultipleLinks()
+    /**
+     * @test
+     */
+    public function getMultipleLinks()
     {
         $self = new Link("http://example.com/api/users/1");
         $related = new Link("http://example.com/api/people/1");

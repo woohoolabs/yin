@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 
 class ResourceTypeUnacceptableTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetType()
+    /**
+     * @test
+     */
+    public function getType()
     {
         $type = "book";
 
@@ -14,7 +17,10 @@ class ResourceTypeUnacceptableTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($type, $exception->getCurrentType());
     }
 
-    public function testGetAcceptedTypes()
+    /**
+     * @test
+     */
+    public function getAcceptedTypes()
     {
         $acceptedTypes = ["book"];
 

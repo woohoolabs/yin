@@ -11,9 +11,10 @@ use Zend\Diactoros\Stream;
 class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
-    public function testHydrateWhenBodyEmpty()
+    public function hydrateWhenBodyEmpty()
     {
         $body = [];
 
@@ -22,9 +23,10 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */
-    public function testHydrateWhenIdMissing()
+    public function hydrateWhenIdMissing()
     {
         $body = [
             "data" => [
@@ -36,7 +38,10 @@ class UpdateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
     }
 
-    public function testHydrateId()
+    /**
+     * @test
+     */
+    public function hydrateId()
     {
         $id = "1";
         $body = [

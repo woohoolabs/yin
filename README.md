@@ -22,6 +22,7 @@
     * [Exceptions](#exceptions)
     * [JsonApi class](#jsonapi-class)
 * [Advanced Usage](#advanced-usage)
+    * [Pagination](#pagination)
     * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
     * [Injecting metadata into documents](#injecting-metadata-into-documents)
     * [Content negotiation](#content-negotiation)
@@ -666,6 +667,8 @@ functionality of Woohoo Labs. Yin, it is highly recommended to utilize this clas
 ## Advanced Usage
 
 This section guides you through the advanced features of Yin.
+
+#### Pagination
 
 #### Loading relationship data efficiently
 

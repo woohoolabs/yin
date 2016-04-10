@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
 
 class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateFromPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromPaginationQueryParams()
     {
         $offset = 1;
         $limit = 10;
@@ -18,7 +21,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreateFromMissingPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromMissingPaginationQueryParams()
     {
         $offset = 1;
         $limit = 10;
@@ -30,7 +36,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreateFromEmptyPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function createFromEmptyPaginationQueryParams()
     {
         $offset = 1;
         $limit = 10;
@@ -42,7 +51,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetOffset()
+    /**
+     * @test
+     */
+    public function getOffset()
     {
         $offset = 1;
 
@@ -50,7 +62,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($offset, $pagination->getOffset());
     }
 
-    public function testGetLimit()
+    /**
+     * @test
+     */
+    public function getLimit()
     {
         $limit = 10;
 
@@ -58,7 +73,10 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($limit, $pagination->getLimit());
     }
 
-    public function testGetPaginationQueryString()
+    /**
+     * @test
+     */
+    public function getPaginationQueryString()
     {
         $offset = 1;
         $limit = 10;

@@ -12,7 +12,10 @@ use Zend\Diactoros\ServerRequest;
 
 class JsonApiTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetRequest()
+    /**
+     * @test
+     */
+    public function getRequest()
     {
         $request = $this->createRequest();
         $request = $request->withMethod("PUT");
@@ -21,7 +24,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($request, $jsonApi->getRequest());
     }
 
-    public function testDisableIncludesWhenMissing()
+    /**
+     * @test
+     */
+    public function disableIncludesWhenMissing()
     {
         $request = $this->createRequest();
 
@@ -33,9 +39,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
-    public function testDisableIncludesWhenEmpty()
+    public function disableIncludesWhenEmpty()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["include" => ""]);
@@ -44,9 +51,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
-    public function testDisableIncludesWhenSet()
+    public function disableIncludesWhenSet()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["include" => "users"]);
@@ -54,7 +62,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         $this->createJsonApi($request)->disableIncludes();
     }
 
-    public function testDisableSortingWhenMissing()
+    /**
+     * @test
+     */
+    public function disableSortingWhenMissing()
     {
         $request = $this->createRequest();
 
@@ -66,9 +77,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
-    public function testDisableSortingWhenEmpty()
+    public function disableSortingWhenEmpty()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["sort" => ""]);
@@ -77,9 +89,10 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
-    public function testDisableSortingWhenSet()
+    public function disableSortingWhenSet()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["sort" => "firstname"]);

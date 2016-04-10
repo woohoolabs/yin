@@ -14,9 +14,12 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
-class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
+class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetResponse()
+    /**
+     * @test
+     */
+    public function getResponse()
     {
         $request = new Request(new ServerRequest());
         $responseCode = 200;
@@ -29,7 +32,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("1.0", $this->getContentFromResponse("jsonApi", $response)["version"]);
     }
 
-    public function testGetResponseWithExtensions()
+    /**
+     * @test
+     */
+    public function getResponseWithExtensions()
     {
         $request = new Request(new ServerRequest());
         $extensions = ["ext1", "ext2"];
@@ -43,7 +49,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetEmptyMetaResponse()
+    /**
+     * @test
+     */
+    public function getEmptyMetaResponse()
     {
         $request = new Request(new ServerRequest());
         $meta = [];
@@ -55,7 +64,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
     }
 
-    public function testGetMetaResponse()
+    /**
+     * @test
+     */
+    public function getMetaResponse()
     {
         $request = new Request(new ServerRequest());
         $meta = ["abc" => "def"];
@@ -65,7 +77,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
     }
 
-    public function testGetEmptyDataResponse()
+    /**
+     * @test
+     */
+    public function getEmptyDataResponse()
     {
         $request = new Request(new ServerRequest());
         $data = new SingleResourceData();
@@ -75,7 +90,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($this->getContentFromResponse("data", $response));
     }
 
-    public function testGetResponseWithLinks()
+    /**
+     * @test
+     */
+    public function getResponseWithLinks()
     {
         $request = new Request(new ServerRequest());
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
@@ -85,7 +103,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertCount(2, $this->getContentFromResponse("links", $response));
     }
 
-    public function testGetEmptyDataResponseWithEmptyIncludes()
+    /**
+     * @test
+     */
+    public function getEmptyDataResponseWithEmptyIncludes()
     {
         $request = new Request(new ServerRequest());
         $data = null;
@@ -95,7 +116,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $this->getContentFromResponse("included", $response));
     }
 
-    public function testGetEmptyDataResponseWithIncludes()
+    /**
+     * @test
+     */
+    public function getEmptyDataResponseWithIncludes()
     {
         $request = new Request(new ServerRequest());
         $data = new SingleResourceData();
@@ -117,7 +141,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
     }
 
-    public function testGetRelationshipResponse()
+    /**
+     * @test
+     */
+    public function getRelationshipResponse()
     {
         $request = new Request(new ServerRequest());
         $relationshipResponseContentData = [
@@ -133,7 +160,10 @@ class AbstractSuccesfulDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
     }
 
-    public function testGetRelationshipResponseWithIncluded()
+    /**
+     * @test
+     */
+    public function getRelationshipResponseWithIncluded()
     {
         $request = new Request(new ServerRequest());
         $data = new SingleResourceData();

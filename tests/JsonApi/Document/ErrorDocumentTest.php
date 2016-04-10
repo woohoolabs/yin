@@ -8,7 +8,10 @@ use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 
 class ErrorDocumentTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetJsonApi()
+    /**
+     * @test
+     */
+    public function getJsonApi()
     {
         $jsonApi = new JsonApi("1.0");
 
@@ -16,7 +19,10 @@ class ErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($jsonApi, $errorDocument->getJsonApi());
     }
 
-    public function testGetMeta()
+    /**
+     * @test
+     */
+    public function getMeta()
     {
         $meta = ["abc" => "def"];
 
@@ -24,7 +30,10 @@ class ErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($meta, $errorDocument->getMeta());
     }
 
-    public function testGetLinks()
+    /**
+     * @test
+     */
+    public function getLinks()
     {
         $links = new Links("http://example.com");
 

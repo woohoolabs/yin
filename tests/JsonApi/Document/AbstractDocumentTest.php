@@ -8,13 +8,19 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubDocument;
 
 class AbstractDocumentTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetExtensions()
+    /**
+     * @test
+     */
+    public function getExtensions()
     {
         $document = $this->createDocument();
         $this->assertEquals([], $document->getSupportedExtensions());
     }
 
-    public function testGetRequiredExtensions()
+    /**
+     * @test
+     */
+    public function getRequiredExtensions()
     {
         $document = $this->createDocument();
         $this->assertEquals([], $document->getSupportedExtensions());

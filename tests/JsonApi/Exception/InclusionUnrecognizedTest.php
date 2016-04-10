@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 
 class InclusionUnrecognizedTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetIncludes()
+    /**
+     * @test
+     */
+    public function getIncludes()
     {
         $includes = ["a", "b", "c"];
 

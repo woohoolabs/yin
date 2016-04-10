@@ -11,7 +11,10 @@ use Zend\Diactoros\Response;
 
 class RelationshipResponderTest extends PHPUnit_Framework_TestCase
 {
-    public function testOk()
+    /**
+     * @test
+     */
+    public function ok()
     {
         $document = new StubSuccessfulDocument();
 
@@ -19,7 +22,10 @@ class RelationshipResponderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testOkWithMeta()
+    /**
+     * @test
+     */
+    public function okWithMeta()
     {
         $meta = ["abc" => "def"];
         $document = new StubSuccessfulDocument([], [], null, $meta);

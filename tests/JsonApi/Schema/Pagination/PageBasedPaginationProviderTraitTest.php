@@ -6,7 +6,10 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubPageBasedPaginationProvider;
 
 class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetSelfLinkWhenPageIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPageIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -17,7 +20,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenPageIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPageIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -28,7 +34,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenSizeIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenSizeIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -39,7 +48,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenSizeIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenSizeIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -50,7 +62,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenTotalItemsIsNegative()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenTotalItemsIsNegative()
     {
         $url = "http://example.com/api/users";
         $totalItems = -30;
@@ -61,7 +76,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenTotalItemsIsZero()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenTotalItemsIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 0;
@@ -72,7 +90,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenPageIsMoreThanLastPage()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPageIsMoreThanLastPage()
     {
         $url = "http://example.com/api/users";
         $totalItems = 30;
@@ -83,7 +104,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getSelfLink($url));
     }
 
-    public function testGetSelfLinkWhenPathIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathIsProvided()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -94,7 +118,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
     {
         $url = "http://example.com/api/users?";
         $totalItems = 10;
@@ -105,7 +132,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("{$url}page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetSelfLinkWhenPathWithQueryStringIsProvided()
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathWithQueryStringIsProvided()
     {
         $url = "http://example.com/api/users?a=b";
         $totalItems = 10;
@@ -116,7 +146,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("{$url}&page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
     }
 
-    public function testGetFirstLinkWhenTotalItemsIsZero()
+    /**
+     * @test
+     */
+    public function getFirstLinkWhenTotalItemsIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 0;
@@ -127,7 +160,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getFirstLink($url));
     }
 
-    public function testGetFirstLinkWhenSizeIsZero()
+    /**
+     * @test
+     */
+    public function getFirstLinkWhenSizeIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -138,7 +174,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getFirstLink($url));
     }
 
-    public function testGetFirstLink()
+    /**
+     * @test
+     */
+    public function getFirstLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 10;
@@ -149,7 +188,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[number]=1&page[size]=$size", $provider->getFirstLink($url)->getHref());
     }
 
-    public function testGetLastLinkWhenTotalItemsIsZero()
+    /**
+     * @test
+     */
+    public function getLastLinkWhenTotalItemsIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 0;
@@ -160,7 +202,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getLastLink($url));
     }
 
-    public function testGetLastLinkWhenSizeIsZero()
+    /**
+     * @test
+     */
+    public function getLastLinkWhenSizeIsZero()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -171,7 +216,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getLastLink($url));
     }
 
-    public function testGetLastLink()
+    /**
+     * @test
+     */
+    public function getLastLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -182,7 +230,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[number]=5&page[size]=$size", $provider->getLastLink($url)->getHref());
     }
 
-    public function testGetPrevLinkWhenPageIsFirst()
+    /**
+     * @test
+     */
+    public function getPrevLinkWhenPageIsFirst()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -193,7 +244,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getPrevLink($url));
     }
 
-    public function testGetPrevLink()
+    /**
+     * @test
+     */
+    public function getPrevLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -204,7 +258,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("$url?page[number]=1&page[size]=$size", $provider->getPrevLink($url)->getHref());
     }
 
-    public function testGetNextLinkWhenPageIsLast()
+    /**
+     * @test
+     */
+    public function getNextLinkWhenPageIsLast()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;
@@ -215,7 +272,10 @@ class PageBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
         $this->assertNull($provider->getNextLink($url));
     }
 
-    public function testGetNextLink()
+    /**
+     * @test
+     */
+    public function getNextLink()
     {
         $url = "http://example.com/api/users";
         $totalItems = 50;

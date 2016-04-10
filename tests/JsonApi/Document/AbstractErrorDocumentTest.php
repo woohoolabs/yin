@@ -9,7 +9,10 @@ use Zend\Diactoros\Response;
 
 class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetErrors()
+    /**
+     * @test
+     */
+    public function getErrors()
     {
         $error = (new Error())->setId("abc");
 
@@ -17,7 +20,10 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([$error, $error], $errorDocument->getErrors());
     }
 
-    public function testGetResponseWithoutError()
+    /**
+     * @test
+     */
+    public function getResponseWithoutError()
     {
         $response = $this->createErrorDocument()->getResponse(new Response());
 
@@ -25,7 +31,10 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
     }
 
-    public function testGetResponseWithDefinedResponseCode()
+    /**
+     * @test
+     */
+    public function getResponseWithDefinedResponseCode()
     {
         $response = $this
             ->createErrorDocument()
@@ -34,7 +43,10 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(500, $response->getStatusCode());
     }
 
-    public function testGetResponseWithOneError()
+    /**
+     * @test
+     */
+    public function getResponseWithOneError()
     {
         $response = $this
             ->createErrorDocument()
@@ -45,7 +57,10 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
         $this->assertCount(1, $this->getErrorsContentFromResponse($response));
     }
 
-    public function testGetResponseWithMultipleErrors()
+    /**
+     * @test
+     */
+    public function getResponseWithMultipleErrors()
     {
         $response = $this
             ->createErrorDocument()

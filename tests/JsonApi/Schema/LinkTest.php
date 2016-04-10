@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 
 class LinkTest extends PHPUnit_Framework_TestCase
 {
-    public function testGetHref()
+    /**
+     * @test
+     */
+    public function getHref()
     {
         $href = "http://example.com";
 
@@ -14,7 +17,10 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($href, $link->getHref());
     }
 
-    public function testAbsoluteLinkTransform()
+    /**
+     * @test
+     */
+    public function transformAbsoluteLink()
     {
         $href = "http://example.com/api/users";
 
@@ -22,7 +28,10 @@ class LinkTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($href, $link->transform(""));
     }
 
-    public function testRelativeLinkTransform()
+    /**
+     * @test
+     */
+    public function transformRelativeLink()
     {
         $baseUri = "http://example.com/api";
         $href = "/users";

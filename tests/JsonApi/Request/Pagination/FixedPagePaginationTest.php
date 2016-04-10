@@ -6,7 +6,10 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
 
 class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
 {
-    public function testCreateFromPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function CreateFromPaginationQueryParams()
     {
         $page = 1;
         $query = ["number" => $page];
@@ -14,7 +17,10 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->createPagination($page), FixedPagePagination::fromPaginationQueryParams($query));
     }
 
-    public function testCreateFromMissingPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function CreateFromMissingPaginationQueryParams()
     {
         $page = 1;
         $query = [];
@@ -25,7 +31,10 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testCreateFromEmptyPaginationQueryParams()
+    /**
+     * @test
+     */
+    public function CreateFromEmptyPaginationQueryParams()
     {
         $page = 1;
         $query = ["number" => ""];
@@ -36,7 +45,10 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testGetPage()
+    /**
+     * @test
+     */
+    public function GetPage()
     {
         $page = 1;
 
@@ -44,7 +56,10 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($page, $pagination->getPage());
     }
 
-    public function testGetPaginationQueryString()
+    /**
+     * @test
+     */
+    public function GetPaginationQueryString()
     {
         $page = 1;
 
