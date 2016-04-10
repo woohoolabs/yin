@@ -9,7 +9,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function CreateFromPaginationQueryParams()
+    public function createFromPaginationQueryParams()
     {
         $page = 1;
         $query = ["number" => $page];
@@ -20,7 +20,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function CreateFromMissingPaginationQueryParams()
+    public function createFromMissingPaginationQueryParams()
     {
         $page = 1;
         $query = [];
@@ -34,7 +34,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function CreateFromEmptyPaginationQueryParams()
+    public function createFromEmptyPaginationQueryParams()
     {
         $page = 1;
         $query = ["number" => ""];
@@ -48,7 +48,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function GetPage()
+    public function getPage()
     {
         $page = 1;
 
@@ -59,7 +59,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function GetPaginationQueryString()
+    public function getPaginationQueryString()
     {
         $page = 1;
 
