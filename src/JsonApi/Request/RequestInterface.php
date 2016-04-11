@@ -129,6 +129,13 @@ interface RequestInterface extends ServerRequestInterface
     public function getFiltering();
 
     /**
+     * @param string $param
+     * @param mixed|null $default
+     * @return array|string
+     */
+    public function getFilteringParam($param, $default = null);
+
+    /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
      *
      * @param string $name
@@ -174,9 +181,10 @@ interface RequestInterface extends ServerRequestInterface
 
     /**
      * @param string $attribute
+     * @param mixed|null $default
      * @return mixed|null
      */
-    public function getResourceAttribute($attribute);
+    public function getResourceAttribute($attribute, $default = null);
 
     /**
      * @param string $relationship
