@@ -6,6 +6,7 @@
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![Gitter][ico-gitter]][link-gitter]
 
 **Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON API-s.**
 
@@ -1017,11 +1018,13 @@ The MIT License (MIT). Please see the [License File](LICENSE.md) for more inform
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/woohoolabs/yin.svg
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/woohoolabs/yin.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/woohoolabs/yin.svg
+[ico-gitter]: https://badges.gitter.im/woohoolabs/yin.svg
 
 [link-packagist]: https://packagist.org/packages/woohoolabs/yin
 [link-travis]: https://travis-ci.org/woohoolabs/yin
 [link-scrutinizer]: https://scrutinizer-ci.com/g/woohoolabs/yin/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/woohoolabs/yin
+[link-gitter]: https://gitter.im/woohoolabs/yin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [link-downloads]: https://packagist.org/packages/woohoolabs/yin
 [link-author]: https://github.com/kocsismate
 [link-contributors]: ../../contributors
