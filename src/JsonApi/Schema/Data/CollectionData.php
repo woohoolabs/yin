@@ -8,10 +8,6 @@ class CollectionData extends AbstractData
      */
     public function transformPrimaryResources()
     {
-        if ($this->hasPrimaryResources() === false) {
-            return [];
-        }
-
         return array_values($this->primaryKeys);
     }
 }
