@@ -34,7 +34,7 @@ class ToManyRelationship extends AbstractRelationship
     ) {
         $data = $this->retrieveData();
         if (empty($data) || $this->resourceTransformer === null) {
-            return null;
+            return [];
         }
 
         $content = [];
