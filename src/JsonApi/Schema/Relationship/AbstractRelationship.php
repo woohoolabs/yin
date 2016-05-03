@@ -125,7 +125,7 @@ abstract class AbstractRelationship
         ) {
             $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
         } else {
-            $transformedData = null;
+            $transformedData = false;
         }
 
         if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
@@ -143,7 +143,7 @@ abstract class AbstractRelationship
             }
 
             // DATA
-            if (isset($transformedData) === true) {
+            if ($transformedData !== false) {
                 $relationship["data"] = $transformedData;
             }
         }
