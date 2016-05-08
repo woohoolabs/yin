@@ -4,8 +4,11 @@ language: php
 
 cache:
   directories:
-    - $HOME/.composer/cache
-    - vendor
+    - $HOME/.composer/cache/files
+
+env:
+  global:
+    - TEST_COMMAND="./vendor/bin/phpunit"
 
 matrix:
   fast_finish: true
@@ -17,25 +20,22 @@ matrix:
     - php: 7
       env:
         - EXECUTE_COVERAGE=true
+        - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
     - php: hhvm
 
 notifications:
   email: true
 
 before_install:
-  - if [[ $EXECUTE_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
   - composer self-update
-  - composer config -g github-oauth.github.com $GITHUB_TOKEN
-  - if [[ $EXECUTE_COVERAGE == 'true' ]]; then composer require --no-update satooshi/php-coveralls:dev-master ; fi
 
 install:
-  - travis_retry composer install --no-interaction
+  - travis_retry composer install --no-interaction --prefer-dist
 
 script:
-  - if [[ $EXECUTE_COVERAGE == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover coverage.clover ; fi
-  - if [[ $EXECUTE_COVERAGE != 'true' ]]; then ./vendor/bin/phpunit ; fi
-  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then ./vendor/bin/phpcs ; fi
+  - $TEST_COMMAND
+  - if [[ "$EXECUTE_CS_CHECK" == "true" ]]; then ./vendor/bin/phpcs ; fi
 
-after_script:
-  - if [[ $EXECUTE_COVERAGE == 'true' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ $EXECUTE_COVERAGE == 'true' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+after_success:
+  - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+  - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
