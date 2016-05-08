@@ -201,6 +201,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         array $defaultRelationships,
         array $additionalMeta = []
     ) {
+        $transformation->setFetchedRelationship($relationshipName);
         $resourceType = $this->getType($domainObject);
 
         if ($transformation->request->isIncludedField($resourceType, $relationshipName) === false &&

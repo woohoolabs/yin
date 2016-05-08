@@ -36,7 +36,7 @@ abstract class AbstractRelationship
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param string $relationshipName
      * @param array $defaultRelationships
-     * @return array
+     * @return array|null
      */
     abstract protected function transformData(
         Transformation $transformation,
@@ -121,7 +121,8 @@ abstract class AbstractRelationship
                 $transformation->basePath,
                 $relationshipName,
                 $defaultRelationships
-            )
+            ) ||
+            $transformation->fetchedRelationship === $relationshipName
         ) {
             $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
         } else {
@@ -178,7 +179,7 @@ abstract class AbstractRelationship
             $transformation->data->addIncludedResource(
                 $this->resourceTransformer->transformToResource($transformation, $domainObject)
             );
-            
+
             $transformation->basePath = $basePath;
         }
 

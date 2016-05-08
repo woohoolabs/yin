@@ -28,6 +28,11 @@ class Transformation
     public $basePath;
 
     /**
+     * @var string|null
+     */
+    public $fetchedRelationship;
+
+    /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
@@ -75,5 +80,21 @@ class Transformation
     public function getBasePath()
     {
         return $this->basePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFetchedRelationship()
+    {
+        return $this->fetchedRelationship;
+    }
+
+    /**
+     * @param string $fetchedRelationship
+     */
+    public function setFetchedRelationship($fetchedRelationship)
+    {
+        $this->fetchedRelationship = $fetchedRelationship;
     }
 }
