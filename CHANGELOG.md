@@ -5,6 +5,16 @@ According to my plans, v11.0 may be the last minor release before v1.0.
 
 ADDED:
 
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 0.10.5 - 2016-05-08
+
+ADDED:
+
 - Support for PHPUnit 5.0
 - `Request::getFilteringParam()` method
 
@@ -12,10 +22,11 @@ CHANGED:
 
 - Updated JSON API schema
 - A default value can be provided to `Request::getResourceAttribute()` method when the attribute is not present
-
-REMOVED:
+- [#20](https://github.com/woohoolabs/yin/issues/20): Expressing empty relationships in the response
 
 FIXED:
+
+- [#22](https://github.com/woohoolabs/yin/issues/22): Data member isn't present when fetching a relationship
 
 ## 0.10.4 - 2016-03-29
 
