@@ -97,8 +97,8 @@ If you want to take advantage from request/response validation then you have to 
 dependencies too:
 
 ```bash
-$ composer require justinrainbow/json-schema # version 1.5.0 is tested
-$ composer require seld/jsonlint # version 1.3.1 is tested
+$ composer require justinrainbow/json-schema:^2.0.0
+$ composer require seld/jsonlint:^1.4.0
 ```
 
 ## Basic Usage
