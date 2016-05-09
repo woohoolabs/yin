@@ -7,6 +7,8 @@ ADDED:
 
 CHANGED:
 
+- Updated justinrainbow/json-schema to v2.0.0
+
 REMOVED:
 
 FIXED:
