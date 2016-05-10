@@ -28,7 +28,7 @@
     * [Injecting metadata into documents](#injecting-metadata-into-documents)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#request-response-validation)
-    * [Middlewares](#middlewares)
+    * [Middleware](#middleware)
 * [Examples](#examples)
     * [Fetching a single resource](#fetching-a-single-resource)
     * [Fetching a collection of resources](#fetching-a-collection-of-resources)
@@ -58,7 +58,7 @@ and we also believe it is a big day for RESTful API-s as this specification can 
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
 - Provides Hydrators to create and update resources
-- [Additional middlewares](https://github.com/woohoolabs/yin-middlewares) for the easier kickstart and debugging
+- [Additional middleware](https://github.com/woohoolabs/yin-middleware) for the easier kickstart and debugging
 
 #### Why Yin?
 
@@ -77,9 +77,9 @@ rarely required transformation is very expensive. Furthermore, as transformers a
 separate model object for each resource is avoided. Additionally, due to statelessness, the overall library works really
 well with dependency injection.
 
-##### Supplementary middlewares
+##### Supplementary middleware
 
-[There are some additional middlewares](https://github.com/woohoolabs/yin-middlewares) for Woohoo Labs. Yin you might
+[There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API
 error messages), dispatching JSON API-aware controllers or debugging (via synthax checking and validation of requests
 and responses).
@@ -811,13 +811,13 @@ $responseValidator->validateBody($response);
 
 Validating the responses can be useful in a development environment to find possible bugs early.
 
-#### Middlewares
+#### Middleware
 
 If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://github.com/woohoolabs/harmony),
 [Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
 [Zend-Expressive](https://github.com/zendframework/zend-expressive/) or
 [Slim Framework 3](http://www.slimframework.com/)), you can find the
-[Yin-middlewares](https://github.com/woohoolabs/yin-middlewares) library quite useful. Read the documentation to
+[Yin-middleware](https://github.com/woohoolabs/yin-middleware) library quite useful. Read the documentation to
 learn about its advantages!
 
 ## Examples
