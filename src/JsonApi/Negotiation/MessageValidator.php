@@ -2,6 +2,7 @@
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use JsonSchema\RefResolver;
+use JsonSchema\Uri\UriResolver;
 use JsonSchema\Uri\UriRetriever;
 use JsonSchema\Validator;
 use Seld\JsonLint\JsonParser;
@@ -60,14 +61,8 @@ abstract class MessageValidator
             return [];
         }
 
-        $jsonApiSchemaPath = realpath(__DIR__ . "/json-api-schema.json");
-
-        $retriever = new UriRetriever();
-        $schema = $retriever->retrieve('file://' . $jsonApiSchemaPath);
-
-        RefResolver::$maxDepth = 100;
-        $refResolver = new RefResolver($retriever);
-        $refResolver->resolve($schema, 'file://' . dirname($jsonApiSchemaPath) . "/json-api-schema.json");
+        $refResolver = new RefResolver(new UriRetriever(), new UriResolver());
+        $schema = $refResolver->resolve('file://' . realpath(__DIR__ . "/json-api-schema.json"));
 
         $validator = new Validator();
         $validator->check($message, $schema);
