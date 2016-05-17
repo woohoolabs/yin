@@ -7,11 +7,19 @@ ADDED:
 
 CHANGED:
 
-- Updated justinrainbow/json-schema to v2.0.0
-
 REMOVED:
 
 FIXED:
+
+## 0.10.6 - 2016-05-17
+
+CHANGED:
+
+- Updated justinrainbow/json-schema to v2.0.0
+
+FIXED:
+
+- [#23](https://github.com/woohoolabs/yin/issues/23): Fixed JsonApi object
 
 ## 0.10.5 - 2016-05-08
 
