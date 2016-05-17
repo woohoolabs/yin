@@ -75,7 +75,7 @@ abstract class AbstractDocument
     {
         $jsonApi = $this->getJsonApi();
         if ($jsonApi !== null) {
-            $content["jsonApi"] = $jsonApi->transform();
+            $content["jsonapi"] = $jsonApi->transform();
         }
     }
 
