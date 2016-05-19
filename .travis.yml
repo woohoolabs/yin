@@ -26,6 +26,9 @@ matrix:
 notifications:
   email: true
 
+before_install:
+  - if [[ "$EXECUTE_COVERAGE" != "true" ]]; then phpenv config-rm xdebug.ini; fi
+
 install:
   - travis_retry composer install --no-interaction --prefer-dist
 
