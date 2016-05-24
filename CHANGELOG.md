@@ -19,7 +19,7 @@ CHANGED:
 
 FIXED:
 
-- [#23](https://github.com/woohoolabs/yin/issues/23): Fixed JsonApi object
+- [#23](https://github.com/woohoolabs/yin/issues/23): Fixed jsonApi object
 
 ## 0.10.5 - 2016-05-08
 
