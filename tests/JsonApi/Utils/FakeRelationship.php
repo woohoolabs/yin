@@ -14,6 +14,6 @@ class FakeRelationship extends AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
-         return $this->retrieveData();
+        return $this->retrieveData();
     }
 }

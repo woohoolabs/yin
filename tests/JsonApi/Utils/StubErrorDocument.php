@@ -1,9 +1,9 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 
 class StubErrorDocument extends AbstractErrorDocument
 {

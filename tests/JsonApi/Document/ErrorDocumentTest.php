@@ -2,9 +2,9 @@
 namespace WoohooLabsTest\Yin\JsonApi\Document;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 
 class ErrorDocumentTest extends PHPUnit_Framework_TestCase
 {

@@ -86,7 +86,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($publisher)
     {
         return [
-            "name" => function(array $publisher) { return $publisher["name"]; },
+            "name" => function (array $publisher) { return $publisher["name"]; },
         ];
     }
 
@@ -114,7 +114,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     public function getRelationships($publisher)
     {
         return [
-            "representative" => function($publisher) {
+            "representative" => function ($publisher) {
                 return
                     ToOneRelationship::create()
                         ->setData($publisher["representative"], $this->representativeTransformer)

@@ -1,19 +1,19 @@
 <?php
 include_once "../vendor/autoload.php";
 
-use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
 use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
+use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
+use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
+use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
 use WoohooLabs\Yin\Examples\Book\Action\UpdateBookAction;
-use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
-use WoohooLabs\Yin\JsonApi\JsonApi;
+use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use Zend\Diactoros\ServerRequestFactory;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\ServerRequestFactory;
 
 // Defining routes
 $routes = [

@@ -88,8 +88,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($user)
     {
         return [
-            "firstname" => function(array $user) { return $user["firstname"]; },
-            "surname" => function(array $user) { return $user["lastname"]; },
+            "firstname" => function (array $user) { return $user["firstname"]; },
+            "surname" => function (array $user) { return $user["lastname"]; },
         ];
     }
 
@@ -117,7 +117,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
     public function getRelationships($user)
     {
         return [
-            "contacts" => function(array $user) {
+            "contacts" => function (array $user) {
                 return
                     ToManyRelationship::create()
                         ->setLinks(
@@ -126,7 +126,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
                                 "self" => new Link("/?path=/users/" . $user["id"] . "/relationships/contacts")
                             ])
                         )
-                        ->setDataAsCallable(function() use ($user) {
+                        ->setDataAsCallable(function () use ($user) {
                             return $user["contacts"];
                         }, $this->contactTransformer)
                         ->omitWhenNotIncluded()
