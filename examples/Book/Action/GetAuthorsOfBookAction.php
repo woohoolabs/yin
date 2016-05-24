@@ -25,5 +25,5 @@ class GetAuthorsOfBookAction
 
         // Responding with "200 Ok" status code along with the requested authors document
         return $jsonApi->respond()->ok($document, $authors);
-   }
+    }
 }

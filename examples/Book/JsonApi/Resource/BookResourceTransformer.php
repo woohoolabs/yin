@@ -113,8 +113,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($book)
     {
         return [
-            "title" => function(array $book) { return $book["title"]; },
-            "pages" => function(array $book) { return $this->toInt($book["pages"]); },
+            "title" => function (array $book) { return $book["title"]; },
+            "pages" => function (array $book) { return $this->toInt($book["pages"]); },
         ];
     }
 
@@ -142,7 +142,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getRelationships($book)
     {
         return [
-            "authors" => function(array $book) {
+            "authors" => function (array $book) {
                 return
                     ToManyRelationship::create()
                         ->setLinks(
@@ -156,7 +156,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                         ->setData($book["authors"], $this->authorTransformer)
                     ;
             },
-            "publisher" => function($book) {
+            "publisher" => function ($book) {
                 return
                     ToOneRelationship::create()
                         ->setLinks(

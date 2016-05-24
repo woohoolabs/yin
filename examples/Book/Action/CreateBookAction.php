@@ -2,8 +2,8 @@
 namespace WoohooLabs\Yin\Examples\Book\Action;
 
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\BookHydator;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer;
