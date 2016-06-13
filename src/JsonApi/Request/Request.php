@@ -396,7 +396,7 @@ class Request implements RequestInterface
      */
     public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null)
     {
-        return OffsetPagination::fromPaginationQueryParams($this->getPagination(), $defaultLimit, $defaultOffset);
+        return OffsetPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
     }
 
     /**
