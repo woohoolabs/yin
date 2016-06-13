@@ -89,7 +89,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($contact)
     {
         return [
-            $contact["type"] => function (array $contact) { return $contact["value"]; },
+            $contact["type"] => function (array $contact) {
+                return $contact["value"];
+            },
         ];
     }
 

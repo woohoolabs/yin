@@ -113,8 +113,12 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($book)
     {
         return [
-            "title" => function (array $book) { return $book["title"]; },
-            "pages" => function (array $book) { return $this->toInt($book["pages"]); },
+            "title" => function (array $book) {
+                return $book["title"];
+            },
+            "pages" => function (array $book) {
+                return $this->toInt($book["pages"]);
+            },
         ];
     }
 
