@@ -11,6 +11,12 @@ REMOVED:
 
 FIXED:
 
+## 0.10.7 - 2016-06-13
+
+FIXED:
+
+- [#25](https://github.com/woohoolabs/yin/issues/25): OffsetPagination bug, offset and limit mixup
+
 ## 0.10.6 - 2016-05-17
 
 CHANGED:
