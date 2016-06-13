@@ -86,7 +86,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($publisher)
     {
         return [
-            "name" => function (array $publisher) { return $publisher["name"]; },
+            "name" => function (array $publisher) {
+                return $publisher["name"];
+            },
         ];
     }
 

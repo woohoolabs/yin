@@ -88,8 +88,12 @@ class UserResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($user)
     {
         return [
-            "firstname" => function (array $user) { return $user["firstname"]; },
-            "surname" => function (array $user) { return $user["lastname"]; },
+            "firstname" => function (array $user) {
+                return $user["firstname"];
+            },
+            "surname" => function (array $user) {
+                return $user["lastname"];
+            },
         ];
     }
 

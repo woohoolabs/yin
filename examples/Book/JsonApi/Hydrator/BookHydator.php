@@ -100,8 +100,13 @@ class BookHydator extends AbstractHydrator
     protected function getAttributeHydrator($book)
     {
         return [
-            "title" => function (array $book, $attribute, $data) { $book["title"] = $attribute; return $book; },
-            "pages" => function (array &$book, $attribute, $data) { $book["pages"] = $attribute; }
+            "title" => function (array $book, $attribute, $data) {
+                $book["title"] = $attribute;
+                return $book;
+            },
+            "pages" => function (array &$book, $attribute, $data) {
+                $book["pages"] = $attribute;
+            }
         ];
     }
 
