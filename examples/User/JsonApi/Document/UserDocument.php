@@ -2,9 +2,9 @@
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument;
 
 class UserDocument extends AbstractSingleResourceDocument
 {

@@ -100,8 +100,8 @@ class BookHydator extends AbstractHydrator
     protected function getAttributeHydrator($book)
     {
         return [
-            "title" => function(array $book, $attribute, $data)  { $book["title"] = $attribute; return $book; },
-            "pages" => function(array &$book, $attribute, $data) { $book["pages"] = $attribute; }
+            "title" => function (array $book, $attribute, $data) { $book["title"] = $attribute; return $book; },
+            "pages" => function (array &$book, $attribute, $data) { $book["pages"] = $attribute; }
         ];
     }
 
@@ -124,12 +124,12 @@ class BookHydator extends AbstractHydrator
     protected function getRelationshipHydrator($book)
     {
         return [
-            "authors" => function(array $book, ToManyRelationship $authors, $data, $relationshipName) {
+            "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
                 $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
                 return $book;
             },
-            "publisher" => function(array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
+            "publisher" => function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];

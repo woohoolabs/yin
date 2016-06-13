@@ -2,9 +2,9 @@
 namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 
 class RelationshipResponder extends AbstractResponder
 {

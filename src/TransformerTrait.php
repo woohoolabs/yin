@@ -16,7 +16,7 @@ trait TransformerTrait
     public function toDecimal($value, $precision = 12)
     {
         if (is_numeric($value)) {
-            $value= round($value, $precision);
+            $value = round($value, $precision);
         }
 
         return $value;

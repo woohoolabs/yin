@@ -72,8 +72,8 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($representative)
     {
         return [
-            "name" => function(array $representative) { return $representative["name"]; },
-            "email" => function(array $representative) { return $representative["email"]; },
+            "name" => function (array $representative) { return $representative["name"]; },
+            "email" => function (array $representative) { return $representative["email"]; },
         ];
     }
 
