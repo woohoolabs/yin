@@ -674,9 +674,9 @@ This section guides you through the advanced features of Yin.
 #### Loading relationship data efficiently
 
 Sometimes it can be beneficent or necessary to fine-tune the returned relationships' data. A possible scenario might be
-when you have a "to-many" relationship with lots of items. In this case you might want to only return a data key of a
-relationship' when the relationship itself is included in the response. This optimization can save you bandwidth with
-omitting the resource linkage.
+when you have a "to-many" relationship with lots of items. In this case you might only want to return a data key of a
+relationship when the relationship itself is included in the response. This optimization can save you bandwidth by
+omitting resource linkage.
 
 An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php)
 example class:
