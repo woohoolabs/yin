@@ -78,6 +78,31 @@ class AbstractHydratorTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function hydrateAttributesWhenNull()
+    {
+        $body = [
+            "data" => [
+                "type" => "elephant",
+                "id" => "1",
+                "attributes" => [
+                    "height" => null
+                ]
+            ]
+        ];
+        $attributeHydrator = [
+            "height" => function (array &$elephant, $attribute) {
+                $elephant["height"] = $attribute;
+            }
+        ];
+
+        $hydrator = $this->createHydrator("elephant", $attributeHydrator);
+        $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new ExceptionFactory(), []);
+        $this->assertEquals(['height' => null], $domainObject);
+    }
+
+    /**
+     * @test
+     */
     public function hydrateAttributesWhenHydratorEmpty()
     {
         $body = [
