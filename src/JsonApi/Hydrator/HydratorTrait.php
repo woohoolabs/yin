@@ -91,7 +91,7 @@ trait HydratorTrait
 
         $attributeHydrator = $this->getAttributeHydrator($domainObject);
         foreach ($attributeHydrator as $attribute => $hydrator) {
-            if (isset($data["attributes"][$attribute]) === false) {
+            if (false === array_key_exists($attribute, $data["attributes"])) {
                 continue;
             }
 
