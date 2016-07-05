@@ -11,6 +11,12 @@ REMOVED:
 
 FIXED:
 
+## 0.10.8 - 2016-07-05
+
+FIXED:
+
+- [#28](https://github.com/woohoolabs/yin/issues/28): Hydrate attribute with null
+
 ## 0.10.7 - 2016-06-13
 
 FIXED:
