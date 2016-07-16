@@ -7,6 +7,8 @@ ADDED:
 
 CHANGED:
 
+- Default values can now be defined to several methods of `Request`
+
 REMOVED:
 
 FIXED:

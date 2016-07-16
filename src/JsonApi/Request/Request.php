@@ -441,7 +441,7 @@ class Request implements RequestInterface
     /**
      * @param string $name
      * @param mixed $default
-     * @return array|string|null
+     * @return array|string|mixed
      */
     public function getQueryParam($name, $default = null)
     {
@@ -477,28 +477,31 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return array|null
+     * @param mixed $default
+     * @return array|mixed
      */
-    public function getResource()
+    public function getResource($default = null)
     {
         $body = $this->getParsedBody();
-        return isset($body["data"])? $body["data"] : null;
+        return isset($body["data"])? $body["data"] : $default;
     }
 
     /**
-     * @return string|null
+     * @param mixed $default
+     * @return string|mixed
      */
-    public function getResourceType()
+    public function getResourceType($default = null)
     {
         $data = $this->getResource();
 
-        return isset($data["type"]) ? $data["type"] : null;
+        return isset($data["type"]) ? $data["type"] : $default;
     }
 
     /**
-     * @return string|null
+     * @param mixed $default
+     * @return string|mixed
      */
-    public function getResourceId()
+    public function getResourceId($default = null)
     {
         $data = $this->getResource();
 
