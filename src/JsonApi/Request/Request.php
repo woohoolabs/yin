@@ -518,7 +518,7 @@ class Request implements RequestInterface
     /**
      * @param string $attribute
      * @param mixed $default
-     * @return mixed|null
+     * @return mixed
      */
     public function getResourceAttribute($attribute, $default = null)
     {
