@@ -17,11 +17,11 @@ matrix:
     - php: 5.6
     - php: 7
       env:
-        - EXECUTE_CS_CHECK=true
-    - php: 7.1
-      env:
         - EXECUTE_COVERAGE=true
         - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
+    - php: 7.1
+      env:
+        - EXECUTE_CS_CHECK=true
     - php: hhvm
 
 notifications:
