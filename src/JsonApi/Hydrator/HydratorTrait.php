@@ -220,11 +220,14 @@ trait HydratorTrait
      */
     private function createRelationship(array $relationship)
     {
-        if (isset($relationship["data"]) === false) {
+        if (array_key_exists("data", $relationship) === false) {
             return null;
         }
 
-        if ($this->isAssociativeArray($relationship["data"]) === true) {
+        //If this is a request to clear the relationship, we create an empty relationship
+        if (is_null($relationship["data"])) {
+            $result = new ToOneRelationship();
+        } elseif ($this->isAssociativeArray($relationship["data"]) === true) {
             $result = new ToOneRelationship(ResourceIdentifier::fromArray($relationship["data"]));
         } else {
             $result = new ToManyRelationship();

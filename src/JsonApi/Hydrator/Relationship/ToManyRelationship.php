@@ -65,4 +65,14 @@ class ToManyRelationship
 
         return $ids;
     }
+
+    /**
+     * Returns true if this relationship is empty, not containing a resource identifier
+     * This will be the case when the request want to clear a relationship and sends an empty array as data.
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->resourceIdentifiers);
+    }
 }
