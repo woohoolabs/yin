@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 class ToOneRelationship
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier
+     * @var null | \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier
      */
     protected $resourceIdentifier;
 
@@ -29,10 +29,20 @@ class ToOneRelationship
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @return null | \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
      */
     public function getResourceIdentifier()
     {
         return $this->resourceIdentifier;
+    }
+
+    /**
+     * Returns true if this relationship is empty, not containing a resource identifier
+     * This will be the case when the request want to clear a relationship and sends null as data.
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return is_null($this->resourceIdentifier);
     }
 }

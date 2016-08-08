@@ -538,11 +538,18 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        if (isset($data["relationships"][$relationship]["data"]) === false) {
-            return null;
+        //The relationship has to exist in the request and have a data attribute to be valid
+        if (isset($data["relationships"][$relationship]) &&
+            array_key_exists("data", $data["relationships"][$relationship])
+        ) {
+            //If the data is null, this request is to clear the relationship, we return an empty relationship
+            if (is_null($data["relationships"][$relationship]["data"])) {
+                return new ToOneRelationship();
+            }
+            //If the data is set and is not null, we create the relationship with a resourceidentifier from the request
+            return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]));
         }
-
-        return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]));
+        return null;
     }
 
     /**
