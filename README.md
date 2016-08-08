@@ -585,7 +585,7 @@ class BookHydator extends AbstractHydrator
 
 According to the [book example](examples/Book), the following request:
 
-```
+```http
 POST /books HTTP/1.1
 Content-Type: application/vnd.api+json
 Accept: application/vnd.api+json
