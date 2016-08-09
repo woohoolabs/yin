@@ -4,6 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Request;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
@@ -21,6 +22,11 @@ class Request implements RequestInterface
      * @var \Psr\Http\Message\ServerRequestInterface
      */
     protected $serverRequest;
+
+	/**
+	 * @var ExceptionFactoryInterface
+	 */
+	protected $exceptionFactory;
 
     /**
      * @var array|null
@@ -50,9 +56,10 @@ class Request implements RequestInterface
     /**
      * @param \Psr\Http\Message\ServerRequestInterface $request
      */
-    public function __construct(ServerRequestInterface $request)
+    public function __construct(ServerRequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
         $this->serverRequest = $request;
+		$this->exceptionFactory = $exceptionFactory;
     }
 
     /**
@@ -243,9 +250,6 @@ class Request implements RequestInterface
         return isset($this->includedFields[$resourceType][$field]);
     }
 
-    /**
-     * @return array
-     */
     protected function setIncludedRelationships()
     {
         $this->includedRelationships = [];
@@ -534,7 +538,7 @@ class Request implements RequestInterface
      * @param string $relationship
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|null
      */
-    public function getResourceToOneRelationship($relationship)
+    public function getToOneRelationship($relationship)
     {
         $data = $this->getResource();
 
@@ -543,11 +547,14 @@ class Request implements RequestInterface
             array_key_exists("data", $data["relationships"][$relationship])
         ) {
             //If the data is null, this request is to clear the relationship, we return an empty relationship
-            if (is_null($data["relationships"][$relationship]["data"])) {
-                return new ToOneRelationship();
+            if ($data["relationships"][$relationship]["data"] === null) {
+					return new ToOneRelationship();
             }
-            //If the data is set and is not null, we create the relationship with a resourceidentifier from the request
-            return new ToOneRelationship(ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]));
+            //If the data is set and is not null, we create the relationship with a resource identifier from the request
+            return new ToOneRelationship(
+            	ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]),
+				$this->exceptionFactory
+			);
         }
         return null;
     }
@@ -556,7 +563,7 @@ class Request implements RequestInterface
      * @param string $relationship
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
      */
-    public function getResourceToManyRelationship($relationship)
+    public function getToManyRelationship($relationship)
     {
         $data = $this->getResource();
 
@@ -566,7 +573,7 @@ class Request implements RequestInterface
 
         $resourceIdentifiers = [];
         foreach ($data["relationships"][$relationship]["data"] as $item) {
-            $resourceIdentifiers[] = ResourceIdentifier::fromArray($item);
+            $resourceIdentifiers[] = ResourceIdentifier::fromArray($item, $this->exceptionFactory);
         }
 
         return new ToManyRelationship($resourceIdentifiers);

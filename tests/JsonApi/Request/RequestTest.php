@@ -733,7 +733,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $resourceIdentifier = $request->getResourceToOneRelationship("owner")->getResourceIdentifier();
+        $resourceIdentifier = $request->getToOneRelationship("owner")->getResourceIdentifier();
         $this->assertEquals("human", $resourceIdentifier->getType());
         $this->assertEquals("1", $resourceIdentifier->getId());
     }
@@ -759,7 +759,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         ];
 
         $request = $this->createRequestWithJsonBody($body);
-        $resourceIdentifiers = $request->getResourceToManyRelationship("friends")->getResourceIdentifiers();
+        $resourceIdentifiers = $request->getToManyRelationship("friends")->getResourceIdentifiers();
         $this->assertEquals("dog", $resourceIdentifiers[0]->getType());
         $this->assertEquals("2", $resourceIdentifiers[0]->getId());
         $this->assertEquals("dog", $resourceIdentifiers[1]->getType());

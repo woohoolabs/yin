@@ -8,6 +8,8 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 trait HydratorTrait
 {
+
+
     /**
      * Determines which resource type or types can be accepted by the hydrator.
      *
@@ -122,7 +124,10 @@ trait HydratorTrait
                 continue;
             }
 
-            $relationshipObject = $this->createRelationship($data["relationships"][$relationship]);
+            $relationshipObject = $this->createRelationship(
+            	$data["relationships"][$relationship],
+				$exceptionFactory
+			);
             if ($relationshipObject !== null) {
                 $result = $this->getRelationshipHydratorResult(
                     $relationship,
@@ -215,10 +220,11 @@ trait HydratorTrait
 
     /**
      * @param array $relationship
+	 * @param ExceptionFactoryInterface $exceptionFactory
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|
      * \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
      */
-    private function createRelationship(array $relationship)
+    private function createRelationship(array $relationship, ExceptionFactoryInterface $exceptionFactory)
     {
         if (array_key_exists("data", $relationship) === false) {
             return null;
@@ -228,11 +234,15 @@ trait HydratorTrait
         if (is_null($relationship["data"])) {
             $result = new ToOneRelationship();
         } elseif ($this->isAssociativeArray($relationship["data"]) === true) {
-            $result = new ToOneRelationship(ResourceIdentifier::fromArray($relationship["data"]));
+            $result = new ToOneRelationship(
+            	ResourceIdentifier::fromArray($relationship["data"], $exceptionFactory)
+			);
         } else {
             $result = new ToManyRelationship();
             foreach ($relationship["data"] as $relationship) {
-                $result->addResourceIdentifier(ResourceIdentifier::fromArray($relationship));
+                $result->addResourceIdentifier(
+                	ResourceIdentifier::fromArray($relationship, $exceptionFactory)
+				);
             }
         }
 

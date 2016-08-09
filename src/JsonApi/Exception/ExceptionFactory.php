@@ -154,6 +154,24 @@ class ExceptionFactory implements ExceptionFactoryInterface
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
+	/**
+	 * @param array $resourceIdentifier
+	 * @return \Exception
+	 */
+	public function createResourceIdentifierIdMissing(array $resourceIdentifier)
+	{
+		return new ResourceIdentifierIdMissing($resourceIdentifier);
+	}
+
+	/**
+	 * @param array $resourceIdentifier
+	 * @return \Exception
+	 */
+	public function createResourceIdentifierTypeMissing(array $resourceIdentifier)
+	{
+		return new ResourceIdentifierTypeMissing($resourceIdentifier);
+	}
+
     /**
      * @inheritDoc
      * @return \WoohooLabs\Yin\JsonApi\Exception\ResourceIdInvalid

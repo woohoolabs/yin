@@ -2,19 +2,34 @@
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
+	 * @expectedException ResourceIdentifierTypeMissing
      */
-    public function fromEmptyArray()
+    public function fromMissingTypeArray()
     {
-        $resourceIdentifierArray = [];
+        $resourceIdentifierArray = ["id" => "1"];
 
-        $this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray));
+        $this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory()));
     }
+
+	/**
+	 * @test
+	 * @expectedException ResourceIdentifierIdMissing
+	 */
+	public function fromMissingIdArray()
+	{
+		$resourceIdentifierArray = ["type" => "user"];
+
+		$this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory()));
+	}
 
     /**
      * @test
@@ -28,8 +43,11 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
             "type" => $type,
             "id" => $id
         ];
-        $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id);
-        $this->assertEquals($resourceIdentifier, ResourceIdentifier::fromArray($resourceIdentifierArray));
+
+        $this->assertEquals(
+			$this->createResourceIdentifier()->setType($type)->setId($id),
+			ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+		);
     }
 
     /**
@@ -47,7 +65,10 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
             "meta" => $meta
         ];
         $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id)->setMeta($meta);
-        $this->assertEquals($resourceIdentifier, ResourceIdentifier::fromArray($resourceIdentifierArray));
+        $this->assertEquals(
+        	$resourceIdentifier,
+			ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+		);
     }
 
     /**
