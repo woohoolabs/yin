@@ -36,6 +36,11 @@ class RelationshipResponderTest extends PHPUnit_Framework_TestCase
 
     private function createResponder()
     {
-        return new RelationshipResponder(new Request(new ServerRequest()), new Response(), new ExceptionFactory(), "");
+        return new RelationshipResponder(
+        	new Request(new ServerRequest(), new ExceptionFactory()),
+			new Response(),
+			new ExceptionFactory(),
+			""
+		);
     }
 }

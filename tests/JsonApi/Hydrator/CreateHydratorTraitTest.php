@@ -86,7 +86,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest);
+        $request = new Request($psrRequest, new ExceptionFactory());
 
         return $request;
     }

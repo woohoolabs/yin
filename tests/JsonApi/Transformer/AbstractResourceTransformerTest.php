@@ -191,7 +191,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 return $relationship;
             }
         ];
-        $request = new Request(new DiactorosServerRequest());
+        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
         $request = $request->withQueryParams(["fields" => ["user" => ""]]);
 
         $data = new SingleResourceData();
@@ -213,7 +213,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 return new ToOneRelationship();
             }
         ];
-        $request = new Request(new DiactorosServerRequest());
+        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
         $request = $request->withQueryParams(["include" => "mother"]);
 
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
@@ -228,7 +228,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $defaultRelationships = ["father"];
         $relationships = [];
 
-        $request = new Request(new DiactorosServerRequest());
+        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
@@ -250,7 +250,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
             }
         ];
 
-        $request = new Request(new DiactorosServerRequest());
+        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
@@ -273,7 +273,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         DataInterface $data = null
     ) {
         $transformation = new Transformation(
-            $request ? $request : new Request(new DiactorosServerRequest()),
+            $request ? $request : new Request(new DiactorosServerRequest(), new ExceptionFactory()),
             $data ? $data : new SingleResourceData(),
             new ExceptionFactory(),
             ""

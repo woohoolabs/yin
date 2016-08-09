@@ -113,6 +113,10 @@ class ResponderTest extends PHPUnit_Framework_TestCase
 
     private function createResponder()
     {
-        return new Responder(new Request(new ServerRequest()), new Response(), new ExceptionFactory());
+        return new Responder(
+        	new Request(new ServerRequest(), new ExceptionFactory()),
+			new Response(),
+			new ExceptionFactory()
+		);
     }
 }

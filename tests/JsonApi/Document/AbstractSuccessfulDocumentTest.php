@@ -21,7 +21,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getResponse()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $responseCode = 200;
         $version = "1.0";
 
@@ -37,7 +37,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getResponseWithExtensions()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $extensions = ["ext1", "ext2"];
         $supportedExtensions = ["ext1", "ext2", "ext3"];
 
@@ -54,7 +54,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getEmptyMetaResponse()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $meta = [];
         $responseCode = 200;
 
@@ -69,7 +69,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getMetaResponse()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $meta = ["abc" => "def"];
 
         $document = $this->createDocument([], [], null, $meta);
@@ -82,7 +82,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getEmptyDataResponse()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $data = new SingleResourceData();
 
         $document = $this->createDocument([], [], null, [], null, $data);
@@ -95,7 +95,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getResponseWithLinks()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
         $document = $this->createDocument([], [], null, [], $links);
@@ -108,7 +108,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getEmptyDataResponseWithEmptyIncludes()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $data = null;
 
         $document = $this->createDocument([], [], null, [], null, $data);
@@ -121,7 +121,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getEmptyDataResponseWithIncludes()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $data = new SingleResourceData();
         $data->setIncludedResources(
             [
@@ -146,7 +146,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getRelationshipResponse()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $relationshipResponseContentData = [
             "type" => "user",
             "id" => "1"
@@ -165,7 +165,7 @@ class AbstractSuccessfulDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getRelationshipResponseWithIncluded()
     {
-        $request = new Request(new ServerRequest());
+        $request = new Request(new ServerRequest(), new ExceptionFactory());
         $data = new SingleResourceData();
         $data->setIncludedResources(
             [

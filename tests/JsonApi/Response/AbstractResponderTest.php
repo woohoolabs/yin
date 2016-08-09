@@ -45,7 +45,7 @@ class AbstractResponderTest extends PHPUnit_Framework_TestCase
     private function createResponder(Response $response = null)
     {
         return new Responder(
-            new Request(new ServerRequest()),
+            new Request(new ServerRequest(), new ExceptionFactory()),
             $response ? $response : new Response(),
             new ExceptionFactory()
         );

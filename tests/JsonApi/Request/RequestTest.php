@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Request;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
@@ -74,7 +75,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         try {
             $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
         }
     }
@@ -86,7 +87,11 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testValidateJsonApiAcceptHeaderWithExtMediaType()
     {
-        $this->assertValidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"');
+		try {
+			$this->createRequestWithHeader("Accept", "application/vnd.api+json;")->validateAcceptHeader();
+		} catch (Exception $e) {
+			$this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
+		}
     }
 
     /**
@@ -95,12 +100,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
-        $this->assertInvalidAcceptHeader('application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
-    }
-
-    private function assertValidAcceptHeader($value)
-    {
-        try {
 		$this->createRequestWithHeader(
 			"Accept",
 			'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
@@ -148,7 +147,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     {
         try {
             $this->createRequestWithQueryParams($params)->validateQueryParams();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
         }
     }
@@ -156,12 +155,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getExtensions()
-    {
-        $extensions = ["ext1", "ext2", "ext3"];
-        $contentType = 'application/vnd.api+json; ext="' . implode(",", $extensions) . '"';
-
-        $request = $this->createRequestWithHeader("Content-Type", $contentType);
     public function getEmptyIncludedFields()
     {
         $resourceType = "";
@@ -926,32 +919,32 @@ class RequestTest extends PHPUnit_Framework_TestCase
     private function createRequest()
     {
         $psrRequest = new DiactorosRequest();
-        return new Request($psrRequest);
+        return new Request($psrRequest, new ExceptionFactory());
     }
 
     private function createRequestWithJsonBody(array $body)
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
-        return new Request($psrRequest);
+        return new Request($psrRequest, new ExceptionFactory());
     }
 
     private function createRequestWithHeaders(array $headers)
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", $headers);
-        return new Request($psrRequest);
+        return new Request($psrRequest, new ExceptionFactory());
     }
 
     private function createRequestWithHeader($headerName, $headerValue)
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
-        return new Request($psrRequest);
+        return new Request($psrRequest, new ExceptionFactory());
     }
 
     private function createRequestWithQueryParams(array $queryParams)
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
-        return new Request($psrRequest);
+        return new Request($psrRequest, new ExceptionFactory());
     }
 }

@@ -61,11 +61,12 @@ $routes = [
 ];
 
 // Find the current route
-$request = new Request(ServerRequestFactory::fromGlobals());
+$exceptionFactory = new ExceptionFactory();
+$request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory);
 $request = findRoute($request, $routes);
 
 // Invoking the current action
-$jsonApi = new JsonApi($request, new Response(), new ExceptionFactory());
+$jsonApi = new JsonApi($request, new Response(), $exceptionFactory);
 $action = $request->getAttribute("action");
 $response = call_user_func(new $action(), $jsonApi);
 
