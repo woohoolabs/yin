@@ -23,10 +23,10 @@ class Request implements RequestInterface
      */
     protected $serverRequest;
 
-	/**
-	 * @var ExceptionFactoryInterface
-	 */
-	protected $exceptionFactory;
+    /**
+     * @var ExceptionFactoryInterface
+     */
+    protected $exceptionFactory;
 
     /**
      * @var array|null
@@ -59,7 +59,7 @@ class Request implements RequestInterface
     public function __construct(ServerRequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
         $this->serverRequest = $request;
-		$this->exceptionFactory = $exceptionFactory;
+        $this->exceptionFactory = $exceptionFactory;
     }
 
     /**
@@ -104,8 +104,8 @@ class Request implements RequestInterface
      */
     protected function isValidMediaTypeHeader($headerName)
     {
-    	$header = $this->getHeaderLine($headerName);
-		return (strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json");
+        $header = $this->getHeaderLine($headerName);
+        return (strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json");
     }
 
     protected function setIncludedFields()
@@ -456,12 +456,12 @@ class Request implements RequestInterface
         ) {
             //If the data is null, this request is to clear the relationship, we return an empty relationship
             if ($data["relationships"][$relationship]["data"] === null) {
-					return new ToOneRelationship();
+                return new ToOneRelationship();
             }
             //If the data is set and is not null, we create the relationship with a resource identifier from the request
             return new ToOneRelationship(
-            	ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"], $this->exceptionFactory)
-			);
+                ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"], $this->exceptionFactory)
+            );
         }
         return null;
     }

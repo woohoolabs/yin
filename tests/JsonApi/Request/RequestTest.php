@@ -39,7 +39,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
-	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
@@ -71,11 +71,11 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testValidateJsonApiAcceptHeaderWithExtMediaType()
     {
-		try {
-			$this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
-		} catch (Exception $e) {
-			$this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
-		}
+        try {
+            $this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
+        } catch (Exception $e) {
+            $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
+        }
     }
 
     /**
@@ -84,10 +84,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
-		$this->createRequestWithHeader(
-			"Accept",
-			'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
-		)->validateAcceptHeader();
+        $this->createRequestWithHeader(
+            "Accept",
+            'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
+        )->validateAcceptHeader();
     }
 
     public function testValidateEmptyQueryParams()

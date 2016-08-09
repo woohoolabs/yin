@@ -6,16 +6,16 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
 class ResourceIdentifierTypeMissing extends JsonApiException
 {
-	/**
-	 * @var array
-	 */
-	private $resourceIdentifier;
+    /**
+     * @var array
+     */
+    private $resourceIdentifier;
 
-	public function __construct(array $resourceIdentifier)
-	{
-		parent::__construct("A type for the resource identifier must be included!");
-		$this->resourceIdentifier = $resourceIdentifier;
-	}
+    public function __construct(array $resourceIdentifier)
+    {
+        parent::__construct("A type for the resource identifier must be included!");
+        $this->resourceIdentifier = $resourceIdentifier;
+    }
 
     /**
      * @inheritDoc
@@ -31,11 +31,11 @@ class ResourceIdentifierTypeMissing extends JsonApiException
         ];
     }
 
-	/**
-	 * @return array
-	 */
-	public function getResourceIdentifier()
-	{
-		return $this->resourceIdentifier;
-	}
+    /**
+     * @return array
+     */
+    public function getResourceIdentifier()
+    {
+        return $this->resourceIdentifier;
+    }
 }
