@@ -31,20 +31,6 @@ interface RequestInterface extends ServerRequestInterface
     public function validateQueryParams();
 
     /**
-     * Returns a list of extensions by which the request is formatted.
-     *
-     * @return array
-     */
-    public function getExtensions();
-
-    /**
-     * Returns a list of extensions which are required by the request.
-     *
-     * @return array
-     */
-    public function getRequiredExtensions();
-
-    /**
      * Returns a list of field names for the given resource type which are required to be present in the response.
      *
      * @param string $resourceType

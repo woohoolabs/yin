@@ -4,26 +4,6 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 abstract class AbstractDocument
 {
     /**
-     * Lists all those extensions by which the response is formatted.
-     *
-     * @return array
-     */
-    public function getExtensions()
-    {
-        return [];
-    }
-
-    /**
-     * Lists all those extensions which are supported by the endpoint utilizing the current document.
-     *
-     * @return array
-     */
-    public function getSupportedExtensions()
-    {
-        return [];
-    }
-
-    /**
      * Provides information about the "jsonApi" section of the current document.
      *
      * The method returns a new JsonApi schema object if this section should be present or null
@@ -107,18 +87,6 @@ abstract class AbstractDocument
      */
     protected function getContentType()
     {
-        $contentType = "application/vnd.api+json";
-
-        $extensions = $this->getExtensions();
-        if (empty($extensions) === false) {
-            $contentType .= '; ext="' . implode(",", $extensions) . '"';
-        }
-
-        $supportedExtensions = $this->getSupportedExtensions();
-        if (empty($supportedExtensions) === false) {
-            $contentType .= '; supported-ext="' . implode(",", $supportedExtensions) . '"';
-        }
-
-        return $contentType;
+        return "application/vnd.api+json";
     }
 }

@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request;
 
 use PHPUnit_Framework_TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
@@ -40,15 +41,16 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function validateContentTypeHeaderWithSupportedExtensionMediaType()
     {
-        $this->assertValidContentTypeHeader('application/vnd.api+json; supported-ext="bulk,jsonpatch"');
+        $this->assertInvalidContentTypeHeader('application/vnd.api+json; supported-ext="bulk,jsonpatch"');
     }
 
     /**
      * @test
+	 * @expectedException
      */
     public function validateValidContentTypeHeaderWithExtMediaType()
     {
-        $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
+        $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
     }
 
     /**
@@ -56,7 +58,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function validateContentTypeHeaderWithExtensionMediaTypes()
     {
-        $this->assertValidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2"');
+        $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2"');
     }
 
     /**
@@ -66,15 +68,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function validateContentTypeHeaderWithCharsetMediaType()
     {
         $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8");
-    }
-
-    /**
-     * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
-     */
-    public function validateContentTypeHeaderWithMultipleMediaTypes()
-    {
-        $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8; lang=en");
     }
 
     private function assertValidContentTypeHeader($value)
@@ -108,15 +101,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
     private function assertValidAcceptHeader($value)
     {
         try {
-            $this->createRequestWithHeader("Accept", $value)->validateAcceptHeader();
-        } catch (\Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
-        }
-    }
-
-    private function assertInvalidAcceptHeader($value)
-    {
-        $this->createRequestWithHeader("Accept", $value)->validateAcceptHeader();
+		$this->createRequestWithHeader(
+			"Accept",
+			'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
+		)->validateAcceptHeader();
     }
 
     public function testValidateEmptyQueryParams()
@@ -174,24 +162,6 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $contentType = 'application/vnd.api+json; ext="' . implode(",", $extensions) . '"';
 
         $request = $this->createRequestWithHeader("Content-Type", $contentType);
-        $this->assertEquals($extensions, $request->getExtensions());
-    }
-
-    /**
-     * @test
-     */
-    public function getRequiredExtensions()
-    {
-        $extensions = ["ext1", "ext2", "ext3"];
-        $accept = 'application/vnd.api+json; ext="' . implode(",", $extensions) . '"';
-
-        $request = $this->createRequestWithHeader("Accept", $accept);
-        $this->assertEquals($extensions, $request->getRequiredExtensions());
-    }
-
-    /**
-     * @test
-     */
     public function getEmptyIncludedFields()
     {
         $resourceType = "";

@@ -67,9 +67,8 @@ class Request implements RequestInterface
      */
     public function validateContentTypeHeader()
     {
-        $invalidHeaderMediaType = $this->getInvalidHeaderMediaType("Content-Type");
-        if ($invalidHeaderMediaType !== null) {
-            throw new MediaTypeUnsupported($invalidHeaderMediaType);
+        if ($this->isValidMediaTypeHeader("Content-Type") === false) {
+            throw new MediaTypeUnacceptable($this->getHeaderLine("Content-Type"));
         }
     }
 
@@ -78,9 +77,8 @@ class Request implements RequestInterface
      */
     public function validateAcceptHeader()
     {
-        $invalidHeaderMediaType = $this->getInvalidHeaderMediaType("Accept");
-        if ($invalidHeaderMediaType !== null) {
-            throw new MediaTypeUnacceptable($invalidHeaderMediaType);
+        if ($this->isValidMediaTypeHeader("Accept") === false) {
+            throw new MediaTypeUnacceptable($this->getHeaderLine("Accept"));
         }
     }
 
@@ -99,105 +97,15 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return array
-     */
-    public function getExtensions()
-    {
-        return $this->getHeaderExtensions("Content-Type");
-    }
-
-    /**
-     * @return array
-     */
-    public function getRequiredExtensions()
-    {
-        return $this->getHeaderExtensions("Accept");
-    }
-
-    /**
-     * Returns a list of extensions in a given header, found in the "ext" media type parameter.
-     *
-     * @param string $headerName
-     * @return array
-     */
-    protected function getHeaderExtensions($headerName)
-    {
-        $extensions = [];
-
-        $contentTypeHeader = $this->parseMediaTypeHeader($headerName);
-        foreach ($contentTypeHeader as $mediaType) {
-            if ($mediaType["name"] === "application/vnd.api+json" && isset($mediaType["parameters"]["ext"])) {
-                foreach (explode(",", $mediaType["parameters"]["ext"]) as $extension) {
-                    $extensions[$extension] = "";
-                }
-            }
-        }
-
-        return array_keys($extensions);
-    }
-
-    /**
-     * Returns an invalid media type parameter in a given header of the request if present, or null otherwise.
-     *
-     * @param string $headerName
-     * @return string|null
-     */
-    protected function getInvalidHeaderMediaType($headerName)
-    {
-        foreach ($this->parseMediaTypeHeader($headerName) as $mediaType) {
-            if ($mediaType["name"] === "application/vnd.api+json") {
-                foreach ($mediaType["parameters"] as $paramName => $paramValue) {
-                    if ($paramName !== "ext" && $paramName !== "supported-ext") {
-                        return $mediaType["raw"];
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Returns a list of media type information, extracted from a given header in the current request.
      *
      * @param string $headerName
-     * @return array
+     * @return bool
      */
-    protected function parseMediaTypeHeader($headerName)
+    protected function isValidMediaTypeHeader($headerName)
     {
-        $mediaTypes = [];
-
-        $mediaTypeNameRegex = '([A-Za-z0-9\._\-\+\/\*]+)';
-        $mediaTypeParameterNameRegex = '([A-Za-z0-9_\-\.\+\/\*]+)';
-        $mediaTypeParameterValueRegex = '["]{0,1}([A-Za-z0-9_\-\.\+\/\*,]+)["]{0,1}';
-        $mediaTypeParameterRegex = $mediaTypeParameterNameRegex.'\s*=\s*'.$mediaTypeParameterValueRegex;
-        $mediaTypeRegex = '(?:\s*'.$mediaTypeNameRegex.'\s*(?:(?:[;]|$)\s*'.$mediaTypeParameterRegex.')*?(?:[,]|$))*?';
-
-        foreach ($this->getHeader($headerName) as $headerValue) {
-            $parsedMediaType = [];
-            preg_match_all('/'.$mediaTypeRegex.'/', $headerValue, $parsedMediaType, PREG_SET_ORDER);
-            if (is_array($parsedMediaType) === false) {
-                continue;
-            }
-
-            foreach ($parsedMediaType as $parsed) {
-                $mediaType = ["name" => "", "parameters" => [], "raw" => ""];
-                if (isset($parsed[1])) {
-                    $mediaType["name"] = $parsed[1];
-                    $mediaType["raw"] = trim($parsed[0]);
-
-                    for ($i = 2; isset($parsed[$i]); $i += 2) {
-                        $paramName = $parsed[$i];
-                        $paramValue = isset($parsed[$i + 1]) ? $parsed[$i + 1] : "";
-
-                        $mediaType["parameters"][$paramName] = $paramValue;
-                    }
-                    $mediaTypes[] = $mediaType;
-                }
-            }
-        }
-
-        return $mediaTypes;
+    	$header = $this->getHeaderLine($headerName);
+		return (strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json");
     }
 
     protected function setIncludedFields()
