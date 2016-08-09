@@ -1,18 +1,25 @@
 ## 0.11.0 - unreleased
 
-This version will bring a completely rethinked hydration system while improving the docs, test coverage and test quality.
-According to my plans, v11.0 may be the last minor release before v1.0.
-
 ADDED:
+
+- [#15](https://github.com/woohoolabs/yin/issues/15): PATCH a relationship with {"data":null}
+- [#33](https://github.com/woohoolabs/yin/pull/33): Add support for clearing relationships
 
 CHANGED:
 
 - Default values can now be defined to several methods of `Request`
 - Slightly optimized request body serialization
+- Renamed `Request::getResourceToOneRelationship()` to `Request::getToOneRelationship()`
+- Renamed `Request::getResourceToManyRelationship()` to `Request::getToManyRelationship()`
 
 REMOVED:
 
+- Support for extensions
+
 FIXED:
+
+- [#30](https://github.com/woohoolabs/yin/issues/30): ResourceIdentifier::fromArray() returning null is not handled gracefully
+- `MediaTypeUnacceptable` and `MediaTypeUnsupported` exception messages
 
 ## 0.10.8 - 2016-07-05
 
