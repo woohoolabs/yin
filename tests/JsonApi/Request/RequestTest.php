@@ -60,7 +60,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         try {
             $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
         } catch (Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
+            $this->fail("No exception should have been thrown, but the following was caught: " . $e->getMessage());
         }
     }
 
@@ -74,7 +74,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
         try {
             $this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
         } catch (Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
+            $this->fail("No exception should have been thrown, but the following was caught: " . $e->getMessage());
         }
     }
 
