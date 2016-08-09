@@ -68,7 +68,7 @@ class Request implements RequestInterface
     public function validateContentTypeHeader()
     {
         if ($this->isValidMediaTypeHeader("Content-Type") === false) {
-            throw new MediaTypeUnacceptable($this->getHeaderLine("Content-Type"));
+            throw new MediaTypeUnsupported($this->getHeaderLine("Content-Type"));
         }
     }
 
@@ -460,8 +460,7 @@ class Request implements RequestInterface
             }
             //If the data is set and is not null, we create the relationship with a resource identifier from the request
             return new ToOneRelationship(
-            	ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"]),
-				$this->exceptionFactory
+            	ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"], $this->exceptionFactory)
 			);
         }
         return null;

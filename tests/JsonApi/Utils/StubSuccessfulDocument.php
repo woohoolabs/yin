@@ -10,16 +10,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var array
-     */
-    protected $extensions;
-
-    /**
-     * @var array
-     */
-    protected $supportedExtensions;
-
-    /**
      * @var \WoohooLabs\Yin\JsonApi\Schema\JsonApi
      */
     protected $jsonApi;
@@ -40,8 +30,6 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $relationshipResponseContent;
 
     /**
-     * @param array $extensions
-     * @param array $supportedExtensions
      * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
      * @param array $meta
      * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
@@ -49,37 +37,17 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
      * @param array $relationshipResponseContent
      */
     public function __construct(
-        array $extensions = [],
-        array $supportedExtensions = [],
         JsonApi $jsonApi = null,
         array $meta = [],
         Links $links = null,
         DataInterface $data = null,
         array $relationshipResponseContent = []
     ) {
-        $this->extensions = $extensions;
-        $this->supportedExtensions = $supportedExtensions;
         $this->jsonApi = $jsonApi;
         $this->meta = $meta;
         $this->links = $links;
         $this->data = $data;
         $this->relationshipResponseContent = $relationshipResponseContent;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getExtensions()
-    {
-        return $this->extensions;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSupportedExtensions()
-    {
-        return $this->supportedExtensions;
     }
 
     /**

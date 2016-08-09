@@ -39,27 +39,11 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
-    public function validateContentTypeHeaderWithSupportedExtensionMediaType()
-    {
-        $this->assertInvalidContentTypeHeader('application/vnd.api+json; supported-ext="bulk,jsonpatch"');
-    }
-
-    /**
-     * @test
-	 * @expectedException
-     */
-    public function validateValidContentTypeHeaderWithExtMediaType()
+    public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
         $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
-    }
-
-    /**
-     * @test
-     */
-    public function validateContentTypeHeaderWithExtensionMediaTypes()
-    {
-        $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"; supported-ext="ext1,ext2"');
     }
 
     /**
@@ -88,7 +72,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testValidateJsonApiAcceptHeaderWithExtMediaType()
     {
 		try {
-			$this->createRequestWithHeader("Accept", "application/vnd.api+json;")->validateAcceptHeader();
+			$this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
 		} catch (Exception $e) {
 			$this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
 		}
@@ -681,7 +665,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getResourceToOneRelationship()
+    public function getToOneRelationship()
     {
         $body = [
             "data" => [
@@ -704,7 +688,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getResourceToManyRelationship()
+    public function getToManyRelationship()
     {
         $body = [
             "data" => [

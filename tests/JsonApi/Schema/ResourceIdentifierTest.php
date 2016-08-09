@@ -11,24 +11,24 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-	 * @expectedException ResourceIdentifierTypeMissing
+	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing
      */
     public function fromMissingTypeArray()
     {
         $resourceIdentifierArray = ["id" => "1"];
 
-        $this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory()));
+		ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
     }
 
 	/**
 	 * @test
-	 * @expectedException ResourceIdentifierIdMissing
+	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing
 	 */
 	public function fromMissingIdArray()
 	{
 		$resourceIdentifierArray = ["type" => "user"];
 
-		$this->assertNull(ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory()));
+		ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
 	}
 
     /**

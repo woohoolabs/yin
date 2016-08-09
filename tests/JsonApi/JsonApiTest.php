@@ -114,6 +114,6 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
 
     private function createRequest(ServerRequestInterface $request = null)
     {
-        return new Request($request ? $request : new ServerRequest());
+        return new Request($request ? $request : new ServerRequest(), new ExceptionFactory());
     }
 }

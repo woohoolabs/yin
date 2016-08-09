@@ -28,7 +28,7 @@ class RelationshipResponderTest extends PHPUnit_Framework_TestCase
     public function okWithMeta()
     {
         $meta = ["abc" => "def"];
-        $document = new StubSuccessfulDocument([], [], null, $meta);
+        $document = new StubSuccessfulDocument(null, $meta);
 
         $response = $this->createResponder()->okWithMeta($document, []);
         $this->assertEquals(200, $response->getStatusCode());
