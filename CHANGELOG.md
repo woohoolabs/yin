@@ -18,7 +18,7 @@ REMOVED:
 
 FIXED:
 
-- [#30](https://github.com/woohoolabs/yin/issues/30): ResourceIdentifier::fromArray() returning null is not handled gracefully
+- [#30](https://github.com/woohoolabs/yin/issues/30): `ResourceIdentifier::fromArray()` returning null is not handled gracefully
 - `MediaTypeUnacceptable` and `MediaTypeUnsupported` exception messages
 
 ## 0.10.8 - 2016-07-05
