@@ -20,8 +20,6 @@ matrix:
         - EXECUTE_COVERAGE=true
         - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
     - php: 7.1
-      env:
-        - EXECUTE_CS_CHECK=true
     - php: hhvm
 
 notifications:
@@ -35,7 +33,6 @@ install:
 
 script:
   - $TEST_COMMAND
-  - if [[ "$EXECUTE_CS_CHECK" == "true" ]]; then ./vendor/bin/phpcs ; fi
 
 after_success:
   - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
