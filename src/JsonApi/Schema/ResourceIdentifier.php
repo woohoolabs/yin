@@ -19,19 +19,19 @@ class ResourceIdentifier
 
     /**
      * @param array $array
-	 * @param ExceptionFactoryInterface $exceptionFactory
+     * @param ExceptionFactoryInterface $exceptionFactory
      * @return $this
-	 * @throw \Exception
+     * @throw \Exception
      */
     public static function fromArray(array $array, ExceptionFactoryInterface $exceptionFactory)
     {
         if (isset($array["type"]) === false) {
-			throw $exceptionFactory->createResourceIdentifierTypeMissing($array);
+            throw $exceptionFactory->createResourceIdentifierTypeMissing($array);
         }
 
-		if (isset($array["id"]) === false) {
-			throw $exceptionFactory->createResourceIdentifierIdMissing($array);
-		}
+        if (isset($array["id"]) === false) {
+            throw $exceptionFactory->createResourceIdentifierIdMissing($array);
+        }
 
         $resourceIdentifier = new self();
         $resourceIdentifier->setType($array["type"]);

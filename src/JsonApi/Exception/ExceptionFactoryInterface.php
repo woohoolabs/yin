@@ -119,17 +119,17 @@ interface ExceptionFactoryInterface
         $includeOriginalBody
     );
 
-	/**
-	 * @param array $resourceIdentifier
-	 * @return \Exception
-	 */
-	public function createResourceIdentifierIdMissing(array $resourceIdentifier);
+    /**
+     * @param array $resourceIdentifier
+     * @return \Exception
+     */
+    public function createResourceIdentifierIdMissing(array $resourceIdentifier);
 
-	/**
-	 * @param array $resourceIdentifier
-	 * @return \Exception
-	 */
-	public function createResourceIdentifierTypeMissing(array $resourceIdentifier);
+    /**
+     * @param array $resourceIdentifier
+     * @return \Exception
+     */
+    public function createResourceIdentifierTypeMissing(array $resourceIdentifier);
 
     /**
      * @param string $id

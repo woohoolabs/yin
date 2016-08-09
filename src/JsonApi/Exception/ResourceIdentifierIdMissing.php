@@ -5,15 +5,15 @@ use WoohooLabs\Yin\JsonApi\Schema\Error;
 
 class ResourceIdentifierIdMissing extends JsonApiException
 {
-	/**
-	 * @var array
-	 */
-	private $resourceIdentifier;
+    /**
+     * @var array
+     */
+    private $resourceIdentifier;
 
     public function __construct(array $resourceIdentifier)
     {
         parent::__construct("An ID for the resource identifier must be included!");
-		$this->resourceIdentifier = $resourceIdentifier;
+        $this->resourceIdentifier = $resourceIdentifier;
     }
 
     /**
@@ -30,11 +30,11 @@ class ResourceIdentifierIdMissing extends JsonApiException
         ];
     }
 
-	/**
-	 * @return array
-	 */
-	public function getResourceIdentifier()
-	{
-		return $this->resourceIdentifier;
-	}
+    /**
+     * @return array
+     */
+    public function getResourceIdentifier()
+    {
+        return $this->resourceIdentifier;
+    }
 }

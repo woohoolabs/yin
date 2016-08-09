@@ -11,25 +11,25 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @test
-	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing
      */
     public function fromMissingTypeArray()
     {
         $resourceIdentifierArray = ["id" => "1"];
 
-		ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
+        ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
     }
 
-	/**
-	 * @test
-	 * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing
-	 */
-	public function fromMissingIdArray()
-	{
-		$resourceIdentifierArray = ["type" => "user"];
+    /**
+     * @test
+     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing
+     */
+    public function fromMissingIdArray()
+    {
+        $resourceIdentifierArray = ["type" => "user"];
 
-		ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
-	}
+        ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
+    }
 
     /**
      * @test
@@ -45,9 +45,9 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         ];
 
         $this->assertEquals(
-			$this->createResourceIdentifier()->setType($type)->setId($id),
-			ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
-		);
+            $this->createResourceIdentifier()->setType($type)->setId($id),
+            ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+        );
     }
 
     /**
@@ -66,9 +66,9 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         ];
         $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id)->setMeta($meta);
         $this->assertEquals(
-        	$resourceIdentifier,
-			ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
-		);
+            $resourceIdentifier,
+            ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+        );
     }
 
     /**

@@ -125,9 +125,9 @@ trait HydratorTrait
             }
 
             $relationshipObject = $this->createRelationship(
-            	$data["relationships"][$relationship],
-				$exceptionFactory
-			);
+                $data["relationships"][$relationship],
+                $exceptionFactory
+            );
             if ($relationshipObject !== null) {
                 $result = $this->getRelationshipHydratorResult(
                     $relationship,
@@ -220,7 +220,7 @@ trait HydratorTrait
 
     /**
      * @param array $relationship
-	 * @param ExceptionFactoryInterface $exceptionFactory
+     * @param ExceptionFactoryInterface $exceptionFactory
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|
      * \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
      */
@@ -235,14 +235,14 @@ trait HydratorTrait
             $result = new ToOneRelationship();
         } elseif ($this->isAssociativeArray($relationship["data"]) === true) {
             $result = new ToOneRelationship(
-            	ResourceIdentifier::fromArray($relationship["data"], $exceptionFactory)
-			);
+                ResourceIdentifier::fromArray($relationship["data"], $exceptionFactory)
+            );
         } else {
             $result = new ToManyRelationship();
             foreach ($relationship["data"] as $relationship) {
                 $result->addResourceIdentifier(
-                	ResourceIdentifier::fromArray($relationship, $exceptionFactory)
-				);
+                    ResourceIdentifier::fromArray($relationship, $exceptionFactory)
+                );
             }
         }
 
