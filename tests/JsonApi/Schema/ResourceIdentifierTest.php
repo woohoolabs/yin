@@ -3,8 +3,6 @@ namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
