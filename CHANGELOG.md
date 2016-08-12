@@ -1,4 +1,4 @@
-## 0.11.0 - unreleased
+## 1.0.0 - unreleased
 
 ADDED:
 
@@ -11,6 +11,7 @@ CHANGED:
 - Slightly optimized request body serialization
 - Renamed `Request::getResourceToOneRelationship()` to `Request::getToOneRelationship()`
 - Renamed `Request::getResourceToManyRelationship()` to `Request::getToManyRelationship()`
+- Changed the signature of the `Request` contructor from `Request::__construct(ServerRequestInterface $request)` to `public function __construct(ServerRequestInterface $request, ExceptionFactoryInterface $exceptionFactory)`
 
 REMOVED:
 
