@@ -140,8 +140,8 @@ trait HydratorTrait
      * @param string $relationshipName
      * @param callable $hydrator
      * @param ExceptionFactoryInterface $exceptionFactory
-     * @param array $relationshipData
-     * @param array $data
+     * @param array|null $relationshipData
+     * @param array|null $data
      * @return mixed
      */
     protected function doHydrateRelationship(
@@ -149,8 +149,8 @@ trait HydratorTrait
         $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
-        array $relationshipData,
-        array $data
+        $relationshipData,
+        $data
     ) {
         $relationshipObject = $this->createRelationship(
             $relationshipData,
@@ -180,7 +180,7 @@ trait HydratorTrait
      * @param callable $hydrator
      * @param mixed $domainObject
      * @param ToOneRelationship|ToManyRelationship $relationshipObject
-     * @param array $data
+     * @param array|null $data
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
@@ -191,7 +191,7 @@ trait HydratorTrait
         callable $hydrator,
         $domainObject,
         $relationshipObject,
-        array $data,
+        $data,
         ExceptionFactoryInterface $exceptionFactory
     ) {
         // Checking if the current and expected relationship types match
@@ -248,14 +248,14 @@ trait HydratorTrait
     }
 
     /**
-     * @param array $relationship
+     * @param array $relationship|null
      * @param ExceptionFactoryInterface $exceptionFactory
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|
      * \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
      */
-    private function createRelationship(array $relationship, ExceptionFactoryInterface $exceptionFactory)
+    private function createRelationship($relationship, ExceptionFactoryInterface $exceptionFactory)
     {
-        if (array_key_exists("data", $relationship) === false) {
+        if (is_array($relationship) === false || array_key_exists("data", $relationship) === false) {
             return null;
         }
 

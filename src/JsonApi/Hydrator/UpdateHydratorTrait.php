@@ -70,8 +70,8 @@ trait UpdateHydratorTrait
 	 * @param string $relationshipName
 	 * @param callable $hydrator
 	 * @param ExceptionFactoryInterface $exceptionFactory
-	 * @param array $relationshipData
-	 * @param array $data
+	 * @param array|null $relationshipData
+	 * @param array|null $data
 	 * @return mixed
 	 */
 	abstract protected function doHydrateRelationship(
@@ -79,8 +79,8 @@ trait UpdateHydratorTrait
 		$relationshipName,
 		callable $hydrator,
 		ExceptionFactoryInterface $exceptionFactory,
-		array $relationshipData,
-		array $data
+		$relationshipData,
+		$data
 	);
 
     /**
