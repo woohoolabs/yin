@@ -248,7 +248,7 @@ trait HydratorTrait
     }
 
     /**
-     * @param array $relationship|null
+     * @param array|null $relationship
      * @param ExceptionFactoryInterface $exceptionFactory
      * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|
      * \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
