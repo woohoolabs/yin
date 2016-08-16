@@ -48,6 +48,6 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {
-        $this->hydrateForRelationshipUpdate($relationship, $request, $exceptionFactory, $domainObject);
+        return $this->hydrateForRelationshipUpdate($relationship, $request, $exceptionFactory, $domainObject);
     }
 }

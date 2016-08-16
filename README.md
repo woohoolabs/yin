@@ -976,6 +976,8 @@ Example URL-s for the book resources:
 - `GET examples/?path=/books/1/authors`: Fetch the authors of a book
 - `POST examples/?path=/books`: Create a new book
 - `PATCH examples/?path=/books/1`: Update a book
+- `PATCH examples/?path=/books/1/relationships/author`: Update the authors of the book
+- `PATCH examples/?path=/books/1/relationships/publisher`: Update the publisher of the book
 
 Example URL-s for the user resources:
 - `GET examples/?path=/users`: Fetch users

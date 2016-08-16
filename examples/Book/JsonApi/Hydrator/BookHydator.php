@@ -130,12 +130,20 @@ class BookHydator extends AbstractHydrator
     {
         return [
             "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
-                $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
+                if ($authors->isEmpty()) {
+                    $book["authors"] = [];
+                } else {
+                    $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
+                }
 
                 return $book;
             },
             "publisher" => function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
-                $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+                if ($publisher->isEmpty()) {
+                    $book["publisher"] = null;
+                } else {
+                    $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+                }
             }
         ];
     }

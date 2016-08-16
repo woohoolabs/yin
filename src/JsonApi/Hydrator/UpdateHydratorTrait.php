@@ -140,7 +140,7 @@ trait UpdateHydratorTrait
             $relationship,
             $relationshipHydrator,
             $exceptionFactory,
-            $request->getResource(),
+            $request->getParsedBody(),
             $request->getResource()
         );
     }

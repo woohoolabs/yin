@@ -255,7 +255,7 @@ trait HydratorTrait
      */
     private function createRelationship($relationship, ExceptionFactoryInterface $exceptionFactory)
     {
-        if (is_array($relationship) === false || array_key_exists("data", $relationship) === false) {
+        if (array_key_exists("data", $relationship) === false) {
             return null;
         }
 

@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 class ToOneRelationship
 {
     /**
-     * @var null | \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier
+     * @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier|null
      */
     protected $resourceIdentifier;
 
@@ -29,7 +29,7 @@ class ToOneRelationship
     }
 
     /**
-     * @return null | \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @return \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier|null $resourceIdentifier
      */
     public function getResourceIdentifier()
     {

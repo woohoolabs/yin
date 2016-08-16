@@ -19,7 +19,7 @@ class UpdateBookAction
     public function __invoke(JsonApi $jsonApi)
     {
         // Retrieving a book domain object with an ID of $id
-        $id = $jsonApi->getRequest()->getResourceId();
+        $id = $jsonApi->getRequest()->getAttribute("id");
         $book = BookRepository::getBook($id);
         if ($book === null) {
             die("A book with an ID of '$id' can't be found!");

@@ -32,7 +32,7 @@ $routes = [
     "GET /books/{id}/authors" => function (Request $request, $matches) {
         return $request
             ->withAttribute("action", GetAuthorsOfBookAction::class)
-            ->withAttribute("book_id", $matches[1]);
+            ->withAttribute("id", $matches[1]);
     },
     "POST /books" => function (Request $request) {
         return $request
