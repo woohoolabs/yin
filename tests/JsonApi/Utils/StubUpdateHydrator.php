@@ -41,19 +41,19 @@ class StubUpdateHydrator
         return $domainObject;
     }
 
-	protected function getRelationshipHydrator($domainObject)
-	{
-		return [];
-	}
+    protected function getRelationshipHydrator($domainObject)
+    {
+        return [];
+    }
 
-	protected function doHydrateRelationship(
-		$domainObject,
-		$relationshipName,
-		callable $hydrator,
-		ExceptionFactoryInterface $exceptionFactory,
-		$relationshipData,
-		$data
-	) {
-		return $domainObject;
-	}
+    protected function doHydrateRelationship(
+        $domainObject,
+        $relationshipName,
+        callable $hydrator,
+        ExceptionFactoryInterface $exceptionFactory,
+        $relationshipData,
+        $data
+    ) {
+        return $domainObject;
+    }
 }
