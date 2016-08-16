@@ -8,7 +8,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
-**Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON API-s.**
+**Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON:API-s.**
 
 ## Table of Contents
 
@@ -46,14 +46,14 @@
 
 ## Introduction
 
-[JSON API](http://jsonapi.org) specification
+[JSON:API](http://jsonapi.org) specification
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
-and we also believe it is a big day for RESTful API-s as this specification can help you to make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your JSON API servers.
+and we also believe it is a big day for RESTful API-s as this specification can help you to make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your JSON:API servers.
 
 #### Features
 
 - 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
-- 99% [JSON API 1.0](http://jsonapi.org/) compatibility (approximately)
+- 99% [JSON:API 1.0](http://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
@@ -62,9 +62,9 @@ and we also believe it is a big day for RESTful API-s as this specification can 
 
 #### Why Yin?
 
-##### Complete JSON API framework
+##### Complete JSON:API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON API specification: it provides various
+Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification: it provides various
 capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
 deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
 separately, the framework is the most powerful when it is used in its entirety.
@@ -80,8 +80,8 @@ well with dependency injection.
 ##### Supplementary middleware
 
 [There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
-find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON API
-error messages), dispatching JSON API-aware controllers or debugging (via synthax checking and validation of requests
+find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
+error messages), dispatching JSON:API-aware controllers or debugging (via synthax checking and validation of requests
 and responses).
 
 ## Install
@@ -109,7 +109,7 @@ $ composer require seld/jsonlint:^1.4.0
 ## Basic Usage
 
 When using Woohoo Labs. Yin, you will create:
-- documents and resource transformers in order to map domain objects to JSON API responses
+- documents and resource transformers in order to map domain objects to JSON:API responses
 - hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
@@ -171,7 +171,7 @@ public function getJsonApi()
 ```
 
 The description says it very clear: if you want a jsonApi section in your response, then create a new `JsonApi` object.
-Its constructor expects the JSON API version number and an optional meta object (as an array).
+Its constructor expects the JSON:API version number and an optional meta object (as an array).
 
 ```php
 /**
@@ -273,7 +273,7 @@ $errorDocument->addError(new MyError());
 
 Documents for successful responses can contain one or more top-level resources, an array of included resources and
 resource identifier objects as relationships. That's why resource transformers are responsible for converting a
-domain object into a JSON API resource or resource identifier.
+domain object into a JSON:API resource or resource identifier.
 
 Although you are encouraged to create one transformer for each resource type, there is possibility to define
 "composite" resource transformers too following the Composite design pattern if you need more sophistication.
@@ -389,8 +389,12 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getAttributes($book)
     {
         return [
-            "title" => function(array $book) { return $book["title"]; },
-            "pages" => function(array $book) { return $this->toInt($book["pages"]); },
+            "title" => function (array $book) {
+                return $book["title"];
+            },
+            "pages" => function (array $book) {
+                return $this->toInt($book["pages"]);
+            },
         ];
     }
     
@@ -418,7 +422,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     public function getRelationships($book)
     {
         return [
-            "authors" => function(array $book) {
+            "authors" => function (array $book) {
                 return ToManyRelationship::create()
                     ->setLinks(
                         Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
@@ -426,7 +430,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                     ->setData($book["authors"], $this->authorTransformer)
                 ;
             },
-            "publisher" => function($book) {
+            "publisher" => function ($book) {
                 return ToOneRelationship::create()
                     ->setLinks(
                         Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
@@ -501,7 +505,7 @@ class BookHydator extends AbstractHydrator
     /**
      * Produces a new ID for the domain objects.
      *
-     * UUID-s are preferred according to the JSON API specification.
+     * UUID-s are preferred according to the JSON:API specification.
      *
      * @return string
      */
@@ -546,8 +550,12 @@ class BookHydator extends AbstractHydrator
     protected function getAttributeHydrator($book)
     {
         return [
-            "title" => function(array $book, $attribute, $data, $attributeName)  { $book["title"] = $attribute; return $book; },
-            "pages" => function(array &$book, $attribute, $data, $attributeName) { $book["pages"] = $attribute; }
+            "title" => function (array $book, $attribute, $data, $attributeName) {
+                $book["title"] = $attribute; return $book;
+            },
+            "pages" => function (array &$book, $attribute, $data, $attributeName) {
+                $book["pages"] = $attribute;
+            }
         ];
     }
 
@@ -570,12 +578,12 @@ class BookHydator extends AbstractHydrator
     protected function getRelationshipHydrator($book)
     {
         return [
-            "authors" => function(array $book, ToManyRelationship $authors, $data, $relationshipName) {
+            "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
                 $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
                 return $book;
             },
-            "publisher" => function(array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
+            "publisher" => function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];
@@ -690,7 +698,7 @@ example class:
 public function getRelationships($user)
 {
     return [
-        "contacts" => function(array $user) {
+        "contacts" => function (array $user) {
             return
                 ToManyRelationship::create()
                     ->setData($user["contacts"], $this->contactTransformer)
@@ -713,11 +721,11 @@ with the `setDataAsCallable()` method:
 public function getRelationships($user)
 {
     return [
-        "contacts" => function(array $user) {
+        "contacts" => function (array $user) {
             return
                 ToManyRelationship::create()
                     ->setDataAsCallable(
-                        function() use ($user) {
+                        function () use ($user) {
                             // Lazily load contacts from the data source
                             return $user->loadContactsFromDataSource();
                         },
@@ -759,7 +767,7 @@ Usually, the last argument of each responder method can be used to add meta data
 
 #### Content negotiation
 
-The JSON API standard specifies [some rules](#content-negotiation-servers) about content
+The JSON:API standard specifies [some rules](#content-negotiation-servers) about content
 negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `RequestValidator` class. Let's first create
 a request validator to see it in action:
 
@@ -771,7 +779,7 @@ Providing an [Exception Factory](#exceptions) is necessary to be able to customi
 thrown. On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
 when you also want to return the original message in the error response which may be triggered by the exception.
 
-In order to validate if the current request's `Accept` and `Content-Type` headers conform to the JSON API specification,
+In order to validate if the current request's `Accept` and `Content-Type` headers conform to the JSON:API specification,
 use this method:
 
 ```php
@@ -808,7 +816,7 @@ To ensure that the response body is a well-formed JSON document, one can use the
 $responseValidator->lintBody($response);
 ```
 
-To ensure that the response body is a well-formed JSON API document, one can use the following method:
+To ensure that the response body is a well-formed JSON:API document, one can use the following method:
 
 ```php
 $responseValidator->validateBody($response);
@@ -898,7 +906,12 @@ public function getBookRelationships(JsonApi $jsonApi)
 
     // Instantiating a book document
     $document = new BookDocument(
-        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        new BookResourceTransformer(
+            new AuthorResourceTransformer(),
+            new PublisherResourceTransformer(
+                new RepresentativeResourceTransformer()
+            )
+        )
     );
 
     // Responding with "200 Ok" status code along with the requested relationship document
@@ -924,8 +937,10 @@ public function createBook(JsonApi $jsonApi)
     // Creating the book document to be sent as the response
     $document = new BookDocument(
         new BookResourceTransformer(
-            new AuthorResourceTransformer(), 
-            new PublisherResourceTransformer()
+            new AuthorResourceTransformer(),
+            new PublisherResourceTransformer(
+                new RepresentativeResourceTransformer()
+            )
         )
     );
 
@@ -955,7 +970,49 @@ public function updateBook(JsonApi $jsonApi)
 
     // Instantiating the book document
     $document = new BookDocument(
-        new BookResourceTransformer(new AuthorResourceTransformer(), new PublisherResourceTransformer())
+        new BookResourceTransformer(
+            new AuthorResourceTransformer(),
+            new PublisherResourceTransformer(
+                new RepresentativeResourceTransformer()
+            )
+        )
+    );
+
+    // Responding with "200 Ok" status code along with the book document
+    return $jsonApi->respond()->ok($document, $book);
+}
+```
+
+#### Updating a relationship of a resource
+
+```php
+/**
+ * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
+ * @return \Psr\Http\Message\ResponseInterface
+ */
+public function updateBookRelationship(JsonApi $jsonApi)
+{
+    // Checking the name of the currently requested relationship
+    $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
+
+    // Retrieving a book domain object with an ID of $id
+    $id = $jsonApi->getRequest()->getAttribute("id");
+    $book = BookRepository::getBook($id);
+    if ($book === null) {
+        die("A book with an ID of '$id' can't be found!");
+    }
+
+    // Hydrating the retrieved book domain object from the request
+    $book = $jsonApi->hydrateRelationship($relationshipName, new BookHydator(), $book);
+
+    // Instantiating a book document
+    $document = new BookDocument(
+        new BookResourceTransformer(
+            new AuthorResourceTransformer(),
+            new PublisherResourceTransformer(
+                new RepresentativeResourceTransformer()
+            )
+        )
     );
 
     // Responding with "200 Ok" status code along with the book document
@@ -967,7 +1024,7 @@ public function updateBook(JsonApi $jsonApi)
 If you want to get to know more how Yin works, have a look at the
 [examples](https://github.com/woohoolabs/yin/tree/master/examples): set up a web server, run `composer install` in
 Yin's root directory and visit the URL-s listed below. You can restrict the retrieved fields and relationships with
-the `fields` and `include` parameters as specified by JSON API.
+the `fields` and `include` parameters as specified by JSON:API.
 
 Example URL-s for the book resources:
 - `GET examples/?path=/books/1`: Fetch a book

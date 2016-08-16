@@ -18,9 +18,9 @@ class GetUserRelationshipsAction
         // Checking the "id" of the currently requested user
         $id = $jsonApi->getRequest()->getAttribute("id");
 
-        // Checking the currently requested relationship's name
+        // Checking the name of the currently requested relationship
         $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
-        
+
         // Retrieving a user domain object with an ID of $id
         $user = UserRepository::getUser($id);
 
