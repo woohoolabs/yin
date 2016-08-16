@@ -6,6 +6,7 @@ use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
 use WoohooLabs\Yin\Examples\Book\Action\UpdateBookAction;
+use WoohooLabs\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
@@ -42,6 +43,12 @@ $routes = [
             ->withAttribute("action", UpdateBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
+	"PATCH /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
+		return $request
+			->withAttribute("action", UpdateBookRelationshipAction::class)
+			->withAttribute("id", $matches[1])
+			->withAttribute("rel", $matches[2]);
+	},
 
     "GET /users" => function (Request $request) {
         return $request

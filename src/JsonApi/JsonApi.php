@@ -4,6 +4,7 @@ namespace WoohooLabs\Yin\JsonApi;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
+use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
@@ -116,6 +117,17 @@ class JsonApi
     {
         return $hydrator->hydrate($this->request, $this->exceptionFactory, $domainObject);
     }
+
+	/**
+	 * @param string $relationship
+	 * @param \WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface $hydrator
+	 * @param $domainObject
+	 * @return mixed
+	 */
+	public function hydrateRelationship($relationship, UpdateRelationshipHydratorInterface $hydrator, $domainObject)
+	{
+		return $hydrator->hydrateRelationship($relationship, $this->request, $this->exceptionFactory, $domainObject);
+	}
 
     /**
      * Disables inclusion of related resources.

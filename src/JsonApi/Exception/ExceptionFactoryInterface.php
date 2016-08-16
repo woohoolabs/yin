@@ -79,6 +79,12 @@ interface ExceptionFactoryInterface
      */
     public function createQueryParamUnrecognizedException(RequestInterface $request, $queryParamName);
 
+	/**
+	 * @param string $relationship
+	 * @return \Exception
+	 */
+	public function createRelationshipNotExists($relationship);
+
     /**
      * @param string $relationshipName
      * @param string $currentRelationshipType

@@ -8,8 +8,6 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 trait HydratorTrait
 {
-
-
     /**
      * Determines which resource type or types can be accepted by the hydrator.
      *
@@ -124,26 +122,57 @@ trait HydratorTrait
                 continue;
             }
 
-            $relationshipObject = $this->createRelationship(
-                $data["relationships"][$relationship],
-                $exceptionFactory
-            );
-            if ($relationshipObject !== null) {
-                $result = $this->getRelationshipHydratorResult(
-                    $relationship,
-                    $hydrator,
-                    $domainObject,
-                    $relationshipObject,
-                    $data,
-                    $exceptionFactory
-                );
-                if ($result) {
-                    $domainObject = $result;
-                }
-            }
+            $domainObject = $this->doHydrateRelationship(
+            	$domainObject,
+				$relationship,
+				$hydrator,
+				$exceptionFactory,
+				$data["relationships"][$relationship],
+				$data
+			);
         }
 
         return $domainObject;
+    }
+
+	/**
+	 * @param mixed $domainObject
+	 * @param string $relationshipName
+	 * @param callable $hydrator
+	 * @param ExceptionFactoryInterface $exceptionFactory
+	 * @param array $relationshipData
+	 * @param array $data
+	 * @return mixed
+	 */
+	protected function doHydrateRelationship(
+		$domainObject,
+		$relationshipName,
+		callable $hydrator,
+		ExceptionFactoryInterface $exceptionFactory,
+		array $relationshipData,
+		array $data
+	) {
+		$relationshipObject = $this->createRelationship(
+			$relationshipData,
+			$exceptionFactory
+		);
+
+		if ($relationshipObject !== null) {
+			$result = $this->getRelationshipHydratorResult(
+				$relationshipName,
+				$hydrator,
+				$domainObject,
+				$relationshipObject,
+				$data,
+				$exceptionFactory
+			);
+
+			if ($result) {
+				$domainObject = $result;
+			}
+		}
+
+		return $domainObject;
     }
 
     /**
