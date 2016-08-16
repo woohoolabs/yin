@@ -2,6 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Hydrator\HydratorTrait;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateHydratorTrait;
 
 class StubUpdateHydrator
@@ -40,4 +41,20 @@ class StubUpdateHydrator
     {
         return $domainObject;
     }
+
+	protected function getRelationshipHydrator($domainObject)
+	{
+		return [];
+	}
+
+	protected function doHydrateRelationship(
+		$domainObject,
+		$relationshipName,
+		callable $hydrator,
+		ExceptionFactoryInterface $exceptionFactory,
+		array $relationshipData,
+		array $data
+	) {
+		return $domainObject;
+	}
 }
