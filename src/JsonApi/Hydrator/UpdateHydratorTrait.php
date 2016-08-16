@@ -47,41 +47,41 @@ trait UpdateHydratorTrait
         ExceptionFactoryInterface $exceptionFactory
     );
 
-	/**
-	 * Provides the relationship hydrators.
-	 *
-	 * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
-	 * the key is the specific relationship name which comes from the request and the value is an
-	 * callable which hydrate the previous relationship.
-	 * These callables receive the domain object (which will be hydrated), an object representing the
-	 * currently processed relationship (it can be a ToOneRelationship or a ToManyRelationship
-	 * object), the "data" part of the request and the relationship name as their arguments, and
-	 * they should mutate the state of the domain object.
-	 * If it is an immutable object or an array (and passing by reference isn't used),
-	 * the callable should return the domain object.
-	 *
-	 * @param mixed $domainObject
-	 * @return callable[]
-	 */
-	abstract protected function getRelationshipHydrator($domainObject);
+    /**
+     * Provides the relationship hydrators.
+     *
+     * The method returns an array of relationship hydrators, where a hydrator is a key-value pair:
+     * the key is the specific relationship name which comes from the request and the value is an
+     * callable which hydrate the previous relationship.
+     * These callables receive the domain object (which will be hydrated), an object representing the
+     * currently processed relationship (it can be a ToOneRelationship or a ToManyRelationship
+     * object), the "data" part of the request and the relationship name as their arguments, and
+     * they should mutate the state of the domain object.
+     * If it is an immutable object or an array (and passing by reference isn't used),
+     * the callable should return the domain object.
+     *
+     * @param mixed $domainObject
+     * @return callable[]
+     */
+    abstract protected function getRelationshipHydrator($domainObject);
 
-	/**
-	 * @param mixed $domainObject
-	 * @param string $relationshipName
-	 * @param callable $hydrator
-	 * @param ExceptionFactoryInterface $exceptionFactory
-	 * @param array|null $relationshipData
-	 * @param array|null $data
-	 * @return mixed
-	 */
-	abstract protected function doHydrateRelationship(
-		$domainObject,
-		$relationshipName,
-		callable $hydrator,
-		ExceptionFactoryInterface $exceptionFactory,
-		$relationshipData,
-		$data
-	);
+    /**
+     * @param mixed $domainObject
+     * @param string $relationshipName
+     * @param callable $hydrator
+     * @param ExceptionFactoryInterface $exceptionFactory
+     * @param array|null $relationshipData
+     * @param array|null $data
+     * @return mixed
+     */
+    abstract protected function doHydrateRelationship(
+        $domainObject,
+        $relationshipName,
+        callable $hydrator,
+        ExceptionFactoryInterface $exceptionFactory,
+        $relationshipData,
+        $data
+    );
 
     /**
      * Hydrates the domain object from the updating request.
