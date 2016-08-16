@@ -105,14 +105,14 @@ class ExceptionFactory implements ExceptionFactoryInterface
         return new QueryParamUnrecognized($queryParamName);
     }
 
-	/**
-	 * @param string $relationship
-	 * @return \Exception
-	 */
-	public function createRelationshipNotExists($relationship)
-	{
-		return new RelationshipNotExists($relationship);
-	}
+    /**
+     * @param string $relationship
+     * @return \Exception
+     */
+    public function createRelationshipNotExists($relationship)
+    {
+        return new RelationshipNotExists($relationship);
+    }
 
     /**
      * @inheritDoc

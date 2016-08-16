@@ -34,20 +34,20 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
         return $domainObject;
     }
 
-	/**
-	 * @param string $relationship
-	 * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-	 * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-	 * @param mixed $domainObject
-	 * @return mixed
-	 * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
-	 */
-	public function hydrateRelationship(
-		$relationship,
-		RequestInterface $request,
-		ExceptionFactoryInterface $exceptionFactory,
-		$domainObject
-	) {
-		$this->hydrateForRelationshipUpdate($relationship, $request, $exceptionFactory, $domainObject);
-	}
+    /**
+     * @param string $relationship
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param mixed $domainObject
+     * @return mixed
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
+     */
+    public function hydrateRelationship(
+        $relationship,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject
+    ) {
+        $this->hydrateForRelationshipUpdate($relationship, $request, $exceptionFactory, $domainObject);
+    }
 }

@@ -43,12 +43,12 @@ $routes = [
             ->withAttribute("action", UpdateBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-	"PATCH /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
-		return $request
-			->withAttribute("action", UpdateBookRelationshipAction::class)
-			->withAttribute("id", $matches[1])
-			->withAttribute("rel", $matches[2]);
-	},
+    "PATCH /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
+        return $request
+            ->withAttribute("action", UpdateBookRelationshipAction::class)
+            ->withAttribute("id", $matches[1])
+            ->withAttribute("rel", $matches[2]);
+    },
 
     "GET /users" => function (Request $request) {
         return $request
