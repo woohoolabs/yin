@@ -77,37 +77,37 @@ trait UpdateHydratorTrait
         return $domainObject;
     }
 
-	/**
-	 * @param string $relationship
-	 * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-	 * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-	 * @param mixed $domainObject
-	 * @return mixed
-	 * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
-	 */
-	public function hydrateForRelationshipUpdate(
-		$relationship,
-		RequestInterface $request,
-		ExceptionFactoryInterface $exceptionFactory,
-		$domainObject
-	) {
-		$relationshipHydrators = $this->getRelationshipHydrator($domainObject);
+    /**
+     * @param string $relationship
+     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
+     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param mixed $domainObject
+     * @return mixed
+     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
+     */
+    public function hydrateForRelationshipUpdate(
+        $relationship,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject
+    ) {
+        $relationshipHydrators = $this->getRelationshipHydrator($domainObject);
 
-		if (isset($relationshipHydrators[$relationship]) === false) {
-			throw $exceptionFactory->createRelationshipNotExists($relationship);
-		}
+        if (isset($relationshipHydrators[$relationship]) === false) {
+            throw $exceptionFactory->createRelationshipNotExists($relationship);
+        }
 
-		$relationshipHydrator = $relationshipHydrators[$relationship];
+        $relationshipHydrator = $relationshipHydrators[$relationship];
 
-		return $this->doHydrateRelationship(
-			$domainObject,
-			$relationship,
-			$relationshipHydrator,
-			$exceptionFactory,
-			$request->getResource(),
-			$request->getResource()
-		);
-	}
+        return $this->doHydrateRelationship(
+            $domainObject,
+            $relationship,
+            $relationshipHydrator,
+            $exceptionFactory,
+            $request->getResource(),
+            $request->getResource()
+        );
+    }
 
     /**
      * @param mixed $domainObject

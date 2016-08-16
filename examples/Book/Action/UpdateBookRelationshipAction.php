@@ -18,8 +18,8 @@ class UpdateBookRelationshipAction
      */
     public function __invoke(JsonApi $jsonApi)
     {
-		// Checking the currently requested relationship's name
-		$relationshipName = $jsonApi->getRequest()->getAttribute("rel");
+        // Checking the currently requested relationship's name
+        $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
 
         // Retrieving a book domain object with an ID of $id
         $id = $jsonApi->getRequest()->getResourceId();
