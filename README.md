@@ -81,7 +81,7 @@ well with dependency injection.
 
 [There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
-error messages), dispatching JSON:API-aware controllers or debugging (via synthax checking and validation of requests
+error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
 
 ## Install
