@@ -3,7 +3,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
@@ -108,12 +108,12 @@ class JsonApiTest extends PHPUnit_Framework_TestCase
         return new JsonApi(
             $request ? $request : $this->createRequest(),
             $response ? $response : new Response(),
-            $exceptionFactory ? $exceptionFactory : new ExceptionFactory()
+            $exceptionFactory ? $exceptionFactory : new DefaultExceptionFactory()
         );
     }
 
     private function createRequest(ServerRequestInterface $request = null)
     {
-        return new Request($request ? $request : new ServerRequest(), new ExceptionFactory());
+        return new Request($request ? $request : new ServerRequest(), new DefaultExceptionFactory());
     }
 }

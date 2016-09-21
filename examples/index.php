@@ -10,7 +10,7 @@ use WoohooLabs\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\Response;
@@ -68,7 +68,7 @@ $routes = [
 ];
 
 // Find the current route
-$exceptionFactory = new ExceptionFactory();
+$exceptionFactory = new DefaultExceptionFactory();
 $request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory);
 $request = findRoute($request, $routes);
 

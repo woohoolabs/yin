@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-class ExceptionFactory implements ExceptionFactoryInterface
+class DefaultExceptionFactory implements ExceptionFactoryInterface
 {
     /**
      * @inheritDoc

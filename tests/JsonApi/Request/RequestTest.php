@@ -3,7 +3,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Request;
 
 use Exception;
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
@@ -903,32 +903,32 @@ class RequestTest extends PHPUnit_Framework_TestCase
     private function createRequest()
     {
         $psrRequest = new DiactorosRequest();
-        return new Request($psrRequest, new ExceptionFactory());
+        return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
     private function createRequestWithJsonBody(array $body)
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
-        return new Request($psrRequest, new ExceptionFactory());
+        return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
     private function createRequestWithHeaders(array $headers)
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", $headers);
-        return new Request($psrRequest, new ExceptionFactory());
+        return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
     private function createRequestWithHeader($headerName, $headerValue)
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
-        return new Request($psrRequest, new ExceptionFactory());
+        return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
     private function createRequestWithQueryParams(array $queryParams)
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
-        return new Request($psrRequest, new ExceptionFactory());
+        return new Request($psrRequest, new DefaultExceptionFactory());
     }
 }

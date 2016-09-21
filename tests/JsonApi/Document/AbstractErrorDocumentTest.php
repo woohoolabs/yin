@@ -4,6 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 use PHPUnit_Framework_TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubErrorDocument;
 use Zend\Diactoros\Response;
 
@@ -25,8 +26,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
      */
     public function getResponseWithoutError()
     {
-        $response = $this->createErrorDocument()->getResponse(new Response());
-
+        $response = $this->createErrorDocument()->getResponse(new DefaultSerializer(), new Response());
         $this->assertEquals(500, $response->getStatusCode());
         $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
     }
@@ -38,7 +38,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
     {
         $response = $this
             ->createErrorDocument()
-            ->getResponse(new Response(), 500);
+            ->getResponse(new DefaultSerializer(), new Response(), 500);
 
         $this->assertEquals(500, $response->getStatusCode());
     }
@@ -51,7 +51,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
         $response = $this
             ->createErrorDocument()
             ->addError((new Error())->setStatus(404))
-            ->getResponse(new Response());
+            ->getResponse(new DefaultSerializer(), new Response());
 
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertCount(1, $this->getErrorsContentFromResponse($response));
@@ -67,7 +67,7 @@ class AbstractErrorDocumentTest extends PHPUnit_Framework_TestCase
             ->addError((new Error())->setStatus(403))
             ->addError((new Error())->setStatus(404))
             ->addError((new Error())->setStatus(418))
-            ->getResponse(new Response());
+            ->getResponse(new DefaultSerializer(), new Response());
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertCount(3, $this->getErrorsContentFromResponse($response));

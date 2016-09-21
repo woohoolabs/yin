@@ -2,7 +2,11 @@
 
 ADDED:
 
+- [#19](https://github.com/woohoolabs/yin/issues/19): Support for custom serializers
+
 CHANGED:
+
+- Made `$exceptionFactory` and `$serializer` constructor parameters optional for the `JsonApi` class
 
 REMOVED:
 

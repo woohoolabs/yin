@@ -6,6 +6,7 @@ use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class Responder extends AbstractResponder
 {
@@ -13,13 +14,15 @@ class Responder extends AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param SerializerInterface $serializer
      */
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
-        ExceptionFactoryInterface $exceptionFactory
+        ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer
     ) {
-        parent::__construct($request, $response, $exceptionFactory);
+        parent::__construct($request, $response, $exceptionFactory, $serializer);
     }
 
     /**

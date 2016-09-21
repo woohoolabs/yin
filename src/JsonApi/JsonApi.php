@@ -2,12 +2,15 @@
 namespace WoohooLabs\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class JsonApi
 {
@@ -24,7 +27,12 @@ class JsonApi
     /**
      * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
      */
-    public $exceptionFactory;
+    protected $exceptionFactory;
+
+    /**
+     * @var \WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface
+     */
+    protected $serializer;
 
     /**
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
@@ -34,11 +42,13 @@ class JsonApi
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
-        ExceptionFactoryInterface $exceptionFactory
+        ExceptionFactoryInterface $exceptionFactory = null,
+        SerializerInterface $serializer = null
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->exceptionFactory = $exceptionFactory;
+        $this->exceptionFactory = $exceptionFactory ? $exceptionFactory : new DefaultExceptionFactory();
+        $this->serializer = $serializer ? $serializer : new DefaultSerializer();
     }
 
     /**

@@ -6,6 +6,7 @@ use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 abstract class AbstractResponder
 {
@@ -25,18 +26,20 @@ abstract class AbstractResponder
     protected $exceptionFactory;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @var \WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface
      */
+    protected $serializer;
+
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
-        ExceptionFactoryInterface $exceptionFactory
+        ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer
     ) {
         $this->request = $request;
         $this->response = $response;
         $this->exceptionFactory = $exceptionFactory;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -56,6 +59,7 @@ abstract class AbstractResponder
             $this->request,
             $this->response,
             $this->exceptionFactory,
+            $this->serializer,
             $domainObject,
             $statusCode,
             $additionalMeta
@@ -79,6 +83,7 @@ abstract class AbstractResponder
             $this->request,
             $this->response,
             $this->exceptionFactory,
+            $this->serializer,
             $domainObject,
             $statusCode,
             $additionalMeta
@@ -105,6 +110,7 @@ abstract class AbstractResponder
             $this->request,
             $this->response,
             $this->exceptionFactory,
+            $this->serializer,
             $domainObject,
             $statusCode,
             $additionalMeta
@@ -131,6 +137,7 @@ abstract class AbstractResponder
             $this->request,
             $this->response,
             $this->exceptionFactory,
+            $this->serializer,
             $domainObject,
             $statusCode,
             $additionalMeta
@@ -156,6 +163,6 @@ abstract class AbstractResponder
             $document->addError($error);
         }
 
-        return $document->getResponse($response, $statusCode, $additionalMeta);
+        return $document->getResponse($this->serializer, $response, $statusCode, $additionalMeta);
     }
 }

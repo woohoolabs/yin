@@ -25,6 +25,11 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $links;
 
     /**
+     * @var DataInterface
+     */
+    protected $data;
+
+    /**
      * @var array
      */
     protected $relationshipResponseContent;

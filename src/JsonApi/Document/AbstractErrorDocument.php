@@ -3,6 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 abstract class AbstractErrorDocument extends AbstractDocument
 {
@@ -35,19 +36,22 @@ abstract class AbstractErrorDocument extends AbstractDocument
      * Returns a response with a status code of $responseCode, containing all the provided sections of the error
      * document. You can also pass additional meta information for the document in the $additionalMeta argument.
      *
+     * @param SerializerInterface $serializer
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param int $responseCode
      * @param array $additionalMeta
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getResponse(ResponseInterface $response, $responseCode = null, array $additionalMeta = [])
-    {
-        $response = $response->withStatus($this->getResponseCode($responseCode));
-        $response = $response->withAddedHeader("Content-Type", $this->getContentType());
-        $response->getBody()->rewind();
-        $response->getBody()->write(json_encode($this->transformContent($additionalMeta)));
-
-        return $response;
+    public function getResponse(
+        SerializerInterface $serializer,
+        ResponseInterface $response,
+        $responseCode = null,
+        array $additionalMeta = []
+    ) {
+        return $serializer->serialize($response,
+            $this->getResponseCode($responseCode),
+            $this->transformContent($additionalMeta)
+        );
     }
 
     /**

@@ -4,6 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
@@ -48,6 +49,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param SerializerInterface $serializer
      * @param mixed $domainObject
      * @param int $responseCode
      * @param array $additionalMeta
@@ -57,6 +59,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer,
         $domainObject,
         $responseCode,
         array $additionalMeta = []
@@ -66,7 +69,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $this->initializeDocument($domainObject);
         $content = $this->transformContent($transformation, $additionalMeta);
 
-        return $this->doGetResponse($response, $responseCode, $content);
+        return $serializer->serialize($response, $responseCode, $content);
     }
 
     /**
@@ -77,6 +80,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param SerializerInterface $serializer
      * @param mixed $domainObject
      * @param int $responseCode
      * @param array $additionalMeta
@@ -86,6 +90,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer,
         $domainObject,
         $responseCode,
         array $additionalMeta = []
@@ -93,7 +98,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $this->initializeDocument($domainObject);
         $content = $this->transformBaseContent($additionalMeta);
 
-        return $this->doGetResponse($response, $responseCode, $content);
+        return $serializer->serialize($response, $responseCode, $content);
     }
 
     /**
@@ -115,6 +120,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer,
         $domainObject,
         $responseCode,
         array $additionalMeta = []
@@ -123,7 +129,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $this->initializeDocument($domainObject);
         $content = $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
 
-        return $this->doGetResponse($response, $responseCode, $content);
+        return $serializer->serialize($response, $responseCode, $content);
     }
 
     /**
@@ -132,22 +138,6 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     private function initializeDocument($domainObject)
     {
         $this->domainObject = $domainObject;
-    }
-
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param int $responseCode
-     * @param array $content
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    private function doGetResponse(ResponseInterface $response, $responseCode, array $content)
-    {
-        $response = $response->withStatus($responseCode);
-        $response = $response->withHeader("Content-Type", $this->getContentType());
-        $response->getBody()->rewind();
-        $response->getBody()->write(json_encode($content));
-
-        return $response;
     }
 
     /**

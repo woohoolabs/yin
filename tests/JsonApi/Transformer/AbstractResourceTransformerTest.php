@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -191,7 +191,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 return $relationship;
             }
         ];
-        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
+        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
         $request = $request->withQueryParams(["fields" => ["user" => ""]]);
 
         $data = new SingleResourceData();
@@ -213,7 +213,7 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
                 return new ToOneRelationship();
             }
         ];
-        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
+        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
         $request = $request->withQueryParams(["include" => "mother"]);
 
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
@@ -228,10 +228,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         $defaultRelationships = ["father"];
         $relationships = [];
 
-        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
+        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
+        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
         $transformedResource = $transformer->transformRelationship("father", $transformation, []);
         $this->assertNull($transformedResource);
     }
@@ -250,10 +250,10 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
             }
         ];
 
-        $request = new Request(new DiactorosServerRequest(), new ExceptionFactory());
+        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformation = new Transformation($request, $data, new ExceptionFactory(), "");
+        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
         $transformedResource = $transformer->transformRelationship("father", $transformation, []);
         $this->assertEquals("user", $transformedResource["data"]["type"]);
         $this->assertEquals("2", $transformedResource["data"]["id"]);
@@ -273,9 +273,9 @@ class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
         DataInterface $data = null
     ) {
         $transformation = new Transformation(
-            $request ? $request : new Request(new DiactorosServerRequest(), new ExceptionFactory()),
+            $request ? $request : new Request(new DiactorosServerRequest(), new DefaultExceptionFactory()),
             $data ? $data : new SingleResourceData(),
-            new ExceptionFactory(),
+            new DefaultExceptionFactory(),
             ""
         );
 

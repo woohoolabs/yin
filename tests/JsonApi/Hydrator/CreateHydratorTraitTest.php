@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -19,7 +19,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         $body = [];
 
         $hydrator = $this->createHydrator(false, "1");
-        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
@@ -36,7 +36,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(false, $id);
-        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
+        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
 
@@ -56,7 +56,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(true, $id);
-        $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
+        $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
@@ -74,7 +74,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
         ];
 
         $hydrator = $this->createHydrator(false, $id);
-        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new ExceptionFactory(), []);
+        $domainObject = $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["id" => $id], $domainObject);
     }
 
@@ -86,7 +86,7 @@ class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest, new ExceptionFactory());
+        $request = new Request($psrRequest, new DefaultExceptionFactory());
 
         return $request;
     }

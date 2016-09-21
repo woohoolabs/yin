@@ -5,6 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class RelationshipResponder extends AbstractResponder
 {
@@ -17,15 +18,17 @@ class RelationshipResponder extends AbstractResponder
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param SerializerInterface $serializer
      * @param string $relationshipName
      */
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer,
         $relationshipName
     ) {
-        parent::__construct($request, $response, $exceptionFactory);
+        parent::__construct($request, $response, $exceptionFactory, $serializer);
         $this->relationshipName = $relationshipName;
     }
 

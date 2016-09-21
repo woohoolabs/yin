@@ -81,12 +81,4 @@ abstract class AbstractDocument
             $content["links"] = $links->transform();
         }
     }
-
-    /**
-     * @return string
-     */
-    protected function getContentType()
-    {
-        return "application/vnd.api+json";
-    }
 }

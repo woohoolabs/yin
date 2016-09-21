@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
     {
         $resourceIdentifierArray = ["id" => "1"];
 
-        ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
+        ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
     }
 
     /**
@@ -26,7 +26,7 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
     {
         $resourceIdentifierArray = ["type" => "user"];
 
-        ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory());
+        ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
     }
 
     /**
@@ -44,7 +44,7 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createResourceIdentifier()->setType($type)->setId($id),
-            ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+            ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory())
         );
     }
 
@@ -65,7 +65,7 @@ class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
         $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id)->setMeta($meta);
         $this->assertEquals(
             $resourceIdentifier,
-            ResourceIdentifier::fromArray($resourceIdentifierArray, new ExceptionFactory())
+            ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory())
         );
     }
 
