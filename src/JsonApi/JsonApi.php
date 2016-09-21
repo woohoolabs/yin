@@ -106,7 +106,7 @@ class JsonApi
      */
     public function respond()
     {
-        return new Responder($this->request, $this->response, $this->exceptionFactory);
+        return new Responder($this->request, $this->response, $this->exceptionFactory, $this->serializer);
     }
 
     /**
@@ -115,7 +115,13 @@ class JsonApi
      */
     public function respondWithRelationship($relationship)
     {
-        return new RelationshipResponder($this->request, $this->response, $this->exceptionFactory, $relationship);
+        return new RelationshipResponder(
+            $this->request,
+            $this->response,
+            $this->exceptionFactory,
+            $this->serializer,
+            $relationship
+        );
     }
 
     /**
