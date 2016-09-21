@@ -16,7 +16,7 @@ class DefaultSerializer implements SerializerInterface
         $response = $response->withStatus($responseCode);
         $response = $response->withHeader("Content-Type", "application/vnd.api+json");
         if ($response->getBody()->isSeekable()) {
-        $response->getBody()->rewind();
+            $response->getBody()->rewind();
         }
         $response->getBody()->write(json_encode($content));
 
