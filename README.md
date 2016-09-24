@@ -772,7 +772,7 @@ negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `Reques
 a request validator to see it in action:
 
 ```php
-$requestValidator = new RequestValidator(new ExceptionFactory(), $includeOriginalMessageInResponse);
+$requestValidator = new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
 Providing an [Exception Factory](#exceptions) is necessary to be able to customize the exceptions which are possibly
@@ -807,7 +807,7 @@ $requestValidator->lintBody($request);
 Similarily, responses can be validated too. Let's create a response validator first:
 
 ```php
-$responseValidator = new ResponseValidator(new ExceptionFactory(), $includeOriginalMessageInResponse);
+$responseValidator = new ResponseValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
 To ensure that the response body is a well-formed JSON document, one can use the following method:
