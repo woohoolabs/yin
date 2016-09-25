@@ -7,6 +7,7 @@ ADDED:
 CHANGED:
 
 - Made `$exceptionFactory` and `$serializer` constructor parameters optional for the `JsonApi` class
+- Updated JSON:API schema to the latest version
 
 REMOVED:
 

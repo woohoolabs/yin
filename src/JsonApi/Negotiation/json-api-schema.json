@@ -1,4 +1,3 @@
-
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "JSON API Schema",
@@ -226,6 +225,11 @@
                             "$ref": "#/definitions/meta"
                         }
                     },
+                    "anyOf": [
+                        {"required": ["data"]},
+                        {"required": ["meta"]},
+                        {"required": ["links"]}
+                    ],
                     "additionalProperties": false
                 }
             },
