@@ -48,13 +48,13 @@
 
 [JSON:API](http://jsonapi.org) specification
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
-and we also believe it is a big day for RESTful API-s as this specification can help you to make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance for your JSON:API servers.
+and we also believe it is a big day for RESTful APIs as this specification can help you to make APIs more robust and future-proof. Woohoo Labs' Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API servers.
 
 #### Features
 
 - 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
 - 99% [JSON:API 1.0](http://jsonapi.org/) compatibility (approximately)
-- Developed for efficiency and ease of use
+- Developed for efficiency and ease-of-use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
 - Provides Hydrators to create and update resources
@@ -64,23 +64,22 @@ and we also believe it is a big day for RESTful API-s as this specification can 
 
 ##### Complete JSON:API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification: it provides various
-capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
-deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
+Woohoo Labs' Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification. It provides various
+capabilities including content negotiation, error handling and pagination as well as fetching, creating, updating and
+deleting resources. Although Yin consists of many loosely coupled packages and classes which can also be used
 separately, the framework is the most powerful when it is used in its entirety.
 
 ##### Efficiency
 
-We designed Yin to be as efficient as possible. That's why attributes and relationships are transformed only and if
-only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
+We designed Yin to be as efficient as possible. That's why only attributes and relationships are transformed and only if they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
 rarely required transformation is very expensive. Furthermore, as transformers are stateless, the overhead of having a
 separate model object for each resource is avoided. Additionally, due to statelessness, the overall library works really
 well with dependency injection.
 
 ##### Supplementary middleware
 
-[There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
-find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
+[There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs' Yin you might
+find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
 error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
 
@@ -98,7 +97,7 @@ Now, you can run the command below and you will get the latest version of Yin:
 $ composer require woohoolabs/yin
 ```
 
-If you want to take advantage from request/response validation then you have to ask for the following
+If you want to take advantage of request/response validation then you have to ask for the following
 dependencies too:
 
 ```bash
@@ -108,7 +107,7 @@ $ composer require seld/jsonlint:^1.4.0
 
 ## Basic Usage
 
-When using Woohoo Labs. Yin, you will create:
+When using Woohoo Labs' Yin, you will create:
 - documents and resource transformers in order to map domain objects to JSON:API responses
 - hydrators in order to transform resources in a POST or PATCH request to domain objects
 
@@ -122,8 +121,8 @@ how to create or build error documents.
 
 ##### Documents for successful responses
 
-For successful requests, you have to return information about one or more resources. Woohoo Labs. Yin provides
-multiple abstract classes that help you to create your own documents for the different use cases:
+For successful requests, you have to return information about one or more resources. Woohoo Labs' Yin provides
+multiple abstract classes that help you to create your own documents for different use cases:
 
 - `AbstractSuccessfulDocument`: A generic base document for successful responses
 - `AbstractSimpleResourceDocument`: A base class for documents about a single, very simple top-level resource
@@ -132,7 +131,7 @@ multiple abstract classes that help you to create your own documents for the dif
 
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
 the first one doesn't need a [resource transformer](#resource-transformers) so it is preferable to use for really simple
-domain objects (like messages) while the latter works better for more complex domain objects (like users or addresses).
+domain objects (like messages). The latter works better for more complex domain objects (like users or addresses).
 
 As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
 of multiple types), we will not cover it here.
@@ -234,7 +233,7 @@ which is a shortcut of calling the resource transformer (which is introduced bel
 primary resource (`$this->transformer->getId($this->domainObject)`).
 
 The only difference between the `AbstractSingleResourceDocument` and `AbstractCollectionDocument` is the way they
-regard the `domainObject`: the first one regards it as a single domain object while the latter regards it
+regard the `domainObject`. The first one regards it as a single domain object while the latter regards it
 as an iterable collection.
 
 ###### Usage
@@ -243,7 +242,7 @@ Documents can be transformed to HTTP responses. The easiest way to achieve this 
 [`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
 kinds of responses:
 
-- normal: All the top-level members can be present in the response (except of the "errors")
+- normal: All the top-level members can be present in the response (except for the "errors")
 - meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
 - relationship: The specified relationship object will be the primary data of the response
 
@@ -275,14 +274,14 @@ Documents for successful responses can contain one or more top-level resources, 
 resource identifier objects as relationships. That's why resource transformers are responsible for converting a
 domain object into a JSON:API resource or resource identifier.
 
-Although you are encouraged to create one transformer for each resource type, there is possibility to define
-"composite" resource transformers too following the Composite design pattern if you need more sophistication.
+Although you are encouraged to create one transformer for each resource type, if you need more sophistication you also have the ability to define
+"composite" resource transformers following the Composite design pattern.
 
-Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can extend
-the `AbstractResourceTransformer` class too.
+Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job you can extend
+the `AbstractResourceTransformer` class, too.
 
-Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented, most of which
-are the same as it was seen at the documents. The following example illustrates a resource transformer dealing with
+Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented - most of which
+are the same as those seen for the documents. The following example illustrates a resource transformer dealing with
 a book domain object and its "authors" and "publisher" relationships.
 
 ```php
@@ -452,14 +451,13 @@ Hydrators allow us to initialize the properties of a domain object as required b
 when a client wants to create or update a resource, hydrators can help to instantiate a domain object which can then be
 validated, saved etc.
 
-There are three abstract hydrator classes in Woohoo Labs. Yin:
+There are three abstract hydrator classes in Woohoo Labs' Yin:
 
 - `AbstractCreateHydrator`: It can be used for requests to create a new resource
 - `AbstractUpdateHydrator`: It can be used for requests to update an existing resource
 - `AbstractHydrator`: It can be used for both type of requests
 
-For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of the
-`AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's see how an example hydrator looks like:
+For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of `AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's see what an example hydrator looks like:
 
 ```php
 class BookHydator extends AbstractHydrator
@@ -648,9 +646,9 @@ Array
 
 #### Exceptions
 
-Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why
+Woohoo Labs' Yin was designed to make error handling as easy and customizable as possible. That's why
 all the default exceptions extend the `JsonApiException` class and contain
-an [error document](#documents-for-error-responses) with the appropriate error object(s). That said, if you
+an [error document](#documents-for-error-responses) with the appropriate error object(s). However, if you
 only want to respond with an error document in case of an exception, you only need to do this:
 
 ```php
@@ -665,7 +663,7 @@ where `$response` is the instance of `Psr\Http\Message\ResponseInterface` and `s
 function which sends the response received in its argument.
 
 To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
-which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
+which can create all the exceptions thrown by Woohoo Labs' Yin. As an Exception Factory of your own choice is passed to
 every transformer and hydrator, you can completely customize what kind of exceptions you want to raise.
 
 The default [Exception Factory](src/JsonApi/Exception/ExceptionFactory) creates children
@@ -676,7 +674,7 @@ basic `\Exception` instances). If you only want to customize the error document 
 #### `JsonApi` class
 
 The `JsonApi` class is the orchestrator of the whole framework. If you want to use the entire
-functionality of Woohoo Labs. Yin, it is highly recommended to utilize this class.
+functionality of Woohoo Labs' Yin, it is highly recommended to utilize this class.
 
 ## Advanced Usage
 
@@ -686,7 +684,7 @@ This section guides you through the advanced features of Yin.
 
 #### Loading relationship data efficiently
 
-Sometimes it can be beneficent or necessary to fine-tune the returned relationships' data. A possible scenario might be
+Sometimes it can be beneficial or necessary to fine-tune the returned relationships' data. A possible scenario might be
 when you have a "to-many" relationship with lots of items. In this case you might only want to return a data key of a
 relationship when the relationship itself is included in the response. This optimization can save you bandwidth by
 omitting resource linkage.
@@ -710,11 +708,11 @@ public function getRelationships($user)
 ```
 
 With the usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
-included. But sometimes this optimization is not enough on its own: even though we can save bandwidth with the prior
+included. However, sometimes this optimization is not enough on its own. Even though we can save bandwidth with the prior
 technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
 to the relationship object with the `setData()` method.
 
-The problem can be mitigated with the lazy-loading of the relationship. To do so, you only have to change `setData()`
+This problem can be mitigated by lazy-loading the relationship. To do so, you only have to change `setData()`
 with the `setDataAsCallable()` method:
 
 ```php
@@ -743,8 +741,8 @@ allowing your API to be as effective as possible.
 
 #### Injecting metadata into documents
 
-Metadata can be injected into documents on-the-fly. This might can handy if you want to customize/decorate your
-responses (e.g.: providing a cache ID to the returned document).
+Metadata can be injected into documents on-the-fly. This might come in handy if you want to customize or decorate your
+responses (e.g. providing a cache ID to the returned document).
 
 The easiest way to check this functionality is to have a look at the [first examples](#fetching-a-single-resource),
 which responds with a book document:
@@ -768,18 +766,18 @@ Usually, the last argument of each responder method can be used to add meta data
 #### Content negotiation
 
 The JSON:API standard specifies [some rules](#content-negotiation-servers) about content
-negotiation. Woohoo Labs. Yin tries to help you to enforce them with the `RequestValidator` class. Let's first create
+negotiation. Woohoo Labs' Yin tries to help you enforce them with the `RequestValidator` class. Let's first create
 a request validator to see it in action:
 
 ```php
 $requestValidator = new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
-Providing an [Exception Factory](#exceptions) is necessary to be able to customize the exceptions which are possibly
+Providing an [Exception Factory](#exceptions) is necessary to customize the exceptions which might be
 thrown. On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
 when you also want to return the original message in the error response which may be triggered by the exception.
 
-In order to validate if the current request's `Accept` and `Content-Type` headers conform to the JSON:API specification,
+In order to validate whether the current request's `Accept` and `Content-Type` headers conform to the JSON:API specification,
 use this method:
 
 ```php
@@ -795,7 +793,7 @@ You can use the following method to check if the query parameters of the current
 $requestValidator->validateQueryParams($request);
 ```
 
-> Note: In order to be able to apply the following validations, remember to install the
+> Note: In order to apply the following validations, remember to install the
 > [optional dependencies](#install) of Yin.
 
 Furthermore, the request body can be validated if it is a well-formed JSON document:
@@ -804,7 +802,7 @@ Furthermore, the request body can be validated if it is a well-formed JSON docum
 $requestValidator->lintBody($request);
 ```
 
-Similarily, responses can be validated too. Let's create a response validator first:
+Similarly, responses can be validated too. Let's create a response validator first:
 
 ```php
 $responseValidator = new ResponseValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
@@ -826,10 +824,10 @@ Validating the responses can be useful in a development environment to find poss
 
 #### Middleware
 
-If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://github.com/woohoolabs/harmony),
+If you use a middleware-oriented framework (like [Woohoo Labs' Harmony](https://github.com/woohoolabs/harmony),
 [Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
 [Zend-Expressive](https://github.com/zendframework/zend-expressive/) or
-[Slim Framework 3](http://www.slimframework.com/)), you can find the
+[Slim Framework 3](http://www.slimframework.com/)), you will find the
 [Yin-middleware](https://github.com/woohoolabs/yin-middleware) library quite useful. Read the documentation to
 learn about its advantages!
 
@@ -1021,12 +1019,12 @@ public function updateBookRelationship(JsonApi $jsonApi)
 ```
 
 #### How to try it out
-If you want to get to know more how Yin works, have a look at the
-[examples](https://github.com/woohoolabs/yin/tree/master/examples): set up a web server, run `composer install` in
-Yin's root directory and visit the URL-s listed below. You can restrict the retrieved fields and relationships with
+If you want to know more about how Yin works, have a look at the
+[examples](https://github.com/woohoolabs/yin/tree/master/examples). Set up a web server, run `composer install` in
+Yin's root directory and visit the URLs listed below. You can restrict the retrieved fields and relationships with
 the `fields` and `include` parameters as specified by JSON:API.
 
-Example URL-s for the book resources:
+Example URLs for the book resources:
 - `GET examples/?path=/books/1`: Fetch a book
 - `GET examples/?path=/books/1/relationships/authors`: Fetch the authors relationship
 - `GET examples/?path=/books/1/relationships/publisher`: Fetch the publisher relationship
@@ -1036,7 +1034,7 @@ Example URL-s for the book resources:
 - `PATCH examples/?path=/books/1/relationships/author`: Update the authors of the book
 - `PATCH examples/?path=/books/1/relationships/publisher`: Update the publisher of the book
 
-Example URL-s for the user resources:
+Example URLs for the user resources:
 - `GET examples/?path=/users`: Fetch users
 - `GET examples/?path=/users/1`: Fetch a user
 - `GET examples/?path=/users/1/relationships/contacts`: Fetch the contacts relationship
@@ -1052,11 +1050,11 @@ This library follows [SemVer v2.0.0](http://semver.org/).
 
 ## Change Log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 
 ## Testing
 
-Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder
+Woohoo Labs' Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder
 after you have copied phpunit.xml.dist to phpunit.xml:
 
 ``` bash
