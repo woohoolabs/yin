@@ -64,22 +64,20 @@ and we also believe it is a big day for RESTful API-s as this specification can 
 
 ##### Complete JSON:API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification: it provides various
-capabilities from content negotiation, through error handling to pagination, fetching, creation, updating and
+Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification. It provides various capabilities from content negotiation through error handling to pagination, fetching, creation, updating and
 deletion of resources. Although Yin consists of many loosely coupled packages and classes which can also be used
 separately, the framework is the most powerful when it is used in its entirety.
 
 ##### Efficiency
 
-We designed Yin to be as efficient as possible. That's why attributes and relationships are transformed only and if
-only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
+We designed Yin to be as efficient as possible. That's why attributes and relationships are transformed if and only if they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
 rarely required transformation is very expensive. Furthermore, as transformers are stateless, the overhead of having a
 separate model object for each resource is avoided. Additionally, due to statelessness, the overall library works really
 well with dependency injection.
 
 ##### Supplementary middleware
 
-[There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
+There are some [additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful: they can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
 error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
@@ -109,8 +107,8 @@ $ composer require seld/jsonlint:^1.4.0
 ## Basic Usage
 
 When using Woohoo Labs. Yin, you will create:
-- documents and resource transformers in order to map domain objects to JSON:API responses
-- hydrators in order to transform resources in a POST or PATCH request to domain objects
+- Documents and resource transformers in order to map domain objects to JSON:API responses
+- Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
 `Request` class provides functionalities you commonly need.
@@ -170,7 +168,7 @@ public function getJsonApi()
 }
 ```
 
-The description says it very clear: if you want a jsonApi section in your response, then create a new `JsonApi` object.
+The description says it very clear: if you want a JsonApi section in your response, then create a new `JsonApi` object.
 Its constructor expects the JSON:API version number and an optional meta object (as an array).
 
 ```php
