@@ -105,7 +105,7 @@ class Request implements RequestInterface
     protected function isValidMediaTypeHeader($headerName)
     {
         $header = $this->getHeaderLine($headerName);
-        return (strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json");
+        return strpos($header, "application/vnd.api+json") !== false;
     }
 
     protected function setIncludedFields()
