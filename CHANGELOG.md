@@ -14,6 +14,10 @@ REMOVED:
 
 FIXED:
 
+- `FixedPagePagination::getPage()`, `PagePagination::getPage()` and `PagePagination::getSize()` now return `integer` instead of `string`   
+- `CursorPagination::getCursor()` now return `integer` instead of `string`
+- `OffsetPagination::getOffset()` and `OffsetPagination::getLimit()` now return `integer` instead of `string`
+
 ## 0.11.0 - 2016-08-16
 
 ADDED:

@@ -15,7 +15,7 @@ class FixedPagePagination
      */
     public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultPage = null)
     {
-        $page = empty($paginationQueryParams["number"]) ? $defaultPage : $paginationQueryParams["number"];
+        $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
 
         return new self($page);
     }

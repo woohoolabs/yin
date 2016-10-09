@@ -24,8 +24,8 @@ class OffsetPagination
         $defaultOffset = null,
         $defaultLimit = null
     ) {
-        $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : $paginationQueryParams["offset"];
-        $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : $paginationQueryParams["limit"];
+        $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : (int) $paginationQueryParams["offset"];
+        $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : (int) $paginationQueryParams["limit"];
 
         return new self($offset, $limit);
     }
