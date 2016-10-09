@@ -3,6 +3,7 @@
 ADDED:
 
 - [#19](https://github.com/woohoolabs/yin/issues/19): Support for custom serializers
+- Support for using `Collections` not implementing `ArrayAccess` in `AbstractCollectionDocument`s
 
 CHANGED:
 
