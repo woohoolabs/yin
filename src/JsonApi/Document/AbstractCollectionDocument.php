@@ -30,7 +30,7 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 
     protected function hasItems()
     {
-        return empty($this->domainObject) === false;
+        return empty($this->getItems()) === false;
     }
 
     protected function getItems()
