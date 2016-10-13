@@ -1,6 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class DefaultExceptionFactory implements ExceptionFactoryInterface
