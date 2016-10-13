@@ -5,9 +5,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
@@ -68,7 +65,10 @@ class Request implements RequestInterface
     public function validateContentTypeHeader()
     {
         if ($this->isValidMediaTypeHeader("Content-Type") === false) {
-            throw new MediaTypeUnsupported($this->getHeaderLine("Content-Type"));
+            throw $this->exceptionFactory->createMediaTypeUnsupportedException(
+                $this,
+                $this->getHeaderLine("Content-Type")
+            );
         }
     }
 
@@ -78,7 +78,7 @@ class Request implements RequestInterface
     public function validateAcceptHeader()
     {
         if ($this->isValidMediaTypeHeader("Accept") === false) {
-            throw new MediaTypeUnacceptable($this->getHeaderLine("Accept"));
+            throw $this->exceptionFactory->createMediaTypeUnacceptableException($this, $this->getHeaderLine("Accept"));
         }
     }
 
@@ -91,7 +91,7 @@ class Request implements RequestInterface
             if (preg_match("/^([a-z]+)$/", $queryParamName) &&
                 in_array($queryParamName, ["fields", "include", "sort", "page", "filter"]) === false
             ) {
-                throw new QueryParamUnrecognized($queryParamName);
+                throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
             }
         }
     }
