@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\OffsetBasedPaginationProviderTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Pagination\OffsetBasedPaginationLinkProviderTrait;
 
 class StubOffsetBasedPaginationProvider
 {
-    use OffsetBasedPaginationProviderTrait;
+    use OffsetBasedPaginationLinkProviderTrait;
 
     /**
      * @var int

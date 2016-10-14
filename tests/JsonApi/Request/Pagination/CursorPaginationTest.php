@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 
 class CursorPaginationTest extends PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
         $cursor = "abc";
         $query = ["cursor" => $cursor];
 
-        $this->assertEquals($this->createPagination($cursor), CursorPagination::fromPaginationQueryParams($query));
+        $this->assertEquals($this->createPagination($cursor), CursorBasedPagination::fromPaginationQueryParams($query));
     }
 
     /**
@@ -27,7 +27,7 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($cursor),
-            CursorPagination::fromPaginationQueryParams($query, $cursor)
+            CursorBasedPagination::fromPaginationQueryParams($query, $cursor)
         );
     }
 
@@ -41,7 +41,7 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($cursor),
-            CursorPagination::fromPaginationQueryParams($query, $cursor)
+            CursorBasedPagination::fromPaginationQueryParams($query, $cursor)
         );
     }
 
@@ -63,11 +63,11 @@ class CursorPaginationTest extends PHPUnit_Framework_TestCase
     {
         $cursor = "abc";
 
-        $this->assertEquals("page[cursor]=$cursor", CursorPagination::getPaginationQueryString($cursor));
+        $this->assertEquals("page[cursor]=$cursor", CursorBasedPagination::getPaginationQueryString($cursor));
     }
 
     private function createPagination($cursor)
     {
-        return new CursorPagination($cursor);
+        return new CursorBasedPagination($cursor);
     }
 }

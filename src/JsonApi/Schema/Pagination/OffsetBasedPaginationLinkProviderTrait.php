@@ -1,25 +1,25 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 
-trait PageBasedPaginationProviderTrait
+trait OffsetBasedPaginationLinkProviderTrait
 {
     /**
      * @return int
      */
-    abstract public function getTotalItems();
+    abstract protected function getTotalItems();
 
     /**
      * @return int
      */
-    abstract public function getPage();
+    abstract protected function getOffset();
 
     /**
      * @return int
      */
-    abstract public function getSize();
+    abstract protected function getLimit();
 
     /**
      * @param string $url
@@ -27,11 +27,11 @@ trait PageBasedPaginationProviderTrait
      */
     public function getSelfLink($url)
     {
-        if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() > $this->getLastPage()) {
+        if ($this->getOffset() < 0 || $this->getOffset() >= $this->getTotalItems()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage(), $this->getSize());
+        return $this->createPaginatedLink($url, $this->getOffset(), $this->getLimit());
     }
 
     /**
@@ -40,7 +40,7 @@ trait PageBasedPaginationProviderTrait
      */
     public function getFirstLink($url)
     {
-        return $this->createPaginatedLink($url, 1, $this->getSize());
+        return $this->createPaginatedLink($url, 0, $this->getLimit());
     }
 
     /**
@@ -49,12 +49,7 @@ trait PageBasedPaginationProviderTrait
      */
     public function getLastLink($url)
     {
-        if ($this->getSize() <= 0) {
-            return null;
-        }
-
-        $page = floor(($this->getTotalItems() - 1) / $this->getSize()) + 1;
-        return $this->createPaginatedLink($url, $page, $this->getSize());
+        return $this->createPaginatedLink($url, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
     }
 
     /**
@@ -63,11 +58,17 @@ trait PageBasedPaginationProviderTrait
      */
     public function getPrevLink($url)
     {
-        if ($this->getPage() <= 1 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
+        if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage() - 1, $this->getSize());
+        if ($this->getOffset() - $this->getLimit() > 0) {
+            $prevOffset = $this->getOffset() - $this->getLimit();
+        } else {
+            $prevOffset = 0;
+        }
+
+        return $this->createPaginatedLink($url, $prevOffset, $this->getLimit());
     }
 
     /**
@@ -76,11 +77,11 @@ trait PageBasedPaginationProviderTrait
      */
     public function getNextLink($url)
     {
-        if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() + 1 >= $this->getLastPage()) {
+        if ($this->getOffset() < 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage() + 1, $this->getSize());
+        return $this->createPaginatedLink($url, $this->getOffset() + $this->getLimit(), $this->getLimit());
     }
 
     /**
@@ -91,11 +92,11 @@ trait PageBasedPaginationProviderTrait
      */
     protected function createPaginatedLink($url, $page, $size)
     {
-        if ($this->getTotalItems() <= 0 || $this->getSize() <= 0) {
+        if ($this->getTotalItems() <= 0 || $this->getLimit() <= 0) {
             return null;
         }
 
-        return new Link($this->appendQueryStringToUrl($url, PagePagination::getPaginationQueryString($page, $size)));
+        return new Link($this->appendQueryStringToUrl($url, OffsetBasedPagination::getPaginationQueryString($page, $size)));
     }
 
     /**
@@ -112,13 +113,5 @@ trait PageBasedPaginationProviderTrait
         }
 
         return $url . $separator . $queryString;
-    }
-
-    /**
-     * @return float
-     */
-    protected function getLastPage()
-    {
-        return floor($this->getTotalItems() / $this->getSize()) + 1;
     }
 }

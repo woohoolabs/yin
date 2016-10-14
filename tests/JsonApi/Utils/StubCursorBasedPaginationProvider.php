@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\CursorBasedPaginationProviderTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Pagination\CursorBasedPaginationLinkProviderTrait;
 
 class StubCursorBasedPaginationProvider
 {
-    use CursorBasedPaginationProviderTrait;
+    use CursorBasedPaginationLinkProviderTrait;
 
     /**
      * @var mixed

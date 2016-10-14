@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-class CursorPagination
+class CursorBasedPagination
 {
     /**
      * @var mixed|null

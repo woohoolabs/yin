@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 
 class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 {
@@ -17,7 +17,7 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($offset, $limit),
-            OffsetPagination::fromPaginationQueryParams($query)
+            OffsetBasedPagination::fromPaginationQueryParams($query)
         );
     }
 
@@ -32,7 +32,7 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($offset, $limit),
-            OffsetPagination::fromPaginationQueryParams($query, $offset, $limit)
+            OffsetBasedPagination::fromPaginationQueryParams($query, $offset, $limit)
         );
     }
 
@@ -47,7 +47,7 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($offset, $limit),
-            OffsetPagination::fromPaginationQueryParams($query, $offset, $limit)
+            OffsetBasedPagination::fromPaginationQueryParams($query, $offset, $limit)
         );
     }
 
@@ -83,12 +83,12 @@ class OffsetPaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             "page[offset]=$offset&page[limit]=$limit",
-            OffsetPagination::getPaginationQueryString($offset, $limit)
+            OffsetBasedPagination::getPaginationQueryString($offset, $limit)
         );
     }
 
     private function createPagination($offset, $limit)
     {
-        return new OffsetPagination($offset, $limit);
+        return new OffsetBasedPagination($offset, $limit);
     }
 }

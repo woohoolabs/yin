@@ -4,10 +4,10 @@ namespace WoohooLabsTest\Yin\JsonApi\Request;
 use Exception;
 use PHPUnit_Framework_TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\ServerRequest as DiactorosRequest;
 
@@ -440,7 +440,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function getFixedPageBasedPagination()
     {
-        $pagination = new FixedPagePagination(1);
+        $pagination = new FixedPageBasedPagination(1);
         $queryParams = ["page" => ["number" => $pagination->getPage()]];
 
         $request = $this->createRequestWithQueryParams($queryParams);
@@ -452,7 +452,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function getPageBasedPagination()
     {
-        $pagination = new PagePagination(1, 10);
+        $pagination = new PageBasedPagination(1, 10);
         $queryParams = ["page" => ["number" => $pagination->getPage(), "size" => $pagination->getSize()]];
 
         $request = $this->createRequestWithQueryParams($queryParams);
@@ -464,7 +464,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function getOffsetBasedPagination()
     {
-        $pagination = new OffsetPagination(1, 10);
+        $pagination = new OffsetBasedPagination(1, 10);
         $queryParams = ["page" => ["offset" => $pagination->getOffset(), "limit" => $pagination->getLimit()]];
 
         $request = $this->createRequestWithQueryParams($queryParams);
@@ -476,7 +476,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
      */
     public function getCursorBasedPagination()
     {
-        $pagination = new CursorPagination("abcdefg");
+        $pagination = new CursorBasedPagination("abcdefg");
         $queryParams = ["page" => ["cursor" => $pagination->getCursor()]];
 
         $request = $this->createRequestWithQueryParams($queryParams);

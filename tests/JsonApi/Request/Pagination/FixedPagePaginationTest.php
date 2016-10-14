@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
 use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 
 class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
         $page = 1;
         $query = ["number" => $page];
 
-        $this->assertEquals($this->createPagination($page), FixedPagePagination::fromPaginationQueryParams($query));
+        $this->assertEquals($this->createPagination($page), FixedPageBasedPagination::fromPaginationQueryParams($query));
     }
 
     /**
@@ -27,7 +27,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($page),
-            FixedPagePagination::fromPaginationQueryParams($query, $page)
+            FixedPageBasedPagination::fromPaginationQueryParams($query, $page)
         );
     }
 
@@ -41,7 +41,7 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->createPagination($page),
-            FixedPagePagination::fromPaginationQueryParams($query, $page)
+            FixedPageBasedPagination::fromPaginationQueryParams($query, $page)
         );
     }
 
@@ -63,11 +63,11 @@ class FixedPagePaginationTest extends PHPUnit_Framework_TestCase
     {
         $page = 1;
 
-        $this->assertEquals("page[number]=$page", FixedPagePagination::getPaginationQueryString($page));
+        $this->assertEquals("page[number]=$page", FixedPageBasedPagination::getPaginationQueryString($page));
     }
 
     private function createPagination($page)
     {
-        return new FixedPagePagination($page);
+        return new FixedPageBasedPagination($page);
     }
 }

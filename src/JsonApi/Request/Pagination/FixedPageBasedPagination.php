@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-class FixedPagePagination
+class FixedPageBasedPagination
 {
     /**
      * @var int|null

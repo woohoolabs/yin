@@ -3,12 +3,14 @@
 ADDED:
 
 - [#19](https://github.com/woohoolabs/yin/issues/19): Support for custom serializers
-- Support for using `Collections` not implementing `ArrayAccess` in `AbstractCollectionDocument`s
+- Support for using `Collection`s not implementing `ArrayAccess` in `AbstractCollectionDocument`s
 
 CHANGED:
 
 - Made `$exceptionFactory` and `$serializer` constructor parameters optional for the `JsonApi` class
 - Updated JSON:API schema to the latest version
+- Renamed pagination provider traits to pagination link provider traits
+- Renamed pagination objects to include "Based" (e.g.: `PagePagination` became `PageBasedPagination`)
 
 REMOVED:
 

@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-class OffsetPagination
+class OffsetBasedPagination
 {
     /**
      * @var int|null

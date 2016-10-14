@@ -7,10 +7,10 @@ use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class Request implements RequestInterface
@@ -284,40 +284,40 @@ class Request implements RequestInterface
 
     /**
      * @param mixed $defaultPage
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination
      */
     public function getFixedPageBasedPagination($defaultPage = null)
     {
-        return FixedPagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
+        return FixedPageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
     }
 
     /**
      * @param mixed $defaultPage
      * @param mixed $defaultSize
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination
      */
     public function getPageBasedPagination($defaultPage = null, $defaultSize = null)
     {
-        return PagePagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
+        return PageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
     }
 
     /**
      * @param mixed $defaultOffset
      * @param mixed $defaultLimit
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination
      */
     public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null)
     {
-        return OffsetPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
+        return OffsetBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
     }
 
     /**
      * @param mixed $defaultCursor
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination
      */
     public function getCursorBasedPagination($defaultCursor = null)
     {
-        return CursorPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
+        return CursorBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
     }
 
     protected function setFiltering()

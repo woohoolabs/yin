@@ -1,12 +1,12 @@
 <?php
 namespace WoohooLabs\Yin\Examples\Utils;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationProviderTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
 class Collection implements \IteratorAggregate, PaginationLinkProviderInterface
 {
-    use PageBasedPaginationProviderTrait;
+    use PageBasedPaginationLinkProviderTrait;
 
     /**
      * @var \ArrayIterator

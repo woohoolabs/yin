@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Utils;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationProviderTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
 
 class StubPageBasedPaginationProvider
 {
-    use PageBasedPaginationProviderTrait;
+    use PageBasedPaginationLinkProviderTrait;
 
     /**
      * @var int

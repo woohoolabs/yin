@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 
-trait CursorBasedPaginationProviderTrait
+trait CursorBasedPaginationLinkProviderTrait
 {
     /**
      * @return mixed
@@ -91,7 +91,7 @@ trait CursorBasedPaginationProviderTrait
             return null;
         }
 
-        return new Link($this->appendQueryStringToUrl($url, CursorPagination::getPaginationQueryString($cursor)));
+        return new Link($this->appendQueryStringToUrl($url, CursorBasedPagination::getPaginationQueryString($cursor)));
     }
 
     /**

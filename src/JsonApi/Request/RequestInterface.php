@@ -85,27 +85,27 @@ interface RequestInterface extends ServerRequestInterface
 
     /**
      * @param mixed $defaultPage
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPagePagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination
      */
     public function getFixedPageBasedPagination($defaultPage = null);
 
     /**
      * @param mixed $defaultPage
      * @param mixed $defaultSize
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PagePagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination
      */
     public function getPageBasedPagination($defaultPage = null, $defaultSize = null);
 
     /**
      * @param mixed $defaultOffset
      * @param mixed $defaultLimit
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetPagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination
      */
     public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null);
 
     /**
      * @param mixed $defaultCursor
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorPagination
+     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination
      */
     public function getCursorBasedPagination($defaultCursor = null);
 
