@@ -11,6 +11,7 @@ CHANGED:
 - Updated JSON:API schema to the latest version
 - Renamed pagination provider traits to pagination link provider traits
 - Renamed pagination objects to include "Based" (e.g.: `PagePagination` became `PageBasedPagination`)
+- Improved documentation: added missing sections and fixed a lot of stylistic shortcomings 
 
 REMOVED:
 

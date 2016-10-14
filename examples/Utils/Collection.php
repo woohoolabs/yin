@@ -1,15 +1,18 @@
 <?php
 namespace WoohooLabs\Yin\Examples\Utils;
 
+use ArrayIterator;
+use IteratorAggregate;
+use Traversable;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
-class Collection implements \IteratorAggregate, PaginationLinkProviderInterface
+class Collection implements IteratorAggregate, PaginationLinkProviderInterface
 {
     use PageBasedPaginationLinkProviderTrait;
 
     /**
-     * @var \ArrayIterator
+     * @var ArrayIterator
      */
     private $items;
 
@@ -36,14 +39,14 @@ class Collection implements \IteratorAggregate, PaginationLinkProviderInterface
      */
     public function __construct(array $items, $totalItems = 0, $page = 0, $size = 0)
     {
-        $this->items = new \ArrayIterator($items);
+        $this->items = new ArrayIterator($items);
         $this->totalItems = $totalItems;
         $this->page = $page;
         $this->size = $size;
     }
 
     /**
-     * @return \Traversable
+     * @return Traversable
      */
     public function getIterator()
     {
@@ -59,7 +62,7 @@ class Collection implements \IteratorAggregate, PaginationLinkProviderInterface
     }
 
     /**
-     * @return \ArrayIterator
+     * @return ArrayIterator
      */
     public function getItems()
     {
@@ -67,7 +70,7 @@ class Collection implements \IteratorAggregate, PaginationLinkProviderInterface
     }
 
     /**
-     * @param \ArrayIterator $items
+     * @param ArrayIterator $items
      */
     public function setItems($items)
     {

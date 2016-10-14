@@ -28,6 +28,7 @@
     * [Injecting metadata into documents](#injecting-metadata-into-documents)
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#requestresponse-validation)
+    * [Custom serialization](#custom-serialization)
     * [Middleware](#middleware)
 * [Examples](#examples)
     * [Fetching a single resource](#fetching-a-single-resource)
@@ -48,7 +49,9 @@
 
 [JSON:API](http://jsonapi.org) specification
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
-and we also believe it is a big day for RESTful APIs as this specification can help you make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API servers.
+and we also believe it is a big day for RESTful APIs as this specification can help you make APIs more robust and
+future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API
+servers.
 
 #### Features
 
@@ -64,9 +67,11 @@ and we also believe it is a big day for RESTful APIs as this specification can h
 
 ##### Complete JSON:API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification: it provides various
+Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification:
+it provides various
 capabilities including content negotiation, error handling and pagination, as well as fetching, creation, updating and
-deleting resources. Although Yin consists of many loosely coupled packages and classes which can be used separately, the framework is most powerful when used in its entirety.
+deleting resources. Although Yin consists of many loosely coupled packages and classes which can be used separately,
+the framework is most powerful when used in its entirety.
 
 ##### Efficiency
 
@@ -85,7 +90,9 @@ and responses).
 
 ## Install
 
-You need [Composer](https://getcomposer.org) to install this library. You must install a PSR-7 implementation first(a package which provides the `http-message-implementation` virtual package), as Yin requires one. You may use Zend Diactoros or your preferred library:
+You need [Composer](https://getcomposer.org) to install this library. You must install a PSR-7 implementation first
+(a package which provides the `http-message-implementation` virtual package), as Yin requires one. You may use Zend
+Diactoros or your preferred library:
 
 ```bash
 $ composer require zendframework/zend-diactoros
@@ -130,8 +137,9 @@ multiple abstract classes that help you to create your own documents for differe
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
 
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
-the first one doesn't need a [resource transformer](#resource-transformers). For this reason, it is preferable to use the former for really simple
-domain objects (like messages), while the latter works better for more complex domain objects (like users or addresses).
+the first one doesn't need a [resource transformer](#resource-transformers). For this reason, it is preferable to use
+the former for really simple domain objects (like messages), while the latter works better for more complex domain
+objects (like users or addresses).
 
 As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
 of multiple types), we will not cover it here.
@@ -274,7 +282,8 @@ Documents for successful responses can contain one or more top-level resources, 
 resource identifier objects as relationships. That's why resource transformers are responsible for converting a
 domain object into a JSON:API resource or resource identifier.
 
-Although you are encouraged to create one transformer for each resource type, if you need more sophistication you also have the ability to define "composite" resource transformers following the Composite design pattern.
+Although you are encouraged to create one transformer for each resource type, if you need more sophistication you also
+have the ability to define "composite" resource transformers following the Composite design pattern.
 
 Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can also extend
 the `AbstractResourceTransformer` class.
@@ -456,7 +465,8 @@ There are three abstract hydrator classes in Woohoo Labs. Yin:
 - `AbstractUpdateHydrator`: It can be used for requests to update an existing resource
 - `AbstractHydrator`: It can be used for both type of requests
 
-For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of `AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's look at an example hydrator looks like:
+For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of
+`AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's look at an example hydrator looks like:
 
 ```php
 class BookHydator extends AbstractHydrator
@@ -672,14 +682,131 @@ basic `\Exception` instances). If you only want to customize the error document 
 
 #### `JsonApi` class
 
-The `JsonApi` class is the orchestrator of the whole framework. If you want to use the entire
-functionality of Woohoo Labs. Yin, it is highly recommended to utilize this class.
+The `JsonApi` class is the orchestrator of the whole framework. It is highly recommended to utilize this class
+if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
+of this class in the [examples section](#examples) or [directory](https://github.com/woohoolabs/yin/tree/master/examples).
 
 ## Advanced Usage
 
 This section guides you through the advanced features of Yin.
 
 #### Pagination
+
+Yin is able to help you paginate your collection of resources. First, it provides some shortcuts for querying the
+request query parameters when page-based, offset-based, or cursor-based pagination strategies are used.
+
+##### Page-based pagination
+
+Yin looks for the `page[number]` and the `page[size]` query parameters and parses their value. If any of them is missing
+then the default page number and size will be used ("1" and "10" in the following example).
+
+```php
+$pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
+```
+
+##### Fixed page-based pagination
+
+Yin looks for the `page[number]` query parameter and parses its value. If it is missing then the default page number
+will be used ("1" in the following example). This strategy can be useful if you do not want to expose the size of your
+pages at all.
+
+```php
+$pagination = $jsonApi->getRequest()->getFixedPageBasedPagination(1);
+```
+
+##### Offset-based pagination
+
+Yin looks for the `page[offset]` and the `page[limit]` query parameters and parses their value. If any of them is missing
+then the default offset and limit will be used ("1" and "10" in the following example).
+
+```php
+$pagination = $jsonApi->getRequest()->getOffsetBasedPagination(1, 10);
+```
+
+##### Cursor-based pagination
+
+Yin looks for the `page[cursor]` query parameter and parses its value. If it is missing then the default cursor will
+be used ("2016-10-01" in the following example).
+
+```php
+$pagination = $jsonApi->getRequest()->getCursorBasedPagination("2016-10-01");
+```
+
+##### Custom pagination
+
+If you need a custom pagination strategy, you may use the `getPagination()` method which returns an array of pagination
+parameters.
+
+```php
+$paginationParams = $jsonApi->getRequest()->getPagination();
+
+$pagination = new CustomPagination(
+    isset($paginationParams["from"] ? $paginationParams["from"] : 1,
+    isset($paginationParams["to"] ? $paginationParams["to"] : 1)
+);
+```
+
+##### Usage
+
+As soon as you have the appropriate pagination object, you may use them when you fetch your data from a data source:
+
+```
+$users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
+```
+
+##### Pagination links
+
+The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
+in this regard too. You only have use the `Links::setPagination()` method when you define the links of your document or
+resources. It expects the URI being paginated and an object implementing the `PaginationLinkProviderInterface` as
+seen in the following example:
+
+```php
+public function getLinks()
+{
+    return Links::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
+}
+```
+
+To make things even easier, there are some `LinkProvider` traits in order to ease the development of
+`PaginationLinkProviderInterface` implementations for the built-in pagination strategies. For example a collection
+for the `User` objects can use the `PageBasedPaginationLinkProviderTrait`. This way, you only have to implement three
+really simple abstract methods:
+
+```php
+class UserCollection implements PaginationLinkProviderInterface
+{
+    use PageBasedPaginationLinkProviderTrait;
+    
+    /**
+     * @return int
+     */
+    public function getTotalItems()
+    {
+        // ...
+    }
+    
+    /**
+     * @return int
+     */
+    public function getPage()
+    {
+        // ...
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize()
+    {
+        // ...
+    }
+
+    // ...
+}
+```
+
+You can find the full example [here](https://github.com/woohoolabs/yin/blob/master/utils/Collection.php).
 
 #### Loading relationship data efficiently
 
@@ -772,7 +899,9 @@ a request validator to see it in action:
 $requestValidator = new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
-To customize the exceptions which can be thrown, it is necessary to provide an [Exception Factory](#exceptions). On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment when you also want to return the original message in the error response which may be triggered by the exception.
+To customize the exceptions which can be thrown, it is necessary to provide an [Exception Factory](#exceptions).
+On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
+when you also want to return the original message in the error response which may be triggered by the exception.
 
 In order to validate whether the current request's `Accept` and `Content-Type` headers conform to the JSON:API
 specification, use this method:
@@ -818,6 +947,22 @@ $responseValidator->validateBody($response);
 ```
 
 Validating the responses can be useful in a development environment to find possible bugs early.
+
+#### Custom serialization
+
+Yin has the ability to use custom serialization techniques instead of the default one which uses the `json_encode`
+function to fill the response body.
+
+In the majority of the use-cases, the default serializer should be sufficient for your needs, but sometimes you need
+more sophistication. Or sometimes you want to do nasty things like returning your JSON:API response as an array without
+any serialization in case your API endpoint was called "internally".
+
+In order to use a custom serializer, create a class implementing `SerializerInterface` and setup the your `$jsonApi`
+object accordingly (pay attention to the last argument):
+
+```php
+$jsonApi = new JsonApi(new Request(), new Response(), new ExceptionFactory(), new CustomSerializer());
+```
 
 #### Middleware
 
