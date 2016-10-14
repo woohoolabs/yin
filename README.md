@@ -116,7 +116,7 @@ Furthermore, a `JsonApi` class will be responsible for the instrumentation, whil
 
 #### Documents
 
-The following sections will guide you through creatingdocuments for successful responses and
+The following sections will guide you through creating documents for successful responses and
 creating or building error documents.
 
 ##### Documents for successful responses
