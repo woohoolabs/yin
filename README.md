@@ -27,7 +27,7 @@
     * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
     * [Injecting metadata into documents](#injecting-metadata-into-documents)
     * [Content negotiation](#content-negotiation)
-    * [Request/response validation](#request-response-validation)
+    * [Request/response validation](#requestresponse-validation)
     * [Middleware](#middleware)
 * [Examples](#examples)
     * [Fetching a single resource](#fetching-a-single-resource)
@@ -48,7 +48,7 @@
 
 [JSON:API](http://jsonapi.org) specification
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
-and we also believe it is a big day for RESTful APIs as this specification can help you to make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API servers.
+and we also believe it is a big day for RESTful APIs as this specification can help you make APIs more robust and future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API servers.
 
 #### Features
 
@@ -66,8 +66,7 @@ and we also believe it is a big day for RESTful APIs as this specification can h
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification: it provides various
 capabilities including content negotiation, error handling and pagination, as well as fetching, creation, updating and
-deleting resources. Although Yin consists of many loosely coupled packages and classes which can also be used
-separately, the framework is the most powerful when it is used in its entirety.
+deleting resources. Although Yin consists of many loosely coupled packages and classes which can be used separately, the framework is most powerful when used in its entirety.
 
 ##### Efficiency
 
@@ -79,14 +78,14 @@ well with dependency injection.
 
 ##### Supplementary middleware
 
-[There are some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
+[There is some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
 error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
 
 ## Install
 
-You need [Composer](https://getcomposer.org) to install this library. As Yin requires a PSR-7 implementation (a package which provides the `http-message-implementation` virtual package), you must install one first. You may use Zend Diactoros or your preferred library:
+You need [Composer](https://getcomposer.org) to install this library. You must install a PSR-7 implementation first(a package which provides the `http-message-implementation` virtual package), as Yin requires one. You may use Zend Diactoros or your preferred library:
 
 ```bash
 $ composer require zendframework/zend-diactoros
@@ -98,8 +97,8 @@ Now, you can run the command below and you will get the latest version of Yin:
 $ composer require woohoolabs/yin
 ```
 
-If you want to take advantage of request/response validation then you have to ask for the following
-dependencies too:
+If you want to take advantage of request/response validation then you have also to ask for the following
+dependencies:
 
 ```bash
 $ composer require justinrainbow/json-schema:^2.0.0
@@ -117,12 +116,12 @@ Furthermore, a `JsonApi` class will be responsible for the instrumentation, whil
 
 #### Documents
 
-The following sections will guide you through how to create documents for successful responses and
-how to create or build error documents.
+The following sections will guide you through creating documents for successful responses and
+creating or building error documents.
 
 ##### Documents for successful responses
 
-For successful requests, you have to return information about one or more resources. Woohoo Labs. Yin provides
+For successful requests, you must return information about one or more resources. Woohoo Labs. Yin provides
 multiple abstract classes that help you to create your own documents for different use cases:
 
 - `AbstractSuccessfulDocument`: A generic base document for successful responses
@@ -131,8 +130,8 @@ multiple abstract classes that help you to create your own documents for differe
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
 
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
-the first one doesn't need a [resource transformer](#resource-transformers) so it is preferable to use for really simple
-domain objects (like messages). The latter works better for more complex domain objects (like users or addresses).
+the first one doesn't need a [resource transformer](#resource-transformers). For this reason, it is preferable to use the former for really simple
+domain objects (like messages), while the latter works better for more complex domain objects (like users or addresses).
 
 As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
 of multiple types), we will not cover it here.
@@ -195,7 +194,7 @@ public function getMeta()
 }
 ```
 
-Documents can also have a meta section which can contain any non-standard information. The example above adds a
+Documents may also have a meta section which can contain any non-standard information. The example above adds a
 [profile](http://jsonapi.org/extensions/#profiles) and some information about pagination to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is a hypothetical collection),
@@ -277,11 +276,11 @@ domain object into a JSON:API resource or resource identifier.
 
 Although you are encouraged to create one transformer for each resource type, if you need more sophistication you also have the ability to define "composite" resource transformers following the Composite design pattern.
 
-Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can extend
-the `AbstractResourceTransformer` class, too.
+Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can also extend
+the `AbstractResourceTransformer` class.
 
 Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented - most of which
-are the same as those seen for the documents. The following example illustrates a resource transformer dealing with
+are the same as seen in the documents. The following example illustrates a resource transformer dealing with
 a book domain object and its "authors" and "publisher" relationships.
 
 ```php
@@ -448,7 +447,7 @@ the "included" and the "relationship" sections in the responses.
 #### Hydrators
 
 Hydrators allow us to initialize the properties of a domain object as required by the current HTTP request. This means
-when a client wants to create or update a resource, hydrators can help to instantiate a domain object which can then be
+when a client wants to create or update a resource, hydrators can help instantiate a domain object, which can then be
 validated, saved etc.
 
 There are three abstract hydrator classes in Woohoo Labs. Yin:
@@ -457,7 +456,7 @@ There are three abstract hydrator classes in Woohoo Labs. Yin:
 - `AbstractUpdateHydrator`: It can be used for requests to update an existing resource
 - `AbstractHydrator`: It can be used for both type of requests
 
-For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of `AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's see how an example hydrator looks like:
+For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of `AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's look at an example hydrator looks like:
 
 ```php
 class BookHydator extends AbstractHydrator
@@ -684,8 +683,8 @@ This section guides you through the advanced features of Yin.
 
 #### Loading relationship data efficiently
 
-Sometimes it can be benefical or necessary to fine-tune the returned relationships' data. A possible scenario might be
-when you have a "to-many" relationship with lots of items. In this case you might only want to return a data key of a
+Sometimes it can be benefical or necessary to fine-tune the data of the returned relationship. A possible scenario might be
+when you have a "to-many" relationship with multiple items. In this case you might only want to return a data key of a
 relationship when the relationship itself is included in the response. This optimization can save you bandwidth by
 omitting resource linkage.
 
@@ -707,7 +706,7 @@ public function getRelationships($user)
 }
 ```
 
-With the usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
+With usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
 included. However, sometimes this optimization is not enough on its own. Even though we can save bandwidth with the prior
 technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
 to the relationship object with the `setData()` method.
@@ -736,12 +735,12 @@ public function getRelationships($user)
 }
 ```
 
-This way, the contacts of a user will only be loaded when the given relationship's `data` key is present in the response
+This way, the contacts of a user will only be loaded when the given relationship's `data` key is present in the response,
 allowing your API to be as effective as possible.
 
 #### Injecting metadata into documents
 
-Metadata can be injected into documents on-the-fly. This might come in handy if you want to customize or decorate your
+Metadata can be injected into documents on-the-fly. This can be handy if you want to customize or decorate your
 responses (e.g.: providing a cache ID to the returned document).
 
 The easiest way to check this functionality is to have a look at the [first examples](#fetching-a-single-resource),
@@ -773,9 +772,7 @@ a request validator to see it in action:
 $requestValidator = new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
-Providing an [Exception Factory](#exceptions) is necessary to customize the exceptions which might be thrown.
-On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
-when you also want to return the original message in the error response which may be triggered by the exception.
+To customize the exceptions which can be thrown, it is necessary to provide an [Exception Factory](#exceptions). On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment when you also want to return the original message in the error response which may be triggered by the exception.
 
 In order to validate whether the current request's `Accept` and `Content-Type` headers conform to the JSON:API
 specification, use this method:
