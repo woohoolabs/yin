@@ -648,7 +648,7 @@ Array
 Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why
 all the default exceptions extend the `JsonApiException` class and contain
 an [error document](#documents-for-error-responses) with the appropriate error object(s). However, if you
-only want to respond with an error document in case of an exception, you need only do this:
+only want to respond with an error document in case of an exception, you only need to do this:
 
 ```php
 try {
