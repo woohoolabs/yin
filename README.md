@@ -147,7 +147,7 @@ of multiple types), we will not cover it here.
 `AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a
 [resource transformer](#resource-transformers) to work, which is a concept introduced in the following sections.
 For now, it is enough to know that one must be passed for the documents during instantiation. This means that a
-minimal constructor of your documents must look like this:
+minimal constructor of your documents should look like this:
 
 ```php
 /**
@@ -158,6 +158,8 @@ public function __construct(MyResourceTransformer $transformer)
     parent::__construct($transformer);
 }
 ```
+
+You can of course provide other dependencies for your constructor or completely omit it if you don't need it.
 
 When you extend either `AbstractSingleResourceDocument` or `AbstractCollectionDocument`, they both require
 you to implement the following methods:
@@ -177,7 +179,7 @@ public function getJsonApi()
 }
 ```
 
-The description says it very clear: if you want a jsonApi section in your response, then create a new `JsonApi` object.
+The description says it very clear: if you want a `jsonapi` member in your response, then create a new `JsonApi` object.
 Its constructor expects the JSON:API version number and an optional meta object (as an array).
 
 ```php
@@ -250,7 +252,7 @@ Documents can be transformed to HTTP responses. The easiest way to achieve this 
 [`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
 kinds of responses:
 
-- normal: All the top-level members can be present in the response (except for the "errors")
+- normal: All the top-level members c an be present in the response (except for the "errors")
 - meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
 - relationship: The specified relationship object will be the primary data of the response
 
@@ -707,8 +709,8 @@ $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 ##### Fixed page-based pagination
 
 Yin looks for the `page[number]` query parameter and parses its value. If it is missing then the default page number
-will be used ("1" in the following example). This strategy can be useful if you do not want to expose the size of your
-pages at all.
+will be used ("1" in the following example). This strategy can be useful if you do not want to expose the the page size
+at all.
 
 ```php
 $pagination = $jsonApi->getRequest()->getFixedPageBasedPagination(1);
@@ -757,8 +759,8 @@ $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize()
 ##### Pagination links
 
 The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
-in this regard too. You only have use the `Links::setPagination()` method when you define the links of your document or
-resources. It expects the URI being paginated and an object implementing the `PaginationLinkProviderInterface` as
+in this regard too. You only have use the `Links::setPagination()` method when you define links for your documents or
+resources. It expects the paginated URI and an object implementing the `PaginationLinkProviderInterface` as
 seen in the following example:
 
 ```php
