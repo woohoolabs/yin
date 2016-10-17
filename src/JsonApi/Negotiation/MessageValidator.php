@@ -35,10 +35,10 @@ abstract class MessageValidator
      * @param string $message
      * @return string
      */
-    public function lintMessage($message)
+    protected function lintMessage($message)
     {
         if (empty($message) === true) {
-            return null;
+            return "";
         }
 
         try {
