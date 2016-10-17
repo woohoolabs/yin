@@ -252,7 +252,7 @@ Documents can be transformed to HTTP responses. The easiest way to achieve this 
 [`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
 kinds of responses:
 
-- normal: All the top-level members c an be present in the response (except for the "errors")
+- normal: All the top-level members can be present in the response (except for the "errors")
 - meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
 - relationship: The specified relationship object will be the primary data of the response
 
@@ -709,7 +709,7 @@ $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 ##### Fixed page-based pagination
 
 Yin looks for the `page[number]` query parameter and parses its value. If it is missing then the default page number
-will be used ("1" in the following example). This strategy can be useful if you do not want to expose the the page size
+will be used ("1" in the following example). This strategy can be useful if you do not want to expose the page size
 at all.
 
 ```php
@@ -771,7 +771,7 @@ public function getLinks()
 ```
 
 To make things even easier, there are some `LinkProvider` traits in order to ease the development of
-`PaginationLinkProviderInterface` implementations for the built-in pagination strategies. For example a collection
+`PaginationLinkProviderInterface` implementations of the built-in pagination strategies. For example a collection
 for the `User` objects can use the `PageBasedPaginationLinkProviderTrait`. This way, you only have to implement three
 really simple abstract methods:
 
