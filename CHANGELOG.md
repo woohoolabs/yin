@@ -20,6 +20,7 @@ FIXED:
 - `FixedPagePagination::getPage()`, `PagePagination::getPage()` and `PagePagination::getSize()` now return `integer` instead of `string`   
 - `CursorPagination::getCursor()` now return `integer` instead of `string`
 - `OffsetPagination::getOffset()` and `OffsetPagination::getLimit()` now return `integer` instead of `string`
+- [#44](https://github.com/woohoolabs/yin/pull/44): Fixed request validation
 - [#45](https://github.com/woohoolabs/yin/pull/45): `Request` class uses exception factory to throw exception
 
 ## 0.11.0 - 2016-08-16

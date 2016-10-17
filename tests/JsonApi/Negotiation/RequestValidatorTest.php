@@ -33,7 +33,6 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
         $validator->negotiate($request);
     }
 
-
     /**
      * @test
      * @dataProvider getInvalidContentTypes
@@ -70,12 +69,12 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
     {
         $server = $this->getMockForAbstractClass('\Psr\Http\Message\ServerRequestInterface');
 
-        $map = array(
-            array('Content-Type', $contentType),
-            array('Accept', $accept)
-        );
+        $map = [
+            ["Content-Type", $contentType],
+            ["Accept", $accept]
+        ];
         $server->expects($this->any())
-            ->method('getHeaderLine')
+            ->method("getHeaderLine")
             ->will($this->returnValueMap($map));
 
 
@@ -97,7 +96,6 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
         return $this->getMockForAbstractClass('\WoohooLabs\Yin\JsonApi\Request\RequestInterface', [$server, $exceptionFactory]);
     }
 
-
     private function createRequestValidator($server, $includeOriginalMessageResponse = true)
     {
         $exceptionInterface = new DefaultExceptionFactory($server);
@@ -107,18 +105,18 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
     public function getInvalidContentTypes()
     {
         return [
-          ['application/zip'],
-          ['application/octet-stream'],
-          ['application/ms-word'],
-          ['application/json'],
-          ['application/x-javascript'],
+          ["application/zip"],
+          ["application/octet-stream"],
+          ["application/ms-word"],
+          ["application/json"],
+          ["application/x-javascript"],
         ];
     }
 
     public function getValidContentTypes()
     {
         return [
-            ['application/vnd.api+json']
+            ["application/vnd.api+json"]
         ];
     }
 }
