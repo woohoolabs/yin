@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Request;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\ServerRequest as DiactorosRequest;
 
-class RequestTest extends PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     /**
      * @test

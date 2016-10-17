@@ -1,11 +1,14 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
-use PHPUnit_Framework_TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-class RequestValidatorTest extends PHPUnit_Framework_TestCase
+class RequestValidatorTest extends TestCase
 {
     /**
      * Test valid request without Request validation Exceptions
@@ -13,18 +16,18 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function negotiateValidRequest()
     {
-        $server = $this->getMockForAbstractClass('\Psr\Http\Message\ServerRequestInterface');
-        $exceptionFactory = $this->getMockForAbstractClass('\WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface');
+        $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
+        $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
 
         $request = $this->createRequestMock($server, $exceptionFactory);
 
         $request->expects($this->once())
-            ->method('validateContentTypeHeader')
+            ->method("validateContentTypeHeader")
             ->will($this->returnValue(true));
         ;
 
         $request->expects($this->once())
-            ->method('validateAcceptHeader')
+            ->method("validateAcceptHeader")
             ->will($this->returnValue(true));
         ;
 
@@ -38,10 +41,10 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
      * @dataProvider getInvalidContentTypes
      * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
-    public function negotiateTrowMediaTypeUnsupported($contentType)
+    public function negotiateThrowMediaTypeUnsupported($contentType)
     {
-        // Content type is invalid Accept is valid
-        $server = $this->createServerRequest($contentType, 'application/vnd.api+json');
+        // Content-Type is invalid, Accept is valid
+        $server = $this->createServerRequest($contentType, "application/vnd.api+json");
 
         $request = $this->createRequest($server, $contentType);
         $validator = $this->createRequestValidator($server);
@@ -56,18 +59,18 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function negotiateThrowTypeUnacceptable($accept)
     {
-        // Content Type is valid, Accept is invalid
-        $server = $this->createServerRequest('application/vnd.api+json', $accept);
+        // Content-Type is valid, Accept is invalid
+        $server = $this->createServerRequest("application/vnd.api+json", $accept);
 
-        $request = $this->createRequest($server, 'application/vnd.api+json');
+        $request = $this->createRequest($server, "application/vnd.api+json");
         $validator = $this->createRequestValidator($server);
 
         $validator->negotiate($request);
     }
 
-    public function createServerRequest($contentType, $accept = '')
+    public function createServerRequest($contentType, $accept = "")
     {
-        $server = $this->getMockForAbstractClass('\Psr\Http\Message\ServerRequestInterface');
+        $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
 
         $map = [
             ["Content-Type", $contentType],
@@ -93,7 +96,7 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
 
     protected function createRequestMock($server, $exceptionFactory)
     {
-        return $this->getMockForAbstractClass('\WoohooLabs\Yin\JsonApi\Request\RequestInterface', [$server, $exceptionFactory]);
+        return $this->getMockForAbstractClass(RequestInterface::class, [$server, $exceptionFactory]);
     }
 
     private function createRequestValidator($server, $includeOriginalMessageResponse = true)
@@ -105,18 +108,16 @@ class RequestValidatorTest extends PHPUnit_Framework_TestCase
     public function getInvalidContentTypes()
     {
         return [
-          ["application/zip"],
-          ["application/octet-stream"],
-          ["application/ms-word"],
-          ["application/json"],
-          ["application/x-javascript"],
+          ["application/vnd.api+json; charset=utf-8"],
+          ['application/vnd.api+json; ext="ext1,ext2"'],
         ];
     }
 
     public function getValidContentTypes()
     {
         return [
-            ["application/vnd.api+json"]
+            ["application/vnd.api+json"],
+            ["text/html; charset=utf-8"],
         ];
     }
 }

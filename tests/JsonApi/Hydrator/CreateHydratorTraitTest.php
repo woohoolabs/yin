@@ -1,14 +1,14 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 
-class CreateHydratorTraitTest extends PHPUnit_Framework_TestCase
+class CreateHydratorTraitTest extends TestCase
 {
     /**
      * @test

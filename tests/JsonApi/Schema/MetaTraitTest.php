@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 
-class MetaTraitTest extends PHPUnit_Framework_TestCase
+class MetaTraitTest extends TestCase
 {
     /**
      * @test

@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Exception;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 
-class SortingNotSupportedTest extends PHPUnit_Framework_TestCase
+class SortingNotSupportedTest extends TestCase
 {
     /**
      * @test

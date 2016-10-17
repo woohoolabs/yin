@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\TransformerTrait;
 
-class TransformerTraitTest extends PHPUnit_Framework_TestCase
+class TransformerTraitTest extends TestCase
 {
     /**
      * @test

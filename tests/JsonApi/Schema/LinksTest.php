@@ -1,12 +1,12 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubPaginationLinkProvider;
 
-class LinksTest extends PHPUnit_Framework_TestCase
+class LinksTest extends TestCase
 {
     /**
      * @test

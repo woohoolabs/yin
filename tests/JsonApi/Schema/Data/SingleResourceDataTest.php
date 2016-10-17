@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema\Data;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 
-class SingleResourceDataTest extends PHPUnit_Framework_TestCase
+class SingleResourceDataTest extends TestCase
 {
     /**
      * @test

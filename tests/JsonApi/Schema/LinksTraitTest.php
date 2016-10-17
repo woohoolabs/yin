@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
 
-class LinksTraitTest extends PHPUnit_Framework_TestCase
+class LinksTraitTest extends TestCase
 {
     /**
      * @test

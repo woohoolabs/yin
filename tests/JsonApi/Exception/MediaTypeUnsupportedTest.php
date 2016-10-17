@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Exception;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 
-class MediaTypeUnsupportedTest extends PHPUnit_Framework_TestCase
+class MediaTypeUnsupportedTest extends TestCase
 {
     /**
      * @test

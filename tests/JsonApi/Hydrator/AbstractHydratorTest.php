@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
@@ -10,7 +10,7 @@ use WoohooLabsTest\Yin\JsonApi\Utils\StubHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 
-class AbstractHydratorTest extends PHPUnit_Framework_TestCase
+class AbstractHydratorTest extends TestCase
 {
     /**
      * @test

@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 
-class PagePaginationTest extends PHPUnit_Framework_TestCase
+class PagePaginationTest extends TestCase
 {
     /**
      * @test

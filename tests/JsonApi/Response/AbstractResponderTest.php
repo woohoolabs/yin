@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Response;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
-class AbstractResponderTest extends PHPUnit_Framework_TestCase
+class AbstractResponderTest extends TestCase
 {
     /**
      * @test

@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema\Pagination;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubOffsetBasedPaginationProvider;
 
-class OffsetBasedPaginationProviderTraitTest extends PHPUnit_Framework_TestCase
+class OffsetBasedPaginationProviderTraitTest extends TestCase
 {
     /**
      * @test

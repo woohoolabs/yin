@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator\Relationship;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
-class ToOneRelationshipTest extends PHPUnit_Framework_TestCase
+class ToOneRelationshipTest extends TestCase
 {
     /**
      * @test

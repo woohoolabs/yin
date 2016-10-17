@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema\Data;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabsTest\Yin\JsonApi\Utils\DummyData;
 
-class AbstractDataTest extends PHPUnit_Framework_TestCase
+class AbstractDataTest extends TestCase
 {
     /**
      * @test

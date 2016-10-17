@@ -1,7 +1,7 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -15,7 +15,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
-class AbstractResourceTransformerTest extends PHPUnit_Framework_TestCase
+class AbstractResourceTransformerTest extends TestCase
 {
     /**
      * @test

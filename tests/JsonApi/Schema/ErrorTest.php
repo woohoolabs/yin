@@ -1,12 +1,12 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
-class ErrorTest extends PHPUnit_Framework_TestCase
+class ErrorTest extends TestCase
 {
     /**
      * @test

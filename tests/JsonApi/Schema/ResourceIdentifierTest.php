@@ -1,11 +1,11 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
-class ResourceIdentifierTest extends PHPUnit_Framework_TestCase
+class ResourceIdentifierTest extends TestCase
 {
     /**
      * @test

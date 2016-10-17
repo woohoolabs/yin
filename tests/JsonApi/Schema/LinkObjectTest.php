@@ -1,10 +1,10 @@
 <?php
 namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\LinkObject;
 
-class LinkObjectTest extends PHPUnit_Framework_TestCase
+class LinkObjectTest extends TestCase
 {
     /**
      * @test
