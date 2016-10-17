@@ -7,13 +7,13 @@ ADDED:
 
 CHANGED:
 
+- Increased minimum PHP version requirement to PHP 5.6
 - Made `$exceptionFactory` and `$serializer` constructor parameters optional for the `JsonApi` class
 - Updated JSON:API schema to the latest version
 - Renamed pagination provider traits to pagination link provider traits
 - Renamed pagination objects to include "Based" (e.g.: `PagePagination` became `PageBasedPagination`)
 - Improved documentation: added missing sections and fixed a lot of stylistic shortcomings 
-
-REMOVED:
+- Improved test coverage
 
 FIXED:
 
