@@ -4,7 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Request\Pagination;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 
-class FixedPagePaginationTest extends TestCase
+class FixedPageBasedPaginationTest extends TestCase
 {
     /**
      * @test
