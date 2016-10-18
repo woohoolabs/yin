@@ -4,6 +4,7 @@ ADDED:
 
 - [#19](https://github.com/woohoolabs/yin/issues/19): Support for custom serializers
 - Support for using `Collection`s not implementing `ArrayAccess` in `AbstractCollectionDocument`s
+- Docker Compose file to run tests more easily
 
 CHANGED:
 
