@@ -24,6 +24,7 @@ now return `integer` instead of `string`
 - `OffsetBasedPagination::getOffset()` and `OffsetBasedPagination::getLimit()` now return `integer` instead of `string`
 - [#44](https://github.com/woohoolabs/yin/pull/44): Fixed request validation
 - [#45](https://github.com/woohoolabs/yin/pull/45): `Request` class uses exception factory to throw exception
+- [#48](https://github.com/woohoolabs/yin/issue/48): PageBasedPaginationProviderTrait getPrevLink and getNextLink generate wrong links
 
 ## 0.11.0 - 2016-08-16
 
