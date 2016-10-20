@@ -247,6 +247,20 @@ class PageBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
+    public function getPrevLinkWhenPageIsLast()
+    {
+        $url = "http://example.com/api/users";
+        $totalItems = 50;
+        $page = 5;
+        $size = 10;
+
+        $provider = $this->createProvider($totalItems, $page, $size);
+        $this->assertEquals("$url?page[number]=4&page[size]=$size", $provider->getPrevLink($url)->getHref());
+    }
+
+    /**
+     * @test
+     */
     public function getPrevLink()
     {
         $url = "http://example.com/api/users";
@@ -270,6 +284,20 @@ class PageBasedPaginationProviderTraitTest extends TestCase
 
         $provider = $this->createProvider($totalItems, $page, $size);
         $this->assertNull($provider->getNextLink($url));
+    }
+
+    /**
+     * @test
+     */
+    public function getNextLinkWhenPageIsBeforeLast()
+    {
+        $url = "http://example.com/api/users";
+        $totalItems = 50;
+        $page = 4;
+        $size = 10;
+
+        $provider = $this->createProvider($totalItems, $page, $size);
+        $this->assertEquals("$url?page[number]=5&page[size]=$size", $provider->getNextLink($url)->getHref());
     }
 
     /**
