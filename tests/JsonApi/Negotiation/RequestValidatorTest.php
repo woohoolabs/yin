@@ -2,11 +2,15 @@
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Request;
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
+use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class RequestValidatorTest extends TestCase
 {
@@ -39,7 +43,6 @@ class RequestValidatorTest extends TestCase
     /**
      * @test
      * @dataProvider getInvalidContentTypes
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function negotiateThrowMediaTypeUnsupported($contentType)
     {
@@ -49,13 +52,13 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($server, $contentType);
         $validator = $this->createRequestValidator($server);
 
+        $this->expectException(MediaTypeUnsupported::class);
         $validator->negotiate($request);
     }
 
     /**
      * @test
      * @dataProvider getInvalidContentTypes
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
     public function negotiateThrowTypeUnacceptable($accept)
     {
@@ -65,6 +68,7 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($server, "application/vnd.api+json");
         $validator = $this->createRequestValidator($server);
 
+        $this->expectException(MediaTypeUnacceptable::class);
         $validator->negotiate($request);
     }
 
@@ -95,8 +99,6 @@ class RequestValidatorTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
-     * @expectedExceptionMessage Query parameter 'foo' can't be recognized!
      */
     public function invalidQueryParamsThrowException()
     {
@@ -108,9 +110,10 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($server, "application/vnd.api+json");
         $validator = $this->createRequestValidator($server);
 
-        $response = $validator->validateQueryParams($request);
+        $this->expectException(QueryParamUnrecognized::class);
+        $this->expectExceptionMessage("Query parameter 'foo' can't be recognized!");
+        $validator->validateQueryParams($request);
 
-        $this->assertNull($response);
     }
 
     /**
@@ -148,7 +151,6 @@ class RequestValidatorTest extends TestCase
     /**
      * @test
      * @dataProvider getInvalidJsonMessages
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson
      */
     public function lintOnInvalidMessageThrowException($message)
     {
@@ -157,9 +159,8 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($server, "application/vnd.api+json");
         $validator = $this->createRequestValidator($server);
 
-        $response = $validator->lintBody($request);
-
-        $this->assertNull($response);
+        $this->expectException(RequestBodyInvalidJson::class);
+        $validator->lintBody($request);
     }
 
     public function createServerRequest($contentType, $accept = "")
@@ -242,8 +243,8 @@ class RequestValidatorTest extends TestCase
     public function getInvalidJsonMessages()
     {
         return [
-            ['abc'],
-            ["\xEF\xBB\xBF"],
+            ["{abc"],
+            ["{\xEF\xBB\xBF}"],
         ];
     }
 }

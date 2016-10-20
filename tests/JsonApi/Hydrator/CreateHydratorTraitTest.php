@@ -2,6 +2,8 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit\Framework\TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
+use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
@@ -12,13 +14,14 @@ class CreateHydratorTraitTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
     public function hydrateWhenBodyEmpty()
     {
         $body = [];
 
         $hydrator = $this->createHydrator(false, "1");
+
+        $this->expectException(DataMemberMissing::class);
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
@@ -42,7 +45,6 @@ class CreateHydratorTraitTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      */
     public function testHydrateWhenBodyDataIdNotSupported()
     {
@@ -56,6 +58,8 @@ class CreateHydratorTraitTest extends TestCase
         ];
 
         $hydrator = $this->createHydrator(true, $id);
+
+        $this->expectException(ClientGeneratedIdNotSupported::class);
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 

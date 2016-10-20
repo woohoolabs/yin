@@ -2,7 +2,9 @@
 namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit\Framework\TestCase;
+use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabsTest\Yin\JsonApi\Utils\StubUpdateHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -12,19 +14,19 @@ class UpdateHydratorTraitTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing
      */
     public function hydrateWhenBodyEmpty()
     {
         $body = [];
 
         $hydrator = $this->createHydrator();
+
+        $this->expectException(DataMemberMissing::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing
      */
     public function hydrateWhenIdMissing()
     {
@@ -35,6 +37,8 @@ class UpdateHydratorTraitTest extends TestCase
         ];
 
         $hydrator = $this->createHydrator();
+
+        $this->expectException(ResourceIdMissing::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 

@@ -4,6 +4,8 @@ namespace WoohooLabsTest\Yin\JsonApi\Request;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
@@ -39,19 +41,19 @@ class RequestTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
+        $this->expectException(MediaTypeUnsupported::class);
         $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
      */
     public function validateContentTypeHeaderWithCharsetMediaType()
     {
+        $this->expectException(MediaTypeUnsupported::class);
         $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8");
     }
 
@@ -80,10 +82,10 @@ class RequestTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
      */
     public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
+        $this->expectException(MediaTypeUnsupported::class);
         $this->createRequestWithHeader(
             "Accept",
             'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
@@ -115,7 +117,6 @@ class RequestTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
      */
     public function validateInvalidQueryParams()
     {
@@ -124,6 +125,7 @@ class RequestTest extends TestCase
             "paginate" => ["-name"]
         ];
 
+        $this->expectException(QueryParamUnrecognized::class);
         $this->createRequestWithQueryParams($queryParams)->validateQueryParams();
     }
 

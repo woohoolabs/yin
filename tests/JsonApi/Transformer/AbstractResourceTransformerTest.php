@@ -3,6 +3,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -203,7 +204,6 @@ class AbstractResourceTransformerTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized
      */
     public function transformToResourceWithInvalidRelationship()
     {
@@ -215,8 +215,9 @@ class AbstractResourceTransformerTest extends TestCase
         ];
         $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
         $request = $request->withQueryParams(["include" => "mother"]);
-
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
+
+        $this->expectException(InclusionUnrecognized::class);
         $this->transformToResource($transformer, [], $request);
     }
 

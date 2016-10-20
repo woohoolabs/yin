@@ -3,6 +3,9 @@ namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
@@ -14,7 +17,6 @@ class AbstractHydratorTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
      */
     public function validateTypeWhenMissing()
     {
@@ -23,12 +25,13 @@ class AbstractHydratorTest extends TestCase
         ];
 
         $hydrator = $this->createHydrator();
+
+        $this->expectException(ResourceTypeMissing::class);
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
     public function validateTypeWhenUnacceptableAndOnlyOneAcceptable()
     {
@@ -39,12 +42,13 @@ class AbstractHydratorTest extends TestCase
         ];
 
         $hydrator = $this->createHydrator("fox");
+
+        $this->expectException(ResourceTypeUnacceptable::class);
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
      */
     public function validateTypeWhenUnacceptableAndMoreAcceptable()
     {
@@ -55,6 +59,8 @@ class AbstractHydratorTest extends TestCase
         ];
 
         $hydrator = $this->createHydrator(["fox", "wolf"]);
+
+        $this->expectException(ResourceTypeUnacceptable::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
@@ -205,7 +211,6 @@ class AbstractHydratorTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
     public function hydrateRelationshipsWhenCardinalityInappropriate()
     {
@@ -228,14 +233,14 @@ class AbstractHydratorTest extends TestCase
                 $elephant["children"] = $children->getResourceIdentifiers();
             }
         ];
-
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+
+        $this->expectException(RelationshipTypeInappropriate::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
      */
     public function hydrateRelationshipsWhenCardinalityInappropriate2()
     {
@@ -260,8 +265,9 @@ class AbstractHydratorTest extends TestCase
                 $elephant["children"] = $children->getResourceIdentifier();
             }
         ];
-
         $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+
+        $this->expectException(RelationshipTypeInappropriate::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 

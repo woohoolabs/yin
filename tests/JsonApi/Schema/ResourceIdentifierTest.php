@@ -3,29 +3,31 @@ namespace WoohooLabsTest\Yin\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing
      */
     public function fromMissingTypeArray()
     {
         $resourceIdentifierArray = ["id" => "1"];
 
+        $this->expectException(ResourceIdentifierTypeMissing::class);
         ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing
      */
     public function fromMissingIdArray()
     {
         $resourceIdentifierArray = ["type" => "user"];
 
+        $this->expectException(ResourceIdentifierIdMissing::class);
         ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
     }
 

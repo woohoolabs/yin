@@ -5,6 +5,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\Response;
@@ -40,25 +42,25 @@ class JsonApiTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function disableIncludesWhenEmpty()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["include" => ""]);
 
+        $this->expectException(InclusionUnsupported::class);
         $this->createJsonApi($request)->disableIncludes();
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
      */
     public function disableIncludesWhenSet()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["include" => "users"]);
 
+        $this->expectException(InclusionUnsupported::class);
         $this->createJsonApi($request)->disableIncludes();
     }
 
@@ -78,25 +80,25 @@ class JsonApiTest extends TestCase
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function disableSortingWhenEmpty()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["sort" => ""]);
 
+        $this->expectException(SortingUnsupported::class);
         $this->createJsonApi($request)->disableSorting();
     }
 
     /**
      * @test
-     * @expectedException \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
      */
     public function disableSortingWhenSet()
     {
         $request = $this->createRequest();
         $request = $request->withQueryParams(["sort" => "firstname"]);
 
+        $this->expectException(SortingUnsupported::class);
         $this->createJsonApi($request)->disableSorting();
     }
 
