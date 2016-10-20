@@ -53,7 +53,7 @@ trait PageBasedPaginationLinkProviderTrait
             return null;
         }
 
-        $page = floor(($this->getTotalItems() - 1) / $this->getSize()) + 1;
+        $page = $this->getLastPage();
         return $this->createPaginatedLink($url, $page, $this->getSize());
     }
 
@@ -63,7 +63,7 @@ trait PageBasedPaginationLinkProviderTrait
      */
     public function getPrevLink($url)
     {
-        if ($this->getPage() <= 1 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
+        if ($this->getPage() <= 1 || $this->getSize() <= 0) {
             return null;
         }
 
@@ -76,7 +76,7 @@ trait PageBasedPaginationLinkProviderTrait
      */
     public function getNextLink($url)
     {
-        if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() + 1 >= $this->getLastPage()) {
+        if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
             return null;
         }
 
@@ -119,6 +119,6 @@ trait PageBasedPaginationLinkProviderTrait
      */
     protected function getLastPage()
     {
-        return floor($this->getTotalItems() / $this->getSize()) + 1;
+        return ceil($this->getTotalItems() / $this->getSize());
     }
 }
