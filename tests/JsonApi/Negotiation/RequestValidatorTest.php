@@ -189,10 +189,11 @@ class RequestValidatorTest extends TestCase
         return $request;
     }
 
-    private function setFakeBody(ServerRequestInterface $request, string $body)
+    private function setFakeBody(ServerRequestInterface $request, $body)
     {
-        $stream = $this->getMockForAbstractClass(StreamInterface::class)
-            ->expects($this->once())
+        $stream = $this->getMockForAbstractClass(StreamInterface::class);
+
+        $stream->expects($this->once())
             ->method("getContents")
             ->will($this->returnValue($body));
 

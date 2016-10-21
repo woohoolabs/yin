@@ -37,15 +37,15 @@ abstract class MessageValidator
      */
     protected function lintMessage($message)
     {
-        if (empty($message) === true) {
+        if (empty($message)) {
             return "";
         }
 
-        try {
-            $linter = new JsonParser();
-            $linter->lint($message);
-        } catch (ParsingException $e) {
-            return $e->getMessage();
+        $linter = new JsonParser();
+        $result = $linter->lint($message);
+
+        if ($result instanceof ParsingException) {
+            return $result->getMessage();
         }
 
         return "";
