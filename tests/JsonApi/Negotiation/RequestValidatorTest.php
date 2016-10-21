@@ -3,6 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
@@ -20,10 +21,10 @@ class RequestValidatorTest extends TestCase
      */
     public function negotiateValidRequest()
     {
-        $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
+        $serverRequest = $this->getMockForAbstractClass(ServerRequestInterface::class);
         $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
 
-        $request = $this->createRequestMock($server, $exceptionFactory);
+        $request = $this->createRequestMock($serverRequest, $exceptionFactory);
 
         $request->expects($this->once())
             ->method("validateContentTypeHeader")
@@ -35,7 +36,7 @@ class RequestValidatorTest extends TestCase
             ->will($this->returnValue(true));
         ;
 
-        $validator = $this->createRequestValidator($server);
+        $validator = $this->createRequestValidator($serverRequest);
 
         $validator->negotiate($request);
     }
@@ -47,10 +48,10 @@ class RequestValidatorTest extends TestCase
     public function negotiateThrowMediaTypeUnsupported($contentType)
     {
         // Content-Type is invalid, Accept is valid
-        $server = $this->createServerRequest($contentType, "application/vnd.api+json");
+        $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
 
-        $request = $this->createRequest($server, $contentType);
-        $validator = $this->createRequestValidator($server);
+        $request = $this->createRequest($serverRequest, $contentType);
+        $validator = $this->createRequestValidator($serverRequest);
 
         $this->expectException(MediaTypeUnsupported::class);
         $validator->negotiate($request);
@@ -63,10 +64,10 @@ class RequestValidatorTest extends TestCase
     public function negotiateThrowTypeUnacceptable($accept)
     {
         // Content-Type is valid, Accept is invalid
-        $server = $this->createServerRequest("application/vnd.api+json", $accept);
+        $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
 
-        $request = $this->createRequest($server, "application/vnd.api+json");
-        $validator = $this->createRequestValidator($server);
+        $request = $this->createRequest($serverRequest, "application/vnd.api+json");
+        $validator = $this->createRequestValidator($serverRequest);
 
         $this->expectException(MediaTypeUnacceptable::class);
         $validator->negotiate($request);
@@ -77,8 +78,8 @@ class RequestValidatorTest extends TestCase
      */
     public function validQueryParams()
     {
-        $server = $this->createServerRequest("application/vnd.api+json");
-        $server->expects($this->once())
+        $serverRequest = $this->createServerRequest("application/vnd.api+json");
+        $serverRequest->expects($this->once())
             ->method("getQueryParams")
             ->will($this->returnValue([
                     "fields" => ["foo" => "bar"],
@@ -89,8 +90,8 @@ class RequestValidatorTest extends TestCase
                 ]
             ));
 
-        $request = $this->createRequest($server, "application/vnd.api+json");
-        $validator = $this->createRequestValidator($server);
+        $request = $this->createRequest($serverRequest, "application/vnd.api+json");
+        $validator = $this->createRequestValidator($serverRequest);
 
         $response = $validator->validateQueryParams($request);
 
@@ -102,13 +103,13 @@ class RequestValidatorTest extends TestCase
      */
     public function invalidQueryParamsThrowException()
     {
-        $server = $this->createServerRequest("application/vnd.api+json");
-        $server->expects($this->once())
+        $serverRequest = $this->createServerRequest("application/vnd.api+json");
+        $serverRequest->expects($this->once())
             ->method("getQueryParams")
             ->will($this->returnValue(["foo" => "bar"]));
 
-        $request = $this->createRequest($server, "application/vnd.api+json");
-        $validator = $this->createRequestValidator($server);
+        $request = $this->createRequest($serverRequest, "application/vnd.api+json");
+        $validator = $this->createRequestValidator($serverRequest);
 
         $this->expectException(QueryParamUnrecognized::class);
         $this->expectExceptionMessage("Query parameter 'foo' can't be recognized!");
@@ -122,10 +123,10 @@ class RequestValidatorTest extends TestCase
      */
     public function lintOnEmptyMessageReturnNull($message)
     {
-        $server = $this->createServerRequest("application/vnd.api+json");
-        $this->setFakeBody($server, $message);
-        $request = $this->createRequest($server, "application/vnd.api+json");
-        $validator = $this->createRequestValidator($server);
+        $serverRequest = $this->createServerRequest("application/vnd.api+json");
+        $this->setFakeBody($serverRequest, $message);
+        $request = $this->createRequest($serverRequest, "application/vnd.api+json");
+        $validator = $this->createRequestValidator($serverRequest);
 
         $response = $validator->lintBody($request);
 
@@ -138,10 +139,10 @@ class RequestValidatorTest extends TestCase
      */
     public function lintOnValidMessageReturnNull($message)
     {
-        $server = $this->createServerRequest("application/vnd.api+json");
-        $this->setFakeBody($server, $message);
-        $request = $this->createRequest($server, "application/vnd.api+json");
-        $validator = $this->createRequestValidator($server);
+        $serverRequest = $this->createServerRequest("application/vnd.api+json");
+        $this->setFakeBody($serverRequest, $message);
+        $request = $this->createRequest($serverRequest, "application/vnd.api+json");
+        $validator = $this->createRequestValidator($serverRequest);
 
         $response = $validator->lintBody($request);
 
@@ -175,35 +176,40 @@ class RequestValidatorTest extends TestCase
             ->method("getHeaderLine")
             ->will($this->returnValueMap($map));
 
-
         return $server;
     }
 
 
-    public function createRequest($server, $contentType)
+    private function createRequest($serverRequest, $contentType)
     {
-        $exceptionInterface = new DefaultExceptionFactory($server);
+        $exceptionInterface = new DefaultExceptionFactory($serverRequest);
 
-        $request = new Request($server, $exceptionInterface);
+        $request = new Request($serverRequest, $exceptionInterface);
 
         return $request;
     }
 
-    protected function setFakeBody($server, $body)
+    private function setFakeBody(ServerRequestInterface $request, string $body)
     {
-        $server->expects($this->once())
-            ->method("getBody")
+        $stream = $this->getMockForAbstractClass(StreamInterface::class)
+            ->expects($this->once())
+            ->method("getContents")
             ->will($this->returnValue($body));
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject $request */
+        $request->expects($this->once())
+            ->method("getBody")
+            ->will($this->returnValue($stream));
     }
 
-    protected function createRequestMock($server, $exceptionFactory)
+    private function createRequestMock($serverRequest, ExceptionFactoryInterface $exceptionFactory)
     {
-        return $this->getMockForAbstractClass(RequestInterface::class, [$server, $exceptionFactory]);
+        return $this->getMockForAbstractClass(RequestInterface::class, [$serverRequest, $exceptionFactory]);
     }
 
-    private function createRequestValidator($server, $includeOriginalMessageResponse = true)
+    private function createRequestValidator($serverRequest, $includeOriginalMessageResponse = true)
     {
-        $exceptionInterface = new DefaultExceptionFactory($server);
+        $exceptionInterface = new DefaultExceptionFactory($serverRequest);
         return new RequestValidator($exceptionInterface, $includeOriginalMessageResponse);
     }
 

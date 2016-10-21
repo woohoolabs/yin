@@ -4,6 +4,7 @@ namespace WoohooLabsTest\Yin\JsonApi\Request;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
@@ -85,7 +86,7 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
-        $this->expectException(MediaTypeUnsupported::class);
+        $this->expectException(MediaTypeUnacceptable::class);
         $this->createRequestWithHeader(
             "Accept",
             'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
