@@ -56,6 +56,19 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
+    public function validateEmptyBodySuccessfully()
+    {
+        $response = new Response();
+
+        $validator = new ResponseValidator(new DefaultSerializer(), new DefaultExceptionFactory());
+
+        $result = $validator->validateBody($response);
+        $this->assertNull($result);
+    }
+
+    /**
+     * @test
+     */
     public function validateBodyUnsuccessfully()
     {
         $response = new Response();
