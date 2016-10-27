@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabs\Yin\JsonApi\Negotiation;
+namespace WoohooLabsTest\Yin\JsonApi\Negotiation;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -10,6 +10,7 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
+use WoohooLabs\Yin\JsonApi\Negotiation\RequestValidator;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 

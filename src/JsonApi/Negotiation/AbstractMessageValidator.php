@@ -9,7 +9,7 @@ use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 
-abstract class MessageValidator
+abstract class AbstractMessageValidator
 {
     /**
      * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
@@ -52,7 +52,7 @@ abstract class MessageValidator
     }
 
     /**
-     * @param object $message
+     * @param string $message
      * @return array
      */
     protected function validateMessage($message)
@@ -65,7 +65,7 @@ abstract class MessageValidator
         $schema = $refResolver->resolve('file://' . realpath(__DIR__ . "/json-api-schema.json"));
 
         $validator = new Validator();
-        $validator->check($message, $schema);
+        $validator->check(json_decode($message), $schema);
 
         return $validator->getErrors();
     }

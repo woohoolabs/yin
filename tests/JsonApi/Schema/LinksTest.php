@@ -4,10 +4,41 @@ namespace WoohooLabsTest\Yin\JsonApi\Schema;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubPaginationLinkProvider;
+use WoohooLabsTest\Yin\JsonApi\Double\StubPaginationLinkProvider;
 
 class LinksTest extends TestCase
 {
+    /**
+     * @test
+     */
+    public function createWithoutBaseUri()
+    {
+        $links = Links::createWithoutBaseUri([]);
+
+        $this->assertEquals("", $links->getBaseUri());
+    }
+
+    /**
+     * @test
+     */
+    public function createWithBaseUri()
+    {
+        $links = Links::createWithBaseUri("http://example.com", []);
+
+        $this->assertEquals("http://example.com", $links->getBaseUri());
+    }
+
+    /**
+     * @test
+     */
+    public function setBaseUri()
+    {
+        $links = $this->createLinks();
+
+        $links->setBaseUri("http://example.com");
+        $this->assertEquals("http://example.com", $links->getBaseUri());
+    }
+
     /**
      * @test
      */
@@ -58,6 +89,7 @@ class LinksTest extends TestCase
     public function getFirstWhenEmpty()
     {
         $linksObject = $this->createLinks();
+
         $this->assertNull($linksObject->getFirst());
     }
 

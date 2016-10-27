@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Utils;
+namespace WoohooLabsTest\Yin\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;

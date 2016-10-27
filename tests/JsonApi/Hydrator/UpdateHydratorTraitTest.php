@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubUpdateHydrator;
+use WoohooLabsTest\Yin\JsonApi\Double\StubUpdateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 

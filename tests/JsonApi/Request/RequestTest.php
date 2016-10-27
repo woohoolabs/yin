@@ -491,11 +491,10 @@ class RequestTest extends TestCase
      */
     public function getFilteringWhenEmpty()
     {
-        $filtering = [];
-        $queryParams = ["filter" => $filtering];
+        $queryParams = ["filter" => []];
 
         $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($filtering, $request->getFiltering());
+        $this->assertEquals([], $request->getFiltering());
     }
 
     /**
@@ -503,11 +502,32 @@ class RequestTest extends TestCase
      */
     public function getFilteringWhenNotEmpty()
     {
-        $filtering = ["name" => "John", "age" => "40", "sex" => "male"];
-        $queryParams = ["filter" => $filtering];
+        $queryParams = ["filter" => ["name" => "John"]];
 
         $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($filtering, $request->getFiltering());
+        $this->assertEquals(["name" => "John"], $request->getFiltering());
+    }
+
+    /**
+     * @test
+     */
+    public function getFilteringParam()
+    {
+        $queryParams = ["filter" => ["name" => "John"]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertEquals("John", $request->getFilteringParam("name"));
+    }
+
+    /**
+     * @test
+     */
+    public function getDefaultFilteringParamWhenNotFound()
+    {
+        $queryParams = ["filter" => ["name" => "John"]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $this->assertFalse($request->getFilteringParam("age", false));
     }
 
     /**
@@ -691,6 +711,46 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function getDeletingToOneRelationship()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "relationships" => [
+                    "owner" => [
+                        "data" => null
+                    ]
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $relationship = $request->getToOneRelationship("owner");
+        $this->assertTrue($relationship->isEmpty());
+    }
+
+    /**
+     * @test
+     */
+    public function getNullWhenToOneRelationshipNotExists()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "relationships" => [
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertNull($request->getToOneRelationship("owner"));
+    }
+
+    /**
+     * @test
+     */
     public function getToManyRelationship()
     {
         $body = [
@@ -714,6 +774,24 @@ class RequestTest extends TestCase
         $this->assertEquals("2", $resourceIdentifiers[0]->getId());
         $this->assertEquals("dog", $resourceIdentifiers[1]->getType());
         $this->assertEquals("3", $resourceIdentifiers[1]->getId());
+    }
+
+    /**
+     * @test
+     */
+    public function getNullWhenToManyRelationshipNotExists()
+    {
+        $body = [
+            "data" => [
+                "type" => "dog",
+                "id" => "1",
+                "relationships" => [
+                ]
+            ]
+        ];
+
+        $request = $this->createRequestWithJsonBody($body);
+        $this->assertNull($request->getToManyRelationship("friends"));
     }
 
     /**

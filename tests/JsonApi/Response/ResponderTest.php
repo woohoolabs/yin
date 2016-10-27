@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubSuccessfulDocument;
+use WoohooLabsTest\Yin\JsonApi\Double\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 

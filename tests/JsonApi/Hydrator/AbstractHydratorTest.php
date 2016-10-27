@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubHydrator;
+use WoohooLabsTest\Yin\JsonApi\Double\StubHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 

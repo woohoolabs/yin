@@ -13,7 +13,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubResourceTransformer;
+use WoohooLabsTest\Yin\JsonApi\Double\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
 class AbstractResourceTransformerTest extends TestCase
@@ -291,7 +291,7 @@ class AbstractResourceTransformerTest extends TestCase
      * @param array $attributes
      * @param array $defaultRelationships
      * @param array $relationships
-     * @return \WoohooLabsTest\Yin\JsonApi\Utils\StubResourceTransformer
+     * @return \WoohooLabsTest\Yin\JsonApi\Double\StubResourceTransformer
      */
     protected function createTransformer(
         $type = "",

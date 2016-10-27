@@ -3,16 +3,25 @@ namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 
-class ResponseValidator extends MessageValidator
+class ResponseValidator extends AbstractMessageValidator
 {
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @var DeserializerInterface
+     */
+    private $deserializer;
+
+    /**
      * @param bool $includeOriginalMessageInResponse
      */
-    public function __construct(ExceptionFactoryInterface $exceptionFactory, $includeOriginalMessageInResponse = true)
-    {
+    public function __construct(
+        DeserializerInterface $deserializer,
+        ExceptionFactoryInterface $exceptionFactory,
+        $includeOriginalMessageInResponse = true
+    ) {
         parent::__construct($exceptionFactory, $includeOriginalMessageInResponse);
+        $this->deserializer = $deserializer;
     }
 
     /**
@@ -21,10 +30,10 @@ class ResponseValidator extends MessageValidator
      */
     public function lintBody(ResponseInterface $response)
     {
-        $errorMessage = $this->lintMessage($response->getBody());
+        $errorMessage = $this->lintMessage($this->deserializer->getBodyAsString($response));
 
         if (empty($errorMessage) === false) {
-            $this->exceptionFactory->createResponseBodyInvalidJsonException(
+            throw $this->exceptionFactory->createResponseBodyInvalidJsonException(
                 $response,
                 $errorMessage,
                 $this->includeOriginalMessage
@@ -38,10 +47,10 @@ class ResponseValidator extends MessageValidator
      */
     public function validateBody(ResponseInterface $response)
     {
-        $errors = $this->validateMessage(json_decode($response->getBody()));
+        $errors = $this->validateMessage($this->deserializer->getBodyAsString($response));
 
         if (empty($errors) === false) {
-            $this->exceptionFactory->createResponseBodyInvalidJsonApiException(
+            throw $this->exceptionFactory->createResponseBodyInvalidJsonApiException(
                 $response,
                 $errors,
                 $this->includeOriginalMessage

@@ -2,7 +2,7 @@
 namespace WoohooLabsTest\Yin\JsonApi\Schema\Pagination;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubPageBasedPaginationProvider;
+use WoohooLabsTest\Yin\JsonApi\Double\StubPageBasedPaginationProvider;
 
 class PageBasedPaginationProviderTraitTest extends TestCase
 {
@@ -318,7 +318,7 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      * @param int $totalItems
      * @param int $page
      * @param int $size
-     * @return \WoohooLabsTest\Yin\JsonApi\Utils\StubPageBasedPaginationProvider
+     * @return \WoohooLabsTest\Yin\JsonApi\Double\StubPageBasedPaginationProvider
      */
     private function createProvider($totalItems, $page, $size)
     {

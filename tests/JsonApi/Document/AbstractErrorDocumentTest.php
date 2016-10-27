@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubErrorDocument;
+use WoohooLabsTest\Yin\JsonApi\Double\StubErrorDocument;
 use Zend\Diactoros\Response;
 
 class AbstractErrorDocumentTest extends TestCase

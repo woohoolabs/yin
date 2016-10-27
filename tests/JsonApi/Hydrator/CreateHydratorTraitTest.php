@@ -6,7 +6,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabsTest\Yin\JsonApi\Utils\StubCreateHydrator;
+use WoohooLabsTest\Yin\JsonApi\Double\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 

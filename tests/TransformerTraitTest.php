@@ -35,6 +35,21 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
+    public function transformToBool()
+    {
+        $transformerTrait = $this->createTransformerTrait();
+
+        $this->assertTrue($transformerTrait->toBool("1"));
+        $this->assertTrue($transformerTrait->toBool(1));
+        $this->assertTrue($transformerTrait->toBool(true));
+        $this->assertFalse($transformerTrait->toBool("0"));
+        $this->assertFalse($transformerTrait->toBool(0));
+        $this->assertFalse($transformerTrait->toBool(false));
+    }
+
+    /**
+     * @test
+     */
     public function transformToIso8601Date()
     {
         $transformerTrait = $this->createTransformerTrait();

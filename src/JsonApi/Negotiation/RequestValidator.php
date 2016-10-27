@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
-class RequestValidator extends MessageValidator
+class RequestValidator extends AbstractMessageValidator
 {
     /**
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory

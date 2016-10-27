@@ -52,6 +52,27 @@ class ToManyRelationshipTest extends TestCase
         $this->assertEquals([$id1, $id2], $relationship->getResourceIdentifierIds());
     }
 
+    /**
+     * @test
+     */
+    public function isEmptyIsFalse()
+    {
+        $relationship = $this->createRelationship()
+            ->addResourceIdentifier((new ResourceIdentifier()));
+
+        $this->assertFalse($relationship->isEmpty());
+    }
+
+    /**
+     * @test
+     */
+    public function isEmptyIsTrue()
+    {
+        $relationship = $this->createRelationship();
+
+        $this->assertTrue($relationship->isEmpty());
+    }
+
     private function createRelationship()
     {
         return new ToManyRelationship();

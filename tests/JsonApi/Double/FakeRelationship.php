@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Utils;
+namespace WoohooLabsTest\Yin\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
@@ -14,6 +14,16 @@ class FakeRelationship extends AbstractRelationship
         $relationshipName,
         array $defaultRelationships
     ) {
+        return [];
+    }
+
+    public function getRetrieveData()
+    {
         return $this->retrieveData();
+    }
+
+    public function isOmitWhenNotIncluded()
+    {
+        return $this->omitDataWhenNotIncluded;
     }
 }
