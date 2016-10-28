@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Hydrator\Relationship;
+namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator\Relationship;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;

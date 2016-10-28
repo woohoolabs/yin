@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
@@ -13,7 +13,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
-use WoohooLabsTest\Yin\JsonApi\Double\StubResourceTransformer;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
 class AbstractResourceTransformerTest extends TestCase
@@ -291,7 +291,7 @@ class AbstractResourceTransformerTest extends TestCase
      * @param array $attributes
      * @param array $defaultRelationships
      * @param array $relationships
-     * @return \WoohooLabsTest\Yin\JsonApi\Double\StubResourceTransformer
+     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer
      */
     protected function createTransformer(
         $type = "",

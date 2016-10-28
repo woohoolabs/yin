@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;

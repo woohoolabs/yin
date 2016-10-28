@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Negotiation;
+namespace WoohooLabs\Yin\Tests\JsonApi\Negotiation;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;

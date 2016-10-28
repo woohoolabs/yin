@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Double;
+namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;

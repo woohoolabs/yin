@@ -1,12 +1,12 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
+namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabsTest\Yin\JsonApi\Double\StubCreateHydrator;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 

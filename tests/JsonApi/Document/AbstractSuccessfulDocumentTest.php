@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
-use WoohooLabsTest\Yin\JsonApi\Double\StubSuccessfulDocument;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 

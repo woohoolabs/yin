@@ -1,13 +1,13 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Schema\Relationship;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
-use WoohooLabsTest\Yin\JsonApi\Double\DummyData;
-use WoohooLabsTest\Yin\JsonApi\Double\FakeRelationship;
-use WoohooLabsTest\Yin\JsonApi\Double\StubRequest;
-use WoohooLabsTest\Yin\JsonApi\Double\StubResourceTransformer;
+use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
+use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer;
 
 class AbstractRelationshipTest extends TestCase
 {

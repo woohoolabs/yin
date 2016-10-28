@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Double;
+namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;

@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Schema\Data;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;

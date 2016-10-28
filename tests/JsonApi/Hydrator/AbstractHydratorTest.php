@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Hydrator;
+namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabsTest\Yin\JsonApi\Double\StubHydrator;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
 

@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Exception;
+namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;

@@ -1,12 +1,12 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Response;
+namespace WoohooLabs\Yin\Tests\JsonApi\Response;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
-use WoohooLabsTest\Yin\JsonApi\Double\StubSuccessfulDocument;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 

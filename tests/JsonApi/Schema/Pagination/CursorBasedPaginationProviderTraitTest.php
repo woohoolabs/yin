@@ -1,8 +1,8 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Schema\Pagination;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Pagination;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabsTest\Yin\JsonApi\Double\StubCursorBasedPaginationProvider;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubCursorBasedPaginationProvider;
 
 class CursorBasedPaginationProviderTraitTest extends TestCase
 {
@@ -172,7 +172,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      * @param mixed $currentItem
      * @param mixed $previousItem
      * @param mixed $nextItem
-     * @return \WoohooLabsTest\Yin\JsonApi\Double\StubCursorBasedPaginationProvider
+     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubCursorBasedPaginationProvider
      */
     private function createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem)
     {

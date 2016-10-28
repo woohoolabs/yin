@@ -1,8 +1,8 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Schema\Data;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabsTest\Yin\JsonApi\Double\DummyData;
+use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 
 class AbstractDataTest extends TestCase
 {

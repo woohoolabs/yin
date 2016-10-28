@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Request;
+namespace WoohooLabs\Yin\Tests\JsonApi\Request;
 
 use Exception;
 use PHPUnit\Framework\TestCase;

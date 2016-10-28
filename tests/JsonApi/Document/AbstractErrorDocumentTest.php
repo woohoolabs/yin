@@ -1,11 +1,11 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Testss\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
-use WoohooLabsTest\Yin\JsonApi\Double\StubErrorDocument;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
 use Zend\Diactoros\Response;
 
 class AbstractErrorDocumentTest extends TestCase

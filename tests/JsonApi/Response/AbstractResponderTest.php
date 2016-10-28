@@ -1,5 +1,5 @@
 <?php
-namespace WoohooLabsTest\Yin\JsonApi\Response;
+namespace WoohooLabs\Yin\Tests\JsonApi\Response;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
