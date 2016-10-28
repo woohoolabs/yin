@@ -13,4 +13,9 @@ interface SerializerInterface
      * @return ResponseInterface
      */
     public function serialize(ResponseInterface $response, $responseCode, array $content);
+
+    /**
+     * @return string
+     */
+    public function getBodyAsString(ResponseInterface $response);
 }

@@ -3,12 +3,12 @@ namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class ResponseValidator extends AbstractMessageValidator
 {
     /**
-     * @var DeserializerInterface
+     * @var SerializerInterface
      */
     private $deserializer;
 
@@ -16,7 +16,7 @@ class ResponseValidator extends AbstractMessageValidator
      * @param bool $includeOriginalMessageInResponse
      */
     public function __construct(
-        DeserializerInterface $deserializer,
+        SerializerInterface $deserializer,
         ExceptionFactoryInterface $exceptionFactory,
         $includeOriginalMessageInResponse = true
     ) {

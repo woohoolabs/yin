@@ -47,7 +47,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function DataNotOmittedWhenNotIncludedByDefault()
+    public function dataNotOmittedWhenNotIncludedByDefault()
     {
         $relationship = $this->createRelationship();
 

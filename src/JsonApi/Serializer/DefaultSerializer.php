@@ -3,7 +3,7 @@ namespace WoohooLabs\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ResponseInterface;
 
-class DefaultSerializer implements SerializerInterface, DeserializerInterface
+class DefaultSerializer implements SerializerInterface
 {
     /**
      * @param ResponseInterface $response
@@ -29,13 +29,5 @@ class DefaultSerializer implements SerializerInterface, DeserializerInterface
     public function getBodyAsString(ResponseInterface $response)
     {
         return $response->getBody()->__toString();
-    }
-
-    /**
-     * @return array|null
-     */
-    public function deserializeBody(ResponseInterface $response)
-    {
-        return json_decode($response->getBody()->__toString(), true);
     }
 }
