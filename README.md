@@ -104,6 +104,8 @@ Now, you can run the command below and you will get the latest version of Yin:
 $ composer require woohoolabs/yin
 ```
 
+Yin needs PHP 5.6+.
+
 If you want to take advantage of request/response validation then you have also to ask for the following
 dependencies:
 
