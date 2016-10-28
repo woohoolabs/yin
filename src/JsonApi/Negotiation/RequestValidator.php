@@ -56,7 +56,7 @@ class RequestValidator extends AbstractMessageValidator
      */
     public function lintBody(RequestInterface $request)
     {
-        $errorMessage = $this->lintMessage($request->getBody()->getContents());
+        $errorMessage = $this->lintMessage($request->getBody()->__toString());
 
         if ($errorMessage) {
             throw $this->exceptionFactory->createRequestBodyInvalidJsonException(
