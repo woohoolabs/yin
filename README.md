@@ -958,14 +958,14 @@ Validating the responses can be useful in a development environment to find poss
 
 ### Custom serialization
 
-Yin has the ability to use custom serialization techniques instead of the default one which uses the `json_encode`
-function to fill the response body.
+You can configure Yin to serialize responses in a custom way instead of the default one which uses the `json_encode`
+function to write the JSON:API documents to the response body.
 
 In the majority of the use-cases, the default serializer should be sufficient for your needs, but sometimes you need
 more sophistication. Or sometimes you want to do nasty things like returning your JSON:API response as an array without
 any serialization in case your API endpoint was called "internally".
 
-In order to use a custom serializer, create a class implementing `SerializerInterface` and setup the your `$jsonApi`
+In order to use a custom serializer, create a class implementing `SerializerInterface` and setup your `$jsonApi`
 object accordingly (pay attention to the last argument):
 
 ```php
