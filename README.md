@@ -83,7 +83,7 @@ well with dependency injection.
 
 #### Supplementary middleware
 
-[There is some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
+There is some [additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
 error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
@@ -117,8 +117,8 @@ $ composer require seld/jsonlint:^1.4.0
 ## Basic Usage
 
 When using Woohoo Labs. Yin, you will create:
-- documents and resource transformers in order to map domain objects to JSON:API responses
-- hydrators in order to transform resources in a POST or PATCH request to domain objects
+- Documents and resource transformers in order to map domain objects to JSON:API responses
+- Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
 `Request` class provides functionalities you commonly need.
