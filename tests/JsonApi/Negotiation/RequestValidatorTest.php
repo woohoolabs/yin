@@ -195,7 +195,7 @@ class RequestValidatorTest extends TestCase
         $stream = $this->getMockForAbstractClass(StreamInterface::class);
 
         $stream->expects($this->once())
-            ->method("getContents")
+            ->method("__toString")
             ->will($this->returnValue($body));
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $request */
