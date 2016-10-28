@@ -1,4 +1,14 @@
-## 1.0.0 - unreleased
+## 1.1.0 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 1.0.0 - 2016-10-29
 
 ADDED:
 
