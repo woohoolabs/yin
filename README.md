@@ -53,7 +53,7 @@ and we also believe it is a big day for RESTful APIs as this specification can h
 future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API
 servers.
 
-#### Features
+### Features
 
 - 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
 - 99% [JSON:API 1.0](http://jsonapi.org/) compatibility (approximately)
@@ -63,9 +63,9 @@ servers.
 - Provides Hydrators to create and update resources
 - [Additional middleware](https://github.com/woohoolabs/yin-middleware) for the easier kickstart and debugging
 
-#### Why Yin?
+### Why Yin?
 
-##### Complete JSON:API framework
+#### Complete JSON:API framework
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification:
 it provides various
@@ -73,7 +73,7 @@ capabilities including content negotiation, error handling and pagination, as we
 deleting resources. Although Yin consists of many loosely coupled packages and classes which can be used separately,
 the framework is most powerful when used in its entirety.
 
-##### Efficiency
+#### Efficiency
 
 We designed Yin to be as efficient as possible. That's why attributes and relationships are transformed only and if
 only they are requested. This feature is extremely advantageous when there are a lot of resources to transform or a
@@ -81,7 +81,7 @@ rarely required transformation is very expensive. Furthermore, as transformers a
 separate model object for each resource is avoided. Additionally, due to statelessness, the overall library works really
 well with dependency injection.
 
-##### Supplementary middleware
+#### Supplementary middleware
 
 [There is some additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
@@ -123,12 +123,12 @@ When using Woohoo Labs. Yin, you will create:
 Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
 `Request` class provides functionalities you commonly need.
 
-#### Documents
+### Documents
 
 The following sections will guide you through creating documents for successful responses and
 creating or building error documents.
 
-##### Documents for successful responses
+#### Documents for successful responses
 
 For successful requests, you must return information about one or more resources. Woohoo Labs. Yin provides
 multiple abstract classes that help you to create your own documents for different use cases:
@@ -248,7 +248,7 @@ The only difference between the `AbstractSingleResourceDocument` and `AbstractCo
 regard the `domainObject`. The first one regards it as a single domain object while the latter regards it
 as an iterable collection.
 
-###### Usage
+##### Usage
 
 Documents can be transformed to HTTP responses. The easiest way to achieve this is to use the
 [`JsonApi` class](#jsonapi-class) and choose the appropriate response type. Successful documents support three
@@ -258,7 +258,7 @@ kinds of responses:
 - meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
 - relationship: The specified relationship object will be the primary data of the response
 
-##### Documents for error responses
+#### Documents for error responses
 
 An `AbstractErrorDocument` can be used to create reusable documents for error responses. It also requires the same
 abstract methods to be implemented as the successful ones, but additionally an `addError()` method can be used
@@ -280,7 +280,7 @@ $errorDocument->setLinks(Links::createWithoutBaseUri()->setSelf("http://example.
 $errorDocument->addError(new MyError());
 ```
 
-#### Resource transformers
+### Resource transformers
 
 Documents for successful responses can contain one or more top-level resources, an array of included resources and
 resource identifier objects as relationships. That's why resource transformers are responsible for converting a
@@ -457,7 +457,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
 Generally, you don't use resource transformers directly. Only documents need them to be able to fill the "data",
 the "included" and the "relationship" sections in the responses.
 
-#### Hydrators
+### Hydrators
 
 Hydrators allow us to initialize the properties of a domain object as required by the current HTTP request. This means
 when a client wants to create or update a resource, hydrators can help instantiate a domain object, which can then be
@@ -657,7 +657,7 @@ Array
 )
 ```
 
-#### Exceptions
+### Exceptions
 
 Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why
 all the default exceptions extend the `JsonApiException` class and contain
@@ -684,7 +684,7 @@ of [`JsonApiException`-s](src/JsonApi/Exception) but you are free to create any 
 basic `\Exception` instances). If you only want to customize the error document or the error objects of a
 `JsonApiException`, just extend it and override their `createErrorDocument()` or `getErrors()` method.
 
-#### `JsonApi` class
+### `JsonApi` class
 
 The `JsonApi` class is the orchestrator of the whole framework. It is highly recommended to utilize this class
 if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
@@ -694,12 +694,12 @@ of this class in the [examples section](#examples) or [directory](https://github
 
 This section guides you through the advanced features of Yin.
 
-#### Pagination
+### Pagination
 
 Yin is able to help you paginate your collection of resources. First, it provides some shortcuts for querying the
 request query parameters when page-based, offset-based, or cursor-based pagination strategies are used.
 
-##### Page-based pagination
+#### Page-based pagination
 
 Yin looks for the `page[number]` and the `page[size]` query parameters and parses their value. If any of them is missing
 then the default page number and size will be used ("1" and "10" in the following example).
@@ -708,7 +708,7 @@ then the default page number and size will be used ("1" and "10" in the followin
 $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
 ```
 
-##### Fixed page-based pagination
+#### Fixed page-based pagination
 
 Yin looks for the `page[number]` query parameter and parses its value. If it is missing then the default page number
 will be used ("1" in the following example). This strategy can be useful if you do not want to expose the page size
@@ -718,7 +718,7 @@ at all.
 $pagination = $jsonApi->getRequest()->getFixedPageBasedPagination(1);
 ```
 
-##### Offset-based pagination
+#### Offset-based pagination
 
 Yin looks for the `page[offset]` and the `page[limit]` query parameters and parses their value. If any of them is missing
 then the default offset and limit will be used ("1" and "10" in the following example).
@@ -727,7 +727,7 @@ then the default offset and limit will be used ("1" and "10" in the following ex
 $pagination = $jsonApi->getRequest()->getOffsetBasedPagination(1, 10);
 ```
 
-##### Cursor-based pagination
+#### Cursor-based pagination
 
 Yin looks for the `page[cursor]` query parameter and parses its value. If it is missing then the default cursor will
 be used ("2016-10-01" in the following example).
@@ -736,7 +736,7 @@ be used ("2016-10-01" in the following example).
 $pagination = $jsonApi->getRequest()->getCursorBasedPagination("2016-10-01");
 ```
 
-##### Custom pagination
+#### Custom pagination
 
 If you need a custom pagination strategy, you may use the `getPagination()` method which returns an array of pagination
 parameters.
@@ -750,7 +750,7 @@ $pagination = new CustomPagination(
 );
 ```
 
-##### Usage
+#### Usage
 
 As soon as you have the appropriate pagination object, you may use them when you fetch your data from a data source:
 
@@ -758,7 +758,7 @@ As soon as you have the appropriate pagination object, you may use them when you
 $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 ```
 
-##### Pagination links
+#### Pagination links
 
 The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
 in this regard too. You only have use the `Links::setPagination()` method when you define links for your documents or
@@ -812,7 +812,7 @@ class UserCollection implements PaginationLinkProviderInterface
 
 You can find the full example [here](https://github.com/woohoolabs/yin/blob/master/utils/Collection.php).
 
-#### Loading relationship data efficiently
+### Loading relationship data efficiently
 
 Sometimes it can be benefical or necessary to fine-tune the data of the returned relationship. A possible scenario might be
 when you have a "to-many" relationship with multiple items. In this case you might only want to return a data key of a
@@ -869,7 +869,7 @@ public function getRelationships($user)
 This way, the contacts of a user will only be loaded when the given relationship's `data` key is present in the response,
 allowing your API to be as effective as possible.
 
-#### Injecting metadata into documents
+### Injecting metadata into documents
 
 Metadata can be injected into documents on-the-fly. This can be handy if you want to customize or decorate your
 responses (e.g.: providing a cache ID to the returned document).
@@ -893,7 +893,7 @@ return $jsonApi->respond()->ok($document, $book, ["cache_id" => $cacheId]);
 
 Usually, the last argument of each responder method can be used to add meta data to your documents.
 
-#### Content negotiation
+### Content negotiation
 
 The JSON:API standard specifies [some rules](#content-negotiation-servers) about content
 negotiation. Woohoo Labs. Yin tries to help you enforce them with the `RequestValidator` class. Let's first create
@@ -914,7 +914,7 @@ specification, use this method:
 $requestValidator->negotiate($request);
 ```
 
-#### Request/response validation
+### Request/response validation
 
 You can use the following method to check if the query parameters of the current request are in line with
 [the naming rules](http://jsonapi.org/format/#query-parameters):
@@ -935,7 +935,11 @@ $requestValidator->lintBody($request);
 Similarly, responses can be validated too. Let's create a response validator first:
 
 ```php
-$responseValidator = new ResponseValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
+$responseValidator = new ResponseValidator(
+    new DefaultSerializer(),
+    new DefaultExceptionFactory(),
+    $includeOriginalMessageInResponse
+);
 ```
 
 To ensure that the response body is a well-formed JSON document, one can use the following method:
@@ -952,7 +956,7 @@ $responseValidator->validateBody($response);
 
 Validating the responses can be useful in a development environment to find possible bugs early.
 
-#### Custom serialization
+### Custom serialization
 
 Yin has the ability to use custom serialization techniques instead of the default one which uses the `json_encode`
 function to fill the response body.
@@ -968,7 +972,7 @@ object accordingly (pay attention to the last argument):
 $jsonApi = new JsonApi(new Request(), new Response(), new ExceptionFactory(), new CustomSerializer());
 ```
 
-#### Middleware
+### Middleware
 
 If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://github.com/woohoolabs/harmony),
 [Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
@@ -979,7 +983,7 @@ learn about its advantages!
 
 ## Examples
 
-#### Fetching a single resource
+### Fetching a single resource
 
 ```php
 /**
@@ -1007,7 +1011,7 @@ public function getBook(JsonApi $jsonApi)
 }
 ```
 
-#### Fetching a collection of resources
+### Fetching a collection of resources
 
 ```php
 /**
@@ -1030,7 +1034,7 @@ public function getUsers(JsonApi $jsonApi)
 }
 ```
 
-#### Fetching a relationship
+### Fetching a relationship
 
 ```php
 /**
@@ -1063,7 +1067,7 @@ public function getBookRelationships(JsonApi $jsonApi)
 }
 ```
 
-#### Creating a new resource
+### Creating a new resource
 
 ```php
 /**
@@ -1093,7 +1097,7 @@ public function createBook(JsonApi $jsonApi)
 }
 ```
 
-#### Updating a resource
+### Updating a resource
 
 ```php
 /**
@@ -1127,7 +1131,7 @@ public function updateBook(JsonApi $jsonApi)
 }
 ```
 
-#### Updating a relationship of a resource
+### Updating a relationship of a resource
 
 ```php
 /**
@@ -1164,7 +1168,7 @@ public function updateBookRelationship(JsonApi $jsonApi)
 }
 ```
 
-#### How to try it out
+### How to try it out
 If you want to know more about how Yin works, have a look at the
 [examples](https://github.com/woohoolabs/yin/tree/master/examples). Set up a web server, run `composer install` in
 Yin's root directory and visit the URLs listed below. You can restrict the retrieved fields and relationships with
