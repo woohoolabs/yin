@@ -8,7 +8,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
-**Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON:API-s.**
+**Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON:APIs.**
 
 ## Table of Contents
 
