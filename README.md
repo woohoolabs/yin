@@ -196,7 +196,6 @@ Its constructor expects the JSON:API version number and an optional meta object 
 public function getMeta()
 {
     return [
-        "profile" => "http://api.example.com/profile",
         "page" => [
             "offset" => $this->domainObject->getOffset(),
             "limit" => $this->domainObject->getLimit(),
@@ -206,8 +205,7 @@ public function getMeta()
 }
 ```
 
-Documents may also have a meta section which can contain any non-standard information. The example above adds a
-[profile](http://jsonapi.org/extensions/#profiles) and some information about pagination to the document.
+Documents may also have a meta section which can contain any non-standard information. The example above adds information about pagination to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is a hypothetical collection),
 and this is the main "subject" of the document.
@@ -234,7 +232,7 @@ public function getLinks()
     return Links::createWithBaseUri(
         "http://example.com/api",
         [
-            new Link("/books/" . $this->getResourceId())
+            "self" => new Link("/books/" . $this->getResourceId())
         ]
     );
 }
