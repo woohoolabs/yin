@@ -678,7 +678,7 @@ which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception 
 every transformer and hydrator, you can completely customize what kind of exceptions you want to raise.
 
 The default [Exception Factory](src/JsonApi/Exception/ExceptionFactory) creates children
-of [`JsonApiException`-s](src/JsonApi/Exception) but you are free to create any type of exceptions (even the
+of [`JsonApiException`-s](src/JsonApi/Exception) but you are free to create any type of exception (even the
 basic `\Exception` instances). If you only want to customize the error document or the error objects of a
 `JsonApiException`, just extend it and override their `createErrorDocument()` or `getErrors()` method.
 
