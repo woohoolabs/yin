@@ -116,13 +116,17 @@ abstract class AbstractRelationship
     ) {
         $relationship = null;
 
-        if ($this->omitDataWhenNotIncluded === false ||
+        if (
             $transformation->request->isIncludedRelationship(
                 $transformation->basePath,
                 $relationshipName,
                 $defaultRelationships
             ) ||
-            $transformation->fetchedRelationship === $relationshipName
+            (
+                $transformation->fetchedRelationship === $relationshipName &&
+                $this->data &&
+                $this->omitDataWhenNotIncluded === false
+            )
         ) {
             $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
         } else {
