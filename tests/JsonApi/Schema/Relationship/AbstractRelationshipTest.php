@@ -81,7 +81,6 @@ class AbstractRelationshipTest extends TestCase
         );
         $this->assertEquals(
             [
-                "data" => []
             ],
             $result
         );
