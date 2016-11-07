@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 1.0.1 - 2016-11-07
+
+FIXED:
+
+- [#50](https://github.com/woohoolabs/yin/issues/50): Omitting `data` property from `relationships` information 
+
 ## 1.0.0 - 2016-10-29
 
 ADDED:
