@@ -51,7 +51,7 @@
 [reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
 and we also believe it is a big day for RESTful APIs as this specification can help you make APIs more robust and
 future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API
-servers.
+servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its client-side counterpart.
 
 ### Features
 
@@ -85,7 +85,7 @@ well with dependency injection.
 
 There is some [additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
 find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
-error messages), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
+error responses), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
 
 ## Install
