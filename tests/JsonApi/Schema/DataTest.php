@@ -102,17 +102,24 @@ class DataTest extends TestCase
      */
     public function transform()
     {
-        $resource1 = ["type" => "resource", "id" => "1"];
-        $resource2 = ["type" => "resource", "id" => "2"];
-        $item1 = ["type" => "item", "id" => "1"];
-        $item2 = ["type" => "item", "id" => "2"];
+        $data = $this->createData()->setIncludedResources([
+            ["type" => "item", "id" => "1"],
+            ["type" => "resource", "id" => "2"],
+            ["type" => "resource", "id" => "1"],
+            ["type" => "item", "id" => "2"],
+            ["type" => "item", "id" => "1"],
+            ["type" => "resource", "id" => "2"],
+        ]);
 
-        $resources = [$item1, $resource2, $resource1, $item2, $item1, $resource1];
-
-        $data = $this->createData()->setIncludedResources($resources);
-
-        $transformedIncluded = [$item1, $item2, $resource1, $resource2];
-        $this->assertEquals($transformedIncluded, $data->transformIncludedResources());
+        $this->assertEquals(
+            [
+                ["type" => "item", "id" => "1"],
+                ["type" => "resource", "id" => "2"],
+                ["type" => "resource", "id" => "1"],
+                ["type" => "item", "id" => "2"],
+            ],
+            $data->transformIncludedResources()
+        );
     }
 
     private function createData()

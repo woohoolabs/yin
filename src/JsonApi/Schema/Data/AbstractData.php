@@ -127,8 +127,6 @@ abstract class AbstractData implements DataInterface
      */
     public function transformIncludedResources()
     {
-        ksort($this->includedKeys);
-
         return array_values($this->includedKeys);
     }
 
