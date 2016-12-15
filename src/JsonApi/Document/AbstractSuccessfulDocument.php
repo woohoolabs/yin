@@ -74,7 +74,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
 
     /**
      * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
-     * the "included" sections) about the document, assembled based on the $domainObject. You can also pass additional
+     * the "included" members) about the document, assembled based on the $domainObject. You can also pass additional
      * meta information to the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request

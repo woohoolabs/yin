@@ -22,9 +22,9 @@ class UserDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     * Provides information about the "jsonApi" section of the current document.
+     * Provides information about the "jsonApi" member of the current document.
      *
-     * The method returns a new JsonApi schema object if this section should be present or null
+     * The method returns a new JsonApi schema object if this member should be present or null
      * if it should be omitted from the response.
      *
      * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
@@ -35,10 +35,10 @@ class UserDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     * Provides information about the "meta" section of the current document.
+     * Provides information about the "meta" member of the current document.
      *
      * The method returns an array of non-standard meta information about the document. If
-     * this array is empty, the section won't appear in the response.
+     * this array is empty, the member won't appear in the response.
      *
      * @return array
      */
@@ -48,7 +48,7 @@ class UserDocument extends AbstractSingleResourceDocument
     }
 
     /**
-     *  Provides information about the "links" section of the current document.
+     *  Provides information about the "links" member of the current document.
      *
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.

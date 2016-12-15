@@ -4,7 +4,7 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 interface ResourceTransformerInterface
 {
     /**
-     * Provides information about the "type" section of the current resource.
+     * Provides information about the "type" member of the current resource.
      *
      * The method returns the type of the current resource.
      *
@@ -14,7 +14,7 @@ interface ResourceTransformerInterface
     public function getType($domainObject);
 
     /**
-     * Provides information about the "id" section of the current resource.
+     * Provides information about the "id" member of the current resource.
      *
      * The method returns the ID of the current resource which should be a UUID.
      *
@@ -24,10 +24,10 @@ interface ResourceTransformerInterface
     public function getId($domainObject);
 
     /**
-     * Provides information about the "meta" section of the current resource.
+     * Provides information about the "meta" member of the current resource.
      *
      * The method returns an array of non-standard meta information about the resource. If
-     * this array is empty, the section won't appear in the response.
+     * this array is empty, the member won't appear in the response.
      *
      * @param mixed $domainObject
      * @return array
@@ -35,7 +35,7 @@ interface ResourceTransformerInterface
     public function getMeta($domainObject);
 
     /**
-     * Provides information about the "links" section of the current resource.
+     * Provides information about the "links" member of the current resource.
      *
      * The method returns a new Links schema object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
@@ -46,7 +46,7 @@ interface ResourceTransformerInterface
     public function getLinks($domainObject);
 
     /**
-     * Provides information about the "attributes" section of the current resource.
+     * Provides information about the "attributes" member of the current resource.
      *
      * The method returns an array where the keys signify the attribute names,
      * while the values are callables receiving the domain object as an argument,
@@ -66,7 +66,7 @@ interface ResourceTransformerInterface
     public function getDefaultIncludedRelationships($domainObject);
 
     /**
-     * Provides information about the "relationships" section of the current resource.
+     * Provides information about the "relationships" member of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
      * while the values are callables receiving the domain object as an argument,

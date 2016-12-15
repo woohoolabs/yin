@@ -168,9 +168,9 @@ you to implement the following methods:
 
 ```php
 /**
- * Provides information about the "jsonApi" section of the current document.
+ * Provides information about the "jsonApi" member of the current document.
  *
- * The method returns a new JsonApi schema object if this section should be present or null
+ * The method returns a new JsonApi schema object if this member should be present or null
  * if it should be omitted from the response.
  *
  * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
@@ -186,10 +186,10 @@ Its constructor expects the JSON:API version number and an optional meta object 
 
 ```php
 /**
- * Provides information about the "meta" section of the current document.
+ * Provides information about the "meta" member of the current document.
  *
  * The method returns an array of non-standard meta information about the document. If
- * this array is empty, the section won't appear in the response.
+ * this array is empty, the member won't appear in the response.
  *
  * @return array
  */
@@ -212,7 +212,7 @@ and this is the main "subject" of the document.
 
 ```php
 /**
- * Provides information about the "links" section of the current document.
+ * Provides information about the "links" member of the current document.
  *
  * The method returns a new Links schema object if you want to provide linkage data
  * for the document or null if the section should be omitted from the response.
@@ -320,7 +320,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "type" section of the current resource.
+     * Provides information about the "type" member of the current resource.
      *
      * The method returns the type of the current resource.
      *
@@ -333,7 +333,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "id" section of the current resource.
+     * Provides information about the "id" member of the current resource.
      *
      * The method returns the ID of the current resource which should be a UUID.
      *
@@ -346,10 +346,10 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "meta" section of the current resource.
+     * Provides information about the "meta" member of the current resource.
      *
      * The method returns an array of non-standard meta information about the resource. If
-     * this array is empty, the section won't appear in the response.
+     * this array is empty, the member won't appear in the response.
      *
      * @param array $book
      * @return array
@@ -360,7 +360,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "links" section of the current resource.
+     * Provides information about the "links" member of the current resource.
      *
      * The method returns a new Links schema object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
@@ -386,7 +386,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "attributes" section of the current resource.
+     * Provides information about the "attributes" member of the current resource.
      *
      * The method returns an array where the keys signify the attribute names,
      * while the values are callables receiving the domain object as an argument,
@@ -419,7 +419,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
     }
 
     /**
-     * Provides information about the "relationships" section of the current resource.
+     * Provides information about the "relationships" member of the current resource.
      *
      * The method returns an array where the keys signify the relationship names,
      * while the values are callables receiving the domain object as an argument,
