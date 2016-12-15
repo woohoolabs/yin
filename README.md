@@ -84,7 +84,7 @@ well with dependency injection.
 #### Supplementary middleware
 
 There is some [additional middleware](https://github.com/woohoolabs/yin-middleware) for Woohoo Labs. Yin you might
-find useful. They can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
+find useful. It can facilitate various tasks like error handling (via transformation of exceptions into JSON:API
 error responses), dispatching JSON:API-aware controllers or debugging (via syntax checking and validation of requests
 and responses).
 
@@ -106,7 +106,7 @@ $ composer require woohoolabs/yin
 
 Yin needs PHP 5.6+.
 
-If you want to take advantage of request/response validation then you have also to ask for the following
+If you want to take advantage of request/response validation then you have to also ask for the following
 dependencies:
 
 ```bash
