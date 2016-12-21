@@ -12,7 +12,7 @@ class Error
     protected $id;
 
     /**
-     * @var int
+     * @var string
      */
     protected $status;
 
@@ -63,7 +63,7 @@ class Error
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getStatus()
     {
@@ -71,7 +71,7 @@ class Error
     }
 
     /**
-     * @param int $status
+     * @param string $status
      * @return $this
      */
     public function setStatus($status)

@@ -30,7 +30,7 @@ trait TransformerTrait
      */
     public function toInt($value)
     {
-        return intval($value);
+        return (int) $value;
     }
 
     /**
@@ -41,7 +41,7 @@ trait TransformerTrait
      */
     public function toBool($value)
     {
-        return $value == true ? true : false;
+        return $value == true;
     }
 
     /**
@@ -63,7 +63,7 @@ trait TransformerTrait
      */
     public function toIso8601DateTime(DateTimeInterface $dateTime)
     {
-        return $dateTime->format(DateTime::ISO8601);
+        return $dateTime->format(DateTime::ATOM);
     }
 
     /**
@@ -79,7 +79,7 @@ trait TransformerTrait
             "Y-m-d H:i:s",
             $string,
             $timeZoneName ? new \DateTimeZone($timeZoneName) : null
-        )->format(DateTime::ISO8601);
+        )->format(DateTime::ATOM);
     }
 
     /**
@@ -90,6 +90,6 @@ trait TransformerTrait
      */
     public function fromSqlToUtcIso8601Time($string)
     {
-        return self::fromSqlToIso8601Time($string, "UTC");
+        return $this->fromSqlToIso8601Time($string, "UTC");
     }
 }

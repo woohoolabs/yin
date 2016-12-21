@@ -68,7 +68,7 @@ class TransformerTraitTest extends TestCase
         $transformerTrait = $this->createTransformerTrait();
 
         $this->assertEquals(
-            "2015-06-30T16:00:00+0000",
+            "2015-06-30T16:00:00+00:00",
             $transformerTrait->toIso8601DateTime($this->createDateTime("2015-06-30 16:00:00"))
         );
     }
@@ -81,7 +81,7 @@ class TransformerTraitTest extends TestCase
         $transformerTrait = $this->createTransformerTrait();
 
         $this->assertEquals(
-            "2015-06-30T16:00:00+0200",
+            "2015-06-30T16:00:00+02:00",
             $transformerTrait->fromSqlToIso8601Time("2015-06-30 16:00:00", "Europe/Budapest")
         );
     }
@@ -94,7 +94,7 @@ class TransformerTraitTest extends TestCase
         $transformerTrait = $this->createTransformerTrait();
 
         $this->assertEquals(
-            "2015-06-30T16:00:00+0000",
+            "2015-06-30T16:00:00+00:00",
             $transformerTrait->fromSqlToUtcIso8601Time("2015-06-30 16:00:00")
         );
     }

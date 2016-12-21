@@ -13,10 +13,8 @@ class ErrorTest extends TestCase
      */
     public function getId()
     {
-        $id = "123456789";
-
-        $error = $this->createError()->setId($id);
-        $this->assertEquals($id, $error->getId());
+        $error = $this->createError()->setId("123456789");
+        $this->assertEquals("123456789", $error->getId());
     }
 
     /**
@@ -24,10 +22,8 @@ class ErrorTest extends TestCase
      */
     public function getStatus()
     {
-        $status = 500;
-
-        $error = $this->createError()->setStatus($status);
-        $this->assertEquals($status, $error->getStatus());
+        $error = $this->createError()->setStatus("500");
+        $this->assertEquals("500", $error->getStatus());
     }
 
     /**
@@ -35,10 +31,8 @@ class ErrorTest extends TestCase
      */
     public function getCode()
     {
-        $code = "UNKNOWN_ERROR";
-
-        $error = $this->createError()->setCode($code);
-        $this->assertEquals($code, $error->getCode());
+        $error = $this->createError()->setCode("UNKNOWN_ERROR");
+        $this->assertEquals("UNKNOWN_ERROR", $error->getCode());
     }
 
     /**
@@ -46,10 +40,8 @@ class ErrorTest extends TestCase
      */
     public function getTitle()
     {
-        $title = "Unknown error!";
-
-        $error = $this->createError()->setTitle($title);
-        $this->assertEquals($title, $error->getTitle());
+        $error = $this->createError()->setTitle("Unknown error!");
+        $this->assertEquals("Unknown error!", $error->getTitle());
     }
 
     /**
@@ -57,10 +49,8 @@ class ErrorTest extends TestCase
      */
     public function getDetail()
     {
-        $detail = "An unknown error has happened and no solution exists.";
-
-        $error = $this->createError()->setDetail($detail);
-        $this->assertEquals($detail, $error->getDetail());
+        $error = $this->createError()->setDetail("An unknown error has happened and no solution exists.");
+        $this->assertEquals("An unknown error has happened and no solution exists.", $error->getDetail());
     }
 
     /**
@@ -80,7 +70,7 @@ class ErrorTest extends TestCase
     public function transformWithEmptyFields()
     {
         $id = "123456789";
-        $status = 500;
+        $status = "500";
         $code = "UNKNOWN_ERROR";
         $title = "Unknown error!";
         $detail = "An unknown error has happened and no solution exists.";
@@ -108,34 +98,28 @@ class ErrorTest extends TestCase
      */
     public function transform()
     {
-        $id = "123456789";
-        $meta = ["abc" => "def"];
         $links = new Links();
-        $status = 500;
-        $code = "UNKNOWN_ERROR";
-        $title = "Unknown error!";
-        $detail = "An unknown error has happened and no solution exists.";
         $source = new ErrorSource("", "");
 
         $error = $this->createError()
-            ->setId($id)
-            ->setMeta($meta)
+            ->setId("123456789")
+            ->setMeta(["abc" => "def"])
             ->setLinks($links)
-            ->setStatus($status)
-            ->setCode($code)
-            ->setTitle($title)
-            ->setDetail($detail)
+            ->setStatus("500")
+            ->setCode("UNKNOWN_ERROR")
+            ->setTitle("Unknown error!")
+            ->setDetail("An unknown error has happened and no solution exists.")
             ->setSource($source)
         ;
 
         $transformedError = [
-            "id" => $id,
-            "meta" => $meta,
+            "id" => "123456789",
+            "meta" => ["abc" => "def"],
             "links" => [],
-            "status" => $status,
-            "code" => $code,
-            "title" => $title,
-            "detail" => $detail,
+            "status" => "500",
+            "code" => "UNKNOWN_ERROR",
+            "title" => "Unknown error!",
+            "detail" => "An unknown error has happened and no solution exists.",
             "source" => []
         ];
         $this->assertEquals($transformedError, $error->transform());

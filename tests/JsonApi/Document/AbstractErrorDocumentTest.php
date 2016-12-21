@@ -50,10 +50,10 @@ class AbstractErrorDocumentTest extends TestCase
     {
         $response = $this
             ->createErrorDocument()
-            ->addError((new Error())->setStatus(404))
+            ->addError((new Error())->setStatus("404"))
             ->getResponse(new DefaultSerializer(), new Response());
 
-        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals("404", $response->getStatusCode());
         $this->assertCount(1, $this->getErrorsContentFromResponse($response));
     }
 
@@ -64,9 +64,9 @@ class AbstractErrorDocumentTest extends TestCase
     {
         $response = $this
             ->createErrorDocument()
-            ->addError((new Error())->setStatus(403))
-            ->addError((new Error())->setStatus(404))
-            ->addError((new Error())->setStatus(418))
+            ->addError((new Error())->setStatus("403"))
+            ->addError((new Error())->setStatus("404"))
+            ->addError((new Error())->setStatus("418"))
             ->getResponse(new DefaultSerializer(), new Response());
 
         $this->assertEquals(400, $response->getStatusCode());
