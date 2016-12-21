@@ -140,6 +140,17 @@ class LinksTest extends TestCase
     /**
      * @test
      */
+    public function getAboutWhenNotEmpty()
+    {
+        $about = new Link("http://example.com/about");
+
+        $linksObject = $this->createLinks()->setAbout($about);
+        $this->assertEquals($about, $linksObject->getAbout());
+    }
+
+    /**
+     * @test
+     */
     public function setPagination()
     {
         $uri = "http://example.com/api/users/";

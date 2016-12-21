@@ -193,6 +193,25 @@ class Links
     }
 
     /**
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     */
+    public function getAbout()
+    {
+        return $this->getLink("about");
+    }
+
+    /**
+     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $about
+     * @return $this
+     */
+    public function setAbout(Link $about = null)
+    {
+        $this->links["about"] = $about;
+
+        return $this;
+    }
+
+    /**
      * @param string $uri
      * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $paginationProvider
      * @return $this
@@ -210,7 +229,7 @@ class Links
 
     /**
      * @param $name
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
+     * @return \WoohooLabs\Yin\JsonApi\Schema\Link $links
      */
     public function getLink($name)
     {

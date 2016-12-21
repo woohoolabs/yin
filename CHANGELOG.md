@@ -10,6 +10,10 @@ FIXED:
 
 ## 1.0.3 - 2016-12-21
 
+ADDED:
+
+- Better support for "about" links
+
 FIXED:
 
 - Error status codes are now represented as string as per the spec
