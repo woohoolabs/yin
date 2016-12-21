@@ -8,11 +8,18 @@ REMOVED:
 
 FIXED:
 
+## 1.0.3 - 2016-12-21
+
+FIXED:
+
+- Error status codes are now represented as string as per the spec
+- `TransformerTrait()` datetime transformer methods identify the ISO-8601 format correctly
+
 ## 1.0.2 - 2016-11-17
 
 CHANGED:
 
-- [#51](https://github.com/woohoolabs/yin/issues/51): Remove sorting of included resources 
+- [#51](https://github.com/woohoolabs/yin/issues/51): Remove sorting of included resources
 
 ## 1.0.1 - 2016-11-07
 
