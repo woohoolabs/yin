@@ -2,8 +2,7 @@
     "name": "woohoolabs/yin",
     "description": "Woohoo Labs. Yin",
     "type": "library",
-    "keywords": ["Woohoo Labs.", "Yin", "JSON API", "PSR-7"],
-    "homepage": "http://yin.woohoolabs.com",
+    "keywords": ["Woohoo Labs.", "Yin", "JSON:API", "PSR-7"],
     "license": "MIT",
     "authors": [
         {
