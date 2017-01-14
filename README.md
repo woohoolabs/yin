@@ -90,21 +90,29 @@ and responses).
 
 ## Install
 
-You need [Composer](https://getcomposer.org) to install this library. You must install a PSR-7 implementation first
-(a package which provides the `http-message-implementation` virtual package), as Yin requires one. You may use Zend
-Diactoros or your preferred library:
+The only thing you need before getting started is [Composer](http://getcomposer.org).
+
+### Install a PSR-7 implementation:
+
+Because Yin requires a PSR-7 implementation (a package which provides the `psr/http-message-implementation` virtual
+package), you must install one first. You may use [Zend Diactoros](https://github.com/zendframework/zend-diactoros) or
+any other library of your preference:
 
 ```bash
-$ composer require zendframework/zend-diactoros
+$ composer require zendframework/zend-diactoros:^2.3.0
 ```
 
-Now, you can run the command below and you will get the latest version of Yin:
+### Install Yin:
+
+To install the latest version of this library, run the command below:
 
 ```bash
 $ composer require woohoolabs/yin
 ```
 
-Yin needs PHP 5.6+.
+Yin requires PHP 5.6 at least.
+
+### Install the optional dependencies:
 
 If you want to take advantage of request/response validation then you have to also ask for the following
 dependencies:
