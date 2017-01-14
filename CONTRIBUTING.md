@@ -15,13 +15,3 @@ We accept contributions via Pull Requests on [Github](https://github.com/woohool
 - **Create feature branches** - Don't ask us to pull from your master branch.
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
-
-## Running Tests
-Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder
-after you have copied phpunit.xml.dist to phpunit.xml:
-
-``` bash
-$ phpunit
-```
-
-Additionally, you may run `docker-compose up` in order to execute the tests.
