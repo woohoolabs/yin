@@ -27,7 +27,7 @@ abstract class AbstractDocument
      * Provides information about the "links" member of the current document.
      *
      * The method returns a new Links schema object if you want to provide linkage data
-     * for the document or null if the section should be omitted from the response.
+     * for the document or null if the member should be omitted from the response.
      *
      * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
      */

@@ -42,7 +42,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     );
 
     /**
-     * Returns a response with a status code of $responseCode, containing all the provided sections of the document,
+     * Returns a response with a status code of $responseCode, containing all the provided members of the document,
      * assembled based on the $domainObject. You can also pass additional meta information for the document in the
      * $additionalMeta argument.
      *

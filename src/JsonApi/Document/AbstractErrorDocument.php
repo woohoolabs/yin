@@ -33,7 +33,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
-     * Returns a response with a status code of $responseCode, containing all the provided sections of the error
+     * Returns a response with a status code of $responseCode, containing all the provided members of the error
      * document. You can also pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param SerializerInterface $serializer

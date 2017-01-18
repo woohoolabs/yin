@@ -213,7 +213,8 @@ public function getMeta()
 }
 ```
 
-Documents may also have a meta section which can contain any non-standard information. The example above adds information about pagination to the document.
+Documents may also have a "meta" member which can contain any non-standard information. The example above adds
+information about pagination to the document.
 
 Note that the `domainObject` property is a variable of any type (in this case it is a hypothetical collection),
 and this is the main "subject" of the document.
@@ -223,7 +224,7 @@ and this is the main "subject" of the document.
  * Provides information about the "links" member of the current document.
  *
  * The method returns a new Links schema object if you want to provide linkage data
- * for the document or null if the section should be omitted from the response.
+ * for the document or null if the member should be omitted from the response.
  *
  * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
  */
@@ -288,7 +289,7 @@ $errorDocument->addError(new MyError());
 
 ### Resource transformers
 
-Documents for successful responses can contain one or more top-level resources, an array of included resources and
+Documents for successful responses can contain one or more top-level resources, included resources, and
 resource identifier objects as relationships. That's why resource transformers are responsible for converting a
 domain object into a JSON:API resource or resource identifier.
 
@@ -299,7 +300,7 @@ Resource transformers must implement the `ResourceTransformerInterface`, but to 
 the `AbstractResourceTransformer` class.
 
 Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented - most of which
-are the same as seen in the documents. The following example illustrates a resource transformer dealing with
+are the same as seen in the Document objects. The following example illustrates a resource transformer dealing with
 a book domain object and its "authors" and "publisher" relationships.
 
 ```php
@@ -461,11 +462,11 @@ class BookResourceTransformer extends AbstractResourceTransformer
 ```
 
 Generally, you don't use resource transformers directly. Only documents need them to be able to fill the "data",
-the "included" and the "relationship" sections in the responses.
+the "included" and the "relationship" members in the responses.
 
 ### Hydrators
 
-Hydrators allow us to initialize the properties of a domain object as required by the current HTTP request. This means
+Hydrators allow us to initialize the properties of a domain object as required by the current HTTP request. This means,
 when a client wants to create or update a resource, hydrators can help instantiate a domain object, which can then be
 validated, saved etc.
 
@@ -476,7 +477,7 @@ There are three abstract hydrator classes in Woohoo Labs. Yin:
 - `AbstractHydrator`: It can be used for both type of requests
 
 For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of
-`AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's look at an example hydrator looks like:
+`AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's have a look at an example hydrator:
 
 ```php
 class BookHydator extends AbstractHydrator
@@ -568,7 +569,9 @@ class BookHydator extends AbstractHydrator
     {
         return [
             "title" => function (array $book, $attribute, $data, $attributeName) {
-                $book["title"] = $attribute; return $book;
+                $book["title"] = $attribute;
+                
+                return $book;
             },
             "pages" => function (array &$book, $attribute, $data, $attributeName) {
                 $book["pages"] = $attribute;
@@ -679,14 +682,14 @@ try {
 ```
 
 where `$response` is the instance of `Psr\Http\Message\ResponseInterface` and `sendResponse()` is a hypothetical
-function which sends the response received in its argument.
+function which emits an HTTP response.
 
 To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
 which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
 every transformer and hydrator, you can completely customize what kind of exceptions you want to raise.
 
-The default [Exception Factory](src/JsonApi/Exception/ExceptionFactory) creates children
-of [`JsonApiException`s](src/JsonApi/Exception) but you are free to create any type of exception (even the
+The default [Exception Factory](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Exception/DefaultExceptionFactory) creates children
+of [`JsonApiException`](src/JsonApi/Exception)s but you are free to create any type of exception (even the
 basic `\Exception` instances). If you only want to customize the error document or the error objects of a
 `JsonApiException`, just extend the `Exception` and override its `createErrorDocument()` or `getErrors()` method.
 
@@ -694,7 +697,7 @@ basic `\Exception` instances). If you only want to customize the error document 
 
 The `JsonApi` class is the orchestrator of the whole framework. It is highly recommended to utilize this class
 if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
-of it in the [examples section](#examples) or [directory](https://github.com/woohoolabs/yin/tree/master/examples).
+of it in the [examples section](#examples) or [directory](https://github.com/woohoolabs/yin/blob/master/examples/Utils/Collection.php).
 
 ## Advanced Usage
 
@@ -820,10 +823,10 @@ You can find the full example [here](https://github.com/woohoolabs/yin/blob/mast
 
 ### Loading relationship data efficiently
 
-Sometimes it can be benefical or necessary to fine-tune the data of the returned relationship. A possible scenario might be
-when you have a "to-many" relationship with multiple items. In this case you might only want to return a data key of a
-relationship when the relationship itself is included in the response. This optimization can save you bandwidth by
-omitting resource linkage.
+Sometimes it can be beneficial or necessary to fine-tune data retrieval of relationshipS. A possible scenario might be
+when you have a "to-many" relationship containing gazillion items. If this relationship isn't always needed than you
+might only want to return a data key of a relationship when the relationship itself is included in the response. This
+optimization can save you bandwidth by omitting resource linkage.
 
 An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php)
 example class:
@@ -873,11 +876,11 @@ public function getRelationships($user)
 ```
 
 This way, the contacts of a user will only be loaded when the given relationship's `data` key is present in the response,
-allowing your API to be as effective as possible.
+allowing your API to be as efficient as possible.
 
 ### Injecting metadata into documents
 
-Metadata can be injected into documents on-the-fly. This can be handy if you want to customize or decorate your
+Metadata can be injected into documents on-the-fly. This comes handy if you want to customize or decorate your
 responses (e.g.: providing a cache ID to the returned document).
 
 The easiest way to check this functionality is to have a look at the [first examples](#fetching-a-single-resource),
