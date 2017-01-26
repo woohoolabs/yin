@@ -33,7 +33,7 @@ class AbstractRelationshipTest extends TestCase
         $relationship = $this->createRelationship();
 
         $relationship->setDataAsCallable(
-            function() {
+            function () {
                 return ["id" => 1];
             },
             new StubResourceTransformer()

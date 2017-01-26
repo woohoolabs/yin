@@ -115,7 +115,6 @@ class RequestValidatorTest extends TestCase
         $this->expectException(QueryParamUnrecognized::class);
         $this->expectExceptionMessage("Query parameter 'foo' can't be recognized!");
         $validator->validateQueryParams($request);
-
     }
 
     /**
