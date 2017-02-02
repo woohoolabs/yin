@@ -34,7 +34,7 @@ class ResourceTypeUnacceptable extends JsonApiException
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus(409)
                 ->setCode("RESOURCE_TYPE_UNACCEPTABLE")
                 ->setTitle("Resource type is unacceptable")
                 ->setDetail("Resource type '$this->currentType' is unacceptable!")

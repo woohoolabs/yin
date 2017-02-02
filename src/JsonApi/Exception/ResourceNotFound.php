@@ -17,7 +17,7 @@ class ResourceNotFound extends JsonApiException
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus(404)
                 ->setCode("RESOURCE_NOT_FOUND")
                 ->setTitle("Resource not found")
                 ->setDetail($this->getMessage())

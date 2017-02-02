@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 1.0.4 - unreleased
+
+FIXED:
+
+- Fixed status codes for multiple error responses 
+
 ## 1.0.3 - 2016-12-21
 
 ADDED:

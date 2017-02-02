@@ -23,7 +23,7 @@ class RelationshipNotExists extends JsonApiException
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus(404)
                 ->setCode("RELATIONSHIP_NOT_EXISTS")
                 ->setTitle("The requested relationship does not exist!")
                 ->setDetail($this->getMessage())
