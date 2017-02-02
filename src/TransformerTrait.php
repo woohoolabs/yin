@@ -41,7 +41,7 @@ trait TransformerTrait
      */
     public function toBool($value)
     {
-        return $value == true;
+        return (bool) $value;
     }
 
     /**
