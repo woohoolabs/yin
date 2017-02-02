@@ -55,14 +55,17 @@ abstract class AbstractResponder
         $statusCode,
         array $additionalMeta = []
     ) {
-        return $document->getResponse(
+        $content = $document->getContent(
             $this->request,
-            $this->response,
             $this->exceptionFactory,
-            $this->serializer,
             $domainObject,
-            $statusCode,
             $additionalMeta
+        );
+
+        return $this->serializer->serialize(
+            $this->response,
+            $statusCode,
+            $content
         );
     }
 
@@ -79,14 +82,17 @@ abstract class AbstractResponder
         $statusCode,
         array $additionalMeta = []
     ) {
-        return $document->getMetaResponse(
+        $content = $document->getMetaContent(
             $this->request,
-            $this->response,
             $this->exceptionFactory,
-            $this->serializer,
             $domainObject,
-            $statusCode,
             $additionalMeta
+        );
+
+        return $this->serializer->serialize(
+            $this->response,
+            $statusCode,
+            $content
         );
     }
 
@@ -105,15 +111,18 @@ abstract class AbstractResponder
         $statusCode,
         array $additionalMeta = []
     ) {
-        return $document->getRelationshipResponse(
+        $content = $document->getRelationship(
             $relationshipName,
             $this->request,
-            $this->response,
             $this->exceptionFactory,
-            $this->serializer,
             $domainObject,
-            $statusCode,
             $additionalMeta
+        );
+
+        return $this->serializer->serialize(
+            $this->response,
+            $statusCode,
+            $content
         );
     }
 
@@ -132,15 +141,18 @@ abstract class AbstractResponder
         $statusCode,
         array $additionalMeta = []
     ) {
-        return $document->getRelationshipResponse(
+        $content = $document->getRelationship(
             $relationshipName,
             $this->request,
-            $this->response,
             $this->exceptionFactory,
-            $this->serializer,
             $domainObject,
-            $statusCode,
             $additionalMeta
+        );
+
+        return $this->serializer->serialize(
+            $this->response,
+            $statusCode,
+            $content
         );
     }
 

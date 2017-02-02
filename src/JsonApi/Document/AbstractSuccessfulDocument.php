@@ -1,10 +1,8 @@
 <?php
 namespace WoohooLabs\Yin\JsonApi\Document;
 
-use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
@@ -27,8 +25,6 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     abstract protected function fillData(Transformation $transformation);
 
     /**
-     * Returns a response content whose primary data is a relationship object with $relationshipName name. You can also
-     * pass additional meta information for the document in the $additionalMeta argument.
      *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
@@ -42,94 +38,66 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     );
 
     /**
-     * Returns a response with a status code of $responseCode, containing all the provided members of the document,
-     * assembled based on the $domainObject. You can also pass additional meta information for the document in the
-     * $additionalMeta argument.
+     *
+     * Transform a $domainObject resource in a jsonapi format
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param SerializerInterface $serializer
      * @param mixed $domainObject
-     * @param int $responseCode
      * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return array
      */
-    public function getResponse(
+    public function getContent(
         RequestInterface $request,
-        ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
-        SerializerInterface $serializer,
         $domainObject,
-        $responseCode,
         array $additionalMeta = []
     ) {
         $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
 
         $this->initializeDocument($domainObject);
-        $content = $this->transformContent($transformation, $additionalMeta);
 
-        return $serializer->serialize($response, $responseCode, $content);
+        return $this->transformContent($transformation, $additionalMeta);
     }
 
     /**
-     * Returns a response with a status code of $responseCode, only containing meta information (without the "data" and
-     * the "included" members) about the document, assembled based on the $domainObject. You can also pass additional
-     * meta information to the document in the $additionalMeta argument.
      *
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param SerializerInterface $serializer
      * @param mixed $domainObject
-     * @param int $responseCode
      * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return array
      */
-    public function getMetaResponse(
+    public function getMetaContent(
         RequestInterface $request,
-        ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
-        SerializerInterface $serializer,
         $domainObject,
-        $responseCode,
         array $additionalMeta = []
     ) {
         $this->initializeDocument($domainObject);
-        $content = $this->transformBaseContent($additionalMeta);
 
-        return $serializer->serialize($response, $responseCode, $content);
+        return $this->transformBaseContent($additionalMeta);
     }
 
     /**
-     * Returns a response with a status code of $responseCode, containing the $relationshipName relationship object as
-     * the primary data, assembled based on the $domainObject. You can also pass additional meta information to the
-     * document in the $additionalMeta argument.
      *
      * @param string $relationshipName
      * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
      * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
-     * @param int $responseCode
      * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return array
      */
-    public function getRelationshipResponse(
+    public function getRelationship(
         $relationshipName,
         RequestInterface $request,
-        ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
-        SerializerInterface $serializer,
         $domainObject,
-        $responseCode,
         array $additionalMeta = []
     ) {
         $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
         $this->initializeDocument($domainObject);
-        $content = $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
-
-        return $serializer->serialize($response, $responseCode, $content);
+        return $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
     }
 
     /**
@@ -172,13 +140,13 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         Transformation $transformation,
         array $additionalMeta = []
     ) {
-        $response = $this->getRelationshipContent($relationshipName, $transformation, $additionalMeta);
+        $content = $this->getRelationshipContent($relationshipName, $transformation, $additionalMeta);
 
         // Included
         if ($transformation->data->hasIncludedResources()) {
-            $response["included"] = $transformation->data->transformIncludedResources();
+            $content["included"] = $transformation->data->transformIncludedResources();
         }
 
-        return $response;
+        return $content;
     }
 }
