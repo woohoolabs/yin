@@ -8,11 +8,11 @@ REMOVED:
 
 FIXED:
 
-## 1.0.4 - unreleased
+## 1.0.4 - 2016-02-02
 
 FIXED:
 
-- Fixed status codes for multiple error responses 
+- Fixed status code of multiple error responses
 
 ## 1.0.3 - 2016-12-21
 
