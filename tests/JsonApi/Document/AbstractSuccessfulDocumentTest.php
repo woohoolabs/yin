@@ -20,132 +20,121 @@ class AbstractSuccessfulDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getResponse()
+    public function getContent()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
-        $responseCode = 200;
+
         $version = "1.0";
 
         $document = $this->createDocument(new JsonApi($version));
-        $response = $document->getMetaResponse(
+        $content = $document->getMetaContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            $responseCode
+            []
         );
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
-        $this->assertEquals("1.0", $this->getContentFromResponse("jsonapi", $response)["version"]);
+
+        $this->assertArrayHasKey('jsonapi', $content);
+        $this->assertArrayHasKey('version', $content['jsonapi']);
+        $this->assertEquals('1.0', $content['jsonapi']['version']);
     }
 
     /**
      * @test
      */
-    public function getEmptyMetaResponse()
+    public function getEmptyMetaContent()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $meta = [];
-        $responseCode = 200;
 
         $document = $this->createDocument(null, $meta);
-        $response = $document->getMetaResponse(
+        $content = $document->getMetaContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            $responseCode
+            []
         );
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
+
+        $this->assertArrayNotHasKey('meta', $content);
     }
 
     /**
      * @test
      */
-    public function getMetaResponse()
+    public function getMetaContent()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $meta = ["abc" => "def"];
 
         $document = $this->createDocument(null, $meta);
-        $response = $document->getMetaResponse(
+        $content = $document->getMetaContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEquals($meta, $this->getContentFromResponse("meta", $response));
+
+        $this->assertArrayHasKey('meta', $content);
+        $this->assertEquals($meta, $content['meta']);
     }
 
     /**
      * @test
      */
-    public function getEmptyDataResponse()
+    public function getEmptyDataContent()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $data = new SingleResourceData();
 
         $document = $this->createDocument(null, [], null, $data);
-        $response = $document->getResponse(
+        $content = $document->getContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEmpty($this->getContentFromResponse("data", $response));
+
+        $this->assertArrayHasKey('data', $content);
+        $this->assertEmpty($content['data']);
     }
 
     /**
      * @test
      */
-    public function getResponseWithLinks()
+    public function getContentWithLinks()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
         $document = $this->createDocument(null, [], $links);
-        $response = $document->getResponse(
+        $content = $document->getContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertCount(2, $this->getContentFromResponse("links", $response));
+
+        $this->assertArrayHasKey('links', $content);
+        $this->assertCount(2, $content['links']);
     }
 
     /**
      * @test
      */
-    public function getEmptyDataResponseWithEmptyIncludes()
+    public function getEmptyDataContentWithEmptyIncludes()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $data = null;
 
         $document = $this->createDocument(null, [], null, $data);
-        $response = $document->getResponse(
+        $content = $document->getContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEquals([], $this->getContentFromResponse("included", $response));
+
+        $this->assertArrayNotHasKey('included', $content);
     }
 
     /**
      * @test
      */
-    public function getEmptyDataResponseWithIncludes()
+    public function getEmptyDataContentWithIncludes()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $data = new SingleResourceData();
@@ -163,48 +152,46 @@ class AbstractSuccessfulDocumentTest extends TestCase
         );
 
         $document = $this->createDocument(null, [], null, $data);
-        $response = $document->getResponse(
+        $content = $document->getContent(
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
+
+        $this->assertArrayHasKey('included', $content);
+        $this->assertEquals($data->transformIncludedResources(), $content['included']);
     }
 
     /**
      * @test
      */
-    public function getRelationshipResponse()
+    public function getRelationshipContent()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
-        $relationshipResponseContentData = [
+        $relationshipContent = [
             "type" => "user",
             "id" => "1"
         ];
-        $relationshipResponseContent = [
-            "data" => $relationshipResponseContentData
+        $relationshipContentData = [
+            "data" => $relationshipContent
         ];
 
-        $document = $this->createDocument(null, [], null, null, $relationshipResponseContent);
-        $response = $document->getRelationshipResponse(
+        $document = $this->createDocument(null, [], null, null, $relationshipContentData);
+        $content = $document->getRelationship(
             "",
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEquals($relationshipResponseContentData, $this->getContentFromResponse("data", $response));
+
+        $this->assertArrayHasKey('data', $content);
+        $this->assertEquals($relationshipContent, $content['data']);
     }
 
     /**
      * @test
      */
-    public function getRelationshipResponseWithIncluded()
+    public function getRelationshipWithIncluded()
     {
         $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
         $data = new SingleResourceData();
@@ -222,28 +209,15 @@ class AbstractSuccessfulDocumentTest extends TestCase
         );
 
         $document = $this->createDocument(null, [], null, $data, []);
-        $response = $document->getRelationshipResponse(
+        $content = $document->getRelationship(
             "",
             $request,
-            new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer(),
-            [],
-            200
+            []
         );
-        $this->assertEquals($data->transformIncludedResources(), $this->getContentFromResponse("included", $response));
-    }
 
-    /**
-     * @param string $key
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @return array
-     */
-    private function getContentFromResponse($key, ResponseInterface $response)
-    {
-        $result = json_decode($response->getBody(), true);
-
-        return isset($result[$key]) ? $result[$key] : [];
+        $this->assertArrayHasKey('included', $content);
+        $this->assertEquals($data->transformIncludedResources(), $content['included']);
     }
 
     /**
