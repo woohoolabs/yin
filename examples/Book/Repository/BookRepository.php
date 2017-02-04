@@ -21,6 +21,9 @@ class BookRepository extends AbstractRepository
         ]
     ];
 
+    /**
+     * @var array
+     */
     private static $publishers = [
         [
             "id" => "12346",
@@ -29,6 +32,9 @@ class BookRepository extends AbstractRepository
         ]
     ];
 
+    /**
+     * @var array
+     */
     private static $representatives = [
         [
             "id" => "10",
@@ -51,10 +57,9 @@ class BookRepository extends AbstractRepository
     ];
 
     /**
-     * @param string $id
      * @return array|null
      */
-    public static function getBook($id)
+    public static function getBook(string $id)
     {
         $book = self::getItemById($id, self::$books);
 
@@ -71,10 +76,9 @@ class BookRepository extends AbstractRepository
     }
 
     /**
-     * @param string $bookId
      * @return array
      */
-    public static function getAuthorsOfBook($bookId)
+    public static function getAuthorsOfBook(string $bookId): array
     {
         $book = self::getItemById($bookId, self::$books);
 
@@ -85,20 +89,12 @@ class BookRepository extends AbstractRepository
         return self::getItemsByIds($book["authors"], self::$authors);
     }
 
-    /**
-     * @param array $ids
-     * @return array
-     */
-    public static function getAuthors(array $ids)
+    public static function getAuthors(array $ids): array
     {
         return self::getItemsByIds($ids, self::$authors);
     }
 
-    /**
-     * @param string $id
-     * @return array
-     */
-    public static function getPublisher($id)
+    public static function getPublisher(string $id): array
     {
         return self::getItemById($id, self::$publishers);
     }

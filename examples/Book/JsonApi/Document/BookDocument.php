@@ -16,9 +16,6 @@ class BookDocument extends AbstractSingleResourceDocument
      */
     protected $domainObject;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer $transformer
-     */
     public function __construct(BookResourceTransformer $transformer)
     {
         parent::__construct($transformer);
@@ -30,7 +27,7 @@ class BookDocument extends AbstractSingleResourceDocument
      * The method returns a new JsonApi schema object if this member should be present or null
      * if it should be omitted from the response.
      *
-     * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+     * @return JsonApi|null
      */
     public function getJsonApi()
     {
@@ -42,10 +39,8 @@ class BookDocument extends AbstractSingleResourceDocument
      *
      * The method returns an array of non-standard meta information about the document. If
      * this array is empty, the member won't appear in the response.
-     *
-     * @return array
      */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [];
     }
@@ -56,7 +51,7 @@ class BookDocument extends AbstractSingleResourceDocument
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      *
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks()
     {

@@ -7,6 +7,9 @@ use WoohooLabs\Yin\Examples\Utils\Collection;
 
 class UserRepository
 {
+    /**
+     * @var array
+     */
     private static $users = [
         [
             "id" => "1",
@@ -44,12 +47,7 @@ class UserRepository
         ]
     ];
 
-    /**
-     * @param int $page
-     * @param int $size
-     * @return \Traversable
-     */
-    public static function getUsers($page = null, $size = null)
+    public static function getUsers(int $page = null, int $size = null): Collection
     {
         if ($page === null) {
             $page = 1;
@@ -64,13 +62,12 @@ class UserRepository
     }
 
     /**
-     * @param $id
      * @return array|null
      */
-    public static function getUser($id)
+    public static function getUser(string $id)
     {
         foreach (self::$users as $user) {
-            if ($user["id"] == $id) {
+            if ($user["id"] === $id) {
                 return $user;
             }
         }

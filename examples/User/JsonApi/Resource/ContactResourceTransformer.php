@@ -15,9 +15,8 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $contact
-     * @return string
      */
-    public function getType($contact)
+    public function getType($contact): string
     {
         return "contact";
     }
@@ -28,9 +27,8 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $contact
-     * @return string
      */
-    public function getId($contact)
+    public function getId($contact): string
     {
         return $contact["id"];
     }
@@ -42,9 +40,8 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $contact
-     * @return array
      */
-    public function getMeta($contact)
+    public function getMeta($contact): array
     {
         return [];
     }
@@ -56,7 +53,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $contact
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($contact)
     {
@@ -73,7 +70,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * @param array $contact
      * @return array
      */
-    public function getDefaultIncludedRelationships($contact)
+    public function getDefaultIncludedRelationships($contact): array
     {
         return [];
     }
@@ -86,9 +83,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * and they should return the value of the corresponding attribute.
      *
      * @param array $contact
-     * @return array
+     * @return callable[]
      */
-    public function getAttributes($contact)
+    public function getAttributes($contact): array
     {
         return [
             $contact["type"] => function (array $contact) {
@@ -105,9 +102,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $contact
-     * @return array
+     * @return callable[]
      */
-    public function getRelationships($contact)
+    public function getRelationships($contact): array
     {
         return [];
     }

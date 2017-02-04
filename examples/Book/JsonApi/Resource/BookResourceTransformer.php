@@ -12,19 +12,15 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class BookResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer
+     * @var AuthorResourceTransformer
      */
     private $authorTransformer;
 
     /**
-     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer
+     * @var PublisherResourceTransformer
      */
     private $publisherTransformer;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
-     */
     public function __construct(
         AuthorResourceTransformer $authorTransformer,
         PublisherResourceTransformer $publisherTransformer
@@ -39,9 +35,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $book
-     * @return string
      */
-    public function getType($book)
+    public function getType($book): string
     {
         return "book";
     }
@@ -52,9 +47,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $book
-     * @return string
      */
-    public function getId($book)
+    public function getId($book): string
     {
         return $book["id"];
     }
@@ -66,9 +60,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $book
-     * @return array
      */
-    public function getMeta($book)
+    public function getMeta($book): array
     {
         return [];
     }
@@ -80,7 +73,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $book
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($book)
     {
@@ -95,7 +88,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * @param array $book
      * @return string
      */
-    public function getSelfLinkHref(array $book)
+    public function getSelfLinkHref(array $book): string
     {
         return "/?path=/books/" . $this->getId($book);
     }
@@ -110,9 +103,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * attribute.
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
-    public function getAttributes($book)
+    public function getAttributes($book): array
     {
         return [
             "title" => function (array $book) {
@@ -128,9 +121,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $book
-     * @return array
      */
-    public function getDefaultIncludedRelationships($book)
+    public function getDefaultIncludedRelationships($book): array
     {
         return ["authors"];
     }
@@ -143,9 +135,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
-    public function getRelationships($book)
+    public function getRelationships($book): array
     {
         return [
             "authors" => function (array $book) {

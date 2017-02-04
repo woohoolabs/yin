@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\Action;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\BookHydator;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
@@ -14,11 +15,7 @@ use WoohooLabs\Yin\JsonApi\JsonApi;
 
 class UpdateBookRelationshipAction
 {
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function __invoke(JsonApi $jsonApi)
+    public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the name of the currently requested relationship
         $relationshipName = $jsonApi->getRequest()->getAttribute("rel");

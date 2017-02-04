@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\Action;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
@@ -13,15 +14,11 @@ use WoohooLabs\Yin\JsonApi\JsonApi;
 
 class GetBookAction
 {
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function __invoke(JsonApi $jsonApi)
+    public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the "id" of the currently requested book
         $id = $jsonApi->getRequest()->getAttribute("id");
-        
+
         // Retrieving a book domain object with an ID of $id
         $book = BookRepository::getBook($id);
 

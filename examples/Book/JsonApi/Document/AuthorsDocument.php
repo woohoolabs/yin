@@ -11,6 +11,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class AuthorsDocument extends AbstractCollectionDocument
 {
+    /**
+     * @var string
+     */
     protected $bookId;
 
     /**
@@ -18,11 +21,7 @@ class AuthorsDocument extends AbstractCollectionDocument
      */
     protected $domainObject;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $transformer
-     * @param string $bookId
-     */
-    public function __construct(AuthorResourceTransformer $transformer, $bookId)
+    public function __construct(AuthorResourceTransformer $transformer, string $bookId)
     {
         parent::__construct($transformer);
         $this->bookId = $bookId;
@@ -34,7 +33,7 @@ class AuthorsDocument extends AbstractCollectionDocument
      * The method returns a new JsonApi schema object if this member should be present or null
      * if it should be omitted from the response.
      *
-     * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+     * @return JsonApi|null
      */
     public function getJsonApi()
     {
@@ -46,10 +45,8 @@ class AuthorsDocument extends AbstractCollectionDocument
      *
      * The method returns an array of non-standard meta information about the document. If
      * this array is empty, the member won't appear in the response.
-     *
-     * @return array
      */
-    public function getMeta()
+    public function getMeta(): array
     {
         return [];
     }
@@ -60,7 +57,7 @@ class AuthorsDocument extends AbstractCollectionDocument
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      *
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks()
     {

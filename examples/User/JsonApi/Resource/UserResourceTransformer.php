@@ -11,13 +11,10 @@ use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 class UserResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer
+     * @var ContactResourceTransformer
      */
     private $contactTransformer;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer $contactTransformer
-     */
     public function __construct(ContactResourceTransformer $contactTransformer)
     {
         $this->contactTransformer = $contactTransformer;
@@ -29,9 +26,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $user
-     * @return string
      */
-    public function getType($user)
+    public function getType($user): string
     {
         return "user";
     }
@@ -42,9 +38,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $user
-     * @return string
      */
-    public function getId($user)
+    public function getId($user): string
     {
         return $user["id"];
     }
@@ -56,9 +51,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $user
-     * @return array
      */
-    public function getMeta($user)
+    public function getMeta($user): array
     {
         return [];
     }
@@ -70,7 +64,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $user
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($user)
     {
@@ -85,9 +79,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * and they should return the value of the corresponding attribute.
      *
      * @param array $user
-     * @return array
+     * @return callable[]
      */
-    public function getAttributes($user)
+    public function getAttributes($user): array
     {
         return [
             "firstname" => function (array $user) {
@@ -103,9 +97,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $user
-     * @return array
      */
-    public function getDefaultIncludedRelationships($user)
+    public function getDefaultIncludedRelationships($user): array
     {
         return [];
     }
@@ -118,9 +111,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $user
-     * @return array
+     * @return callable[]
      */
-    public function getRelationships($user)
+    public function getRelationships($user): array
     {
         return [
             "contacts" => function (array $user) {

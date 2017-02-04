@@ -37,15 +37,12 @@ class BookHydator extends AbstractHydrator
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @param string $clientGeneratedId
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
      * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
      * @throws \Exception
      */
     protected function validateClientGeneratedId(
-        $clientGeneratedId,
+        string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
@@ -58,10 +55,8 @@ class BookHydator extends AbstractHydrator
      * Produces a new ID for the domain objects.
      *
      * UUID-s are preferred according to the JSON API specification.
-     *
-     * @return string
      */
-    protected function generateId()
+    protected function generateId(): string
     {
         return Uuid::generate();
     }
@@ -99,7 +94,7 @@ class BookHydator extends AbstractHydrator
      * @param array $book
      * @return callable[]
      */
-    protected function getAttributeHydrator($book)
+    protected function getAttributeHydrator($book): array
     {
         return [
             "title" => function (array $book, $attribute, $data) {
@@ -128,7 +123,7 @@ class BookHydator extends AbstractHydrator
      * @param array $book
      * @return callable[]
      */
-    protected function getRelationshipHydrator($book)
+    protected function getRelationshipHydrator($book): array
     {
         return [
             "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {

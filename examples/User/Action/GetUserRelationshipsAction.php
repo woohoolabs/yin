@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\Action;
 
+use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\User\JsonApi\Document\UserDocument;
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer;
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
@@ -11,11 +12,7 @@ use WoohooLabs\Yin\JsonApi\JsonApi;
 
 class GetUserRelationshipsAction
 {
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function __invoke(JsonApi $jsonApi)
+    public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the "id" of the currently requested user
         $id = $jsonApi->getRequest()->getAttribute("id");

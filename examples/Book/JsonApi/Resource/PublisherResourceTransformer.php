@@ -3,19 +3,17 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
+use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class PublisherResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer
+     * @var RepresentativeResourceTransformer
      */
     private $representativeTransformer;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer $representativeTransformer
-     */
     public function __construct(RepresentativeResourceTransformer $representativeTransformer)
     {
         $this->representativeTransformer = $representativeTransformer;
@@ -27,9 +25,8 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $publisher
-     * @return string
      */
-    public function getType($publisher)
+    public function getType($publisher): string
     {
         return "publisher";
     }
@@ -40,9 +37,8 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $publisher
-     * @return string
      */
-    public function getId($publisher)
+    public function getId($publisher): string
     {
         return $publisher["id"];
     }
@@ -54,9 +50,8 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $publisher
-     * @return array
      */
-    public function getMeta($publisher)
+    public function getMeta($publisher): array
     {
         return [];
     }
@@ -68,7 +63,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $publisher
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($publisher)
     {
@@ -83,9 +78,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * and they should return the value of the corresponding attribute.
      *
      * @param array $publisher
-     * @return array
+     * @return callable[]
      */
-    public function getAttributes($publisher)
+    public function getAttributes($publisher): array
     {
         return [
             "name" => function (array $publisher) {
@@ -98,9 +93,8 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $publisher
-     * @return array
      */
-    public function getDefaultIncludedRelationships($publisher)
+    public function getDefaultIncludedRelationships($publisher): array
     {
         return [];
     }
@@ -113,9 +107,9 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $publisher
-     * @return array
+     * @return callable[]
      */
-    public function getRelationships($publisher)
+    public function getRelationships($publisher): array
     {
         return [
             "representative" => function ($publisher) {

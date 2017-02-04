@@ -1,7 +1,6 @@
 filter:
     paths:
         - src/*
-        - tests/*
 before_commands:
     - 'composer install'
 checks:

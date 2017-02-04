@@ -6,11 +6,9 @@ namespace WoohooLabs\Yin\Examples\Utils;
 abstract class AbstractRepository
 {
     /**
-     * @param string $id
-     * @param array $items
      * @return array|null
      */
-    public static function getItemById($id, array $items)
+    public static function getItemById(string $id, array $items)
     {
         foreach ($items as $item) {
             if (isset($item["id"]) && $item["id"] === $id) {
@@ -21,12 +19,7 @@ abstract class AbstractRepository
         return null;
     }
 
-    /**
-     * @param array $ids
-     * @param array $items
-     * @return array
-     */
-    public static function getItemsByIds(array $ids, array $items)
+    public static function getItemsByIds(array $ids, array $items): array
     {
         $result = [];
 

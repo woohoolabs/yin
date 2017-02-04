@@ -21,18 +21,18 @@ use Zend\Diactoros\ServerRequestFactory;
 
 // Defining routes
 $routes = [
-    "GET /books/{id}" => function (Request $request, $matches) {
+    "GET /books/{id}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
+    "GET /books/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetBookRelationshipsAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
-    "GET /books/{id}/authors" => function (Request $request, $matches) {
+    "GET /books/{id}/authors" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetAuthorsOfBookAction::class)
             ->withAttribute("id", $matches[1]);
@@ -41,28 +41,28 @@ $routes = [
         return $request
             ->withAttribute("action", CreateBookAction::class);
     },
-    "PATCH /books/{id}" => function (Request $request, $matches) {
+    "PATCH /books/{id}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", UpdateBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "PATCH /books/{id}/relationships/{rel}" => function (Request $request, $matches) {
+    "PATCH /books/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", UpdateBookRelationshipAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
 
-    "GET /users" => function (Request $request) {
+    "GET /users" => function (Request $request): Request {
         return $request
             ->withAttribute("action", GetUsersAction::class);
     },
-    "GET /users/{id}" => function (Request $request, $matches) {
+    "GET /users/{id}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetUserAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /users/{id}/relationships/{rel}" => function (Request $request, $matches) {
+    "GET /users/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetUserRelationshipsAction::class)
             ->withAttribute("id", $matches[1])
@@ -84,12 +84,7 @@ $response = call_user_func(new $action(), $jsonApi);
 $emitter = new SapiEmitter();
 $emitter->emit($response);
 
-/**
- * @param Request $request
- * @param array $routes
- * @return Request
- */
-function findRoute(Request $request, array $routes)
+function findRoute(Request $request, array $routes): Request
 {
     $queryParams = $request->getQueryParams();
     if (isset($queryParams["path"]) === false) {
