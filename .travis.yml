@@ -3,36 +3,34 @@ sudo: false
 language: php
 
 cache:
-  directories:
-    - $HOME/.composer/cache/files
+    directories:
+        - $HOME/.composer/cache/files
 
 env:
-  global:
-    - TEST_COMMAND="./vendor/bin/phpunit"
+    global:
+        - TEST_COMMAND="./vendor/bin/phpunit"
 
 matrix:
-  fast_finish: true
-  include:
-    - php: 5.6
-    - php: 7
-      env:
-        - EXECUTE_COVERAGE=true
-        - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
-    - php: 7.1
-    - php: hhvm
+    fast_finish: true
+    include:
+        - php: 7
+        - php: 7.1
+        env:
+            - EXECUTE_COVERAGE=true
+            - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
 
 notifications:
-  email: true
+    email: true
 
 before_install:
-  - if [[ "$EXECUTE_COVERAGE" != "true" ]]; then phpenv config-rm xdebug.ini || return 0; fi
+    - if [[ "$EXECUTE_COVERAGE" != "true" ]]; then phpenv config-rm xdebug.ini || return 0; fi
 
 install:
-  - travis_retry composer install --no-interaction --prefer-dist
+    - travis_retry composer install --no-interaction --prefer-dist
 
 script:
-  - $TEST_COMMAND
+    - $TEST_COMMAND
 
 after_success:
-  - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
+    - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
+    - if [[ "$EXECUTE_COVERAGE" == "true" ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
