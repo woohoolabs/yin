@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator\Relationship;
 
 use PHPUnit\Framework\TestCase;

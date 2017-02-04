@@ -1,8 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\JsonApi\Document;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument

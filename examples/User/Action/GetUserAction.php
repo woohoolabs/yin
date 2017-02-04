@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\Examples\User\Action;
 
 use WoohooLabs\Yin\Examples\User\JsonApi\Document\UserDocument;

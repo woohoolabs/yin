@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 include_once "../vendor/autoload.php";
 
 use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
@@ -14,6 +16,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use Zend\Diactoros\Response;
+use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
 
 // Defining routes
@@ -78,7 +81,7 @@ $action = $request->getAttribute("action");
 $response = call_user_func(new $action(), $jsonApi);
 
 // Emitting the response
-$emitter = new \Zend\Diactoros\Response\SapiEmitter();
+$emitter = new SapiEmitter();
 $emitter->emit($response);
 
 /**
@@ -99,8 +102,11 @@ function findRoute(Request $request, array $routes)
 
     foreach ($routes as $pattern => $route) {
         $matches = [];
-        $pattern = str_replace("{id}", "([A-Za-z0-9-]+)", $pattern);
-        $pattern = str_replace("{rel}", "([A-Za-z0-9-]+)", $pattern);
+        $pattern = str_replace(
+            ["{id}", "{rel}"],
+            ["([A-Za-z0-9-]+)", "([A-Za-z0-9-]+)"],
+            $pattern
+        );
         if (preg_match("#^$pattern/{0,1}$#", $requestLine, $matches) === 1) {
             return $route($request, $matches);
         }

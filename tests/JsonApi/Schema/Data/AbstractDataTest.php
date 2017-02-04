@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;

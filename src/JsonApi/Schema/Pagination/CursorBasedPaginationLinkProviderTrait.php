@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;

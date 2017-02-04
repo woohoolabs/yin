@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link;

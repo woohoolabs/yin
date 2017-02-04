@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
