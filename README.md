@@ -110,7 +110,7 @@ To install the latest version of this library, run the command below:
 $ composer require woohoolabs/yin
 ```
 
-Yin requires PHP 5.6 at least.
+Yin requires PHP 7.0 at least but you can use Yin 1.0 for PHP 5.6.
 
 ### Install the optional dependencies:
 

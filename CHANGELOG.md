@@ -1,8 +1,10 @@
-## 1.1.0 - unreleased
+## 2.0.0 - unreleased
 
 ADDED:
 
 CHANGED:
+
+- Yin now requires PHP 7.0 at least
 
 REMOVED:
 
