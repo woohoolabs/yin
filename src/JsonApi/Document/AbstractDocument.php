@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
-use WoohooLabs\Yin\JsonApi\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 abstract class AbstractDocument
@@ -14,7 +14,7 @@ abstract class AbstractDocument
      * The method returns a new JsonApi schema object if this member should be present or null
      * if it should be omitted from the response.
      *
-     * @return JsonApi|null
+     * @return JsonApiObject|null
      */
     abstract public function getJsonApi();
 

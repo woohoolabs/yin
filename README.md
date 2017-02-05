@@ -181,15 +181,15 @@ you to implement the following methods:
  * The method returns a new JsonApi schema object if this member should be present or null
  * if it should be omitted from the response.
  *
- * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+ * @return JsonApiObject|null
  */
 public function getJsonApi()
 {
-    return new JsonApi("1.0");
+    return new JsonApiObject("1.0");
 }
 ```
 
-The description says it very clear: if you want a `jsonapi` member in your response, then create a new `JsonApi` object.
+The description says it very clear: if you want a `jsonapi` member in your response, then create a new `JsonApiObject`.
 Its constructor expects the JSON:API version number and an optional meta object (as an array).
 
 ```php
@@ -201,7 +201,7 @@ Its constructor expects the JSON:API version number and an optional meta object 
  *
  * @return array
  */
-public function getMeta()
+public function getMeta(): array
 {
     return [
         "page" => [
@@ -226,7 +226,7 @@ and this is the main "subject" of the document.
  * The method returns a new Links schema object if you want to provide linkage data
  * for the document or null if the member should be omitted from the response.
  *
- * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+ * @return Links|null
  */
 public function getLinks()
 {
@@ -282,7 +282,7 @@ There is an `ErrorDocument` too, which makes it possible to build error response
 ```php
 /** @var ErrorDocument $errorDocument */
 $errorDocument = new ErrorDocument();
-$errorDocument->setJsonApi(new JsonApi("1.0"));
+$errorDocument->setJsonApi(new JsonApiObject("1.0"));
 $errorDocument->setLinks(Links::createWithoutBaseUri()->setSelf("http://example.com/api/errors/404")));
 $errorDocument->addError(new MyError());
 ```
@@ -307,19 +307,15 @@ a book domain object and its "authors" and "publisher" relationships.
 class BookResourceTransformer extends AbstractResourceTransformer
 {
     /**
-     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer
+     * @var AuthorResourceTransformer
      */
     private $authorTransformer;
 
     /**
-     * @var \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer
+     * @var PublisherResourceTransformer
      */
     private $publisherTransformer;
 
-    /**
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer $authorTransformer
-     * @param \WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer $publisherTransformer
-     */
     public function __construct(
         AuthorResourceTransformer $authorTransformer,
         PublisherResourceTransformer $publisherTransformer
@@ -334,9 +330,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $book
-     * @return string
      */
-    public function getType($book)
+    public function getType($book): string
     {
         return "book";
     }
@@ -347,9 +342,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $book
-     * @return string
      */
-    public function getId($book)
+    public function getId($book): string
     {
         return $book["id"];
     }
@@ -361,9 +355,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $book
-     * @return array
      */
-    public function getMeta($book)
+    public function getMeta($book): array
     {
         return [];
     }
@@ -375,7 +368,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $book
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($book)
     {
@@ -402,9 +395,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * and they should return the value of the corresponding attribute.
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
-    public function getAttributes($book)
+    public function getAttributes($book): array
     {
         return [
             "title" => function (array $book) {
@@ -420,9 +413,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $book
-     * @return array
      */
-    public function getDefaultIncludedRelationships($book)
+    public function getDefaultIncludedRelationships($book): array
     {
         return ["authors"];
     }
@@ -435,9 +427,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $book
-     * @return array
+     * @return callable[]
      */
-    public function getRelationships($book)
+    public function getRelationships($book): array
     {
         return [
             "authors" => function (array $book) {
@@ -506,15 +498,15 @@ class BookHydator extends AbstractHydrator
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @param string $clientGeneratedId
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
-     * @throws \Exception
+     * @throws ClientGeneratedIdNotSupported
+     * @throws ClientGeneratedIdAlreadyExists
+     * @throws Exception
      */
-    protected function validateClientGeneratedId($clientGeneratedId, RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
-    {
+    protected function validateClientGeneratedId(
+        string $clientGeneratedId,
+        RequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ) {
         if ($clientGeneratedId !== null) {
             throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
         }
@@ -524,10 +516,8 @@ class BookHydator extends AbstractHydrator
      * Produces a new ID for the domain objects.
      *
      * UUID-s are preferred according to the JSON:API specification.
-     *
-     * @return string
      */
-    protected function generateId()
+    protected function generateId(): string
     {
         return Uuid::generate();
     }
@@ -540,10 +530,9 @@ class BookHydator extends AbstractHydrator
      * object can be returned.
      *
      * @param array $book
-     * @param string $id
-     * @return mixed|null
+     * @return mixed
      */
-    protected function setId($book, $id)
+    protected function setId($book, string $id)
     {
         $book["id"] = $id;
 
@@ -565,7 +554,7 @@ class BookHydator extends AbstractHydrator
      * @param array $book
      * @return callable[]
      */
-    protected function getAttributeHydrator($book)
+    protected function getAttributeHydrator($book): array
     {
         return [
             "title" => function (array $book, $attribute, $data, $attributeName) {
@@ -595,15 +584,15 @@ class BookHydator extends AbstractHydrator
      * @param mixed $domainObject
      * @return callable[]
      */
-    protected function getRelationshipHydrator($book)
+    protected function getRelationshipHydrator($book): array
     {
         return [
-            "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
+            "authors" => function (array $book, ToManyRelationship $authors, $data, string $relationshipName) {
                 $book["authors"] = BookRepository::getAuthors($authors->getResourceIdentifierIds());
 
                 return $book;
             },
-            "publisher" => function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
+            "publisher" => function (array &$book, ToOneRelationship $publisher, $data, string $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
             }
         ];
@@ -677,12 +666,11 @@ only want to respond with an error document in case of an exception, you only ne
 try {
     // Do something which results in an exception
 } catch (JsonApiExceptionInterface $e) {
-    sendResponse($e->getErrorDocument()->getResponse($response));
+    sendResponse($e->getErrorDocument()->getContent());
 }
 ```
 
-where `$response` is the instance of `Psr\Http\Message\ResponseInterface` and `sendResponse()` is a hypothetical
-function which emits an HTTP response.
+where `sendResponse()` is a hypothetical function which emits an HTTP response.
 
 To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
 which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
@@ -753,10 +741,7 @@ parameters.
 ```php
 $paginationParams = $jsonApi->getRequest()->getPagination();
 
-$pagination = new CustomPagination(
-    isset($paginationParams["from"] ? $paginationParams["from"] : 1,
-    isset($paginationParams["to"] ? $paginationParams["to"] : 1)
-);
+$pagination = new CustomPagination($paginationParams["from"] ?? 1, $paginationParams["to"] ?? 1);
 ```
 
 #### Usage
@@ -995,11 +980,7 @@ learn about its advantages!
 ### Fetching a single resource
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function getBook(JsonApi $jsonApi)
+public function getBook(JsonApi $jsonApi): ResponseInterface
 {
     // Getting the "id" of the currently requested book
     $id = $jsonApi->getRequest()->getAttribute("id");
@@ -1023,11 +1004,7 @@ public function getBook(JsonApi $jsonApi)
 ### Fetching a collection of resources
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function getUsers(JsonApi $jsonApi)
+public function getUsers(JsonApi $jsonApi): ResponseInterface
 {
     // Extracting pagination information from the request, page = 1, size = 10 if it is missing
     $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
@@ -1046,11 +1023,7 @@ public function getUsers(JsonApi $jsonApi)
 ### Fetching a relationship
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function getBookRelationships(JsonApi $jsonApi)
+public function getBookRelationships(JsonApi $jsonApi): ResponseInterface
 {
     // Getting the "id" of the currently requested book
     $id = $jsonApi->getRequest()->getAttribute("id");
@@ -1079,11 +1052,7 @@ public function getBookRelationships(JsonApi $jsonApi)
 ### Creating a new resource
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function createBook(JsonApi $jsonApi)
+public function createBook(JsonApi $jsonApi): ResponseInterface
 {
     // Hydrating a new book domain object from the request
     $book = $jsonApi->hydrate(new BookHydator(), []);
@@ -1109,11 +1078,7 @@ public function createBook(JsonApi $jsonApi)
 ### Updating a resource
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function updateBook(JsonApi $jsonApi)
+public function updateBook(JsonApi $jsonApi): ResponseInterface
 {
     // Retrieving a book domain object with an ID of $id
     $id = $jsonApi->getRequest()->getResourceId();
@@ -1143,11 +1108,7 @@ public function updateBook(JsonApi $jsonApi)
 ### Updating a relationship of a resource
 
 ```php
-/**
- * @param \WoohooLabs\Yin\JsonApi\JsonApi $jsonApi
- * @return \Psr\Http\Message\ResponseInterface
- */
-public function updateBookRelationship(JsonApi $jsonApi)
+public function updateBookRelationship(JsonApi $jsonApi): ResponseInterface
 {
     // Checking the name of the currently requested relationship
     $relationshipName = $jsonApi->getRequest()->getAttribute("rel");

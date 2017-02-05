@@ -13,7 +13,7 @@ class Links
     protected $baseUri;
 
     /**
-     * @var Links[]
+     * @var Link[]
      */
     protected $links;
 

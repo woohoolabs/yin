@@ -6,6 +6,7 @@ CHANGED:
 
 - Yin now requires PHP 7.0 at least
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response`
+- Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities
 
 REMOVED:
 

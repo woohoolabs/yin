@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 
 class JsonApiTest extends TestCase
 {
@@ -75,6 +75,6 @@ class JsonApiTest extends TestCase
 
     private function createJsonApi($version, array $meta = [])
     {
-        return new JsonApi($version, $meta);
+        return new JsonApiObject($version, $meta);
     }
 }

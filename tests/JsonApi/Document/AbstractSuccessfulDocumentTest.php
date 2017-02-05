@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
@@ -22,7 +22,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getContent()
     {
-        $document = $this->createDocument(new JsonApi("1.0"));
+        $document = $this->createDocument(new JsonApiObject("1.0"));
         $content = $document->getMetaContent([]);
 
         $this->assertArrayHasKey('jsonapi', $content);
@@ -199,7 +199,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
     }
 
     private function createDocument(
-        JsonApi $jsonApi = null,
+        JsonApiObject $jsonApi = null,
         array $meta = [],
         Links $links = null,
         DataInterface $data = null,

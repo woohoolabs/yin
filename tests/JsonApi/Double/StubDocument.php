@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Document\AbstractDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class StubDocument extends AbstractDocument
 {
     /**
-     * @var JsonApi|null
+     * @var JsonApiObject|null
      */
     protected $jsonApi;
 
@@ -24,7 +24,7 @@ class StubDocument extends AbstractDocument
      */
     protected $links;
 
-    public function __construct(JsonApi $jsonApi = null, array $meta = [], Links $links = null)
+    public function __construct(JsonApiObject $jsonApi = null, array $meta = [], Links $links = null)
     {
         $this->jsonApi = $jsonApi;
         $this->meta = $meta;

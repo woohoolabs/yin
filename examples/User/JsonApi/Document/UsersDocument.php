@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class UsersDocument extends AbstractCollectionDocument
@@ -21,7 +21,7 @@ class UsersDocument extends AbstractCollectionDocument
      * The method returns a new JsonApi schema object if this member should be present or null
      * if it should be omitted from the response.
      *
-     * @return JsonApi|null
+     * @return JsonApiObject|null
      */
     public function getJsonApi()
     {

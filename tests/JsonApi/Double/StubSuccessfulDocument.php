@@ -5,14 +5,14 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var JsonApi|null
+     * @var JsonApiObject|null
      */
     protected $jsonApi;
 
@@ -37,7 +37,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $relationshipResponseContent;
 
     public function __construct(
-        JsonApi $jsonApi = null,
+        JsonApiObject $jsonApi = null,
         array $meta = [],
         Links $links = null,
         DataInterface $data = null,

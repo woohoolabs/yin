@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class ErrorDocument extends AbstractErrorDocument
 {
     /**
-     * @var JsonApi|null
+     * @var JsonApiObject|null
      */
     protected $jsonApi;
 
@@ -35,7 +35,7 @@ class ErrorDocument extends AbstractErrorDocument
     }
 
     /**
-     * @return JsonApi|null
+     * @return JsonApiObject|null
      */
     public function getJsonApi()
     {
@@ -45,7 +45,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return $this
      */
-    public function setJsonApi(JsonApi $jsonApi)
+    public function setJsonApi(JsonApiObject $jsonApi)
     {
         $this->jsonApi = $jsonApi;
 

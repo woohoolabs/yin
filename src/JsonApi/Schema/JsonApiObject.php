@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class JsonApi
+class JsonApiObject
 {
     use MetaTrait;
 

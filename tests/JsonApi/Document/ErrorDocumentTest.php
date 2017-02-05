@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Document;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
+use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class ErrorDocumentTest extends TestCase
@@ -15,7 +15,7 @@ class ErrorDocumentTest extends TestCase
      */
     public function getJsonApi()
     {
-        $jsonApi = new JsonApi("1.0");
+        $jsonApi = new JsonApiObject("1.0");
 
         $errorDocument = $this->createErrorDocument()->setJsonApi($jsonApi);
         $this->assertEquals($jsonApi, $errorDocument->getJsonApi());
