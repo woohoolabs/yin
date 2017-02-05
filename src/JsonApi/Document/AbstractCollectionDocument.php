@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use Traversable;
 use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
@@ -33,6 +34,9 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         return empty($this->getItems()) === false;
     }
 
+    /**
+     * @return array|Traversable
+     */
     protected function getItems()
     {
         return $this->domainObject;

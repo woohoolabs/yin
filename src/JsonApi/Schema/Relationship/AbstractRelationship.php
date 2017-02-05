@@ -164,9 +164,10 @@ abstract class AbstractRelationship
             }
             $transformation->basePath .= $relationshipName;
 
-            $transformation->data->addIncludedResource(
-                $this->resourceTransformer->transformToResource($transformation, $domainObject)
-            );
+            $resource = $this->resourceTransformer->transformToResource($transformation, $domainObject);
+            if ($resource) {
+                $transformation->data->addIncludedResource($resource);
+            }
 
             $transformation->basePath = $basePath;
         }

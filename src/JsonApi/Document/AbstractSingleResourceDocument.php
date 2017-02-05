@@ -37,9 +37,11 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 
     protected function fillData(Transformation $transformation)
     {
-        $transformation->data->addPrimaryResource(
-            $this->transformer->transformToResource($transformation, $this->domainObject)
-        );
+        $resource = $this->transformer->transformToResource($transformation, $this->domainObject);
+
+        if ($resource) {
+            $transformation->data->addPrimaryResource($resource);
+        }
     }
 
     protected function getRelationshipContent(

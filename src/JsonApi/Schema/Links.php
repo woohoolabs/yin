@@ -13,7 +13,7 @@ class Links
     protected $baseUri;
 
     /**
-     * @var Links[]|null[]
+     * @var Links[]
      */
     protected $links;
 
@@ -67,7 +67,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getSelf()
     {
@@ -82,7 +82,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getRelated()
     {
@@ -97,7 +97,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getFirst()
     {
@@ -112,7 +112,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getLast()
     {
@@ -127,7 +127,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getPrev()
     {
@@ -142,7 +142,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getNext()
     {
@@ -157,7 +157,7 @@ class Links
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
     public function getAbout()
     {
@@ -187,7 +187,7 @@ class Links
      */
     public function getLink(string $name)
     {
-        return isset($this->links[$name]) ? $this->links[$name] : null;
+        return $this->links[$name] ?? null;
     }
 
     /**
