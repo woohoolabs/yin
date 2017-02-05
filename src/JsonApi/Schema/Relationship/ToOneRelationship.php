@@ -9,8 +9,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToOneRelationship extends AbstractRelationship
 {
-    use RelationshipFactoryTrait;
-
     public function __construct(
         array $meta = [],
         Links $links = null,
@@ -26,7 +24,7 @@ class ToOneRelationship extends AbstractRelationship
         array $defaultRelationships
     ) {
         $data = $this->retrieveData();
-        if (isset($data) === false || $this->resourceTransformer === null) {
+        if ($data !== null || $this->resourceTransformer === null) {
             return null;
         }
 

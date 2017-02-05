@@ -11,12 +11,12 @@ class ResourceIdentifier
     use MetaTrait;
 
     /**
-     * @return string
+     * @var string
      */
     private $type;
 
     /**
-     * @return string
+     * @var string
      */
     private $id;
 

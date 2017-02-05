@@ -44,6 +44,38 @@ abstract class AbstractRelationship
     );
 
     /**
+     * @return static
+     */
+    public static function create()
+    {
+        return new static();
+    }
+
+    /**
+     * @return static
+     */
+    public static function createWithMeta(array $meta)
+    {
+        return new static($meta);
+    }
+
+    /**
+     * @return static
+     */
+    public static function createWithLinks(Links $links)
+    {
+        return new static([], $links);
+    }
+
+    /**
+     * @return static
+     */
+    public static function createWithData(array $data, ResourceTransformerInterface $resourceTransformer)
+    {
+        return new static([], null, $data, $resourceTransformer);
+    }
+
+    /**
      * @param mixed $data
      */
     public function __construct(

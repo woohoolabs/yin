@@ -51,10 +51,10 @@ abstract class AbstractErrorDocument extends AbstractDocument
         return $content;
     }
 
-    public function getResponseCode(int $responseCode = null): int
+    public function getResponseCode(int $statusCode = null): int
     {
-        if ($responseCode !== null) {
-            return $responseCode;
+        if ($statusCode !== null) {
+            return $statusCode;
         }
 
         if (count($this->errors) === 1) {

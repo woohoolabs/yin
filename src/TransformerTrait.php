@@ -10,14 +10,16 @@ trait TransformerTrait
 {
     /**
      * Transforms a value to a decimal which precision is $precision.
+     *
+     * @param mixed $value
      */
     public function toDecimal($value, int $precision = 12): float
     {
-        if (is_numeric($value)) {
-            $value = round($value, $precision);
+        if (is_numeric($value) === false) {
+            return 0;
         }
 
-        return $value;
+        return round($value, $precision);
     }
 
     /**

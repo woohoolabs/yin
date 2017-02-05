@@ -9,8 +9,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToManyRelationship extends AbstractRelationship
 {
-    use RelationshipFactoryTrait;
-
     public function __construct(
         array $meta = [],
         Links $links = null,

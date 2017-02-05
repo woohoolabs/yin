@@ -20,6 +20,7 @@ interface RequestInterface extends ServerRequestInterface
      * Validates if the current request's Content-Type header conforms to the JSON API schema.
      *
      * @throws MediaTypeUnsupported
+     * @return void
      */
     public function validateContentTypeHeader();
 
@@ -27,6 +28,7 @@ interface RequestInterface extends ServerRequestInterface
      * Validates if the current request's Accept header conforms to the JSON API schema.
      *
      * @throws MediaTypeUnacceptable
+     * @return void
      */
     public function validateAcceptHeader();
 
@@ -38,6 +40,7 @@ interface RequestInterface extends ServerRequestInterface
      * MUST contain at least one non a-z character (U+0061 to U+007A)".
      *
      * @throws QueryParamUnrecognized
+     * @return void
      */
     public function validateQueryParams();
 

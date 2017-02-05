@@ -64,6 +64,7 @@ class Request implements RequestInterface
 
     /**
      * @throws MediaTypeUnsupported|Exception
+     * @return void
      */
     public function validateContentTypeHeader()
     {
@@ -77,6 +78,7 @@ class Request implements RequestInterface
 
     /**
      * @throws MediaTypeUnacceptable|Exception
+     * @return void
      */
     public function validateAcceptHeader()
     {
@@ -87,6 +89,7 @@ class Request implements RequestInterface
 
     /**
      * @throws QueryParamUnrecognized|Exception
+     * @return void
      */
     public function validateQueryParams()
     {
