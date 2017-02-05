@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
-use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 abstract class AbstractErrorDocument extends AbstractDocument
 {
@@ -36,22 +34,24 @@ abstract class AbstractErrorDocument extends AbstractDocument
     }
 
     /**
-     * Returns a response with a status code of $responseCode, containing all the provided members of the error
-     * document. You can also pass additional meta information for the document in the $additionalMeta argument.
+     * Returns the content as an array with all the provided members of the error document. You can also pass
+     * additional meta information for the document in the $additionalMeta argument.
      */
-    public function getResponse(
-        SerializerInterface $serializer,
-        ResponseInterface $response,
-        int $responseCode = null,
-        array $additionalMeta = []
-    ): ResponseInterface {
-        return $serializer->serialize($response,
-            $this->getResponseCode($responseCode),
-            $this->transformContent($additionalMeta)
-        );
+    public function getContent(array $additionalMeta = []): array
+    {
+        $content = $this->transformBaseContent($additionalMeta);
+
+        if (empty($this->errors) === false) {
+            foreach ($this->errors as $error) {
+                /** @var Error $error */
+                $content["errors"][] = $error->transform();
+            }
+        }
+
+        return $content;
     }
 
-    protected function getResponseCode(int $responseCode = null): int
+    public function getResponseCode(int $responseCode = null): int
     {
         if ($responseCode !== null) {
             return $responseCode;
@@ -72,19 +72,5 @@ abstract class AbstractErrorDocument extends AbstractDocument
         }
 
         return $responseCode;
-    }
-
-    public function transformContent(array $additionalMeta = []): array
-    {
-        $content = $this->transformBaseContent($additionalMeta);
-
-        if (empty($this->errors) === false) {
-            foreach ($this->errors as $error) {
-                /** @var Error $error */
-                $content["errors"][] = $error->transform();
-            }
-        }
-
-        return $content;
     }
 }

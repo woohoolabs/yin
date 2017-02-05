@@ -4,11 +4,8 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
-use Zend\Diactoros\Response;
 
 class AbstractErrorDocumentTest extends TestCase
 {
@@ -28,21 +25,9 @@ class AbstractErrorDocumentTest extends TestCase
      */
     public function getResponseWithoutError()
     {
-        $response = $this->createErrorDocument()->getResponse(new DefaultSerializer(), new Response());
-        $this->assertEquals(500, $response->getStatusCode());
-        $this->assertEquals(["application/vnd.api+json"], $response->getHeader("Content-Type"));
-    }
+        $content = $this->createErrorDocument()->getContent();
 
-    /**
-     * @test
-     */
-    public function getResponseWithDefinedResponseCode()
-    {
-        $response = $this
-            ->createErrorDocument()
-            ->getResponse(new DefaultSerializer(), new Response(), 500);
-
-        $this->assertEquals(500, $response->getStatusCode());
+        $this->assertArrayNotHasKey("errors", $content);
     }
 
     /**
@@ -50,13 +35,9 @@ class AbstractErrorDocumentTest extends TestCase
      */
     public function getResponseWithOneError()
     {
-        $response = $this
-            ->createErrorDocument()
-            ->addError((new Error())->setStatus("404"))
-            ->getResponse(new DefaultSerializer(), new Response());
+        $content = $this->createErrorDocument()->addError((new Error())->setStatus("404"))->getContent();
 
-        $this->assertEquals(404, $response->getStatusCode());
-        $this->assertCount(1, $this->getErrorsContentFromResponse($response));
+        $this->assertCount(1, $content["errors"]);
     }
 
     /**
@@ -64,22 +45,14 @@ class AbstractErrorDocumentTest extends TestCase
      */
     public function getResponseWithMultipleErrors()
     {
-        $response = $this
+        $content = $this
             ->createErrorDocument()
             ->addError((new Error())->setStatus("403"))
             ->addError((new Error())->setStatus("404"))
             ->addError((new Error())->setStatus("418"))
-            ->getResponse(new DefaultSerializer(), new Response());
+            ->getContent();
 
-        $this->assertEquals(400, $response->getStatusCode());
-        $this->assertCount(3, $this->getErrorsContentFromResponse($response));
-    }
-
-    private function getErrorsContentFromResponse(ResponseInterface $response): array
-    {
-        $result = json_decode($response->getBody()->__toString(), true);
-
-        return isset($result["errors"]) ? $result["errors"] : [];
+        $this->assertCount(3, $content["errors"]);
     }
 
     private function createErrorDocument(): StubErrorDocument

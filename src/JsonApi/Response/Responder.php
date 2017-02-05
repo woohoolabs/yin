@@ -104,7 +104,7 @@ class Responder extends AbstractResponder
         array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($this->response, $document, $errors, 403, $additionalMeta);
+        return $this->getErrorResponse($document, $errors, 403, $additionalMeta);
     }
 
     /**
@@ -118,7 +118,7 @@ class Responder extends AbstractResponder
         array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($this->response, $document, $errors, 404, $additionalMeta);
+        return $this->getErrorResponse($document, $errors, 404, $additionalMeta);
     }
 
     /**
@@ -132,7 +132,7 @@ class Responder extends AbstractResponder
         array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($this->response, $document, $errors, 409, $additionalMeta);
+        return $this->getErrorResponse($document, $errors, 409, $additionalMeta);
     }
 
     /**
@@ -155,6 +155,6 @@ class Responder extends AbstractResponder
         int $statusCode = null,
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($this->response, $document, $errors, $statusCode, $additionalMeta);
+        return $this->getErrorResponse($document, $errors, $statusCode, $additionalMeta);
     }
 }

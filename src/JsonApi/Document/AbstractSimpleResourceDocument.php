@@ -21,6 +21,9 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         $transformation->data->addPrimaryResource($this->getResource());
     }
 
+    /**
+     * @return array|null
+     */
     protected function getRelationshipContent(
         string $relationshipName,
         Transformation $transformation,

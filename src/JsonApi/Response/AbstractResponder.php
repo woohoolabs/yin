@@ -61,11 +61,7 @@ abstract class AbstractResponder
             $additionalMeta
         );
 
-        return $this->serializer->serialize(
-            $this->response,
-            $statusCode,
-            $content
-        );
+        return $this->serializer->serialize($this->response, $statusCode, $content);
     }
 
     /**
@@ -77,16 +73,9 @@ abstract class AbstractResponder
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $content = $document->getMetaContent(
-            $domainObject,
-            $additionalMeta
-        );
+        $content = $document->getMetaContent($domainObject, $additionalMeta);
 
-        return $this->serializer->serialize(
-            $this->response,
-            $statusCode,
-            $content
-        );
+        return $this->serializer->serialize($this->response, $statusCode, $content);
     }
 
     /**
@@ -107,11 +96,7 @@ abstract class AbstractResponder
             $additionalMeta
         );
 
-        return $this->serializer->serialize(
-            $this->response,
-            $statusCode,
-            $content
-        );
+        return $this->serializer->serialize($this->response, $statusCode, $content);
     }
 
     /**
@@ -132,27 +117,25 @@ abstract class AbstractResponder
             $additionalMeta
         );
 
-        return $this->serializer->serialize(
-            $this->response,
-            $statusCode,
-            $content
-        );
+        return $this->serializer->serialize($this->response, $statusCode, $content);
     }
 
     /**
      * @param Error[] $errors
      */
     protected function getErrorResponse(
-        ResponseInterface $response,
         AbstractErrorDocument $document,
-        array $errors,
-        int $statusCode,
+        array $errors = [],
+        int $statusCode = null,
         array $additionalMeta = []
     ): ResponseInterface {
         foreach ($errors as $error) {
             $document->addError($error);
         }
 
-        return $document->getResponse($this->serializer, $response, $statusCode, $additionalMeta);
+        $content = $document->getContent($additionalMeta);
+        $statusCode = $statusCode ?? $document->getResponseCode($statusCode);
+
+        return $this->serializer->serialize($this->response, $statusCode, $content);
     }
 }

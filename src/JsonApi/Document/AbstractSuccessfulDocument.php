@@ -32,7 +32,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     );
 
     /**
-     * Transform a $domainObject resource in a jsonapi format
+     * Transform a $domainObject resource in a JSON:API format
      *
      * @param mixed $domainObject
      */
