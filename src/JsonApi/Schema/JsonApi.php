@@ -12,20 +12,13 @@ class JsonApi
      */
     private $version;
 
-    /**
-     * @param string $version
-     * @param array $meta
-     */
-    public function __construct($version, array $meta = [])
+    public function __construct(string $version, array $meta = [])
     {
         $this->version = $version;
         $this->meta = $meta;
     }
 
-    /**
-     * @return array
-     */
-    public function transform()
+    public function transform(): array
     {
         $result = [];
 
@@ -40,10 +33,7 @@ class JsonApi
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }

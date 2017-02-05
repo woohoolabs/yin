@@ -24,38 +24,24 @@ class StubOffsetBasedPaginationProvider
      */
     private $limit;
 
-    /**
-     * @param int $totalItems
-     * @param int $offset
-     * @param int $limit
-     */
-    public function __construct($totalItems, $offset, $limit)
+    public function __construct(int $totalItems, int $offset, int $limit)
     {
         $this->totalItems = $totalItems;
         $this->offset = $offset;
         $this->limit = $limit;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getTotalItems()
+    public function getTotalItems(): int
     {
         return $this->totalItems;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getOffset()
+    protected function getOffset(): int
     {
         return $this->offset;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getLimit()
+    protected function getLimit(): int
     {
         return $this->limit;
     }

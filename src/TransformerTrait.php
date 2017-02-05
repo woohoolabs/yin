@@ -10,12 +10,8 @@ trait TransformerTrait
 {
     /**
      * Transforms a value to a decimal which precision is $precision.
-     *
-     * @param mixed $value
-     * @param int $precision
-     * @return float
      */
-    public function toDecimal($value, $precision = 12)
+    public function toDecimal($value, int $precision = 12): float
     {
         if (is_numeric($value)) {
             $value = round($value, $precision);
@@ -26,56 +22,40 @@ trait TransformerTrait
 
     /**
      * Transforms a value to an integer.
-     *
-     * @param string $value
-     * @return int
      */
-    public function toInt($value)
+    public function toInt($value): int
     {
         return (int) $value;
     }
 
     /**
      * Transforms a value to boolean.
-     *
-     * @param mixed $value
-     * @return bool
      */
-    public function toBool($value)
+    public function toBool($value): bool
     {
         return (bool) $value;
     }
 
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
-     *
-     * @param \DateTimeInterface $dateTime
-     * @return string
      */
-    public function toIso8601Date(DateTimeInterface $dateTime)
+    public function toIso8601Date(DateTimeInterface $dateTime): string
     {
         return $dateTime->format("Y-m-d");
     }
 
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
-     *
-     * @param DateTimeInterface $dateTime
-     * @return string
      */
-    public function toIso8601DateTime(DateTimeInterface $dateTime)
+    public function toIso8601DateTime(DateTimeInterface $dateTime): string
     {
         return $dateTime->format(DateTime::ATOM);
     }
 
     /**
      * Transforms an SQL compatible date-time string to an ISO 8601 compatible date-time string.
-     *
-     * @param string $string
-     * @param string $timeZoneName
-     * @return string
      */
-    public function fromSqlToIso8601Time($string, $timeZoneName = "")
+    public function fromSqlToIso8601Time(string $string, string $timeZoneName = ""): string
     {
         return DateTime::createFromFormat(
             "Y-m-d H:i:s",
@@ -86,11 +66,8 @@ trait TransformerTrait
 
     /**
      * Transforms an SQL compatible date-time string to an ISO 8601 compatible UTC date-time string.
-     *
-     * @param string $string
-     * @return string
      */
-    public function fromSqlToUtcIso8601Time($string)
+    public function fromSqlToUtcIso8601Time(string $string): string
     {
         return $this->fromSqlToIso8601Time($string, "UTC");
     }

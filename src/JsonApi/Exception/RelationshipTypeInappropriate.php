@@ -23,13 +23,11 @@ class RelationshipTypeInappropriate extends JsonApiException
      */
     protected $expectedRelationshipType;
 
-    /**
-     * @param string $relationshipName
-     * @param string $currentRelationshipType
-     * @param string $expectedRelationshipType
-     */
-    public function __construct($relationshipName, $currentRelationshipType, $expectedRelationshipType)
-    {
+    public function __construct(
+        string $relationshipName,
+        string $currentRelationshipType,
+        string $expectedRelationshipType
+    ) {
         parent::__construct(
             "The provided relationship '$relationshipName' is of type of $currentRelationshipType, but " .
             ($expectedRelationshipType ? "$expectedRelationshipType is" : "it is not the one which is") . " expected!"
@@ -39,14 +37,11 @@ class RelationshipTypeInappropriate extends JsonApiException
         $this->expectedRelationshipType = $expectedRelationshipType;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("RELATIONSHIP_TYPE_INAPPROPRIATE")
                 ->setTitle("Relationship type is inappropriate")
                 ->setDetail($this->getMessage())
@@ -54,26 +49,17 @@ class RelationshipTypeInappropriate extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getRelationshipName()
+    public function getRelationshipName(): string
     {
         return $this->relationshipName;
     }
 
-    /**
-     * @return string
-     */
-    public function getCurrentRelationshipType()
+    public function getCurrentRelationshipType(): string
     {
         return $this->currentRelationshipType;
     }
 
-    /**
-     * @return string
-     */
-    public function getExpectedRelationshipType()
+    public function getExpectedRelationshipType(): string
     {
         return $this->expectedRelationshipType;
     }

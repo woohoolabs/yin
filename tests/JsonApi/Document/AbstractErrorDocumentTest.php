@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Testss\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -55,7 +55,7 @@ class AbstractErrorDocumentTest extends TestCase
             ->addError((new Error())->setStatus("404"))
             ->getResponse(new DefaultSerializer(), new Response());
 
-        $this->assertEquals("404", $response->getStatusCode());
+        $this->assertEquals(404, $response->getStatusCode());
         $this->assertCount(1, $this->getErrorsContentFromResponse($response));
     }
 
@@ -75,17 +75,14 @@ class AbstractErrorDocumentTest extends TestCase
         $this->assertCount(3, $this->getErrorsContentFromResponse($response));
     }
 
-    private function getErrorsContentFromResponse(ResponseInterface $response)
+    private function getErrorsContentFromResponse(ResponseInterface $response): array
     {
-        $result = json_decode($response->getBody(), true);
+        $result = json_decode($response->getBody()->__toString(), true);
 
         return isset($result["errors"]) ? $result["errors"] : [];
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    private function createErrorDocument()
+    private function createErrorDocument(): StubErrorDocument
     {
         return new StubErrorDocument();
     }

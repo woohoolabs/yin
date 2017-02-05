@@ -13,10 +13,7 @@ class ClientGeneratedIdNotSupported extends JsonApiException
      */
     protected $clientGeneratedId;
 
-    /**
-     * @param string|null $clientGeneratedId
-     */
-    public function __construct($clientGeneratedId)
+    public function __construct(string $clientGeneratedId)
     {
         parent::__construct(
             "Client generated ID " . ($clientGeneratedId ? "'$clientGeneratedId' " : "") .
@@ -25,14 +22,11 @@ class ClientGeneratedIdNotSupported extends JsonApiException
         $this->clientGeneratedId = $clientGeneratedId;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(403)
+                ->setStatus("403")
                 ->setCode("CLIENT_GENERATED_ID_NOT_SUPPORTED")
                 ->setTitle("Client generated ID is not supported")
                 ->setDetail($this->getMessage())
@@ -40,10 +34,7 @@ class ClientGeneratedIdNotSupported extends JsonApiException
         ];
     }
 
-    /**
-     * @return string|null
-     */
-    public function getClientGeneratedId()
+    public function getClientGeneratedId(): string
     {
         return $this->clientGeneratedId;
     }

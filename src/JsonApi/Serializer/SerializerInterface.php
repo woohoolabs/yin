@@ -1,23 +1,13 @@
 <?php
 declare(strict_types=1);
 
-
 namespace WoohooLabs\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ResponseInterface;
 
 interface SerializerInterface
 {
-    /**
-     * @param ResponseInterface $response
-     * @param int $responseCode
-     * @param array $content
-     * @return ResponseInterface
-     */
-    public function serialize(ResponseInterface $response, $responseCode, array $content);
+    public function serialize(ResponseInterface $response, int $responseCode, array $content): ResponseInterface;
 
-    /**
-     * @return string
-     */
-    public function getBodyAsString(ResponseInterface $response);
+    public function getBodyAsString(ResponseInterface $response): string;
 }

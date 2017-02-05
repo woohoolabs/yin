@@ -8,12 +8,12 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 class ToOneRelationship
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier|null
+     * @var ResourceIdentifier|null
      */
     protected $resourceIdentifier;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @param ResourceIdentifier $resourceIdentifier
      */
     public function __construct(ResourceIdentifier $resourceIdentifier = null)
     {
@@ -21,7 +21,7 @@ class ToOneRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @param ResourceIdentifier $resourceIdentifier
      * @return $this
      */
     public function setResourceIdentifier(ResourceIdentifier $resourceIdentifier)

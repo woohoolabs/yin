@@ -13,14 +13,11 @@ class ResourceIdMissing extends JsonApiException
         parent::__construct("A resource ID must be included in the document!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("RESOURCE_ID_MISSING")
                 ->setTitle("Resource ID is missing")
                 ->setDetail("A resource ID must be included in the document!")

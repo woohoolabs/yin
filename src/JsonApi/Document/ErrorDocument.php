@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApi;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class ErrorDocument extends AbstractErrorDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\JsonApi
+     * @var JsonApi|null
      */
     protected $jsonApi;
 
@@ -19,12 +20,12 @@ class ErrorDocument extends AbstractErrorDocument
     protected $meta = [];
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @var Links|null
      */
     protected $links;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
+     * @param Error[] $errors
      */
     public function __construct(array $errors = [])
     {
@@ -34,7 +35,7 @@ class ErrorDocument extends AbstractErrorDocument
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null
+     * @return JsonApi|null
      */
     public function getJsonApi()
     {
@@ -42,48 +43,42 @@ class ErrorDocument extends AbstractErrorDocument
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi $jsonApi
      * @return $this
      */
     public function setJsonApi(JsonApi $jsonApi)
     {
         $this->jsonApi = $jsonApi;
+
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return $this->meta;
     }
 
     /**
-     * @param array $meta
      * @return $this
      */
     public function setMeta(array $meta)
     {
         $this->meta = $meta;
+
         return $this;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
-     */
     public function getLinks()
     {
         return $this->links;
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links $links
      * @return $this
      */
     public function setLinks(Links $links)
     {
         $this->links = $links;
+
         return $this;
     }
 }

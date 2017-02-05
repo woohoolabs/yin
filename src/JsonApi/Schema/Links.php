@@ -13,67 +13,53 @@ class Links
     protected $baseUri;
 
     /**
-     * @var array
+     * @var Links[]|null[]
      */
     protected $links;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
-     * @return $this
+     * @param Link[] $links
      */
-    public static function createWithoutBaseUri(array $links = [])
+    public static function createWithoutBaseUri(array $links = []): Links
     {
         return new self("", $links);
     }
 
     /**
-     * @param string $baseUri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
-     * @return $this
+     * @param Link[] $links
      */
-    public static function createWithBaseUri($baseUri, array $links = [])
+    public static function createWithBaseUri(string $baseUri, array $links = []): Links
     {
         return new self($baseUri, $links);
     }
 
     /**
-     * @param string $baseUri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
+     * @param Link[] $links
      */
-    public function __construct($baseUri = "", array $links = [])
+    public function __construct(string $baseUri = "", array $links = [])
     {
         $this->baseUri = $baseUri;
         $this->links = $links;
     }
 
-    /**
-     * @return array
-     */
-    public function transform()
+    public function transform(): array
     {
         $links = [];
 
         foreach ($this->links as $rel => $link) {
-            /** @var \WoohooLabs\Yin\JsonApi\Schema\Link $link */
+            /** @var Link $link */
             $links[$rel] = $link ? $link->transform($this->baseUri) : null;
         }
 
         return $links;
     }
 
-    /**
-     * @return string
-     */
-    public function getBaseUri()
+    public function getBaseUri(): string
     {
         return $this->baseUri;
     }
 
-    /**
-     * @param string $baseUri
-     * @return $this
-     */
-    public function setBaseUri($baseUri)
+    public function setBaseUri(string $baseUri): Links
     {
         $this->baseUri = $baseUri;
 
@@ -88,11 +74,7 @@ class Links
         return $this->getLink("self");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $self
-     * @return $this
-     */
-    public function setSelf(Link $self = null)
+    public function setSelf(Link $self = null): Links
     {
         $this->links["self"] = $self;
 
@@ -107,11 +89,7 @@ class Links
         return $this->getLink("related");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $related
-     * @return $this
-     */
-    public function setRelated(Link $related = null)
+    public function setRelated(Link $related = null): Links
     {
         $this->links["related"] = $related;
 
@@ -126,11 +104,7 @@ class Links
         return $this->getLink("first");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $first
-     * @return $this
-     */
-    public function setFirst(Link $first = null)
+    public function setFirst(Link $first = null): Links
     {
         $this->links["first"] = $first;
 
@@ -145,11 +119,7 @@ class Links
         return $this->getLink("last");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $last
-     * @return $this
-     */
-    public function setLast(Link $last = null)
+    public function setLast(Link $last = null): Links
     {
         $this->links["last"] = $last;
 
@@ -164,11 +134,7 @@ class Links
         return $this->getLink("prev");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $prev
-     * @return $this
-     */
-    public function setPrev(Link $prev = null)
+    public function setPrev(Link $prev = null): Links
     {
         $this->links["prev"] = $prev;
 
@@ -183,11 +149,7 @@ class Links
         return $this->getLink("next");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $next
-     * @return $this
-     */
-    public function setNext(Link $next = null)
+    public function setNext(Link $next = null): Links
     {
         $this->links["next"] = $next;
 
@@ -202,23 +164,14 @@ class Links
         return $this->getLink("about");
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link|null $about
-     * @return $this
-     */
-    public function setAbout(Link $about = null)
+    public function setAbout(Link $about = null): Links
     {
         $this->links["about"] = $about;
 
         return $this;
     }
 
-    /**
-     * @param string $uri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface $paginationProvider
-     * @return $this
-     */
-    public function setPagination($uri, PaginationLinkProviderInterface $paginationProvider)
+    public function setPagination(string $uri, PaginationLinkProviderInterface $paginationProvider): Links
     {
         $this->setSelf($paginationProvider->getSelfLink($uri));
         $this->setFirst($paginationProvider->getFirstLink($uri));
@@ -230,19 +183,17 @@ class Links
     }
 
     /**
-     * @param $name
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link $links
+     * @return Link|null
      */
-    public function getLink($name)
+    public function getLink(string $name)
     {
         return isset($this->links[$name]) ? $this->links[$name] : null;
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
-     * @return $this
+     * @param Link[] $links
      */
-    public function setLinks(array $links)
+    public function setLinks(array $links): Links
     {
         foreach ($links as $rel => $link) {
             $this->setLink($rel, $link);
@@ -251,12 +202,7 @@ class Links
         return $this;
     }
 
-    /**
-     * @param string $name
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link $link
-     * @return $this
-     */
-    public function setLink($name, Link $link = null)
+    public function setLink(string $name, Link $link = null): Links
     {
         $this->links[$name] = $link;
 

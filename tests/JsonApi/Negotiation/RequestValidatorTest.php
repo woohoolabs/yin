@@ -181,7 +181,6 @@ class RequestValidatorTest extends TestCase
         return $server;
     }
 
-
     private function createRequest($serverRequest, $contentType)
     {
         $exceptionInterface = new DefaultExceptionFactory($serverRequest);
@@ -234,7 +233,7 @@ class RequestValidatorTest extends TestCase
 
     public function getEmptyMessages()
     {
-        return [[''], [null], [0]];
+        return [['']];
     }
 
     public function getValidJsonMessages()

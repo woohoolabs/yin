@@ -8,26 +8,16 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 
 trait PageBasedPaginationLinkProviderTrait
 {
-    /**
-     * @return int
-     */
-    abstract public function getTotalItems();
+    abstract public function getTotalItems(): int;
+
+    abstract public function getPage(): int;
+
+    abstract public function getSize(): int;
 
     /**
-     * @return int
+     * @return Link|null
      */
-    abstract public function getPage();
-
-    /**
-     * @return int
-     */
-    abstract public function getSize();
-
-    /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
-     */
-    public function getSelfLink($url)
+    public function getSelfLink(string $url)
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() > $this->getLastPage()) {
             return null;
@@ -37,19 +27,17 @@ trait PageBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getFirstLink($url)
+    public function getFirstLink(string $url)
     {
         return $this->createPaginatedLink($url, 1, $this->getSize());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getLastLink($url)
+    public function getLastLink(string $url)
     {
         if ($this->getSize() <= 0) {
             return null;
@@ -60,10 +48,9 @@ trait PageBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getPrevLink($url)
+    public function getPrevLink(string $url)
     {
         if ($this->getPage() <= 1 || $this->getSize() <= 0) {
             return null;
@@ -73,10 +60,9 @@ trait PageBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getNextLink($url)
+    public function getNextLink(string $url)
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
             return null;
@@ -86,12 +72,9 @@ trait PageBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @param int $page
-     * @param int $size
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    protected function createPaginatedLink($url, $page, $size)
+    protected function createPaginatedLink(string $url, int $page, int $size)
     {
         if ($this->getTotalItems() <= 0 || $this->getSize() <= 0) {
             return null;
@@ -100,12 +83,7 @@ trait PageBasedPaginationLinkProviderTrait
         return new Link($this->appendQueryStringToUrl($url, PageBasedPagination::getPaginationQueryString($page, $size)));
     }
 
-    /**
-     * @param string $url
-     * @param string $queryString
-     * @return string
-     */
-    protected function appendQueryStringToUrl($url, $queryString)
+    protected function appendQueryStringToUrl(string $url, string $queryString): string
     {
         if (parse_url($url, PHP_URL_QUERY) === null) {
             $separator = substr($url, -1, 1) !== "?" ? "?" : "";
@@ -116,11 +94,8 @@ trait PageBasedPaginationLinkProviderTrait
         return $url . $separator . $queryString;
     }
 
-    /**
-     * @return float
-     */
-    protected function getLastPage()
+    protected function getLastPage(): int
     {
-        return ceil($this->getTotalItems() / $this->getSize());
+        return (int) ceil($this->getTotalItems() / $this->getSize());
     }
 }

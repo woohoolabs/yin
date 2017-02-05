@@ -8,27 +8,28 @@ use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 abstract class AbstractResponder
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
+     * @var RequestInterface
      */
     protected $request;
 
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var ResponseInterface
      */
     protected $response;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @var ExceptionFactoryInterface $exceptionFactory
      */
     protected $exceptionFactory;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface
+     * @var SerializerInterface
      */
     protected $serializer;
 
@@ -45,18 +46,14 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param int $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentResourceResponse(
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode,
+        int $statusCode,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         $content = $document->getContent(
             $this->request,
             $this->exceptionFactory,
@@ -72,21 +69,15 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param int $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentMetaResponse(
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode,
+        int $statusCode,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         $content = $document->getMetaContent(
-            $this->request,
-            $this->exceptionFactory,
             $domainObject,
             $additionalMeta
         );
@@ -99,20 +90,15 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param int $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentRelationshipResponse(
-        $relationshipName,
+        string $relationshipName,
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode,
+        int $statusCode,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         $content = $document->getRelationship(
             $relationshipName,
             $this->request,
@@ -129,20 +115,15 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param int $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
     protected function getDocumentRelationshipMetaResponse(
-        $relationshipName,
+        string $relationshipName,
         AbstractSuccessfulDocument $document,
         $domainObject,
-        $statusCode,
+        int $statusCode,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         $content = $document->getRelationship(
             $relationshipName,
             $this->request,
@@ -159,20 +140,15 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @param int $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param Error[] $errors
      */
     protected function getErrorResponse(
         ResponseInterface $response,
         AbstractErrorDocument $document,
         array $errors,
-        $statusCode,
+        int $statusCode,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         foreach ($errors as $error) {
             $document->addError($error);
         }

@@ -10,16 +10,10 @@ class StubUpdateHydrator
 {
     use UpdateHydratorTrait;
 
-    /**
-     * @inheritDoc
-     */
     protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function setId($domainObject, $id)
     {
         $domainObject["id"] = $id;
@@ -27,17 +21,11 @@ class StubUpdateHydrator
         return $domainObject;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;

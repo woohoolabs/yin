@@ -3,26 +3,25 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class RequestValidator extends AbstractMessageValidator
 {
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param bool $includeOriginalMessageInResponse
-     */
-    public function __construct(ExceptionFactoryInterface $exceptionFactory, $includeOriginalMessageInResponse = true)
-    {
+    public function __construct(
+        ExceptionFactoryInterface $exceptionFactory,
+        bool $includeOriginalMessageInResponse = true
+    ) {
         parent::__construct($exceptionFactory, $includeOriginalMessageInResponse);
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @throws \Exception
+     * @throws MediaTypeUnsupported|MediaTypeUnacceptable|Exception
      */
     public function negotiate(RequestInterface $request)
     {
@@ -37,8 +36,7 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @throws \Exception
+     * @throws QueryParamUnrecognized|Exception
      */
     public function validateQueryParams(RequestInterface $request)
     {
@@ -53,8 +51,7 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @throws \Exception
+     * @throws RequestBodyInvalidJson|Exception
      */
     public function lintBody(RequestInterface $request)
     {

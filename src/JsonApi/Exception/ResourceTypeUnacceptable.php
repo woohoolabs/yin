@@ -18,25 +18,18 @@ class ResourceTypeUnacceptable extends JsonApiException
      */
     protected $acceptedTypes;
 
-    /**
-     * @param string $currentType
-     * @param array $acceptedTypes
-     */
-    public function __construct($currentType, array $acceptedTypes)
+    public function __construct(string $currentType, array $acceptedTypes)
     {
         parent::__construct("Resource type '$currentType' can't be accepted by the Hydrator!");
         $this->currentType = $currentType;
         $this->acceptedTypes = $acceptedTypes;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getErrors()
+    public function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(409)
+                ->setStatus("409")
                 ->setCode("RESOURCE_TYPE_UNACCEPTABLE")
                 ->setTitle("Resource type is unacceptable")
                 ->setDetail("Resource type '$this->currentType' is unacceptable!")
@@ -44,18 +37,12 @@ class ResourceTypeUnacceptable extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getCurrentType()
+    public function getCurrentType(): string
     {
         return $this->currentType;
     }
 
-    /**
-     * @return array
-     */
-    public function getAcceptedTypes()
+    public function getAcceptedTypes(): array
     {
         return $this->acceptedTypes;
     }

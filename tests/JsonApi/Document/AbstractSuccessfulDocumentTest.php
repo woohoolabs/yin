@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
+use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -21,16 +22,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getContent()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
-
-        $version = "1.0";
-
-        $document = $this->createDocument(new JsonApi($version));
-        $content = $document->getMetaContent(
-            $request,
-            new DefaultExceptionFactory(),
-            []
-        );
+        $document = $this->createDocument(new JsonApi("1.0"));
+        $content = $document->getMetaContent([]);
 
         $this->assertArrayHasKey('jsonapi', $content);
         $this->assertArrayHasKey('version', $content['jsonapi']);
@@ -42,15 +35,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getEmptyMetaContent()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
-        $meta = [];
-
-        $document = $this->createDocument(null, $meta);
-        $content = $document->getMetaContent(
-            $request,
-            new DefaultExceptionFactory(),
-            []
-        );
+        $document = $this->createDocument(null, []);
+        $content = $document->getMetaContent([]);
 
         $this->assertArrayNotHasKey('meta', $content);
     }
@@ -60,18 +46,11 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getMetaContent()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
-        $meta = ["abc" => "def"];
-
-        $document = $this->createDocument(null, $meta);
-        $content = $document->getMetaContent(
-            $request,
-            new DefaultExceptionFactory(),
-            []
-        );
+        $document = $this->createDocument(null, ["abc" => "def"]);
+        $content = $document->getMetaContent([]);
 
         $this->assertArrayHasKey('meta', $content);
-        $this->assertEquals($meta, $content['meta']);
+        $this->assertEquals(["abc" => "def"], $content['meta']);
     }
 
     /**
@@ -219,21 +198,13 @@ class AbstractSuccessfulDocumentTest extends TestCase
         $this->assertEquals($data->transformIncludedResources(), $content['included']);
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface|null $data
-     * @param array $relationshipResponseContent
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument
-     */
     private function createDocument(
         JsonApi $jsonApi = null,
         array $meta = [],
         Links $links = null,
         DataInterface $data = null,
         array $relationshipResponseContent = []
-    ) {
+    ): AbstractSuccessfulDocument {
         return new StubSuccessfulDocument(
             $jsonApi,
             $meta,

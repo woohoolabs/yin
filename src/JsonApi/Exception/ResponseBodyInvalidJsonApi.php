@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
@@ -11,7 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 class ResponseBodyInvalidJsonApi extends JsonApiException
 {
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var ResponseInterface
      */
     protected $response;
 
@@ -25,12 +26,7 @@ class ResponseBodyInvalidJsonApi extends JsonApiException
      */
     protected $includeOriginalBody;
 
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param array $validationErrors
-     * @param boolean $includeOriginalBody
-     */
-    public function __construct(ResponseInterface $response, array $validationErrors, $includeOriginalBody)
+    public function __construct(ResponseInterface $response, array $validationErrors, bool $includeOriginalBody)
     {
         parent::__construct("Response body is an invalid JSON API document: " . print_r($validationErrors, true));
         $this->response = $response;
@@ -38,10 +34,7 @@ class ResponseBodyInvalidJsonApi extends JsonApiException
         $this->includeOriginalBody = $includeOriginalBody;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    protected function createErrorDocument()
+    protected function createErrorDocument(): AbstractErrorDocument
     {
         $errorDocument = new ErrorDocument();
 
@@ -52,15 +45,12 @@ class ResponseBodyInvalidJsonApi extends JsonApiException
         return $errorDocument;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         $errors = [];
         foreach ($this->validationErrors as $validationError) {
             $error = Error::create()
-                ->setStatus(500)
+                ->setStatus("500")
                 ->setCode("RESPONSE_BODY_INVALID_JSON_API")
                 ->setTitle("Response body is an invalid JSON API document")
                 ->setDetail(ucfirst($validationError["message"]));
@@ -74,10 +64,7 @@ class ResponseBodyInvalidJsonApi extends JsonApiException
         return $errors;
     }
 
-    /**
-     * @return array
-     */
-    public function getValidationErrors()
+    public function getValidationErrors(): array
     {
         return $this->validationErrors;
     }

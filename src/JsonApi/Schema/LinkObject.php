@@ -7,21 +7,16 @@ class LinkObject extends Link
 {
     use MetaTrait;
 
-    /**
-     * @param string $href
-     * @param array $meta
-     */
-    public function __construct($href, array $meta = [])
+    public function __construct(string $href, array $meta = [])
     {
         parent::__construct($href);
         $this->meta = $meta;
     }
 
     /**
-     * @param string $baseUri
      * @return array
      */
-    public function transform($baseUri)
+    public function transform(string $baseUri)
     {
         $link = ["href" => parent::transform($baseUri)];
 

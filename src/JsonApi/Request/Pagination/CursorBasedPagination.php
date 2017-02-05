@@ -11,7 +11,6 @@ class CursorBasedPagination
     protected $cursor;
 
     /**
-     * @param array $paginationQueryParams
      * @param mixed $defaultCursor
      * @return $this
      */
@@ -23,7 +22,7 @@ class CursorBasedPagination
     }
 
     /**
-     * @param mixed|null $cursor
+     * @param mixed $cursor
      */
     public function __construct($cursor)
     {
@@ -31,7 +30,7 @@ class CursorBasedPagination
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
     public function getCursor()
     {
@@ -42,7 +41,7 @@ class CursorBasedPagination
      * @param mixed $cursor
      * @return string
      */
-    public static function getPaginationQueryString($cursor)
+    public static function getPaginationQueryString($cursor): string
     {
         return "page[cursor]=$cursor";
     }

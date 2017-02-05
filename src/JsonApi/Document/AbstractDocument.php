@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use WoohooLabs\Yin\JsonApi\Schema\Links;
+
 abstract class AbstractDocument
 {
     /**
@@ -20,10 +22,8 @@ abstract class AbstractDocument
      *
      * The method returns an array of non-standard meta information about the document. If
      * this array is empty, the member won't appear in the response.
-     *
-     * @return array
      */
-    abstract public function getMeta();
+    abstract public function getMeta(): array;
 
     /**
      * Provides information about the "links" member of the current document.
@@ -31,15 +31,11 @@ abstract class AbstractDocument
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the member should be omitted from the response.
      *
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     abstract public function getLinks();
 
-    /**
-     * @param array $additionalMeta
-     * @return array
-     */
-    protected function transformBaseContent(array $additionalMeta = [])
+    protected function transformBaseContent(array $additionalMeta = []): array
     {
         $content = [];
 
@@ -50,10 +46,7 @@ abstract class AbstractDocument
         return $content;
     }
 
-    /**
-     * @param array $content
-     */
-    protected function transformJsonApiContent(&$content)
+    protected function transformJsonApiContent(array &$content)
     {
         $jsonApi = $this->getJsonApi();
         if ($jsonApi !== null) {
@@ -61,11 +54,7 @@ abstract class AbstractDocument
         }
     }
 
-    /**
-     * @param array $content
-     * @param array $additionalMeta
-     */
-    protected function transformMetaContent(&$content, array $additionalMeta = [])
+    protected function transformMetaContent(array &$content, array $additionalMeta = [])
     {
         $meta = array_merge($this->getMeta(), $additionalMeta);
         if (empty($meta) === false) {
@@ -73,10 +62,7 @@ abstract class AbstractDocument
         }
     }
 
-    /**
-     * @param array $content
-     */
-    protected function transformLinksContent(&$content)
+    protected function transformLinksContent(array &$content)
     {
         $links = $this->getLinks();
         if ($links !== null) {

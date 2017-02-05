@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
+use WoohooLabs\Yin\JsonApi\Schema\Links;
+
 interface ResourceTransformerInterface
 {
     /**
@@ -11,9 +13,8 @@ interface ResourceTransformerInterface
      * The method returns the type of the current resource.
      *
      * @param mixed $domainObject
-     * @return string
      */
-    public function getType($domainObject);
+    public function getType($domainObject): string;
 
     /**
      * Provides information about the "id" member of the current resource.
@@ -21,9 +22,8 @@ interface ResourceTransformerInterface
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param mixed $domainObject
-     * @return string
      */
-    public function getId($domainObject);
+    public function getId($domainObject): string;
 
     /**
      * Provides information about the "meta" member of the current resource.
@@ -32,9 +32,8 @@ interface ResourceTransformerInterface
      * this array is empty, the member won't appear in the response.
      *
      * @param mixed $domainObject
-     * @return array
      */
-    public function getMeta($domainObject);
+    public function getMeta($domainObject): array;
 
     /**
      * Provides information about the "links" member of the current resource.
@@ -43,7 +42,7 @@ interface ResourceTransformerInterface
      * data about the resource or null if it should be omitted from the response.
      *
      * @param mixed $domainObject
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links|null
+     * @return Links|null
      */
     public function getLinks($domainObject);
 
@@ -57,15 +56,14 @@ interface ResourceTransformerInterface
      * @param mixed $domainObject
      * @return callable[]
      */
-    public function getAttributes($domainObject);
+    public function getAttributes($domainObject): array;
 
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param mixed $domainObject
-     * @return array
      */
-    public function getDefaultIncludedRelationships($domainObject);
+    public function getDefaultIncludedRelationships($domainObject): array;
 
     /**
      * Provides information about the "relationships" member of the current resource.
@@ -77,7 +75,7 @@ interface ResourceTransformerInterface
      * @param mixed $domainObject
      * @return callable[]
      */
-    public function getRelationships($domainObject);
+    public function getRelationships($domainObject): array;
 
     /**
      * @param mixed $domainObject
@@ -86,21 +84,17 @@ interface ResourceTransformerInterface
     public function transformToResourceIdentifier($domainObject);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @return array
+     * @return array|null
      */
     public function transformToResource(Transformation $transformation, $domainObject);
 
     /**
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return array
+     * @return array|null
      */
     public function transformRelationship(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         $domainObject,
         array $additionalMeta = []

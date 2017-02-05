@@ -13,23 +13,17 @@ class ResourceIdInvalid extends JsonApiException
      */
     protected $id;
 
-    /**
-     * @param string $id
-     */
-    public function __construct($id)
+    public function __construct(string $id)
     {
         parent::__construct("The resource ID '$id' is invalid!");
         $this->id = $id;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("RESOURCE_ID_INVALID")
                 ->setTitle("Resource ID is invalid")
                 ->setDetail("The resource ID '$this->id' is invalid!")
@@ -37,10 +31,7 @@ class ResourceIdInvalid extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

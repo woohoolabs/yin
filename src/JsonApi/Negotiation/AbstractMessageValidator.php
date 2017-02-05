@@ -14,7 +14,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 abstract class AbstractMessageValidator
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     * @var ExceptionFactoryInterface
      */
     protected $exceptionFactory;
 
@@ -23,21 +23,15 @@ abstract class AbstractMessageValidator
      */
     protected $includeOriginalMessage;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param bool $includeOriginalMessageInResponse
-     */
-    public function __construct(ExceptionFactoryInterface $exceptionFactory, $includeOriginalMessageInResponse = true)
-    {
+    public function __construct(
+        ExceptionFactoryInterface $exceptionFactory,
+        bool $includeOriginalMessageInResponse = true
+    ) {
         $this->exceptionFactory = $exceptionFactory;
         $this->includeOriginalMessage = $includeOriginalMessageInResponse;
     }
 
-    /**
-     * @param string $message
-     * @return string
-     */
-    protected function lintMessage($message)
+    protected function lintMessage(string $message): string
     {
         if (empty($message)) {
             return "";
@@ -53,11 +47,7 @@ abstract class AbstractMessageValidator
         return "";
     }
 
-    /**
-     * @param string $message
-     * @return array
-     */
-    protected function validateMessage($message)
+    protected function validateMessage(string $message): array
     {
         if (empty($message) === true) {
             return [];

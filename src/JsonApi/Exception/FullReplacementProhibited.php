@@ -13,23 +13,17 @@ class FullReplacementProhibited extends JsonApiException
      */
     protected $relationshipName;
 
-    /**
-     * @param string $relationshipName
-     */
-    public function __construct($relationshipName)
+    public function __construct(string $relationshipName)
     {
         parent::__construct("Full replacement of relationship '$relationshipName' is prohibited!");
         $this->relationshipName = $relationshipName;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(403)
+                ->setStatus("403")
                 ->setCode("FULL_REPLACEMENT_PROHIBITED")
                 ->setTitle("Full replacement is prohibited")
                 ->setDetail($this->getMessage())
@@ -37,10 +31,7 @@ class FullReplacementProhibited extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getRelationshipName()
+    public function getRelationshipName(): string
     {
         return $this->relationshipName;
     }

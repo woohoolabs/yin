@@ -12,7 +12,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\JsonApi
+     * @var JsonApi|null
      */
     protected $jsonApi;
 
@@ -22,12 +22,12 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $meta;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @var Links|null
      */
     protected $links;
 
     /**
-     * @var DataInterface
+     * @var DataInterface|null
      */
     protected $data;
 
@@ -36,13 +36,6 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
      */
     protected $relationshipResponseContent;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\JsonApi|null $jsonApi
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param array $relationshipResponseContent
-     */
     public function __construct(
         JsonApi $jsonApi = null,
         array $meta = [],
@@ -57,50 +50,32 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         $this->relationshipResponseContent = $relationshipResponseContent;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getJsonApi()
     {
         return $this->jsonApi;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return $this->meta;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getLinks()
     {
         return $this->links;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function createData()
+    protected function createData(): DataInterface
     {
-        return $this->data ? $this->data : new DummyData();
+        return $this->data ?? new DummyData();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function fillData(Transformation $transformation)
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
     ) {

@@ -13,14 +13,11 @@ class InclusionUnsupported extends JsonApiException
         parent::__construct("Inclusion is not supported!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("INCLUSION_UNSUPPORTED")
                 ->setTitle("Inclusion is unsupported")
                 ->setDetail("Inclusion is not supported by the endpoint!")

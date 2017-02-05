@@ -8,23 +8,23 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class FakeRelationship extends AbstractRelationship
 {
-    /**
-     * @inheritDoc
-     */
     protected function transformData(
         Transformation $transformation,
-        $relationshipName,
+        string $relationshipName,
         array $defaultRelationships
     ) {
         return [];
     }
 
+    /**
+     * @return mixed
+     */
     public function getRetrieveData()
     {
         return $this->retrieveData();
     }
 
-    public function isOmitWhenNotIncluded()
+    public function isOmitWhenNotIncluded(): bool
     {
         return $this->omitDataWhenNotIncluded;
     }

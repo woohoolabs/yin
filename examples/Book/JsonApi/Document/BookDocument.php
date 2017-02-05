@@ -11,11 +11,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 
 class BookDocument extends AbstractSingleResourceDocument
 {
-    /**
-     * @var array
-     */
-    protected $domainObject;
-
     public function __construct(BookResourceTransformer $transformer)
     {
         parent::__construct($transformer);

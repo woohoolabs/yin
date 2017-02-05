@@ -17,7 +17,6 @@ trait RelationshipFactoryTrait
     }
 
     /**
-     * @param array $meta
      * @return $this
      */
     public static function createWithMeta(array $meta)
@@ -26,7 +25,6 @@ trait RelationshipFactoryTrait
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links $links
      * @return $this
      */
     public static function createWithLinks(Links $links)
@@ -35,8 +33,6 @@ trait RelationshipFactoryTrait
     }
 
     /**
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
      * @return $this
      */
     public static function createWithData(array $data, ResourceTransformerInterface $resourceTransformer)

@@ -8,42 +8,27 @@ use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
 class StubPaginationLinkProvider implements PaginationLinkProviderInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function getSelfLink($uri)
+    public function getSelfLink(string $uri)
     {
         return new Link($uri . "self");
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getFirstLink($uri)
+    public function getFirstLink(string $uri)
     {
         return new Link($uri. "first");
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getLastLink($uri)
+    public function getLastLink(string $uri)
     {
         return new Link($uri. "last");
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getPrevLink($uri)
+    public function getPrevLink(string $uri)
     {
         return new Link($uri. "prev");
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getNextLink($uri)
+    public function getNextLink(string $uri)
     {
         return new Link($uri. "next");
     }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
@@ -10,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error;
 class RequestBodyInvalidJson extends JsonApiException
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
+     * @var RequestInterface
      */
     protected $request;
 
@@ -24,12 +25,7 @@ class RequestBodyInvalidJson extends JsonApiException
      */
     protected $includeOriginalBody;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $lintMessage
-     * @param boolean $includeOriginalBody
-     */
-    public function __construct(RequestInterface $request, $lintMessage, $includeOriginalBody)
+    public function __construct(RequestInterface $request, string $lintMessage, bool $includeOriginalBody)
     {
         parent::__construct("Request body is an invalid JSON document: '$lintMessage'!");
         $this->request = $request;
@@ -37,10 +33,7 @@ class RequestBodyInvalidJson extends JsonApiException
         $this->includeOriginalBody = $includeOriginalBody;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    protected function createErrorDocument()
+    protected function createErrorDocument(): AbstractErrorDocument
     {
         $errorDocument = new ErrorDocument();
 
@@ -51,24 +44,18 @@ class RequestBodyInvalidJson extends JsonApiException
         return $errorDocument;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("REQUEST_BODY_INVALID_JSON")
                 ->setTitle("Request body is an invalid JSON document")
                 ->setDetail($this->getMessage())
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getLintMessage()
+    public function getLintMessage(): string
     {
         return $this->lintMessage;
     }

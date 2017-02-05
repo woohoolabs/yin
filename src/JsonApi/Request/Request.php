@@ -3,10 +3,14 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request;
 
+use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
@@ -18,7 +22,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 class Request implements RequestInterface
 {
     /**
-     * @var \Psr\Http\Message\ServerRequestInterface
+     * @var ServerRequestInterface
      */
     protected $serverRequest;
 
@@ -52,9 +56,6 @@ class Request implements RequestInterface
      */
     protected $filtering;
 
-    /**
-     * @param \Psr\Http\Message\ServerRequestInterface $request
-     */
     public function __construct(ServerRequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
         $this->serverRequest = $request;
@@ -62,7 +63,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
+     * @throws MediaTypeUnsupported|Exception
      */
     public function validateContentTypeHeader()
     {
@@ -75,7 +76,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
+     * @throws MediaTypeUnacceptable|Exception
      */
     public function validateAcceptHeader()
     {
@@ -85,7 +86,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
+     * @throws QueryParamUnrecognized|Exception
      */
     public function validateQueryParams()
     {
@@ -100,11 +101,8 @@ class Request implements RequestInterface
 
     /**
      * Returns a list of media type information, extracted from a given header in the current request.
-     *
-     * @param string $headerName
-     * @return bool
      */
-    protected function isValidMediaTypeHeader($headerName)
+    protected function isValidMediaTypeHeader(string $headerName): bool
     {
         $header = $this->getHeaderLine($headerName);
         return strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json";
@@ -125,11 +123,7 @@ class Request implements RequestInterface
         }
     }
 
-    /**
-     * @param string $resourceType
-     * @return array
-     */
-    public function getIncludedFields($resourceType)
+    public function getIncludedFields(string $resourceType): array
     {
         if ($this->includedFields === null) {
             $this->setIncludedFields();
@@ -138,12 +132,7 @@ class Request implements RequestInterface
         return isset($this->includedFields[$resourceType]) ? array_keys($this->includedFields[$resourceType]) : [];
     }
 
-    /**
-     * @param string $resourceType
-     * @param string $field
-     * @return bool
-     */
-    public function isIncludedField($resourceType, $field)
+    public function isIncludedField(string $resourceType, string $field): bool
     {
         if ($this->includedFields === null) {
             $this->setIncludedFields();
@@ -190,10 +179,7 @@ class Request implements RequestInterface
         }
     }
 
-    /**
-     * @return bool
-     */
-    public function hasIncludedRelationships()
+    public function hasIncludedRelationships(): bool
     {
         if ($this->includedRelationships === null) {
             $this->setIncludedRelationships();
@@ -202,11 +188,7 @@ class Request implements RequestInterface
         return empty($this->includedRelationships) === false;
     }
 
-    /**
-     * @param string $baseRelationshipPath
-     * @return array
-     */
-    public function getIncludedRelationships($baseRelationshipPath)
+    public function getIncludedRelationships(string $baseRelationshipPath): array
     {
         if ($this->includedRelationships === null) {
             $this->setIncludedRelationships();
@@ -219,14 +201,11 @@ class Request implements RequestInterface
         }
     }
 
-    /**
-     * @param string $baseRelationshipPath
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @return bool
-     */
-    public function isIncludedRelationship($baseRelationshipPath, $relationshipName, array $defaultRelationships)
-    {
+    public function isIncludedRelationship(
+        string $baseRelationshipPath,
+        string $relationshipName,
+        array $defaultRelationships
+    ): bool {
         if ($this->includedRelationships === null) {
             $this->setIncludedRelationships();
         }
@@ -254,10 +233,7 @@ class Request implements RequestInterface
         $this->sorting = is_array($sorting) ? $sorting : [];
     }
 
-    /**
-     * @return array
-     */
-    public function getSorting()
+    public function getSorting(): array
     {
         if ($this->sorting === null) {
             $this->setSorting();
@@ -272,10 +248,7 @@ class Request implements RequestInterface
         $this->pagination = is_array($pagination) ? $pagination : [];
     }
 
-    /**
-     * @return array
-     */
-    public function getPagination()
+    public function getPagination(): array
     {
         if ($this->pagination === null) {
             $this->setPagination();
@@ -284,40 +257,27 @@ class Request implements RequestInterface
         return $this->pagination;
     }
 
-    /**
-     * @param mixed $defaultPage
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination
-     */
-    public function getFixedPageBasedPagination($defaultPage = null)
+    public function getFixedPageBasedPagination(int $defaultPage = null): FixedPageBasedPagination
     {
         return FixedPageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
     }
 
-    /**
-     * @param mixed $defaultPage
-     * @param mixed $defaultSize
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination
-     */
-    public function getPageBasedPagination($defaultPage = null, $defaultSize = null)
+    public function getPageBasedPagination(int $defaultPage = null, int $defaultSize = null): PageBasedPagination
     {
         return PageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
     }
 
-    /**
-     * @param mixed $defaultOffset
-     * @param mixed $defaultLimit
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination
-     */
-    public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null)
-    {
+    public function getOffsetBasedPagination(
+        int $defaultOffset = null,
+        int $defaultLimit = null
+    ): OffsetBasedPagination {
         return OffsetBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
     }
 
     /**
      * @param mixed $defaultCursor
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination
      */
-    public function getCursorBasedPagination($defaultCursor = null)
+    public function getCursorBasedPagination($defaultCursor = null): CursorBasedPagination
     {
         return CursorBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
     }
@@ -328,10 +288,7 @@ class Request implements RequestInterface
         $this->filtering = is_array($filtering) ? $filtering : [];
     }
 
-    /**
-     * @return array
-     */
-    public function getFiltering()
+    public function getFiltering(): array
     {
         if ($this->filtering === null) {
             $this->setFiltering();
@@ -341,11 +298,10 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $param
      * @param mixed $default
-     * @return mixed
+     * @return string|mixed
      */
-    public function getFilteringParam($param, $default = null)
+    public function getFilteringParam(string $param, $default = null)
     {
         $filtering = $this->getFiltering();
 
@@ -353,11 +309,10 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $name
      * @param mixed $default
      * @return array|string|mixed
      */
-    public function getQueryParam($name, $default = null)
+    public function getQueryParam(string $name, $default = null)
     {
         $queryParams = $this->serverRequest->getQueryParams();
 
@@ -367,11 +322,10 @@ class Request implements RequestInterface
     /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
      *
-     * @param string $name
      * @param mixed $value
      * @return $this
      */
-    public function withQueryParam($name, $value)
+    public function withQueryParam(string $name, $value)
     {
         $self = clone $this;
         $queryParams = $this->serverRequest->getQueryParams();
@@ -402,7 +356,7 @@ class Request implements RequestInterface
 
     /**
      * @param mixed $default
-     * @return string|mixed
+     * @return string|null
      */
     public function getResourceType($default = null)
     {
@@ -419,13 +373,10 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        return isset($data["id"]) ? $data["id"] : null;
+        return isset($data["id"]) ? $data["id"] : $default;
     }
 
-    /**
-     * @return array
-     */
-    public function getResourceAttributes()
+    public function getResourceAttributes(): array
     {
         $data = $this->getResource();
 
@@ -433,11 +384,10 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $attribute
      * @param mixed $default
      * @return mixed
      */
-    public function getResourceAttribute($attribute, $default = null)
+    public function getResourceAttribute(string $attribute, $default = null)
     {
         $attributes = $this->getResourceAttributes();
 
@@ -445,10 +395,9 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $relationship
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|null
+     * @return ToOneRelationship|null
      */
-    public function getToOneRelationship($relationship)
+    public function getToOneRelationship(string $relationship)
     {
         $data = $this->getResource();
 
@@ -469,10 +418,9 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $relationship
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
+     * @return ToManyRelationship|null
      */
-    public function getToManyRelationship($relationship)
+    public function getToManyRelationship(string $relationship)
     {
         $data = $this->getResource();
 
@@ -488,17 +436,11 @@ class Request implements RequestInterface
         return new ToManyRelationship($resourceIdentifiers);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getProtocolVersion()
     {
         return $this->serverRequest->getProtocolVersion();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withProtocolVersion($version)
     {
         $self = clone $this;
@@ -506,41 +448,26 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getHeaders()
     {
         return $this->serverRequest->getHeaders();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function hasHeader($name)
     {
         return $this->serverRequest->hasHeader($name);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getHeader($name)
     {
         return $this->serverRequest->getHeader($name);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getHeaderLine($name)
     {
         return $this->serverRequest->getHeaderLine($name);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withHeader($name, $value)
     {
         $self = clone $this;
@@ -548,9 +475,6 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withAddedHeader($name, $value)
     {
         $self = clone $this;
@@ -558,9 +482,6 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withoutHeader($name)
     {
         $self = clone $this;
@@ -568,17 +489,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getBody()
     {
         return $this->serverRequest->getBody();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withBody(StreamInterface $body)
     {
         $self = clone $this;
@@ -586,17 +501,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getRequestTarget()
     {
         return $this->serverRequest->getRequestTarget();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withRequestTarget($requestTarget)
     {
         $self = clone $this;
@@ -604,17 +513,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getMethod()
     {
         return $this->serverRequest->getMethod();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withMethod($method)
     {
         $self = clone $this;
@@ -622,17 +525,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUri()
     {
         return $this->serverRequest->getUri();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
         $self = clone $this;
@@ -640,25 +537,16 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getServerParams()
     {
         return $this->serverRequest->getServerParams();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getCookieParams()
     {
         return $this->serverRequest->getCookieParams();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withCookieParams(array $cookies)
     {
         $self = clone $this;
@@ -666,17 +554,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getQueryParams()
     {
         return $this->serverRequest->getQueryParams();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withQueryParams(array $query)
     {
         $self = clone $this;
@@ -685,17 +567,11 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUploadedFiles()
     {
         return $this->serverRequest->getUploadedFiles();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withUploadedFiles(array $uploadedFiles)
     {
         $self = clone $this;
@@ -703,9 +579,6 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getParsedBody()
     {
         if (empty($this->serverRequest->getParsedBody()) === false) {
@@ -720,9 +593,6 @@ class Request implements RequestInterface
         return $this->serverRequest->getParsedBody();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withParsedBody($data)
     {
         $self = clone $this;
@@ -730,25 +600,16 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getAttributes()
     {
         return $this->serverRequest->getAttributes();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getAttribute($name, $default = null)
     {
         return $this->serverRequest->getAttribute($name, $default);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withAttribute($name, $value)
     {
         $self = clone $this;
@@ -756,9 +617,6 @@ class Request implements RequestInterface
         return $self;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function withoutAttribute($name)
     {
         $self = clone $this;

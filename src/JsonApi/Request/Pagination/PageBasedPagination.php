@@ -16,15 +16,12 @@ class PageBasedPagination
     protected $size;
 
     /**
-     * @param array $paginationQueryParams
-     * @param mixed $defaultPage
-     * @param mixed $defaultSize
      * @return $this
      */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
-        $defaultPage = null,
-        $defaultSize = null
+        int $defaultPage = null,
+        int $defaultSize = null
     ) {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
         $size = empty($paginationQueryParams["size"]) ? $defaultSize : (int) $paginationQueryParams["size"];
@@ -59,11 +56,10 @@ class PageBasedPagination
     }
 
     /**
-     * @param int $page
-     * @param int $size
-     * @return string
+     * @param int|null $page
+     * @param int|null $size
      */
-    public static function getPaginationQueryString($page, $size)
+    public static function getPaginationQueryString($page, $size): string
     {
         return "page[number]=$page&page[size]=$size";
     }

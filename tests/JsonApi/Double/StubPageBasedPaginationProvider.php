@@ -24,38 +24,24 @@ class StubPageBasedPaginationProvider
      */
     private $size;
 
-    /**
-     * @param int $totalItems
-     * @param int $page
-     * @param int $size
-     */
-    public function __construct($totalItems, $page, $size)
+    public function __construct(int $totalItems, int $page, int $size)
     {
         $this->totalItems = $totalItems;
         $this->page = $page;
         $this->size = $size;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getTotalItems()
+    public function getTotalItems(): int
     {
         return $this->totalItems;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }

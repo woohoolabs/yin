@@ -24,7 +24,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
     protected $meta;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @var Links|null
      */
     protected $links;
 
@@ -43,18 +43,9 @@ class StubResourceTransformer extends AbstractResourceTransformer
      */
     protected $relationships;
 
-    /**
-     * @param string $type
-     * @param string $id
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param array $attributes
-     * @param array $defaultRelationships
-     * @param array $relationships
-     */
     public function __construct(
-        $type = "",
-        $id = "",
+        string $type = "",
+        string $id = "",
         array $meta = [],
         Links $links = null,
         array $attributes = [],
@@ -70,58 +61,37 @@ class StubResourceTransformer extends AbstractResourceTransformer
         $this->relationships = $relationships;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getType($domainObject)
+    public function getType($domainObject): string
     {
         return $this->type;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getId($domainObject)
+    public function getId($domainObject): string
     {
         return $this->id;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getMeta($domainObject)
+    public function getMeta($domainObject): array
     {
         return $this->meta;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getLinks($domainObject)
     {
         return $this->links;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getAttributes($domainObject)
+    public function getAttributes($domainObject): array
     {
         return $this->attributes;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getDefaultIncludedRelationships($domainObject)
+    public function getDefaultIncludedRelationships($domainObject): array
     {
         return $this->defaultRelationships;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getRelationships($domainObject)
+    public function getRelationships($domainObject): array
     {
         return $this->relationships;
     }

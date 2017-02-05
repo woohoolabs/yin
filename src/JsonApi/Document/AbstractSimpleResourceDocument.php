@@ -3,37 +3,26 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
 {
-    /**
-     * @return array
-     */
-    abstract protected function getResource();
+    abstract protected function getResource(): array;
 
-    /**
-     * @inheritDoc
-     */
-    protected function createData()
+    protected function createData(): DataInterface
     {
         return new SingleResourceData();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function fillData(Transformation $transformation)
     {
         $transformation->data->addPrimaryResource($this->getResource());
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
     ) {
@@ -41,14 +30,14 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         if ($relationship !== null) {
             $transformation->data->addPrimaryResource($relationship);
         }
+
+        return $relationship;
     }
 
     /**
-     * @param array $resource
-     * @param string $relationshipName
      * @return array|null
      */
-    private function getRelationshipFromResource(array $resource, $relationshipName)
+    private function getRelationshipFromResource(array $resource, string $relationshipName)
     {
         if (empty($resource["relationships"][$relationshipName])) {
             return null;

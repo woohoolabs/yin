@@ -37,19 +37,15 @@ class AbstractResponderTest extends TestCase
 
         $response = $this->createResponder()->genericError($document, $errors, $statusCode);
         $this->assertEquals($statusCode, $response->getStatusCode());
-        $body = json_decode($response->getBody(), true);
+        $body = json_decode($response->getBody()->__toString(), true);
         $this->assertCount(2, $body["errors"]);
     }
 
-    /**
-     * @param \Zend\Diactoros\Response $response
-     * @return \WoohooLabs\Yin\JsonApi\Response\Responder
-     */
-    private function createResponder(Response $response = null)
+    private function createResponder(Response $response = null): Responder
     {
         return new Responder(
             new Request(new ServerRequest(), new DefaultExceptionFactory()),
-            $response ? $response : new Response(),
+            $response ?? new Response(),
             new DefaultExceptionFactory(),
             new DefaultSerializer()
         );

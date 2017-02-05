@@ -8,28 +8,20 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 
 trait OffsetBasedPaginationLinkProviderTrait
 {
-    /**
-     * @return int
-     */
-    abstract protected function getTotalItems();
+    abstract protected function getTotalItems(): int;
+
+    abstract protected function getOffset(): int;
+
+    abstract protected function getLimit(): int;
 
     /**
-     * @return int
+     * @return Link|null
      */
-    abstract protected function getOffset();
-
-    /**
-     * @return int
-     */
-    abstract protected function getLimit();
-
-    /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
-     */
-    public function getSelfLink($url)
+    public function getSelfLink(string $url)
     {
-        if ($this->getOffset() < 0 || $this->getOffset() >= $this->getTotalItems()) {
+        $offset = $this->getOffset();
+
+        if ($offset < 0 || $offset >= $this->getTotalItems()) {
             return null;
         }
 
@@ -37,28 +29,25 @@ trait OffsetBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getFirstLink($url)
+    public function getFirstLink(string $url)
     {
         return $this->createPaginatedLink($url, 0, $this->getLimit());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getLastLink($url)
+    public function getLastLink(string $url)
     {
         return $this->createPaginatedLink($url, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getPrevLink($url)
+    public function getPrevLink(string $url)
     {
         if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
@@ -74,10 +63,9 @@ trait OffsetBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getNextLink($url)
+    public function getNextLink(string $url)
     {
         if ($this->getOffset() < 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
@@ -87,12 +75,9 @@ trait OffsetBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @param int $page
-     * @param int $size
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    protected function createPaginatedLink($url, $page, $size)
+    protected function createPaginatedLink(string $url, int $page, int $size)
     {
         if ($this->getTotalItems() <= 0 || $this->getLimit() <= 0) {
             return null;
@@ -101,12 +86,7 @@ trait OffsetBasedPaginationLinkProviderTrait
         return new Link($this->appendQueryStringToUrl($url, OffsetBasedPagination::getPaginationQueryString($page, $size)));
     }
 
-    /**
-     * @param string $url
-     * @param string $queryString
-     * @return string
-     */
-    protected function appendQueryStringToUrl($url, $queryString)
+    protected function appendQueryStringToUrl(string $url, string $queryString): string
     {
         if (parse_url($url, PHP_URL_QUERY) === null) {
             $separator = substr($url, -1, 1) !== "?" ? "?" : "";

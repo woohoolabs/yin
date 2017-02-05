@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
+use Traversable;
+
 abstract class AbstractData implements DataInterface
 {
     /**
@@ -21,53 +23,35 @@ abstract class AbstractData implements DataInterface
     protected $includedKeys = [];
 
     /**
-     * @param string $type
-     * @param string $id
      * @return array|null
      */
-    public function getResource($type, $id)
+    public function getResource(string $type, string $id)
     {
         return isset($this->resources[$type . "." . $id]) ? $this->resources[$type . "." . $id] : null;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasPrimaryResources()
+    public function hasPrimaryResources(): bool
     {
         return empty($this->primaryKeys) === false;
     }
 
-    /**
-     * @param string $type
-     * @param string $id
-     * @return bool
-     */
-    public function hasPrimaryResource($type, $id)
+    public function hasPrimaryResource(string $type, string $id): bool
     {
         return isset($this->primaryKeys[$type . "." . $id]);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasIncludedResources()
+    public function hasIncludedResources(): bool
     {
         return empty($this->includedKeys) === false;
     }
 
-    /**
-     * @param string $type
-     * @param string $id
-     * @return bool
-     */
-    public function hasIncludedResource($type, $id)
+    public function hasIncludedResource(string $type, string $id): bool
     {
         return isset($this->includedKeys[$type . "." . $id]);
     }
 
     /**
-     * @param \Traversable|array $transformedResources
+     * @param array|Traversable $transformedResources
      * @return $this
      */
     public function setPrimaryResources($transformedResources)
@@ -81,7 +65,6 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array $transformedResource
      * @return $this
      */
     public function addPrimaryResource(array $transformedResource = [])
@@ -98,7 +81,7 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param \Traversable|array $transformedResources
+     * @param array|Traversable $transformedResources
      * @return $this
      */
     public function setIncludedResources($transformedResources)
@@ -112,7 +95,6 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array $transformedResource
      * @return $this
      */
     public function addIncludedResource(array $transformedResource)
@@ -125,7 +107,7 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @return \Traversable|array
+     * @return array|Traversable
      */
     public function transformIncludedResources()
     {

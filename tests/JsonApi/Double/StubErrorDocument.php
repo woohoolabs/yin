@@ -10,7 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Links;
 class StubErrorDocument extends AbstractErrorDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\JsonApi
+     * @var JsonApi|null
      */
     protected $jsonApi;
 
@@ -20,13 +20,10 @@ class StubErrorDocument extends AbstractErrorDocument
     protected $meta;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @var Links|null
      */
     protected $links;
 
-    /**
-     * @inheritDoc
-     */
     public function __construct(JsonApi $jsonApi = null, array $meta = [], Links $links = null)
     {
         $this->jsonApi = $jsonApi;
@@ -34,25 +31,16 @@ class StubErrorDocument extends AbstractErrorDocument
         $this->links = $links;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getJsonApi()
     {
         return $this->jsonApi;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return $this->meta;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getLinks()
     {
         return $this->links;

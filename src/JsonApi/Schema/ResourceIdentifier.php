@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 
 class ResourceIdentifier
@@ -20,12 +21,9 @@ class ResourceIdentifier
     private $id;
 
     /**
-     * @param array $array
-     * @param ExceptionFactoryInterface $exceptionFactory
-     * @return $this
-     * @throw \Exception
+     * @throws Exception
      */
-    public static function fromArray(array $array, ExceptionFactoryInterface $exceptionFactory)
+    public static function fromArray(array $array, ExceptionFactoryInterface $exceptionFactory): ResourceIdentifier
     {
         if (isset($array["type"]) === false) {
             throw $exceptionFactory->createResourceIdentifierTypeMissing($array);
@@ -45,39 +43,27 @@ class ResourceIdentifier
         return $resourceIdentifier;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     * @return \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier
-     */
-    public function setType($type)
+    public function setType(string $type): ResourceIdentifier
     {
         $this->type = $type;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     * @return \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier
-     */
-    public function setId($id)
+    public function setId(string $id): ResourceIdentifier
     {
         $this->id = $id;
+
         return $this;
     }
 }

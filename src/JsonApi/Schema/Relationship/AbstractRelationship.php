@@ -30,27 +30,21 @@ abstract class AbstractRelationship
     protected $omitDataWhenNotIncluded;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface
+     * @var ResourceTransformerInterface
      */
     protected $resourceTransformer;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param string $relationshipName
-     * @param array $defaultRelationships
      * @return array|null
      */
     abstract protected function transformData(
         Transformation $transformation,
-        $relationshipName,
+        string $relationshipName,
         array $defaultRelationships
     );
 
     /**
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
      * @param mixed $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface|null $resourceTransformer
      */
     public function __construct(
         array $meta = [],
@@ -68,7 +62,6 @@ abstract class AbstractRelationship
 
     /**
      * @param mixed $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
      * @return $this
      */
     public function setData($data, ResourceTransformerInterface $resourceTransformer)
@@ -81,8 +74,6 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param mixed $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $resourceTransformer
      * @return $this
      */
     public function setDataAsCallable(callable $data, ResourceTransformerInterface $resourceTransformer)
@@ -102,32 +93,27 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param string $resourceType
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @param array $additionalMeta
      * @return array|null
      */
     public function transform(
         Transformation $transformation,
-        $resourceType,
-        $relationshipName,
+        string $resourceType,
+        string $relationshipName,
         array $defaultRelationships,
         array $additionalMeta = []
     ) {
         $relationship = null;
 
         if (
-            $transformation->request->isIncludedRelationship(
-                $transformation->basePath,
-                $relationshipName,
-                $defaultRelationships
-            ) ||
             (
                 $transformation->fetchedRelationship === $relationshipName &&
                 $this->data &&
                 $this->omitDataWhenNotIncluded === false
+            ) ||
+            $transformation->request->isIncludedRelationship(
+                $transformation->basePath,
+                $relationshipName,
+                $defaultRelationships
             )
         ) {
             $transformedData = $this->transformData($transformation, $relationshipName, $defaultRelationships);
@@ -159,18 +145,14 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @return array
      */
     protected function transformResource(
         Transformation $transformation,
         $domainObject,
-        $relationshipName,
+        string $relationshipName,
         array $defaultRelationships
-    ) {
+    ): array {
         if ($transformation->request->isIncludedRelationship(
             $transformation->basePath,
             $relationshipName,

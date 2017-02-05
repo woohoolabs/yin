@@ -13,14 +13,11 @@ class ResourceTypeMissing extends JsonApiException
         parent::__construct("A resource type must be included in the document!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("RESOURCE_TYPE_MISSING")
                 ->setTitle("Resource type is missing")
                 ->setDetail("A resource type must be included in the document!")

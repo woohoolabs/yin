@@ -34,10 +34,9 @@ trait CursorBasedPaginationLinkProviderTrait
     abstract public function getNextItem();
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link
+     * @return Link|null
      */
-    public function getSelfLink($url)
+    public function getSelfLink(string $url)
     {
         if ($this->getCurrentItem() === null) {
             return null;
@@ -47,47 +46,42 @@ trait CursorBasedPaginationLinkProviderTrait
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link
+     * @return Link|null
      */
-    public function getFirstLink($url)
+    public function getFirstLink(string $url)
     {
         return $this->createPaginatedLink($url, $this->getFirstItem());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getLastLink($url)
+    public function getLastLink(string $url)
     {
         return $this->createPaginatedLink($url, $this->getLastItem());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getPrevLink($url)
+    public function getPrevLink(string $url)
     {
         return $this->createPaginatedLink($url, $this->getPreviousItem());
     }
 
     /**
-     * @param string $url
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getNextLink($url)
+    public function getNextLink(string $url)
     {
         return $this->createPaginatedLink($url, $this->getNextItem());
     }
 
     /**
-     * @param string $url
      * @param mixed $cursor
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    protected function createPaginatedLink($url, $cursor)
+    protected function createPaginatedLink(string $url, $cursor)
     {
         if ($cursor === null) {
             return null;
@@ -96,12 +90,7 @@ trait CursorBasedPaginationLinkProviderTrait
         return new Link($this->appendQueryStringToUrl($url, CursorBasedPagination::getPaginationQueryString($cursor)));
     }
 
-    /**
-     * @param string $url
-     * @param string $queryString
-     * @return string
-     */
-    protected function appendQueryStringToUrl($url, $queryString)
+    protected function appendQueryStringToUrl(string $url, string $queryString): string
     {
         if (parse_url($url, PHP_URL_QUERY) === null) {
             $separator = substr($url, -1, 1) !== "?" ? "?" : "";

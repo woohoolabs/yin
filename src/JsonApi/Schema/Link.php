@@ -10,27 +10,20 @@ class Link
      */
     private $href;
 
-    /**
-     * @param string $href
-     */
-    public function __construct($href)
+    public function __construct(string $href)
     {
         $this->href = $href;
     }
 
-    /**
-     * @return string
-     */
-    public function getHref()
+    public function getHref(): string
     {
         return $this->href;
     }
 
     /**
-     * @param string $baseUri
      * @return string
      */
-    public function transform($baseUri)
+    public function transform(string $baseUri)
     {
         return $baseUri . $this->href;
     }

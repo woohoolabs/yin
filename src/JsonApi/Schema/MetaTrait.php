@@ -10,16 +10,12 @@ trait MetaTrait
      */
     protected $meta = [];
 
-    /**
-     * @return array
-     */
-    public function getMeta()
+    public function getMeta(): array
     {
         return $this->meta;
     }
 
     /**
-     * @param array $meta
      * @return $this
      */
     public function setMeta(array $meta)

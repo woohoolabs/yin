@@ -3,40 +3,34 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use Exception;
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Error;
 
-abstract class JsonApiException extends \Exception implements JsonApiExceptionInterface
+abstract class JsonApiException extends Exception implements JsonApiExceptionInterface
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
+     * @var AbstractErrorDocument
      */
     protected $errorDocument;
 
-    /**
-     * @param string $message
-     */
-    public function __construct($message = "")
+    public function __construct(string $message = "")
     {
         parent::__construct($message);
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    protected function createErrorDocument()
+    protected function createErrorDocument(): AbstractErrorDocument
     {
         return new ErrorDocument();
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Error[]
+     * @return Error[]
      */
-    abstract protected function getErrors();
+    abstract protected function getErrors(): array;
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    public function getErrorDocument()
+    public function getErrorDocument(): AbstractErrorDocument
     {
         $document = $this->createErrorDocument();
         foreach ($this->getErrors() as $error) {

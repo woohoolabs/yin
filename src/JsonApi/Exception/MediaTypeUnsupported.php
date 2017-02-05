@@ -13,23 +13,17 @@ class MediaTypeUnsupported extends JsonApiException
      */
     protected $mediaTypeName;
 
-    /**
-     * @param string $mediaTypeName
-     */
-    public function __construct($mediaTypeName)
+    public function __construct(string $mediaTypeName)
     {
         parent::__construct("The media type '$mediaTypeName' is unsupported in the 'Content-Type' header!");
         $this->mediaTypeName = $mediaTypeName;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(415)
+                ->setStatus("415")
                 ->setCode("MEDIA_TYPE_UNSUPPORTED")
                 ->setTitle("The provided media type is unsupported")
                 ->setDetail($this->getMessage())
@@ -37,10 +31,7 @@ class MediaTypeUnsupported extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMediaTypeName()
+    public function getMediaTypeName(): string
     {
         return $this->mediaTypeName;
     }

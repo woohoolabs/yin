@@ -12,14 +12,11 @@ class ApplicationError extends JsonApiException
         parent::__construct("Application exception is thrown!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(500)
+                ->setStatus("500")
                 ->setCode("APPLICATION_ERROR")
                 ->setTitle("Application error")
                 ->setDetail("An application error has occurred!")

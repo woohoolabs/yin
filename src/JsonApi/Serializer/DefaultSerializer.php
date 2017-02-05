@@ -7,13 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class DefaultSerializer implements SerializerInterface
 {
-    /**
-     * @param ResponseInterface $response
-     * @param int $responseCode
-     * @param array $content
-     * @return ResponseInterface
-     */
-    public function serialize(ResponseInterface $response, $responseCode, array $content)
+    public function serialize(ResponseInterface $response, int $responseCode, array $content): ResponseInterface
     {
         $response = $response->withStatus($responseCode);
         $response = $response->withHeader("Content-Type", "application/vnd.api+json");
@@ -28,7 +22,7 @@ class DefaultSerializer implements SerializerInterface
     /**
      * @return string
      */
-    public function getBodyAsString(ResponseInterface $response)
+    public function getBodyAsString(ResponseInterface $response): string
     {
         return $response->getBody()->__toString();
     }

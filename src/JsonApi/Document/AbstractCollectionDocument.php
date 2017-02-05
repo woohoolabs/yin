@@ -4,33 +4,31 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface
+     * @var ResourceTransformerInterface
      */
     protected $transformer;
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $transformer
+     * @param ResourceTransformerInterface $transformer
      */
     public function __construct(ResourceTransformerInterface $transformer)
     {
         $this->transformer = $transformer;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function createData()
+    protected function createData(): DataInterface
     {
         return new CollectionData();
     }
 
-    protected function hasItems()
+    protected function hasItems(): bool
     {
         return empty($this->getItems()) === false;
     }
@@ -40,9 +38,6 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         return $this->domainObject;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function fillData(Transformation $transformation)
     {
         foreach ($this->getItems() as $item) {
@@ -50,14 +45,11 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ) {
+    ): array {
         if ($this->hasItems() === false) {
             return [];
         }

@@ -316,13 +316,7 @@ class PageBasedPaginationProviderTraitTest extends TestCase
         $this->assertEquals("$url?page[number]=3&page[size]=$size", $provider->getNextLink($url)->getHref());
     }
 
-    /**
-     * @param int $totalItems
-     * @param int $page
-     * @param int $size
-     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubPageBasedPaginationProvider
-     */
-    private function createProvider($totalItems, $page, $size)
+    private function createProvider(int $totalItems, int $page, int $size): StubPageBasedPaginationProvider
     {
         return new StubPageBasedPaginationProvider($totalItems, $page, $size);
     }

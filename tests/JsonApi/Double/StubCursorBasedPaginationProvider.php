@@ -50,9 +50,6 @@ class StubCursorBasedPaginationProvider
         $this->nextItem = $nextItem;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getFirstItem()
     {
         return $this->firstItem;

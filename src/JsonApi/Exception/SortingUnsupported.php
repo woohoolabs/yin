@@ -13,14 +13,11 @@ class SortingUnsupported extends JsonApiException
         parent::__construct("Sorting is not supported!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("SORTING_UNSUPPORTED")
                 ->setTitle("Sorting is unsupported")
                 ->setDetail("Sorting is not supported by the endpoint!")

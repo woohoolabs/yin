@@ -15,38 +15,23 @@ class ErrorSource
      */
     private $parameter;
 
-    /**
-     * @param string $pointer
-     * @return $this
-     */
-    public static function fromPointer($pointer)
+    public static function fromPointer(string $pointer): ErrorSource
     {
         return new self($pointer, "");
     }
 
-    /**
-     * @param string $parameter
-     * @return $this
-     */
-    public static function fromParameter($parameter)
+    public static function fromParameter(string $parameter): ErrorSource
     {
         return new self("", $parameter);
     }
 
-    /**
-     * @param string $pointer
-     * @param string $parameter
-     */
-    public function __construct($pointer, $parameter)
+    public function __construct(string $pointer, string $parameter)
     {
         $this->pointer = $pointer;
         $this->parameter = $parameter;
     }
 
-    /**
-     * @return array
-     */
-    public function transform()
+    public function transform(): array
     {
         $content = [];
 
@@ -61,18 +46,12 @@ class ErrorSource
         return $content;
     }
 
-    /**
-     * @return string
-     */
-    public function getPointer()
+    public function getPointer(): string
     {
         return $this->pointer;
     }
 
-    /**
-     * @return string
-     */
-    public function getParameter()
+    public function getParameter(): string
     {
         return $this->parameter;
     }

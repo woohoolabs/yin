@@ -16,19 +16,12 @@ class RelationshipResponder extends AbstractResponder
      */
     protected $relationshipName;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param SerializerInterface $serializer
-     * @param string $relationshipName
-     */
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer,
-        $relationshipName
+        string $relationshipName
     ) {
         parent::__construct($request, $response, $exceptionFactory, $serializer);
         $this->relationshipName = $relationshipName;
@@ -38,13 +31,13 @@ class RelationshipResponder extends AbstractResponder
      * Returns a "200 Ok" response, containing a document in the body with the relationship.  You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
-    {
+    public function ok(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getDocumentRelationshipResponse(
             $this->relationshipName,
             $document,
@@ -58,13 +51,13 @@ class RelationshipResponder extends AbstractResponder
      * Returns a "200 Ok" response, containing a document with the relationship meta data in the body. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
-    {
+    public function okWithMeta(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getDocumentRelationshipMetaResponse(
             $this->relationshipName,
             $document,

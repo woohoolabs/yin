@@ -10,17 +10,17 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 class Transformation
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
+     * @var RequestInterface
      */
     public $request;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
+     * @var DataInterface
      */
     public $data;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     * @var ExceptionFactoryInterface
      */
     public $exceptionFactory;
 
@@ -34,17 +34,11 @@ class Transformation
      */
     public $fetchedRelationship;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param string $basePath
-     */
     public function __construct(
         RequestInterface $request,
         DataInterface $data,
         ExceptionFactoryInterface $exceptionFactory,
-        $basePath
+        string $basePath
     ) {
         $this->request = $request;
         $this->data = $data;
@@ -52,50 +46,32 @@ class Transformation
         $this->basePath = $basePath;
     }
 
-    /**
-     * @return RequestInterface
-     */
-    public function getRequest()
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
-     */
-    public function getData()
+    public function getData(): DataInterface
     {
         return $this->data;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
-     */
-    public function getExceptionFactory()
+    public function getExceptionFactory(): ExceptionFactoryInterface
     {
         return $this->exceptionFactory;
     }
 
-    /**
-     * @return string
-     */
-    public function getBasePath()
+    public function getBasePath(): string
     {
         return $this->basePath;
     }
 
-    /**
-     * @return string
-     */
-    public function getFetchedRelationship()
+    public function getFetchedRelationship(): string
     {
         return $this->fetchedRelationship;
     }
 
-    /**
-     * @param string $fetchedRelationship
-     */
-    public function setFetchedRelationship($fetchedRelationship)
+    public function setFetchedRelationship(string $fetchedRelationship)
     {
         $this->fetchedRelationship = $fetchedRelationship;
     }

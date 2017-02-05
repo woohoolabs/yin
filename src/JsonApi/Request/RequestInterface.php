@@ -4,20 +4,29 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 
 interface RequestInterface extends ServerRequestInterface
 {
     /**
      * Validates if the current request's Content-Type header conforms to the JSON API schema.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported
+     * @throws MediaTypeUnsupported
      */
     public function validateContentTypeHeader();
 
     /**
      * Validates if the current request's Accept header conforms to the JSON API schema.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable
+     * @throws MediaTypeUnacceptable
      */
     public function validateAcceptHeader();
 
@@ -28,161 +37,121 @@ interface RequestInterface extends ServerRequestInterface
      * adhere to the same constraints as member names with the additional requirement that they
      * MUST contain at least one non a-z character (U+0061 to U+007A)".
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized
+     * @throws QueryParamUnrecognized
      */
     public function validateQueryParams();
 
     /**
      * Returns a list of field names for the given resource type which are required to be present in the response.
-     *
-     * @param string $resourceType
-     * @return array
      */
-    public function getIncludedFields($resourceType);
+    public function getIncludedFields(string $resourceType): array;
 
     /**
      * Determines if a given field for a given resource type should be present in the response or not.
-     *
-     * @param string $resourceType
-     * @param string $field
-     * @return bool
      */
-    public function isIncludedField($resourceType, $field);
+    public function isIncludedField(string $resourceType, string $field): bool;
 
     /**
      * Determines if the request needs any relationships to be included.
-     *
-     * @return bool
      */
-    public function hasIncludedRelationships();
+    public function hasIncludedRelationships(): bool;
 
     /**
      * Returns a list of relationship paths for a given parent path.
-     *
-     * @param string $baseRelationshipPath
-     * @return array
      */
-    public function getIncludedRelationships($baseRelationshipPath);
+    public function getIncludedRelationships(string $baseRelationshipPath): array;
 
     /**
      * Determines if a given relationship name that is a child of the $baseRelationshipPath is required to be included
      * in the response.
-     *
-     * @param string $baseRelationshipPath
-     * @param string $relationshipName
-     * @param array $defaultRelationships
-     * @return bool
      */
-    public function isIncludedRelationship($baseRelationshipPath, $relationshipName, array $defaultRelationships);
+    public function isIncludedRelationship(
+        string $baseRelationshipPath,
+        string $relationshipName,
+        array $defaultRelationships
+    ): bool;
 
-    /**
-     * @return array
-     */
-    public function getSorting();
+    public function getSorting(): array;
 
-    /**
-     * @return array|null
-     */
-    public function getPagination();
+    public function getPagination(): array;
 
-    /**
-     * @param mixed $defaultPage
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination
-     */
-    public function getFixedPageBasedPagination($defaultPage = null);
+    public function getFixedPageBasedPagination(int $defaultPage = null): FixedPageBasedPagination;
 
-    /**
-     * @param mixed $defaultPage
-     * @param mixed $defaultSize
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination
-     */
-    public function getPageBasedPagination($defaultPage = null, $defaultSize = null);
+    public function getPageBasedPagination(int $defaultPage = null, int $defaultSize = null): PageBasedPagination;
 
-    /**
-     * @param mixed $defaultOffset
-     * @param mixed $defaultLimit
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination
-     */
-    public function getOffsetBasedPagination($defaultOffset = null, $defaultLimit = null);
+    public function getOffsetBasedPagination(
+        int $defaultOffset = null,
+        int $defaultLimit = null
+    ): OffsetBasedPagination;
 
     /**
      * @param mixed $defaultCursor
-     * @return \WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination
      */
-    public function getCursorBasedPagination($defaultCursor = null);
+    public function getCursorBasedPagination($defaultCursor = null): CursorBasedPagination;
+
+    public function getFiltering(): array;
 
     /**
-     * @return array
-     */
-    public function getFiltering();
-
-    /**
-     * @param string $param
      * @param mixed|null $default
-     * @return array|string
+     * @return string|mixed
      */
-    public function getFilteringParam($param, $default = null);
+    public function getFilteringParam(string $param, $default = null);
 
     /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
      *
-     * @param string $name
      * @param mixed $default
-     * @return array|string
+     * @return array|string|mixed
      */
-    public function getQueryParam($name, $default = null);
+    public function getQueryParam(string $name, $default = null);
 
     /**
      * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
      *
-     * @param string $name
      * @param mixed $value
      * @return $this
      */
-    public function withQueryParam($name, $value);
+    public function withQueryParam(string $name, $value);
 
     /**
      * Returns the "data" part of the request if it is present in the body, or null otherwise.
      *
-     * @return array|null
+     * @param mixed $default
+     * @return array|mixed
      */
-    public function getResource();
+    public function getResource($default = null);
 
     /**
      * Returns the "type" key's value in the "data" part of the request if it is present in the body, or null otherwise.
      *
-     * @return string|null
+     * @param mixed $default
+     * @return string|mixed
      */
-    public function getResourceType();
+    public function getResourceType($default = null);
 
     /**
      * Returns the "id" key's value in the "data" part of the request if it is present in the body, or null otherwise.
      *
-     * @return string|null
+     * @param mixed $default
+     * @return string|mixed
      */
-    public function getResourceId();
+    public function getResourceId($default = null);
+
+    public function getResourceAttributes(): array;
 
     /**
-     * @return array
+     * @param mixed $default
+     * @return mixed
      */
-    public function getResourceAttributes();
+    public function getResourceAttribute(string $attribute, $default = null);
 
     /**
-     * @param string $attribute
-     * @param mixed|null $default
-     * @return mixed|null
+     * @return ToOneRelationship|null
      */
-    public function getResourceAttribute($attribute, $default = null);
+    public function getToOneRelationship(string $relationship);
 
     /**
-     * @param string $relationship
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|null
+     * @return ToManyRelationship|null
      */
-    public function getToOneRelationship($relationship);
-
-    /**
-     * @param string $relationship
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
-     */
-    public function getToManyRelationship($relationship);
+    public function getToManyRelationship(string $relationship);
 }

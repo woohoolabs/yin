@@ -34,130 +34,87 @@ class Error
     protected $detail;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\ErrorSource
+     * @var ErrorSource
      */
     protected $source;
 
-    /**
-     * @return $this
-     */
-    public static function create()
+    public static function create(): Error
     {
         return new self();
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId($id)
+    public function setId(string $id): Error
     {
         $this->id = $id;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @param string $status
-     * @return $this
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): Error
     {
         $this->status = $status;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     * @return $this
-     */
-    public function setCode($code)
+    public function setCode(string $code): Error
     {
         $this->code = $code;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return $this
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): Error
     {
         $this->title = $title;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getDetail()
+    public function getDetail(): string
     {
         return $this->detail;
     }
 
-    /**
-     * @param string $detail
-     * @return $this
-     */
-    public function setDetail($detail)
+    public function setDetail(string $detail): Error
     {
         $this->detail = $detail;
+
         return $this;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\ErrorSource
-     */
-    public function getSource()
+    public function getSource(): ErrorSource
     {
         return $this->source;
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ErrorSource $source
-     * @return $this
-     */
-    public function setSource(ErrorSource $source)
+    public function setSource(ErrorSource $source): Error
     {
         $this->source = $source;
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function transform()
+    public function transform(): array
     {
         $content = [];
 

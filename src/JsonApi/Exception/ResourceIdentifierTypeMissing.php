@@ -18,24 +18,18 @@ class ResourceIdentifierTypeMissing extends JsonApiException
         $this->resourceIdentifier = $resourceIdentifier;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("RESOURCE_IDENTIFIER_TYPE_MISSING")
                 ->setTitle("A type for the resource identifier is missing")
                 ->setDetail("A type for the resource identifier must be included!")
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getResourceIdentifier()
+    public function getResourceIdentifier(): array
     {
         return $this->resourceIdentifier;
     }

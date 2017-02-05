@@ -11,12 +11,6 @@ class ToManyRelationship extends AbstractRelationship
 {
     use RelationshipFactoryTrait;
 
-    /**
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface|null $resourceTransformer
-     */
     public function __construct(
         array $meta = [],
         Links $links = null,
@@ -26,12 +20,9 @@ class ToManyRelationship extends AbstractRelationship
         parent::__construct($meta, $links, $data, $resourceTransformer);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function transformData(
         Transformation $transformation,
-        $relationshipName,
+        string $relationshipName,
         array $defaultRelationships
     ) {
         $data = $this->retrieveData();

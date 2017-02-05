@@ -13,14 +13,11 @@ class DataMemberMissing extends JsonApiException
         parent::__construct("Missing `data` member at the document's top level!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("DATA_MEMBER_MISSING")
                 ->setTitle("Missing `data` member at the document's top level")
                 ->setDetail($this->getMessage())

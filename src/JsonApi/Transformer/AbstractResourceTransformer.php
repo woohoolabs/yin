@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
+use Exception;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 use WoohooLabs\Yin\TransformerTrait;
 
 abstract class AbstractResourceTransformer implements ResourceTransformerInterface
@@ -38,9 +40,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Transforms the original resource to a JSON API resource.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @return array
+     * @return array|null
      */
     public function transformToResource(Transformation $transformation, $domainObject)
     {
@@ -65,14 +66,11 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * Transforms a relationship with a name of $relationshipName of the original resource to a JSON API relationship.
      *
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param array $additionalMeta
      * @return array|null
      */
     public function transformRelationship(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         $domainObject,
         array $additionalMeta = []
@@ -93,7 +91,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param array $array
      * @param mixed $domainObject
      */
     protected function transformLinksObject(array &$array, $domainObject)
@@ -106,8 +103,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param array $array
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      */
     protected function transformAttributesObject(array &$array, Transformation $transformation, $domainObject)
@@ -121,12 +116,10 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param callable[] $attributes
      * @param mixed $domainObject
-     * @return array
      */
-    protected function transformAttributes(Transformation $transformation, array $attributes, $domainObject)
+    protected function transformAttributes(Transformation $transformation, array $attributes, $domainObject): array
     {
         $result = [];
         $resourceType = $this->getType($domainObject);
@@ -141,8 +134,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param array $array
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
      */
     protected function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject)
@@ -156,14 +147,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param array $relationships
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param array $relationships
-     * @return array
+     * @param callable[] $relationships
      */
-    protected function transformRelationships(Transformation $transformation, $domainObject, array $relationships)
-    {
+    protected function transformRelationships(
+        Transformation $transformation,
+        $domainObject,
+        array $relationships
+    ): array {
         $this->validateRelationships($transformation, $relationships);
 
         $result = [];
@@ -187,18 +178,14 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      * @param mixed $domainObject
-     * @param string $relationshipName
      * @param callable[] $relationships
-     * @param array $defaultRelationships
-     * @param array $additionalMeta
      * @return array|null
      */
     protected function transformRelationshipObject(
         Transformation $transformation,
         $domainObject,
-        $relationshipName,
+        string $relationshipName,
         array $relationships,
         array $defaultRelationships,
         array $additionalMeta = []
@@ -217,7 +204,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         }
 
         $relationshipCallback = $relationships[$relationshipName];
-        /** @var \WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship $relationship */
+        /** @var AbstractRelationship $relationship */
         $relationship = $relationshipCallback($domainObject, $transformation->request, $relationshipName);
 
         return $relationship->transform(
@@ -230,9 +217,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param array $relationships
-     * @throws \Exception
+     * @throws Exception
      */
     protected function validateRelationships(Transformation $transformation, array $relationships)
     {
@@ -240,8 +225,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
 
         $nonExistentRelationships = array_diff($requestedRelationships, array_keys($relationships));
         if (empty($nonExistentRelationships) === false) {
-            foreach ($nonExistentRelationships as &$relationship) {
-                $relationship = ($transformation->basePath ? $transformation->basePath . "." : "") . $relationship;
+            foreach ($nonExistentRelationships as $key => $relationship) {
+                $nonExistentRelationships[$key] = ($transformation->basePath ? $transformation->basePath . "." : "") . $relationship;
             }
 
             throw $transformation->exceptionFactory->createInclusionUnrecognizedException(

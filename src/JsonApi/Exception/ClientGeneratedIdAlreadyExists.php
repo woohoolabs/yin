@@ -13,23 +13,17 @@ class ClientGeneratedIdAlreadyExists extends JsonApiException
      */
     protected $clientGeneratedId;
 
-    /**
-     * @param string|null $clientGeneratedId
-     */
-    public function __construct($clientGeneratedId)
+    public function __construct(string $clientGeneratedId)
     {
         parent::__construct("Client generated ID '$clientGeneratedId' already exists!");
         $this->clientGeneratedId = $clientGeneratedId;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(409)
+                ->setStatus("409")
                 ->setCode("CLIENT_GENERATED_ID_ALREADY_EXISTS")
                 ->setTitle("Client generated ID already exists")
                 ->setDetail($this->getMessage())
@@ -37,10 +31,7 @@ class ClientGeneratedIdAlreadyExists extends JsonApiException
         ];
     }
 
-    /**
-     * @return string|null
-     */
-    public function getClientGeneratedId()
+    public function getClientGeneratedId(): string
     {
         return $this->clientGeneratedId;
     }

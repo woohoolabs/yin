@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
@@ -14,47 +15,33 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      */
     protected $domainObject;
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface
-     */
-    abstract protected function createData();
+    abstract protected function createData(): DataInterface;
 
     /**
      * Fills the transformation data based on the "domainObject" property.
-     *
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
      */
     abstract protected function fillData(Transformation $transformation);
 
     /**
-     *
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param array $additionalMeta
-     * @return array
+     * @return array|null
      */
     abstract protected function getRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
     );
 
     /**
-     *
      * Transform a $domainObject resource in a jsonapi format
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return array
      */
     public function getContent(
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
         array $additionalMeta = []
-    ) {
+    ): array {
         $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
 
         $this->initializeDocument($domainObject);
@@ -63,40 +50,27 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     }
 
     /**
-     *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return array
      */
     public function getMetaContent(
-        RequestInterface $request,
-        ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
         array $additionalMeta = []
-    ) {
+    ): array {
         $this->initializeDocument($domainObject);
 
         return $this->transformBaseContent($additionalMeta);
     }
 
     /**
-     *
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return array
      */
     public function getRelationship(
-        $relationshipName,
+        string $relationshipName,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
         array $additionalMeta = []
-    ) {
+    ): array {
         $transformation = new Transformation($request, $this->createData(), $exceptionFactory, "");
         $this->initializeDocument($domainObject);
         return $this->transformRelationshipContent($relationshipName, $transformation, $additionalMeta);
@@ -110,12 +84,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $this->domainObject = $domainObject;
     }
 
-    /**
-     * @param array $additionalMeta
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @return array
-     */
-    protected function transformContent(Transformation $transformation, array $additionalMeta = [])
+    protected function transformContent(Transformation $transformation, array $additionalMeta = []): array
     {
         $content = $this->transformBaseContent($additionalMeta);
 
@@ -131,17 +100,11 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         return $content;
     }
 
-    /**
-     * @param string $relationshipName
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\Transformation $transformation
-     * @param array $additionalMeta
-     * @return array
-     */
     protected function transformRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ) {
+    ): array {
         $content = $this->getRelationshipContent($relationshipName, $transformation, $additionalMeta);
 
         // Included

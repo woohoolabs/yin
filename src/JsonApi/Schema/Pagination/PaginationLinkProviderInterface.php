@@ -3,35 +3,32 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
+use WoohooLabs\Yin\JsonApi\Schema\Link;
+
 interface PaginationLinkProviderInterface
 {
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getSelfLink($uri);
+    public function getSelfLink(string $uri);
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getFirstLink($uri);
+    public function getFirstLink(string $uri);
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getLastLink($uri);
+    public function getLastLink(string $uri);
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getPrevLink($uri);
+    public function getPrevLink(string $uri);
 
     /**
-     * @param string $uri
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Link|null
+     * @return Link|null
      */
-    public function getNextLink($uri);
+    public function getNextLink(string $uri);
 }

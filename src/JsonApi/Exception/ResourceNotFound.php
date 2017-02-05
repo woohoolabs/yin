@@ -12,14 +12,11 @@ class ResourceNotFound extends JsonApiException
         parent::__construct("The requested resource is not found!");
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(404)
+                ->setStatus("404")
                 ->setCode("RESOURCE_NOT_FOUND")
                 ->setTitle("Resource not found")
                 ->setDetail($this->getMessage())

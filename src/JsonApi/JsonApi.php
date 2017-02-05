@@ -17,30 +17,25 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 class JsonApi
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Request\RequestInterface
+     * @var RequestInterface
      */
     public $request;
 
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var ResponseInterface
      */
     public $response;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
+     * @var ExceptionFactoryInterface
      */
     protected $exceptionFactory;
 
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface
+     * @var SerializerInterface
      */
     protected $serializer;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
-     */
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
@@ -53,69 +48,42 @@ class JsonApi
         $this->serializer = $serializer ? $serializer : new DefaultSerializer();
     }
 
-    /**
-     * Returns the current JSON API request.
-     *
-     * @return \WoohooLabs\Yin\JsonApi\Request\RequestInterface
-     */
-    public function getRequest()
+    public function getRequest(): RequestInterface
     {
         return $this->request;
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     */
     public function setRequest(RequestInterface $request)
     {
         $this->request = $request;
     }
 
-    /**
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getResponse()
+    public function getResponse(): ResponseInterface
     {
         return $this->response;
     }
 
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     */
     public function setResponse(ResponseInterface $response)
     {
         $this->response = $response;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface
-     */
-    public function getExceptionFactory()
+    public function getExceptionFactory(): ExceptionFactoryInterface
     {
         return $this->exceptionFactory;
     }
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     */
     public function setExceptionFactory($exceptionFactory)
     {
         $this->exceptionFactory = $exceptionFactory;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Response\Responder
-     */
-    public function respond()
+    public function respond(): Responder
     {
         return new Responder($this->request, $this->response, $this->exceptionFactory, $this->serializer);
     }
 
-    /**
-     * @param string $relationship
-     * @return \WoohooLabs\Yin\JsonApi\Response\RelationshipResponder
-     */
-    public function respondWithRelationship($relationship)
+    public function respondWithRelationship(string $relationship): RelationshipResponder
     {
         return new RelationshipResponder(
             $this->request,
@@ -127,8 +95,8 @@ class JsonApi
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface $hydrator
-     * @param $domainObject
+     * @param HydratorInterface $hydrator
+     * @param mixed $domainObject
      * @return mixed
      */
     public function hydrate(HydratorInterface $hydrator, $domainObject)
@@ -137,13 +105,14 @@ class JsonApi
     }
 
     /**
-     * @param string $relationship
-     * @param \WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface $hydrator
-     * @param $domainObject
+     * @param mixed $domainObject
      * @return mixed
      */
-    public function hydrateRelationship($relationship, UpdateRelationshipHydratorInterface $hydrator, $domainObject)
-    {
+    public function hydrateRelationship(
+        string $relationship,
+        UpdateRelationshipHydratorInterface $hydrator,
+        $domainObject
+    ) {
         return $hydrator->hydrateRelationship($relationship, $this->request, $this->exceptionFactory, $domainObject);
     }
 

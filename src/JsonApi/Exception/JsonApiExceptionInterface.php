@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
+
 interface JsonApiExceptionInterface
 {
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    public function getErrorDocument();
+    public function getErrorDocument(): AbstractErrorDocument;
 }

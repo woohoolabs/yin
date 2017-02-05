@@ -13,23 +13,17 @@ class QueryParamUnrecognized extends JsonApiException
      */
     protected $unrecognizedQueryParam;
 
-    /**
-     * @param string $unrecognizedQueryParam
-     */
-    public function __construct($unrecognizedQueryParam)
+    public function __construct(string $unrecognizedQueryParam)
     {
         parent::__construct("Query parameter '$unrecognizedQueryParam' can't be recognized!");
         $this->unrecognizedQueryParam = $unrecognizedQueryParam;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("QUERY_PARAM_UNRECOGNIZED")
                 ->setTitle("Query parameter is unrecognized")
                 ->setDetail("Query parameter '$this->unrecognizedQueryParam' can't be recognized by the endpoint!")
@@ -37,10 +31,7 @@ class QueryParamUnrecognized extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getUnrecognizedQueryParam()
+    public function getUnrecognizedQueryParam(): string
     {
         return $this->unrecognizedQueryParam;
     }

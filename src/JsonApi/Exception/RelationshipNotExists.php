@@ -12,20 +12,17 @@ class RelationshipNotExists extends JsonApiException
      */
     protected $relationship;
 
-    public function __construct($relationship)
+    public function __construct(string $relationship)
     {
         parent::__construct("The requested relationship '" . $relationship . "' does not exist!");
         $this->relationship = $relationship;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(404)
+                ->setStatus("404")
                 ->setCode("RELATIONSHIP_NOT_EXISTS")
                 ->setTitle("The requested relationship does not exist!")
                 ->setDetail($this->getMessage())

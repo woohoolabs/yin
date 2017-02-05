@@ -4,16 +4,17 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 interface HydratorInterface
 {
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
+     * @param RequestInterface $request
+     * @param ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws ResourceTypeMissing
      */
     public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject);
 }

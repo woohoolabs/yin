@@ -10,12 +10,12 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 abstract class AbstractErrorDocument extends AbstractDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Schema\Error[]
+     * @var Error[]
      */
     protected $errors = [];
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Error[]
+     * @return Error[]
      */
     public function getErrors()
     {
@@ -25,42 +25,33 @@ abstract class AbstractErrorDocument extends AbstractDocument
     /**
      * Includes a new error in the error document.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error $error
+     * @param Error $error
      * @return $this
      */
     public function addError(Error $error)
     {
         $this->errors[] = $error;
+
         return $this;
     }
 
     /**
      * Returns a response with a status code of $responseCode, containing all the provided members of the error
      * document. You can also pass additional meta information for the document in the $additionalMeta argument.
-     *
-     * @param SerializerInterface $serializer
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param int $responseCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getResponse(
         SerializerInterface $serializer,
         ResponseInterface $response,
-        $responseCode = null,
+        int $responseCode = null,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         return $serializer->serialize($response,
             $this->getResponseCode($responseCode),
             $this->transformContent($additionalMeta)
         );
     }
 
-    /**
-     * @param int $responseCode
-     * @return int
-     */
-    protected function getResponseCode($responseCode)
+    protected function getResponseCode(int $responseCode = null): int
     {
         if ($responseCode !== null) {
             return $responseCode;
@@ -72,7 +63,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
 
         $responseCode = 500;
         foreach ($this->errors as $error) {
-            /** @var \WoohooLabs\Yin\JsonApi\Schema\Error $error */
+            /** @var Error $error */
             $roundedStatusCode = (int) (((int)$error->getStatus()) / 100) * 100;
 
             if (abs($responseCode - $roundedStatusCode) >= 100) {
@@ -83,18 +74,13 @@ abstract class AbstractErrorDocument extends AbstractDocument
         return $responseCode;
     }
 
-    /**
-     * @param array $additionalMeta
-     * @return array
-     */
-    public function transformContent(array $additionalMeta = [])
+    public function transformContent(array $additionalMeta = []): array
     {
         $content = $this->transformBaseContent($additionalMeta);
 
-        // ERRORS
         if (empty($this->errors) === false) {
             foreach ($this->errors as $error) {
-                /** @var \WoohooLabs\Yin\JsonApi\Schema\Error $error */
+                /** @var Error $error */
                 $content["errors"][] = $error->transform();
             }
         }

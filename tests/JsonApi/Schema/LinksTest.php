@@ -192,11 +192,9 @@ class LinksTest extends TestCase
     }
 
     /**
-     * @param string $baseUri
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Link[] $links
-     * @return \WoohooLabs\Yin\JsonApi\Schema\Links
+     * @param Link[] $links
      */
-    private function createLinks($baseUri = "", array $links = [])
+    private function createLinks(string $baseUri = "", array $links = []): Links
     {
         return new Links($baseUri, $links);
     }

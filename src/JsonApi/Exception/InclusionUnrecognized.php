@@ -13,23 +13,17 @@ class InclusionUnrecognized extends JsonApiException
      */
     protected $unrecognizedIncludes;
 
-    /**
-     * @param array $unrecognizedIncludes
-     */
     public function __construct(array $unrecognizedIncludes)
     {
         parent::__construct("Included paths '" . implode(", ", $unrecognizedIncludes) . "' can't be recognized!");
         $this->unrecognizedIncludes = $unrecognizedIncludes;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("INCLUSION_UNRECOGNIZED")
                 ->setTitle("Inclusion is unrecognized")
                 ->setDetail(
@@ -40,10 +34,7 @@ class InclusionUnrecognized extends JsonApiException
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getUnrecognizedIncludes()
+    public function getUnrecognizedIncludes(): array
     {
         return $this->unrecognizedIncludes;
     }

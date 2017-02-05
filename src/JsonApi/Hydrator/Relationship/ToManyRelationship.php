@@ -13,7 +13,7 @@ class ToManyRelationship
     protected $resourceIdentifiers = [];
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier[] $resourceIdentifiers
+     * @param ResourceIdentifier[] $resourceIdentifiers
      */
     public function __construct(array $resourceIdentifiers = [])
     {
@@ -23,7 +23,7 @@ class ToManyRelationship
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier
+     * @param ResourceIdentifier $resourceIdentifier
      * @return $this
      */
     public function addResourceIdentifier(ResourceIdentifier $resourceIdentifier)
@@ -47,7 +47,7 @@ class ToManyRelationship
     {
         $types = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
-            /** @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier */
+            /** @var ResourceIdentifier $resourceIdentifier */
             $types[] = $resourceIdentifier->getType();
         }
 
@@ -61,7 +61,7 @@ class ToManyRelationship
     {
         $ids = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
-            /** @var \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier $resourceIdentifier */
+            /** @var ResourceIdentifier $resourceIdentifier */
             $ids[] = $resourceIdentifier->getId();
         }
 

@@ -13,23 +13,17 @@ class MediaTypeUnacceptable extends JsonApiException
      */
     protected $mediaTypeName;
 
-    /**
-     * @param string $mediaTypeName
-     */
-    public function __construct($mediaTypeName)
+    public function __construct(string $mediaTypeName)
     {
         parent::__construct("The media type '" . $mediaTypeName . "' is unacceptable in the 'Accept' header!");
         $this->mediaTypeName = $mediaTypeName;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(406)
+                ->setStatus("406")
                 ->setCode("MEDIA_TYPE_UNACCEPTABLE")
                 ->setTitle("The provided media type is unacceptable")
                 ->setDetail($this->getMessage())
@@ -37,10 +31,7 @@ class MediaTypeUnacceptable extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMediaTypeName()
+    public function getMediaTypeName(): string
     {
         return $this->mediaTypeName;
     }

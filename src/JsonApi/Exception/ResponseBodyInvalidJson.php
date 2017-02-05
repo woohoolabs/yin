@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
+use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 
 class ResponseBodyInvalidJson extends JsonApiException
 {
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var ResponseInterface
      */
     protected $response;
 
@@ -24,12 +25,7 @@ class ResponseBodyInvalidJson extends JsonApiException
      */
     protected $includeOriginalBody;
 
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param string $lintMessage
-     * @param boolean $includeOriginalBody
-     */
-    public function __construct(ResponseInterface $response, $lintMessage, $includeOriginalBody)
+    public function __construct(ResponseInterface $response, string $lintMessage, bool $includeOriginalBody)
     {
         parent::__construct("Request body is an invalid JSON document: '$lintMessage'!");
         $this->response = $response;
@@ -37,10 +33,7 @@ class ResponseBodyInvalidJson extends JsonApiException
         $this->includeOriginalBody = $includeOriginalBody;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument
-     */
-    protected function createErrorDocument()
+    protected function createErrorDocument(): AbstractErrorDocument
     {
         $errorDocument = new ErrorDocument();
 
@@ -51,10 +44,7 @@ class ResponseBodyInvalidJson extends JsonApiException
         return $errorDocument;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
@@ -65,10 +55,7 @@ class ResponseBodyInvalidJson extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getLintMessage()
+    public function getLintMessage(): string
     {
         return $this->lintMessage;
     }

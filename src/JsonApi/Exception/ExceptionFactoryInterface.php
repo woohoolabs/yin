@@ -3,205 +3,164 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 interface ExceptionFactoryInterface
 {
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createApplicationErrorException(RequestInterface $request);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $currentId
-     * @return \Exception
+     * @return Exception
      */
-    public function createClientGeneratedIdNotSupportedException(RequestInterface $request, $currentId);
+    public function createClientGeneratedIdNotSupportedException(RequestInterface $request, string $currentId);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $currentId
-     * @return \Exception
+     * @return Exception
      */
-    public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, $currentId);
+    public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, string $currentId);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createClientGeneratedIdRequiredException(RequestInterface $request);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createDataMemberMissingException(RequestInterface $request);
 
     /**
-     * @param string $relationshipName
-     * @return \Exception
+     * @return Exception
      */
-    public function createFullReplacementProhibitedException($relationshipName);
+    public function createFullReplacementProhibitedException(string $relationshipName);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createInclusionUnsupportedException(RequestInterface $request);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param array $unrecognizedInclusions
-     * @return \Exception
+     * @return Exception
      */
     public function createInclusionUnrecognizedException(RequestInterface $request, array $unrecognizedInclusions);
 
-
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $mediaTypeName
-     * @return \Exception
+     * @return Exception
      */
-    public function createMediaTypeUnsupportedException(RequestInterface $request, $mediaTypeName);
+    public function createMediaTypeUnsupportedException(RequestInterface $request, string $mediaTypeName);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $mediaTypeName
-     * @return \Exception
+     * @return Exception
      */
-    public function createMediaTypeUnacceptableException(RequestInterface $request, $mediaTypeName);
+    public function createMediaTypeUnacceptableException(RequestInterface $request, string $mediaTypeName);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $queryParamName
-     * @return \Exception
+     * @return Exception
      */
-    public function createQueryParamUnrecognizedException(RequestInterface $request, $queryParamName);
+    public function createQueryParamUnrecognizedException(RequestInterface $request, string $queryParamName);
 
     /**
-     * @param string $relationship
-     * @return \Exception
+     * @return Exception
      */
-    public function createRelationshipNotExists($relationship);
+    public function createRelationshipNotExists(string $relationship);
 
     /**
-     * @param string $relationshipName
-     * @param string $currentRelationshipType
-     * @param string $expectedRelationshipType
-     * @return \Exception
+     * @return Exception
      */
     public function createRelationshipTypeInappropriateException(
-        $relationshipName,
-        $currentRelationshipType,
-        $expectedRelationshipType
+        string $relationshipName,
+        string $currentRelationshipType,
+        string $expectedRelationshipType
     );
 
     /**
-     * @param string $relationshipName
-     * @return \Exception
+     * @return Exception
      */
-    public function createRemovalProhibitedException($relationshipName);
+    public function createRemovalProhibitedException(string $relationshipName);
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param string $lintMessage
-     * @param boolean $includeOriginalBody
+     * @return Exception
      */
     public function createRequestBodyInvalidJsonException(
         RequestInterface $request,
-        $lintMessage,
-        $includeOriginalBody
+        string $lintMessage,
+        bool $includeOriginalBody
     );
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param array $validationErrors
-     * @param boolean $includeOriginalBody
+     * @return Exception
      */
     public function createRequestBodyInvalidJsonApiException(
         RequestInterface $request,
         array $validationErrors,
-        $includeOriginalBody
+        bool $includeOriginalBody
     );
 
     /**
-     * @param array $resourceIdentifier
-     * @return \Exception
+     * @return Exception
      */
     public function createResourceIdentifierIdMissing(array $resourceIdentifier);
 
     /**
-     * @param array $resourceIdentifier
-     * @return \Exception
+     * @return Exception
      */
     public function createResourceIdentifierTypeMissing(array $resourceIdentifier);
 
     /**
-     * @param string $id
-     * @return \Exception
+     * @return Exception
      */
-    public function createResourceIdInvalidException($id);
+    public function createResourceIdInvalidException(string $id);
 
     /**
-     * @return \Exception
+     * @return Exception
      */
     public function createResourceIdMissingException();
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createResourceNotFoundException(RequestInterface $request);
 
     /**
-     * @return \Exception
+     * @return Exception
      */
     public function createResourceTypeMissingException();
 
     /**
-     * @param string $currentType
-     * @param array $acceptedTypes
-     * @return \Exception
+     * @return Exception
      */
-    public function createResourceTypeUnacceptableException($currentType, array $acceptedTypes);
+    public function createResourceTypeUnacceptableException(string $currentType, array $acceptedTypes);
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param string $lintMessage
-     * @param boolean $includeOriginalBody
-     * @return \Exception
+     * @return Exception
      */
     public function createResponseBodyInvalidJsonException(
         ResponseInterface $response,
-        $lintMessage,
-        $includeOriginalBody
+        string $lintMessage,
+        bool $includeOriginalBody
     );
 
     /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param array $validationErrors
-     * @param boolean $includeOriginalBody
-     * @return \Exception
+     * @return Exception
      */
     public function createResponseBodyInvalidJsonApiException(
         ResponseInterface $response,
         array $validationErrors,
-        $includeOriginalBody
+        bool $includeOriginalBody
     );
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
     public function createSortingUnsupportedException(RequestInterface $request);
 
     /**
-     * @param string $paramName
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @return \Exception
+     * @return Exception
      */
-    public function createSortParamUnrecognizedException(RequestInterface $request, $paramName);
+    public function createSortParamUnrecognizedException(RequestInterface $request, string $paramName);
 }

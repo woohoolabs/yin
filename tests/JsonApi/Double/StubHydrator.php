@@ -54,25 +54,16 @@ class StubHydrator extends AbstractHydrator
     ) {
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function generateId()
+    protected function generateId(): string
     {
         return "1";
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function setId($domainObject, $id)
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getAttributeHydrator($domainObject)
+    protected function getAttributeHydrator($domainObject): array
     {
         return $this->attributeHydrator;
     }
@@ -80,7 +71,7 @@ class StubHydrator extends AbstractHydrator
     /**
      * @inheritDoc
      */
-    protected function getRelationshipHydrator($domainObject)
+    protected function getRelationshipHydrator($domainObject): array
     {
         return $this->relationshipHydrator;
     }

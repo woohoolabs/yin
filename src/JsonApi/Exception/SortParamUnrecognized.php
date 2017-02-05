@@ -8,25 +8,22 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
 class SortParamUnrecognized extends JsonApiException
 {
+    /**
+     * @var string
+     */
     protected $sortParam;
 
-    /**
-     * @param string $sortParam
-     */
-    public function __construct($sortParam)
+    public function __construct(string $sortParam)
     {
         parent::__construct("Sorting parameter '$sortParam' , can't be recognized!");
         $this->sortParam = $sortParam;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getErrors()
+    protected function getErrors(): array
     {
         return [
             Error::create()
-                ->setStatus(400)
+                ->setStatus("400")
                 ->setCode("SORTING_UNRECOGNIZED")
                 ->setTitle("Sorting paramter is unrecognized")
                 ->setDetail("Sorting parameter '$this->sortParam' can't be recognized by the endpoint!")
@@ -34,10 +31,7 @@ class SortParamUnrecognized extends JsonApiException
         ];
     }
 
-    /**
-     * @return string
-     */
-    public function getSortParam()
+    public function getSortParam(): string
     {
         return $this->sortParam;
     }

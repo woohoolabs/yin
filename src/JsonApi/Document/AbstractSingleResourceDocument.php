@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
@@ -10,13 +11,10 @@ use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface
+     * @var ResourceTransformerInterface
      */
     protected $transformer;
 
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface $transformer
-     */
     public function __construct(ResourceTransformerInterface $transformer)
     {
         $this->transformer = $transformer;
@@ -26,25 +24,17 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
      * Returns the resource ID for the current domain object.
      *
      * It is a shortcut of calling the resource transformer's getId() method.
-     *
-     * @return string
      */
-    public function getResourceId()
+    public function getResourceId(): string
     {
         return $this->transformer->getId($this->domainObject);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function createData()
+    protected function createData(): DataInterface
     {
         return new SingleResourceData();
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function fillData(Transformation $transformation)
     {
         $transformation->data->addPrimaryResource(
@@ -52,14 +42,11 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getRelationshipContent(
-        $relationshipName,
+        string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ) {
+    ): array {
         return $this->transformer->transformRelationship(
             $relationshipName,
             $transformation,

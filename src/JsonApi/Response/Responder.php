@@ -8,16 +8,11 @@ use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class Responder extends AbstractResponder
 {
-    /**
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \Psr\Http\Message\ResponseInterface $response
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @param SerializerInterface $serializer
-     */
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
@@ -34,13 +29,13 @@ class Responder extends AbstractResponder
      * "A server MUST respond to a successful request to fetch an individual resource or resource
      * collection with a 200 OK response."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function ok(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
-    {
+    public function ok(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getDocumentResourceResponse($document, $domainObject, 200, $additionalMeta);
     }
 
@@ -51,13 +46,13 @@ class Responder extends AbstractResponder
      * "A server MUST return a 200 OK status code if a deletion request is successful and the server responds
      * with only top-level meta data."
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function okWithMeta(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
-    {
+    public function okWithMeta(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getDocumentMetaResponse($document, $domainObject, 200, $additionalMeta);
     }
 
@@ -65,13 +60,13 @@ class Responder extends AbstractResponder
      * Returns a "201 Created" response, containing a document in the body with the newly created resource. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument $document
      * @param mixed $domainObject
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface
      */
-    public function created(AbstractSuccessfulDocument $document, $domainObject, array $additionalMeta = [])
-    {
+    public function created(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
         $response = $this->getDocumentResourceResponse($document, $domainObject, 201, $additionalMeta);
 
         $links = $document->getLinks();
@@ -84,20 +79,16 @@ class Responder extends AbstractResponder
 
     /**
      * Returns a "202 Accepted" response.
-     *
-     * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function accepted()
+    public function accepted(): ResponseInterface
     {
         return $this->response->withStatus(202);
     }
 
     /**
      * Returns a "204 No Content" response.
-     *
-     * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function noContent()
+    public function noContent(): ResponseInterface
     {
         return $this->response->withStatus(204);
     }
@@ -106,13 +97,13 @@ class Responder extends AbstractResponder
      * Returns a "403 Forbidden" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param Error[] $errors
      */
-    public function forbidden(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
-    {
+    public function forbidden(
+        AbstractErrorDocument $document,
+        array $errors = [],
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getErrorResponse($this->response, $document, $errors, 403, $additionalMeta);
     }
 
@@ -120,13 +111,13 @@ class Responder extends AbstractResponder
      * Returns a "404 Not Found" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param Error[] $errors
      */
-    public function notFound(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
-    {
+    public function notFound(
+        AbstractErrorDocument $document,
+        array $errors = [],
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getErrorResponse($this->response, $document, $errors, 404, $additionalMeta);
     }
 
@@ -134,23 +125,20 @@ class Responder extends AbstractResponder
      * Returns a "409 Conflict" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param Error[] $errors
      */
-    public function conflict(AbstractErrorDocument $document, array $errors = [], array $additionalMeta = [])
-    {
+    public function conflict(
+        AbstractErrorDocument $document,
+        array $errors = [],
+        array $additionalMeta = []
+    ): ResponseInterface {
         return $this->getErrorResponse($this->response, $document, $errors, 409, $additionalMeta);
     }
 
     /**
      * Returns a successful response with the given status code.
-     *
-     * @param int $statusCode
-     * @return \Psr\Http\Message\ResponseInterface $response
      */
-    public function genericSuccess($statusCode)
+    public function genericSuccess(int $statusCode): ResponseInterface
     {
         return $this->response->withStatus($statusCode);
     }
@@ -159,18 +147,14 @@ class Responder extends AbstractResponder
      * Returns an error response, containing a document in the body with the errors. You can also pass additional
      * meta information to the document in the $additionalMeta argument.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument $document
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Error[] $errors
-     * @param int|null $statusCode
-     * @param array $additionalMeta
-     * @return \Psr\Http\Message\ResponseInterface $response
+     * @param Error[] $errors
      */
     public function genericError(
         AbstractErrorDocument $document,
         array $errors = [],
-        $statusCode = null,
+        int $statusCode = null,
         array $additionalMeta = []
-    ) {
+    ): ResponseInterface {
         return $this->getErrorResponse($this->response, $document, $errors, $statusCode, $additionalMeta);
     }
 }

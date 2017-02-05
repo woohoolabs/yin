@@ -11,11 +11,9 @@ class FixedPageBasedPagination
     protected $page;
 
     /**
-     * @param array $paginationQueryParams
-     * @param mixed $defaultPage
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultPage = null)
+    public static function fromPaginationQueryParams(array $paginationQueryParams, int $defaultPage = null)
     {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
 
@@ -39,10 +37,9 @@ class FixedPageBasedPagination
     }
 
     /**
-     * @param int $page
-     * @return string
+     * @param int|null $page
      */
-    public static function getPaginationQueryString($page)
+    public static function getPaginationQueryString($page): string
     {
         return "page[number]=$page";
     }
