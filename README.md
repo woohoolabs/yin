@@ -160,9 +160,6 @@ For now, it is enough to know that one must be passed for the documents during i
 minimal constructor of your documents should look like this:
 
 ```php
-/**
- * @param MyResourceTransformer $transformer
- */
 public function __construct(MyResourceTransformer $transformer)
 {
     parent::__construct($transformer);
@@ -198,8 +195,6 @@ Its constructor expects the JSON:API version number and an optional meta object 
  *
  * The method returns an array of non-standard meta information about the document. If
  * this array is empty, the member won't appear in the response.
- *
- * @return array
  */
 public function getMeta(): array
 {
