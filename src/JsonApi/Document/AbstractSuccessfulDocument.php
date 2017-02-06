@@ -19,6 +19,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
 
     /**
      * Fills the transformation data based on the "domainObject" property.
+     * @return void
      */
     abstract protected function fillData(Transformation $transformation);
 

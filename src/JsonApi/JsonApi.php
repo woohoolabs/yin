@@ -11,7 +11,6 @@ use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Response\RelationshipResponder;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
@@ -86,7 +85,6 @@ class JsonApi
     }
 
     /**
-     * @param HydratorInterface $hydrator
      * @param mixed $domainObject
      * @return mixed
      */
