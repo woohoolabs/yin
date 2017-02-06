@@ -13,13 +13,13 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class Responder extends AbstractResponder
 {
-    public function __construct(
+    public static function create(
         RequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer
-    ) {
-        parent::__construct($request, $response, $exceptionFactory, $serializer);
+    ): Responder {
+        return new Responder($request, $response, $exceptionFactory, $serializer);
     }
 
     /**

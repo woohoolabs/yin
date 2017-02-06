@@ -30,7 +30,7 @@ class ResourceTypeUnacceptableTest extends TestCase
         $this->assertEquals(["book"], $exception->getAcceptedTypes());
     }
 
-    private function createException($type, array $acceptedTypes)
+    private function createException(string $type, array $acceptedTypes): ResourceTypeUnacceptable
     {
         return new ResourceTypeUnacceptable($type, $acceptedTypes);
     }

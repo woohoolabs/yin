@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 trait CreateHydratorTrait
 {
     /**
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
-     * @throws \Exception
+     * @return void
+     * @throws ResourceTypeMissing
+     * @throws ResourceTypeUnacceptable
+     * @throws Exception
      */
-    abstract protected function validateType($data, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
 
     /**
      * Validates a client-generated ID.
@@ -25,15 +27,11 @@ trait CreateHydratorTrait
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @param string $clientGeneratedId
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
-     * @throws \Exception
+     * @return void
+     * @throws Exception
      */
     abstract protected function validateClientGeneratedId(
-        $clientGeneratedId,
+        string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     );
@@ -45,7 +43,7 @@ trait CreateHydratorTrait
      *
      * @return string
      */
-    abstract protected function generateId();
+    abstract protected function generateId(): string;
 
     /**
      * Sets the given ID for the domain object.
@@ -55,13 +53,11 @@ trait CreateHydratorTrait
      * object can be returned.
      *
      * @param mixed $domainObject
-     * @param string $id
      * @return mixed|null
      */
-    abstract protected function setId($domainObject, $id);
+    abstract protected function setId($domainObject, string $id);
 
     /**
-     * @param array $data
      * @param mixed $domainObject
      * @return mixed
      */
@@ -69,8 +65,6 @@ trait CreateHydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
     abstract protected function hydrateRelationships(
@@ -85,11 +79,9 @@ trait CreateHydratorTrait
      * The domain object's attributes and relationships are hydrated
      * according to the JSON API specification.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function hydrateForCreate(
         RequestInterface $request,
@@ -110,15 +102,12 @@ trait CreateHydratorTrait
     }
 
     /**
-     * @param array $data
      * @param mixed $domainObject
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
     protected function hydrateIdForCreate(
         $domainObject,
-        $data,
+        array $data,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {

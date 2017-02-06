@@ -22,28 +22,22 @@ class ToManyRelationship
         }
     }
 
-    /**
-     * @param ResourceIdentifier $resourceIdentifier
-     * @return $this
-     */
-    public function addResourceIdentifier(ResourceIdentifier $resourceIdentifier)
+    public function addResourceIdentifier(ResourceIdentifier $resourceIdentifier): ToManyRelationship
     {
         $this->resourceIdentifiers[] = $resourceIdentifier;
+
         return $this;
     }
 
     /**
      * @return ResourceIdentifier[]
      */
-    public function getResourceIdentifiers()
+    public function getResourceIdentifiers(): array
     {
         return $this->resourceIdentifiers;
     }
 
-    /**
-     * @return array
-     */
-    public function getResourceIdentifierTypes()
+    public function getResourceIdentifierTypes(): array
     {
         $types = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
@@ -54,10 +48,7 @@ class ToManyRelationship
         return $types;
     }
 
-    /**
-     * @return array
-     */
-    public function getResourceIdentifierIds()
+    public function getResourceIdentifierIds(): array
     {
         $ids = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
@@ -71,9 +62,8 @@ class ToManyRelationship
     /**
      * Returns true if this relationship is empty, not containing a resource identifier
      * This will be the case when the request want to clear a relationship and sends an empty array as data.
-     * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return empty($this->resourceIdentifiers);
     }

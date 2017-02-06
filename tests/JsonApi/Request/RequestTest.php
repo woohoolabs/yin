@@ -983,32 +983,32 @@ class RequestTest extends TestCase
         $this->assertEquals($attribute1Value, $newRequest->getAttribute($attribute1Key));
     }
 
-    private function createRequest()
+    private function createRequest(): Request
     {
         $psrRequest = new DiactorosRequest();
         return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
-    private function createRequestWithJsonBody(array $body)
+    private function createRequestWithJsonBody(array $body): Request
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
         return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
-    private function createRequestWithHeaders(array $headers)
+    private function createRequestWithHeaders(array $headers): Request
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", $headers);
         return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
-    private function createRequestWithHeader($headerName, $headerValue)
+    private function createRequestWithHeader($headerName, $headerValue): Request
     {
         $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
         return new Request($psrRequest, new DefaultExceptionFactory());
     }
 
-    private function createRequestWithQueryParams(array $queryParams)
+    private function createRequestWithQueryParams(array $queryParams): Request
     {
         $psrRequest = new DiactorosRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);

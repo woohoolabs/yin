@@ -41,7 +41,7 @@ class RelationshipTypeNotAppropriateTest extends TestCase
         $this->assertEquals($expectedType, $exception->getExpectedRelationshipType());
     }
 
-    private function createException($name, $type, $expectedType)
+    private function createException(string $name, string $type, string $expectedType): RelationshipTypeInappropriate
     {
         return new RelationshipTypeInappropriate($name, $type, $expectedType);
     }

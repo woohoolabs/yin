@@ -17,7 +17,7 @@ class ResourceTypeMissingTest extends TestCase
         $this->assertEquals("A resource type must be included in the document!", $exception->getMessage());
     }
 
-    private function createException()
+    private function createException(): ResourceTypeMissing
     {
         return new ResourceTypeMissing();
     }

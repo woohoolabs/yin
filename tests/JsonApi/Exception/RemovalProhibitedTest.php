@@ -19,7 +19,7 @@ class RemovalProhibitedTest extends TestCase
         $this->assertEquals($relationshipName, $exception->getRelationshipName());
     }
 
-    private function createException($relationshipName)
+    private function createException(string $relationshipName): RemovalProhibited
     {
         return new RemovalProhibited($relationshipName);
     }

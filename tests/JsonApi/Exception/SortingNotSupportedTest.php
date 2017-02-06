@@ -18,7 +18,7 @@ class SortingNotSupportedTest extends TestCase
         $this->assertEquals("Sorting is not supported!", $exception->getMessage());
     }
 
-    private function createException()
+    private function createException(): SortingUnsupported
     {
         return new SortingUnsupported();
     }

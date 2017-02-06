@@ -19,7 +19,7 @@ class InclusionUnrecognizedTest extends TestCase
         $this->assertEquals($includes, $exception->getUnrecognizedIncludes());
     }
 
-    private function createException(array $includes)
+    private function createException(array $includes): InclusionUnrecognized
     {
         return new InclusionUnrecognized($includes);
     }

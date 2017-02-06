@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 abstract class AbstractHydrator implements HydratorInterface, UpdateRelationshipHydratorInterface
@@ -19,11 +21,9 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
      * as a create. If it is a PATCH request then the domain object is
      * hydrated as an update.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
+     * @throws ResourceTypeMissing
      */
     public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
@@ -37,15 +37,12 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
     }
 
     /**
-     * @param string $relationship
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
+     * @throws RelationshipNotExists
      */
     public function hydrateRelationship(
-        $relationship,
+        string $relationship,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject

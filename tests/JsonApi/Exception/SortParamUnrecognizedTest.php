@@ -19,7 +19,7 @@ class SortParamUnrecognizedTest extends TestCase
         $this->assertEquals($sortParam, $exception->getSortParam());
     }
 
-    private function createException($sortParam)
+    private function createException(string $sortParam): SortParamUnrecognized
     {
         return new SortParamUnrecognized($sortParam);
     }

@@ -12,26 +12,19 @@ class ToOneRelationship
      */
     protected $resourceIdentifier;
 
-    /**
-     * @param ResourceIdentifier $resourceIdentifier
-     */
     public function __construct(ResourceIdentifier $resourceIdentifier = null)
     {
         $this->resourceIdentifier = $resourceIdentifier;
     }
 
-    /**
-     * @param ResourceIdentifier $resourceIdentifier
-     * @return $this
-     */
-    public function setResourceIdentifier(ResourceIdentifier $resourceIdentifier)
+    public function setResourceIdentifier(ResourceIdentifier $resourceIdentifier): ToOneRelationship
     {
         $this->resourceIdentifier = $resourceIdentifier;
         return $this;
     }
 
     /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier|null $resourceIdentifier
+     * @return ResourceIdentifier|null
      */
     public function getResourceIdentifier()
     {
@@ -41,10 +34,9 @@ class ToOneRelationship
     /**
      * Returns true if this relationship is empty, not containing a resource identifier.
      * This will be the case when the request wants to clear a relationship and sends null as data.
-     * @return bool
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
-        return is_null($this->resourceIdentifier);
+        return $this->resourceIdentifier === null;
     }
 }

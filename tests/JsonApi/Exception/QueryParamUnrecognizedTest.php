@@ -19,7 +19,7 @@ class QueryParamUnrecognizedTest extends TestCase
         $this->assertEquals($queryParam, $exception->getUnrecognizedQueryParam());
     }
 
-    private function createException($queryParam)
+    private function createException($queryParam): QueryParamUnrecognized
     {
         return new QueryParamUnrecognized($queryParam);
     }

@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
@@ -38,7 +40,7 @@ trait HydratorTrait
      * @param mixed $domainObject
      * @return callable[]
      */
-    abstract protected function getAttributeHydrator($domainObject);
+    abstract protected function getAttributeHydrator($domainObject): array;
 
     /**
      * Provides the relationship hydrators.
@@ -56,14 +58,12 @@ trait HydratorTrait
      * @param mixed $domainObject
      * @return callable[]
      */
-    abstract protected function getRelationshipHydrator($domainObject);
+    abstract protected function getRelationshipHydrator($domainObject): array;
 
     /**
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @throws \Exception
+     * @throws Exception
      */
-    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         if (empty($data["type"])) {
             throw $exceptionFactory->createResourceTypeMissingException();
@@ -82,7 +82,6 @@ trait HydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array $data
      * @return mixed
      */
     protected function hydrateAttributes($domainObject, array $data)
@@ -108,8 +107,6 @@ trait HydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
     protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
@@ -139,16 +136,13 @@ trait HydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param string $relationshipName
-     * @param callable $hydrator
-     * @param ExceptionFactoryInterface $exceptionFactory
      * @param array|null $relationshipData
      * @param array|null $data
      * @return mixed
      */
     protected function doHydrateRelationship(
         $domainObject,
-        $relationshipName,
+        string $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
         $relationshipData,
@@ -178,18 +172,15 @@ trait HydratorTrait
     }
 
     /**
-     * @param string $relationshipName
-     * @param callable $hydrator
      * @param mixed $domainObject
      * @param ToOneRelationship|ToManyRelationship $relationshipObject
      * @param array|null $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate
-     * @throws \Exception
+     * @throws RelationshipTypeInappropriate
+     * @throws Exception
      */
     protected function getRelationshipHydratorResult(
-        $relationshipName,
+        string $relationshipName,
         callable $hydrator,
         $domainObject,
         $relationshipObject,
@@ -218,7 +209,6 @@ trait HydratorTrait
     }
 
     /**
-     * @param callable $callable
      * @return string|null
      */
     protected function getArgumentTypeHintFromCallable(callable $callable)
@@ -251,9 +241,7 @@ trait HydratorTrait
 
     /**
      * @param array|null $relationship
-     * @param ExceptionFactoryInterface $exceptionFactory
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship|
-     * \WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship|null
+     * @return ToOneRelationship|ToManyRelationship|null
      */
     private function createRelationship($relationship, ExceptionFactoryInterface $exceptionFactory)
     {
@@ -280,11 +268,7 @@ trait HydratorTrait
         return $result;
     }
 
-    /**
-     * @param array $array
-     * @return bool
-     */
-    private function isAssociativeArray(array $array)
+    private function isAssociativeArray(array $array): bool
     {
         return (bool)count(array_filter(array_keys($array), 'is_string'));
     }

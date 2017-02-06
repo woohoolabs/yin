@@ -34,19 +34,13 @@ class StubHydrator extends AbstractHydrator
         $this->relationshipHydrator = $relationshipHydrator;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getAcceptedType()
     {
         return $this->acceptedType;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function validateClientGeneratedId(
-        $clientGeneratedId,
+        string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
@@ -57,7 +51,7 @@ class StubHydrator extends AbstractHydrator
         return "1";
     }
 
-    protected function setId($domainObject, $id)
+    protected function setId($domainObject, string $id)
     {
     }
 
@@ -66,9 +60,6 @@ class StubHydrator extends AbstractHydrator
         return $this->attributeHydrator;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function getRelationshipHydrator($domainObject): array
     {
         return $this->relationshipHydrator;

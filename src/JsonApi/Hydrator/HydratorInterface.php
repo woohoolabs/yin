@@ -10,8 +10,6 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 interface HydratorInterface
 {
     /**
-     * @param RequestInterface $request
-     * @param ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing

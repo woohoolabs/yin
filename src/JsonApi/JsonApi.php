@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
@@ -45,8 +46,8 @@ class JsonApi
     ) {
         $this->request = $request;
         $this->response = $response;
-        $this->exceptionFactory = $exceptionFactory ? $exceptionFactory : new DefaultExceptionFactory();
-        $this->serializer = $serializer ? $serializer : new DefaultSerializer();
+        $this->exceptionFactory = $exceptionFactory ?? new DefaultExceptionFactory();
+        $this->serializer = $serializer ?? new DefaultSerializer();
     }
 
     public function getRequest(): RequestInterface
@@ -111,7 +112,7 @@ class JsonApi
      * If the current request asks for inclusion of related resources, it throws an InclusionNotSupported exception.
      *
      * @return void
-     * @throws InclusionUnsupported
+     * @throws InclusionUnsupported|Exception
      */
     public function disableIncludes()
     {
@@ -126,7 +127,7 @@ class JsonApi
      * If the current request contains sorting criteria, it throws a SortingNotSupported exception.
      *
      * @return void
-     * @throws SortingUnsupported
+     * @throws SortingUnsupported|Exception
      */
     public function disableSorting()
     {

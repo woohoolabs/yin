@@ -17,7 +17,7 @@ class ResourceIdMissingTest extends TestCase
         $this->assertEquals("A resource ID must be included in the document!", $exception->getMessage());
     }
 
-    private function createException()
+    private function createException(): ResourceIdMissing
     {
         return new ResourceIdMissing();
     }

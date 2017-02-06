@@ -27,6 +27,7 @@ class ResponseValidator extends AbstractMessageValidator
     }
 
     /**
+     * @return void
      * @throws ResponseBodyInvalidJson|Exception
      */
     public function lintBody(ResponseInterface $response)
@@ -43,6 +44,7 @@ class ResponseValidator extends AbstractMessageValidator
     }
 
     /**
+     * @return void
      * @throws ResponseBodyInvalidJsonApi|Exception
      */
     public function validateBody(ResponseInterface $response)

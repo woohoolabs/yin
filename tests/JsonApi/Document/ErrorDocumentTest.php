@@ -43,7 +43,7 @@ class ErrorDocumentTest extends TestCase
         $this->assertEquals($links, $errorDocument->getLinks());
     }
 
-    private function createErrorDocument()
+    private function createErrorDocument(): ErrorDocument
     {
         return new ErrorDocument();
     }

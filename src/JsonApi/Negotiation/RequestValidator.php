@@ -21,6 +21,7 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
+     * @return void
      * @throws MediaTypeUnsupported|MediaTypeUnacceptable|Exception
      */
     public function negotiate(RequestInterface $request)
@@ -36,6 +37,7 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
+     * @return void
      * @throws QueryParamUnrecognized|Exception
      */
     public function validateQueryParams(RequestInterface $request)
@@ -51,6 +53,7 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
+     * @return void
      * @throws RequestBodyInvalidJson|Exception
      */
     public function lintBody(RequestInterface $request)

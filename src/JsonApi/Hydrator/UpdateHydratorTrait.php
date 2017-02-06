@@ -3,19 +3,21 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
+use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 trait UpdateHydratorTrait
 {
     /**
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable
-     * @throws \Exception
+     * @throws ResourceTypeMissing
+     * @throws ResourceTypeUnacceptable
+     * @throws Exception
      */
-    abstract protected function validateType($data, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
 
     /**
      * Sets the given ID for the domain object.
@@ -25,22 +27,18 @@ trait UpdateHydratorTrait
      * object can be returned.
      *
      * @param mixed $domainObject
-     * @param string $id
      * @return mixed|null
      */
-    abstract protected function setId($domainObject, $id);
+    abstract protected function setId($domainObject, string $id);
 
     /**
      * @param mixed $domainObject
-     * @param array $data
      * @return mixed
      */
     abstract protected function hydrateAttributes($domainObject, array $data);
 
     /**
      * @param mixed $domainObject
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
      */
     abstract protected function hydrateRelationships(
@@ -65,20 +63,17 @@ trait UpdateHydratorTrait
      * @param mixed $domainObject
      * @return callable[]
      */
-    abstract protected function getRelationshipHydrator($domainObject);
+    abstract protected function getRelationshipHydrator($domainObject): array;
 
     /**
      * @param mixed $domainObject
-     * @param string $relationshipName
-     * @param callable $hydrator
-     * @param ExceptionFactoryInterface $exceptionFactory
      * @param array|null $relationshipData
      * @param array|null $data
      * @return mixed
      */
     abstract protected function doHydrateRelationship(
         $domainObject,
-        $relationshipName,
+        string $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
         $relationshipData,
@@ -91,11 +86,9 @@ trait UpdateHydratorTrait
      * The domain object's attributes and relationships are hydrated
      * according to the JSON API specification.
      *
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function hydrateForUpdate(
         RequestInterface $request,
@@ -116,15 +109,12 @@ trait UpdateHydratorTrait
     }
 
     /**
-     * @param string $relationship
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @param mixed $domainObject
      * @return mixed
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists
+     * @throws RelationshipNotExists
      */
     public function hydrateForRelationshipUpdate(
-        $relationship,
+        string $relationship,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
@@ -149,12 +139,10 @@ trait UpdateHydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array $data
-     * @param \WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface $exceptionFactory
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
-    protected function hydrateIdForUpdate($domainObject, $data, ExceptionFactoryInterface $exceptionFactory)
+    protected function hydrateIdForUpdate($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         if (empty($data["id"])) {
             throw $exceptionFactory->createResourceIdMissingException();

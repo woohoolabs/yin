@@ -181,7 +181,7 @@ class RequestValidatorTest extends TestCase
         return $server;
     }
 
-    private function createRequest($serverRequest, $contentType)
+    private function createRequest(ServerRequestInterface $serverRequest, string $contentType): RequestInterface
     {
         $exceptionInterface = new DefaultExceptionFactory($serverRequest);
 
@@ -209,13 +209,13 @@ class RequestValidatorTest extends TestCase
         return $this->getMockForAbstractClass(RequestInterface::class, [$serverRequest, $exceptionFactory]);
     }
 
-    private function createRequestValidator($serverRequest, $includeOriginalMessageResponse = true)
+    private function createRequestValidator($serverRequest, $includeOriginalMessageResponse = true): RequestValidator
     {
         $exceptionInterface = new DefaultExceptionFactory($serverRequest);
         return new RequestValidator($exceptionInterface, $includeOriginalMessageResponse);
     }
 
-    public function getInvalidContentTypes()
+    public function getInvalidContentTypes(): array
     {
         return [
             ["application/vnd.api+json; charset=utf-8"],
@@ -223,7 +223,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    public function getValidContentTypes()
+    public function getValidContentTypes(): array
     {
         return [
             ["application/vnd.api+json"],
@@ -231,12 +231,12 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    public function getEmptyMessages()
+    public function getEmptyMessages(): array
     {
         return [['']];
     }
 
-    public function getValidJsonMessages()
+    public function getValidJsonMessages(): array
     {
         return [
             ['{}'],
@@ -248,7 +248,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    public function getInvalidJsonMessages()
+    public function getInvalidJsonMessages(): array
     {
         return [
             ["{abc"],

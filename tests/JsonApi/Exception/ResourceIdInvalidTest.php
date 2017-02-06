@@ -19,7 +19,7 @@ class ResourceIdInvalidTest extends TestCase
         $this->assertEquals($id, $exception->getId());
     }
 
-    private function createException($id)
+    private function createException(string $id): ResourceIdInvalid
     {
         return new ResourceIdInvalid($id);
     }
