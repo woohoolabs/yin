@@ -14,7 +14,7 @@ class StubUpdateHydrator
     {
     }
 
-    protected function setId($domainObject, $id)
+    protected function setId($domainObject, string $id)
     {
         $domainObject["id"] = $id;
 

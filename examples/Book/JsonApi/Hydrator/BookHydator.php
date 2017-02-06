@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
+use Exception;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
+use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
+use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
@@ -37,9 +40,9 @@ class BookHydator extends AbstractHydrator
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists
-     * @throws \Exception
+     * @throws ClientGeneratedIdNotSupported
+     * @throws ClientGeneratedIdAlreadyExists
+     * @throws Exception
      */
     protected function validateClientGeneratedId(
         string $clientGeneratedId,
@@ -69,10 +72,9 @@ class BookHydator extends AbstractHydrator
      * object can be returned.
      *
      * @param array $book
-     * @param string $id
-     * @return mixed|null
+     * @return mixed|void
      */
-    protected function setId($book, $id)
+    protected function setId($book, string $id)
     {
         $book["id"] = $id;
 

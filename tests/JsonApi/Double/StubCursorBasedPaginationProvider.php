@@ -55,33 +55,21 @@ class StubCursorBasedPaginationProvider
         return $this->firstItem;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getLastItem()
     {
         return $this->lastItem;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getCurrentItem()
     {
         return $this->currentItem;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getPreviousItem()
     {
         return $this->previousItem;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNextItem()
     {
         return $this->nextItem;

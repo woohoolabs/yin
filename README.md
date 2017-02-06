@@ -525,7 +525,7 @@ class BookHydator extends AbstractHydrator
      * object can be returned.
      *
      * @param array $book
-     * @return mixed
+     * @return mixed|void
      */
     protected function setId($book, string $id)
     {

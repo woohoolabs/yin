@@ -53,7 +53,7 @@ trait CreateHydratorTrait
      * object can be returned.
      *
      * @param mixed $domainObject
-     * @return mixed|null
+     * @return mixed|void
      */
     abstract protected function setId($domainObject, string $id);
 
@@ -111,7 +111,7 @@ trait CreateHydratorTrait
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
-        $id = isset($data["id"]) ? $data["id"] : null;
+        $id = isset($data["id"]) ? (string) $data["id"] : "";
         $this->validateClientGeneratedId($id, $request, $exceptionFactory);
 
         if ($id === null) {

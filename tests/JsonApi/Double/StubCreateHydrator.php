@@ -27,18 +27,12 @@ class StubCreateHydrator
         $this->generatedId = $generatedId;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function validateClientGeneratedId(
-        $clientGeneratedId,
+        string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
@@ -47,35 +41,23 @@ class StubCreateHydrator
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function generateId()
+    protected function generateId(): string
     {
         return $this->generatedId;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function setId($domainObject, $id)
+    protected function setId($domainObject, string $id)
     {
         $domainObject["id"] = $id;
 
         return $domainObject;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;

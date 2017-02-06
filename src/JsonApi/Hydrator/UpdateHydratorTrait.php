@@ -27,7 +27,7 @@ trait UpdateHydratorTrait
      * object can be returned.
      *
      * @param mixed $domainObject
-     * @return mixed|null
+     * @return mixed|void
      */
     abstract protected function setId($domainObject, string $id);
 
@@ -148,7 +148,7 @@ trait UpdateHydratorTrait
             throw $exceptionFactory->createResourceIdMissingException();
         }
 
-        $result = $this->setId($domainObject, $data["id"]);
+        $result = $this->setId($domainObject, (string) $data["id"]);
         if ($result) {
             $domainObject = $result;
         }
