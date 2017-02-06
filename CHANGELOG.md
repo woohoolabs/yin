@@ -7,13 +7,13 @@ ADDED:
 CHANGED:
 
 - Yin now requires PHP 7.0 at least
-- __BREAKING__: Documents, Transformers and Hydrators must be type hinted
-- __BREAKING__: [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response`
-- __BREAKING__: Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities
+- Documents, Transformers and Hydrators must be type hinted (__BREAKING__)
+- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
+- Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 
 REMOVED:
-- __BREAKING__: `RelationshipResponder::okWithMeta()` method
-- __BREAKING__: `JsonApi::respondWithRelationship()` method
+- `RelationshipResponder::okWithMeta()` method (__BREAKING__)
+- `JsonApi::respondWithRelationship()` method (__BREAKING__)
 
 FIXED:
 
