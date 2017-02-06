@@ -48,7 +48,7 @@ abstract class AbstractResponder
     /**
      * @param mixed $domainObject
      */
-    protected function getDocumentResourceResponse(
+    protected function getResponse(
         AbstractSuccessfulDocument $document,
         $domainObject,
         int $statusCode,
@@ -67,7 +67,7 @@ abstract class AbstractResponder
     /**
      * @param mixed $domainObject
      */
-    protected function getDocumentMetaResponse(
+    protected function getMetaResponse(
         AbstractSuccessfulDocument $document,
         $domainObject,
         int $statusCode,
@@ -81,35 +81,14 @@ abstract class AbstractResponder
     /**
      * @param mixed $domainObject
      */
-    protected function getDocumentRelationshipResponse(
+    protected function getRelationshipResponse(
         string $relationshipName,
         AbstractSuccessfulDocument $document,
         $domainObject,
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $content = $document->getRelationship(
-            $relationshipName,
-            $this->request,
-            $this->exceptionFactory,
-            $domainObject,
-            $additionalMeta
-        );
-
-        return $this->serializer->serialize($this->response, $statusCode, $content);
-    }
-
-    /**
-     * @param mixed $domainObject
-     */
-    protected function getDocumentRelationshipMetaResponse(
-        string $relationshipName,
-        AbstractSuccessfulDocument $document,
-        $domainObject,
-        int $statusCode,
-        array $additionalMeta = []
-    ): ResponseInterface {
-        $content = $document->getRelationship(
+        $content = $document->getRelationshipContent(
             $relationshipName,
             $this->request,
             $this->exceptionFactory,
@@ -134,8 +113,8 @@ abstract class AbstractResponder
         }
 
         $content = $document->getContent($additionalMeta);
-        $statusCode = $statusCode ?? $document->getResponseCode($statusCode);
+        $responseCode = $document->getResponseCode($statusCode);
 
-        return $this->serializer->serialize($this->response, $statusCode, $content);
+        return $this->serializer->serialize($this->response, $responseCode, $content);
     }
 }

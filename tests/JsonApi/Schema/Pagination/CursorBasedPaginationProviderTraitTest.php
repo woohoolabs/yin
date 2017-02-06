@@ -174,10 +174,14 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      * @param mixed $currentItem
      * @param mixed $previousItem
      * @param mixed $nextItem
-     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubCursorBasedPaginationProvider
      */
-    private function createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem)
-    {
+    private function createProvider(
+        $firstItem,
+        $lastItem,
+        $currentItem,
+        $previousItem,
+        $nextItem
+    ): StubCursorBasedPaginationProvider {
         return new StubCursorBasedPaginationProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
     }
 }

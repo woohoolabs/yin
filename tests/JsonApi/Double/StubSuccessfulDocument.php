@@ -74,7 +74,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     {
     }
 
-    protected function getRelationshipContent(
+    protected function getRelationshipMember(
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []

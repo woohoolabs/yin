@@ -24,7 +24,7 @@ class ToOneRelationship extends AbstractRelationship
         array $defaultRelationships
     ) {
         $data = $this->retrieveData();
-        if ($data !== null || $this->resourceTransformer === null) {
+        if ($data == null || $this->resourceTransformer === null) {
             return null;
         }
 

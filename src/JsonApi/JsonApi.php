@@ -6,6 +6,8 @@ namespace WoohooLabs\Yin\JsonApi;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -83,17 +85,6 @@ class JsonApi
         return new Responder($this->request, $this->response, $this->exceptionFactory, $this->serializer);
     }
 
-    public function respondWithRelationship(string $relationship): RelationshipResponder
-    {
-        return new RelationshipResponder(
-            $this->request,
-            $this->response,
-            $this->exceptionFactory,
-            $this->serializer,
-            $relationship
-        );
-    }
-
     /**
      * @param HydratorInterface $hydrator
      * @param mixed $domainObject
@@ -121,7 +112,8 @@ class JsonApi
      *
      * If the current request asks for inclusion of related resources, it throws an InclusionNotSupported exception.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported
+     * @return void
+     * @throws InclusionUnsupported
      */
     public function disableIncludes()
     {
@@ -135,7 +127,8 @@ class JsonApi
      *
      * If the current request contains sorting criteria, it throws a SortingNotSupported exception.
      *
-     * @throws \WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported
+     * @return void
+     * @throws SortingUnsupported
      */
     public function disableSorting()
     {

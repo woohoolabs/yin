@@ -25,7 +25,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     /**
      * @return array|null
      */
-    abstract protected function getRelationshipContent(
+    abstract protected function getRelationshipMember(
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
@@ -64,7 +64,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     /**
      * @param mixed $domainObject
      */
-    public function getRelationship(
+    public function getRelationshipContent(
         string $relationshipName,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
@@ -105,12 +105,22 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         Transformation $transformation,
         array $additionalMeta = []
     ): array {
-        $content = $this->getRelationshipContent($relationshipName, $transformation, $additionalMeta);
+        $content = $this->getRelationshipMember($relationshipName, $transformation, $additionalMeta);
 
         // Included
         if ($transformation->data->hasIncludedResources()) {
             $content["included"] = $transformation->data->transformIncludedResources();
         }
+
+        return $content;
+    }
+
+    protected function transformRelationshipMetaContent(
+        string $relationshipName,
+        Transformation $transformation,
+        array $additionalMeta = []
+    ): array {
+        $content = $this->getRelationshipMember($relationshipName, $transformation, $additionalMeta);
 
         return $content;
     }

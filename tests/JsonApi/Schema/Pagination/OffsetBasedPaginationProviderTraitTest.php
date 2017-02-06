@@ -311,13 +311,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
         $this->assertEquals("$url?page[offset]=20&page[limit]=$limit", $provider->getNextLink($url)->getHref());
     }
 
-    /**
-     * @param int $totalItems
-     * @param int $offset
-     * @param int $limit
-     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubOffsetBasedPaginationProvider
-     */
-    private function createProvider($totalItems, $offset, $limit)
+    private function createProvider(int $totalItems, int $offset, int $limit): StubOffsetBasedPaginationProvider
     {
         return new StubOffsetBasedPaginationProvider($totalItems, $offset, $limit);
     }

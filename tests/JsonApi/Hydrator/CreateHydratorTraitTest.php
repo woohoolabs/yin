@@ -98,11 +98,9 @@ class CreateHydratorTraitTest extends TestCase
     }
 
     /**
-     * @param bool $clientGeneratedIdException
-     * @param string $generatedId
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait
+     * @return StubCreateHydrator
      */
-    private function createHydrator($clientGeneratedIdException = false, $generatedId = "")
+    private function createHydrator(bool $clientGeneratedIdException = false, string $generatedId = "")
     {
         return new StubCreateHydrator($clientGeneratedIdException, $generatedId);
     }

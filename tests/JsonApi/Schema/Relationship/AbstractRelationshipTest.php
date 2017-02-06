@@ -88,10 +88,7 @@ class AbstractRelationshipTest extends TestCase
         );
     }
 
-    /**
-     * @return FakeRelationship
-     */
-    private function createRelationship()
+    private function createRelationship(): FakeRelationship
     {
         return new FakeRelationship();
     }

@@ -26,8 +26,6 @@ class StubHydrator extends AbstractHydrator
 
     /**
      * @param string|array $acceptedType
-     * @param array $attributeHydrator
-     * @param array $relationshipHydrator
      */
     public function __construct($acceptedType = "", array $attributeHydrator = [], array $relationshipHydrator = [])
     {

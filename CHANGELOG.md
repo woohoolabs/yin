@@ -2,6 +2,8 @@
 
 ADDED:
 
+- `Responder::okWithRelationship()` and `Responder::createdWithRelationship()`
+
 CHANGED:
 
 - Yin now requires PHP 7.0 at least
@@ -9,6 +11,9 @@ CHANGED:
 - Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities
 
 REMOVED:
+
+- `RelationshipResponder::okWithMeta()` method
+- `JsonApi::respondWithRelationship()` method
 
 FIXED:
 

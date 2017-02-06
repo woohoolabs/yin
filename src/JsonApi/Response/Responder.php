@@ -25,10 +25,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "200 Ok" response, containing a document in the body with the resource.
      *
-     * According to the JSON API specification, this response is applicable in the following conditions:
-     * "A server MUST respond to a successful request to fetch an individual resource or resource
-     * collection with a 200 OK response."
-     *
      * @param mixed $domainObject
      */
     public function ok(
@@ -36,15 +32,11 @@ class Responder extends AbstractResponder
         $domainObject,
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getDocumentResourceResponse($document, $domainObject, 200, $additionalMeta);
+        return $this->getResponse($document, $domainObject, 200, $additionalMeta);
     }
 
     /**
-     * Returns a "200 Ok" response, containing a document in the body with the resource meta data.
-     *
-     * According to the JSON API specification, this response is applicable in the following conditions:
-     * "A server MUST return a 200 OK status code if a deletion request is successful and the server responds
-     * with only top-level meta data."
+     * Returns a "200 Ok" response, containing a document in the body with the resource metadata.
      *
      * @param mixed $domainObject
      */
@@ -53,7 +45,28 @@ class Responder extends AbstractResponder
         $domainObject,
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getDocumentMetaResponse($document, $domainObject, 200, $additionalMeta);
+        return $this->getMetaResponse($document, $domainObject, 200, $additionalMeta);
+    }
+
+    /**
+     * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
+     *
+     * @param mixed $domainObject
+     */
+    public function okWithRelationship(
+        string $relationshipName,
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
+        return $this->getRelationshipResponse(
+            $relationshipName,
+            $document,
+            $domainObject,
+            200,
+            $additionalMeta
+        );
     }
 
     /**
@@ -67,7 +80,7 @@ class Responder extends AbstractResponder
         $domainObject,
         array $additionalMeta = []
     ): ResponseInterface {
-        $response = $this->getDocumentResourceResponse($document, $domainObject, 201, $additionalMeta);
+        $response = $this->getResponse($document, $domainObject, 201, $additionalMeta);
 
         $links = $document->getLinks();
         if ($links !== null && $links->getSelf() !== null) {
@@ -75,6 +88,48 @@ class Responder extends AbstractResponder
         }
 
         return $response;
+    }
+
+    /**
+     * Returns a "201 Created" response, containing a document in the body with the newly created resource metadata.
+     * You can also pass additional meta information for the document in the $additionalMeta argument.
+     *
+     * @param mixed $domainObject
+     */
+    public function createdWithMeta(
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
+        $response = $this->getMetaResponse($document, $domainObject, 201, $additionalMeta);
+
+        $links = $document->getLinks();
+        if ($links !== null && $links->getSelf() !== null) {
+            $response = $response->withHeader("location", $links->getSelf()->getHref());
+        }
+
+        return $response;
+    }
+
+    /**
+     * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
+     * pass additional meta information for the document in the $additionalMeta argument.
+     *
+     * @param mixed $domainObject
+     */
+    public function createdWithRelationship(
+        string $relationshipName,
+        AbstractSuccessfulDocument $document,
+        $domainObject,
+        array $additionalMeta = []
+    ): ResponseInterface {
+        return $this->getRelationshipResponse(
+            $relationshipName,
+            $document,
+            $domainObject,
+            201,
+            $additionalMeta
+        );
     }
 
     /**

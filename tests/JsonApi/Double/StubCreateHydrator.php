@@ -21,11 +21,7 @@ class StubCreateHydrator
      */
     private $generatedId;
 
-    /**
-     * @param bool $isClientGeneratedIdException
-     * @param string $generatedId
-     */
-    public function __construct($isClientGeneratedIdException = false, $generatedId = "")
+    public function __construct(bool $isClientGeneratedIdException = false, string $generatedId = "")
     {
         $this->isClientGeneratedIdException = $isClientGeneratedIdException;
         $this->generatedId = $generatedId;

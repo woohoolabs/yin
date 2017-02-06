@@ -20,10 +20,8 @@ class AbstractResponderTest extends TestCase
      */
     public function genericSuccess()
     {
-        $statusCode = 201;
-
-        $response = $this->createResponder()->genericSuccess($statusCode);
-        $this->assertEquals($statusCode, $response->getStatusCode());
+        $response = $this->createResponder()->genericSuccess(201);
+        $this->assertEquals(201, $response->getStatusCode());
     }
 
     /**
@@ -31,13 +29,13 @@ class AbstractResponderTest extends TestCase
      */
     public function genericError()
     {
-        $statusCode = 418;
         $document = new ErrorDocument();
         $errors = [new Error(), new Error()];
 
-        $response = $this->createResponder()->genericError($document, $errors, $statusCode);
-        $this->assertEquals($statusCode, $response->getStatusCode());
+        $response = $this->createResponder()->genericError($document, $errors, 418);
         $body = json_decode($response->getBody()->__toString(), true);
+
+        $this->assertEquals(418, $response->getStatusCode());
         $this->assertCount(2, $body["errors"]);
     }
 

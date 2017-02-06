@@ -18,7 +18,7 @@ class DefaultSerializer implements SerializerInterface
         }
         $result->getBody()->write(json_encode($content));
 
-        return $response;
+        return $result;
     }
 
     public function getBodyAsString(ResponseInterface $response): string

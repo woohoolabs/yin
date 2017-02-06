@@ -24,7 +24,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @return array|null
      */
-    protected function getRelationshipContent(
+    protected function getRelationshipMember(
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []

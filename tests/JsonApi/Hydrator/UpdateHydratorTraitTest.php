@@ -75,10 +75,7 @@ class UpdateHydratorTraitTest extends TestCase
         return $request;
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\UpdateHydratorTrait
-     */
-    private function createHydrator()
+    private function createHydrator(): StubUpdateHydrator
     {
         return new StubUpdateHydrator();
     }

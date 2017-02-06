@@ -102,7 +102,7 @@ class TransformerTraitTest extends TestCase
     }
 
     /**
-     * @return \WoohooLabs\Yin\TransformerTrait
+     * @return TransformerTrait
      */
     private function createTransformerTrait()
     {

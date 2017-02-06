@@ -166,6 +166,7 @@ class AbstractResourceTransformerTest extends TestCase
 
                 $relationship = new ToOneRelationship();
                 $relationship->setData(["Father Vader"], new StubResourceTransformer("user", "2"));
+
                 return $relationship;
             }
         ];
@@ -263,10 +264,7 @@ class AbstractResourceTransformerTest extends TestCase
     }
 
     /**
-     * @param \WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer $transformer
      * @param mixed $domainObject
-     * @param \WoohooLabs\Yin\JsonApi\Request\RequestInterface $request
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface $data
      * @return array|null
      */
     protected function transformToResource(
@@ -285,25 +283,15 @@ class AbstractResourceTransformerTest extends TestCase
         return $transformer->transformToResource($transformation, $domainObject);
     }
 
-    /**
-     * @param string $type
-     * @param string $id
-     * @param array $meta
-     * @param \WoohooLabs\Yin\JsonApi\Schema\Links|null $links
-     * @param array $attributes
-     * @param array $defaultRelationships
-     * @param array $relationships
-     * @return \WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer
-     */
     protected function createTransformer(
-        $type = "",
-        $id = "",
+        string $type = "",
+        string $id = "",
         array $meta = [],
         Links $links = null,
         array $attributes = [],
         array $defaultRelationships = [],
         array $relationships = []
-    ) {
+    ): StubResourceTransformer {
         return new StubResourceTransformer(
             $type,
             $id,

@@ -155,7 +155,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         ];
 
         $document = $this->createDocument(null, [], null, null, $relationshipContentData);
-        $content = $document->getRelationship(
+        $content = $document->getRelationshipContent(
             "",
             $request,
             new DefaultExceptionFactory(),
@@ -187,7 +187,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         );
 
         $document = $this->createDocument(null, [], null, $data, []);
-        $content = $document->getRelationship(
+        $content = $document->getRelationshipContent(
             "",
             $request,
             new DefaultExceptionFactory(),

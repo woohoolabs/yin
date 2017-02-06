@@ -43,6 +43,17 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
+    public function okWithRelationship()
+    {
+        $document = new StubSuccessfulDocument();
+
+        $response = $this->createResponder()->okWithRelationship("", $document, []);
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
     public function created()
     {
         $document = new StubSuccessfulDocument();
@@ -61,6 +72,17 @@ class ResponderTest extends TestCase
 
         $response = $this->createResponder()->created($document, []);
         $this->assertEquals([$href], $response->getHeader("location"));
+    }
+
+    /**
+     * @test
+     */
+    public function createdWithRelationship()
+    {
+        $document = new StubSuccessfulDocument();
+
+        $response = $this->createResponder()->createdWithRelationship("", $document, []);
+        $this->assertEquals(201, $response->getStatusCode());
     }
 
     /**
@@ -114,7 +136,7 @@ class ResponderTest extends TestCase
         $this->assertEquals(409, $response->getStatusCode());
     }
 
-    private function createResponder()
+    private function createResponder(): Responder
     {
         return new Responder(
             new Request(new ServerRequest(), new DefaultExceptionFactory()),

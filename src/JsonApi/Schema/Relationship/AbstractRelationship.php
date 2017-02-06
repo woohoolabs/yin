@@ -117,6 +117,9 @@ abstract class AbstractRelationship
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     public function omitWhenNotIncluded()
     {
         $this->omitDataWhenNotIncluded = true;
@@ -156,18 +159,18 @@ abstract class AbstractRelationship
         if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
             $relationship = [];
 
-            // LINKS
+            // Links
             if ($this->links !== null) {
                 $relationship["links"] = $this->links->transform();
             }
 
-            // META
+            // Meta
             $meta = array_merge($this->meta, $additionalMeta);
             if (empty($meta) === false) {
                 $relationship["meta"] = $meta;
             }
 
-            // DATA
+            // Data
             if ($transformedData !== false) {
                 $relationship["data"] = $transformedData;
             }

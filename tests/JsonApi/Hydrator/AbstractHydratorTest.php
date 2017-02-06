@@ -8,6 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
+use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
@@ -362,12 +363,12 @@ class AbstractHydratorTest extends TestCase
 
     /**
      * @param string|array $acceptedType
-     * @param array $attributeHydrator
-     * @param array $relationshipHydrator
-     * @return \WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator
      */
-    private function createHydrator($acceptedType = "", array $attributeHydrator = [], array $relationshipHydrator = [])
-    {
+    private function createHydrator(
+        $acceptedType = "",
+        array $attributeHydrator = [],
+        array $relationshipHydrator = []
+    ): AbstractHydrator {
         return new StubHydrator($acceptedType, $attributeHydrator, $relationshipHydrator);
     }
 }
