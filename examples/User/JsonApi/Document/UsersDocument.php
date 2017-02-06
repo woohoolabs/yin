@@ -16,9 +16,9 @@ class UsersDocument extends AbstractCollectionDocument
     }
 
     /**
-     * Provides information about the "jsonApi" member of the current document.
+     * Provides information about the "jsonapi" member of the current document.
      *
-     * The method returns a new JsonApi schema object if this member should be present or null
+     * The method returns a new JsonApiObject schema object if this member should be present or null
      * if it should be omitted from the response.
      *
      * @return JsonApiObject|null

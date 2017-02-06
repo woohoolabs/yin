@@ -10,67 +10,67 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 interface ExceptionFactoryInterface
 {
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createApplicationErrorException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createClientGeneratedIdNotSupportedException(RequestInterface $request, string $currentId);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, string $currentId);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createClientGeneratedIdRequiredException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createDataMemberMissingException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createFullReplacementProhibitedException(string $relationshipName);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createInclusionUnsupportedException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createInclusionUnrecognizedException(RequestInterface $request, array $unrecognizedInclusions);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createMediaTypeUnsupportedException(RequestInterface $request, string $mediaTypeName);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createMediaTypeUnacceptableException(RequestInterface $request, string $mediaTypeName);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createQueryParamUnrecognizedException(RequestInterface $request, string $queryParamName);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createRelationshipNotExists(string $relationship);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createRelationshipTypeInappropriateException(
         string $relationshipName,
@@ -79,12 +79,12 @@ interface ExceptionFactoryInterface
     );
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createRemovalProhibitedException(string $relationshipName);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createRequestBodyInvalidJsonException(
         RequestInterface $request,
@@ -93,7 +93,7 @@ interface ExceptionFactoryInterface
     );
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createRequestBodyInvalidJsonApiException(
         RequestInterface $request,
@@ -102,42 +102,42 @@ interface ExceptionFactoryInterface
     );
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceIdentifierIdMissing(array $resourceIdentifier);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceIdentifierTypeMissing(array $resourceIdentifier);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceIdInvalidException(string $id);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceIdMissingException();
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceNotFoundException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceTypeMissingException();
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResourceTypeUnacceptableException(string $currentType, array $acceptedTypes);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResponseBodyInvalidJsonException(
         ResponseInterface $response,
@@ -146,7 +146,7 @@ interface ExceptionFactoryInterface
     );
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createResponseBodyInvalidJsonApiException(
         ResponseInterface $response,
@@ -155,12 +155,12 @@ interface ExceptionFactoryInterface
     );
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createSortingUnsupportedException(RequestInterface $request);
 
     /**
-     * @return Exception
+     * @return JsonApiExceptionInterface|Exception
      */
     public function createSortParamUnrecognizedException(RequestInterface $request, string $paramName);
 }

@@ -176,9 +176,9 @@ you to implement the following methods:
 
 ```php
 /**
- * Provides information about the "jsonApi" member of the current document.
+ * Provides information about the "jsonapi" member of the current document.
  *
- * The method returns a new JsonApi schema object if this member should be present or null
+ * The method returns a new JsonApiObject schema object if this member should be present or null
  * if it should be omitted from the response.
  *
  * @return JsonApiObject|null
@@ -262,7 +262,7 @@ Documents can be transformed to HTTP responses. The easiest way to achieve this 
 kinds of responses:
 
 - normal: All the top-level members can be present in the response (except for the "errors")
-- meta: Only the "jsonApi", "links" and meta top-level member can be present in the response
+- meta: Only the "jsonapi", "links" and meta top-level member can be present in the response
 - relationship: The specified relationship object will be the primary data of the response
 
 #### Documents for error responses
@@ -666,7 +666,7 @@ only want to respond with an error document in case of an exception, you only ne
 try {
     // Do something which results in an exception
 } catch (JsonApiExceptionInterface $e) {
-    sendResponse($e->getErrorDocument()->getContent());
+    sendResponse($e->getErrorDocument());
 }
 ```
 
@@ -776,26 +776,17 @@ class UserCollection implements PaginationLinkProviderInterface
 {
     use PageBasedPaginationLinkProviderTrait;
     
-    /**
-     * @return int
-     */
-    public function getTotalItems()
+    public function getTotalItems(): int
     {
         // ...
     }
     
-    /**
-     * @return int
-     */
-    public function getPage()
+    public function getPage(): int
     {
         // ...
     }
 
-    /**
-     * @return int
-     */
-    public function getSize()
+    public function getSize(): int
     {
         // ...
     }
@@ -817,7 +808,7 @@ An example is extracted from the [`UserResourceTransformer`](https://github.com/
 example class:
 
 ```php
-public function getRelationships($user)
+public function getRelationships($user): array
 {
     return [
         "contacts" => function (array $user) {
@@ -840,7 +831,7 @@ This problem can be mitigated by lazy-loading the relationship. To do so, you on
 with the `setDataAsCallable()` method:
 
 ```php
-public function getRelationships($user)
+public function getRelationships($user): array
 {
     return [
         "contacts" => function (array $user) {
