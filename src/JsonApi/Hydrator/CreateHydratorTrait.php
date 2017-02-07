@@ -114,7 +114,7 @@ trait CreateHydratorTrait
         $id = isset($data["id"]) ? (string) $data["id"] : "";
         $this->validateClientGeneratedId($id, $request, $exceptionFactory);
 
-        if ($id === null) {
+        if ($id === "") {
             $id = $this->generateId();
         }
 
