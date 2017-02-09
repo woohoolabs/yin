@@ -13,7 +13,7 @@ FIXED:
 ADDED:
 
 - `Responder::okWithRelationship()` and `Responder::createdWithRelationship()`
-- Possibility to configure the `DefaultSerializer`
+- [#58](https://github.com/woohoolabs/yin/issues/58): Allow to set options to the json_encode method
 
 CHANGED:
 
