@@ -1,4 +1,14 @@
-## 2.0.0-beta1 - unreleased
+## 2.0.0-beta2 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 2.0.0-beta1 - 2017-02-09
 
 ADDED:
 
@@ -13,6 +23,7 @@ CHANGED:
 - Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 
 REMOVED:
+
 - `RelationshipResponder::okWithMeta()` method (__BREAKING__)
 - `JsonApi::respondWithRelationship()` method (__BREAKING__)
 
