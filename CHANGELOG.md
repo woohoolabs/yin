@@ -1,13 +1,14 @@
-## 2.0.0 - unreleased
+## 2.0.0-beta1 - unreleased
 
 ADDED:
 
 - `Responder::okWithRelationship()` and `Responder::createdWithRelationship()`
+- Possibility to configure the `DefaultSerializer`
 
 CHANGED:
 
 - Yin now requires PHP 7.0 at least
-- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted (__BREAKING__)
+- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
 - Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 

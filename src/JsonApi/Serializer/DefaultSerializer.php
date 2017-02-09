@@ -7,6 +7,22 @@ use Psr\Http\Message\ResponseInterface;
 
 class DefaultSerializer implements SerializerInterface
 {
+    /**
+     * @var int
+     */
+    private $options;
+
+    /**
+     * @var int
+     */
+    private $depth;
+
+    public function __construct(int $options = 0, int $depth = 512)
+    {
+        $this->options = $options;
+        $this->depth = $depth;
+    }
+
     public function serialize(ResponseInterface $response, int $responseCode, array $content): ResponseInterface
     {
         $result = $response
@@ -16,7 +32,7 @@ class DefaultSerializer implements SerializerInterface
         if ($result->getBody()->isSeekable()) {
             $result->getBody()->rewind();
         }
-        $result->getBody()->write(json_encode($content));
+        $result->getBody()->write(json_encode($content, $this->options, $this->depth));
 
         return $result;
     }
