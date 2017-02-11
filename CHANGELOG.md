@@ -14,6 +14,10 @@ ADDED:
 
 - Possibility to configure the `DefaultSerializer`
 
+FIXED:
+
+- `AbstractSimpleResourceDocument::getRelationshipContent()` didn't return any value
+
 ## 1.0.4 - 2016-02-02
 
 FIXED:

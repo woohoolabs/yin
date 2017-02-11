@@ -39,6 +39,8 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         if ($relationship !== null) {
             $transformation->data->addPrimaryResource($relationship);
         }
+
+        return $relationship;
     }
 
     /**
