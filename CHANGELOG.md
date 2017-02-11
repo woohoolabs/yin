@@ -8,7 +8,7 @@ REMOVED:
 
 FIXED:
 
-## 1.0.5 - unreleased
+## 1.0.5 - 2016-02-11
 
 ADDED:
 
