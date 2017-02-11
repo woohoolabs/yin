@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 1.0.5 - unreleased
+
+ADDED:
+
+- Possibility to configure the `DefaultSerializer`
+
 ## 1.0.4 - 2016-02-02
 
 FIXED:
