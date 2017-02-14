@@ -13,6 +13,7 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 trait UpdateHydratorTrait
 {
     /**
+     * @return void
      * @throws ResourceTypeMissing
      * @throws ResourceTypeUnacceptable
      * @throws Exception
