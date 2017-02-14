@@ -122,7 +122,7 @@ trait UpdateHydratorTrait
         $relationshipHydrators = $this->getRelationshipHydrator($domainObject);
 
         if (isset($relationshipHydrators[$relationship]) === false) {
-            throw $exceptionFactory->createRelationshipNotExists($relationship);
+            throw $exceptionFactory->createRelationshipNotExistsException($relationship);
         }
 
         $relationshipHydrator = $relationshipHydrators[$relationship];
@@ -148,7 +148,11 @@ trait UpdateHydratorTrait
             throw $exceptionFactory->createResourceIdMissingException();
         }
 
-        $result = $this->setId($domainObject, (string) $data["id"]);
+        if (is_string($data["id"]) === false) {
+            throw $exceptionFactory->createResourceIdInvalidException($data["id"]);
+        }
+
+        $result = $this->setId($domainObject, $data["id"]);
         if ($result) {
             $domainObject = $result;
         }

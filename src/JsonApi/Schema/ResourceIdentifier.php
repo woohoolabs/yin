@@ -25,12 +25,20 @@ class ResourceIdentifier
      */
     public static function fromArray(array $array, ExceptionFactoryInterface $exceptionFactory): ResourceIdentifier
     {
-        if (isset($array["type"]) === false) {
-            throw $exceptionFactory->createResourceIdentifierTypeMissing($array);
+        if (empty($array["type"])) {
+            throw $exceptionFactory->createResourceIdentifierTypeMissingException($array);
         }
 
-        if (isset($array["id"]) === false) {
-            throw $exceptionFactory->createResourceIdentifierIdMissing($array);
+        if (is_string($array["type"]) === false) {
+            throw $exceptionFactory->createResourceIdentifierTypeInvalidException($array["type"]);
+        }
+
+        if (empty($array["id"])) {
+            throw $exceptionFactory->createResourceIdentifierIdMissingException($array);
+        }
+
+        if (is_string($array["id"]) === false) {
+            throw $exceptionFactory->createResourceIdentifierIdInvalidException($array["id"]);
         }
 
         $resourceIdentifier = new self();

@@ -111,7 +111,11 @@ trait CreateHydratorTrait
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
-        $id = isset($data["id"]) ? (string) $data["id"] : "";
+        if (empty($data["id"]) === false && is_string($data["id"]) === false) {
+            throw $exceptionFactory->createResourceIdInvalidException($data["id"]);
+        }
+
+        $id = empty($data["id"]) ? "" : $data["id"];
         $this->validateClientGeneratedId($id, $request, $exceptionFactory);
 
         if ($id === "") {

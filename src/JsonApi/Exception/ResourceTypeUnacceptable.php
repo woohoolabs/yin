@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 class ResourceTypeUnacceptable extends JsonApiException
 {
     /**
-     * @var string
+     * @var mixed
      */
     protected $currentType;
 
@@ -18,9 +18,9 @@ class ResourceTypeUnacceptable extends JsonApiException
      */
     protected $acceptedTypes;
 
-    public function __construct(string $currentType, array $acceptedTypes)
+    public function __construct($currentType, array $acceptedTypes)
     {
-        parent::__construct("Resource type '$currentType' can't be accepted by the Hydrator!");
+        parent::__construct("Resource type '$currentType' is not a string or can't be accepted by the Hydrator!");
         $this->currentType = $currentType;
         $this->acceptedTypes = $acceptedTypes;
     }
@@ -37,7 +37,10 @@ class ResourceTypeUnacceptable extends JsonApiException
         ];
     }
 
-    public function getCurrentType(): string
+    /**
+     * @return mixed
+     */
+    public function getCurrentType()
     {
         return $this->currentType;
     }

@@ -95,7 +95,7 @@ class Request implements RequestInterface
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
             if (preg_match("/^([a-z]+)$/", $queryParamName) &&
-                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"]) === false
+                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"], true) === false
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
             }

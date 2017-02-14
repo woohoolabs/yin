@@ -4,9 +4,13 @@ ADDED:
 
 CHANGED:
 
+- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`)
+
 REMOVED:
 
 FIXED:
+
+- [#59](https://github.com/woohoolabs/yin/issues/59): Resource schema validating
 
 ## 2.0.0-beta1 - 2017-02-09
 

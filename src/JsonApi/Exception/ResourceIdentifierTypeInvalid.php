@@ -1,0 +1,37 @@
+<?php
+declare(strict_types=1);
+
+namespace WoohooLabs\Yin\JsonApi\Exception;
+
+use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+
+class ResourceIdentifierTypeInvalid extends JsonApiException
+{
+    /**
+     * @var mixed
+     */
+    protected $type;
+
+    public function __construct($type)
+    {
+        parent::__construct("The resource type '$type' must be a string!");
+        $this->type = $type;
+    }
+
+    protected function getErrors(): array
+    {
+        return [
+            Error::create()
+                ->setStatus("400")
+                ->setCode("RESOURCE_IDENTIFIER_TYPE_INVALID")
+                ->setTitle("Resource identifier type is invalid")
+                ->setDetail("The resource type '$this->type' must be a string!")
+        ];
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+}

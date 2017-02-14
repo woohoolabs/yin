@@ -6,14 +6,14 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
-class ResourceIdInvalid extends JsonApiException
+class ResourceIdentifierIdInvalid extends JsonApiException
 {
     /**
      * @var mixed
      */
     protected $id;
 
-    public function __construct(string $id)
+    public function __construct($id)
     {
         parent::__construct("The resource ID '$id' must be a string!");
         $this->id = $id;
@@ -24,17 +24,13 @@ class ResourceIdInvalid extends JsonApiException
         return [
             Error::create()
                 ->setStatus("400")
-                ->setCode("RESOURCE_ID_INVALID")
-                ->setTitle("Resource ID is invalid")
-                ->setDetail("The resource ID '$this->id' is invalid!")
-                ->setSource(ErrorSource::fromPointer("/data/id"))
+                ->setCode("RESOURCE_IDENTIFIER_ID_INVALID")
+                ->setTitle("Resource identifier ID is invalid")
+                ->setDetail("The resource ID '$this->id' must be a string!")
         ];
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

@@ -75,7 +75,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new QueryParamUnrecognized($queryParamName);
     }
 
-    public function createRelationshipNotExists(string $relationship): RelationshipNotExists
+    public function createRelationshipNotExistsException(string $relationship): RelationshipNotExists
     {
         return new RelationshipNotExists($relationship);
     }
@@ -113,17 +113,27 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
-    public function createResourceIdentifierIdMissing(array $resourceIdentifier): ResourceIdentifierIdMissing
+    public function createResourceIdentifierIdInvalidException($id): ResourceIdentifierIdInvalid
+    {
+        return new ResourceIdentifierIdInvalid($id);
+    }
+
+    public function createResourceIdentifierIdMissingException(array $resourceIdentifier): ResourceIdentifierIdMissing
     {
         return new ResourceIdentifierIdMissing($resourceIdentifier);
     }
 
-    public function createResourceIdentifierTypeMissing(array $resourceIdentifier): ResourceIdentifierTypeMissing
+    public function createResourceIdentifierTypeInvalidException($type): ResourceIdentifierTypeInvalid
+    {
+        return new ResourceIdentifierTypeInvalid($type);
+    }
+
+    public function createResourceIdentifierTypeMissingException(array $resourceIdentifier): ResourceIdentifierTypeMissing
     {
         return new ResourceIdentifierTypeMissing($resourceIdentifier);
     }
 
-    public function createResourceIdInvalidException(string $id): ResourceIdInvalid
+    public function createResourceIdInvalidException($id): ResourceIdInvalid
     {
         return new ResourceIdInvalid($id);
     }
@@ -144,7 +154,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
     }
 
     public function createResourceTypeUnacceptableException(
-        string $currentType,
+        $currentType,
         array $acceptedTypes
     ): ResourceTypeUnacceptable {
         return new ResourceTypeUnacceptable($currentType, $acceptedTypes);

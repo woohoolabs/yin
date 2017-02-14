@@ -71,11 +71,11 @@ trait HydratorTrait
 
         $acceptedType = $this->getAcceptedType();
 
-        if (is_string($acceptedType) === true && $data["type"] !== $acceptedType) {
+        if (is_string($acceptedType) && $data["type"] !== $acceptedType) {
             throw $exceptionFactory->createResourceTypeUnacceptableException($data["type"], [$acceptedType]);
         }
 
-        if (is_array($acceptedType) && in_array($data["type"], $acceptedType) === false) {
+        if (is_array($acceptedType) && in_array($data["type"], $acceptedType, true) === false) {
             throw $exceptionFactory->createResourceTypeUnacceptableException($data["type"], $acceptedType);
         }
     }

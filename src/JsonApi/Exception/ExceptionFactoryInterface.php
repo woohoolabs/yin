@@ -67,7 +67,7 @@ interface ExceptionFactoryInterface
     /**
      * @return JsonApiExceptionInterface|Exception
      */
-    public function createRelationshipNotExists(string $relationship);
+    public function createRelationshipNotExistsException(string $relationship);
 
     /**
      * @return JsonApiExceptionInterface|Exception
@@ -102,19 +102,31 @@ interface ExceptionFactoryInterface
     );
 
     /**
+     * @param mixed $id
      * @return JsonApiExceptionInterface|Exception
      */
-    public function createResourceIdentifierIdMissing(array $resourceIdentifier);
+    public function createResourceIdentifierIdInvalidException($id);
 
     /**
      * @return JsonApiExceptionInterface|Exception
      */
-    public function createResourceIdentifierTypeMissing(array $resourceIdentifier);
+    public function createResourceIdentifierIdMissingException(array $resourceIdentifier);
+
+    /**
+     * @param mixed $type
+     * @return JsonApiExceptionInterface|Exception
+     */
+    public function createResourceIdentifierTypeInvalidException($type);
 
     /**
      * @return JsonApiExceptionInterface|Exception
      */
-    public function createResourceIdInvalidException(string $id);
+    public function createResourceIdentifierTypeMissingException(array $resourceIdentifier);
+
+    /**
+     * @return JsonApiExceptionInterface|Exception
+     */
+    public function createResourceIdInvalidException($id);
 
     /**
      * @return JsonApiExceptionInterface|Exception
@@ -134,7 +146,7 @@ interface ExceptionFactoryInterface
     /**
      * @return JsonApiExceptionInterface|Exception
      */
-    public function createResourceTypeUnacceptableException(string $currentType, array $acceptedTypes);
+    public function createResourceTypeUnacceptableException($currentType, array $acceptedTypes);
 
     /**
      * @return JsonApiExceptionInterface|Exception
