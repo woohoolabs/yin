@@ -27,7 +27,7 @@ class ResponseBodyInvalidJson extends JsonApiException
 
     public function __construct(ResponseInterface $response, string $lintMessage, bool $includeOriginalBody)
     {
-        parent::__construct("Request body is an invalid JSON document: '$lintMessage'!");
+        parent::__construct("Response body is an invalid JSON document: '$lintMessage'!");
         $this->response = $response;
         $this->lintMessage = $lintMessage;
         $this->includeOriginalBody = $includeOriginalBody;
@@ -38,7 +38,7 @@ class ResponseBodyInvalidJson extends JsonApiException
         $errorDocument = new ErrorDocument();
 
         if ($this->includeOriginalBody) {
-            $errorDocument->setMeta(["original" => json_decode($this->response->getBody(), true)]);
+            $errorDocument->setMeta(["original" => $this->response->getBody()->__toString()]);
         }
 
         return $errorDocument;
@@ -48,7 +48,7 @@ class ResponseBodyInvalidJson extends JsonApiException
     {
         return [
             Error::create()
-                ->setStatus(500)
+                ->setStatus("500")
                 ->setCode("RESPONSE_BODY_INVALID_JSON")
                 ->setTitle("Response body is an invalid JSON document")
                 ->setDetail($this->getMessage())

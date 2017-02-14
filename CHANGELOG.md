@@ -11,6 +11,7 @@ REMOVED:
 FIXED:
 
 - [#59](https://github.com/woohoolabs/yin/issues/59): Resource schema validating
+- Minor problems with request/response validators
 
 ## 2.0.0-beta1 - 2017-02-09
 

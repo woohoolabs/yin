@@ -39,7 +39,7 @@ class ResponseBodyInvalidJsonApi extends JsonApiException
         $errorDocument = new ErrorDocument();
 
         if ($this->includeOriginalBody) {
-            $errorDocument->setMeta(["original" => json_decode($this->response->getBody(), true)]);
+            $errorDocument->setMeta(["original" => json_decode($this->response->getBody()->__toString(), true)]);
         }
 
         return $errorDocument;
