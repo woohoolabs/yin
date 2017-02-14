@@ -145,7 +145,7 @@ class Request implements RequestInterface
             return true;
         }
 
-        if (empty($this->includedFields[$resourceType]) === true) {
+        if (empty($this->includedFields[$resourceType])) {
             return false;
         }
 

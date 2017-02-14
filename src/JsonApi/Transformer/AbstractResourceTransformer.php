@@ -76,7 +76,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         array $additionalMeta = []
     ) {
         $relationships = $this->getRelationships($domainObject);
-        if (empty($relationships) === true) {
+        if (empty($relationships)) {
             return null;
         }
 

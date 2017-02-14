@@ -49,7 +49,7 @@ abstract class AbstractMessageValidator
 
     protected function validateMessage(string $message): array
     {
-        if (empty($message) === true) {
+        if (empty($message)) {
             return [];
         }
 

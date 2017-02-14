@@ -71,7 +71,7 @@ abstract class AbstractData implements DataInterface
     {
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
-        if ($this->hasIncludedResource($type, $id) === true) {
+        if ($this->hasIncludedResource($type, $id)) {
             unset($this->includedKeys[$type . "." . $id]);
         }
 

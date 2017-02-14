@@ -252,7 +252,7 @@ trait HydratorTrait
         //If this is a request to clear the relationship, we create an empty relationship
         if (is_null($relationship["data"])) {
             $result = new ToOneRelationship();
-        } elseif ($this->isAssociativeArray($relationship["data"]) === true) {
+        } elseif ($this->isAssociativeArray($relationship["data"])) {
             $result = new ToOneRelationship(
                 ResourceIdentifier::fromArray($relationship["data"], $exceptionFactory)
             );

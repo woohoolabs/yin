@@ -44,7 +44,7 @@ class ResourceIdentifier
         $resourceIdentifier = new self();
         $resourceIdentifier->setType($array["type"]);
         $resourceIdentifier->setId($array["id"]);
-        if (isset($array["meta"]) === true) {
+        if (isset($array["meta"]) && is_array($array["meta"])) {
             $resourceIdentifier->setMeta($array["meta"]);
         }
 
