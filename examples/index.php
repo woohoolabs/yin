@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include_once "../vendor/autoload.php";
+require_once "../vendor/autoload.php";
 
 use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
@@ -15,6 +15,7 @@ use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
@@ -72,7 +73,8 @@ $routes = [
 
 // Find the current route
 $exceptionFactory = new DefaultExceptionFactory();
-$request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory);
+$deserializer = new DefaultDeserializer();
+$request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);
 $request = findRoute($request, $routes);
 
 // Invoking the current action

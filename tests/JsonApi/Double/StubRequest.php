@@ -5,12 +5,13 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use Zend\Diactoros\ServerRequest as DiactorosRequest;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use Zend\Diactoros\ServerRequest;
 
 class StubRequest extends Request
 {
     public function __construct()
     {
-        parent::__construct(new DiactorosRequest(), new DefaultExceptionFactory());
+        parent::__construct(new ServerRequest(), new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 }

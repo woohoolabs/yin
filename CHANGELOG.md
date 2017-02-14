@@ -2,6 +2,8 @@
 
 ADDED:
 
+- Support for custom deserializers
+
 CHANGED:
 
 - Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`)

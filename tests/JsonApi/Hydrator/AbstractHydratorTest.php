@@ -12,6 +12,7 @@ use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -356,7 +357,7 @@ class AbstractHydratorTest extends TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest, new DefaultExceptionFactory());
+        $request = new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
 
         return $request;
     }

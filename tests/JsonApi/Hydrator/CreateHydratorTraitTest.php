@@ -8,6 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -92,7 +93,7 @@ class CreateHydratorTraitTest extends TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest, new DefaultExceptionFactory());
+        $request = new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
 
         return $request;
     }

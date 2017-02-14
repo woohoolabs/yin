@@ -13,8 +13,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
@@ -195,7 +197,7 @@ class AbstractResourceTransformerTest extends TestCase
                 return $relationship;
             }
         ];
-        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $request = $request->withQueryParams(["fields" => ["user" => ""]]);
 
         $data = new SingleResourceData();
@@ -216,7 +218,7 @@ class AbstractResourceTransformerTest extends TestCase
                 return new ToOneRelationship();
             }
         ];
-        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $request = $request->withQueryParams(["include" => "mother"]);
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
 
@@ -232,7 +234,7 @@ class AbstractResourceTransformerTest extends TestCase
         $defaultRelationships = ["father"];
         $relationships = [];
 
-        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
@@ -254,7 +256,7 @@ class AbstractResourceTransformerTest extends TestCase
             }
         ];
 
-        $request = new Request(new DiactorosServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = new SingleResourceData();
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
@@ -274,7 +276,11 @@ class AbstractResourceTransformerTest extends TestCase
         DataInterface $data = null
     ) {
         $transformation = new Transformation(
-            $request ? $request : new Request(new DiactorosServerRequest(), new DefaultExceptionFactory()),
+            $request ? $request : new Request(
+                new DiactorosServerRequest(),
+                new DefaultExceptionFactory(),
+                new DefaultDeserializer()
+            ),
             $data ? $data : new SingleResourceData(),
             new DefaultExceptionFactory(),
             ""

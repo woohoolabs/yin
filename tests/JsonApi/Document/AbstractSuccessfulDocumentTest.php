@@ -6,14 +6,13 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
-use Zend\Diactoros\ServerRequest;
 
 class AbstractSuccessfulDocumentTest extends TestCase
 {
@@ -58,7 +57,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getEmptyDataContent()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = new SingleResourceData();
 
         $document = $this->createDocument(null, [], null, $data);
@@ -77,7 +76,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getContentWithLinks()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
         $document = $this->createDocument(null, [], $links);
@@ -96,7 +95,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getEmptyDataContentWithEmptyIncludes()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = null;
 
         $document = $this->createDocument(null, [], null, $data);
@@ -114,7 +113,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getEmptyDataContentWithIncludes()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = new SingleResourceData();
         $data->setIncludedResources(
             [
@@ -145,7 +144,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getRelationshipContent()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $relationshipContent = [
             "type" => "user",
             "id" => "1"
@@ -171,7 +170,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
      */
     public function getRelationshipWithIncluded()
     {
-        $request = new Request(new ServerRequest(), new DefaultExceptionFactory());
+        $request = new StubRequest();
         $data = new SingleResourceData();
         $data->setIncludedResources(
             [

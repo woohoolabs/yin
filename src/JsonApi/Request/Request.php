@@ -18,6 +18,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 
 class Request implements RequestInterface
 {
@@ -30,6 +31,11 @@ class Request implements RequestInterface
      * @var ExceptionFactoryInterface
      */
     protected $exceptionFactory;
+
+    /**
+     * @var DeserializerInterface
+     */
+    protected $deserializer;
 
     /**
      * @var array|null
@@ -56,10 +62,19 @@ class Request implements RequestInterface
      */
     protected $filtering;
 
-    public function __construct(ServerRequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
-    {
+    /**
+     * @var bool
+     */
+    protected $isParsed = false;
+
+    public function __construct(
+        ServerRequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory,
+        DeserializerInterface $deserializer
+    ) {
         $this->serverRequest = $request;
         $this->exceptionFactory = $exceptionFactory;
+        $this->deserializer = $deserializer;
     }
 
     /**
@@ -308,7 +323,7 @@ class Request implements RequestInterface
     {
         $filtering = $this->getFiltering();
 
-        return isset($filtering[$param]) ? $filtering[$param] : $default;
+        return $filtering[$param] ?? $default;
     }
 
     /**
@@ -335,6 +350,7 @@ class Request implements RequestInterface
         $queryParams[$name] = $value;
         $self->serverRequest = $this->serverRequest->withQueryParams($queryParams);
         $self->initializeParsedQueryParams();
+
         return $self;
     }
 
@@ -354,7 +370,8 @@ class Request implements RequestInterface
     public function getResource($default = null)
     {
         $body = $this->getParsedBody();
-        return isset($body["data"])? $body["data"] : $default;
+
+        return $body["data"] ?? $default;
     }
 
     /**
@@ -365,7 +382,7 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        return isset($data["type"]) ? $data["type"] : $default;
+        return $data["type"] ?? $default;
     }
 
     /**
@@ -383,7 +400,7 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        return isset($data["attributes"]) ? $data["attributes"] : [];
+        return $data["attributes"] ?? [];
     }
 
     /**
@@ -448,6 +465,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withProtocolVersion($version);
+
         return $self;
     }
 
@@ -475,6 +493,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withHeader($name, $value);
+
         return $self;
     }
 
@@ -482,6 +501,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
+
         return $self;
     }
 
@@ -489,6 +509,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withoutHeader($name);
+
         return $self;
     }
 
@@ -501,6 +522,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withBody($body);
+
         return $self;
     }
 
@@ -513,6 +535,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withRequestTarget($requestTarget);
+
         return $self;
     }
 
@@ -525,6 +548,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withMethod($method);
+
         return $self;
     }
 
@@ -537,6 +561,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withUri($uri, $preserveHost);
+
         return $self;
     }
 
@@ -554,6 +579,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withCookieParams($cookies);
+
         return $self;
     }
 
@@ -567,6 +593,7 @@ class Request implements RequestInterface
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withQueryParams($query);
         $self->initializeParsedQueryParams();
+
         return $self;
     }
 
@@ -579,18 +606,16 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withUploadedFiles($uploadedFiles);
+
         return $self;
     }
 
     public function getParsedBody()
     {
-        if (empty($this->serverRequest->getParsedBody()) === false) {
-            return $this->serverRequest->getParsedBody();
-        }
-
-        $content = $this->serverRequest->getBody()->__toString();
-        if ($content) {
-            $this->serverRequest = $this->serverRequest->withParsedBody(json_decode($content, true));
+        if ($this->isParsed === false && $this->serverRequest->getParsedBody() === null) {
+            $parsedBody = $this->deserializer->deserialize($this->serverRequest);
+            $this->serverRequest = $this->serverRequest->withParsedBody($parsedBody);
+            $this->isParsed = true;
         }
 
         return $this->serverRequest->getParsedBody();
@@ -600,6 +625,8 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withParsedBody($data);
+        $this->isParsed = true;
+
         return $self;
     }
 
@@ -617,6 +644,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withAttribute($name, $value);
+
         return $self;
     }
 
@@ -624,6 +652,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withoutAttribute($name);
+
         return $self;
     }
 }

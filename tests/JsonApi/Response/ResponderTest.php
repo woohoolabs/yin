@@ -6,14 +6,13 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Response;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
 
 class ResponderTest extends TestCase
 {
@@ -139,7 +138,7 @@ class ResponderTest extends TestCase
     private function createResponder(): Responder
     {
         return new Responder(
-            new Request(new ServerRequest(), new DefaultExceptionFactory()),
+            new StubRequest(),
             new Response(),
             new DefaultExceptionFactory(),
             new DefaultSerializer()

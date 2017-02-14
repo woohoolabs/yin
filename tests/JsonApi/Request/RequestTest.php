@@ -14,7 +14,8 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use Zend\Diactoros\ServerRequest as DiactorosRequest;
+use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use Zend\Diactoros\ServerRequest;
 
 class RequestTest extends TestCase
 {
@@ -953,7 +954,7 @@ class RequestTest extends TestCase
         $parsedBody = [
             "data" => [
                 "type" => "cat",
-                "id" => "tOm"
+                "id" => "tom"
             ]
         ];
 
@@ -985,33 +986,36 @@ class RequestTest extends TestCase
 
     private function createRequest(): Request
     {
-        $psrRequest = new DiactorosRequest();
-        return new Request($psrRequest, new DefaultExceptionFactory());
+        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 
     private function createRequestWithJsonBody(array $body): Request
     {
-        $psrRequest = new DiactorosRequest();
+        $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
-        return new Request($psrRequest, new DefaultExceptionFactory());
+
+        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 
     private function createRequestWithHeaders(array $headers): Request
     {
-        $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", $headers);
-        return new Request($psrRequest, new DefaultExceptionFactory());
+        $psrRequest = new ServerRequest([], [], null, null, "php://temp", $headers);
+
+        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 
     private function createRequestWithHeader($headerName, $headerValue): Request
     {
-        $psrRequest = new DiactorosRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
-        return new Request($psrRequest, new DefaultExceptionFactory());
+        $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
+
+        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 
     private function createRequestWithQueryParams(array $queryParams): Request
     {
-        $psrRequest = new DiactorosRequest();
+        $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
-        return new Request($psrRequest, new DefaultExceptionFactory());
+
+        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
     }
 }
