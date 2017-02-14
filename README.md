@@ -99,7 +99,7 @@ package), you must install one first. You may use [Zend Diactoros](https://githu
 any other library of your preference:
 
 ```bash
-$ composer require zendframework/zend-diactoros:^2.3.0
+$ composer require zendframework/zend-diactoros:^1.3.0
 ```
 
 ### Install Yin:
