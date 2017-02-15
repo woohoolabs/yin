@@ -4,17 +4,17 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use Zend\Diactoros\Response;
 
-class DefaultSerializerTest extends TestCase
+class JsonSerializerTest extends TestCase
 {
     /**
      * @test
      */
     public function setResponseCode()
     {
-        $serializer = new DefaultSerializer();
+        $serializer = new JsonSerializer();
 
         $response = $serializer->serialize(new Response(), 418, []);
 
@@ -26,7 +26,7 @@ class DefaultSerializerTest extends TestCase
      */
     public function setContentHeader()
     {
-        $serializer = new DefaultSerializer();
+        $serializer = new JsonSerializer();
 
         $response = $serializer->serialize(new Response(), 200, []);
 
@@ -45,7 +45,7 @@ class DefaultSerializerTest extends TestCase
             ]
         ];
 
-        $serializer = new DefaultSerializer();
+        $serializer = new JsonSerializer();
 
         $response = $serializer->serialize(new Response(), 200, $content);
 
@@ -60,7 +60,7 @@ class DefaultSerializerTest extends TestCase
         $response = new Response();
         $response->getBody()->write("abc");
 
-        $serializer = new DefaultSerializer();
+        $serializer = new JsonSerializer();
 
         $this->assertEquals("abc", $serializer->getBodyAsString($response));
     }

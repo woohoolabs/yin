@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 
-class DefaultDeserializerTest extends TestCase
+class JsonDeserializerTest extends TestCase
 {
     /**
      * @test
@@ -16,7 +16,7 @@ class DefaultDeserializerTest extends TestCase
     {
         $request = $this->createRequestWithJsonBody("");
 
-        $deserializer = new DefaultDeserializer();
+        $deserializer = new JsonDeserializer();
         $this->assertNull($deserializer->deserialize($request));
     }
 

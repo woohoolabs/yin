@@ -8,7 +8,7 @@ use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use Zend\Diactoros\Response;
 
@@ -44,7 +44,7 @@ class AbstractResponderTest extends TestCase
             new StubRequest(),
             $response ?? new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer()
+            new JsonSerializer()
         );
     }
 }

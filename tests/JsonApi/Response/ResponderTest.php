@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultSerializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
 use Zend\Diactoros\Response;
@@ -141,7 +141,7 @@ class ResponderTest extends TestCase
             new StubRequest(),
             new Response(),
             new DefaultExceptionFactory(),
-            new DefaultSerializer()
+            new JsonSerializer()
         );
     }
 }

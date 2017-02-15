@@ -15,7 +15,7 @@ use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Response\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
@@ -73,7 +73,7 @@ $routes = [
 
 // Find the current route
 $exceptionFactory = new DefaultExceptionFactory();
-$deserializer = new DefaultDeserializer();
+$deserializer = new JsonDeserializer();
 $request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);
 $request = findRoute($request, $routes);
 

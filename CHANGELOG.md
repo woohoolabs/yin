@@ -6,7 +6,8 @@ ADDED:
 
 CHANGED:
 
-- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`)
+- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
+- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__) 
 
 REMOVED:
 

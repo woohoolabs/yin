@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class DefaultDeserializer implements DeserializerInterface
+class JsonDeserializer implements DeserializerInterface
 {
     /**
      * @var int

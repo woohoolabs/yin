@@ -15,7 +15,7 @@ use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Negotiation\RequestValidator;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class RequestValidatorTest extends TestCase
 {
@@ -184,7 +184,7 @@ class RequestValidatorTest extends TestCase
 
     private function createRequest(ServerRequestInterface $serverRequest): RequestInterface
     {
-        return new Request($serverRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function setFakeBody(ServerRequestInterface $request, $body)

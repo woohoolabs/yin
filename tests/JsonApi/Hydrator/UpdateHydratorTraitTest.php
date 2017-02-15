@@ -8,7 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubUpdateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -71,7 +71,7 @@ class UpdateHydratorTraitTest extends TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        $request = new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
 
         return $request;
     }

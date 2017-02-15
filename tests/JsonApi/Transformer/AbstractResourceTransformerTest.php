@@ -13,7 +13,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
@@ -279,7 +279,7 @@ class AbstractResourceTransformerTest extends TestCase
             $request ? $request : new Request(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
-                new DefaultDeserializer()
+                new JsonDeserializer()
             ),
             $data ? $data : new SingleResourceData(),
             new DefaultExceptionFactory(),

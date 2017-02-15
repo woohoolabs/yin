@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
@@ -122,7 +122,7 @@ class JsonApiTest extends TestCase
         return new Request(
             $request ? $request : new ServerRequest(),
             new DefaultExceptionFactory(),
-            new DefaultDeserializer()
+            new JsonDeserializer()
         );
     }
 }

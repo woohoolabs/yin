@@ -14,7 +14,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Serializer\DefaultDeserializer;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 
 class RequestTest extends TestCase
@@ -986,7 +986,7 @@ class RequestTest extends TestCase
 
     private function createRequest(): Request
     {
-        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithJsonBody(array $body): Request
@@ -994,21 +994,21 @@ class RequestTest extends TestCase
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithHeaders(array $headers): Request
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", $headers);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithHeader($headerName, $headerValue): Request
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithQueryParams(array $queryParams): Request
@@ -1016,6 +1016,6 @@ class RequestTest extends TestCase
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new DefaultDeserializer());
+        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 }
