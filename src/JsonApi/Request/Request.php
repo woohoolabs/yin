@@ -19,6 +19,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
+use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class Request implements RequestInterface
 {
@@ -70,11 +71,11 @@ class Request implements RequestInterface
     public function __construct(
         ServerRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
-        DeserializerInterface $deserializer
+        DeserializerInterface $deserializer = null
     ) {
         $this->serverRequest = $request;
         $this->exceptionFactory = $exceptionFactory;
-        $this->deserializer = $deserializer;
+        $this->deserializer = $deserializer ?? new JsonDeserializer();
     }
 
     /**
