@@ -29,6 +29,7 @@
     * [Content negotiation](#content-negotiation)
     * [Request/response validation](#requestresponse-validation)
     * [Custom serialization](#custom-serialization)
+    * [Custom deserialization](#custom-deserialization)
     * [Middleware](#middleware)
 * [Examples](#examples)
     * [Fetching a single resource](#fetching-a-single-resource)
@@ -916,7 +917,7 @@ Similarly, responses can be validated too. Let's create a response validator fir
 
 ```php
 $responseValidator = new ResponseValidator(
-    new DefaultSerializer(),
+    new JsonSerializer(),
     new DefaultExceptionFactory(),
     $includeOriginalMessageInResponse
 );
@@ -938,18 +939,34 @@ Validating the responses can be useful in a development environment to find poss
 
 ### Custom serialization
 
-You can configure Yin to serialize responses in a custom way instead of the default one which uses the `json_encode`
-function to write the JSON:API documents to the response body.
+You can configure Yin to serialize responses in a custom way instead of using default serializer (`JsonSerializer`)
+which utilizes the `json_encode()` function to write JSON:API documents to the response body.
 
-In the majority of the use-cases, the default serializer should be sufficient for your needs, but sometimes you need
-more sophistication. Or sometimes you want to do nasty things like returning your JSON:API response as an array without
-any serialization in case your API endpoint was called "internally".
+In the majority of the use-cases, the default serializer should be sufficient for your needs, but sometimes you might
+need more sophistication. Or sometimes you want to do nasty things like returning your JSON:API response as an array
+without any serialization in case your API endpoint was called "internally".
 
-In order to use a custom serializer, create a class implementing `SerializerInterface` and setup your `$jsonApi`
-object accordingly (pay attention to the last argument):
+In order to use a custom serializer, create a class implementing `SerializerInterface` and setup your `JsonApi`
+instance accordingly (pay attention to the last argument):
 
 ```php
 $jsonApi = new JsonApi(new Request(), new Response(), new ExceptionFactory(), new CustomSerializer());
+```
+
+### Custom deserialization
+
+You can configure Yin to deserialize requests in a custom way instead of using the default deserializer
+(`JsonDeserializer`) which utilizes the `json_decode()` function to parse the contents of the request body.
+
+In the majority of the use-cases, the default deserializer should be sufficient for your needs, but sometimes you might
+need more sophistication. Or sometimes you want to do nasty things like calling your JSON:API endpoints "internally"
+without converting your request body to JSON format.
+
+In order to use a custom deserializer, create a class implementing `DeserializerInterface` and setup your `Request`
+instance accordingly (pay attention to the last argument):
+
+```php
+$request = new Request(ServerRequestFactory::fromGlobals(), new ExceptionFactory(), new CustomDeserializer());
 ```
 
 ### Middleware
