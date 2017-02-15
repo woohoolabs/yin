@@ -1,4 +1,14 @@
-## 2.0.0-beta2 - unreleased
+## 2.0.0-beta3 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 2.0.0-beta2 - 2017-02-15
 
 ADDED:
 
@@ -8,8 +18,6 @@ CHANGED:
 
 - Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
 - Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__) 
-
-REMOVED:
 
 FIXED:
 
