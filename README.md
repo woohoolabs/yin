@@ -69,10 +69,9 @@ servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its cl
 #### Complete JSON:API framework
 
 Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification:
-it provides various
-capabilities including content negotiation, error handling and pagination, as well as fetching, creation, updating and
-deleting resources. Although Yin consists of many loosely coupled packages and classes which can be used separately,
-the framework is most powerful when used in its entirety.
+it provides various capabilities including content negotiation, error handling and pagination, as well as fetching,
+creation, updating and deleting resources. Although Yin consists of many loosely coupled packages and classes which
+can be used separately, the framework is most powerful when used in its entirety.
 
 #### Efficiency
 
@@ -147,13 +146,13 @@ multiple abstract classes that help you to create your own documents for differe
 - `AbstractSingleResourceDocument`: A base class for documents about a single, more complex top-level resource
 - `AbstractCollectionDocument`: A base class for documents about a collection of top-level resources
 
+As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
+of multiple types), we will not cover it here.
+
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
 the first one doesn't need a [resource transformer](#resource-transformers). For this reason, it is preferable to use
 the former for really simple domain objects (like messages), while the latter works better for more complex domain
 objects (like users or addresses).
-
-As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. when a document can contain resources
-of multiple types), we will not cover it here.
 
 `AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a
 [resource transformer](#resource-transformers) to work, which is a concept introduced in the following sections.
@@ -285,15 +284,15 @@ $errorDocument->addError(new MyError());
 
 ### Resource transformers
 
-Documents for successful responses can contain one or more top-level resources, included resources, and
-resource identifier objects as relationships. That's why resource transformers are responsible for converting a
-domain object into a JSON:API resource or resource identifier.
+Documents for successful responses can contain one or more top-level resources and included resources.
+That's why resource transformers are responsible for converting domain objects into JSON:API resources and resource
+identifiers.
 
-Although you are encouraged to create one transformer for each resource type, if you need more sophistication you also
-have the ability to define "composite" resource transformers following the Composite design pattern.
+Although you are encouraged to create one transformer for each resource type, you also have the ability to define
+"composite" resource transformers following the Composite design pattern.
 
-Resource transformers must implement the `ResourceTransformerInterface`, but to facilitate this job, you can also extend
-the `AbstractResourceTransformer` class.
+Resource transformers must implement the `ResourceTransformerInterface`. In order to facilitate this job, you can also
+extend the `AbstractResourceTransformer` class.
 
 Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented - most of which
 are the same as seen in the Document objects. The following example illustrates a resource transformer dealing with
@@ -653,28 +652,36 @@ Array
 
 ### Exceptions
 
-Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why
-all the default exceptions extend the `JsonApiException` class and contain
-an [error document](#documents-for-error-responses) with the appropriate error object(s). However, if you
-only want to respond with an error document in case of an exception, you only need to do this:
+Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why all the default
+exceptions extend the `JsonApiException` class and contain an [error document](#documents-for-error-responses) with the
+appropriate error object(s). That's why if you want to respond with an error document in case of an exception you only
+need to do the following:
 
 ```php
 try {
     // Do something which results in an exception
 } catch (JsonApiExceptionInterface $e) {
-    sendResponse($e->getErrorDocument());
+    // Get the error document from the exception
+    $errorDocument = $e->getErrorDocument();
+    
+    // Instantiate the responder - make sure to pass the correct dependencies to it
+    $responder = Responder::create($request, $response, $exceptionFactory, $serializer);
+    
+    // Create a response from the error document
+    $responder->genericError($errorDocument);
+    
+    // Emit the HTTP response
+    sendResponse($response);
 }
 ```
 
-where `sendResponse()` is a hypothetical function which emits an HTTP response.
-
 To guarantee total customizability, we introduced the concept of __Exception Factories__. These are classes
-which can create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of your own choice is passed to
-every transformer and hydrator, you can completely customize what kind of exceptions you want to raise.
+which create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of __your own choice__ is passed to
+every transformer and hydrator, you can completely customize what kind of exceptions are thrown.
 
-The default [Exception Factory](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Exception/DefaultExceptionFactory) creates children
-of [`JsonApiException`](src/JsonApi/Exception)s but you are free to create any type of exception (even the
-basic `\Exception` instances). If you only want to customize the error document or the error objects of a
+The default [Exception Factory](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Exception/DefaultExceptionFactory)
+creates children of [`JsonApiException`](src/JsonApi/Exception)s but you are free to create any type of exception
+(even the basic `\Exception` instances). If you only want to customize the error document or the error objects of a
 `JsonApiException`, just extend the `Exception` and override its `createErrorDocument()` or `getErrors()` method.
 
 ### `JsonApi` class
