@@ -8,7 +8,13 @@ REMOVED:
 
 FIXED:
 
-## 1.0.5 - 2016-02-11
+## 1.0.6 - 2017-02-28
+
+FIXED:
+
+- [#60](https://github.com/woohoolabs/yin/pull/60): Fixed datetime format method from sql without second argument
+
+## 1.0.5 - 2017-02-11
 
 ADDED:
 
@@ -18,7 +24,7 @@ FIXED:
 
 - `AbstractSimpleResourceDocument::getRelationshipContent()` didn't return any value
 
-## 1.0.4 - 2016-02-02
+## 1.0.4 - 2017-02-02
 
 FIXED:
 

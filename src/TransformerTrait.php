@@ -3,6 +3,7 @@ namespace WoohooLabs\Yin;
 
 use DateTime;
 use DateTimeInterface;
+use DateTimeZone;
 
 trait TransformerTrait
 {
@@ -78,7 +79,7 @@ trait TransformerTrait
         $format = "Y-m-d H:i:s";
 
         if ($timeZoneName) {
-            $date = DateTime::createFromFormat($format, $string, new \DateTimeZone($timeZoneName));
+            $date = DateTime::createFromFormat($format, $string, new DateTimeZone($timeZoneName));
         } else {
             $date = DateTime::createFromFormat($format, $string);
         }

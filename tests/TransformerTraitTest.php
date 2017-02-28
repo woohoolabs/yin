@@ -1,23 +1,13 @@
 <?php
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 
+use DateTime;
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\TransformerTrait;
 
 class TransformerTraitTest extends TestCase
 {
-    private $defaultTimezone;
-
-    protected function setUp()
-    {
-        $this->defaultTimezone = date_default_timezone_get();
-    }
-
-    protected function tearDown()
-    {
-        date_default_timezone_set($this->defaultTimezone);
-    }
-
     /**
      * @test
      */
@@ -136,6 +126,6 @@ class TransformerTraitTest extends TestCase
 
     private function createDateTime($string, $timeZone = "UTC")
     {
-        return \DateTime::createFromFormat("Y-m-d H:i:s", $string, new \DateTimeZone($timeZone));
+        return DateTime::createFromFormat("Y-m-d H:i:s", $string, new DateTimeZone($timeZone));
     }
 }
