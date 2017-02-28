@@ -75,11 +75,15 @@ trait TransformerTrait
      */
     public function fromSqlToIso8601Time($string, $timeZoneName = "")
     {
-        return DateTime::createFromFormat(
-            "Y-m-d H:i:s",
-            $string,
-            $timeZoneName ? new \DateTimeZone($timeZoneName) : null
-        )->format(DateTime::ATOM);
+        $format = "Y-m-d H:i:s";
+
+        if ($timeZoneName) {
+            $date = DateTime::createFromFormat($format, $string, new \DateTimeZone($timeZoneName));
+        } else {
+            $date = DateTime::createFromFormat($format, $string);
+        }
+
+        return $date->format(DateTime::ATOM);
     }
 
     /**

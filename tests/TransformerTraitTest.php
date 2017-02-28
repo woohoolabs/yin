@@ -6,6 +6,18 @@ use WoohooLabs\Yin\TransformerTrait;
 
 class TransformerTraitTest extends TestCase
 {
+    private $defaultTimezone;
+
+    protected function setUp()
+    {
+        $this->defaultTimezone = date_default_timezone_get();
+    }
+
+    protected function tearDown()
+    {
+        date_default_timezone_set($this->defaultTimezone);
+    }
+
     /**
      * @test
      */
@@ -83,6 +95,21 @@ class TransformerTraitTest extends TestCase
         $this->assertEquals(
             "2015-06-30T16:00:00+02:00",
             $transformerTrait->fromSqlToIso8601Time("2015-06-30 16:00:00", "Europe/Budapest")
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformFromSqlToIso8601TimeWithoutSecondArgument()
+    {
+        $transformerTrait = $this->createTransformerTrait();
+
+        date_default_timezone_set('Europe/Budapest');
+
+        $this->assertEquals(
+            "2015-06-30T16:00:00+02:00",
+            $transformerTrait->fromSqlToIso8601Time("2015-06-30 16:00:00")
         );
     }
 
