@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-    php:
+    yin-php:
         container_name: yin-php
         image: php:7.0-cli
         volumes:

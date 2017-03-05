@@ -21,6 +21,14 @@ trait UpdateHydratorTrait
     abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
 
     /**
+     * Validates the request - you can check for example if all the required attributes are present.
+     *
+     * @return void
+     * @throws Exception
+     */
+    abstract protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory);
+
+    /**
      * Sets the given ID for the domain object.
      *
      * The method mutates the domain object and sets the given ID for it.
@@ -103,6 +111,7 @@ trait UpdateHydratorTrait
 
         $this->validateType($data, $exceptionFactory);
         $domainObject = $this->hydrateIdForUpdate($domainObject, $data, $exceptionFactory);
+        $this->validateRequest($request, $exceptionFactory);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
         $domainObject = $this->hydrateRelationships($domainObject, $data, $exceptionFactory);
 

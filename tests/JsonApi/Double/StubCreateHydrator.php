@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
+use LogicException;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -21,10 +22,19 @@ class StubCreateHydrator
      */
     private $generatedId;
 
-    public function __construct(bool $isClientGeneratedIdException = false, string $generatedId = "")
-    {
+    /**
+     * @var bool
+     */
+    private $logicException;
+
+    public function __construct(
+        bool $isClientGeneratedIdException = false,
+        string $generatedId = "",
+        bool $logicException
+    ) {
         $this->isClientGeneratedIdException = $isClientGeneratedIdException;
         $this->generatedId = $generatedId;
+        $this->logicException = $logicException;
     }
 
     protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
@@ -51,6 +61,13 @@ class StubCreateHydrator
         $domainObject["id"] = $id;
 
         return $domainObject;
+    }
+
+    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    {
+        if ($this->logicException) {
+            throw new LogicException();
+        }
     }
 
     protected function hydrateAttributes($domainObject, array $data)

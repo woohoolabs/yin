@@ -2,7 +2,11 @@
 
 ADDED:
 
+- Support for validating the request during hydration
+
 CHANGED:
+
+- Hydrators must implement the `validateRequest()` method (__BREAKING__)
 
 REMOVED:
 

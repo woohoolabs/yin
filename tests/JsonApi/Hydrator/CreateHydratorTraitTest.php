@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
@@ -85,6 +86,27 @@ class CreateHydratorTraitTest extends TestCase
         $this->assertEquals(["id" => $id], $domainObject);
     }
 
+    /**
+     * @test
+     */
+    public function validateRequest()
+    {
+        $type = "user";
+        $id = "1";
+
+        $body = [
+            "data" => [
+                "type" => $type,
+                "id" => $id,
+            ]
+        ];
+
+        $hydrator = $this->createHydrator(false, $id, true);
+
+        $this->expectException(LogicException::class);
+        $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
+    }
+
     private function createRequest(array $body)
     {
         $psrRequest = new ServerRequest();
@@ -101,8 +123,11 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @return StubCreateHydrator
      */
-    private function createHydrator(bool $clientGeneratedIdException = false, string $generatedId = "")
-    {
-        return new StubCreateHydrator($clientGeneratedIdException, $generatedId);
+    private function createHydrator(
+        bool $clientGeneratedIdException = false,
+        string $generatedId = "",
+        bool $logicException = false
+    ) {
+        return new StubCreateHydrator($clientGeneratedIdException, $generatedId, $logicException);
     }
 }

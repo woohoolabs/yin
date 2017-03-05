@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
@@ -63,6 +64,27 @@ class UpdateHydratorTraitTest extends TestCase
         $this->assertEquals(["id" => $id], $domainObject);
     }
 
+    /**
+     * @test
+     */
+    public function validateRequest()
+    {
+        $type = "user";
+        $id = "1";
+
+        $body = [
+            "data" => [
+                "type" => $type,
+                "id" => $id,
+            ]
+        ];
+
+        $hydrator = $this->createHydrator(true);
+
+        $this->expectException(LogicException::class);
+        $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
+    }
+
     private function createRequest(array $body)
     {
         $psrRequest = new ServerRequest();
@@ -76,8 +98,8 @@ class UpdateHydratorTraitTest extends TestCase
         return $request;
     }
 
-    private function createHydrator(): StubUpdateHydrator
+    private function createHydrator($validationException = false): StubUpdateHydrator
     {
-        return new StubUpdateHydrator();
+        return new StubUpdateHydrator($validationException);
     }
 }

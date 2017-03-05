@@ -37,6 +37,14 @@ trait CreateHydratorTrait
     );
 
     /**
+     * Validates the request - you can check for example if all the required attributes are present.
+     *
+     * @return void
+     * @throws Exception
+     */
+    abstract protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory);
+
+    /**
      * Produces a new ID for the domain objects.
      *
      * UUID-s are preferred according to the JSON API specification.
@@ -95,6 +103,7 @@ trait CreateHydratorTrait
 
         $this->validateType($data, $exceptionFactory);
         $domainObject = $this->hydrateIdForCreate($domainObject, $data, $request, $exceptionFactory);
+        $this->validateRequest($request, $exceptionFactory);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
         $domainObject = $this->hydrateRelationships($domainObject, $data, $exceptionFactory);
 

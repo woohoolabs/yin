@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
+use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -52,6 +53,10 @@ class StubHydrator extends AbstractHydrator
     }
 
     protected function setId($domainObject, string $id)
+    {
+    }
+
+    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
     {
     }
 

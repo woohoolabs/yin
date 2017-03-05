@@ -3,12 +3,24 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
+use LogicException;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateHydratorTrait;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class StubUpdateHydrator
 {
     use UpdateHydratorTrait;
+
+    /**
+     * @var bool
+     */
+    private $validationException;
+
+    public function __construct($validationException = false)
+    {
+        $this->validationException = $validationException;
+    }
 
     protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
     {
@@ -19,6 +31,13 @@ class StubUpdateHydrator
         $domainObject["id"] = $id;
 
         return $domainObject;
+    }
+
+    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    {
+        if ($this->validationException) {
+            throw new LogicException();
+        }
     }
 
     protected function hydrateAttributes($domainObject, array $data)

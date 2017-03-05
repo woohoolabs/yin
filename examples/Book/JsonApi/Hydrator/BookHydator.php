@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
 use Exception;
+use LogicException;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
@@ -79,6 +80,19 @@ class BookHydator extends AbstractHydrator
         $book["id"] = $id;
 
         return $book;
+    }
+
+    /**
+     * Validates the request - you can check for example if all the required attributes are present.
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    {
+        if ($request->getAttribute("title") === null) {
+            throw new LogicException("The 'title' attribute is required!");
+        }
     }
 
     /**
