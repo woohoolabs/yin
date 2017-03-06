@@ -1,4 +1,14 @@
-## 2.0.0-beta3 - unreleased
+## 2.0.0 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 2.0.0-rc1 - 2017-03-06
 
 ADDED:
 
@@ -7,10 +17,6 @@ ADDED:
 CHANGED:
 
 - Hydrators must implement the `validateRequest()` method (__BREAKING__)
-
-REMOVED:
-
-FIXED:
 
 ## 2.0.0-beta2 - 2017-02-15
 
