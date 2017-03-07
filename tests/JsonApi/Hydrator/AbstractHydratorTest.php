@@ -45,7 +45,7 @@ class AbstractHydratorTest extends TestCase
             ]
         ];
 
-        $hydrator = $this->createHydrator("fox");
+        $hydrator = $this->createHydrator(["fox"]);
 
         $this->expectException(ResourceTypeUnacceptable::class);
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
@@ -80,7 +80,7 @@ class AbstractHydratorTest extends TestCase
             ]
         ];
 
-        $hydrator = $this->createHydrator("elephant");
+        $hydrator = $this->createHydrator(["elephant"]);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
@@ -105,7 +105,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", $attributeHydrator);
+        $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(['height' => null], $domainObject);
     }
@@ -130,7 +130,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", $attributeHydrator);
+        $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
@@ -156,7 +156,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", $attributeHydrator);
+        $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
@@ -183,7 +183,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", $attributeHydrator);
+        $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["weight" => $weight], $domainObject);
     }
@@ -208,7 +208,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals([], $domainObject);
     }
@@ -237,7 +237,7 @@ class AbstractHydratorTest extends TestCase
                 $elephant["children"] = $children->getResourceIdentifiers();
             }
         ];
-        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
 
         $this->expectException(RelationshipTypeInappropriate::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
@@ -269,7 +269,7 @@ class AbstractHydratorTest extends TestCase
                 $elephant["children"] = $children->getResourceIdentifier();
             }
         ];
-        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
 
         $this->expectException(RelationshipTypeInappropriate::class);
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
@@ -302,7 +302,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["children" => "Dumbo"], $domainObject);
     }
@@ -344,7 +344,7 @@ class AbstractHydratorTest extends TestCase
             }
         ];
 
-        $hydrator = $this->createHydrator("elephant", [], $relationshipHydrator);
+        $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
         $domainObject = $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
         $this->assertEquals(["owner" => "1", "children" => ["2"]], $domainObject);
     }
@@ -363,13 +363,13 @@ class AbstractHydratorTest extends TestCase
     }
 
     /**
-     * @param string|array $acceptedType
+     * @param string|array $acceptedTypes
      */
     private function createHydrator(
-        $acceptedType = "",
+        array $acceptedTypes = [],
         array $attributeHydrator = [],
         array $relationshipHydrator = []
     ): AbstractHydrator {
-        return new StubHydrator($acceptedType, $attributeHydrator, $relationshipHydrator);
+        return new StubHydrator($acceptedTypes, $attributeHydrator, $relationshipHydrator);
     }
 }

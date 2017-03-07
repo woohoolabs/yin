@@ -26,7 +26,7 @@ class BookHydator extends AbstractHydrator
      *
      * @return string[]
      */
-    protected function getAcceptedTypes()
+    protected function getAcceptedTypes(): array
     {
         return ["book"];
     }

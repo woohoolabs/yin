@@ -10,9 +10,9 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 class StubHydrator extends AbstractHydrator
 {
     /**
-     * @var string|array
+     * @var array
      */
-    private $acceptedType;
+    private $acceptedTypes;
 
     /**
      * @var array
@@ -24,19 +24,19 @@ class StubHydrator extends AbstractHydrator
      */
     private $relationshipHydrator;
 
-    /**
-     * @param string|array $acceptedType
-     */
-    public function __construct($acceptedType = "", array $attributeHydrator = [], array $relationshipHydrator = [])
-    {
-        $this->acceptedType = $acceptedType;
+    public function __construct(
+        array $acceptedTypes = [],
+        array $attributeHydrator = [],
+        array $relationshipHydrator = []
+    ) {
+        $this->acceptedTypes = $acceptedTypes;
         $this->attributeHydrator = $attributeHydrator;
         $this->relationshipHydrator = $relationshipHydrator;
     }
 
     protected function getAcceptedTypes(): array
     {
-        return [$this->acceptedType];
+        return $this->acceptedTypes;
     }
 
     protected function validateClientGeneratedId(

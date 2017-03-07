@@ -480,7 +480,7 @@ class BookHydator extends AbstractHydrator
      */
     protected function getAcceptedTypes(): array
     {
-        return "book";
+        return ["book"];
     }
 
     /**
