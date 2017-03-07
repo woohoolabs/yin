@@ -34,9 +34,9 @@ class StubHydrator extends AbstractHydrator
         $this->relationshipHydrator = $relationshipHydrator;
     }
 
-    protected function getAcceptedType()
+    protected function getAcceptedTypes(): array
     {
-        return $this->acceptedType;
+        return [$this->acceptedType];
     }
 
     protected function validateClientGeneratedId(

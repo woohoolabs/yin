@@ -1,8 +1,11 @@
-## 2.0.0 - unreleased
+## 2.0.0-rc2 - unreleased
 
 ADDED:
 
 CHANGED:
+
+- `HydratorTrait::getAcceptedType()` was renamed to `HydratorTrait::getAcceptedTypes()` and it should always return an array
+even if the hydrator can only accept one resource type (__BREAKING__) 
 
 REMOVED:
 

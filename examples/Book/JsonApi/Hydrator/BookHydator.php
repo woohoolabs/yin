@@ -18,19 +18,17 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 class BookHydator extends AbstractHydrator
 {
     /**
-     * Determines which resource type or types can be accepted by the hydrator.
+     * Determines which resource types can be accepted by the hydrator.
      *
-     * If the hydrator can only accept one type of resources, the method should
-     * return a string. If it accepts more types, then it should return an array
-     * of strings. When such a resource is received for hydration which can't be
-     * accepted (its type doesn't match the acceptable type or types of the hydrator),
-     * a ResourceTypeUnacceptable exception will be raised.
+     * The method should return an array of acceptable resource types. When such a resource is received for hydration
+     * which can't be accepted (its type doesn't match the acceptable types of the hydrator), a ResourceTypeUnacceptable
+     * exception will be raised.
      *
-     * @return string|array
+     * @return string[]
      */
-    protected function getAcceptedType()
+    protected function getAcceptedTypes()
     {
-        return "book";
+        return ["book"];
     }
 
     /**
