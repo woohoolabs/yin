@@ -22,6 +22,7 @@
     * [Hydrators](#hydrators)
     * [Exceptions](#exceptions)
     * [JsonApi class](#jsonapi-class)
+    * [Request class](#request-class)
 * [Advanced Usage](#advanced-usage)
     * [Pagination](#pagination)
     * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
@@ -128,8 +129,8 @@ When using Woohoo Labs. Yin, you will create:
 - Documents and resource transformers in order to map domain objects to JSON:API responses
 - Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
-Furthermore, a `JsonApi` class will be responsible for the instrumentation, while a PSR-7 compatible
-`Request` class provides functionalities you commonly need.
+Furthermore, a [`JsonApi`](#jsonapi-class) class will be responsible for the instrumentation, while a PSR-7 compatible
+[`Request`](#request-class) class provides functionalities you commonly need.
 
 ### Documents
 
@@ -699,12 +700,13 @@ creates children of [`JsonApiException`](src/JsonApi/Exception)s but you are fre
 
 The `JsonApi` class is the orchestrator of the whole framework. It is highly recommended to utilize this class
 if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
-of it in the [examples section](#examples) or [directory](https://github.com/woohoolabs/yin/blob/master/examples/Utils/Collection.php).
+of it in the [examples section](#examples) or [example directory](https://github.com/woohoolabs/yin/blob/master/examples).
 
 ### `Request` class
 
 The `Request` class implements the `WoohooLabs\Yin\JsonApi\Request\RequestInterface` which extends the PSR-7
-`ServerRequestInterface` with some useful methods.
+`ServerRequestInterface` with some useful methods. For further information about the available methods, please refer
+to the documentation of the [`RequestInterface`](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Request/RequestInterface.php).
 
 ## Advanced Usage
 

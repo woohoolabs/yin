@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request;
 
+use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
@@ -17,23 +18,23 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 interface RequestInterface extends ServerRequestInterface
 {
     /**
-     * Validates if the current request's Content-Type header conforms to the JSON API schema.
+     * Validates if the current request's "Content-Type" header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnsupported
+     * @throws MediaTypeUnsupported|Exception
      * @return void
      */
     public function validateContentTypeHeader();
 
     /**
-     * Validates if the current request's Accept header conforms to the JSON API schema.
+     * Validates if the current request's "Accept" header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnacceptable
+     * @throws MediaTypeUnacceptable|Exception
      * @return void
      */
     public function validateAcceptHeader();
 
     /**
-     * Validates if the current request's query parameters conform to the JSON API schema.
+     * Validates if the current request's query parameters conform to the JSON:API schema.
      *
      * According to the JSON API specification "Implementation specific query parameters MUST
      * adhere to the same constraints as member names with the additional requirement that they
@@ -45,7 +46,7 @@ interface RequestInterface extends ServerRequestInterface
     public function validateQueryParams();
 
     /**
-     * Returns a list of field names for the given resource type which are required to be present in the response.
+     * Returns a list of field names for the given resource type which should be present in the response.
      */
     public function getIncludedFields(string $resourceType): array;
 
@@ -55,17 +56,17 @@ interface RequestInterface extends ServerRequestInterface
     public function isIncludedField(string $resourceType, string $field): bool;
 
     /**
-     * Determines if the request needs any relationships to be included.
+     * Determines if any relationship needs to be included.
      */
     public function hasIncludedRelationships(): bool;
 
     /**
-     * Returns a list of relationship paths for a given parent path.
+     * Returns a list of relationship paths for a given parent path which should be included in the response.
      */
     public function getIncludedRelationships(string $baseRelationshipPath): array;
 
     /**
-     * Determines if a given relationship name that is a child of the $baseRelationshipPath is required to be included
+     * Determines if a given relationship name that is a child of the $baseRelationshipPath should be included
      * in the response.
      */
     public function isIncludedRelationship(
@@ -74,34 +75,68 @@ interface RequestInterface extends ServerRequestInterface
         array $defaultRelationships
     ): bool;
 
+    /**
+     * Returns the "sort[]" query parameters.
+     */
     public function getSorting(): array;
 
+    /**
+     * Returns the "page[]" query parameters.
+     */
     public function getPagination(): array;
 
+    /**
+     * Returns a FixedPageBasedPagination class in order to be used for fixed page-based pagination.
+     *
+     * The FixedPageBasedPagination class stores the value of the "page[number]" query parameter if present
+     * or the $defaultPage otherwise.
+     */
     public function getFixedPageBasedPagination(int $defaultPage = null): FixedPageBasedPagination;
 
+    /**
+     * Returns a PageBasedPagination class in order to be used for page-based pagination.
+     *
+     * The PageBasedPagination class stores the value of the "page[number]" and "page[size]" query parameters
+     * if present or the $defaultPage and $defaultSize otherwise.
+     */
     public function getPageBasedPagination(int $defaultPage = null, int $defaultSize = null): PageBasedPagination;
 
+    /**
+     * Returns a OffsetBasedPagination class in order to be used for offset-based pagination.
+     *
+     * The OffsetBasedPagination class stores the value of the "page[offset]" and "page[limit]" query parameters
+     * if present or the $defaultOffset and $defaultLimit otherwise.
+     */
     public function getOffsetBasedPagination(
         int $defaultOffset = null,
         int $defaultLimit = null
     ): OffsetBasedPagination;
 
     /**
+     * Returns a CursorBasedPagination class in order to be used for cursor-based pagination.
+     *
+     * The CursorBasedPagination class stores the value of the "page[cursor]" query parameter if present
+     * or the $defaultCursor otherwise.
+     *
      * @param mixed $defaultCursor
      */
     public function getCursorBasedPagination($defaultCursor = null): CursorBasedPagination;
 
+    /**
+     * Returns the "filter[]" query parameters.
+     */
     public function getFiltering(): array;
 
     /**
+     * Returns the value of the "filter[$param]" query parameter if present or $default value otherwise
+     *
      * @param mixed|null $default
      * @return string|mixed
      */
     public function getFilteringParam(string $param, $default = null);
 
     /**
-     * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
+     * Returns the value of the  "$name" query parameter if present or the $default value otherwise.
      *
      * @param mixed $default
      * @return array|string|mixed
@@ -109,7 +144,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getQueryParam(string $name, $default = null);
 
     /**
-     * Returns a query parameter with a name of $name if it is present in the request, or the $default value otherwise.
+     * Creates a new request with the "$name" query parameter.
      *
      * @param mixed $value
      * @return $this
@@ -117,7 +152,7 @@ interface RequestInterface extends ServerRequestInterface
     public function withQueryParam(string $name, $value);
 
     /**
-     * Returns the "data" part of the request if it is present in the body, or null otherwise.
+     * Returns the "data" member of the request if it is present in the body, or null otherwise.
      *
      * @param mixed $default
      * @return array|mixed
@@ -125,7 +160,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getResource($default = null);
 
     /**
-     * Returns the "type" key's value in the "data" part of the request if it is present in the body, or null otherwise.
+     * Returns the "type" key's value in the "data" member of the request if it is present, or null otherwise.
      *
      * @param mixed $default
      * @return string|mixed
@@ -133,7 +168,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getResourceType($default = null);
 
     /**
-     * Returns the "id" key's value in the "data" part of the request if it is present in the body, or null otherwise.
+     * Returns the "id" key's value in the "data" member of the request if it is present, or null otherwise.
      *
      * @param mixed $default
      * @return string|mixed
