@@ -538,7 +538,7 @@ class BookHydator extends AbstractHydrator
      * @return void
      * @throws Exception
      */
-    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateRequest(RequestInterface $request)
     {
         if ($request->getAttribute("title") === null) {
             throw new LogicException("The 'title' attribute is required!");
@@ -700,6 +700,11 @@ creates children of [`JsonApiException`](src/JsonApi/Exception)s but you are fre
 The `JsonApi` class is the orchestrator of the whole framework. It is highly recommended to utilize this class
 if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
 of it in the [examples section](#examples) or [directory](https://github.com/woohoolabs/yin/blob/master/examples/Utils/Collection.php).
+
+### `Request` class
+
+The `Request` class implements the `WoohooLabs\Yin\JsonApi\Request\RequestInterface` which extends the PSR-7
+`ServerRequestInterface` with some useful methods.
 
 ## Advanced Usage
 

@@ -86,7 +86,7 @@ class BookHydator extends AbstractHydrator
      * @return void
      * @throws Exception
      */
-    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateRequest(RequestInterface $request)
     {
         if ($request->getAttribute("title") === null) {
             throw new LogicException("The 'title' attribute is required!");

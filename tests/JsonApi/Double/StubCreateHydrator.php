@@ -63,7 +63,7 @@ class StubCreateHydrator
         return $domainObject;
     }
 
-    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateRequest(RequestInterface $request)
     {
         if ($this->logicException) {
             throw new LogicException();

@@ -26,7 +26,7 @@ trait UpdateHydratorTrait
      * @return void
      * @throws Exception
      */
-    abstract protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateRequest(RequestInterface $request);
 
     /**
      * Sets the given ID for the domain object.

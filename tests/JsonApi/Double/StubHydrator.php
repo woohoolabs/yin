@@ -55,7 +55,7 @@ class StubHydrator extends AbstractHydrator
     {
     }
 
-    protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateRequest(RequestInterface $request)
     {
     }
 

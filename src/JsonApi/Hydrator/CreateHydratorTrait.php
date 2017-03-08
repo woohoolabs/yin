@@ -42,7 +42,7 @@ trait CreateHydratorTrait
      * @return void
      * @throws Exception
      */
-    abstract protected function validateRequest(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateRequest(RequestInterface $request);
 
     /**
      * Produces a new ID for the domain objects.
