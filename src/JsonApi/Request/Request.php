@@ -394,7 +394,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * Creates a new request with the "$name" query parameter.
+     * Returns a new request with the "$name" query parameter.
      *
      * @param mixed $value
      * @return $this
@@ -420,7 +420,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * Returns the "data" member of the request if it is present in the body, or null otherwise.
+     * Returns the primary resource if it is present in the request body, or the $default value otherwise.
      *
      * @param mixed $default
      * @return array|mixed
@@ -433,7 +433,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * Returns the "type" key's value in the "data" member of the request if present, or the $default value otherwise.
+     * Returns the "type" of the primary resource if it is present, or the $default value otherwise.
      *
      * @param mixed $default
      * @return string|mixed
@@ -446,7 +446,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * Returns the "id" key's value in the "data" member of the request if present, or the $default value otherwise.
+     * Returns the "id" of the primary resource if it is present, or the $default value otherwise.
      *
      * @param mixed $default
      * @return string|mixed
@@ -458,6 +458,9 @@ class Request implements RequestInterface
         return isset($data["id"]) ? $data["id"] : $default;
     }
 
+    /**
+     * Returns the "attributes" of the primary resource.
+     */
     public function getResourceAttributes(): array
     {
         $data = $this->getResource();
@@ -466,6 +469,8 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns the $attribute attribute of the primary resource if it is present, or the $default value otherwise.
+     *
      * @param mixed $default
      * @return mixed
      */
@@ -477,6 +482,8 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
+     *
      * @return ToOneRelationship|null
      */
     public function getToOneRelationship(string $relationship)
@@ -500,6 +507,8 @@ class Request implements RequestInterface
     }
 
     /**
+     * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
+     *
      * @return ToManyRelationship|null
      */
     public function getToManyRelationship(string $relationship)

@@ -136,7 +136,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getFilteringParam(string $param, $default = null);
 
     /**
-     * Returns the value of the  "$name" query parameter if present or the $default value otherwise.
+     * Returns the value of the "$name" query parameter if present or the $default value otherwise.
      *
      * @param mixed $default
      * @return array|string|mixed
@@ -144,7 +144,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getQueryParam(string $name, $default = null);
 
     /**
-     * Creates a new request with the "$name" query parameter.
+     * Returns a new request with the "$name" query parameter.
      *
      * @param mixed $value
      * @return $this
@@ -152,7 +152,7 @@ interface RequestInterface extends ServerRequestInterface
     public function withQueryParam(string $name, $value);
 
     /**
-     * Returns the "data" member of the request if it is present in the body, or null otherwise.
+     * Returns the primary resource if it is present in the request body, or the $default value otherwise.
      *
      * @param mixed $default
      * @return array|mixed
@@ -160,7 +160,7 @@ interface RequestInterface extends ServerRequestInterface
     public function getResource($default = null);
 
     /**
-     * Returns the "type" key's value in the "data" member of the request if it is present, or null otherwise.
+     * Returns the "type" of the primary resource if it is present, or the $default value otherwise.
      *
      * @param mixed $default
      * @return string|mixed
@@ -168,27 +168,36 @@ interface RequestInterface extends ServerRequestInterface
     public function getResourceType($default = null);
 
     /**
-     * Returns the "id" key's value in the "data" member of the request if it is present, or null otherwise.
+     * Returns the "id" of the primary resource if it is present, or the $default value otherwise.
      *
      * @param mixed $default
      * @return string|mixed
      */
     public function getResourceId($default = null);
 
+    /**
+     * Returns the "attributes" of the primary resource.
+     */
     public function getResourceAttributes(): array;
 
     /**
+     * Returns the $attribute attribute of the primary resource if it is present, or the $default value otherwise.
+     *
      * @param mixed $default
      * @return mixed
      */
     public function getResourceAttribute(string $attribute, $default = null);
 
     /**
+     * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
+     *
      * @return ToOneRelationship|null
      */
     public function getToOneRelationship(string $relationship);
 
     /**
+     * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
+     *
      * @return ToManyRelationship|null
      */
     public function getToManyRelationship(string $relationship);

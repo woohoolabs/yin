@@ -705,8 +705,8 @@ of it in the [examples section](#examples) or [example directory](https://github
 ### `Request` class
 
 The `Request` class implements the `WoohooLabs\Yin\JsonApi\Request\RequestInterface` which extends the PSR-7
-`ServerRequestInterface` with some useful methods. For further information about the available methods, please refer
-to the documentation of the [`RequestInterface`](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Request/RequestInterface.php).
+`ServerRequestInterface` with some useful, JSON:API related methods. For further information about the available methods,
+please refer to the documentation of [`RequestInterface`](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Request/RequestInterface.php).
 
 ## Advanced Usage
 
