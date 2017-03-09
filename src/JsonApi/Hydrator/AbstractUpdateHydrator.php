@@ -14,7 +14,7 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
     use UpdateHydratorTrait;
 
     /**
-     * Alias for \WoohooLabs\Yin\JsonApi\Hydrator\UpdateHydratorTrait::hydrateForUpdate()
+     * Alias for UpdateHydratorTrait::hydrateForUpdate()
      *
      * @param mixed $domainObject
      * @return mixed

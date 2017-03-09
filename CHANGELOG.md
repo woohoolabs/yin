@@ -49,7 +49,7 @@ CHANGED:
 - Yin now requires PHP 7.0 at least
 - Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
-- Renamed `JsonApi` to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
+- Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 
 REMOVED:
 
@@ -59,6 +59,22 @@ REMOVED:
 FIXED:
 
 - Minor bug fixes
+
+## 1.0.6 - 2017-02-28
+
+FIXED:
+
+- [#60](https://github.com/woohoolabs/yin/pull/60): Fixed datetime format method from sql without second argument
+
+## 1.0.5 - 2017-02-11
+
+ADDED:
+
+- Possibility to configure the `DefaultSerializer`
+
+FIXED:
+
+- `AbstractSimpleResourceDocument::getRelationshipContent()` didn't return any value
 
 ## 1.0.4 - 2016-02-02
 

@@ -534,13 +534,14 @@ class BookHydator extends AbstractHydrator
     }
     
     /**
-     * Validates the request - you can check for example if all the required attributes are present.
+     * You can validate the request.
      *
      * @return void
      * @throws Exception
      */
     protected function validateRequest(RequestInterface $request)
     {
+        // WARNING! THIS CONDITION CONTRADICTS TO THE SPEC
         if ($request->getAttribute("title") === null) {
             throw new LogicException("The 'title' attribute is required!");
         }

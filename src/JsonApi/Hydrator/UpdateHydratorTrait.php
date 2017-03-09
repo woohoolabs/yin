@@ -21,7 +21,7 @@ trait UpdateHydratorTrait
     abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
 
     /**
-     * Validates the request - you can check for example if all the required attributes are present.
+     * You can validate the request.
      *
      * @return void
      * @throws Exception

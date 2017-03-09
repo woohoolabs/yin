@@ -37,7 +37,7 @@ trait CreateHydratorTrait
     );
 
     /**
-     * Validates the request - you can check for example if all the required attributes are present.
+     * You can validate the request.
      *
      * @return void
      * @throws Exception
