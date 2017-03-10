@@ -1,21 +1,40 @@
-## 2.0.0-rc2 - unreleased
+## 2.0.0 - 2017-03-10
 
 ADDED:
 
+- `Responder::okWithRelationship()` and `Responder::createdWithRelationship()`
+- [#58](https://github.com/woohoolabs/yin/issues/58): Allow to set options to the json_encode method
+- Support for custom deserializers
+- [#57](https://github.com/woohoolabs/yin/issues/57): Support for validating the request during hydration
+
 CHANGED:
 
+- Yin now requires PHP 7.0 at least
+- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
+- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
+- Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 - `HydratorTrait::getAcceptedType()` was renamed to `HydratorTrait::getAcceptedTypes()` and it should always return an array
 even if the hydrator can only accept one resource type (__BREAKING__) 
+- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
+- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__)
+- Hydrators must implement the `validateRequest()` method (__BREAKING__)
 
 REMOVED:
 
+- `RelationshipResponder::okWithMeta()` method (__BREAKING__)
+- `JsonApi::respondWithRelationship()` method (__BREAKING__)
+
 FIXED:
+
+- [#59](https://github.com/woohoolabs/yin/issues/59): Resource schema validating
+- Minor problems with request/response validators
+- Minor bug fixes
 
 ## 2.0.0-rc1 - 2017-03-06
 
 ADDED:
 
-- Support for validating the request during hydration
+- [#57](https://github.com/woohoolabs/yin/issues/57): Support for validating the request during hydration
 
 CHANGED:
 
