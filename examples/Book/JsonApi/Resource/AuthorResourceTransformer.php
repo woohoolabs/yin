@@ -16,7 +16,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return string
      */
-    public function getType($author)
+    public function getType($author) : string
     {
         return "author";
     }
@@ -29,7 +29,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return string
      */
-    public function getId($author)
+    public function getId($author) : string
     {
         return $author["id"];
     }
@@ -43,7 +43,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return array
      */
-    public function getMeta($author)
+    public function getMeta($author) : array
     {
         return [];
     }
@@ -72,7 +72,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return array
      */
-    public function getAttributes($author)
+    public function getAttributes($author) : array
     {
         return [
             "name" => function (array $author) {
@@ -87,7 +87,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return array
      */
-    public function getDefaultIncludedRelationships($author)
+    public function getDefaultIncludedRelationships($author) : array
     {
         return [];
     }
@@ -102,7 +102,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * @param array $author
      * @return array
      */
-    public function getRelationships($author)
+    public function getRelationships($author) : array
     {
         return [];
     }
