@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin;
 
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 
 trait TransformerTrait
 {
     /**
-     * Transforms a value to a decimal which precision is $precision.
+     * Transforms a value to a decimal with a precision of $precision.
      *
      * @param mixed $value
      */
@@ -40,17 +42,29 @@ trait TransformerTrait
 
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
+     *
+     * If the $displayedTimeZone parameter is present then $dateTime will be converted to that time zone.
      */
-    public function toIso8601Date(DateTimeInterface $dateTime): string
+    public function toIso8601Date(DateTimeInterface $dateTime, DateTimeZone $displayedTimeZone = null): string
     {
+        if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
+            $dateTime = $dateTime->setTimeZone($displayedTimeZone);
+        }
+
         return $dateTime->format("Y-m-d");
     }
 
     /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
+     *
+     * If the $displayedTimeZone parameter is present then $dateTime will be converted to that time zone.
      */
-    public function toIso8601DateTime(DateTimeInterface $dateTime): string
+    public function toIso8601DateTime(DateTimeInterface $dateTime, DateTimeZone $displayedTimeZone = null): string
     {
+        if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
+            $dateTime = $dateTime->setTimeZone($displayedTimeZone);
+        }
+
         return $dateTime->format(DateTime::ATOM);
     }
 
@@ -62,7 +76,7 @@ trait TransformerTrait
         return DateTime::createFromFormat(
             "Y-m-d H:i:s",
             $string,
-            $timeZoneName ? new \DateTimeZone($timeZoneName) : null
+            $timeZoneName ? new DateTimeZone($timeZoneName) : null
         )->format(DateTime::ATOM);
     }
 

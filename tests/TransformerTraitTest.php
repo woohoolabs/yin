@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 
+use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\TransformerTrait;
 
@@ -65,6 +66,22 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
+    public function transformToIso8601DateWithTimeZone()
+    {
+        $transformerTrait = $this->createTransformerTrait();
+
+        $this->assertEquals(
+            "2015-07-01",
+            $transformerTrait->toIso8601Date(
+                $this->createDateTime("2015-06-30 23:00:00"),
+                new DateTimeZone("Europe/Budapest")
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
     public function transformToIso8601Time()
     {
         $transformerTrait = $this->createTransformerTrait();
@@ -72,6 +89,22 @@ class TransformerTraitTest extends TestCase
         $this->assertEquals(
             "2015-06-30T16:00:00+00:00",
             $transformerTrait->toIso8601DateTime($this->createDateTime("2015-06-30 16:00:00"))
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformToIso8601TimeWithTimeZone()
+    {
+        $transformerTrait = $this->createTransformerTrait();
+
+        $this->assertEquals(
+            "2015-06-30T18:00:00+02:00",
+            $transformerTrait->toIso8601DateTime(
+                $this->createDateTime("2015-06-30 16:00:00"),
+                new DateTimeZone("Europe/Budapest")
+            )
         );
     }
 

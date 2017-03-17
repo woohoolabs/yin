@@ -2,6 +2,8 @@
 
 ADDED:
 
+- Possibility to configure the displayed time zone when using `TransformerTrait::toIso8601Date()` and `TransformerTrait::toIso8601DateTime()`
+
 CHANGED:
 
 REMOVED:
