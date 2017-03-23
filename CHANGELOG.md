@@ -6,6 +6,8 @@ ADDED:
 
 CHANGED:
 
+- Updated JSON:API schema to the latest version
+
 REMOVED:
 
 FIXED:
