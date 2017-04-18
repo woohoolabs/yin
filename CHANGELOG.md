@@ -2,15 +2,21 @@
 
 ADDED:
 
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 2.0.1 - 2017-04-18
+
+ADDED:
+
 - Possibility to configure the displayed time zone when using `TransformerTrait::toIso8601Date()` and `TransformerTrait::toIso8601DateTime()`
 
 CHANGED:
 
 - Updated JSON:API schema to the latest version
-
-REMOVED:
-
-FIXED:
 
 ## 2.0.0 - 2017-03-10
 
