@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 2.0.2 - unreleased
+
+CHANGED:
+
+- Updated JSON:API schema to the latest version
+
 ## 2.0.1 - 2017-04-18
 
 ADDED:
