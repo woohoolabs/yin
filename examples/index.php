@@ -105,6 +105,7 @@ function findRoute(Request $request, array $routes): Request
             $pattern
         );
         if (preg_match("#^$pattern/{0,1}$#", $requestLine, $matches) === 1) {
+            header('Access-Control-Allow-Origin: *');
             return $route($request, $matches);
         }
     }
