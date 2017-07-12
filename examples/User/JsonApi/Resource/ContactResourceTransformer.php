@@ -18,7 +18,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($contact): string
     {
-        return "contact";
+        return "contacts";
     }
 
     /**

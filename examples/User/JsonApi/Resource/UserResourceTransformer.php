@@ -29,7 +29,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($user): string
     {
-        return "user";
+        return "users";
     }
 
     /**

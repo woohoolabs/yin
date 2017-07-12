@@ -17,7 +17,7 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($representative): string
     {
-        return "representative";
+        return "representatives";
     }
 
     /**

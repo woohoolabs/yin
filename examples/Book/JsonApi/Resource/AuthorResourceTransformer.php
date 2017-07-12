@@ -18,7 +18,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($author) : string
     {
-        return "author";
+        return "authors";
     }
 
     /**
