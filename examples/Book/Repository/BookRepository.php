@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Examples\Book\Repository;
 
 use WoohooLabs\Yin\Examples\Utils\AbstractRepository;
+use WoohooLabs\Yin\Examples\Utils\Collection;
 
 class BookRepository extends AbstractRepository
 {
@@ -55,6 +56,25 @@ class BookRepository extends AbstractRepository
             "publisher" => "12346"
         ]
     ];
+
+    public static function getBooks(int $page = null, int $size = null): Collection
+    {
+        if ($page === null) {
+            $page = 1;
+        }
+
+        if ($size === null) {
+            $size = 10;
+        }
+
+        $books = array_slice(self::$books, ($page - 1) * $size, $size);
+
+        foreach ($books as $key => $book) {
+            $books[$key]["authors"] = self::getItemsByIds($book["authors"], self::$authors);
+        }
+
+        return new Collection($books, count(self::$books), $page, $size);
+    }
 
     /**
      * @return array|null

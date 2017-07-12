@@ -28,7 +28,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($publisher): string
     {
-        return "publisher";
+        return "publishers";
     }
 
     /**

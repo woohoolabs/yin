@@ -38,7 +38,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     public function getType($book): string
     {
-        return "book";
+        return "books";
     }
 
     /**

@@ -7,6 +7,7 @@ use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
+use WoohooLabs\Yin\Examples\Book\Action\GetBooksAction;
 use WoohooLabs\Yin\Examples\Book\Action\UpdateBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
@@ -22,6 +23,10 @@ use Zend\Diactoros\ServerRequestFactory;
 
 // Defining routes
 $routes = [
+    "GET /books" => function (Request $request): Request {
+        return $request
+            ->withAttribute("action", GetBooksAction::class);
+    },
     "GET /books/{id}" => function (Request $request, array $matches): Request {
         return $request
             ->withAttribute("action", GetBookAction::class)
