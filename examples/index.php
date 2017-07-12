@@ -81,6 +81,7 @@ $request = findRoute($request, $routes);
 $jsonApi = new JsonApi($request, new Response(), $exceptionFactory);
 $action = $request->getAttribute("action");
 $response = call_user_func(new $action(), $jsonApi);
+$response = $response->withHeader("Access-Control-Allow-Origin", "*");
 
 // Emitting the response
 $emitter = new SapiEmitter();
