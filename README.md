@@ -44,6 +44,7 @@
 * [Change Log](#change-log)
 * [Testing](#testing)
 * [Contributing](#contributing)
+* [Support](#support)
 * [Credits](#credits)
 * [License](#license)
 
@@ -1215,6 +1216,10 @@ Additionally, you may run `docker-compose up` in order to execute the tests.
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Support
+
+Please see [SUPPORT](SUPPORT.md) for details.
 
 ## Credits
 
