@@ -8,6 +8,16 @@ REMOVED:
 
 FIXED:
 
+## 2.0.3 - 2017-08-24
+
+CHANGED:
+
+- Updated JSON:API schema to the latest version
+
+FIXED:
+
+- [#64](https://github.com/woohoolabs/yin/issues/64): Body sent via POST is not retrievable
+
 ## 2.0.2 - 2017-06-13
 
 CHANGED:
