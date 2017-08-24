@@ -683,10 +683,13 @@ class Request implements RequestInterface
 
     public function getParsedBody()
     {
-        if ($this->isParsed === false && $this->serverRequest->getParsedBody() === null) {
-            $parsedBody = $this->deserializer->deserialize($this->serverRequest);
-            $this->serverRequest = $this->serverRequest->withParsedBody($parsedBody);
-            $this->isParsed = true;
+        if ($this->isParsed === false) {
+            $parsedBody = $this->serverRequest->getParsedBody();
+            if ($parsedBody === null || $parsedBody === []) {
+                $parsedBody = $this->deserializer->deserialize($this->serverRequest);
+                $this->serverRequest = $this->serverRequest->withParsedBody($parsedBody);
+                $this->isParsed = true;
+            }
         }
 
         return $this->serverRequest->getParsedBody();
