@@ -1,8 +1,10 @@
 filter:
     paths:
         - src/*
+
 before_commands:
     - 'composer install'
+
 checks:
     php:
         verify_property_names: true
@@ -66,3 +68,11 @@ tools:
             - examples
             - tests
             - vendor
+
+build:
+    nodes:
+        analysis:
+            project_setup:
+                override: true
+            tests:
+                override: [php-scrutinizer-run]
