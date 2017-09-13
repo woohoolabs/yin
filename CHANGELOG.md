@@ -1,9 +1,10 @@
-## 2.1.0 - unreleased
+## 3.0.0 - unreleased
 
 ADDED:
 
 CHANGED:
 
+- Increased minimum PHP version requirement to 7.1
 REMOVED:
 
 FIXED:
@@ -11,6 +12,7 @@ FIXED:
 ## 2.0.4 - 2017-09-13
 
 Added:
+ADDED:
 
 - Possibility to define the `$code` constructor argument of `Exception`s when instantiating `JsonApiException`s
 
