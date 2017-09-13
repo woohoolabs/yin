@@ -5,6 +5,8 @@ ADDED:
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.1
+- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING__)
+
 REMOVED:
 
 - `TransformerTrait::toBool()` and `TransformerTrait::toInt()` methods

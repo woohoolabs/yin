@@ -8,7 +8,7 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 
 class DefaultExceptionFactory implements ExceptionFactoryInterface
 {
-    public function createApplicationErrorException(RequestInterface $request): ApplicationError
+    public function createApplicationErrorException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new ApplicationError();
     }
@@ -16,33 +16,33 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
     public function createClientGeneratedIdNotSupportedException(
         RequestInterface $request,
         string $currentId
-    ): ClientGeneratedIdNotSupported {
+    ): JsonApiExceptionInterface {
         return new ClientGeneratedIdNotSupported($currentId);
     }
 
     public function createClientGeneratedIdAlreadyExistsException(
         RequestInterface $request,
         string $currentId
-    ): ClientGeneratedIdAlreadyExists {
+    ): JsonApiExceptionInterface {
         return new ClientGeneratedIdAlreadyExists($currentId);
     }
 
-    public function createClientGeneratedIdRequiredException(RequestInterface $request): ClientGeneratedIdRequired
+    public function createClientGeneratedIdRequiredException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new ClientGeneratedIdRequired();
     }
 
-    public function createFullReplacementProhibitedException(string $relationshipName): FullReplacementProhibited
+    public function createFullReplacementProhibitedException(string $relationshipName): JsonApiExceptionInterface
     {
         return new FullReplacementProhibited($relationshipName);
     }
 
-    public function createDataMemberMissingException(RequestInterface $request): DataMemberMissing
+    public function createDataMemberMissingException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new DataMemberMissing();
     }
 
-    public function createInclusionUnsupportedException(RequestInterface $request): InclusionUnsupported
+    public function createInclusionUnsupportedException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new InclusionUnsupported();
     }
@@ -50,32 +50,32 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
     public function createInclusionUnrecognizedException(
         RequestInterface $request,
         array $unrecognizedInclusions
-    ): InclusionUnrecognized {
+    ): JsonApiExceptionInterface {
         return new InclusionUnrecognized($unrecognizedInclusions);
     }
 
     public function createMediaTypeUnacceptableException(
         RequestInterface $request,
         string $mediaTypeName
-    ): MediaTypeUnacceptable {
+    ): JsonApiExceptionInterface {
         return new MediaTypeUnacceptable($mediaTypeName);
     }
 
     public function createMediaTypeUnsupportedException(
         RequestInterface $request,
         string $mediaTypeName
-    ): MediaTypeUnsupported {
+    ): JsonApiExceptionInterface {
         return new MediaTypeUnsupported($mediaTypeName);
     }
 
     public function createQueryParamUnrecognizedException(
         RequestInterface $request,
         string $queryParamName
-    ): QueryParamUnrecognized {
+    ): JsonApiExceptionInterface {
         return new QueryParamUnrecognized($queryParamName);
     }
 
-    public function createRelationshipNotExistsException(string $relationship): RelationshipNotExists
+    public function createRelationshipNotExistsException(string $relationship): JsonApiExceptionInterface
     {
         return new RelationshipNotExists($relationship);
     }
@@ -84,7 +84,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         string $relationshipName,
         string $currentRelationshipType,
         string $expectedRelationshipType
-    ) {
+    ): JsonApiExceptionInterface {
         return new RelationshipTypeInappropriate(
             $relationshipName,
             $currentRelationshipType,
@@ -92,7 +92,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         );
     }
 
-    public function createRemovalProhibitedException(string $relationshipName): RemovalProhibited
+    public function createRemovalProhibitedException(string $relationshipName): JsonApiExceptionInterface
     {
         return new RemovalProhibited($relationshipName);
     }
@@ -101,7 +101,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         RequestInterface $request,
         string $lintMessage,
         bool $includeOriginalBody
-    ): RequestBodyInvalidJson {
+    ): JsonApiExceptionInterface {
         return new RequestBodyInvalidJson($request, $lintMessage, $includeOriginalBody);
     }
 
@@ -109,46 +109,46 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         RequestInterface $request,
         array $validationErrors,
         bool $includeOriginalBody
-    ): RequestBodyInvalidJsonApi {
+    ): JsonApiExceptionInterface {
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
-    public function createResourceIdentifierIdInvalidException($id): ResourceIdentifierIdInvalid
+    public function createResourceIdentifierIdInvalidException($id): JsonApiExceptionInterface
     {
         return new ResourceIdentifierIdInvalid($id);
     }
 
-    public function createResourceIdentifierIdMissingException(array $resourceIdentifier): ResourceIdentifierIdMissing
+    public function createResourceIdentifierIdMissingException(array $resourceIdentifier): JsonApiExceptionInterface
     {
         return new ResourceIdentifierIdMissing($resourceIdentifier);
     }
 
-    public function createResourceIdentifierTypeInvalidException($type): ResourceIdentifierTypeInvalid
+    public function createResourceIdentifierTypeInvalidException($type): JsonApiExceptionInterface
     {
         return new ResourceIdentifierTypeInvalid($type);
     }
 
-    public function createResourceIdentifierTypeMissingException(array $resourceIdentifier): ResourceIdentifierTypeMissing
+    public function createResourceIdentifierTypeMissingException(array $resourceIdentifier): JsonApiExceptionInterface
     {
         return new ResourceIdentifierTypeMissing($resourceIdentifier);
     }
 
-    public function createResourceIdInvalidException($id): ResourceIdInvalid
+    public function createResourceIdInvalidException($id): JsonApiExceptionInterface
     {
         return new ResourceIdInvalid($id);
     }
 
-    public function createResourceIdMissingException(): ResourceIdMissing
+    public function createResourceIdMissingException(): JsonApiExceptionInterface
     {
         return new ResourceIdMissing();
     }
 
-    public function createResourceTypeMissingException(): ResourceTypeMissing
+    public function createResourceTypeMissingException(): JsonApiExceptionInterface
     {
         return new ResourceTypeMissing();
     }
 
-    public function createResourceNotFoundException(RequestInterface $request): ResourceNotFound
+    public function createResourceNotFoundException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new ResourceNotFound();
     }
@@ -156,7 +156,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
     public function createResourceTypeUnacceptableException(
         $currentType,
         array $acceptedTypes
-    ): ResourceTypeUnacceptable {
+    ): JsonApiExceptionInterface {
         return new ResourceTypeUnacceptable($currentType, $acceptedTypes);
     }
 
@@ -164,7 +164,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         ResponseInterface $response,
         string $lintMessage,
         bool $includeOriginalBody
-    ): ResponseBodyInvalidJson {
+    ): JsonApiExceptionInterface {
         return new ResponseBodyInvalidJson($response, $lintMessage, $includeOriginalBody);
     }
 
@@ -172,11 +172,11 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         ResponseInterface $response,
         array $validationErrors,
         bool $includeOriginalBody
-    ): ResponseBodyInvalidJsonApi {
+    ): JsonApiExceptionInterface {
         return new ResponseBodyInvalidJsonApi($response, $validationErrors, $includeOriginalBody);
     }
 
-    public function createSortingUnsupportedException(RequestInterface $request): SortingUnsupported
+    public function createSortingUnsupportedException(RequestInterface $request): JsonApiExceptionInterface
     {
         return new SortingUnsupported();
     }
@@ -184,7 +184,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
     public function createSortParamUnrecognizedException(
         RequestInterface $request,
         string $paramName
-    ): SortParamUnrecognized {
+    ): JsonApiExceptionInterface {
         return new SortParamUnrecognized($paramName);
     }
 }
