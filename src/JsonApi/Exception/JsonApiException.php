@@ -15,9 +15,9 @@ abstract class JsonApiException extends Exception implements JsonApiExceptionInt
      */
     protected $errorDocument;
 
-    public function __construct(string $message = "")
+    public function __construct(string $message = "", int $code = 0)
     {
-        parent::__construct($message);
+        parent::__construct($message, $code);
     }
 
     protected function createErrorDocument(): AbstractErrorDocument
