@@ -14,10 +14,7 @@ trait OffsetBasedPaginationLinkProviderTrait
 
     abstract protected function getLimit(): int;
 
-    /**
-     * @return Link|null
-     */
-    public function getSelfLink(string $url)
+    public function getSelfLink(string $url): ?Link
     {
         $offset = $this->getOffset();
 
@@ -28,26 +25,17 @@ trait OffsetBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getOffset(), $this->getLimit());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getFirstLink(string $url)
+    public function getFirstLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, 0, $this->getLimit());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getLastLink(string $url)
+    public function getLastLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getPrevLink(string $url)
+    public function getPrevLink(string $url): ?Link
     {
         if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
@@ -62,10 +50,7 @@ trait OffsetBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $prevOffset, $this->getLimit());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getNextLink(string $url)
+    public function getNextLink(string $url): ?Link
     {
         if ($this->getOffset() < 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
@@ -74,10 +59,7 @@ trait OffsetBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getOffset() + $this->getLimit(), $this->getLimit());
     }
 
-    /**
-     * @return Link|null
-     */
-    protected function createPaginatedLink(string $url, int $page, int $size)
+    protected function createPaginatedLink(string $url, int $page, int $size): ?Link
     {
         if ($this->getTotalItems() <= 0 || $this->getLimit() <= 0) {
             return null;

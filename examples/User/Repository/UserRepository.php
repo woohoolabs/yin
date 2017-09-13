@@ -61,10 +61,7 @@ class UserRepository
         return new Collection($users, count(self::$users), $page, $size);
     }
 
-    /**
-     * @return array|null
-     */
-    public static function getUser(string $id)
+    public static function getUser(string $id): ?array
     {
         foreach (self::$users as $user) {
             if ($user["id"] === $id) {

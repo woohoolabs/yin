@@ -43,7 +43,7 @@ class StubHydrator extends AbstractHydrator
         string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
-    ) {
+    ): void {
     }
 
     protected function generateId(): string
@@ -55,7 +55,7 @@ class StubHydrator extends AbstractHydrator
     {
     }
 
-    protected function validateRequest(RequestInterface $request)
+    protected function validateRequest(RequestInterface $request): void
     {
     }
 

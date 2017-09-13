@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\AbstractData;
 
 class DummyData extends AbstractData
 {
-    public function transformPrimaryResources()
+    public function transformPrimaryResources(): iterable
     {
         return [];
     }

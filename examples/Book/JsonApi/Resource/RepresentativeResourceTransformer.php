@@ -39,7 +39,6 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $representative
-     * @return array
      */
     public function getMeta($representative): array
     {
@@ -53,9 +52,8 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $representative
-     * @return Links|null
      */
-    public function getLinks($representative)
+    public function getLinks($representative): ?Links
     {
         return null;
     }

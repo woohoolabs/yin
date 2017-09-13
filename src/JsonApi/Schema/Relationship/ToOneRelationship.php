@@ -11,9 +11,9 @@ class ToOneRelationship extends AbstractRelationship
 {
     public function __construct(
         array $meta = [],
-        Links $links = null,
+        ?Links $links = null,
         array $data = [],
-        ResourceTransformerInterface $resourceTransformer = null
+        ?ResourceTransformerInterface $resourceTransformer = null
     ) {
         parent::__construct($meta, $links, $data, $resourceTransformer);
     }
@@ -22,7 +22,7 @@ class ToOneRelationship extends AbstractRelationship
         Transformation $transformation,
         string $relationshipName,
         array $defaultRelationships
-    ) {
+    ): ?array {
         $data = $this->retrieveData();
         if ($data === null || $this->resourceTransformer === null) {
             return null;

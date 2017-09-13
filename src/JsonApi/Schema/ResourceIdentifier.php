@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 
 class ResourceIdentifier
 {
@@ -21,7 +21,7 @@ class ResourceIdentifier
     private $id;
 
     /**
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
     public static function fromArray(array $array, ExceptionFactoryInterface $exceptionFactory): ResourceIdentifier
     {

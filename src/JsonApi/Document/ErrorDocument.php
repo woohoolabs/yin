@@ -34,10 +34,7 @@ class ErrorDocument extends AbstractErrorDocument
         }
     }
 
-    /**
-     * @return JsonApiObject|null
-     */
-    public function getJsonApi()
+    public function getJsonApi(): ?JsonApiObject
     {
         return $this->jsonApi;
     }
@@ -45,7 +42,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return $this
      */
-    public function setJsonApi(JsonApiObject $jsonApi)
+    public function setJsonApi(?JsonApiObject $jsonApi)
     {
         $this->jsonApi = $jsonApi;
 
@@ -67,7 +64,7 @@ class ErrorDocument extends AbstractErrorDocument
         return $this;
     }
 
-    public function getLinks()
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
@@ -75,7 +72,7 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @return $this
      */
-    public function setLinks(Links $links)
+    public function setLinks(?Links $links)
     {
         $this->links = $links;
 

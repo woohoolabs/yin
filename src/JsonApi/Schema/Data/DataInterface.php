@@ -3,14 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
-use Traversable;
-
 interface DataInterface
 {
-    /**
-     * @return array|null
-     */
-    public function getResource(string $type, string $id);
+    public function getResource(string $type, string $id): ?array;
 
     public function hasPrimaryResources(): bool;
 
@@ -21,10 +16,9 @@ interface DataInterface
     public function hasIncludedResource(string $type, string $id): bool;
 
     /**
-     * @param array|Traversable $transformedResources
      * @return $this
      */
-    public function setPrimaryResources($transformedResources);
+    public function setPrimaryResources(iterable $transformedResources);
 
     /**
      * @return $this
@@ -32,23 +26,16 @@ interface DataInterface
     public function addPrimaryResource(array $transformedResource);
 
     /**
-     * @param array|Traversable $transformedResources
      * @return $this
      */
-    public function setIncludedResources($transformedResources);
+    public function setIncludedResources(iterable $transformedResources);
 
     /**
      * @return $this
      */
     public function addIncludedResource(array $transformedResource);
 
-    /**
-     * @return array|Traversable|null
-     */
-    public function transformPrimaryResources();
+    public function transformPrimaryResources(): ?iterable;
 
-    /**
-     * @return array|Traversable
-     */
-    public function transformIncludedResources();
+    public function transformIncludedResources(): ?iterable;
 }

@@ -50,7 +50,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         $this->relationshipResponseContent = $relationshipResponseContent;
     }
 
-    public function getJsonApi()
+    public function getJsonApi(): ?JsonApiObject
     {
         return $this->jsonApi;
     }
@@ -60,7 +60,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         return $this->meta;
     }
 
-    public function getLinks()
+    public function getLinks(): ?Links
     {
         return $this->links;
     }
@@ -70,7 +70,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         return $this->data ?? new DummyData();
     }
 
-    protected function fillData(Transformation $transformation)
+    protected function fillData(Transformation $transformation): void
     {
     }
 
@@ -78,7 +78,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ) {
+    ): ?array {
         return $this->relationshipResponseContent;
     }
 }

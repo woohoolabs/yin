@@ -105,7 +105,7 @@ abstract class AbstractResponder
     protected function getErrorResponse(
         AbstractErrorDocument $document,
         array $errors = [],
-        int $statusCode = null,
+        ?int $statusCode = null,
         array $additionalMeta = []
     ): ResponseInterface {
         foreach ($errors as $error) {

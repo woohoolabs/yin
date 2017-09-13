@@ -7,28 +7,13 @@ use WoohooLabs\Yin\JsonApi\Schema\Link;
 
 interface PaginationLinkProviderInterface
 {
-    /**
-     * @return Link|null
-     */
-    public function getSelfLink(string $uri);
+    public function getSelfLink(string $uri): ?Link;
 
-    /**
-     * @return Link|null
-     */
-    public function getFirstLink(string $uri);
+    public function getFirstLink(string $uri): ?Link;
 
-    /**
-     * @return Link|null
-     */
-    public function getLastLink(string $uri);
+    public function getLastLink(string $uri): ?Link;
 
-    /**
-     * @return Link|null
-     */
-    public function getPrevLink(string $uri);
+    public function getPrevLink(string $uri): ?Link;
 
-    /**
-     * @return Link|null
-     */
-    public function getNextLink(string $uri);
+    public function getNextLink(string $uri): ?Link;
 }

@@ -36,11 +36,8 @@ class JsonApiTest extends TestCase
     {
         $request = $this->createRequest();
 
-        try {
-            $this->createJsonApi($request)->disableIncludes();
-        } catch (\Exception $e) {
-            $this->fail();
-        }
+        $this->createJsonApi($request)->disableIncludes();
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -74,11 +71,8 @@ class JsonApiTest extends TestCase
     {
         $request = $this->createRequest();
 
-        try {
-            $this->createJsonApi($request)->disableSorting();
-        } catch (\Exception $e) {
-            $this->fail();
-        }
+        $this->createJsonApi($request)->disableSorting();
+        $this->addToAssertionCount(1);
     }
 
     /**

@@ -19,18 +19,14 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
 
     /**
      * Fills the transformation data based on the "domainObject" property.
-     * @return void
      */
-    abstract protected function fillData(Transformation $transformation);
+    abstract protected function fillData(Transformation $transformation): void;
 
-    /**
-     * @return array|null
-     */
     abstract protected function getRelationshipMember(
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    );
+    ): ?array;
 
     /**
      * Transform a $domainObject resource in a JSON:API format

@@ -66,105 +66,84 @@ class Links
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getSelf()
+    public function getSelf(): ?Link
     {
         return $this->getLink("self");
     }
 
-    public function setSelf(Link $self = null): Links
+    public function setSelf(?Link $self): Links
     {
         $this->links["self"] = $self;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getRelated()
+    public function getRelated(): ?Link
     {
         return $this->getLink("related");
     }
 
-    public function setRelated(Link $related = null): Links
+    public function setRelated(?Link $related): Links
     {
         $this->links["related"] = $related;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getFirst()
+    public function getFirst(): ?Link
     {
         return $this->getLink("first");
     }
 
-    public function setFirst(Link $first = null): Links
+    public function setFirst(?Link $first): Links
     {
         $this->links["first"] = $first;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getLast()
+    public function getLast(): ?Link
     {
         return $this->getLink("last");
     }
 
-    public function setLast(Link $last = null): Links
+    public function setLast(?Link $last): Links
     {
         $this->links["last"] = $last;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getPrev()
+    public function getPrev(): ?Link
     {
         return $this->getLink("prev");
     }
 
-    public function setPrev(Link $prev = null): Links
+    public function setPrev(?Link $prev): Links
     {
         $this->links["prev"] = $prev;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getNext()
+    public function getNext(): ?Link
     {
         return $this->getLink("next");
     }
 
-    public function setNext(Link $next = null): Links
+    public function setNext(?Link $next): Links
     {
         $this->links["next"] = $next;
 
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getAbout()
+    public function getAbout(): ?Link
     {
         return $this->getLink("about");
     }
 
-    public function setAbout(Link $about = null): Links
+    public function setAbout(?Link $about): Links
     {
         $this->links["about"] = $about;
 
@@ -182,10 +161,7 @@ class Links
         return $this;
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getLink(string $name)
+    public function getLink(string $name): ?Link
     {
         return $this->links[$name] ?? null;
     }
@@ -202,7 +178,7 @@ class Links
         return $this;
     }
 
-    public function setLink(string $name, Link $link = null): Links
+    public function setLink(string $name, ?Link $link): Links
     {
         $this->links[$name] = $link;
 

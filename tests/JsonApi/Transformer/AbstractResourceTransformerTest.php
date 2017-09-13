@@ -267,14 +267,13 @@ class AbstractResourceTransformerTest extends TestCase
 
     /**
      * @param mixed $domainObject
-     * @return array|null
      */
     protected function transformToResource(
         AbstractResourceTransformer $transformer,
         $domainObject,
         RequestInterface $request = null,
         DataInterface $data = null
-    ) {
+    ): ?array {
         $transformation = new Transformation(
             $request ? $request : new Request(
                 new DiactorosServerRequest(),

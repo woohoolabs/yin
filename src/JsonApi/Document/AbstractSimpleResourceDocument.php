@@ -21,14 +21,11 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         $transformation->data->addPrimaryResource($this->getResource());
     }
 
-    /**
-     * @return array|null
-     */
     protected function getRelationshipMember(
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ) {
+    ): ?array {
         $relationship = $this->getRelationshipFromResource($this->getResource(), $relationshipName);
         if ($relationship !== null) {
             $transformation->data->addPrimaryResource($relationship);
@@ -37,10 +34,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         return $relationship;
     }
 
-    /**
-     * @return array|null
-     */
-    private function getRelationshipFromResource(array $resource, string $relationshipName)
+    private function getRelationshipFromResource(array $resource, string $relationshipName): ?array
     {
         if (empty($resource["relationships"][$relationshipName])) {
             return null;

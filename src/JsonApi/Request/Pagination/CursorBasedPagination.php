@@ -39,7 +39,6 @@ class CursorBasedPagination
 
     /**
      * @param mixed $cursor
-     * @return string
      */
     public static function getPaginationQueryString($cursor): string
     {

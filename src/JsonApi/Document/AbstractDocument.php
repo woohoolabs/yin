@@ -13,10 +13,8 @@ abstract class AbstractDocument
      *
      * The method returns a new JsonApiObject schema object if this member should be present or null
      * if it should be omitted from the response.
-     *
-     * @return JsonApiObject|null
      */
-    abstract public function getJsonApi();
+    abstract public function getJsonApi(): ?JsonApiObject;
 
     /**
      * Provides information about the "meta" member of the current document.
@@ -31,10 +29,8 @@ abstract class AbstractDocument
      *
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the member should be omitted from the response.
-     *
-     * @return Links|null
      */
-    abstract public function getLinks();
+    abstract public function getLinks(): ?Links;
 
     protected function transformBaseContent(array $additionalMeta = []): array
     {

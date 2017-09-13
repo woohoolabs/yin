@@ -12,21 +12,18 @@ class ToOneRelationship
      */
     protected $resourceIdentifier;
 
-    public function __construct(ResourceIdentifier $resourceIdentifier = null)
+    public function __construct(?ResourceIdentifier $resourceIdentifier = null)
     {
         $this->resourceIdentifier = $resourceIdentifier;
     }
 
-    public function setResourceIdentifier(ResourceIdentifier $resourceIdentifier): ToOneRelationship
+    public function setResourceIdentifier(?ResourceIdentifier $resourceIdentifier): ToOneRelationship
     {
         $this->resourceIdentifier = $resourceIdentifier;
         return $this;
     }
 
-    /**
-     * @return ResourceIdentifier|null
-     */
-    public function getResourceIdentifier()
+    public function getResourceIdentifier(): ?ResourceIdentifier
     {
         return $this->resourceIdentifier;
     }

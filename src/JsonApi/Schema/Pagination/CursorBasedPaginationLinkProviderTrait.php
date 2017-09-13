@@ -33,10 +33,7 @@ trait CursorBasedPaginationLinkProviderTrait
      */
     abstract public function getNextItem();
 
-    /**
-     * @return Link|null
-     */
-    public function getSelfLink(string $url)
+    public function getSelfLink(string $url): ?Link
     {
         if ($this->getCurrentItem() === null) {
             return null;
@@ -45,43 +42,30 @@ trait CursorBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getCurrentItem());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getFirstLink(string $url)
+    public function getFirstLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, $this->getFirstItem());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getLastLink(string $url)
+    public function getLastLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, $this->getLastItem());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getPrevLink(string $url)
+    public function getPrevLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, $this->getPreviousItem());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getNextLink(string $url)
+    public function getNextLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, $this->getNextItem());
     }
 
     /**
      * @param mixed $cursor
-     * @return Link|null
      */
-    protected function createPaginatedLink(string $url, $cursor)
+    protected function createPaginatedLink(string $url, $cursor): ?Link
     {
         if ($cursor === null) {
             return null;

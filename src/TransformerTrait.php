@@ -29,7 +29,7 @@ trait TransformerTrait
      *
      * If the $displayedTimeZone parameter is present then $dateTime will be converted to that time zone.
      */
-    public function toIso8601Date(DateTimeInterface $dateTime, DateTimeZone $displayedTimeZone = null): string
+    public function toIso8601Date(DateTimeInterface $dateTime, ?DateTimeZone $displayedTimeZone = null): string
     {
         if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
             $dateTime = $dateTime->setTimeZone($displayedTimeZone);
@@ -43,7 +43,7 @@ trait TransformerTrait
      *
      * If the $displayedTimeZone parameter is present then $dateTime will be converted to that time zone.
      */
-    public function toIso8601DateTime(DateTimeInterface $dateTime, DateTimeZone $displayedTimeZone = null): string
+    public function toIso8601DateTime(DateTimeInterface $dateTime, ?DateTimeZone $displayedTimeZone = null): string
     {
         if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
             $dateTime = $dateTime->setTimeZone($displayedTimeZone);

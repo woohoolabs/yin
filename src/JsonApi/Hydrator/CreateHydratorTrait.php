@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
-use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
@@ -12,12 +12,10 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 trait CreateHydratorTrait
 {
     /**
-     * @return void
-     * @throws ResourceTypeMissing
-     * @throws ResourceTypeUnacceptable
-     * @throws Exception
+     * @throws ResourceTypeMissing|JsonApiExceptionInterface
+     * @throws ResourceTypeUnacceptable|JsonApiExceptionInterface
      */
-    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory): void;
 
     /**
      * Validates a client-generated ID.
@@ -27,22 +25,20 @@ trait CreateHydratorTrait
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @return void
-     * @throws Exception
+     * @throws JsonApiExceptionInterface|JsonApiExceptionInterface
      */
     abstract protected function validateClientGeneratedId(
         string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
-    );
+    ): void;
 
     /**
      * You can validate the request.
      *
-     * @return void
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
-    abstract protected function validateRequest(RequestInterface $request);
+    abstract protected function validateRequest(RequestInterface $request): void;
 
     /**
      * Produces a new ID for the domain objects.
@@ -89,7 +85,7 @@ trait CreateHydratorTrait
      *
      * @param mixed $domainObject
      * @return mixed
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
     public function hydrateForCreate(
         RequestInterface $request,

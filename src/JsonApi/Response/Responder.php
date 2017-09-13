@@ -207,7 +207,7 @@ class Responder extends AbstractResponder
     public function genericError(
         AbstractErrorDocument $document,
         array $errors = [],
-        int $statusCode = null,
+        ?int $statusCode = null,
         array $additionalMeta = []
     ): ResponseInterface {
         return $this->getErrorResponse($document, $errors, $statusCode, $additionalMeta);

@@ -76,7 +76,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
         return $this->meta;
     }
 
-    public function getLinks($domainObject)
+    public function getLinks($domainObject): ?Links
     {
         return $this->links;
     }

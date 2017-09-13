@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Request;
 
-use Exception;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
@@ -63,11 +62,8 @@ class RequestTest extends TestCase
 
     private function assertValidContentTypeHeader($value)
     {
-        try {
-            $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
-        } catch (Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was caught: " . $e->getMessage());
-        }
+        $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
+        $this->addToAssertionCount(1);
     }
 
     private function assertInvalidContentTypeHeader($value)
@@ -77,11 +73,8 @@ class RequestTest extends TestCase
 
     public function testValidateJsonApiAcceptHeaderWithExtMediaType()
     {
-        try {
-            $this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
-        } catch (Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was caught: " . $e->getMessage());
-        }
+        $this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -135,11 +128,8 @@ class RequestTest extends TestCase
 
     private function assertValidQueryParams(array $params)
     {
-        try {
-            $this->createRequestWithQueryParams($params)->validateQueryParams();
-        } catch (Exception $e) {
-            $this->fail("No exception should have been thrown, but the following was catched: " . $e->getMessage());
-        }
+        $this->createRequestWithQueryParams($params)->validateQueryParams();
+        $this->addToAssertionCount(1);
     }
 
     /**

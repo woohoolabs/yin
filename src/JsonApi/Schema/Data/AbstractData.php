@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
-use Traversable;
-
 abstract class AbstractData implements DataInterface
 {
     /**
@@ -22,10 +20,7 @@ abstract class AbstractData implements DataInterface
      */
     protected $includedKeys = [];
 
-    /**
-     * @return array|null
-     */
-    public function getResource(string $type, string $id)
+    public function getResource(string $type, string $id): ?array
     {
         return isset($this->resources[$type . "." . $id]) ? $this->resources[$type . "." . $id] : null;
     }
@@ -51,10 +46,9 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array|Traversable $transformedResources
      * @return $this
      */
-    public function setPrimaryResources($transformedResources)
+    public function setPrimaryResources(iterable $transformedResources)
     {
         $this->primaryKeys = [];
         foreach ($transformedResources as $resource) {
@@ -81,10 +75,9 @@ abstract class AbstractData implements DataInterface
     }
 
     /**
-     * @param array|Traversable $transformedResources
      * @return $this
      */
-    public function setIncludedResources($transformedResources)
+    public function setIncludedResources(iterable $transformedResources)
     {
         $this->includedKeys = [];
         foreach ($transformedResources as $resource) {
@@ -106,10 +99,7 @@ abstract class AbstractData implements DataInterface
         return $this;
     }
 
-    /**
-     * @return array|Traversable
-     */
-    public function transformIncludedResources()
+    public function transformIncludedResources(): iterable
     {
         return array_values($this->includedKeys);
     }

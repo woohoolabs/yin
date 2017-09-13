@@ -31,7 +31,7 @@ class StubErrorDocument extends AbstractErrorDocument
         $this->links = $links;
     }
 
-    public function getJsonApi()
+    public function getJsonApi(): ?JsonApiObject
     {
         return $this->jsonApi;
     }
@@ -41,7 +41,7 @@ class StubErrorDocument extends AbstractErrorDocument
         return $this->meta;
     }
 
-    public function getLinks()
+    public function getLinks(): ?Links
     {
         return $this->links;
     }

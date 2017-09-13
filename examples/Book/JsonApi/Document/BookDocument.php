@@ -21,10 +21,8 @@ class BookDocument extends AbstractSingleResourceDocument
      *
      * The method returns a new JsonApiObject schema object if this member should be present or null
      * if it should be omitted from the response.
-     *
-     * @return JsonApiObject|null
      */
-    public function getJsonApi()
+    public function getJsonApi(): ?JsonApiObject
     {
         return new JsonApiObject("1.0");
     }
@@ -45,10 +43,8 @@ class BookDocument extends AbstractSingleResourceDocument
      *
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
-     *
-     * @return Links|null
      */
-    public function getLinks()
+    public function getLinks(): ?Links
     {
         return Links::createWithoutBaseUri(
             [

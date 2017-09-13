@@ -130,56 +130,56 @@ class Error
         return $content;
     }
 
-    protected function transformId(array &$content)
+    protected function transformId(array &$content): void
     {
         if ($this->id) {
             $content["id"] = $this->id;
         }
     }
 
-    protected function transformMeta(array &$content)
+    protected function transformMeta(array &$content): void
     {
         if (empty($this->meta) === false) {
             $content["meta"] = $this->meta;
         }
     }
 
-    protected function transformLinks(array &$content)
+    protected function transformLinks(array &$content): void
     {
         if ($this->links) {
             $content["links"] = $this->links->transform();
         }
     }
 
-    protected function transformStatus(array &$content)
+    protected function transformStatus(array &$content): void
     {
         if ($this->status) {
             $content["status"] = $this->status;
         }
     }
 
-    protected function transformCode(array &$content)
+    protected function transformCode(array &$content): void
     {
         if ($this->code) {
             $content["code"] = $this->code;
         }
     }
 
-    protected function transformTitle(array &$content)
+    protected function transformTitle(array &$content): void
     {
         if ($this->title) {
             $content["title"] = $this->title;
         }
     }
 
-    protected function transformDetail(array &$content)
+    protected function transformDetail(array &$content): void
     {
         if ($this->detail) {
             $content["detail"] = $this->detail;
         }
     }
 
-    protected function transformSource(array &$content)
+    protected function transformSource(array &$content): void
     {
         if ($this->source) {
             $content["source"] = $this->source->transform();

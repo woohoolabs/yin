@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use Exception;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 use WoohooLabs\Yin\TransformerTrait;
 
@@ -15,9 +15,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * Transforms the original resource to a JSON API resource identifier.
      *
      * @param mixed $domainObject
-     * @return array|null
      */
-    public function transformToResourceIdentifier($domainObject)
+    public function transformToResourceIdentifier($domainObject): ?array
     {
         if ($domainObject === null) {
             return null;
@@ -41,9 +40,8 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * Transforms the original resource to a JSON API resource.
      *
      * @param mixed $domainObject
-     * @return array|null
      */
-    public function transformToResource(Transformation $transformation, $domainObject)
+    public function transformToResource(Transformation $transformation, $domainObject): ?array
     {
         $result = $this->transformToResourceIdentifier($domainObject);
 
@@ -67,14 +65,13 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
      * Transforms a relationship with a name of $relationshipName of the original resource to a JSON API relationship.
      *
      * @param mixed $domainObject
-     * @return array|null
      */
     public function transformRelationship(
         string $relationshipName,
         Transformation $transformation,
         $domainObject,
         array $additionalMeta = []
-    ) {
+    ): ?array {
         $relationships = $this->getRelationships($domainObject);
         if (empty($relationships)) {
             return null;
@@ -180,7 +177,6 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param mixed $domainObject
      * @param callable[] $relationships
-     * @return array|null
      */
     protected function transformRelationshipObject(
         Transformation $transformation,
@@ -189,7 +185,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
         array $relationships,
         array $defaultRelationships,
         array $additionalMeta = []
-    ) {
+    ): ?array {
         $transformation->setFetchedRelationship($relationshipName);
         $resourceType = $this->getType($domainObject);
 
@@ -217,7 +213,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     }
 
     /**
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
     protected function validateRelationships(Transformation $transformation, array $relationships)
     {

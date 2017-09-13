@@ -21,7 +21,7 @@ class Link
     }
 
     /**
-     * @return string
+     * @return string|mixed
      */
     public function transform(string $baseUri)
     {

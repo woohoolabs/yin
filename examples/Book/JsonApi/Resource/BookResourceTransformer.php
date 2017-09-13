@@ -73,9 +73,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $book
-     * @return Links|null
      */
-    public function getLinks($book)
+    public function getLinks($book): ?Links
     {
         return Links::createWithoutBaseUri(
             [
@@ -84,10 +83,6 @@ class BookResourceTransformer extends AbstractResourceTransformer
         );
     }
 
-    /**
-     * @param array $book
-     * @return string
-     */
     public function getSelfLinkHref(array $book): string
     {
         return "/?path=/books/" . $this->getId($book);

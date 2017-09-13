@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request;
 
-use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
@@ -71,7 +71,7 @@ class Request implements RequestInterface
     public function __construct(
         ServerRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
-        DeserializerInterface $deserializer = null
+        ?DeserializerInterface $deserializer = null
     ) {
         $this->serverRequest = $request;
         $this->exceptionFactory = $exceptionFactory;
@@ -81,10 +81,9 @@ class Request implements RequestInterface
     /**
      * Validates if the current request's Content-Type header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnsupported|Exception
-     * @return void
+     * @throws MediaTypeUnsupported|JsonApiExceptionInterface
      */
-    public function validateContentTypeHeader()
+    public function validateContentTypeHeader(): void
     {
         if ($this->isValidMediaTypeHeader("Content-Type") === false) {
             throw $this->exceptionFactory->createMediaTypeUnsupportedException(
@@ -97,10 +96,9 @@ class Request implements RequestInterface
     /**
      * Validates if the current request's Accept header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnacceptable|Exception
-     * @return void
+     * @throws MediaTypeUnacceptable|JsonApiExceptionInterface
      */
-    public function validateAcceptHeader()
+    public function validateAcceptHeader(): void
     {
         if ($this->isValidMediaTypeHeader("Accept") === false) {
             throw $this->exceptionFactory->createMediaTypeUnacceptableException($this, $this->getHeaderLine("Accept"));
@@ -114,10 +112,9 @@ class Request implements RequestInterface
      * adhere to the same constraints as member names with the additional requirement that they
      * MUST contain at least one non a-z character (U+0061 to U+007A)".
      *
-     * @throws QueryParamUnrecognized
-     * @return void
+     * @throws QueryParamUnrecognized|JsonApiExceptionInterface
      */
-    public function validateQueryParams()
+    public function validateQueryParams(): void
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
             if (preg_match("/^([a-z]+)$/", $queryParamName) &&
@@ -134,7 +131,7 @@ class Request implements RequestInterface
         return strpos($header, "application/vnd.api+json") === false || $header === "application/vnd.api+json";
     }
 
-    protected function setIncludedFields()
+    protected function setIncludedFields(): void
     {
         $this->includedFields = [];
         $fields = $this->getQueryParam("fields", []);
@@ -234,9 +231,9 @@ class Request implements RequestInterface
 
         if (isset($this->includedRelationships[$baseRelationshipPath])) {
             return array_values($this->includedRelationships[$baseRelationshipPath]);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
     /**
@@ -275,7 +272,7 @@ class Request implements RequestInterface
         return $this->sorting;
     }
 
-    protected function setSorting()
+    protected function setSorting(): void
     {
         $sortingQueryParam = $this->getQueryParam("sort", "");
         if ($sortingQueryParam === "") {
@@ -299,7 +296,7 @@ class Request implements RequestInterface
         return $this->pagination;
     }
 
-    protected function setPagination()
+    protected function setPagination(): void
     {
         $pagination =  $this->getQueryParam("page", null);
         $this->pagination = is_array($pagination) ? $pagination : [];
@@ -311,7 +308,7 @@ class Request implements RequestInterface
      * The FixedPageBasedPagination class stores the value of the "page[number]" query parameter if present
      * or the $defaultPage otherwise.
      */
-    public function getFixedPageBasedPagination(int $defaultPage = null): FixedPageBasedPagination
+    public function getFixedPageBasedPagination(?int $defaultPage = null): FixedPageBasedPagination
     {
         return FixedPageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
     }
@@ -322,7 +319,7 @@ class Request implements RequestInterface
      * The PageBasedPagination class stores the value of the "page[number]" and "page[size]" query parameters
      * if present or the $defaultPage and $defaultSize otherwise.
      */
-    public function getPageBasedPagination(int $defaultPage = null, int $defaultSize = null): PageBasedPagination
+    public function getPageBasedPagination(?int $defaultPage = null, ?int $defaultSize = null): PageBasedPagination
     {
         return PageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
     }
@@ -334,8 +331,8 @@ class Request implements RequestInterface
      * if present or the $defaultOffset and $defaultLimit otherwise.
      */
     public function getOffsetBasedPagination(
-        int $defaultOffset = null,
-        int $defaultLimit = null
+        ?int $defaultOffset = null,
+        ?int $defaultLimit = null
     ): OffsetBasedPagination {
         return OffsetBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
     }
@@ -353,7 +350,7 @@ class Request implements RequestInterface
         return CursorBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
     }
 
-    protected function setFiltering()
+    protected function setFiltering(): void
     {
         $filtering = $this->getQueryParam("filter", []);
         $this->filtering = is_array($filtering) ? $filtering : [];
@@ -410,7 +407,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    protected function initializeParsedQueryParams()
+    protected function initializeParsedQueryParams(): void
     {
         $this->includedFields = null;
         $this->includedRelationships = null;
@@ -483,10 +480,8 @@ class Request implements RequestInterface
 
     /**
      * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
-     *
-     * @return ToOneRelationship|null
      */
-    public function getToOneRelationship(string $relationship)
+    public function getToOneRelationship(string $relationship): ?ToOneRelationship
     {
         $data = $this->getResource();
 
@@ -503,15 +498,14 @@ class Request implements RequestInterface
                 ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"], $this->exceptionFactory)
             );
         }
+
         return null;
     }
 
     /**
      * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
-     *
-     * @return ToManyRelationship|null
      */
-    public function getToManyRelationship(string $relationship)
+    public function getToManyRelationship(string $relationship): ?ToManyRelationship
     {
         $data = $this->getResource();
 
@@ -527,7 +521,7 @@ class Request implements RequestInterface
         return new ToManyRelationship($resourceIdentifiers);
     }
 
-    public function getProtocolVersion()
+    public function getProtocolVersion(): string
     {
         return $this->serverRequest->getProtocolVersion();
     }
@@ -540,22 +534,22 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->serverRequest->getHeaders();
     }
 
-    public function hasHeader($name)
+    public function hasHeader($name): bool
     {
         return $this->serverRequest->hasHeader($name);
     }
 
-    public function getHeader($name)
+    public function getHeader($name): array
     {
         return $this->serverRequest->getHeader($name);
     }
 
-    public function getHeaderLine($name)
+    public function getHeaderLine($name): string
     {
         return $this->serverRequest->getHeaderLine($name);
     }
@@ -584,7 +578,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getBody()
+    public function getBody(): StreamInterface
     {
         return $this->serverRequest->getBody();
     }
@@ -597,7 +591,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getRequestTarget()
+    public function getRequestTarget(): string
     {
         return $this->serverRequest->getRequestTarget();
     }
@@ -610,7 +604,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->serverRequest->getMethod();
     }
@@ -623,7 +617,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getUri()
+    public function getUri(): UriInterface
     {
         return $this->serverRequest->getUri();
     }
@@ -636,12 +630,12 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getServerParams()
+    public function getServerParams(): array
     {
         return $this->serverRequest->getServerParams();
     }
 
-    public function getCookieParams()
+    public function getCookieParams(): array
     {
         return $this->serverRequest->getCookieParams();
     }
@@ -654,7 +648,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getQueryParams()
+    public function getQueryParams(): array
     {
         return $this->serverRequest->getQueryParams();
     }
@@ -668,7 +662,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getUploadedFiles()
+    public function getUploadedFiles(): array
     {
         return $this->serverRequest->getUploadedFiles();
     }
@@ -704,7 +698,7 @@ class Request implements RequestInterface
         return $self;
     }
 
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->serverRequest->getAttributes();
     }

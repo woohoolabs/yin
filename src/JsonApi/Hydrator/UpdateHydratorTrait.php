@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
-use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
@@ -13,20 +13,17 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 trait UpdateHydratorTrait
 {
     /**
-     * @return void
-     * @throws ResourceTypeMissing
-     * @throws ResourceTypeUnacceptable
-     * @throws Exception
+     * @throws ResourceTypeMissing|JsonApiExceptionInterface
+     * @throws ResourceTypeUnacceptable|JsonApiExceptionInterface
      */
-    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory);
+    abstract protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory): void;
 
     /**
      * You can validate the request.
      *
-     * @return void
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
-    abstract protected function validateRequest(RequestInterface $request);
+    abstract protected function validateRequest(RequestInterface $request): void;
 
     /**
      * Sets the given ID for the domain object.
@@ -76,8 +73,6 @@ trait UpdateHydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array|null $relationshipData
-     * @param array|null $data
      * @return mixed
      */
     abstract protected function doHydrateRelationship(
@@ -85,8 +80,8 @@ trait UpdateHydratorTrait
         string $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
-        $relationshipData,
-        $data
+        ?array $relationshipData,
+        ?array $data
     );
 
     /**
@@ -97,7 +92,7 @@ trait UpdateHydratorTrait
      *
      * @param mixed $domainObject
      * @return mixed
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
     public function hydrateForUpdate(
         RequestInterface $request,
@@ -121,7 +116,7 @@ trait UpdateHydratorTrait
     /**
      * @param mixed $domainObject
      * @return mixed
-     * @throws RelationshipNotExists
+     * @throws RelationshipNotExists|JsonApiExceptionInterface
      */
     public function hydrateForRelationshipUpdate(
         string $relationship,
@@ -150,7 +145,7 @@ trait UpdateHydratorTrait
     /**
      * @param mixed $domainObject
      * @return mixed
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
     protected function hydrateIdForUpdate($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {

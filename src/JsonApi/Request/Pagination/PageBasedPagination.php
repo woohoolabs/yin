@@ -20,8 +20,8 @@ class PageBasedPagination
      */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
-        int $defaultPage = null,
-        int $defaultSize = null
+        ?int $defaultPage = null,
+        ?int $defaultSize = null
     ) {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
         $size = empty($paginationQueryParams["size"]) ? $defaultSize : (int) $paginationQueryParams["size"];
@@ -29,37 +29,23 @@ class PageBasedPagination
         return new self($page, $size);
     }
 
-    /**
-     * @param int|null $page
-     * @param int|null $size
-     */
-    public function __construct($page, $size)
+    public function __construct(?int $page, ?int $size)
     {
         $this->page = $page;
         $this->size = $size;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getPage()
+    public function getPage(): ?int
     {
         return $this->page;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getSize()
+    public function getSize(): ?int
     {
         return $this->size;
     }
 
-    /**
-     * @param int|null $page
-     * @param int|null $size
-     */
-    public static function getPaginationQueryString($page, $size): string
+    public static function getPaginationQueryString(?int $page, ?int $size): string
     {
         return "page[number]=$page&page[size]=$size";
     }

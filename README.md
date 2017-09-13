@@ -222,10 +222,8 @@ and this is the main "subject" of the document.
  *
  * The method returns a new Links schema object if you want to provide linkage data
  * for the document or null if the member should be omitted from the response.
- *
- * @return Links|null
  */
-public function getLinks()
+public function getLinks(): ?Links
 {
     return new Links(
         "http://example.com/api",
@@ -365,9 +363,8 @@ class BookResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $book
-     * @return Links|null
      */
-    public function getLinks($book)
+    public function getLinks($book): ?Links
     {
         return new Links(
             "",
@@ -537,10 +534,9 @@ class BookHydator extends AbstractHydrator
     /**
      * You can validate the request.
      *
-     * @return void
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
-    protected function validateRequest(RequestInterface $request)
+    protected function validateRequest(RequestInterface $request): void
     {
         // WARNING! THIS CONDITION CONTRADICTS TO THE SPEC
         if ($request->getAttribute("title") === null) {

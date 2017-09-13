@@ -20,8 +20,8 @@ class OffsetBasedPagination
      */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
-        int $defaultOffset = null,
-        int $defaultLimit = null
+        ?int $defaultOffset = null,
+        ?int $defaultLimit = null
     ) {
         $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : (int) $paginationQueryParams["offset"];
         $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : (int) $paginationQueryParams["limit"];
@@ -29,38 +29,23 @@ class OffsetBasedPagination
         return new self($offset, $limit);
     }
 
-    /**
-     * @param int|null $offset
-     * @param int|null $limit
-     */
-    public function __construct($offset, $limit)
+    public function __construct(?int $offset, ?int $limit)
     {
         $this->offset = $offset;
         $this->limit = $limit;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getOffset()
+    public function getOffset(): ?int
     {
         return $this->offset;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getLimit()
+    public function getLimit(): ?int
     {
         return $this->limit;
     }
 
-    /**
-     * @param int|null $offset
-     * @param int|null $limit
-     * @return string
-     */
-    public static function getPaginationQueryString($offset, $limit): string
+    public static function getPaginationQueryString(?int $offset, ?int $limit): string
     {
         return "page[offset]=$offset&page[limit]=$limit";
     }

@@ -3,14 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
-use Traversable;
-
 class SingleResourceData extends AbstractData
 {
-    /**
-     * @return array|Traversable|null
-     */
-    public function transformPrimaryResources()
+    public function transformPrimaryResources(): ?iterable
     {
         if ($this->hasPrimaryResources() === false) {
             return null;

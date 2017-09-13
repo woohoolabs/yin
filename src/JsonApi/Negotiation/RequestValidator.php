@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
-use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
@@ -21,10 +21,9 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
-     * @return void
-     * @throws MediaTypeUnsupported|MediaTypeUnacceptable|Exception
+     * @throws MediaTypeUnsupported|MediaTypeUnacceptable|JsonApiExceptionInterface
      */
-    public function negotiate(RequestInterface $request)
+    public function negotiate(RequestInterface $request): void
     {
         try {
             $request->validateContentTypeHeader();
@@ -37,10 +36,9 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
-     * @return void
-     * @throws QueryParamUnrecognized|Exception
+     * @throws QueryParamUnrecognized|JsonApiExceptionInterface
      */
-    public function validateQueryParams(RequestInterface $request)
+    public function validateQueryParams(RequestInterface $request): void
     {
         try {
             $request->validateQueryParams();
@@ -53,10 +51,9 @@ class RequestValidator extends AbstractMessageValidator
     }
 
     /**
-     * @return void
-     * @throws RequestBodyInvalidJson|Exception
+     * @throws RequestBodyInvalidJson|JsonApiExceptionInterface
      */
-    public function lintBody(RequestInterface $request)
+    public function lintBody(RequestInterface $request): void
     {
         $errorMessage = $this->lintMessage($request->getBody()->__toString());
 

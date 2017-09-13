@@ -5,7 +5,6 @@ namespace WoohooLabs\Yin\Examples\Utils;
 
 use ArrayIterator;
 use IteratorAggregate;
-use Traversable;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
@@ -33,13 +32,7 @@ class Collection implements IteratorAggregate, PaginationLinkProviderInterface
      */
     private $size;
 
-    /**
-     * @param array $items
-     * @param int $totalItems
-     * @param int $page
-     * @param int $size
-     */
-    public function __construct(array $items, $totalItems = 0, $page = 0, $size = 0)
+    public function __construct(array $items, int $totalItems = 0, int $page = 0, int $size = 0)
     {
         $this->items = new ArrayIterator($items);
         $this->totalItems = $totalItems;
@@ -47,10 +40,7 @@ class Collection implements IteratorAggregate, PaginationLinkProviderInterface
         $this->size = $size;
     }
 
-    /**
-     * @return Traversable
-     */
-    public function getIterator()
+    public function getIterator(): iterable
     {
         return $this->items;
     }
@@ -58,71 +48,42 @@ class Collection implements IteratorAggregate, PaginationLinkProviderInterface
     /**
      * @param mixed $item
      */
-    public function addItem($item)
+    public function addItem($item): void
     {
         $this->items->append($item);
     }
 
-    /**
-     * @return ArrayIterator
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @param ArrayIterator $items
-     */
-    public function setItems($items)
+    public function setItems(ArrayIterator $items): void
     {
         $this->items = $items;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalItems()
+    public function getTotalItems(): int
     {
         return $this->totalItems;
     }
 
-    /**
-     * @param int $totalItems
-     */
-    public function setTotalItems($totalItems)
+    public function setTotalItems(int $totalItems): void
     {
         $this->totalItems = $totalItems;
     }
 
-    /**
-     * @return int
-     */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
 
-    /**
-     * @param int $page
-     */
-    public function setPage($page)
+    public function setPage(int $page): void
     {
         $this->page = $page;
     }
 
-    /**
-     * @return int
-     */
-    public function getSize()
+    public function getSize(): int
     {
         return $this->size;
     }
 
-    /**
-     * @param int $size
-     */
-    public function setSize($size)
+    public function setSize(int $size): void
     {
         $this->size = $size;
     }

@@ -42,9 +42,8 @@ interface ResourceTransformerInterface
      * data about the resource or null if it should be omitted from the response.
      *
      * @param mixed $domainObject
-     * @return Links|null
      */
-    public function getLinks($domainObject);
+    public function getLinks($domainObject): ?Links;
 
     /**
      * Provides information about the "attributes" member of the current resource.
@@ -79,24 +78,21 @@ interface ResourceTransformerInterface
 
     /**
      * @param mixed $domainObject
-     * @return array|null
      */
-    public function transformToResourceIdentifier($domainObject);
+    public function transformToResourceIdentifier($domainObject): ?array;
 
     /**
      * @param mixed $domainObject
-     * @return array|null
      */
-    public function transformToResource(Transformation $transformation, $domainObject);
+    public function transformToResource(Transformation $transformation, $domainObject): ?array;
 
     /**
      * @param mixed $domainObject
-     * @return array|null
      */
     public function transformRelationship(
         string $relationshipName,
         Transformation $transformation,
         $domainObject,
         array $additionalMeta = []
-    );
+    ): ?array;
 }

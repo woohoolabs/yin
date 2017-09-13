@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
-use Exception;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
@@ -59,9 +59,9 @@ trait HydratorTrait
     abstract protected function getRelationshipHydrator($domainObject): array;
 
     /**
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
-    protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory): void
     {
         if (empty($data["type"])) {
             throw $exceptionFactory->createResourceTypeMissingException();
@@ -130,8 +130,6 @@ trait HydratorTrait
 
     /**
      * @param mixed $domainObject
-     * @param array|null $relationshipData
-     * @param array|null $data
      * @return mixed
      */
     protected function doHydrateRelationship(
@@ -139,8 +137,8 @@ trait HydratorTrait
         string $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
-        $relationshipData,
-        $data
+        ?array $relationshipData,
+        ?array $data
     ) {
         $relationshipObject = $this->createRelationship(
             $relationshipData,
@@ -168,17 +166,15 @@ trait HydratorTrait
     /**
      * @param mixed $domainObject
      * @param ToOneRelationship|ToManyRelationship $relationshipObject
-     * @param array|null $data
      * @return mixed
-     * @throws RelationshipTypeInappropriate
-     * @throws Exception
+     * @throws RelationshipTypeInappropriate|JsonApiExceptionInterface
      */
     protected function getRelationshipHydratorResult(
         string $relationshipName,
         callable $hydrator,
         $domainObject,
         $relationshipObject,
-        $data,
+        ?array $data,
         ExceptionFactoryInterface $exceptionFactory
     ) {
         // Checking if the current and expected relationship types match
@@ -202,10 +198,7 @@ trait HydratorTrait
         return $domainObject;
     }
 
-    /**
-     * @return string|null
-     */
-    protected function getArgumentTypeHintFromCallable(callable $callable)
+    protected function getArgumentTypeHintFromCallable(callable $callable): ?string
     {
         $function = &$callable;
         $reflection = new \ReflectionFunction($function);
@@ -220,13 +213,14 @@ trait HydratorTrait
 
     /**
      * @param object|string|null $object
-     * @return string|null
      */
-    protected function getRelationshipType($object)
+    protected function getRelationshipType($object): ?string
     {
         if ($object instanceof ToOneRelationship || $object === ToOneRelationship::class) {
             return "to-one";
-        } elseif ($object instanceof ToManyRelationship || $object === ToManyRelationship::class) {
+        }
+
+        if ($object instanceof ToManyRelationship || $object === ToManyRelationship::class) {
             return "to-many";
         }
 
@@ -234,10 +228,9 @@ trait HydratorTrait
     }
 
     /**
-     * @param array|null $relationship
      * @return ToOneRelationship|ToManyRelationship|null
      */
-    private function createRelationship($relationship, ExceptionFactoryInterface $exceptionFactory)
+    private function createRelationship(?array $relationship, ExceptionFactoryInterface $exceptionFactory)
     {
         if (array_key_exists("data", $relationship) === false) {
             return null;
@@ -264,6 +257,6 @@ trait HydratorTrait
 
     private function isAssociativeArray(array $array): bool
     {
-        return (bool)count(array_filter(array_keys($array), 'is_string'));
+        return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 }

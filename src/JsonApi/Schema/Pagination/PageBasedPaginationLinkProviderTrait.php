@@ -14,10 +14,7 @@ trait PageBasedPaginationLinkProviderTrait
 
     abstract public function getSize(): int;
 
-    /**
-     * @return Link|null
-     */
-    public function getSelfLink(string $url)
+    public function getSelfLink(string $url): ?Link
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() > $this->getLastPage()) {
             return null;
@@ -26,18 +23,12 @@ trait PageBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getPage(), $this->getSize());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getFirstLink(string $url)
+    public function getFirstLink(string $url): ?Link
     {
         return $this->createPaginatedLink($url, 1, $this->getSize());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getLastLink(string $url)
+    public function getLastLink(string $url): ?Link
     {
         if ($this->getSize() <= 0) {
             return null;
@@ -47,10 +38,7 @@ trait PageBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $page, $this->getSize());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getPrevLink(string $url)
+    public function getPrevLink(string $url): ?Link
     {
         if ($this->getPage() <= 1 || $this->getSize() <= 0) {
             return null;
@@ -59,10 +47,7 @@ trait PageBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getPage() - 1, $this->getSize());
     }
 
-    /**
-     * @return Link|null
-     */
-    public function getNextLink(string $url)
+    public function getNextLink(string $url): ?Link
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
             return null;
@@ -71,10 +56,7 @@ trait PageBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($url, $this->getPage() + 1, $this->getSize());
     }
 
-    /**
-     * @return Link|null
-     */
-    protected function createPaginatedLink(string $url, int $page, int $size)
+    protected function createPaginatedLink(string $url, int $page, int $size): ?Link
     {
         if ($this->getTotalItems() <= 0 || $this->getSize() <= 0) {
             return null;

@@ -34,14 +34,11 @@ abstract class AbstractRelationship
      */
     protected $resourceTransformer;
 
-    /**
-     * @return array|null
-     */
     abstract protected function transformData(
         Transformation $transformation,
         string $relationshipName,
         array $defaultRelationships
-    );
+    ): ?array;
 
     /**
      * @return static
@@ -80,9 +77,9 @@ abstract class AbstractRelationship
      */
     public function __construct(
         array $meta = [],
-        Links $links = null,
-        $data = null,
-        ResourceTransformerInterface $resourceTransformer = null
+        ?Links $links = null,
+        $data = [],
+        ?ResourceTransformerInterface $resourceTransformer = null
     ) {
         $this->meta = $meta;
         $this->links = $links;
@@ -127,16 +124,13 @@ abstract class AbstractRelationship
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
     public function transform(
         Transformation $transformation,
         string $resourceType,
         string $relationshipName,
         array $defaultRelationships,
         array $additionalMeta = []
-    ) {
+    ): ?array {
         $relationship = null;
 
         if (

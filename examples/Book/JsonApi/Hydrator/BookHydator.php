@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
 
-use Exception;
 use LogicException;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\Examples\Utils\Uuid;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
 use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
@@ -39,9 +39,8 @@ class BookHydator extends AbstractHydrator
      * a ClientGeneratedIdNotSupported exception can be raised, if the ID already
      * exists then a ClientGeneratedIdAlreadyExists exception can be thrown.
      *
-     * @throws ClientGeneratedIdNotSupported
-     * @throws ClientGeneratedIdAlreadyExists
-     * @throws Exception
+     * @throws ClientGeneratedIdNotSupported|JsonApiExceptionInterface
+     * @throws ClientGeneratedIdAlreadyExists|JsonApiExceptionInterface
      */
     protected function validateClientGeneratedId(
         string $clientGeneratedId,
@@ -83,10 +82,9 @@ class BookHydator extends AbstractHydrator
     /**
      * You can validate the request.
      *
-     * @return void
-     * @throws Exception
+     * @throws JsonApiExceptionInterface
      */
-    protected function validateRequest(RequestInterface $request)
+    protected function validateRequest(RequestInterface $request): void
     {
         // WARNING! THIS CONDITION CONTRADICTS TO THE SPEC
         if ($request->getAttribute("title") === null) {

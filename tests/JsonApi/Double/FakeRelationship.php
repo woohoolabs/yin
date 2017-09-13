@@ -12,7 +12,7 @@ class FakeRelationship extends AbstractRelationship
         Transformation $transformation,
         string $relationshipName,
         array $defaultRelationships
-    ) {
+    ): ?array {
         return [];
     }
 

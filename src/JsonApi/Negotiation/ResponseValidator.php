@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
-use Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
@@ -27,10 +27,9 @@ class ResponseValidator extends AbstractMessageValidator
     }
 
     /**
-     * @return void
-     * @throws ResponseBodyInvalidJson|Exception
+     * @throws ResponseBodyInvalidJson|JsonApiExceptionInterface
      */
-    public function lintBody(ResponseInterface $response)
+    public function lintBody(ResponseInterface $response): void
     {
         $errorMessage = $this->lintMessage($this->deserializer->getBodyAsString($response));
 
@@ -44,10 +43,9 @@ class ResponseValidator extends AbstractMessageValidator
     }
 
     /**
-     * @return void
-     * @throws ResponseBodyInvalidJsonApi|Exception
+     * @throws ResponseBodyInvalidJsonApi|JsonApiExceptionInterface
      */
-    public function validateBody(ResponseInterface $response)
+    public function validateBody(ResponseInterface $response): void
     {
         $errors = $this->validateMessage($this->deserializer->getBodyAsString($response));
 

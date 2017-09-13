@@ -64,9 +64,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $user
-     * @return Links|null
      */
-    public function getLinks($user)
+    public function getLinks($user): ?Links
     {
         return null;
     }

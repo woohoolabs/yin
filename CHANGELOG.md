@@ -15,7 +15,6 @@ FIXED:
 
 ## 2.0.4 - 2017-09-13
 
-Added:
 ADDED:
 
 - Possibility to define the `$code` constructor argument of `Exception`s when instantiating `JsonApiException`s

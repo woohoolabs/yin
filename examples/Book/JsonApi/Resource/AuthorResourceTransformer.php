@@ -14,7 +14,6 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * The method returns the type of the current resource.
      *
      * @param array $author
-     * @return string
      */
     public function getType($author) : string
     {
@@ -27,7 +26,6 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * The method returns the ID of the current resource which should be a UUID.
      *
      * @param array $author
-     * @return string
      */
     public function getId($author) : string
     {
@@ -41,7 +39,6 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * this array is empty, the member won't appear in the response.
      *
      * @param array $author
-     * @return array
      */
     public function getMeta($author) : array
     {
@@ -55,9 +52,8 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $author
-     * @return Links|null
      */
-    public function getLinks($author)
+    public function getLinks($author): ?Links
     {
         return null;
     }
@@ -70,9 +66,8 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * and they should return the value of the corresponding attribute.
      *
      * @param array $author
-     * @return array
      */
-    public function getAttributes($author) : array
+    public function getAttributes($author): array
     {
         return [
             "name" => function (array $author) {
@@ -85,9 +80,8 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $author
-     * @return array
      */
-    public function getDefaultIncludedRelationships($author) : array
+    public function getDefaultIncludedRelationships($author): array
     {
         return [];
     }
@@ -100,9 +94,8 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      * and they should return a new relationship instance (to-one or to-many).
      *
      * @param array $author
-     * @return array
      */
-    public function getRelationships($author) : array
+    public function getRelationships($author): array
     {
         return [];
     }

@@ -37,7 +37,7 @@ class StubCreateHydrator
         $this->logicException = $logicException;
     }
 
-    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory): void
     {
     }
 
@@ -45,7 +45,7 @@ class StubCreateHydrator
         string $clientGeneratedId,
         RequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
-    ) {
+    ): void {
         if ($this->isClientGeneratedIdException) {
             throw $exceptionFactory->createClientGeneratedIdNotSupportedException($request, $clientGeneratedId);
         }
@@ -63,7 +63,7 @@ class StubCreateHydrator
         return $domainObject;
     }
 
-    protected function validateRequest(RequestInterface $request)
+    protected function validateRequest(RequestInterface $request): void
     {
         if ($this->logicException) {
             throw new LogicException();

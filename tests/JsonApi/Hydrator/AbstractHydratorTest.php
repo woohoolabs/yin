@@ -362,9 +362,6 @@ class AbstractHydratorTest extends TestCase
         return $request;
     }
 
-    /**
-     * @param string|array $acceptedTypes
-     */
     private function createHydrator(
         array $acceptedTypes = [],
         array $attributeHydrator = [],

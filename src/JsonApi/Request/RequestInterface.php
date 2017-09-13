@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request;
 
-use Exception;
 use Psr\Http\Message\ServerRequestInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
@@ -20,18 +20,16 @@ interface RequestInterface extends ServerRequestInterface
     /**
      * Validates if the current request's "Content-Type" header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnsupported|Exception
-     * @return void
+     * @throws MediaTypeUnsupported|JsonApiExceptionInterface
      */
-    public function validateContentTypeHeader();
+    public function validateContentTypeHeader(): void;
 
     /**
      * Validates if the current request's "Accept" header conforms to the JSON:API schema.
      *
-     * @throws MediaTypeUnacceptable|Exception
-     * @return void
+     * @throws MediaTypeUnacceptable|JsonApiExceptionInterface
      */
-    public function validateAcceptHeader();
+    public function validateAcceptHeader(): void;
 
     /**
      * Validates if the current request's query parameters conform to the JSON:API schema.
@@ -40,10 +38,9 @@ interface RequestInterface extends ServerRequestInterface
      * adhere to the same constraints as member names with the additional requirement that they
      * MUST contain at least one non a-z character (U+0061 to U+007A)".
      *
-     * @throws QueryParamUnrecognized
-     * @return void
+     * @throws QueryParamUnrecognized|JsonApiExceptionInterface
      */
-    public function validateQueryParams();
+    public function validateQueryParams(): void;
 
     /**
      * Returns a list of field names for the given resource type which should be present in the response.
@@ -91,7 +88,7 @@ interface RequestInterface extends ServerRequestInterface
      * The FixedPageBasedPagination class stores the value of the "page[number]" query parameter if present
      * or the $defaultPage otherwise.
      */
-    public function getFixedPageBasedPagination(int $defaultPage = null): FixedPageBasedPagination;
+    public function getFixedPageBasedPagination(?int $defaultPage = null): FixedPageBasedPagination;
 
     /**
      * Returns a PageBasedPagination class in order to be used for page-based pagination.
@@ -99,7 +96,7 @@ interface RequestInterface extends ServerRequestInterface
      * The PageBasedPagination class stores the value of the "page[number]" and "page[size]" query parameters
      * if present or the $defaultPage and $defaultSize otherwise.
      */
-    public function getPageBasedPagination(int $defaultPage = null, int $defaultSize = null): PageBasedPagination;
+    public function getPageBasedPagination(?int $defaultPage = null, ?int $defaultSize = null): PageBasedPagination;
 
     /**
      * Returns a OffsetBasedPagination class in order to be used for offset-based pagination.
@@ -108,8 +105,8 @@ interface RequestInterface extends ServerRequestInterface
      * if present or the $defaultOffset and $defaultLimit otherwise.
      */
     public function getOffsetBasedPagination(
-        int $defaultOffset = null,
-        int $defaultLimit = null
+        ?int $defaultOffset = null,
+        ?int $defaultLimit = null
     ): OffsetBasedPagination;
 
     /**
@@ -190,15 +187,11 @@ interface RequestInterface extends ServerRequestInterface
 
     /**
      * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
-     *
-     * @return ToOneRelationship|null
      */
-    public function getToOneRelationship(string $relationship);
+    public function getToOneRelationship(string $relationship): ?ToOneRelationship;
 
     /**
      * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
-     *
-     * @return ToManyRelationship|null
      */
-    public function getToManyRelationship(string $relationship);
+    public function getToManyRelationship(string $relationship): ?ToManyRelationship;
 }

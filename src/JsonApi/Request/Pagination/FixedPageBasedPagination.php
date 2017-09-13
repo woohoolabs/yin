@@ -13,33 +13,24 @@ class FixedPageBasedPagination
     /**
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams, int $defaultPage = null)
+    public static function fromPaginationQueryParams(array $paginationQueryParams, ?int $defaultPage = null)
     {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
 
         return new self($page);
     }
 
-    /**
-     * @param int|null $page
-     */
-    public function __construct($page)
+    public function __construct(?int $page)
     {
         $this->page = $page;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getPage()
+    public function getPage(): ?int
     {
         return $this->page;
     }
 
-    /**
-     * @param int|null $page
-     */
-    public static function getPaginationQueryString($page): string
+    public static function getPaginationQueryString(?int $page): string
     {
         return "page[number]=$page";
     }

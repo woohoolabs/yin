@@ -53,9 +53,8 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $contact
-     * @return Links|null
      */
-    public function getLinks($contact)
+    public function getLinks($contact): ?Links
     {
         return Links::createWithoutBaseUri(
             [
@@ -68,7 +67,6 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param array $contact
-     * @return array
      */
     public function getDefaultIncludedRelationships($contact): array
     {

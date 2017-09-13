@@ -63,9 +63,8 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $publisher
-     * @return Links|null
      */
-    public function getLinks($publisher)
+    public function getLinks($publisher): ?Links
     {
         return null;
     }
