@@ -8,11 +8,11 @@ use WoohooLabs\Yin\JsonApi\Schema\Error;
 class ResourceIdentifierTypeInvalid extends JsonApiException
 {
     /**
-     * @var mixed
+     * @var string
      */
     protected $type;
 
-    public function __construct($type)
+    public function __construct(string $type)
     {
         parent::__construct("The resource type '$type' must be a string!");
         $this->type = $type;

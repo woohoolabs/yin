@@ -106,7 +106,7 @@ trait UpdateHydratorTrait
 
         $this->validateType($data, $exceptionFactory);
         $domainObject = $this->hydrateIdForUpdate($domainObject, $data, $exceptionFactory);
-        $this->validateRequest($request, $exceptionFactory);
+        $this->validateRequest($request);
         $domainObject = $this->hydrateAttributes($domainObject, $data);
         $domainObject = $this->hydrateRelationships($domainObject, $data, $exceptionFactory);
 

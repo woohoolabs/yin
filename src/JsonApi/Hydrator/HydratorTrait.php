@@ -232,7 +232,7 @@ trait HydratorTrait
      */
     private function createRelationship(?array $relationship, ExceptionFactoryInterface $exceptionFactory)
     {
-        if (array_key_exists("data", $relationship) === false) {
+        if ($relationship === null || array_key_exists("data", $relationship) === false) {
             return null;
         }
 

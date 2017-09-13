@@ -113,7 +113,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
-    public function createResourceIdentifierIdInvalidException($id): JsonApiExceptionInterface
+    public function createResourceIdentifierIdInvalidException(string $id): JsonApiExceptionInterface
     {
         return new ResourceIdentifierIdInvalid($id);
     }
@@ -123,7 +123,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new ResourceIdentifierIdMissing($resourceIdentifier);
     }
 
-    public function createResourceIdentifierTypeInvalidException($type): JsonApiExceptionInterface
+    public function createResourceIdentifierTypeInvalidException(string $type): JsonApiExceptionInterface
     {
         return new ResourceIdentifierTypeInvalid($type);
     }

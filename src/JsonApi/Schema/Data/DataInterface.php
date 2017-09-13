@@ -37,5 +37,5 @@ interface DataInterface
 
     public function transformPrimaryResources(): ?iterable;
 
-    public function transformIncludedResources(): ?iterable;
+    public function transformIncludedResources(): iterable;
 }
