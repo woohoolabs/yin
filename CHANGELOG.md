@@ -7,6 +7,8 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.1
 REMOVED:
 
+- `TransformerTrait::toBool()` and `TransformerTrait::toInt()` methods
+
 FIXED:
 
 ## 2.0.4 - 2017-09-13

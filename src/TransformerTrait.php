@@ -25,22 +25,6 @@ trait TransformerTrait
     }
 
     /**
-     * Transforms a value to an integer.
-     */
-    public function toInt($value): int
-    {
-        return (int) $value;
-    }
-
-    /**
-     * Transforms a value to boolean.
-     */
-    public function toBool($value): bool
-    {
-        return (bool) $value;
-    }
-
-    /**
      * Transforms a DateTime object to an ISO 8601 compatible date-time string.
      *
      * If the $displayedTimeZone parameter is present then $dateTime will be converted to that time zone.
