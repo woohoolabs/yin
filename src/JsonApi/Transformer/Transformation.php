@@ -71,7 +71,7 @@ class Transformation
         return $this->fetchedRelationship;
     }
 
-    public function setFetchedRelationship(string $fetchedRelationship)
+    public function setFetchedRelationship(string $fetchedRelationship): void
     {
         $this->fetchedRelationship = $fetchedRelationship;
     }

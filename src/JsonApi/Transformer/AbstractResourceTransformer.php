@@ -90,7 +90,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param mixed $domainObject
      */
-    protected function transformLinksObject(array &$array, $domainObject)
+    protected function transformLinksObject(array &$array, $domainObject): void
     {
         $linksObject = $this->getLinks($domainObject);
 
@@ -102,7 +102,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param mixed $domainObject
      */
-    protected function transformAttributesObject(array &$array, Transformation $transformation, $domainObject)
+    protected function transformAttributesObject(array &$array, Transformation $transformation, $domainObject): void
     {
         $attributes = $this->getAttributes($domainObject);
         $attributesObject = $this->transformAttributes($transformation, $attributes, $domainObject);
@@ -133,7 +133,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @param mixed $domainObject
      */
-    protected function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject)
+    protected function transformRelationshipsObject(array &$array, Transformation $transformation, $domainObject): void
     {
         $relationships = $this->getRelationships($domainObject);
         $relationshipsObject = $this->transformRelationships($transformation, $domainObject, $relationships);
@@ -215,7 +215,7 @@ abstract class AbstractResourceTransformer implements ResourceTransformerInterfa
     /**
      * @throws JsonApiExceptionInterface
      */
-    protected function validateRelationships(Transformation $transformation, array $relationships)
+    protected function validateRelationships(Transformation $transformation, array $relationships): void
     {
         $requestedRelationships = $transformation->request->getIncludedRelationships($transformation->basePath);
 

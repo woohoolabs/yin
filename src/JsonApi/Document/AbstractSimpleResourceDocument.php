@@ -16,7 +16,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         return new SingleResourceData();
     }
 
-    protected function fillData(Transformation $transformation)
+    protected function fillData(Transformation $transformation): void
     {
         $transformation->data->addPrimaryResource($this->getResource());
     }

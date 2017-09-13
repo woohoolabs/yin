@@ -43,7 +43,7 @@ abstract class AbstractDocument
         return $content;
     }
 
-    protected function transformJsonApiContent(array &$content)
+    protected function transformJsonApiContent(array &$content): void
     {
         $jsonApi = $this->getJsonApi();
         if ($jsonApi !== null) {
@@ -51,7 +51,7 @@ abstract class AbstractDocument
         }
     }
 
-    protected function transformMetaContent(array &$content, array $additionalMeta = [])
+    protected function transformMetaContent(array &$content, array $additionalMeta = []): void
     {
         $meta = array_merge($this->getMeta(), $additionalMeta);
         if (empty($meta) === false) {
@@ -59,7 +59,7 @@ abstract class AbstractDocument
         }
     }
 
-    protected function transformLinksContent(array &$content)
+    protected function transformLinksContent(array &$content): void
     {
         $links = $this->getLinks();
         if ($links !== null) {

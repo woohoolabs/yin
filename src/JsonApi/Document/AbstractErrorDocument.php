@@ -15,7 +15,7 @@ abstract class AbstractErrorDocument extends AbstractDocument
     /**
      * @return Error[]
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
