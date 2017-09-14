@@ -1,6 +1,14 @@
-## 3.0.0 - unreleased
+## 3.0.0-beta2 - unreleased
 
 ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 3.0.0-beta1 - 2017-09-14
 
 CHANGED:
 
@@ -14,6 +22,8 @@ REMOVED:
 - `TransformerTrait::toBool()` and `TransformerTrait::toInt()` methods
 
 FIXED:
+
+- Some minor type declaration-related issues
 
 ## 2.0.4 - 2017-09-13
 
