@@ -6,6 +6,8 @@ CHANGED:
 
 - Increased minimum PHP version requirement to 7.1
 - `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING__)
+- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING__)
+- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING__)
 
 REMOVED:
 
@@ -56,7 +58,7 @@ ADDED:
 
 CHANGED:
 
-- Yin now requires PHP 7.0 at least
+- Increased minimum PHP version requirement to 7.0
 - Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
 - Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
@@ -112,7 +114,7 @@ ADDED:
 
 CHANGED:
 
-- Yin now requires PHP 7.0 at least
+- Increased minimum PHP version requirement to 7.0
 - Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
 - Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
