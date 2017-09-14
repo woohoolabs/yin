@@ -76,7 +76,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
     /**
      * @param mixed $domainObject
      */
-    private function initializeDocument($domainObject)
+    private function initializeDocument($domainObject): void
     {
         $this->domainObject = $domainObject;
     }

@@ -178,7 +178,7 @@ class Request implements RequestInterface
         return isset($this->includedFields[$resourceType][$field]);
     }
 
-    protected function setIncludedRelationships()
+    protected function setIncludedRelationships(): void
     {
         $this->includedRelationships = [];
 
