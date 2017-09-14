@@ -30,9 +30,9 @@ class Transformation
     public $basePath;
 
     /**
-     * @var string|null
+     * @var string
      */
-    public $fetchedRelationship;
+    public $fetchedRelationship = "";
 
     public function __construct(
         RequestInterface $request,
