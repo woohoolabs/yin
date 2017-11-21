@@ -1,4 +1,4 @@
-## 3.0.0-beta2 - unreleased
+## 3.1.0 - unreleased
 
 ADDED:
 
@@ -7,6 +7,23 @@ CHANGED:
 REMOVED:
 
 FIXED:
+
+## 3.0.0 - 2017-11-21
+
+CHANGED:
+
+- Increased minimum PHP version requirement to 7.1
+- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING__)
+- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING__)
+- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING__)
+
+REMOVED:
+
+- `TransformerTrait::toBool()` and `TransformerTrait::toInt()` methods
+
+FIXED:
+
+- Some minor type declaration-related issues
 
 ## 3.0.0-beta1 - 2017-09-14
 
