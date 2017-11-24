@@ -24,9 +24,9 @@ class AbstractSuccessfulDocumentTest extends TestCase
         $document = $this->createDocument(new JsonApiObject("1.0"));
         $content = $document->getMetaContent([]);
 
-        $this->assertArrayHasKey('jsonapi', $content);
-        $this->assertArrayHasKey('version', $content['jsonapi']);
-        $this->assertEquals('1.0', $content['jsonapi']['version']);
+        $this->assertArrayHasKey("jsonapi", $content);
+        $this->assertArrayHasKey("version", $content["jsonapi"]);
+        $this->assertEquals("1.0", $content["jsonapi"]["version"]);
     }
 
     /**
@@ -37,7 +37,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         $document = $this->createDocument(null, []);
         $content = $document->getMetaContent([]);
 
-        $this->assertArrayNotHasKey('meta', $content);
+        $this->assertArrayNotHasKey("meta", $content);
     }
 
     /**
@@ -48,8 +48,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
         $document = $this->createDocument(null, ["abc" => "def"]);
         $content = $document->getMetaContent([]);
 
-        $this->assertArrayHasKey('meta', $content);
-        $this->assertEquals(["abc" => "def"], $content['meta']);
+        $this->assertArrayHasKey("meta", $content);
+        $this->assertEquals(["abc" => "def"], $content["meta"]);
     }
 
     /**
@@ -67,8 +67,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayHasKey('data', $content);
-        $this->assertEmpty($content['data']);
+        $this->assertArrayHasKey("data", $content);
+        $this->assertEmpty($content["data"]);
     }
 
     /**
@@ -86,14 +86,14 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayHasKey('links', $content);
-        $this->assertCount(2, $content['links']);
+        $this->assertArrayHasKey("links", $content);
+        $this->assertCount(2, $content["links"]);
     }
 
     /**
      * @test
      */
-    public function getEmptyDataContentWithEmptyIncludes()
+    public function getEmptyDataContentWithoutIncludes()
     {
         $request = new StubRequest();
         $data = null;
@@ -105,7 +105,26 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayNotHasKey('included', $content);
+        $this->assertArrayNotHasKey("included", $content);
+    }
+
+    /**
+     * @test
+     */
+    public function getEmptyDataContentWithEmptyIncludes()
+    {
+        $request = new StubRequest(["include" => "animal"]);
+        $data = null;
+
+        $document = $this->createDocument(null, [], null, $data);
+        $content = $document->getContent(
+            $request,
+            new DefaultExceptionFactory(),
+            []
+        );
+
+        $this->assertArrayHasKey("included", $content);
+        $this->assertEmpty($content["included"]);
     }
 
     /**
@@ -135,8 +154,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayHasKey('included', $content);
-        $this->assertEquals($data->transformIncludedResources(), $content['included']);
+        $this->assertArrayHasKey("included", $content);
+        $this->assertEquals($data->transformIncludedResources(), $content["included"]);
     }
 
     /**
@@ -161,8 +180,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayHasKey('data', $content);
-        $this->assertEquals($relationshipContent, $content['data']);
+        $this->assertArrayHasKey("data", $content);
+        $this->assertEquals($relationshipContent, $content["data"]);
     }
 
     /**
@@ -193,8 +212,8 @@ class AbstractSuccessfulDocumentTest extends TestCase
             []
         );
 
-        $this->assertArrayHasKey('included', $content);
-        $this->assertEquals($data->transformIncludedResources(), $content['included']);
+        $this->assertArrayHasKey("included", $content);
+        $this->assertEquals($data->transformIncludedResources(), $content["included"]);
     }
 
     private function createDocument(

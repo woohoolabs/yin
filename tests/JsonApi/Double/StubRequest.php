@@ -10,8 +10,12 @@ use Zend\Diactoros\ServerRequest;
 
 class StubRequest extends Request
 {
-    public function __construct()
+    public function __construct(array $queryParams = [])
     {
-        parent::__construct(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
+        parent::__construct(
+            new ServerRequest([], [], null, null, "php://input", [], [], $queryParams),
+            new DefaultExceptionFactory(),
+            new JsonDeserializer()
+        );
     }
 }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Document;
 
+use function var_dump;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
@@ -90,7 +91,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $content["data"] = $transformation->data->transformPrimaryResources();
 
         // Included
-        if ($transformation->data->hasIncludedResources()) {
+        if ($transformation->data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
             $content["included"] = $transformation->data->transformIncludedResources();
         }
 
@@ -105,7 +106,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         $content = $this->getRelationshipMember($relationshipName, $transformation, $additionalMeta);
 
         // Included
-        if ($transformation->data->hasIncludedResources()) {
+        if ($transformation->data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
             $content["included"] = $transformation->data->transformIncludedResources();
         }
 

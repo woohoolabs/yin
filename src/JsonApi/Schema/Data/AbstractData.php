@@ -22,7 +22,7 @@ abstract class AbstractData implements DataInterface
 
     public function getResource(string $type, string $id): ?array
     {
-        return isset($this->resources[$type . "." . $id]) ? $this->resources[$type . "." . $id] : null;
+        return $this->resources[$type . "." . $id] ?? null;
     }
 
     public function hasPrimaryResources(): bool

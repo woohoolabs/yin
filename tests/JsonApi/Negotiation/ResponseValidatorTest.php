@@ -23,8 +23,8 @@ class ResponseValidatorTest extends TestCase
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $result = $validator->lintBody($response);
-        $this->assertNull($result);
+        $validator->lintBody($response);
+        $this->assertTrue(true);
     }
 
     /**
@@ -47,12 +47,23 @@ class ResponseValidatorTest extends TestCase
     public function validateBodySuccessfully()
     {
         $response = new Response();
-        $response->getBody()->write('{"data": {"type":"abc", "id":"cde"}}');
-
+        $response->getBody()->write(
+<<<EOF
+{
+  "data": {
+    "type": "articles",
+    "id": "1",
+    "attributes": {
+      "title": "JSON API paints my bikeshed!"
+    }
+  }
+}
+EOF
+        );
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $result = $validator->validateBody($response);
-        $this->assertNull($result);
+        $validator->validateBody($response);
+        $this->assertTrue(true);
     }
 
     /**
@@ -64,8 +75,8 @@ class ResponseValidatorTest extends TestCase
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $result = $validator->validateBody($response);
-        $this->assertNull($result);
+        $validator->validateBody($response);
+        $this->assertTrue(true);
     }
 
     /**

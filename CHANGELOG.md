@@ -1,4 +1,4 @@
-## 3.1.0 - unreleased
+## 3.2.0 - unreleased
 
 ADDED:
 
@@ -7,6 +7,12 @@ CHANGED:
 REMOVED:
 
 FIXED:
+
+## 3.0.1 - unreleased
+
+CHANGED:
+
+- Return the `included` array even when empty if the `include` parameter is supplied
 
 ## 3.0.0 - 2017-11-21
 
