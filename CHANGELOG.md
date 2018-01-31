@@ -16,6 +16,7 @@ CHANGED:
 
 FIXED:
 
+- [#66](https://github.com/woohoolabs/yin/issues/66): Bug in request header validation
 - [#68](https://github.com/woohoolabs/yin/pull/68): Fix fatal error when resource ID is not a string
 
 ## 3.0.0 - 2017-11-21
