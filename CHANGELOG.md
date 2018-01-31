@@ -12,6 +12,7 @@ FIXED:
 
 FIXED:
 
+- [#66](https://github.com/woohoolabs/yin/issues/66): Bug in request header validation
 - [#69](https://github.com/woohoolabs/yin/pull/69): Fatal error when providing invalid types in `fields`, `include` and `sort` query parameters
 
 ## 2.0.5 - 2018-01-31

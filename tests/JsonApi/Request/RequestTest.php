@@ -47,10 +47,35 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function validateMultipleMediaTypeContentTypeHeader()
+    {
+        $this->assertValidContentTypeHeader("application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
+    }
+
+    /**
+     * @test
+     */
+    public function validateCaseInsensitiveContentTypeHeader()
+    {
+        $this->assertValidContentTypeHeader("Application/vnd.Api+JSON, text/*;q=0.3, text/html;q=0.7");
+    }
+
+    /**
+     * @test
+     */
     public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
         $this->expectException(MediaTypeUnsupported::class);
         $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
+    }
+
+    /**
+     * @test
+     */
+    public function validateInvalidContentTypeHeaderWithWhitespaceBeforeParameter()
+    {
+        $this->expectException(MediaTypeUnsupported::class);
+        $this->assertInvalidContentTypeHeader('application/vnd.api+json ; ext="ext1,ext2"');
     }
 
     /**
