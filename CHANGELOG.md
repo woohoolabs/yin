@@ -8,9 +8,15 @@ REMOVED:
 
 FIXED:
 
+## 2.0.5 - unreleased
+
+FIXED:
+
+- [#68](https://github.com/woohoolabs/yin/pull/68): Fix fatal error when resource ID is not string
+
 ## 2.0.4 - 2017-09-13
 
-Added:
+ADDED:
 
 - Possibility to define the `$code` constructor argument of `Exception`s when instantiating `JsonApiException`s
 
