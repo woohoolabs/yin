@@ -58,7 +58,7 @@ servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its cl
 
 ### Features
 
-- 100% [PSR-7](http://www.php-fig.org/psr/psr-7/) compatibility
+- 100% [PSR-7](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md) compatibility
 - 99% [JSON:API 1.0](http://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
