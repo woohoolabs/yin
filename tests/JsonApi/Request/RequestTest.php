@@ -31,6 +31,14 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function validateJsonApiContentTypeHeaderWithSemicolon()
+    {
+        $this->assertValidContentTypeHeader("application/vnd.api+json;");
+    }
+
+    /**
+     * @test
+     */
     public function validateEmptyContentTypeHeader()
     {
         $this->assertValidContentTypeHeader("");
@@ -57,7 +65,7 @@ class RequestTest extends TestCase
      */
     public function validateCaseInsensitiveContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("Application/vnd.Api+JSON, text/*;q=0.3, text/html;q=0.7");
+        $this->assertValidContentTypeHeader("Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
     }
 
     /**
@@ -81,10 +89,10 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function validateContentTypeHeaderWithCharsetMediaType()
+    public function validateInvalidContentTypeHeaderWithCharsetMediaType()
     {
         $this->expectException(MediaTypeUnsupported::class);
-        $this->assertInvalidContentTypeHeader("application/vnd.api+json; charset=utf-8");
+        $this->assertInvalidContentTypeHeader("application/vnd.api+json; Charset=utf-8");
     }
 
     private function assertValidContentTypeHeader($value)

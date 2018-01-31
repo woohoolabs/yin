@@ -133,13 +133,8 @@ class Request implements RequestInterface
     {
         $header = $this->getHeaderLine($headerName);
 
-        // The header doesn't contain the media type
-        if (strpos($header, "application/vnd.api+json") === false) {
-            return true;
-        }
-
         // The media type is modified with media type parameters
-        if (preg_match("/application\/vnd\.api\+json\s*;/i", $header)) {
+        if (preg_match("/application\/vnd\.api\+json\s*;\s*[a-z0-9]+/i", $header)) {
             return false;
         }
 
