@@ -13,7 +13,7 @@ class ResourceIdInvalid extends JsonApiException
      */
     protected $id;
 
-    public function __construct(string $id)
+    public function __construct($id)
     {
         parent::__construct("The resource ID '$id' must be a string!");
         $this->id = $id;
