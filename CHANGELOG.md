@@ -12,7 +12,11 @@ FIXED:
 
 CHANGED:
 
-- Return the `included` array even when empty if the `include` parameter is supplied
+- Return the `included` array even when it is empty if the `include` parameter is supplied
+
+FIXED:
+
+- [#68](https://github.com/woohoolabs/yin/pull/68): Fix fatal error when resource ID is not a string
 
 ## 3.0.0 - 2017-11-21
 
