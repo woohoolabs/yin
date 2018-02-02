@@ -19,10 +19,7 @@ class ErrorTest extends TestCase
         $this->assertEquals("123456789", $error->getId());
     }
 
-    /**
-     * @test
-     */
-    public function getStatus()
+    public function testGetStatus()
     {
         $error = $this->createError()->setStatus("500");
         $this->assertEquals("500", $error->getStatus());

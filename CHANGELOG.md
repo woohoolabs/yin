@@ -13,6 +13,7 @@ FIXED:
 CHANGED:
 
 - Return the `included` array even when it is empty if the `include` parameter is supplied
+- PHPUnit 7.0 is minimally required to run tests
 
 FIXED:
 

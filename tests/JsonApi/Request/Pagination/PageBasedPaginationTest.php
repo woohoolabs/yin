@@ -61,10 +61,7 @@ class PageBasedPaginationTest extends TestCase
         $this->assertEquals($page, $pagination->getPage());
     }
 
-    /**
-     * @test
-     */
-    public function getSize()
+    public function testGetSize()
     {
         $size = 10;
 

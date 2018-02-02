@@ -20,9 +20,9 @@
     },
     "require-dev": {
         "justinrainbow/json-schema": "^2.0.0",
-        "phpunit/phpunit": "^6.0.0",
+        "phpunit/phpunit": "^7.0.0",
         "seld/jsonlint": "^1.4.0",
-        "squizlabs/php_codesniffer": "^3.1.0",
+        "squizlabs/php_codesniffer": "^3.2.0",
         "zendframework/zend-diactoros": "^1.3.0"
     },
     "suggest": {
