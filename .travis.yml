@@ -14,10 +14,10 @@ matrix:
     fast_finish: true
     include:
         - php: 7.1
+        - php: 7.2
           env:
               - EXECUTE_COVERAGE=true
               - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
-        - php: 7.2
 
 notifications:
     email: true
