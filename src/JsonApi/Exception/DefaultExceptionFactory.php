@@ -75,6 +75,14 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new QueryParamUnrecognized($queryParamName);
     }
 
+    public function createQueryParamMalformedException(
+        RequestInterface $request,
+        string $queryParamName,
+        $queryParamValue
+    ): QueryParamMalformed {
+        return new QueryParamMalformed($queryParamName, $queryParamValue);
+    }
+
     public function createRelationshipNotExistsException(string $relationship): RelationshipNotExists
     {
         return new RelationshipNotExists($relationship);

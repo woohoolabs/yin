@@ -67,6 +67,11 @@ interface ExceptionFactoryInterface
     /**
      * @return JsonApiExceptionInterface|Exception
      */
+    public function createQueryParamMalformedException(RequestInterface $request, string $queryParamName, $queryParamValue);
+
+    /**
+     * @return JsonApiExceptionInterface|Exception
+     */
     public function createRelationshipNotExistsException(string $relationship);
 
     /**
