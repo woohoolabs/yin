@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
@@ -415,6 +416,19 @@ class RequestTest extends TestCase
 
         $request = $this->createRequestWithQueryParams($queryParams);
         $this->assertEquals($sorting, $request->getSorting());
+    }
+
+    /**
+     * @test
+     */
+    public function getSortingWhenMalformed()
+    {
+        $this->expectException(QueryParamMalformed::class);
+
+        $queryParams = ["sort" => ["name" => "asc"]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $request->getSorting();
     }
 
     /**
