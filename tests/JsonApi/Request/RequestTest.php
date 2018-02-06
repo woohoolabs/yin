@@ -208,6 +208,32 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function getIncludedFieldWhenMalformed()
+    {
+        $this->expectException(QueryParamMalformed::class);
+
+        $queryParams = ["fields" => ""];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $request->getIncludedFields("");
+    }
+
+    /**
+     * @test
+     */
+    public function getIncludedFieldWhenFieldMalformed()
+    {
+        $this->expectException(QueryParamMalformed::class);
+
+        $queryParams = ["fields" => ["book" => []]];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $request->getIncludedFields("");
+    }
+
+    /**
+     * @test
+     */
     public function isIncludedFieldWhenAllFieldsRequested()
     {
         $resourceType = "book";
@@ -335,6 +361,19 @@ class RequestTest extends TestCase
 
         $request = $this->createRequestWithQueryParams($queryParams);
         $this->assertEquals($includedRelationships, $request->getIncludedRelationships($baseRelationshipPath));
+    }
+
+    /**
+     * @test
+     */
+    public function getIncludedRelationshipsWhenMalformed()
+    {
+        $this->expectException(QueryParamMalformed::class);
+
+        $queryParams = ["include" => []];
+
+        $request = $this->createRequestWithQueryParams($queryParams);
+        $request->getIncludedRelationships("");
     }
 
     /**

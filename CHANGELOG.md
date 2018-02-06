@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 3.0.2 - unreleased
+
+FIXED:
+
+- [#69](https://github.com/woohoolabs/yin/pull/69): Fatal error when providing invalid types in `fields`, `include` and `sort` query parameters
+
 ## 3.0.1 - 2018-02-02
 
 CHANGED:
@@ -53,6 +59,18 @@ REMOVED:
 FIXED:
 
 - Some minor type declaration-related issues
+
+## 2.0.6 - 2018-02-06
+
+FIXED:
+
+- [#69](https://github.com/woohoolabs/yin/pull/69): Fatal error when providing invalid types in `fields`, `include` and `sort` query parameters
+
+## 2.0.5 - 2018-01-31
+
+FIXED:
+
+- [#68](https://github.com/woohoolabs/yin/pull/68): Fatal error when resource ID is not string
 
 ## 2.0.4 - 2017-09-13
 

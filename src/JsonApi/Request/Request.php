@@ -143,13 +143,15 @@ class Request implements RequestInterface
         $this->includedFields = [];
         $fields = $this->getQueryParam("fields", []);
         if (is_array($fields) === false) {
-            return;
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "fields", $fields);
         }
 
         foreach ($fields as $resourceType => $resourceFields) {
-            if (is_string($resourceFields)) {
-                $this->includedFields[$resourceType] = array_flip(explode(",", $resourceFields));
+            if (is_string($resourceFields) === false) {
+                throw $this->exceptionFactory->createQueryParamMalformedException($this, "fields", $fields);
             }
+
+            $this->includedFields[$resourceType] = array_flip(explode(",", $resourceFields));
         }
     }
 
@@ -190,6 +192,11 @@ class Request implements RequestInterface
         $this->includedRelationships = [];
 
         $includeQueryParam = $this->getQueryParam("include", "");
+
+        if (is_string($includeQueryParam) === false) {
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "include", $includeQueryParam);
+        }
+
         if ($includeQueryParam === "") {
             return;
         }
@@ -282,9 +289,10 @@ class Request implements RequestInterface
     protected function setSorting(): void
     {
         $sortingQueryParam = $this->getQueryParam("sort", "");
-        if (!is_string($sortingQueryParam)) {
+        if (is_string($sortingQueryParam) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "sort", $sortingQueryParam);
         }
+
         if ($sortingQueryParam === "") {
             $this->sorting = [];
 

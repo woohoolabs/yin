@@ -19,8 +19,6 @@ class QueryParamMalformed extends JsonApiException
     protected $malformedQueryParamValue;
 
     /**
-     * QueryParamMalformed constructor.
-     * @param string $malformedQueryParam
      * @param mixed $malformedQueryParamValue
      */
     public function __construct(string $malformedQueryParam, $malformedQueryParamValue)
