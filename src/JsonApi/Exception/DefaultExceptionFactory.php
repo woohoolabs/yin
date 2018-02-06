@@ -79,7 +79,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         RequestInterface $request,
         string $queryParamName,
         $queryParamValue
-    ): QueryParamMalformed {
+    ): JsonApiExceptionInterface {
         return new QueryParamMalformed($queryParamName, $queryParamValue);
     }
 
