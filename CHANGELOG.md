@@ -8,7 +8,7 @@ REMOVED:
 
 FIXED:
 
-## 3.0.2 - unreleased
+## 3.0.2 - 2018-02-06
 
 FIXED:
 
