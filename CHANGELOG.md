@@ -4,6 +4,8 @@ ADDED:
 
 CHANGED:
 
+- Run Travis tests on PHP 7.3 too
+
 REMOVED:
 
 FIXED:

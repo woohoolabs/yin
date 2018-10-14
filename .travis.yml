@@ -18,6 +18,7 @@ matrix:
           env:
               - EXECUTE_COVERAGE=true
               - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
+        - php: 7.3
 
 notifications:
     email: true
