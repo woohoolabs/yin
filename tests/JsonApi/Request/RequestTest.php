@@ -738,7 +738,7 @@ class RequestTest extends TestCase
                 "attributes" => [
                     "name" => "Hot dog",
                 ],
-            ]
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -757,7 +757,7 @@ class RequestTest extends TestCase
                 "attributes" => [
                     "name" => "Hot dog",
                 ],
-            ]
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);

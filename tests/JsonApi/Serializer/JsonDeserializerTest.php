@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
@@ -17,7 +18,9 @@ class JsonDeserializerTest extends TestCase
         $request = $this->createRequestWithJsonBody("");
 
         $deserializer = new JsonDeserializer();
-        $this->assertNull($deserializer->deserialize($request));
+
+        $this->expectException(InvalidArgumentException::class);
+        $deserializer->deserialize($request);
     }
 
     /**
@@ -29,7 +32,7 @@ class JsonDeserializerTest extends TestCase
             "data" => [
                 "type" => "cat",
                 "id" => "tom",
-            ]
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($parsedBody);

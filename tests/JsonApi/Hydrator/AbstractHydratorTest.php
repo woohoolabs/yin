@@ -97,7 +97,7 @@ class AbstractHydratorTest extends TestCase
                 "attributes" => [
                     "height" => null,
                 ],
-            ]
+            ],
         ];
         $attributeHydrator = [
             "height" => function (array &$elephant, $attribute) {

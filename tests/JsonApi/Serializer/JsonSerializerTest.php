@@ -42,7 +42,7 @@ class JsonSerializerTest extends TestCase
             "data" => [
                 "type" => "cat",
                 "id" => "tom",
-            ]
+            ],
         ];
 
         $serializer = new JsonSerializer();
