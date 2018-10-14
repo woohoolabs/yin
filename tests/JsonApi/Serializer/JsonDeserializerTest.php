@@ -13,14 +13,22 @@ class JsonDeserializerTest extends TestCase
     /**
      * @test
      */
-    public function deserializeEmptyBody()
+    public function deserializeNullBody()
     {
-        $request = $this->createRequestWithJsonBody("");
+        $request = $this->createRequestWithJsonBody(null);
 
         $deserializer = new JsonDeserializer();
 
+        $this->assertNull($deserializer->deserialize($request));
+    }
+
+    /**
+     * @test
+     */
+    public function deserializeEmptyBody()
+    {
         $this->expectException(InvalidArgumentException::class);
-        $deserializer->deserialize($request);
+        $this->createRequestWithJsonBody("");
     }
 
     /**
