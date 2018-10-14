@@ -665,7 +665,7 @@ class RequestTest extends TestCase
     public function getResource()
     {
         $body = [
-          "data" => []
+          "data" => [],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -690,8 +690,8 @@ class RequestTest extends TestCase
     {
         $body = [
             "data" => [
-                "type" => "user"
-            ]
+                "type" => "user",
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -704,7 +704,7 @@ class RequestTest extends TestCase
     public function getResourceIdWhenEmpty()
     {
         $body = [
-            "data" => []
+            "data" => [],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -718,8 +718,8 @@ class RequestTest extends TestCase
     {
         $body = [
             "data" => [
-                "id" => "1"
-            ]
+                "id" => "1",
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -736,8 +736,8 @@ class RequestTest extends TestCase
                 "type" => "dog",
                 "id" => "1",
                 "attributes" => [
-                    "name" => "Hot dog"
-                ]
+                    "name" => "Hot dog",
+                ],
             ]
         ];
 
@@ -755,8 +755,8 @@ class RequestTest extends TestCase
                 "type" => "dog",
                 "id" => "1",
                 "attributes" => [
-                    "name" => "Hot dog"
-                ]
+                    "name" => "Hot dog",
+                ],
             ]
         ];
 
@@ -775,10 +775,10 @@ class RequestTest extends TestCase
                 "id" => "1",
                 "relationships" => [
                     "owner" => [
-                        "data" => ["type" => "human", "id" => "1"]
-                    ]
-                ]
-            ]
+                        "data" => ["type" => "human", "id" => "1"],
+                    ],
+                ],
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -798,10 +798,10 @@ class RequestTest extends TestCase
                 "id" => "1",
                 "relationships" => [
                     "owner" => [
-                        "data" => null
-                    ]
-                ]
-            ]
+                        "data" => null,
+                    ],
+                ],
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -819,8 +819,8 @@ class RequestTest extends TestCase
                 "type" => "dog",
                 "id" => "1",
                 "relationships" => [
-                ]
-            ]
+                ],
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -840,11 +840,11 @@ class RequestTest extends TestCase
                     "friends" => [
                         "data" => [
                             ["type" => "dog", "id" => "2"],
-                            ["type" => "dog", "id" => "3"]
-                        ]
-                    ]
-                ]
-            ]
+                            ["type" => "dog", "id" => "3"],
+                        ],
+                    ],
+                ],
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -865,8 +865,8 @@ class RequestTest extends TestCase
                 "type" => "dog",
                 "id" => "1",
                 "relationships" => [
-                ]
-            ]
+                ],
+            ],
         ];
 
         $request = $this->createRequestWithJsonBody($body);
@@ -1030,8 +1030,8 @@ class RequestTest extends TestCase
         $parsedBody = [
             "data" => [
                 "type" => "cat",
-                "id" => "tom"
-            ]
+                "id" => "tom",
+            ],
         ];
 
         $request = $this->createRequest();

@@ -17,7 +17,7 @@ class AbstractDataTest extends TestCase
         $dummyData->setPrimaryResources(
             [
                 ["type" => "user", "id" => "1"],
-                ["type" => "user", "id" => "2"]
+                ["type" => "user", "id" => "2"],
             ]
         );
 

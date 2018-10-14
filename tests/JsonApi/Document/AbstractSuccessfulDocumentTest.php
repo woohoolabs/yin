@@ -217,10 +217,10 @@ class AbstractSuccessfulDocumentTest extends TestCase
     }
 
     private function createDocument(
-        JsonApiObject $jsonApi = null,
+        ?JsonApiObject $jsonApi = null,
         array $meta = [],
-        Links $links = null,
-        DataInterface $data = null,
+        ?Links $links = null,
+        ?DataInterface $data = null,
         array $relationshipResponseContent = []
     ): AbstractSuccessfulDocument {
         return new StubSuccessfulDocument(

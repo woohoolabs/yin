@@ -24,7 +24,7 @@ class StubErrorDocument extends AbstractErrorDocument
      */
     protected $links;
 
-    public function __construct(JsonApiObject $jsonApi = null, array $meta = [], Links $links = null)
+    public function __construct(?JsonApiObject $jsonApi = null, array $meta = [], ?Links $links = null)
     {
         $this->jsonApi = $jsonApi;
         $this->meta = $meta;

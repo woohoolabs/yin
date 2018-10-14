@@ -25,7 +25,7 @@ class AbstractHydratorTest extends TestCase
     public function validateTypeWhenMissing()
     {
         $body = [
-            "data" => []
+            "data" => [],
         ];
 
         $hydrator = $this->createHydrator();
@@ -41,8 +41,8 @@ class AbstractHydratorTest extends TestCase
     {
         $body = [
             "data" => [
-                "type" => "elephant"
-            ]
+                "type" => "elephant",
+            ],
         ];
 
         $hydrator = $this->createHydrator(["fox"]);
@@ -58,8 +58,8 @@ class AbstractHydratorTest extends TestCase
     {
         $body = [
             "data" => [
-                "type" => "elephant"
-            ]
+                "type" => "elephant",
+            ],
         ];
 
         $hydrator = $this->createHydrator(["fox", "wolf"]);
@@ -76,8 +76,8 @@ class AbstractHydratorTest extends TestCase
         $body = [
             "data" => [
                 "type" => "elephant",
-                "id" => "1"
-            ]
+                "id" => "1",
+            ],
         ];
 
         $hydrator = $this->createHydrator(["elephant"]);
@@ -95,8 +95,8 @@ class AbstractHydratorTest extends TestCase
                 "type" => "elephant",
                 "id" => "1",
                 "attributes" => [
-                    "height" => null
-                ]
+                    "height" => null,
+                ],
             ]
         ];
         $attributeHydrator = [
@@ -120,9 +120,9 @@ class AbstractHydratorTest extends TestCase
                 "type" => "elephant",
                 "id" => "1",
                 "attributes" => [
-                    "height" => 2.5
-                ]
-            ]
+                    "height" => 2.5,
+                ],
+            ],
         ];
         $attributeHydrator = [
             "weight" => function (array &$elephant, $attribute) {
@@ -146,9 +146,9 @@ class AbstractHydratorTest extends TestCase
                 "type" => "elephant",
                 "id" => "1",
                 "attributes" => [
-                    "weight" => $weight
-                ]
-            ]
+                    "weight" => $weight,
+                ],
+            ],
         ];
         $attributeHydrator = [
             "weight" => function (array &$elephant, $attribute) {
@@ -172,9 +172,9 @@ class AbstractHydratorTest extends TestCase
                 "type" => "elephant",
                 "id" => "1",
                 "attributes" => [
-                    "weight" => $weight
-                ]
-            ]
+                    "weight" => $weight,
+                ],
+            ],
         ];
         $attributeHydrator = [
             "weight" => function (array $elephant, $attribute) {
@@ -198,9 +198,9 @@ class AbstractHydratorTest extends TestCase
                 "type" => "elephant",
                 "id" => "1",
                 "relationships" => [
-                    "parents" => []
-                ]
-            ]
+                    "parents" => [],
+                ],
+            ],
         ];
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToManyRelationship $children) {
@@ -226,11 +226,11 @@ class AbstractHydratorTest extends TestCase
                     "children" => [
                         "data" => [
                             "type" => "elephant",
-                            "id" => "2"
-                        ]
-                    ]
-                ]
-            ]
+                            "id" => "2",
+                        ],
+                    ],
+                ],
+            ],
         ];
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToManyRelationship $children) {
@@ -257,12 +257,12 @@ class AbstractHydratorTest extends TestCase
                         "data" => [
                             [
                                 "type" => "elephant",
-                                "id" => "2"
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                "id" => "2",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToOneRelationship $children) {
@@ -289,12 +289,12 @@ class AbstractHydratorTest extends TestCase
                         "data" => [
                             [
                                 "type" => "elephant",
-                                "id" => "2"
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                "id" => "2",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
         $relationshipHydrator = [
             "children" => function (array &$elephant, $children) {
@@ -320,19 +320,19 @@ class AbstractHydratorTest extends TestCase
                     "owner" => [
                         "data" => [
                             "type" => "person",
-                            "id" => "1"
-                        ]
+                            "id" => "1",
+                        ],
                     ],
                     "children" => [
                         "data" => [
                             [
                                 "type" => "elephant",
-                                "id" => "2"
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                                "id" => "2",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ];
         $relationshipHydrator = [
             "owner" => function (array $elephant, ToOneRelationship $owner) {

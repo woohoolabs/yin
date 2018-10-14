@@ -53,7 +53,7 @@ class LinkObjectTest extends TestCase
 
         $transformedLink = [
           "href" => $href,
-          "meta" => $meta
+          "meta" => $meta,
         ];
         $this->assertEquals($transformedLink, $link->transform(""));
     }
@@ -69,7 +69,7 @@ class LinkObjectTest extends TestCase
         $link = $this->createLink($href);
 
         $transformedLink = [
-            "href" => $baseUri . $href
+            "href" => $baseUri . $href,
         ];
         $this->assertEquals($transformedLink, $link->transform($baseUri));
     }

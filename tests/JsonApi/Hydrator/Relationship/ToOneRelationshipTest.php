@@ -51,7 +51,7 @@ class ToOneRelationshipTest extends TestCase
         $this->assertTrue($relationship->isEmpty());
     }
 
-    private function createRelationship(ResourceIdentifier $resourceIdentifier = null): ToOneRelationship
+    private function createRelationship(?ResourceIdentifier $resourceIdentifier = null): ToOneRelationship
     {
         return new ToOneRelationship($resourceIdentifier);
     }

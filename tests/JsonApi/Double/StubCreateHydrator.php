@@ -27,11 +27,8 @@ class StubCreateHydrator
      */
     private $logicException;
 
-    public function __construct(
-        bool $isClientGeneratedIdException = false,
-        string $generatedId = "",
-        bool $logicException
-    ) {
+    public function __construct(bool $isClientGeneratedIdException, string $generatedId, bool $logicException)
+    {
         $this->isClientGeneratedIdException = $isClientGeneratedIdException;
         $this->generatedId = $generatedId;
         $this->logicException = $logicException;

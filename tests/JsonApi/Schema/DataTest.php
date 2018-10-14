@@ -16,7 +16,7 @@ class DataTest extends TestCase
         $resources = [
             [
                 "type" => "resource",
-                "id" => "1"
+                "id" => "1",
             ]
         ];
 
@@ -32,7 +32,7 @@ class DataTest extends TestCase
     {
         $resource = [
             "type" => "resource",
-            "id" => "1"
+            "id" => "1",
         ];
 
         $data = $this->createData()->addIncludedResource($resource);
@@ -56,7 +56,7 @@ class DataTest extends TestCase
         $resources = [
             [
                 "type" => "resource",
-                "id" => "1"
+                "id" => "1",
             ]
         ];
 
@@ -82,7 +82,7 @@ class DataTest extends TestCase
     {
         $resource = [
             "type" => "resource",
-            "id" => "1"
+            "id" => "1",
         ];
 
         $data = $this->createData()->addIncludedResource($resource);

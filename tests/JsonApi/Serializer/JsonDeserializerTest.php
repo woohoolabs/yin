@@ -28,7 +28,7 @@ class JsonDeserializerTest extends TestCase
         $parsedBody = [
             "data" => [
                 "type" => "cat",
-                "id" => "tom"
+                "id" => "tom",
             ]
         ];
 

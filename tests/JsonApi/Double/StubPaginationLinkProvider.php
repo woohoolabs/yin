@@ -15,21 +15,21 @@ class StubPaginationLinkProvider implements PaginationLinkProviderInterface
 
     public function getFirstLink(string $uri): ?Link
     {
-        return new Link($uri. "first");
+        return new Link($uri . "first");
     }
 
     public function getLastLink(string $uri): ?Link
     {
-        return new Link($uri. "last");
+        return new Link($uri . "last");
     }
 
     public function getPrevLink(string $uri): ?Link
     {
-        return new Link($uri. "prev");
+        return new Link($uri . "prev");
     }
 
     public function getNextLink(string $uri): ?Link
     {
-        return new Link($uri. "next");
+        return new Link($uri . "next");
     }
 }

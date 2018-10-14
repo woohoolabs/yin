@@ -43,7 +43,7 @@ class ResourceIdentifierTest extends TestCase
 
         $resourceIdentifierArray = [
             "type" => $type,
-            "id" => $id
+            "id" => $id,
         ];
 
         $this->assertEquals(
@@ -64,7 +64,7 @@ class ResourceIdentifierTest extends TestCase
         $resourceIdentifierArray = [
             "type" => $type,
             "id" => $id,
-            "meta" => $meta
+            "meta" => $meta,
         ];
         $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id)->setMeta($meta);
         $this->assertEquals(

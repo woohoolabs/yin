@@ -52,7 +52,7 @@ class JsonApiTest extends TestCase
         $jsonApi = $this->createJsonApi($version, $meta);
 
         $transformedJsonApi = [
-            "meta" => $meta
+            "meta" => $meta,
         ];
         $this->assertEquals($transformedJsonApi, $jsonApi->transform());
     }
@@ -68,7 +68,7 @@ class JsonApiTest extends TestCase
         $jsonApi = $this->createJsonApi($version, $meta);
 
         $transformedJsonApi = [
-            "version" => $version
+            "version" => $version,
         ];
         $this->assertEquals($transformedJsonApi, $jsonApi->transform());
     }

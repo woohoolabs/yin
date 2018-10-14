@@ -38,7 +38,7 @@ class AbstractResponderTest extends TestCase
         $this->assertCount(2, $body["errors"]);
     }
 
-    private function createResponder(Response $response = null): Responder
+    private function createResponder(?Response $response = null): Responder
     {
         return new Responder(
             new StubRequest(),

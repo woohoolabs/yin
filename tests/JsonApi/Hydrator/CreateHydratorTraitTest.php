@@ -38,8 +38,8 @@ class CreateHydratorTraitTest extends TestCase
         $id = "1";
         $body = [
             "data" => [
-                "type" => $type
-            ]
+                "type" => $type,
+            ],
         ];
 
         $hydrator = $this->createHydrator(false, $id);
@@ -57,8 +57,8 @@ class CreateHydratorTraitTest extends TestCase
         $body = [
             "data" => [
                 "type" => $type,
-                "id" => $id
-            ]
+                "id" => $id,
+            ],
         ];
 
         $hydrator = $this->createHydrator(true, $id);
@@ -77,8 +77,8 @@ class CreateHydratorTraitTest extends TestCase
         $body = [
             "data" => [
                 "type" => $type,
-                "id" => $id
-            ]
+                "id" => $id,
+            ],
         ];
 
         $hydrator = $this->createHydrator(false, $id);
@@ -98,7 +98,7 @@ class CreateHydratorTraitTest extends TestCase
             "data" => [
                 "type" => $type,
                 "id" => $id,
-            ]
+            ],
         ];
 
         $hydrator = $this->createHydrator(false, $id, true);

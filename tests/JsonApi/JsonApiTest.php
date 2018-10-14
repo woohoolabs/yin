@@ -100,9 +100,9 @@ class JsonApiTest extends TestCase
     }
 
     private function createJsonApi(
-        Request $request = null,
-        Response $response = null,
-        ExceptionFactoryInterface $exceptionFactory = null
+        ?Request $request = null,
+        ?Response $response = null,
+        ?ExceptionFactoryInterface $exceptionFactory = null
     ) {
         return new JsonApi(
             $request ? $request : $this->createRequest(),
@@ -111,7 +111,7 @@ class JsonApiTest extends TestCase
         );
     }
 
-    private function createRequest(ServerRequestInterface $request = null)
+    private function createRequest(?ServerRequestInterface $request = null)
     {
         return new Request(
             $request ? $request : new ServerRequest(),

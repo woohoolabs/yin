@@ -41,7 +41,7 @@ class JsonSerializerTest extends TestCase
         $content = [
             "data" => [
                 "type" => "cat",
-                "id" => "tom"
+                "id" => "tom",
             ]
         ];
 

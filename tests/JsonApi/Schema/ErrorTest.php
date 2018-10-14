@@ -87,7 +87,7 @@ class ErrorTest extends TestCase
             "status" => $status,
             "code" => $code,
             "title" => $title,
-            "detail" => $detail
+            "detail" => $detail,
         ];
         $this->assertEquals($transformedError, $error->transform());
     }
@@ -119,7 +119,7 @@ class ErrorTest extends TestCase
             "code" => "UNKNOWN_ERROR",
             "title" => "Unknown error!",
             "detail" => "An unknown error has happened and no solution exists.",
-            "source" => []
+            "source" => [],
         ];
         $this->assertEquals($transformedError, $error->transform());
     }

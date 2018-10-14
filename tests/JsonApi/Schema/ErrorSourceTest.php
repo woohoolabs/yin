@@ -94,7 +94,7 @@ class ErrorSourceTest extends TestCase
 
         $transformedErrorSource = [
             "pointer" => "/data/attributes/name",
-            "parameter" => "name"
+            "parameter" => "name",
         ];
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }

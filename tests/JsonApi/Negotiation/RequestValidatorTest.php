@@ -90,7 +90,7 @@ class RequestValidatorTest extends TestCase
                     "include" => "baz",
                     "sort" => "asc",
                     "page" => "1",
-                    "filter" => "search"
+                    "filter" => "search",
                 ]
             ));
 
@@ -173,7 +173,7 @@ class RequestValidatorTest extends TestCase
 
         $map = [
             ["Content-Type", $contentType],
-            ["Accept", $accept]
+            ["Accept", $accept],
         ];
         $server->expects($this->any())
             ->method("getHeaderLine")

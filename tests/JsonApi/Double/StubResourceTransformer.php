@@ -47,7 +47,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
         string $type = "",
         string $id = "",
         array $meta = [],
-        Links $links = null,
+        ?Links $links = null,
         array $attributes = [],
         array $defaultRelationships = [],
         array $relationships = []

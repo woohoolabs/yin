@@ -128,7 +128,7 @@ class AbstractResourceTransformerTest extends TestCase
     {
         $domainObject = [
             "name" => "John Doe",
-            "age" => 50
+            "age" => 50,
         ];
         $attributes = [
             "full_name" => function (array $object, RequestInterface $request) use ($domainObject) {
@@ -271,8 +271,8 @@ class AbstractResourceTransformerTest extends TestCase
     protected function transformToResource(
         AbstractResourceTransformer $transformer,
         $domainObject,
-        RequestInterface $request = null,
-        DataInterface $data = null
+        ?RequestInterface $request = null,
+        ?DataInterface $data = null
     ): ?array {
         $transformation = new Transformation(
             $request ? $request : new Request(
@@ -292,7 +292,7 @@ class AbstractResourceTransformerTest extends TestCase
         string $type = "",
         string $id = "",
         array $meta = [],
-        Links $links = null,
+        ?Links $links = null,
         array $attributes = [],
         array $defaultRelationships = [],
         array $relationships = []

@@ -37,10 +37,10 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $relationshipResponseContent;
 
     public function __construct(
-        JsonApiObject $jsonApi = null,
+        ?JsonApiObject $jsonApi = null,
         array $meta = [],
-        Links $links = null,
-        DataInterface $data = null,
+        ?Links $links = null,
+        ?DataInterface $data = null,
         array $relationshipResponseContent = []
     ) {
         $this->jsonApi = $jsonApi;

@@ -36,8 +36,8 @@ class UpdateHydratorTraitTest extends TestCase
     {
         $body = [
             "data" => [
-                "type" => "user"
-            ]
+                "type" => "user",
+            ],
         ];
 
         $hydrator = $this->createHydrator();
@@ -55,8 +55,8 @@ class UpdateHydratorTraitTest extends TestCase
         $body = [
             "data" => [
                 "type" => "user",
-                "id" => $id
-            ]
+                "id" => $id,
+            ],
         ];
 
         $hydrator = $this->createHydrator();
@@ -76,7 +76,7 @@ class UpdateHydratorTraitTest extends TestCase
             "data" => [
                 "type" => $type,
                 "id" => $id,
-            ]
+            ],
         ];
 
         $hydrator = $this->createHydrator(true);
