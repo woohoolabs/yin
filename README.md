@@ -59,7 +59,7 @@ servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its cl
 ### Features
 
 - 100% [PSR-7](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md) compatibility
-- 99% [JSON:API 1.0](http://jsonapi.org/) compatibility (approximately)
+- 99% [JSON:API 1.1](http://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
@@ -70,7 +70,7 @@ servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its cl
 
 #### Complete JSON:API framework
 
-Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API specification:
+Woohoo Labs. Yin is a framework-agnostic library which supports the vast majority of the JSON:API 1.1 specification:
 it provides various capabilities including content negotiation, error handling and pagination, as well as fetching,
 creation, updating and deleting resources. Although Yin consists of many loosely coupled packages and classes which
 can be used separately, the framework is most powerful when used in its entirety.
@@ -187,7 +187,7 @@ you to implement the following methods:
  */
 public function getJsonApi()
 {
-    return new JsonApiObject("1.0");
+    return new JsonApiObject("1.1");
 }
 ```
 
