@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
-use JsonSchema\RefResolver;
-use JsonSchema\Uri\UriResolver;
-use JsonSchema\Uri\UriRetriever;
 use JsonSchema\Validator;
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
@@ -53,11 +50,13 @@ abstract class AbstractMessageValidator
             return [];
         }
 
-        $refResolver = new RefResolver(new UriRetriever(), new UriResolver());
-        $schema = $refResolver->resolve('file://' . realpath(__DIR__ . "/json-api-schema.json"));
+        $decodedMessage = json_decode($message);
 
         $validator = new Validator();
-        $validator->check(json_decode($message), $schema);
+        $validator->validate(
+            $decodedMessage,
+            (object) ['$ref' => "file://" . realpath(__DIR__ . "/json-api-schema.json")]
+        );
 
         return $validator->getErrors();
     }

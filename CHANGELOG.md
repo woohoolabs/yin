@@ -1,10 +1,11 @@
-## 3.1.0 - unreleased
+## 4.0.0 - unreleased
 
 ADDED:
 
 CHANGED:
 
 - Run Travis tests on PHP 7.3 too
+- Updated `justinrainbow/json-schema` to v5.2
 
 REMOVED:
 
