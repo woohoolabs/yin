@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 
 trait OffsetBasedPaginationLinkProviderTrait
 {

@@ -3,16 +3,20 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractRelationship
 {
-    use LinksTrait;
     use MetaTrait;
+
+    /**
+     * @var RelationshipLinks
+     */
+    protected $links;
 
     /**
      * @var mixed
@@ -77,7 +81,7 @@ abstract class AbstractRelationship
      */
     public function __construct(
         array $meta = [],
-        ?Links $links = null,
+        ?RelationshipLinks $links = null,
         $data = [],
         ?ResourceTransformerInterface $resourceTransformer = null
     ) {
@@ -87,6 +91,21 @@ abstract class AbstractRelationship
         $this->isCallableData = false;
         $this->omitDataWhenNotIncluded = false;
         $this->resourceTransformer = $resourceTransformer;
+    }
+
+    public function getLinks(): ?RelationshipLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLinks(RelationshipLinks $links)
+    {
+        $this->links = $links;
+
+        return $this;
     }
 
     /**

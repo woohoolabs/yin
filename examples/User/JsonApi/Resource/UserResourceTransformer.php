@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
@@ -65,7 +67,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      *
      * @param array $user
      */
-    public function getLinks($user): ?Links
+    public function getLinks($user): ?ResourceLinks
     {
         return null;
     }
@@ -119,10 +121,10 @@ class UserResourceTransformer extends AbstractResourceTransformer
                 return
                     ToManyRelationship::create()
                         ->setLinks(
-                            Links::createWithoutBaseUri([
-                                "related" => new Link("/?path=/users/" . $user["id"] . "/contacts"),
-                                "self" => new Link("/?path=/users/" . $user["id"] . "/relationships/contacts")
-                            ])
+                            RelationshipLinks::createWithoutBaseUri(
+                                new Link("/?path=/users/" . $user["id"] . "/contacts"),
+                                new Link("/?path=/users/" . $user["id"] . "/relationships/contacts")
+                            )
                         )
                         ->setDataAsCallable(function () use ($user) {
                             return $user["contacts"];

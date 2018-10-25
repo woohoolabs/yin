@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument

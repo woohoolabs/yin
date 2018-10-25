@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 
 class BooksDocument extends AbstractCollectionDocument
 {

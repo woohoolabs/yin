@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 
 abstract class AbstractDocument
 {
@@ -29,8 +30,9 @@ abstract class AbstractDocument
      *
      * The method returns a new Links schema object if you want to provide linkage data
      * for the document or null if the member should be omitted from the response.
+     * @return Links|ErrorLinks|null
      */
-    abstract public function getLinks(): ?Links;
+    abstract public function getLinks();
 
     protected function transformBaseContent(array $additionalMeta = []): array
     {

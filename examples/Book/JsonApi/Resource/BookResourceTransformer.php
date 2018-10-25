@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
@@ -74,13 +75,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
      *
      * @param array $book
      */
-    public function getLinks($book): ?Links
+    public function getLinks($book): ?ResourceLinks
     {
-        return Links::createWithoutBaseUri(
-            [
-                "self" => new Link($this->getSelfLinkHref($book))
-            ]
-        );
+        return ResourceLinks::createWithoutBaseUri(new Link($this->getSelfLinkHref($book)));
     }
 
     public function getSelfLinkHref(array $book): string
@@ -107,7 +104,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return $book["title"];
             },
             "pages" => function (array $book) {
-                return $this->toInt($book["pages"]);
+                return (int) $book["pages"];
             },
         ];
     }
@@ -139,11 +136,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return
                     ToManyRelationship::create()
                         ->setLinks(
-                            new Links(
+                            new RelationshipLinks(
                                 $this->getSelfLinkHref($book),
-                                [
-                                    "self" => new Link("/relationships/authors")
-                                ]
+                                new Link("/relationships/authors")
                             )
                         )
                         ->setData($book["authors"], $this->authorTransformer)
@@ -153,11 +148,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return
                     ToOneRelationship::create()
                         ->setLinks(
-                            new Links(
+                            new RelationshipLinks(
                                 $this->getSelfLinkHref($book),
-                                [
-                                    "self" => new Link("/relationships/publisher")
-                                ]
+                                new Link("/relationships/publisher")
                             )
                         )
                         ->setData($book["publisher"], $this->publisherTransformer)

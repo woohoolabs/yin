@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSuccessfulDocument extends AbstractDocument
@@ -14,6 +15,14 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * @var mixed
      */
     protected $domainObject;
+
+    /**
+     * Provides information about the "links" member of the current document.
+     *
+     * The method returns a new Links schema object if you want to provide linkage data
+     * for the document or null if the member should be omitted from the response.
+     */
+    abstract public function getLinks(): ?Links;
 
     abstract protected function createData(): DataInterface;
 

@@ -10,8 +10,9 @@ use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
@@ -113,7 +114,7 @@ class AbstractResourceTransformerTest extends TestCase
     public function transformToResourceWithLinks()
     {
         $domainObject = [];
-        $links = Links::createWithoutBaseUri()->setSelf(new Link("http://example.com/api/users"));
+        $links = ResourceLinks::createWithoutBaseUri()->setSelf(new Link("http://example.com/api/users"));
 
         $transformer = $this->createTransformer("", "", [], $links);
         $transformedResource = $this->transformToResource($transformer, $domainObject);
@@ -292,7 +293,7 @@ class AbstractResourceTransformerTest extends TestCase
         string $type = "",
         string $id = "",
         array $meta = [],
-        ?Links $links = null,
+        ?ResourceLinks $links = null,
         array $attributes = [],
         array $defaultRelationships = [],
         array $relationships = []

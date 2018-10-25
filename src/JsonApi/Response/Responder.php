@@ -9,6 +9,7 @@ use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class Responder extends AbstractResponder
@@ -83,7 +84,7 @@ class Responder extends AbstractResponder
         $response = $this->getResponse($document, $domainObject, 201, $additionalMeta);
 
         $links = $document->getLinks();
-        if ($links !== null && $links->getSelf() !== null) {
+        if ($links instanceof Links && $links->getSelf() !== null) {
             $response = $response->withHeader("location", $links->getSelf()->getHref());
         }
 
@@ -104,7 +105,7 @@ class Responder extends AbstractResponder
         $response = $this->getMetaResponse($document, $domainObject, 201, $additionalMeta);
 
         $links = $document->getLinks();
-        if ($links !== null && $links->getSelf() !== null) {
+        if ($links instanceof Links && $links->getSelf() !== null) {
             $response = $response->withHeader("location", $links->getSelf()->getHref());
         }
 

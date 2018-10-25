@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 
 abstract class AbstractErrorDocument extends AbstractDocument
 {
@@ -11,6 +12,14 @@ abstract class AbstractErrorDocument extends AbstractDocument
      * @var Error[]
      */
     protected $errors = [];
+
+    /**
+     * Provides information about the "links" member of the current document.
+     *
+     * The method returns a new Links schema object if you want to provide linkage data
+     * for the document or null if the member should be omitted from the response.
+     */
+    abstract public function getLinks(): ?ErrorLinks;
 
     /**
      * @return Error[]

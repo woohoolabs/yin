@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
@@ -11,7 +11,7 @@ class ToOneRelationship extends AbstractRelationship
 {
     public function __construct(
         array $meta = [],
-        ?Links $links = null,
+        ?RelationshipLinks $links = null,
         array $data = [],
         ?ResourceTransformerInterface $resourceTransformer = null
     ) {

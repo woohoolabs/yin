@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 
 class ErrorTest extends TestCase
 {
@@ -82,14 +82,16 @@ class ErrorTest extends TestCase
             ->setDetail($detail)
         ;
 
-        $transformedError = [
-            "id" => $id,
-            "status" => $status,
-            "code" => $code,
-            "title" => $title,
-            "detail" => $detail,
-        ];
-        $this->assertEquals($transformedError, $error->transform());
+        $this->assertEquals(
+            [
+                "id" => $id,
+                "status" => $status,
+                "code" => $code,
+                "title" => $title,
+                "detail" => $detail,
+            ],
+            $error->transform()
+        );
     }
 
     /**
@@ -97,34 +99,33 @@ class ErrorTest extends TestCase
      */
     public function transform()
     {
-        $links = new Links();
-        $source = new ErrorSource("", "");
-
         $error = $this->createError()
             ->setId("123456789")
             ->setMeta(["abc" => "def"])
-            ->setLinks($links)
+            ->setLinks(new ErrorLinks())
             ->setStatus("500")
             ->setCode("UNKNOWN_ERROR")
             ->setTitle("Unknown error!")
             ->setDetail("An unknown error has happened and no solution exists.")
-            ->setSource($source)
+            ->setSource(new ErrorSource("", ""))
         ;
 
-        $transformedError = [
-            "id" => "123456789",
-            "meta" => ["abc" => "def"],
-            "links" => [],
-            "status" => "500",
-            "code" => "UNKNOWN_ERROR",
-            "title" => "Unknown error!",
-            "detail" => "An unknown error has happened and no solution exists.",
-            "source" => [],
-        ];
-        $this->assertEquals($transformedError, $error->transform());
+        $this->assertEquals(
+            [
+                "id" => "123456789",
+                "meta" => ["abc" => "def"],
+                "links" => [],
+                "status" => "500",
+                "code" => "UNKNOWN_ERROR",
+                "title" => "Unknown error!",
+                "detail" => "An unknown error has happened and no solution exists.",
+                "source" => [],
+            ],
+            $error->transform()
+        );
     }
 
-    private function createError()
+    private function createError(): Error
     {
         return new Error();
     }

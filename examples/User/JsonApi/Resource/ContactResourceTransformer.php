@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class ContactResourceTransformer extends AbstractResourceTransformer
@@ -54,13 +55,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      *
      * @param array $contact
      */
-    public function getLinks($contact): ?Links
+    public function getLinks($contact): ?ResourceLinks
     {
-        return Links::createWithoutBaseUri(
-            [
-                "self" => new Link("/?path=/contacts/" . $this->getId($contact))
-            ]
-        );
+        return ResourceLinks::createWithoutBaseUri(new Link("/?path=/contacts/" . $this->getId($contact)));
     }
 
     /**

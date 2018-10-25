@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class StubResourceTransformer extends AbstractResourceTransformer
@@ -24,7 +25,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
     protected $meta;
 
     /**
-     * @var Links|null
+     * @var ResourceLinks|null
      */
     protected $links;
 
@@ -47,7 +48,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
         string $type = "",
         string $id = "",
         array $meta = [],
-        ?Links $links = null,
+        ?ResourceLinks $links = null,
         array $attributes = [],
         array $defaultRelationships = [],
         array $relationships = []
@@ -76,7 +77,7 @@ class StubResourceTransformer extends AbstractResourceTransformer
         return $this->meta;
     }
 
-    public function getLinks($domainObject): ?Links
+    public function getLinks($domainObject): ?ResourceLinks
     {
         return $this->links;
     }

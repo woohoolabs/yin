@@ -3,15 +3,21 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
+
 class Error
 {
     use MetaTrait;
-    use LinksTrait;
 
     /**
      * @var string
      */
     protected $id;
+
+    /**
+     * @var ErrorLinks
+     */
+    protected $links;
 
     /**
      * @var string
@@ -51,6 +57,21 @@ class Error
     public function setId(string $id): Error
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function getLinks(): ErrorLinks
+    {
+        return $this->links;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setLinks(ErrorLinks $links): Error
+    {
+        $this->links = $links;
 
         return $this;
     }

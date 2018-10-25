@@ -9,7 +9,7 @@ interface DataInterface
 
     public function hasPrimaryResources(): bool;
 
-    public function hasPrimaryResource(string $type, string$id): bool;
+    public function hasPrimaryResource(string $type, string $id): bool;
 
     public function hasIncludedResources(): bool;
 

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 
 class LinkTest extends TestCase
 {
@@ -42,7 +42,7 @@ class LinkTest extends TestCase
         $this->assertEquals($baseUri . $href, $link->transform($baseUri));
     }
 
-    private function createLink($href)
+    private function createLink($href): Link
     {
         return new Link($href);
     }

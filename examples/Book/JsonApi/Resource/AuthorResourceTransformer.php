@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 
 class AuthorResourceTransformer extends AbstractResourceTransformer
@@ -53,7 +53,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      *
      * @param array $author
      */
-    public function getLinks($author): ?Links
+    public function getLinks($author): ?ResourceLinks
     {
         return null;
     }

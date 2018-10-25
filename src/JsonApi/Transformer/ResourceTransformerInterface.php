@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 
 interface ResourceTransformerInterface
 {
@@ -43,7 +43,7 @@ interface ResourceTransformerInterface
      *
      * @param mixed $domainObject
      */
-    public function getLinks($domainObject): ?Links;
+    public function getLinks($domainObject): ?ResourceLinks;
 
     /**
      * Provides information about the "attributes" member of the current resource.

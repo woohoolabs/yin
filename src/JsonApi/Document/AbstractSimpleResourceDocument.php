@@ -5,10 +5,19 @@ namespace WoohooLabs\Yin\JsonApi\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
 {
+    /**
+     * Provides information about the "links" member of the current document.
+     *
+     * The method returns a new Links schema object if you want to provide linkage data
+     * for the document or null if the member should be omitted from the response.
+     */
+    abstract public function getLinks(): ?Links;
+
     abstract protected function getResource(): array;
 
     protected function createData(): DataInterface

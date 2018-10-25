@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubPaginationLinkProvider;
 
 class LinksTest extends TestCase
@@ -137,17 +138,6 @@ class LinksTest extends TestCase
 
         $linksObject = $this->createLinks()->setNext($next);
         $this->assertEquals($next, $linksObject->getNext());
-    }
-
-    /**
-     * @test
-     */
-    public function getAboutWhenNotEmpty()
-    {
-        $about = new Link("http://example.com/about");
-
-        $linksObject = $this->createLinks()->setAbout($about);
-        $this->assertEquals($about, $linksObject->getAbout());
     }
 
     /**

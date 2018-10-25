@@ -1,62 +1,43 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
-class Links
+class Links extends AbstractLinks
 {
-    /**
-     * @var string
-     */
-    protected $baseUri;
-
     /**
      * @var Link[]
      */
-    protected $links;
+    protected $profiles;
 
     /**
      * @param Link[] $links
+     * @param Link[] $profile
      */
-    public static function createWithoutBaseUri(array $links = []): Links
+    public static function createWithoutBaseUri(array $links = [], array $profile = []): Links
     {
-        return new self("", $links);
-    }
-
-    /**
-     * @param Link[] $links
-     */
-    public static function createWithBaseUri(string $baseUri, array $links = []): Links
-    {
-        return new self($baseUri, $links);
+        return new self("", $links, $profile);
     }
 
     /**
      * @param Link[] $links
+     * @param Link[] $profile
      */
-    public function __construct(string $baseUri = "", array $links = [])
+    public static function createWithBaseUri(string $baseUri, array $links = [], array $profile = []): Links
     {
-        $this->baseUri = $baseUri;
-        $this->links = $links;
+        return new self($baseUri, $links, $profile);
     }
 
-    public function transform(): array
+    /**
+     * @param Link[] $links
+     * @param Link[] $profile
+     */
+    public function __construct(string $baseUri = "", array $links = [], array $profile = [])
     {
-        $links = [];
-
-        foreach ($this->links as $rel => $link) {
-            /** @var Link $link */
-            $links[$rel] = $link ? $link->transform($this->baseUri) : null;
-        }
-
-        return $links;
-    }
-
-    public function getBaseUri(): string
-    {
-        return $this->baseUri;
+        parent::__construct($baseUri, $links);
+        $this->profiles = $profile;
     }
 
     public function setBaseUri(string $baseUri): Links
@@ -73,7 +54,7 @@ class Links
 
     public function setSelf(?Link $self): Links
     {
-        $this->links["self"] = $self;
+        $this->addLink("self", $self);
 
         return $this;
     }
@@ -85,7 +66,7 @@ class Links
 
     public function setRelated(?Link $related): Links
     {
-        $this->links["related"] = $related;
+        $this->addLink("related", $related);
 
         return $this;
     }
@@ -97,7 +78,7 @@ class Links
 
     public function setFirst(?Link $first): Links
     {
-        $this->links["first"] = $first;
+        $this->addLink("first", $first);
 
         return $this;
     }
@@ -109,7 +90,7 @@ class Links
 
     public function setLast(?Link $last): Links
     {
-        $this->links["last"] = $last;
+        $this->addLink("last", $last);
 
         return $this;
     }
@@ -121,7 +102,7 @@ class Links
 
     public function setPrev(?Link $prev): Links
     {
-        $this->links["prev"] = $prev;
+        $this->addLink("prev", $prev);
 
         return $this;
     }
@@ -133,19 +114,22 @@ class Links
 
     public function setNext(?Link $next): Links
     {
-        $this->links["next"] = $next;
+        $this->addLink("next", $next);
 
         return $this;
     }
 
-    public function getAbout(): ?Link
+    /**
+     * @return Link[]
+     */
+    public function getProfile(): array
     {
-        return $this->getLink("about");
+        return $this->profiles;
     }
 
-    public function setAbout(?Link $about): Links
+    public function addProfile(?Link $profile): Links
     {
-        $this->links["about"] = $about;
+        $this->profiles[] = $profile;
 
         return $this;
     }
@@ -161,18 +145,13 @@ class Links
         return $this;
     }
 
-    public function getLink(string $name): ?Link
-    {
-        return $this->links[$name] ?? null;
-    }
-
     /**
      * @param Link[] $links
      */
     public function setLinks(array $links): Links
     {
         foreach ($links as $rel => $link) {
-            $this->setLink($rel, $link);
+            $this->addLink($rel, $link);
         }
 
         return $this;
@@ -180,7 +159,7 @@ class Links
 
     public function setLink(string $name, ?Link $link): Links
     {
-        $this->links[$name] = $link;
+        $this->addLink($name, $link);
 
         return $this;
     }
