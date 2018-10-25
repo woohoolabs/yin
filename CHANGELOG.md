@@ -4,7 +4,7 @@ ADDED:
 
 CHANGED:
 
-- Run Travis tests on PHP 7.3 too
+- Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 
 REMOVED:
