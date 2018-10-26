@@ -13,7 +13,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
     /**
      * Provides information about the "links" member of the current document.
      *
-     * The method returns a new Links schema object if you want to provide linkage data
+     * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the member should be omitted from the response.
      */
     abstract public function getLinks(): ?Links;

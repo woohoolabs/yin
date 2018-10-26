@@ -38,4 +38,16 @@ class RelationshipLinks extends AbstractLinks
 
         return $this;
     }
+
+    public function getRelated(): ?Link
+    {
+        return $this->getLink("related");
+    }
+
+    public function setRelated(?Link $related): RelationshipLinks
+    {
+        $this->addLink("related", $related);
+
+        return $this;
+    }
 }

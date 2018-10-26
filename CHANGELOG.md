@@ -127,7 +127,7 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.0
 - Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
-- Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
+- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 - Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
 - Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__)
 - Hydrators must implement the `validateRequest()` method (__BREAKING__)
@@ -183,7 +183,7 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.0
 - Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
 - [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
-- Renamed `JsonApi` schema object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
+- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
 
 REMOVED:
 

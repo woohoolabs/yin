@@ -180,7 +180,7 @@ you to implement the following methods:
 /**
  * Provides information about the "jsonapi" member of the current document.
  *
- * The method returns a new JsonApiObject schema object if this member should be present or null
+ * The method returns a new JsonApiObject object if this member should be present or null
  * if it should be omitted from the response.
  *
  * @return JsonApiObject|null
@@ -223,7 +223,7 @@ and this is the main "subject" of the document.
 /**
  * Provides information about the "links" member of the current document.
  *
- * The method returns a new Links schema object if you want to provide linkage data
+ * The method returns a new Links object if you want to provide linkage data
  * for the document or null if the member should be omitted from the response.
  */
 public function getLinks(): ?Links
@@ -281,7 +281,7 @@ There is an `ErrorDocument` too, which makes it possible to build error response
 /** @var ErrorDocument $errorDocument */
 $errorDocument = new ErrorDocument();
 $errorDocument->setJsonApi(new JsonApiObject("1.0"));
-$errorDocument->setLinks(Links::createWithoutBaseUri()->setSelf("http://example.com/api/errors/404")));
+$errorDocument->setLinks(ErrorLinks::createWithoutBaseUri()->setAbout("http://example.com/api/errors/404")));
 $errorDocument->addError(new MyError());
 ```
 
@@ -362,26 +362,17 @@ class BookResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "links" member of the current resource.
      *
-     * The method returns a new Links schema object if you want to provide linkage
+     * The method returns a new ResourceLinks object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $book
      */
-    public function getLinks($book): ?Links
+    public function getLinks($book): ?ResourceLinks
     {
-        return new Links(
-            "",
-            [
-                "self" => new Link("/books/" . $this->getId($book))
-            ]
-        );
+        return new ResourceLinks::createWithoutBaseUri()->setSelf(new Link("/books/" . $this->getId($book)));
         
-        /* This is equivalent to the following:
-        return Links::createWithoutBaseUri(
-            [
-                "self" => new Link("/books/" . $this->getResourceId())
-            ]
-        );
+        // This is equivalent to the following:
+        // return new ResourceLinks("", new Link("/books/" . $this->getResourceId()));
     }
 
     /**
@@ -432,7 +423,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "authors" => function (array $book) {
                 return ToManyRelationship::create()
                     ->setLinks(
-                        Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
+                        RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
                     )
                     ->setData($book["authors"], $this->authorTransformer)
                 ;
@@ -440,7 +431,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "publisher" => function ($book) {
                 return ToOneRelationship::create()
                     ->setLinks(
-                        Links::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
+                        RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
                     )
                     ->setData($book["publisher"], $this->publisherTransformer)
                 ;
@@ -461,8 +452,8 @@ validated, saved etc.
 
 There are three abstract hydrator classes in Woohoo Labs. Yin:
 
-- `AbstractCreateHydrator`: It can be used for requests to create a new resource
-- `AbstractUpdateHydrator`: It can be used for requests to update an existing resource
+- `AbstractCreateHydrator`: It can be used for requests which create a new resource
+- `AbstractUpdateHydrator`: It can be used for requests which update an existing resource
 - `AbstractHydrator`: It can be used for both type of requests
 
 For the sake of brevity, we only introduce the usage of the latter class as it is simply the union of
@@ -777,12 +768,12 @@ $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize()
 #### Pagination links
 
 The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
-in this regard too. You only have use the `Links::setPagination()` method when you define links for your documents or
-resources. It expects the paginated URI and an object implementing the `PaginationLinkProviderInterface` as
-seen in the following example:
+in this regard too. You only have use the `Links::setPagination()` method when you define links for your documents.
+It expects the paginated URI and an object implementing the `PaginationLinkProviderInterface` as seen in the following
+example:
 
 ```php
-public function getLinks()
+public function getLinks(): ?Links
 {
     return Links::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
 }

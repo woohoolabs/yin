@@ -48,7 +48,7 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
     /**
      * Provides information about the "links" member of the current resource.
      *
-     * The method returns a new Links schema object if you want to provide linkage
+     * The method returns a new ResourceLinks object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
      *
      * @param array $representative

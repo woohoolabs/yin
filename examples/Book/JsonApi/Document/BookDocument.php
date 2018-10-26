@@ -19,7 +19,7 @@ class BookDocument extends AbstractSingleResourceDocument
     /**
      * Provides information about the "jsonapi" member of the current document.
      *
-     * The method returns a new JsonApiObject schema object if this member should be present or null
+     * The method returns a new JsonApiObject object if this member should be present or null
      * if it should be omitted from the response.
      */
     public function getJsonApi(): ?JsonApiObject
@@ -41,7 +41,7 @@ class BookDocument extends AbstractSingleResourceDocument
     /**
      * Provides information about the "links" member of the current document.
      *
-     * The method returns a new Links schema object if you want to provide linkage data
+     * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      */
     public function getLinks(): ?Links
