@@ -30,7 +30,7 @@ class AuthorsDocument extends AbstractCollectionDocument
      */
     public function getJsonApi(): ?JsonApiObject
     {
-        return new JsonApiObject("1.0");
+        return new JsonApiObject("1.1");
     }
 
     /**

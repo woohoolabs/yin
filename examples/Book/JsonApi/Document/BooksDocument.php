@@ -23,7 +23,7 @@ class BooksDocument extends AbstractCollectionDocument
      */
     public function getJsonApi(): ?JsonApiObject
     {
-        return null;
+        return new JsonApiObject("1.1");
     }
 
     /**
