@@ -1,11 +1,17 @@
-## 4.0.0 - unreleased
+## 4.0.0-beta1 - unreleased
 
 ADDED:
+
+- Support for Profiles (JSON:API 1.1 feature)
+- Support for `type` links in errors (JSON:API 1.1 feature)
 
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
+- `ErrorDocument`s use `ErrorLinks` instead of `Links` (__BREAKING__)
+- `ResourceTransformer`s use `ResourceLinks` instead of `Links` (__BREAKING__)
+- `ToOneRelationship`s and `ToManyRelationship`s use `RelationshipLinks` instead of `Links` (__BREAKING__)
 
 REMOVED:
 
