@@ -152,7 +152,7 @@ class BookHydator extends AbstractHydrator
                 if ($publisher->isEmpty()) {
                     $book["publisher"] = null;
                 } else {
-                    $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
+                    $book["publisher"] = BookRepository::getPublisher((int) $publisher->getResourceIdentifier()->getId());
                 }
             }
         ];

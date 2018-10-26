@@ -13,13 +13,13 @@ class BookRepository extends AbstractRepository
      */
     private static $authors = [
         [
-            "id" => "100",
-            "name" => "Jez Humble"
+            "id" => 100,
+            "name" => "Jez Humble",
         ],
         [
-            "id" => "101",
-            "name" => "David Farley"
-        ]
+            "id" => 101,
+            "name" => "David Farley",
+        ],
     ];
 
     /**
@@ -27,10 +27,10 @@ class BookRepository extends AbstractRepository
      */
     private static $publishers = [
         [
-            "id" => "12346",
+            "id" => 12346,
             "name" => "Addison-Wesley Professional",
-            "representative" => "10"
-        ]
+            "representative" => 10,
+        ],
     ];
 
     /**
@@ -38,10 +38,10 @@ class BookRepository extends AbstractRepository
      */
     private static $representatives = [
         [
-            "id" => "10",
+            "id" => 10,
             "name" => "Johnny Cash",
-            "email" => "cash@addison-wesley.com"
-        ]
+            "email" => "cash@addison-wesley.com",
+        ],
     ];
 
     /**
@@ -49,12 +49,12 @@ class BookRepository extends AbstractRepository
      */
     private static $books = [
         [
-            "id" => "1",
+            "id" => 1,
             "title" => "Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation",
-            "pages" => "512",
-            "authors" => ["100", "101"],
-            "publisher" => "12346"
-        ]
+            "pages" => 512,
+            "authors" => [100, 101],
+            "publisher" => 12346,
+        ],
     ];
 
     public static function getBooks(int $page = null, int $size = null): Collection
@@ -76,7 +76,7 @@ class BookRepository extends AbstractRepository
         return new Collection($books, count(self::$books), $page, $size);
     }
 
-    public static function getBook(string $id): ?array
+    public static function getBook(int $id): ?array
     {
         $book = self::getItemById($id, self::$books);
 
@@ -92,7 +92,7 @@ class BookRepository extends AbstractRepository
         return $book;
     }
 
-    public static function getAuthorsOfBook(string $bookId): array
+    public static function getAuthorsOfBook(int $bookId): array
     {
         $book = self::getItemById($bookId, self::$books);
 
@@ -108,7 +108,7 @@ class BookRepository extends AbstractRepository
         return self::getItemsByIds($ids, self::$authors);
     }
 
-    public static function getPublisher(string $id): array
+    public static function getPublisher(int $id): array
     {
         return self::getItemById($id, self::$publishers);
     }

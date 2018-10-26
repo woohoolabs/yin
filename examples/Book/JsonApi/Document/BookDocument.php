@@ -24,7 +24,7 @@ class BookDocument extends AbstractSingleResourceDocument
      */
     public function getJsonApi(): ?JsonApiObject
     {
-        return new JsonApiObject("1.0");
+        return new JsonApiObject("1.1");
     }
 
     /**

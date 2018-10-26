@@ -76,7 +76,7 @@ $routes = [
     },
 ];
 
-// Find the current route
+// Finding the current route
 $exceptionFactory = new DefaultExceptionFactory();
 $deserializer = new JsonDeserializer();
 $request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);

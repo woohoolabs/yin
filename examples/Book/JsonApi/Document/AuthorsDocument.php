@@ -12,16 +12,11 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 class AuthorsDocument extends AbstractCollectionDocument
 {
     /**
-     * @var string
+     * @var int
      */
     protected $bookId;
 
-    /**
-     * @var array
-     */
-    protected $domainObject;
-
-    public function __construct(AuthorResourceTransformer $transformer, string $bookId)
+    public function __construct(AuthorResourceTransformer $transformer, int $bookId)
     {
         parent::__construct($transformer);
         $this->bookId = $bookId;

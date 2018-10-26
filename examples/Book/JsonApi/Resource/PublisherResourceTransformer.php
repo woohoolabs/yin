@@ -40,7 +40,7 @@ class PublisherResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($publisher): string
     {
-        return $publisher["id"];
+        return (string) $publisher["id"];
     }
 
     /**

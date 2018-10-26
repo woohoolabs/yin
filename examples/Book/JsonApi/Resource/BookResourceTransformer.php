@@ -51,7 +51,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($book): string
     {
-        return $book["id"];
+        return (string) $book["id"];
     }
 
     /**
@@ -148,10 +148,9 @@ class BookResourceTransformer extends AbstractResourceTransformer
                 return
                     ToOneRelationship::create()
                         ->setLinks(
-                            new RelationshipLinks(
-                                $this->getSelfLinkHref($book),
-                                new Link("/relationships/publisher")
-                            )
+                            RelationshipLinks::createWithoutBaseUri()
+                                ->setBaseUri($this->getSelfLinkHref($book))
+                                ->setSelf(new Link("/relationships/publisher"))
                         )
                         ->setData($book["publisher"], $this->publisherTransformer)
                         ->omitWhenNotIncluded()

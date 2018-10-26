@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
@@ -43,7 +42,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($user): string
     {
-        return $user["id"];
+        return (string) $user["id"];
     }
 
     /**

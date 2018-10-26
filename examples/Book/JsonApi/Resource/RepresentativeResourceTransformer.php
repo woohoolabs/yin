@@ -29,7 +29,7 @@ class RepresentativeResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($representative): string
     {
-        return $representative["id"];
+        return (string) $representative["id"];
     }
 
     /**
