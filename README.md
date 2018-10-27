@@ -207,7 +207,7 @@ public function getMeta(): array
         "page" => [
             "offset" => $this->domainObject->getOffset(),
             "limit" => $this->domainObject->getLimit(),
-            "total" => $this->domainObject->getCount()
+            "total" => $this->domainObject->getCount(),
         ]
     ];
 }
@@ -435,7 +435,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
                     )
                     ->setData($book["publisher"], $this->publisherTransformer)
                 ;
-            }
+            },
         ];
     }
 }
@@ -563,7 +563,7 @@ class BookHydator extends AbstractHydrator
             },
             "pages" => function (array &$book, $attribute, $data, $attributeName) {
                 $book["pages"] = $attribute;
-            }
+            },
         ];
     }
 
@@ -593,7 +593,7 @@ class BookHydator extends AbstractHydrator
             },
             "publisher" => function (array &$book, ToOneRelationship $publisher, $data, string $relationshipName) {
                 $book["publisher"] = BookRepository::getPublisher($publisher->getResourceIdentifier()->getId());
-            }
+            },
         ];
     }
 }
@@ -830,7 +830,7 @@ public function getRelationships($user): array
                     ->setData($user["contacts"], $this->contactTransformer)
                     ->omitWhenNotIncluded()
                 ;
-        }
+        },
     ];
 }
 ```
@@ -859,7 +859,7 @@ public function getRelationships($user): array
                     )
                     ->omitWhenNotIncluded()
                 ;
-        }
+        },
     ];
 }
 ```
