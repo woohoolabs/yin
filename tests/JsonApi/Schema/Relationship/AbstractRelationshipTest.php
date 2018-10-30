@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;

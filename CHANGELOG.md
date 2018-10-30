@@ -11,7 +11,12 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 - `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
-- Moved classes related to links (`Links`, `Link`, `LinkObject`) from `Yin\JsonApi\Schema` to the `Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
+- Moved classes related to documents (`AbstractCollectionDocument`, `AbstractSingleResourceDocument` etc.) from
+`WoohooLabs\Yin\JsonApi\Document` to the `WoohooLabs\Yin\JsonApi\Schema\Document` namespace (__BREAKING__)
+- Moved classes related to resources (`AbstractResourceTransformer` etc.) from `WoohooLabs\Yin\JsonApi\Transformer` to the
+`WoohooLabs\Yin\JsonApi\Schema\Resource` namespace (__BREAKING__)
+- Moved classes related to errors (`Error`, `ErrorSource`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Error` namespace (__BREAKING__)
+- Moved classes related to links (`Links`, `Link`, `LinkObject`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
 - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links` (__BREAKING__)
 - `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
 - `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)

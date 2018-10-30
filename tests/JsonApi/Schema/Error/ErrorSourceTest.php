@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
+use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class ErrorSourceTest extends TestCase
 {
@@ -99,7 +99,7 @@ class ErrorSourceTest extends TestCase
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }
 
-    private function createErrorSource($pointer, $parameter)
+    private function createErrorSource($pointer, $parameter): ErrorSource
     {
         return new ErrorSource($pointer, $parameter);
     }

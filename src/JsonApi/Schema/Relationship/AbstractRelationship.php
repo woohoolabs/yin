@@ -5,8 +5,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 
 abstract class AbstractRelationship
 {

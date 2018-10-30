@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
@@ -48,7 +48,7 @@ class BookDocument extends AbstractSingleResourceDocument
     {
         return DocumentLinks::createWithoutBaseUri(
             [
-                "self" => new Link("/?path=/books/" . $this->getResourceId())
+                "self" => new Link("/?path=/books/" . $this->getResourceId()),
             ]
         );
     }

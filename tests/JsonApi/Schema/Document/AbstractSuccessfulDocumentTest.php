@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
@@ -138,12 +138,12 @@ class AbstractSuccessfulDocumentTest extends TestCase
             [
                 [
                     "type" => "user",
-                    "id" => "1"
+                    "id" => "1",
                 ],
                 [
                     "type" => "user",
-                    "id" => "2"
-                ]
+                    "id" => "2",
+                ],
             ]
         );
 
@@ -166,10 +166,10 @@ class AbstractSuccessfulDocumentTest extends TestCase
         $request = new StubRequest();
         $relationshipContent = [
             "type" => "user",
-            "id" => "1"
+            "id" => "1",
         ];
         $relationshipContentData = [
-            "data" => $relationshipContent
+            "data" => $relationshipContent,
         ];
 
         $document = $this->createDocument(null, [], null, null, $relationshipContentData);
@@ -195,12 +195,12 @@ class AbstractSuccessfulDocumentTest extends TestCase
             [
                 [
                     "type" => "user",
-                    "id" => "1"
+                    "id" => "1",
                 ],
                 [
                     "type" => "user",
-                    "id" => "2"
-                ]
+                    "id" => "2",
+                ],
             ]
         );
 

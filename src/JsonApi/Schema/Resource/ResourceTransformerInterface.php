@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 

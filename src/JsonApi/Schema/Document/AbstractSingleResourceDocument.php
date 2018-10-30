@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Document;
+namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {

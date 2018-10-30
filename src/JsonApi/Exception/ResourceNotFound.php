@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Schema\Error;
-
 class ResourceNotFound extends JsonApiException
 {
     public function __construct()

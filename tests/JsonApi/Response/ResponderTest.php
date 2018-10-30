@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Response;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;

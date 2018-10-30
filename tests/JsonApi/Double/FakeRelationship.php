@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
-use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 
 class FakeRelationship extends AbstractRelationship
 {
