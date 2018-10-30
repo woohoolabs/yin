@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
@@ -63,7 +62,7 @@ abstract class AbstractRelationship
     /**
      * @return static
      */
-    public static function createWithLinks(Links $links)
+    public static function createWithLinks(?RelationshipLinks $links)
     {
         return new static([], $links);
     }

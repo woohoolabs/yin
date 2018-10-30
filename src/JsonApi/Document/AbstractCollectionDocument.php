@@ -41,7 +41,11 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     protected function fillData(Transformation $transformation): void
     {
         foreach ($this->getItems() as $item) {
-            $transformation->data->addPrimaryResource($this->transformer->transformToResource($transformation, $item));
+            $resource = $this->transformer->transformToResource($transformation, $item);
+            
+            if ($resource !== null) {
+                $transformation->data->addPrimaryResource($resource);
+            }
         }
     }
 
