@@ -4,16 +4,20 @@ ADDED:
 
 - Support for Profiles (JSON:API 1.1 feature)
 - Support for `type` links in errors (JSON:API 1.1 feature)
+- Separate classes for the different types of links: `ErrorLinks`, `ResourceLinks`, `RelationshipLinks`
 
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 - `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
-- Moved classes related to links (`Links`, `Link`, `LinkObject`) to the `Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
-- `ErrorDocument`s use `ErrorLinks` instead of `Links` (__BREAKING__)
-- `ResourceTransformer`s use `ResourceLinks` instead of `Links` (__BREAKING__)
-- `ToOneRelationship`s and `ToManyRelationship`s use `RelationshipLinks` instead of `Links` (__BREAKING__)
+- Moved classes related to links (`Links`, `Link`, `LinkObject`) from `Yin\JsonApi\Schema` to the `Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
+- `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
+- `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
+- `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links` (__BREAKING__)
+- `AbstractResourceTransformer::getLinks()` returns `?ResourceLinks` instead of `Links` (__BREAKING__)
+- `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links` (__BREAKING__)
+- `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links` (__BREAKING__)
 
 REMOVED:
 
