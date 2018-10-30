@@ -10,6 +10,7 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 - `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
+- Moved classes related to links (`Links`, `Link`, `LinkObject`) to the `Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
 - `ErrorDocument`s use `ErrorLinks` instead of `Links` (__BREAKING__)
 - `ResourceTransformer`s use `ResourceLinks` instead of `Links` (__BREAKING__)
 - `ToOneRelationship`s and `ToManyRelationship`s use `RelationshipLinks` instead of `Links` (__BREAKING__)
