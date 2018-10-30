@@ -27,6 +27,8 @@ CHANGED:
 
 REMOVED:
 
+- The generic `Link` class
+
 FIXED:
 
 - Small issues found by static analysis
