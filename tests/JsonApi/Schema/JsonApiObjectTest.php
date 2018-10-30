@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 
-class JsonApiTest extends TestCase
+class JsonApiObjectTest extends TestCase
 {
     /**
      * @test
@@ -15,7 +15,7 @@ class JsonApiTest extends TestCase
     {
         $version = "1.0";
 
-        $jsonApi = $this->createJsonApi($version);
+        $jsonApi = $this->createJsonApiObject($version);
         $this->assertEquals($version, $jsonApi->getVersion());
     }
 
@@ -26,7 +26,7 @@ class JsonApiTest extends TestCase
     {
         $meta = ["abc" => "def"];
 
-        $jsonApi = $this->createJsonApi("", $meta);
+        $jsonApi = $this->createJsonApiObject("", $meta);
         $this->assertEquals($meta, $jsonApi->getMeta());
     }
 
@@ -37,7 +37,7 @@ class JsonApiTest extends TestCase
     {
         $meta = ["abc" => "def"];
 
-        $jsonApi = $this->createJsonApi("")->setMeta($meta);
+        $jsonApi = $this->createJsonApiObject("")->setMeta($meta);
         $this->assertEquals($meta, $jsonApi->getMeta());
     }
 
@@ -49,7 +49,7 @@ class JsonApiTest extends TestCase
         $version = "";
         $meta = ["abc" => "def"];
 
-        $jsonApi = $this->createJsonApi($version, $meta);
+        $jsonApi = $this->createJsonApiObject($version, $meta);
 
         $transformedJsonApi = [
             "meta" => $meta,
@@ -65,7 +65,7 @@ class JsonApiTest extends TestCase
         $version = "1.0";
         $meta = [];
 
-        $jsonApi = $this->createJsonApi($version, $meta);
+        $jsonApi = $this->createJsonApiObject($version, $meta);
 
         $transformedJsonApi = [
             "version" => $version,
@@ -73,7 +73,7 @@ class JsonApiTest extends TestCase
         $this->assertEquals($transformedJsonApi, $jsonApi->transform());
     }
 
-    private function createJsonApi($version, array $meta = [])
+    private function createJsonApiObject($version, array $meta = []): JsonApiObject
     {
         return new JsonApiObject($version, $meta);
     }
