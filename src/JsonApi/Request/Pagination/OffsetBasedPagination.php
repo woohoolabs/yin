@@ -22,11 +22,11 @@ class OffsetBasedPagination
         array $paginationQueryParams,
         ?int $defaultOffset = null,
         ?int $defaultLimit = null
-    ) {
+    ): OffsetBasedPagination {
         $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : (int) $paginationQueryParams["offset"];
         $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : (int) $paginationQueryParams["limit"];
 
-        return new self($offset, $limit);
+        return new OffsetBasedPagination($offset, $limit);
     }
 
     public function __construct(?int $offset, ?int $limit)

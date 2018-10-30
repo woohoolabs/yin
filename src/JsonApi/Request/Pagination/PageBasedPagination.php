@@ -22,11 +22,11 @@ class PageBasedPagination
         array $paginationQueryParams,
         ?int $defaultPage = null,
         ?int $defaultSize = null
-    ) {
+    ): PageBasedPagination {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
         $size = empty($paginationQueryParams["size"]) ? $defaultSize : (int) $paginationQueryParams["size"];
 
-        return new self($page, $size);
+        return new PageBasedPagination($page, $size);
     }
 
     public function __construct(?int $page, ?int $size)

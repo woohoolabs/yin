@@ -7,12 +7,12 @@ class ResourceLinks extends AbstractLinks
 {
     public static function createWithoutBaseUri(?Link $self = null): ResourceLinks
     {
-        return new self("", $self);
+        return new ResourceLinks("", $self);
     }
 
     public static function createWithBaseUri(string $baseUri, ?Link $self = null): ResourceLinks
     {
-        return new self($baseUri, $self);
+        return new ResourceLinks($baseUri, $self);
     }
 
     public function __construct(string $baseUri = "", ?Link $self = null)

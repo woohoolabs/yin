@@ -7,12 +7,12 @@ class RelationshipLinks extends AbstractLinks
 {
     public static function createWithoutBaseUri(?Link $self = null, ?Link $related = null): RelationshipLinks
     {
-        return new self("", $self, $related);
+        return new RelationshipLinks("", $self, $related);
     }
 
     public static function createWithBaseUri(string $baseUri, ?Link $self = null, ?Link $related = null): RelationshipLinks
     {
-        return new self($baseUri, $self, $related);
+        return new RelationshipLinks($baseUri, $self, $related);
     }
 
     public function __construct(string $baseUri = "", ?Link $self = null, ?Link $related = null)

@@ -8,6 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 

@@ -15,7 +15,7 @@ class ErrorLinks extends AbstractLinks
      */
     public static function createWithoutBaseUri(?Link $about = null, array $types = []): ErrorLinks
     {
-        return new self("", $about, $types);
+        return new ErrorLinks("", $about, $types);
     }
 
     /**
@@ -23,7 +23,7 @@ class ErrorLinks extends AbstractLinks
      */
     public static function createWithBaseUri(string $baseUri, ?Link $about = null, array $types = []): ErrorLinks
     {
-        return new self($baseUri, $about, $types);
+        return new ErrorLinks($baseUri, $about, $types);
     }
 
     /**

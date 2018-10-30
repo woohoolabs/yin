@@ -18,7 +18,7 @@ class DocumentLinks extends AbstractLinks
      */
     public static function createWithoutBaseUri(array $links = [], array $profile = []): DocumentLinks
     {
-        return new self("", $links, $profile);
+        return new DocumentLinks("", $links, $profile);
     }
 
     /**
@@ -27,7 +27,7 @@ class DocumentLinks extends AbstractLinks
      */
     public static function createWithBaseUri(string $baseUri, array $links = [], array $profile = []): DocumentLinks
     {
-        return new self($baseUri, $links, $profile);
+        return new DocumentLinks($baseUri, $links, $profile);
     }
 
     /**

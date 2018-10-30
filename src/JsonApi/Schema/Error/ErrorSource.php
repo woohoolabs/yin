@@ -17,12 +17,12 @@ class ErrorSource
 
     public static function fromPointer(string $pointer): ErrorSource
     {
-        return new self($pointer, "");
+        return new ErrorSource($pointer, "");
     }
 
     public static function fromParameter(string $parameter): ErrorSource
     {
-        return new self("", $parameter);
+        return new ErrorSource("", $parameter);
     }
 
     public function __construct(string $pointer, string $parameter)

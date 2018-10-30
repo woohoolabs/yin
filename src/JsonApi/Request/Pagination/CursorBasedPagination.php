@@ -14,11 +14,11 @@ class CursorBasedPagination
      * @param mixed $defaultCursor
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultCursor = null)
+    public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultCursor = null): CursorBasedPagination
     {
         $cursor = empty($paginationQueryParams["cursor"]) ? $defaultCursor : $paginationQueryParams["cursor"];
 
-        return new self($cursor);
+        return new CursorBasedPagination($cursor);
     }
 
     /**

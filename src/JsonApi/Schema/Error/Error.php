@@ -47,7 +47,7 @@ class Error
 
     public static function create(): Error
     {
-        return new self();
+        return new Error();
     }
 
     public function getId(): string

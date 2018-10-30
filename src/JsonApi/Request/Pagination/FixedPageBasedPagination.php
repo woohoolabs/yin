@@ -13,11 +13,11 @@ class FixedPageBasedPagination
     /**
      * @return $this
      */
-    public static function fromPaginationQueryParams(array $paginationQueryParams, ?int $defaultPage = null)
+    public static function fromPaginationQueryParams(array $paginationQueryParams, ?int $defaultPage = null): FixedPageBasedPagination
     {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
 
-        return new self($page);
+        return new FixedPageBasedPagination($page);
     }
 
     public function __construct(?int $page)
