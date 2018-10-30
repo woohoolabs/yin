@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 

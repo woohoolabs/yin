@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
 use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
-class Links extends AbstractLinks
+class DocumentLinks extends AbstractLinks
 {
     /**
      * @var Link[]
@@ -16,7 +16,7 @@ class Links extends AbstractLinks
      * @param Link[] $links
      * @param Link[] $profile
      */
-    public static function createWithoutBaseUri(array $links = [], array $profile = []): Links
+    public static function createWithoutBaseUri(array $links = [], array $profile = []): DocumentLinks
     {
         return new self("", $links, $profile);
     }
@@ -25,7 +25,7 @@ class Links extends AbstractLinks
      * @param Link[] $links
      * @param Link[] $profile
      */
-    public static function createWithBaseUri(string $baseUri, array $links = [], array $profile = []): Links
+    public static function createWithBaseUri(string $baseUri, array $links = [], array $profile = []): DocumentLinks
     {
         return new self($baseUri, $links, $profile);
     }
@@ -40,7 +40,7 @@ class Links extends AbstractLinks
         $this->profiles = $profile;
     }
 
-    public function setBaseUri(string $baseUri): Links
+    public function setBaseUri(string $baseUri): DocumentLinks
     {
         $this->baseUri = $baseUri;
 
@@ -52,7 +52,7 @@ class Links extends AbstractLinks
         return $this->getLink("self");
     }
 
-    public function setSelf(?Link $self): Links
+    public function setSelf(?Link $self): DocumentLinks
     {
         $this->addLink("self", $self);
 
@@ -64,7 +64,7 @@ class Links extends AbstractLinks
         return $this->getLink("related");
     }
 
-    public function setRelated(?Link $related): Links
+    public function setRelated(?Link $related): DocumentLinks
     {
         $this->addLink("related", $related);
 
@@ -76,7 +76,7 @@ class Links extends AbstractLinks
         return $this->getLink("first");
     }
 
-    public function setFirst(?Link $first): Links
+    public function setFirst(?Link $first): DocumentLinks
     {
         $this->addLink("first", $first);
 
@@ -88,7 +88,7 @@ class Links extends AbstractLinks
         return $this->getLink("last");
     }
 
-    public function setLast(?Link $last): Links
+    public function setLast(?Link $last): DocumentLinks
     {
         $this->addLink("last", $last);
 
@@ -100,7 +100,7 @@ class Links extends AbstractLinks
         return $this->getLink("prev");
     }
 
-    public function setPrev(?Link $prev): Links
+    public function setPrev(?Link $prev): DocumentLinks
     {
         $this->addLink("prev", $prev);
 
@@ -112,7 +112,7 @@ class Links extends AbstractLinks
         return $this->getLink("next");
     }
 
-    public function setNext(?Link $next): Links
+    public function setNext(?Link $next): DocumentLinks
     {
         $this->addLink("next", $next);
 
@@ -127,14 +127,14 @@ class Links extends AbstractLinks
         return $this->profiles;
     }
 
-    public function addProfile(?Link $profile): Links
+    public function addProfile(?Link $profile): DocumentLinks
     {
         $this->profiles[] = $profile;
 
         return $this;
     }
 
-    public function setPagination(string $uri, PaginationLinkProviderInterface $paginationProvider): Links
+    public function setPagination(string $uri, PaginationLinkProviderInterface $paginationProvider): DocumentLinks
     {
         $this->setSelf($paginationProvider->getSelfLink($uri));
         $this->setFirst($paginationProvider->getFirstLink($uri));
@@ -148,7 +148,7 @@ class Links extends AbstractLinks
     /**
      * @param Link[] $links
      */
-    public function setLinks(array $links): Links
+    public function setLinks(array $links): DocumentLinks
     {
         foreach ($links as $rel => $link) {
             $this->addLink($rel, $link);
@@ -157,7 +157,7 @@ class Links extends AbstractLinks
         return $this;
     }
 
-    public function setLink(string $name, ?Link $link): Links
+    public function setLink(string $name, ?Link $link): DocumentLinks
     {
         $this->addLink($name, $link);
 

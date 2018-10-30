@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 
 class ErrorDocumentTest extends TestCase
 {

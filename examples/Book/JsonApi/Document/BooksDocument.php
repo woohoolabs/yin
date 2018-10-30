@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class BooksDocument extends AbstractCollectionDocument
 {
@@ -43,8 +43,8 @@ class BooksDocument extends AbstractCollectionDocument
      * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?DocumentLinks
     {
-        return Links::createWithoutBaseUri()->setPagination("/?path=/books", $this->domainObject);
+        return DocumentLinks::createWithoutBaseUri()->setPagination("/?path=/books", $this->domainObject);
     }
 }

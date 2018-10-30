@@ -7,8 +7,8 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
@@ -67,7 +67,7 @@ class ResponderTest extends TestCase
     public function createdWithLinks()
     {
         $href = "http://example.com/users";
-        $document = new StubSuccessfulDocument(null, [], new Links("", ["self" => new Link($href)]));
+        $document = new StubSuccessfulDocument(null, [], new DocumentLinks("", ["self" => new Link($href)]));
 
         $response = $this->createResponder()->created($document, []);
         $this->assertEquals([$href], $response->getHeader("location"));

@@ -9,8 +9,8 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
 
@@ -77,7 +77,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
     public function getContentWithLinks()
     {
         $request = new StubRequest();
-        $links = new Links("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
+        $links = new DocumentLinks("http://example.com", ["self" => new Link("/users/1"), "related" => new Link("/people/1")]);
 
         $document = $this->createDocument(null, [], $links);
         $content = $document->getContent(
@@ -219,7 +219,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
     private function createDocument(
         ?JsonApiObject $jsonApi = null,
         array $meta = [],
-        ?Links $links = null,
+        ?DocumentLinks $links = null,
         ?DataInterface $data = null,
         array $relationshipResponseContent = []
     ): AbstractSuccessfulDocument {

@@ -6,8 +6,8 @@ namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 
 class UserDocument extends AbstractSingleResourceDocument
 {
@@ -44,9 +44,9 @@ class UserDocument extends AbstractSingleResourceDocument
      * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?DocumentLinks
     {
-        return Links::createWithoutBaseUri(
+        return DocumentLinks::createWithoutBaseUri(
             [
                 "self" => new Link("/?path=/users/" . $this->getResourceId()),
             ]

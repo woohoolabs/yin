@@ -6,8 +6,8 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 
 class AuthorsDocument extends AbstractCollectionDocument
 {
@@ -50,9 +50,9 @@ class AuthorsDocument extends AbstractCollectionDocument
      * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the section should be omitted from the response.
      */
-    public function getLinks(): ?Links
+    public function getLinks(): ?DocumentLinks
     {
-        return Links::createWithoutBaseUri(
+        return DocumentLinks::createWithoutBaseUri(
             [
                 "self" => new Link("/?path=/books/" . $this->bookId . "/authors")
             ]

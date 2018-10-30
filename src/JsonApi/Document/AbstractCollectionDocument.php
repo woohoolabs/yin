@@ -42,7 +42,7 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
     {
         foreach ($this->getItems() as $item) {
             $resource = $this->transformer->transformToResource($transformation, $item);
-            
+
             if ($resource !== null) {
                 $transformation->data->addPrimaryResource($resource);
             }

@@ -4,18 +4,18 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubPaginationLinkProvider;
 
-class LinksTest extends TestCase
+class DocumentLinksTest extends TestCase
 {
     /**
      * @test
      */
     public function createWithoutBaseUri()
     {
-        $links = Links::createWithoutBaseUri([]);
+        $links = DocumentLinks::createWithoutBaseUri([]);
 
         $this->assertEquals("", $links->getBaseUri());
     }
@@ -25,7 +25,7 @@ class LinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = Links::createWithBaseUri("http://example.com", []);
+        $links = DocumentLinks::createWithBaseUri("http://example.com", []);
 
         $this->assertEquals("http://example.com", $links->getBaseUri());
     }
@@ -200,8 +200,8 @@ class LinksTest extends TestCase
     /**
      * @param Link[] $links
      */
-    private function createLinks(string $baseUri = "", array $links = []): Links
+    private function createLinks(string $baseUri = "", array $links = []): DocumentLinks
     {
-        return new Links($baseUri, $links);
+        return new DocumentLinks($baseUri, $links);
     }
 }

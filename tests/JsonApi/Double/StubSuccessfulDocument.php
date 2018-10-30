@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
@@ -22,7 +22,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     protected $meta;
 
     /**
-     * @var Links|null
+     * @var DocumentLinks|null
      */
     protected $links;
 
@@ -39,7 +39,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     public function __construct(
         ?JsonApiObject $jsonApi = null,
         array $meta = [],
-        ?Links $links = null,
+        ?DocumentLinks $links = null,
         ?DataInterface $data = null,
         array $relationshipResponseContent = []
     ) {
@@ -60,7 +60,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         return $this->meta;
     }
 
-    public function getLinks(): ?Links
+    public function getLinks(): ?DocumentLinks
     {
         return $this->links;
     }
