@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
@@ -54,8 +54,19 @@ class ErrorLinksTest extends TestCase
             ]
         );
 
-        $this->assertArrayHasKey("about", $linksObject->transform());
-        $this->assertArrayHasKey("type", $linksObject->transform());
+        $transformedLinks = $linksObject->transform();
+        $this->assertArrayHasKey("about", $transformedLinks);
+        $this->assertArrayHasKey("type", $transformedLinks);
+        $this->assertCount(2, $transformedLinks["type"]);
+    }
+
+    /**
+     * @test
+     */
+    public function getAboutWhenEmpty()
+    {
+        $linksObject = $this->createErrorLinks();
+        $this->assertNull($linksObject->getAbout());
     }
 
     /**
@@ -67,6 +78,26 @@ class ErrorLinksTest extends TestCase
 
         $linksObject = $this->createErrorLinks()->setAbout($about);
         $this->assertEquals($about, $linksObject->getAbout());
+    }
+
+    /**
+     * @test
+     */
+    public function getTypeWhenEmpty()
+    {
+        $linksObject = $this->createErrorLinks();
+        $this->assertEquals([], $linksObject->getType());
+    }
+
+    /**
+     * @test
+     */
+    public function getTypeWhenNotEmpty()
+    {
+        $typeLink = new Link("http://example.com/errors/404");
+
+        $linksObject = $this->createErrorLinks()->addType($typeLink);
+        $this->assertContains($typeLink, $linksObject->getType());
     }
 
     /**

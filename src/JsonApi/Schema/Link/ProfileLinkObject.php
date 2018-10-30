@@ -10,7 +10,7 @@ class ProfileLinkObject extends LinkObject
     use MetaTrait;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $aliases;
 
@@ -24,6 +24,11 @@ class ProfileLinkObject extends LinkObject
     public function getAliases(): array
     {
         return $this->aliases;
+    }
+
+    public function getAlias(string $keyword): string
+    {
+        return $this->aliases[$keyword] ?? "";
     }
 
     public function addAlias(string $keyword, string $alias): ProfileLinkObject

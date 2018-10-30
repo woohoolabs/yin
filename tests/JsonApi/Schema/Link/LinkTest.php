@@ -16,6 +16,7 @@ class LinkTest extends TestCase
         $href = "http://example.com";
 
         $link = $this->createLink($href);
+
         $this->assertEquals($href, $link->getHref());
     }
 
@@ -27,6 +28,7 @@ class LinkTest extends TestCase
         $href = "http://example.com/api/users";
 
         $link = $this->createLink($href);
+
         $this->assertEquals($href, $link->transform(""));
     }
 
@@ -39,6 +41,7 @@ class LinkTest extends TestCase
         $href = "/users";
 
         $link = $this->createLink($href);
+
         $this->assertEquals($baseUri . $href, $link->transform($baseUri));
     }
 

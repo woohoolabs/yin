@@ -39,9 +39,8 @@ class ErrorLinks extends AbstractLinks
     {
         $links = parent::transform();
 
-        foreach ($this->types as $rel => $link) {
-            /** @var Link $link */
-            $links["type"][$rel] = $link ? $link->transform($this->baseUri) : null;
+        foreach ($this->types as $link) {
+            $links["type"][] = $link ? $link->transform($this->baseUri) : null;
         }
 
         return $links;

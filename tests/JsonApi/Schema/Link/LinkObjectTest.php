@@ -15,7 +15,7 @@ class LinkObjectTest extends TestCase
     {
         $href = "http://example.com/api/users";
 
-        $link = $this->createLink($href);
+        $link = $this->createLinkObject($href);
         $this->assertEquals($href, $link->getHref());
     }
 
@@ -26,7 +26,7 @@ class LinkObjectTest extends TestCase
     {
         $href = "http://example.com/api/users";
 
-        $link = $this->createLink($href);
+        $link = $this->createLinkObject($href);
         $this->assertEquals([], $link->getMeta());
     }
 
@@ -66,7 +66,7 @@ class LinkObjectTest extends TestCase
         $baseUri = "http://example.com/api";
         $href = "/users";
 
-        $link = $this->createLink($href);
+        $link = $this->createLinkObject($href);
 
         $transformedLink = [
             "href" => $baseUri . $href,
@@ -74,12 +74,12 @@ class LinkObjectTest extends TestCase
         $this->assertEquals($transformedLink, $link->transform($baseUri));
     }
 
-    private function createLink($href)
+    private function createLinkObject(string $href): LinkObject
     {
         return new LinkObject($href);
     }
 
-    private function createLinkWithMeta($href, array $meta)
+    private function createLinkWithMeta(string $href, array $meta): LinkObject
     {
         return new LinkObject($href, $meta);
     }

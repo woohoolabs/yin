@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Links;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubPaginationLinkProvider;
@@ -39,6 +38,7 @@ class LinksTest extends TestCase
         $links = $this->createLinks();
 
         $links->setBaseUri("http://example.com");
+
         $this->assertEquals("http://example.com", $links->getBaseUri());
     }
 
@@ -47,12 +47,18 @@ class LinksTest extends TestCase
      */
     public function transform()
     {
-        $self = new Link("http://example.com/api/users");
-        $links = ["self" => $self, "related" => $self];
+        $links = $this->createLinks(
+            "",
+            [
+                "self" => new Link("http://example.com/articles/1/relationships/author"),
+                "related" => new Link("http://example.com/articles/1/author"),
+            ]
+        );
 
-        $linksObject = $this->createLinks("", $links);
-        $this->assertArrayHasKey("self", $linksObject->transform());
-        $this->assertArrayHasKey("related", $linksObject->transform());
+        $transformedLinks = $links->transform();
+
+        $this->assertArrayHasKey("self", $transformedLinks);
+        $this->assertArrayHasKey("related", $transformedLinks);
     }
 
     /**
@@ -60,8 +66,9 @@ class LinksTest extends TestCase
      */
     public function getSelfWhenEmpty()
     {
-        $linksObject = $this->createLinks();
-        $this->assertNull($linksObject->getSelf());
+        $links = $this->createLinks();
+
+        $this->assertNull($links->getSelf());
     }
 
     /**
@@ -71,8 +78,9 @@ class LinksTest extends TestCase
     {
         $self = new Link("http://example.com/api/users");
 
-        $linksObject = $this->createLinks()->setSelf($self);
-        $this->assertEquals($self, $linksObject->getSelf());
+        $links = $this->createLinks()->setSelf($self);
+
+        $this->assertEquals($self, $links->getSelf());
     }
 
     /**
@@ -82,8 +90,9 @@ class LinksTest extends TestCase
     {
         $related = new Link("http://example.com/api/users");
 
-        $linksObject = $this->createLinks()->setRelated($related);
-        $this->assertEquals($related, $linksObject->getRelated());
+        $links = $this->createLinks()->setRelated($related);
+
+        $this->assertEquals($related, $links->getRelated());
     }
 
     /**
@@ -103,8 +112,9 @@ class LinksTest extends TestCase
     {
         $first = new Link("http://example.com/api/users?page[number]=1");
 
-        $linksObject = $this->createLinks()->setFirst($first);
-        $this->assertEquals($first, $linksObject->getFirst());
+        $links = $this->createLinks()->setFirst($first);
+
+        $this->assertEquals($first, $links->getFirst());
     }
 
     /**
@@ -114,8 +124,9 @@ class LinksTest extends TestCase
     {
         $last = new Link("http://example.com/api/users?page[number]=10");
 
-        $linksObject = $this->createLinks()->setLast($last);
-        $this->assertEquals($last, $linksObject->getLast());
+        $links = $this->createLinks()->setLast($last);
+
+        $this->assertEquals($last, $links->getLast());
     }
 
     /**
@@ -125,8 +136,9 @@ class LinksTest extends TestCase
     {
         $prev = new Link("http://example.com/api/users?page[number]=4");
 
-        $linksObject = $this->createLinks()->setPrev($prev);
-        $this->assertEquals($prev, $linksObject->getPrev());
+        $links = $this->createLinks()->setPrev($prev);
+
+        $this->assertEquals($prev, $links->getPrev());
     }
 
     /**
@@ -136,8 +148,9 @@ class LinksTest extends TestCase
     {
         $next = new Link("http://example.com/api/users?page[number]=6");
 
-        $linksObject = $this->createLinks()->setNext($next);
-        $this->assertEquals($next, $linksObject->getNext());
+        $links = $this->createLinks()->setNext($next);
+
+        $this->assertEquals($next, $links->getNext());
     }
 
     /**
@@ -148,12 +161,13 @@ class LinksTest extends TestCase
         $uri = "http://example.com/api/users/";
         $pagination = new StubPaginationLinkProvider();
 
-        $linksObject = $this->createLinks()->setPagination($uri, $pagination);
-        $this->assertEquals(new Link($uri . "self"), $linksObject->getSelf());
-        $this->assertEquals(new Link($uri . "first"), $linksObject->getFirst());
-        $this->assertEquals(new Link($uri . "last"), $linksObject->getLast());
-        $this->assertEquals(new Link($uri . "prev"), $linksObject->getPrev());
-        $this->assertEquals(new Link($uri . "next"), $linksObject->getNext());
+        $links = $this->createLinks()->setPagination($uri, $pagination);
+
+        $this->assertEquals(new Link($uri . "self"), $links->getSelf());
+        $this->assertEquals(new Link($uri . "first"), $links->getFirst());
+        $this->assertEquals(new Link($uri . "last"), $links->getLast());
+        $this->assertEquals(new Link($uri . "prev"), $links->getPrev());
+        $this->assertEquals(new Link($uri . "next"), $links->getNext());
     }
 
     /**
@@ -163,8 +177,9 @@ class LinksTest extends TestCase
     {
         $self = new Link("http://example.com/api/users");
 
-        $linksObject = $this->createLinks()->setLink("self", $self);
-        $this->assertEquals($self, $linksObject->getLink("self"));
+        $links = $this->createLinks()->setLink("self", $self);
+
+        $this->assertEquals($self, $links->getLink("self"));
     }
 
     /**
@@ -176,9 +191,10 @@ class LinksTest extends TestCase
         $related = new Link("http://example.com/api/people/1");
         $links = ["self" => $self, "related" => $related];
 
-        $linksObject = $this->createLinks()->setLinks($links);
-        $this->assertEquals($self, $linksObject->getLink("self"));
-        $this->assertEquals($related, $linksObject->getLink("related"));
+        $links = $this->createLinks()->setLinks($links);
+
+        $this->assertEquals($self, $links->getLink("self"));
+        $this->assertEquals($related, $links->getLink("related"));
     }
 
     /**
