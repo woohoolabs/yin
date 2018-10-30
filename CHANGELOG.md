@@ -23,6 +23,8 @@ REMOVED:
 
 FIXED:
 
+- Small issues found by static analysis
+
 ## 3.0.2 - 2018-02-06
 
 FIXED:

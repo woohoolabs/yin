@@ -200,7 +200,7 @@ class Request implements RequestInterface
             return;
         }
 
-        $relationshipNames = explode(",", $includeQueryParam);
+        $relationshipNames = explode(",", (string) $includeQueryParam);
         foreach ($relationshipNames as $relationship) {
             $relationship = ".$relationship.";
             $length = strlen($relationship);
@@ -298,8 +298,7 @@ class Request implements RequestInterface
             return;
         }
 
-        $sorting = explode(",", $sortingQueryParam);
-        $this->sorting = is_array($sorting) ? $sorting : [];
+        $this->sorting = explode(",", (string) $sortingQueryParam);
     }
 
     /**

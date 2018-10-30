@@ -35,7 +35,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ): ?array;
+    ): array;
 
     /**
      * Transform a $domainObject resource in a JSON:API format
@@ -126,8 +126,6 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
         Transformation $transformation,
         array $additionalMeta = []
     ): array {
-        $content = $this->getRelationshipMember($relationshipName, $transformation, $additionalMeta);
-
-        return $content;
+        return $this->getRelationshipMember($relationshipName, $transformation, $additionalMeta);
     }
 }

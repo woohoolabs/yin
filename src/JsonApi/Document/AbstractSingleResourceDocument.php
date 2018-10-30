@@ -58,11 +58,17 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
         Transformation $transformation,
         array $additionalMeta = []
     ): array {
-        return $this->transformer->transformRelationship(
+        $relationship = $this->transformer->transformRelationship(
             $relationshipName,
             $transformation,
             $this->domainObject,
             $additionalMeta
         );
+
+        if ($relationship === null) {
+            $relationship = [];
+        }
+
+        return $relationship;
     }
 }

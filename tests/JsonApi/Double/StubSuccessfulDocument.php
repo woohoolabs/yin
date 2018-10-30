@@ -78,7 +78,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ): ?array {
+    ): array {
         return $this->relationshipResponseContent;
     }
 }

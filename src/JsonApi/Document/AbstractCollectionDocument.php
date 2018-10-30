@@ -56,12 +56,16 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 
         $result = [];
         foreach ($this->getItems() as $item) {
-            $result[] = $this->transformer->transformRelationship(
+            $transformedRelationship = $this->transformer->transformRelationship(
                 $relationshipName,
                 $transformation,
                 $item,
                 $additionalMeta
             );
+
+            if ($transformedRelationship !== null) {
+                $result[] = $transformedRelationship;
+            }
         }
 
         return $result;

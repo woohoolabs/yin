@@ -34,9 +34,12 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
         string $relationshipName,
         Transformation $transformation,
         array $additionalMeta = []
-    ): ?array {
+    ): array {
         $relationship = $this->getRelationshipFromResource($this->getResource(), $relationshipName);
-        if ($relationship !== null) {
+
+        if ($relationship === null) {
+            $relationship = [];
+        } else {
             $transformation->data->addPrimaryResource($relationship);
         }
 

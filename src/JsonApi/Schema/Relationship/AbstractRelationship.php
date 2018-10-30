@@ -200,7 +200,7 @@ abstract class AbstractRelationship
         $domainObject,
         string $relationshipName,
         array $defaultRelationships
-    ): array {
+    ): ?array {
         if ($transformation->request->isIncludedRelationship(
             $transformation->basePath,
             $relationshipName,

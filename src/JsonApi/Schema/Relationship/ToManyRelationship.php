@@ -30,7 +30,11 @@ class ToManyRelationship extends AbstractRelationship
 
         $content = [];
         foreach ($data as $item) {
-            $content[] = $this->transformResource($transformation, $item, $relationshipName, $defaultRelationships);
+            $transformedResource = $this->transformResource($transformation, $item, $relationshipName, $defaultRelationships);
+
+            if ($transformedResource !== null) {
+                $content[] = $transformedResource;
+            }
         }
 
         return $content;
