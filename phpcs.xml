@@ -7,8 +7,14 @@
     <arg name="colors"/>
 
     <!-- Rules -->
-    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="140"/>
+            <property name="absoluteLineLimit" value="160"/>
+        </properties>
+    </rule>
 
     <!-- Paths -->
     <file>src</file>
