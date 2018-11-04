@@ -94,14 +94,9 @@ $emitter->emit($response);
 
 function findRoute(Request $request, array $routes): Request
 {
-    $queryParams = $request->getQueryParams();
-    if (isset($queryParams["path"]) === false) {
-        die("You must provide the 'path' query parameter!");
-    }
-
+    $path = $request->getUri()->getPath();
     $method = $request->getMethod();
-    $path = $queryParams["path"];
-    $requestLine = $method . " " . $path;
+    $requestLine = "$method $path";
 
     foreach ($routes as $pattern => $route) {
         $matches = [];

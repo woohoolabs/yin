@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+    yin-examples-nginx:
+        image: nginx:1.15-alpine
+        container_name: yin-examples-nginx
+        networks:
+        - yin-examples
+        volumes:
+        - .:/var/www/
+        ports:
+        - "$HOST_WEB_PORT:80"
+        command: /var/www/build/nginx.sh
+        env_file:
+        - .env
+        depends_on:
+        - yin-examples-php-fpm
+
+    yin-examples-php-fpm:
+        container_name: yin-examples-php-fpm
+        image: php:7.2-fpm
+        networks:
+        - yin-examples
+        volumes:
+            - .:/var/www/
+
+networks:
+    yin-examples:
