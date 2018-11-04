@@ -18,7 +18,7 @@ use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
-use Zend\Diactoros\Response\SapiEmitter;
+use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
 use Zend\Diactoros\ServerRequestFactory;
 
 // Defining routes
