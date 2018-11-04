@@ -30,7 +30,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($contact): string
     {
-        return $contact["id"];
+        return (string) $contact["id"];
     }
 
     /**

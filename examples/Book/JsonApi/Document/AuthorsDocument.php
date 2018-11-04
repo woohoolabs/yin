@@ -21,7 +21,7 @@ class AuthorsDocument extends AbstractCollectionDocument
      */
     protected $domainObject;
 
-    public function __construct(AuthorResourceTransformer $transformer, string $bookId)
+    public function __construct(AuthorResourceTransformer $transformer, int $bookId)
     {
         parent::__construct($transformer);
         $this->bookId = $bookId;

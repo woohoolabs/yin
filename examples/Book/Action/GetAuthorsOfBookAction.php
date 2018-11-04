@@ -14,7 +14,7 @@ class GetAuthorsOfBookAction
     public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the "id" of the currently requested book
-        $bookId = $jsonApi->getRequest()->getAttribute("id");
+        $bookId = (int) $jsonApi->getRequest()->getAttribute("id");
 
         // Retrieving the author domain objects for the book with an ID of $bookId
         $authors = BookRepository::getAuthorsOfBook($bookId);

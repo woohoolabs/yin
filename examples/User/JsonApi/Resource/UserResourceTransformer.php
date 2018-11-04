@@ -41,7 +41,7 @@ class UserResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($user): string
     {
-        return $user["id"];
+        return (string) $user["id"];
     }
 
     /**

@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Examples\Utils;
 
 abstract class AbstractRepository
 {
-    public static function getItemById(string $id, array $items): ?array
+    public static function getItemById(int $id, array $items): ?array
     {
         foreach ($items as $item) {
             if (isset($item["id"]) && $item["id"] === $id) {

@@ -17,7 +17,7 @@ class GetBookAction
     public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the "id" of the currently requested book
-        $id = $jsonApi->getRequest()->getAttribute("id");
+        $id = (int) $jsonApi->getRequest()->getAttribute("id");
 
         // Retrieving a book domain object with an ID of $id
         $book = BookRepository::getBook($id);

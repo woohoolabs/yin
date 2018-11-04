@@ -17,7 +17,7 @@ class GetBookRelationshipsAction
     public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Checking the "id" of the currently requested book
-        $id = $jsonApi->getRequest()->getAttribute("id");
+        $id = (int) $jsonApi->getRequest()->getAttribute("id");
 
         // Checking the name of the currently requested relationship
         $relationshipName = $jsonApi->getRequest()->getAttribute("rel");

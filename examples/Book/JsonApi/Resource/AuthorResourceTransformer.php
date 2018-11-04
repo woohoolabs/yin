@@ -29,7 +29,7 @@ class AuthorResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($author) : string
     {
-        return $author["id"];
+        return (string) $author["id"];
     }
 
     /**

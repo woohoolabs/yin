@@ -21,7 +21,7 @@ class UpdateBookRelationshipAction
         $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
 
         // Retrieving a book domain object with an ID of $id
-        $id = $jsonApi->getRequest()->getAttribute("id");
+        $id = (int) $jsonApi->getRequest()->getAttribute("id");
         $book = BookRepository::getBook($id);
         if ($book === null) {
             die("A book with an ID of '$id' can't be found!");

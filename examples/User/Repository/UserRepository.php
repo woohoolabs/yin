@@ -19,19 +19,19 @@ class UserRepository
                 [
                     "id" => "100",
                     "type" => "phone",
-                    "value" => "+123456789"
+                    "value" => "+123456789",
                 ],
                 [
                     "id" => "101",
                     "type" => "email",
-                    "value" => "john.doe@example.com"
+                    "value" => "john.doe@example.com",
                 ],
                 [
                     "id" => "102",
                     "type" => "email",
-                    "value" => "secret.doe@example.com"
-                ]
-            ]
+                    "value" => "secret.doe@example.com",
+                ],
+            ],
         ],
         [
             "id" => "2",
@@ -41,10 +41,10 @@ class UserRepository
                 [
                     "id" => "103",
                     "type" => "email",
-                    "value" => "jane.doe@example.com"
-                ]
-            ]
-        ]
+                    "value" => "jane.doe@example.com",
+                ],
+            ],
+        ],
     ];
 
     public static function getUsers(int $page = null, int $size = null): Collection
@@ -61,7 +61,7 @@ class UserRepository
         return new Collection($users, count(self::$users), $page, $size);
     }
 
-    public static function getUser(string $id): ?array
+    public static function getUser(int $id): ?array
     {
         foreach (self::$users as $user) {
             if ($user["id"] === $id) {

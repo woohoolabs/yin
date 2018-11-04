@@ -50,7 +50,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
      */
     public function getId($book): string
     {
-        return $book["id"];
+        return (string) $book["id"];
     }
 
     /**
@@ -106,8 +106,17 @@ class BookResourceTransformer extends AbstractResourceTransformer
             "title" => function (array $book) {
                 return $book["title"];
             },
+            "isbn13" => function (array $book) {
+                return $book["isbn13"];
+            },
+            "releaseDate" => function (array $book) {
+                return $book["release_date"];
+            },
+            "hardCover" => function (array $book) {
+                return $book["hard_cover"];
+            },
             "pages" => function (array $book) {
-                return $this->toInt($book["pages"]);
+                return (int) $book["pages"];
             },
         ];
     }
