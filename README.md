@@ -1159,25 +1159,43 @@ public function updateBookRelationship(JsonApi $jsonApi): ResponseInterface
 ```
 
 ### How to try it out
-If you want to know more about how Yin works, have a look at the
-[examples](https://github.com/woohoolabs/yin/tree/master/examples). Set up a web server, run `composer install` in
-Yin's root directory and visit the URLs listed below. You can restrict the retrieved fields and relationships with
-the `fields` and `include` parameters as specified by JSON:API.
 
-Example URLs for the book resources:
-- `GET examples/?path=/books/1`: Fetch a book
-- `GET examples/?path=/books/1/relationships/authors`: Fetch the authors relationship
-- `GET examples/?path=/books/1/relationships/publisher`: Fetch the publisher relationship
-- `GET examples/?path=/books/1/authors`: Fetch the authors of a book
-- `POST examples/?path=/books`: Create a new book
-- `PATCH examples/?path=/books/1`: Update a book
-- `PATCH examples/?path=/books/1/relationships/author`: Update the authors of the book
-- `PATCH examples/?path=/books/1/relationships/publisher`: Update the publisher of the book
+If you want to see how Yin works, have a look at the [examples](https://github.com/woohoolabs/yin/tree/master/examples).
+If `docker-compose` and `make` is available on your system, then just run the following commands in order to try out the
+example API:
 
-Example URLs for the user resources:
-- `GET examples/?path=/users`: Fetch users
-- `GET examples/?path=/users/1`: Fetch a user
-- `GET examples/?path=/users/1/relationships/contacts`: Fetch the contacts relationship
+```bash
+cp .env.dist .env      # You can now edit the settings in the .env file
+make composer-install  # Install the Composer dependencies
+make up                # Start the webserver
+```
+
+And finally, just visit the following URL: `localhost:8080`. You can even restrict the retrieved fields and relationships
+via the `fields` and `include` parameters as specified by JSON:API.
+
+Example URIs for the book examples:
+- `GET /books/1`: Fetch a book
+- `GET /books/1/relationships/authors`: Fetch the authors relationship
+- `GET /books/1/relationships/publisher`: Fetch the publisher relationship
+- `GET /books/1/authors`: Fetch the authors of a book
+- `POST /books`: Create a new book
+- `PATCH /books/1`: Update a book
+- `PATCH /books/1/relationships/author`: Update the authors of the book
+- `PATCH /books/1/relationships/publisher`: Update the publisher of the book
+
+Example URIs for the user examples:
+- `GET /users`: Fetch users
+- `GET /users/1`: Fetch a user
+- `GET /users/1/relationships/contacts`: Fetch the contacts relationship
+
+When you finished your work, simply stop the webserver:
+
+```bash
+make down
+```
+
+If the prerequisites are not available for you, you have to set up a webserver, and install PHP on your host system as
+well as the dependencies via `Composer`.
 
 ## Integrations
 
