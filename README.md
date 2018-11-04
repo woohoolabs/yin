@@ -1228,7 +1228,7 @@ after you have copied phpunit.xml.dist to phpunit.xml:
 $ phpunit
 ```
 
-Additionally, you may run `docker-compose up` in order to execute the tests.
+Additionally, you may run `docker-compose up` or `make test` in order to execute the tests.
 
 ## Contributing
 
