@@ -69,8 +69,8 @@ class BookRepository extends AbstractRepository
 
         $books = array_slice(self::$books, ($page - 1) * $size, $size);
 
-        foreach ($books as $key => $book) {
-            $books[$key]["authors"] = self::getItemsByIds($book["authors"], self::$authors);
+        foreach ($books as $key => &$book) {
+            $book = self::getBook($book["id"]);
         }
 
         return new Collection($books, count(self::$books), $page, $size);
