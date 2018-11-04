@@ -48,7 +48,7 @@ class BookDocument extends AbstractSingleResourceDocument
     {
         return DocumentLinks::createWithoutBaseUri(
             [
-                "self" => new Link("/?path=/books/" . $this->getResourceId()),
+                "self" => new Link("/books/" . $this->getResourceId()),
             ]
         );
     }

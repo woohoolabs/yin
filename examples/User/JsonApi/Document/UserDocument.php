@@ -48,7 +48,7 @@ class UserDocument extends AbstractSingleResourceDocument
     {
         return DocumentLinks::createWithoutBaseUri(
             [
-                "self" => new Link("/?path=/users/" . $this->getResourceId()),
+                "self" => new Link("/users/" . $this->getResourceId()),
             ]
         );
     }

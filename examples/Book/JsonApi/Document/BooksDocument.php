@@ -45,6 +45,6 @@ class BooksDocument extends AbstractCollectionDocument
      */
     public function getLinks(): ?DocumentLinks
     {
-        return DocumentLinks::createWithoutBaseUri()->setPagination("/?path=/books", $this->domainObject);
+        return DocumentLinks::createWithoutBaseUri()->setPagination("/books", $this->object);
     }
 }

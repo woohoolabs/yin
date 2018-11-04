@@ -54,7 +54,7 @@ class AuthorsDocument extends AbstractCollectionDocument
     {
         return DocumentLinks::createWithoutBaseUri(
             [
-                "self" => new Link("/?path=/books/" . $this->bookId . "/authors"),
+                "self" => new Link("/books/" . $this->bookId . "/authors"),
             ]
         );
     }
