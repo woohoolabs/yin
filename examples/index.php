@@ -110,5 +110,6 @@ function findRoute(Request $request, array $routes): Request
         }
     }
 
-    die("Resource not found!");
+    http_response_code(404);
+    die("JSON:API document was not found! You can find the supported URIs in the <a href='https://github.com/woohoolabs/yin/#how-to-try-it-out'>README file</a>.");
 }
