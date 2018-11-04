@@ -34,7 +34,7 @@ checks:
         no_exit: true
         newline_at_end_of_file: true
         line_length:
-            max_length: '140'
+            max_length: '160'
         instanceof_class_exists: true
         avoid_closing_tag: true
         avoid_multiple_statements_on_same_line: true
