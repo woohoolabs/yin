@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {

@@ -5,8 +5,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
 
 interface SuccessfulDocumentInterface extends DocumentInterface
 {
