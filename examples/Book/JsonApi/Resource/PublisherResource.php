@@ -1,24 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class UserResourceTransformer extends AbstractResourceTransformer
+class PublisherResource extends AbstractResource
 {
     /**
-     * @var ContactResourceTransformer
+     * @var RepresentativeResource
      */
-    private $contactTransformer;
+    private $representativeTransformer;
 
-    public function __construct(ContactResourceTransformer $contactTransformer)
+    public function __construct(RepresentativeResource $representativeTransformer)
     {
-        $this->contactTransformer = $contactTransformer;
+        $this->representativeTransformer = $representativeTransformer;
     }
 
     /**
@@ -26,11 +24,11 @@ class UserResourceTransformer extends AbstractResourceTransformer
      *
      * The method returns the type of the current resource.
      *
-     * @param array $user
+     * @param array $publisher
      */
-    public function getType($user): string
+    public function getType($publisher): string
     {
-        return "users";
+        return "publishers";
     }
 
     /**
@@ -38,11 +36,11 @@ class UserResourceTransformer extends AbstractResourceTransformer
      *
      * The method returns the ID of the current resource which should be a UUID.
      *
-     * @param array $user
+     * @param array $publisher
      */
-    public function getId($user): string
+    public function getId($publisher): string
     {
-        return (string) $user["id"];
+        return (string) $publisher["id"];
     }
 
     /**
@@ -51,9 +49,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * The method returns an array of non-standard meta information about the resource. If
      * this array is empty, the member won't appear in the response.
      *
-     * @param array $user
+     * @param array $publisher
      */
-    public function getMeta($user): array
+    public function getMeta($publisher): array
     {
         return [];
     }
@@ -64,9 +62,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * The method returns a new ResourceLinks object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
      *
-     * @param array $user
+     * @param array $publisher
      */
-    public function getLinks($user): ?ResourceLinks
+    public function getLinks($publisher): ?ResourceLinks
     {
         return null;
     }
@@ -78,17 +76,14 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * while the values are callables receiving the domain object as an argument,
      * and they should return the value of the corresponding attribute.
      *
-     * @param array $user
+     * @param array $publisher
      * @return callable[]
      */
-    public function getAttributes($user): array
+    public function getAttributes($publisher): array
     {
         return [
-            "firstname" => function (array $user) {
-                return $user["firstname"];
-            },
-            "surname" => function (array $user) {
-                return $user["lastname"];
+            "name" => function (array $publisher) {
+                return $publisher["name"];
             },
         ];
     }
@@ -96,9 +91,9 @@ class UserResourceTransformer extends AbstractResourceTransformer
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
-     * @param array $user
+     * @param array $publisher
      */
-    public function getDefaultIncludedRelationships($user): array
+    public function getDefaultIncludedRelationships($publisher): array
     {
         return [];
     }
@@ -110,25 +105,16 @@ class UserResourceTransformer extends AbstractResourceTransformer
      * while the values are callables receiving the domain object as an argument,
      * and they should return a new relationship instance (to-one or to-many).
      *
-     * @param array $user
+     * @param array $publisher
      * @return callable[]
      */
-    public function getRelationships($user): array
+    public function getRelationships($publisher): array
     {
         return [
-            "contacts" => function (array $user) {
+            "representative" => function ($publisher) {
                 return
-                    ToManyRelationship::create()
-                        ->setLinks(
-                            RelationshipLinks::createWithoutBaseUri(
-                                new Link("/?path=/users/" . $user["id"] . "/contacts"),
-                                new Link("/?path=/users/" . $user["id"] . "/relationships/contacts")
-                            )
-                        )
-                        ->setDataAsCallable(function () use ($user) {
-                            return $user["contacts"];
-                        }, $this->contactTransformer)
-                        ->omitWhenNotIncluded()
+                    ToOneRelationship::create()
+                        ->setData($publisher["representative"], $this->representativeTransformer)
                     ;
             }
         ];

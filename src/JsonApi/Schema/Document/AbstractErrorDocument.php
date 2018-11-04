@@ -4,22 +4,13 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 
-abstract class AbstractErrorDocument extends AbstractDocument
+abstract class AbstractErrorDocument implements ErrorDocumentInterface
 {
     /**
      * @var Error[]
      */
     protected $errors = [];
-
-    /**
-     * Provides information about the "links" member of the current document.
-     *
-     * The method returns a new ErrorLinks object if you want to provide linkage data
-     * for the document or null if the member should be omitted from the response.
-     */
-    abstract public function getLinks(): ?ErrorLinks;
 
     /**
      * @return Error[]
@@ -40,24 +31,6 @@ abstract class AbstractErrorDocument extends AbstractDocument
         $this->errors[] = $error;
 
         return $this;
-    }
-
-    /**
-     * Returns the content as an array with all the provided members of the error document. You can also pass
-     * additional meta information for the document in the $additionalMeta argument.
-     */
-    public function getContent(array $additionalMeta = []): array
-    {
-        $content = $this->transformBaseContent($additionalMeta);
-
-        if (empty($this->errors) === false) {
-            foreach ($this->errors as $error) {
-                /** @var Error $error */
-                $content["errors"][] = $error->transform();
-            }
-        }
-
-        return $content;
     }
 
     public function getResponseCode(?int $statusCode = null): int

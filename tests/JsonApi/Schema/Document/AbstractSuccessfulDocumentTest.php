@@ -155,7 +155,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         );
 
         $this->assertArrayHasKey("included", $content);
-        $this->assertEquals($data->transformIncludedResources(), $content["included"]);
+        $this->assertEquals($data->transformIncluded(), $content["included"]);
     }
 
     /**
@@ -213,7 +213,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         );
 
         $this->assertArrayHasKey("included", $content);
-        $this->assertEquals($data->transformIncludedResources(), $content["included"]);
+        $this->assertEquals($data->transformIncluded(), $content["included"]);
     }
 
     private function createDocument(

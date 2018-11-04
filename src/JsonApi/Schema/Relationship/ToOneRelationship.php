@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 class ToOneRelationship extends AbstractRelationship
 {
@@ -13,26 +15,22 @@ class ToOneRelationship extends AbstractRelationship
         array $meta = [],
         ?RelationshipLinks $links = null,
         array $data = [],
-        ?ResourceTransformerInterface $resourceTransformer = null
+        ?ResourceInterface $resource = null
     ) {
-        parent::__construct($meta, $links, $data, $resourceTransformer);
+        parent::__construct($meta, $links, $data, $resource);
     }
 
     protected function transformData(
-        Transformation $transformation,
-        string $relationshipName,
+        ResourceTransformation $transformation,
+        ResourceTransformer $resourceTransformer,
+        DataInterface $data,
         array $defaultRelationships
-    ): ?array {
-        $data = $this->retrieveData();
-        if ($data === null || $this->resourceTransformer === null) {
+    ): ?array{
+        $object = $this->getData();
+        if ($object === null) {
             return null;
         }
 
-        return $this->transformResource(
-            $transformation,
-            $data,
-            $relationshipName,
-            $defaultRelationships
-        );
+        return $this->transformResourceIdentifier($transformation, $resourceTransformer, $data, $object, $defaultRelationships);
     }
 }

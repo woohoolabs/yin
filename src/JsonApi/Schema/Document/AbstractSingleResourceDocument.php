@@ -3,18 +3,20 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var ResourceTransformerInterface
+     * @var ResourceInterface
      */
-    protected $transformer;
+    protected $resource;
 
     /**
      * Provides information about the "links" member of the current document.
@@ -24,9 +26,14 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
      */
     abstract public function getLinks(): ?DocumentLinks;
 
-    public function __construct(ResourceTransformerInterface $transformer)
+    public function __construct(ResourceInterface $resource)
     {
-        $this->transformer = $transformer;
+        $this->resource = $resource;
+    }
+
+    public function getResource(): ResourceInterface
+    {
+        return $this->resource;
     }
 
     /**
@@ -36,32 +43,37 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
      */
     public function getResourceId(): string
     {
-        return $this->transformer->getId($this->domainObject);
+        return $this->resource->getId($this->object);
     }
 
-    protected function createData(): DataInterface
+    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
-        return new SingleResourceData();
-    }
+        $resourceTransformation = new ResourceTransformation(
+            $this->getResource(),
+            $transformation->object,
+            "",
+            $transformation->request,
+            $transformation->basePath,
+            $transformation->requestedRelationshipName,
+            "",
+            $transformation->exceptionFactory
+        );
+        $data = new SingleResourceData();
 
-    protected function fillData(Transformation $transformation): void
-    {
-        $resource = $this->transformer->transformToResource($transformation, $this->domainObject);
-
-        if ($resource) {
-            $transformation->data->addPrimaryResource($resource);
+        $resourceObject = $transformer->transformToResourceObject($resourceTransformation, $data);
+        if ($resourceObject !== null) {
+            $data->addPrimaryResource($resourceObject);
         }
+
+        return $data;
     }
 
-    protected function getRelationshipMember(
-        string $relationshipName,
-        Transformation $transformation,
-        array $additionalMeta = []
-    ): array {
-        $relationship = $this->transformer->transformRelationship(
+    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    {
+        $relationship = $this->resource->transformRelationship(
             $relationshipName,
             $transformation,
-            $this->domainObject,
+            $this->object,
             $additionalMeta
         );
 

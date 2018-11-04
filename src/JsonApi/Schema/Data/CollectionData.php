@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
 class CollectionData extends AbstractData
 {
-    public function transformPrimaryResources(): ?iterable
+    public function transformPrimaryData(): ?iterable
     {
         return array_values($this->primaryKeys);
     }

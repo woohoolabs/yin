@@ -1,14 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Document;
+namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\TransformerTrait;
 
-abstract class AbstractSuccessfulDocument implements SuccessfulDocumentInterface
+abstract class AbstractResource implements ResourceInterface
 {
+    use TransformerTrait;
+
     /**
      * @var RequestInterface
      */
@@ -25,29 +28,19 @@ abstract class AbstractSuccessfulDocument implements SuccessfulDocumentInterface
     protected $exceptionFactory;
 
     /**
-     * @var array
+     * @param mixed $object
      */
-    protected $additionalMeta = [];
-
-    /**
-     * @internal
-     */
-    public function initializeTransformation(SuccessfulDocumentTransformation $transformation): void
+    public function initializeTransformation(ResourceTransformation $transformation): void
     {
         $this->request = $transformation->request;
         $this->object = $transformation->object;
         $this->exceptionFactory = $transformation->exceptionFactory;
-        $this->additionalMeta = $transformation->additionalMeta;
     }
 
-    /**
-     * @internal
-     */
     public function clearTransformation(): void
     {
         $this->request = null;
         $this->object = null;
         $this->exceptionFactory = null;
-        $this->additionalMeta = [];
     }
 }

@@ -5,8 +5,8 @@ namespace WoohooLabs\Yin\Examples\User\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\User\JsonApi\Document\UserDocument;
-use WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResourceTransformer;
-use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResource;
+use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResource;
 use WoohooLabs\Yin\Examples\User\Repository\UserRepository;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
@@ -21,7 +21,7 @@ class GetUserAction
         $user = UserRepository::getUser($id);
 
         // Instantiating a user document
-        $document = new UserDocument(new UserResourceTransformer(new ContactResourceTransformer()));
+        $document = new UserDocument(new UserResource(new ContactResource()));
 
         // Responding with "200 Ok" status code along with the user document
         return $jsonApi->respond()->ok($document, $user);

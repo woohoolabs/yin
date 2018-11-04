@@ -22,7 +22,7 @@ abstract class AbstractData implements DataInterface
 
     public function getResource(string $type, string $id): ?array
     {
-        return $this->resources[$type . "." . $id] ?? null;
+        return $this->resources["$type.$id"] ?? null;
     }
 
     public function hasPrimaryResources(): bool
@@ -32,7 +32,7 @@ abstract class AbstractData implements DataInterface
 
     public function hasPrimaryResource(string $type, string $id): bool
     {
-        return isset($this->primaryKeys[$type . "." . $id]);
+        return isset($this->primaryKeys["$type.$id"]);
     }
 
     public function hasIncludedResources(): bool
@@ -42,7 +42,7 @@ abstract class AbstractData implements DataInterface
 
     public function hasIncludedResource(string $type, string $id): bool
     {
-        return isset($this->includedKeys[$type . "." . $id]);
+        return isset($this->includedKeys["$type.$id"]);
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class AbstractData implements DataInterface
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
         if ($this->hasIncludedResource($type, $id)) {
-            unset($this->includedKeys[$type . "." . $id]);
+            unset($this->includedKeys["$type.$id"]);
         }
 
         $this->addResourceToPrimaryData($transformedResource);
@@ -99,26 +99,28 @@ abstract class AbstractData implements DataInterface
         return $this;
     }
 
-    public function transformIncludedResources(): iterable
+    public function transformIncluded(): iterable
     {
         return array_values($this->includedKeys);
     }
 
-    protected function addResourceToPrimaryData(array $transformedResource)
+    protected function addResourceToPrimaryData(array $transformedResource): void
     {
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
+        $key = "$type.$id";
 
-        $this->resources[$type . "." . $id] = $transformedResource;
-        $this->primaryKeys[$type. "." . $id] = &$this->resources[$type . "." . $id];
+        $this->resources[$key] = $transformedResource;
+        $this->primaryKeys[$key] = &$this->resources[$key];
     }
 
-    protected function addResourceToIncludedData(array $transformedResource)
+    protected function addResourceToIncludedData(array $transformedResource): void
     {
         $type = $transformedResource["type"];
         $id = $transformedResource["id"];
+        $key = "$type.$id";
 
-        $this->resources[$type . "." . $id] = $transformedResource;
-        $this->includedKeys[$type . "." . $id] = &$this->resources[$type . "." . $id];
+        $this->resources[$key] = $transformedResource;
+        $this->includedKeys[$key] = &$this->resources[$key];
     }
 }

@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
+use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 class ToManyRelationship extends AbstractRelationship
 {
@@ -13,30 +15,32 @@ class ToManyRelationship extends AbstractRelationship
         array $meta = [],
         ?RelationshipLinks $links = null,
         array $data = [],
-        ?ResourceTransformerInterface $resourceTransformer = null
+        ?ResourceInterface $resource = null
     ) {
-        parent::__construct($meta, $links, $data, $resourceTransformer);
+        parent::__construct($meta, $links, $data, $resource);
     }
 
     protected function transformData(
-        Transformation $transformation,
-        string $relationshipName,
+        ResourceTransformation $transformation,
+        ResourceTransformer $resourceTransformer,
+        DataInterface $data,
         array $defaultRelationships
     ): ?array {
-        $data = $this->retrieveData();
-        if (empty($data) || $this->resourceTransformer === null) {
+        /** @var iterable $object */
+        $object = $this->getData();
+        if (empty($object)) {
             return [];
         }
 
-        $content = [];
-        foreach ($data as $item) {
-            $transformedResource = $this->transformResource($transformation, $item, $relationshipName, $defaultRelationships);
+        $result = [];
+        foreach ($object as $item) {
+            $resourceIdentifier = $this->transformResourceIdentifier($transformation, $resourceTransformer, $data, $item, $defaultRelationships);
 
-            if ($transformedResource !== null) {
-                $content[] = $transformedResource;
+            if ($resourceIdentifier !== null) {
+                $result[] = $resourceIdentifier;
             }
         }
 
-        return $content;
+        return $result;
     }
 }

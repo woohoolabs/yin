@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class StubResourceTransformer extends AbstractResourceTransformer
+class StubResource extends AbstractResource
 {
     /**
      * @var string

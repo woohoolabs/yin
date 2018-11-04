@@ -1,24 +1,23 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
+namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class ContactResourceTransformer extends AbstractResourceTransformer
+class RepresentativeResource extends AbstractResource
 {
     /**
      * Provides information about the "type" member of the current resource.
      *
      * The method returns the type of the current resource.
      *
-     * @param array $contact
+     * @param array $representative
      */
-    public function getType($contact): string
+    public function getType($representative): string
     {
-        return "contacts";
+        return "representatives";
     }
 
     /**
@@ -26,11 +25,11 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      *
      * The method returns the ID of the current resource which should be a UUID.
      *
-     * @param array $contact
+     * @param array $representative
      */
-    public function getId($contact): string
+    public function getId($representative): string
     {
-        return (string) $contact["id"];
+        return (string) $representative["id"];
     }
 
     /**
@@ -39,9 +38,9 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * The method returns an array of non-standard meta information about the resource. If
      * this array is empty, the member won't appear in the response.
      *
-     * @param array $contact
+     * @param array $representative
      */
-    public function getMeta($contact): array
+    public function getMeta($representative): array
     {
         return [];
     }
@@ -52,21 +51,11 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * The method returns a new ResourceLinks object if you want to provide linkage
      * data about the resource or null if it should be omitted from the response.
      *
-     * @param array $contact
+     * @param array $representative
      */
-    public function getLinks($contact): ?ResourceLinks
+    public function getLinks($representative): ?ResourceLinks
     {
-        return ResourceLinks::createWithoutBaseUri(new Link("/?path=/contacts/" . $this->getId($contact)));
-    }
-
-    /**
-     * Returns an array of relationship names which are included in the response by default.
-     *
-     * @param array $contact
-     */
-    public function getDefaultIncludedRelationships($contact): array
-    {
-        return [];
+        return null;
     }
 
     /**
@@ -76,16 +65,29 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * while the values are callables receiving the domain object as an argument,
      * and they should return the value of the corresponding attribute.
      *
-     * @param array $contact
+     * @param array $representative
      * @return callable[]
      */
-    public function getAttributes($contact): array
+    public function getAttributes($representative): array
     {
         return [
-            $contact["type"] => function (array $contact) {
-                return $contact["value"];
+            "name" => function (array $representative) {
+                return $representative["name"];
+            },
+            "email" => function (array $representative) {
+                return $representative["email"];
             },
         ];
+    }
+
+    /**
+     * Returns an array of relationship names which are included in the response by default.
+     *
+     * @param array $representative
+     */
+    public function getDefaultIncludedRelationships($representative): array
+    {
+        return [];
     }
 
     /**
@@ -95,10 +97,10 @@ class ContactResourceTransformer extends AbstractResourceTransformer
      * while the values are callables receiving the domain object as an argument,
      * and they should return a new relationship instance (to-one or to-many).
      *
-     * @param array $contact
+     * @param array $representative
      * @return callable[]
      */
-    public function getRelationships($contact): array
+    public function getRelationships($representative): array
     {
         return [];
     }

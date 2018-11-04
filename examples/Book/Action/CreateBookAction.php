@@ -6,10 +6,10 @@ namespace WoohooLabs\Yin\Examples\Book\Action;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BookDocument;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator\BookHydator;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResourceTransformer;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResource;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResource;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResource;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
 class CreateBookAction
@@ -21,10 +21,10 @@ class CreateBookAction
 
         // Instantiating a book document
         $document = new BookDocument(
-            new BookResourceTransformer(
-                new AuthorResourceTransformer(),
-                new PublisherResourceTransformer(
-                    new RepresentativeResourceTransformer()
+            new BookResource(
+                new AuthorResource(),
+                new PublisherResource(
+                    new RepresentativeResource()
                 )
             )
         );

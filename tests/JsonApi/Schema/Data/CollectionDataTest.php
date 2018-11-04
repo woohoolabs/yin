@@ -20,7 +20,7 @@ class CollectionDataTest extends TestCase
             [
                 ["type" => "user", "id" => "1"]
             ],
-            $data->transformPrimaryResources()
+            $data->transformPrimaryData()
         );
     }
 
@@ -48,7 +48,7 @@ class CollectionDataTest extends TestCase
                 ["type" => "dog", "id" => "3"],
                 ["type" => "user", "id" => "3"],
             ],
-            $data->transformPrimaryResources()
+            $data->transformPrimaryData()
         );
     }
 }

@@ -8,6 +8,8 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
 
 class StubSuccessfulDocument extends AbstractSuccessfulDocument
 {
@@ -65,20 +67,17 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         return $this->links;
     }
 
-    protected function createData(): DataInterface
+    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         return $this->data ?? new DummyData();
     }
 
-    protected function fillData(Transformation $transformation): void
+    protected function fillData(Transformation $documentTransformation): void
     {
     }
 
-    protected function getRelationshipMember(
-        string $relationshipName,
-        Transformation $transformation,
-        array $additionalMeta = []
-    ): array {
+    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    {
         return $this->relationshipResponseContent;
     }
 }

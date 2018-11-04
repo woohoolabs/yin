@@ -8,63 +8,60 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\SuccessfulDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 
 class Responder extends AbstractResponder
 {
     public static function create(
         RequestInterface $request,
         ResponseInterface $response,
+        DocumentTransformer $documentTransformer,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer
     ): Responder {
-        return new Responder($request, $response, $exceptionFactory, $serializer);
+        return new Responder($request, $response, $documentTransformer, $exceptionFactory, $serializer);
     }
 
     /**
      * Returns a "200 Ok" response, containing a document in the body with the resource.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
-    public function ok(
-        AbstractSuccessfulDocument $document,
-        $domainObject,
-        array $additionalMeta = []
-    ): ResponseInterface {
-        return $this->getResponse($document, $domainObject, 200, $additionalMeta);
+    public function ok(SuccessfulDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
+    {
+        return $this->getResponse($document, $object, 200, $additionalMeta);
     }
 
     /**
      * Returns a "200 Ok" response, containing a document in the body with the resource metadata.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
-    public function okWithMeta(
-        AbstractSuccessfulDocument $document,
-        $domainObject,
-        array $additionalMeta = []
-    ): ResponseInterface {
-        return $this->getMetaResponse($document, $domainObject, 200, $additionalMeta);
+    public function okWithMeta(AbstractSuccessfulDocument $document, $object, array $additionalMeta = []): ResponseInterface
+    {
+        return $this->getMetaResponse($document, $object, 200, $additionalMeta);
     }
 
     /**
      * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
     public function okWithRelationship(
         string $relationshipName,
         AbstractSuccessfulDocument $document,
-        $domainObject,
+        $object,
         array $additionalMeta = []
     ): ResponseInterface {
         return $this->getRelationshipResponse(
             $relationshipName,
             $document,
-            $domainObject,
+            $object,
             200,
             $additionalMeta
         );
@@ -74,14 +71,14 @@ class Responder extends AbstractResponder
      * Returns a "201 Created" response, containing a document in the body with the newly created resource. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
     public function created(
         AbstractSuccessfulDocument $document,
-        $domainObject,
+        $object,
         array $additionalMeta = []
     ): ResponseInterface {
-        $response = $this->getResponse($document, $domainObject, 201, $additionalMeta);
+        $response = $this->getResponse($document, $object, 201, $additionalMeta);
 
         $links = $document->getLinks();
         if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
@@ -95,14 +92,14 @@ class Responder extends AbstractResponder
      * Returns a "201 Created" response, containing a document in the body with the newly created resource metadata.
      * You can also pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
     public function createdWithMeta(
         AbstractSuccessfulDocument $document,
-        $domainObject,
+        $object,
         array $additionalMeta = []
     ): ResponseInterface {
-        $response = $this->getMetaResponse($document, $domainObject, 201, $additionalMeta);
+        $response = $this->getMetaResponse($document, $object, 201, $additionalMeta);
 
         $links = $document->getLinks();
         if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
@@ -116,18 +113,18 @@ class Responder extends AbstractResponder
      * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
      *
-     * @param mixed $domainObject
+     * @param mixed $object
      */
     public function createdWithRelationship(
         string $relationshipName,
         AbstractSuccessfulDocument $document,
-        $domainObject,
+        $object,
         array $additionalMeta = []
     ): ResponseInterface {
         return $this->getRelationshipResponse(
             $relationshipName,
             $document,
-            $domainObject,
+            $object,
             201,
             $additionalMeta
         );

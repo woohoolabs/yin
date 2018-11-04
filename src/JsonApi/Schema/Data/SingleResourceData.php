@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
 class SingleResourceData extends AbstractData
 {
-    public function transformPrimaryResources(): ?iterable
+    public function transformPrimaryData(): ?iterable
     {
         if ($this->hasPrimaryResources() === false) {
             return null;

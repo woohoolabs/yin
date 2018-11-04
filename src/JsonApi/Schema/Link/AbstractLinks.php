@@ -24,6 +24,9 @@ abstract class AbstractLinks
         $this->links = $links;
     }
 
+    /**
+     * @internal
+     */
     public function transform(): array
     {
         $links = [];

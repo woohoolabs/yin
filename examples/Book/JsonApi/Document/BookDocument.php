@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
 
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResource;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
@@ -11,9 +11,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 
 class BookDocument extends AbstractSingleResourceDocument
 {
-    public function __construct(BookResourceTransformer $transformer)
+    public function __construct(BookResource $resource)
     {
-        parent::__construct($transformer);
+        parent::__construct($resource);
     }
 
     /**

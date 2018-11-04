@@ -6,7 +6,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
 {
@@ -20,22 +21,18 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
 
     abstract protected function getResource(): array;
 
-    protected function createData(): DataInterface
+    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
-        return new SingleResourceData();
+        $data = new SingleResourceData();
+
+        $data->addPrimaryResource($this->getResource());
+
+        return $data;
     }
 
-    protected function fillData(Transformation $transformation): void
+    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
     {
-        $transformation->data->addPrimaryResource($this->getResource());
-    }
-
-    protected function getRelationshipMember(
-        string $relationshipName,
-        Transformation $transformation,
-        array $additionalMeta = []
-    ): array {
-        $relationship = $this->getRelationshipFromResource($this->getResource(), $relationshipName);
+        $relationship = $this->getRelationshipFromResource($this->getResource(), $transformation->requestedRelationshipName);
 
         if ($relationship === null) {
             $relationship = [];
@@ -52,7 +49,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
             return null;
         }
 
-        if (is_array($resource["relationships"][$relationshipName]) === false) {
+        if (\is_array($resource["relationships"][$relationshipName]) === false) {
             return null;
         }
 

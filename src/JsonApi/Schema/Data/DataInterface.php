@@ -35,7 +35,7 @@ interface DataInterface
      */
     public function addIncludedResource(array $transformedResource);
 
-    public function transformPrimaryResources(): ?iterable;
+    public function transformPrimaryData(): ?iterable;
 
-    public function transformIncludedResources(): iterable;
+    public function transformIncluded(): iterable;
 }

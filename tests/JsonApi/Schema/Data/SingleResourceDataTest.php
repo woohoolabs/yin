@@ -96,7 +96,7 @@ class SingleResourceDataTest extends TestCase
     {
         $data = $this->createData();
 
-        $this->assertEquals([], $data->transformIncludedResources());
+        $this->assertEquals([], $data->transformIncluded());
     }
 
     /**
@@ -120,7 +120,7 @@ class SingleResourceDataTest extends TestCase
                 ["type" => "resource", "id" => "1"],
                 ["type" => "item", "id" => "2"],
             ],
-            $data->transformIncludedResources()
+            $data->transformIncluded()
         );
     }
 
@@ -133,7 +133,7 @@ class SingleResourceDataTest extends TestCase
 
         $data->addPrimaryResource(["type" => "user", "id" => "1"]);
 
-        $this->assertEquals(["type" => "user", "id" => "1"], $data->transformPrimaryResources());
+        $this->assertEquals(["type" => "user", "id" => "1"], $data->transformPrimaryData());
     }
 
     /**
@@ -153,7 +153,7 @@ class SingleResourceDataTest extends TestCase
             ]
         );
 
-        $this->assertEquals(["type" => "user", "id" => "1"], $data->transformPrimaryResources());
+        $this->assertEquals(["type" => "user", "id" => "1"], $data->transformPrimaryData());
     }
 
     private function createData(): SingleResourceData

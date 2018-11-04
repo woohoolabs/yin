@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class AuthorResourceTransformer extends AbstractResourceTransformer
+class AuthorResource extends AbstractResource
 {
     /**
      * Provides information about the "type" member of the current resource.

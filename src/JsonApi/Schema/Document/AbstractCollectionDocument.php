@@ -5,62 +5,72 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceTransformerInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var ResourceTransformerInterface
+     * @var ResourceInterface
      */
-    protected $transformer;
+    protected $resource;
 
     /**
-     * @param ResourceTransformerInterface $transformer
+     * Provides information about the "links" member of the current document.
+     *
+     * The method returns a new Links object if you want to provide linkage data
+     * for the document or null if the member should be omitted from the response.
      */
-    public function __construct(ResourceTransformerInterface $transformer)
+    abstract public function getLinks(): ?DocumentLinks;
+
+    public function __construct(ResourceInterface $resource)
     {
-        $this->transformer = $transformer;
+        $this->resource = $resource;
     }
 
-    protected function createData(): DataInterface
+    public function getResource(): ResourceInterface
     {
-        return new CollectionData();
+        return $this->resource;
     }
 
-    protected function hasItems(): bool
+    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
-        return empty($this->getItems()) === false;
-    }
+        $resourceTransformation = new ResourceTransformation(
+            $this->getResource(),
+            null,
+            "",
+            $transformation->request,
+            $transformation->basePath,
+            $transformation->requestedRelationshipName,
+            "",
+            $transformation->exceptionFactory
+        );
+        $data = new CollectionData();
 
-    protected function getItems(): iterable
-    {
-        return $this->domainObject;
-    }
-
-    protected function fillData(Transformation $transformation): void
-    {
         foreach ($this->getItems() as $item) {
-            $resource = $this->transformer->transformToResource($transformation, $item);
+            $resourceTransformation->object = $item;
 
-            if ($resource !== null) {
-                $transformation->data->addPrimaryResource($resource);
+            $resourceObject = $transformer->transformToResourceObject($resourceTransformation, $data);
+            if ($resourceObject !== null) {
+                $data->addPrimaryResource($resourceObject);
             }
         }
+
+        return $data;
     }
 
-    protected function getRelationshipMember(
-        string $relationshipName,
-        Transformation $transformation,
-        array $additionalMeta = []
-    ): array {
+    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    {
         if ($this->hasItems() === false) {
             return [];
         }
 
         $result = [];
         foreach ($this->getItems() as $item) {
-            $transformedRelationship = $this->transformer->transformRelationship(
+            $transformedRelationship = $this->resource->transformRelationship(
                 $relationshipName,
                 $transformation,
                 $item,
@@ -73,5 +83,15 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         }
 
         return $result;
+    }
+
+    protected function hasItems(): bool
+    {
+        return empty($this->getItems()) === false;
+    }
+
+    protected function getItems(): iterable
+    {
+        return $this->object;
     }
 }

@@ -15,6 +15,7 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
+use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 
 class JsonApi
 {
@@ -38,6 +39,11 @@ class JsonApi
      */
     protected $serializer;
 
+    /**
+     * @var DocumentTransformer
+     */
+    public $documentTransformer;
+
     public function __construct(
         RequestInterface $request,
         ResponseInterface $response,
@@ -48,6 +54,7 @@ class JsonApi
         $this->response = $response;
         $this->exceptionFactory = $exceptionFactory ?? new DefaultExceptionFactory();
         $this->serializer = $serializer ?? new JsonSerializer();
+        $this->documentTransformer = new DocumentTransformer();
     }
 
     public function getRequest(): RequestInterface
@@ -82,28 +89,28 @@ class JsonApi
 
     public function respond(): Responder
     {
-        return new Responder($this->request, $this->response, $this->exceptionFactory, $this->serializer);
+        return new Responder($this->request, $this->response, $this->documentTransformer, $this->exceptionFactory, $this->serializer);
     }
 
     /**
-     * @param mixed $domainObject
+     * @param mixed $object
      * @return mixed
      */
-    public function hydrate(HydratorInterface $hydrator, $domainObject)
+    public function hydrate(HydratorInterface $hydrator, $object)
     {
-        return $hydrator->hydrate($this->request, $this->exceptionFactory, $domainObject);
+        return $hydrator->hydrate($this->request, $this->exceptionFactory, $object);
     }
 
     /**
-     * @param mixed $domainObject
+     * @param mixed $object
      * @return mixed
      */
     public function hydrateRelationship(
         string $relationship,
         UpdateRelationshipHydratorInterface $hydrator,
-        $domainObject
+        $object
     ) {
-        return $hydrator->hydrateRelationship($relationship, $this->request, $this->exceptionFactory, $domainObject);
+        return $hydrator->hydrateRelationship($relationship, $this->request, $this->exceptionFactory, $object);
     }
 
     /**

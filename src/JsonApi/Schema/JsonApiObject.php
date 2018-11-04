@@ -18,6 +18,11 @@ class JsonApiObject
         $this->meta = $meta;
     }
 
+    public function getVersion(): string
+    {
+        return $this->version;
+    }
+
     public function transform(): array
     {
         $result = [];
@@ -31,10 +36,5 @@ class JsonApiObject
         }
 
         return $result;
-    }
-
-    public function getVersion(): string
-    {
-        return $this->version;
     }
 }

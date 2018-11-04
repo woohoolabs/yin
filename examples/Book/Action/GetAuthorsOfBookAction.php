@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Examples\Book\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\Examples\Book\JsonApi\Document\AuthorsDocument;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResourceTransformer;
+use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
 use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 
@@ -20,7 +20,7 @@ class GetAuthorsOfBookAction
         $authors = BookRepository::getAuthorsOfBook($bookId);
 
         // Instantiating an authors document
-        $document = new AuthorsDocument(new AuthorResourceTransformer(), $bookId);
+        $document = new AuthorsDocument(new AuthorResource(), $bookId);
 
         // Responding with "200 Ok" status code along with the requested authors document
         return $jsonApi->respond()->ok($document, $authors);

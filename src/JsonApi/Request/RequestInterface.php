@@ -66,11 +66,7 @@ interface RequestInterface extends ServerRequestInterface
      * Determines if a given relationship name that is a child of the $baseRelationshipPath should be included
      * in the response.
      */
-    public function isIncludedRelationship(
-        string $baseRelationshipPath,
-        string $relationshipName,
-        array $defaultRelationships
-    ): bool;
+    public function isIncludedRelationship(string $baseRelationshipPath, string $relationshipName, array $defaultRelationships): bool;
 
     /**
      * Returns the "sort[]" query parameters.
@@ -104,10 +100,7 @@ interface RequestInterface extends ServerRequestInterface
      * The OffsetBasedPagination class stores the value of the "page[offset]" and "page[limit]" query parameters
      * if present or the $defaultOffset and $defaultLimit otherwise.
      */
-    public function getOffsetBasedPagination(
-        ?int $defaultOffset = null,
-        ?int $defaultLimit = null
-    ): OffsetBasedPagination;
+    public function getOffsetBasedPagination(?int $defaultOffset = null, ?int $defaultLimit = null): OffsetBasedPagination;
 
     /**
      * Returns a CursorBasedPagination class in order to be used for cursor-based pagination.

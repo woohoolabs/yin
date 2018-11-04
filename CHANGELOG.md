@@ -15,13 +15,14 @@ CHANGED:
 `WoohooLabs\Yin\JsonApi\Document` to the `WoohooLabs\Yin\JsonApi\Schema\Document` namespace (__BREAKING__)
 - Moved classes related to resources (`AbstractResourceTransformer` etc.) from `WoohooLabs\Yin\JsonApi\Transformer` to the
 `WoohooLabs\Yin\JsonApi\Schema\Resource` namespace (__BREAKING__)
+- Renamed `AbstractResourceTransformer` to `AbstractResource` (__BREAKING__)
 - Moved classes related to errors (`Error`, `ErrorSource`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Error` namespace (__BREAKING__)
 - Moved classes related to links (`Links`, `Link`, `LinkObject`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
 - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links` (__BREAKING__)
 - `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
 - `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
 - `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links` (__BREAKING__)
-- `AbstractResourceTransformer::getLinks()` returns `?ResourceLinks` instead of `Links` (__BREAKING__)
+- `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links` (__BREAKING__)
 - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links` (__BREAKING__)
 - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links` (__BREAKING__)
 

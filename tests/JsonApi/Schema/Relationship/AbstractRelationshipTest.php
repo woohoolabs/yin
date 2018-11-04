@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractRelationshipTest extends TestCase
 {
@@ -20,7 +20,7 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $relationship->setData(["id" => 1], new StubResourceTransformer());
+        $relationship->setData(["id" => 1], new StubResource());
         $this->assertEquals(
             ["id" => 1],
             $relationship->getRetrieveData()
@@ -38,7 +38,7 @@ class AbstractRelationshipTest extends TestCase
             function () {
                 return ["id" => 1];
             },
-            new StubResourceTransformer()
+            new StubResource()
         );
         $this->assertEquals(
             ["id" => 1],

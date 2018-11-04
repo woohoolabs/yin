@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Document;
 
-use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResourceTransformer;
+use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResource;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class UsersDocument extends AbstractCollectionDocument
 {
-    public function __construct(UserResourceTransformer $transformer)
+    public function __construct(UserResource $transformer)
     {
         parent::__construct($transformer);
     }
