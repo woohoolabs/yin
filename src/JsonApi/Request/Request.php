@@ -108,7 +108,7 @@ class Request implements RequestInterface
     /**
      * Validates if the current request's query parameters conform to the JSON:API schema.
      *
-     * According to the JSON API specification "Implementation specific query parameters MUST
+     * According to the JSON:API specification "Implementation specific query parameters MUST
      * adhere to the same constraints as member names with the additional requirement that they
      * MUST contain at least one non a-z character (U+0061 to U+007A)".
      *

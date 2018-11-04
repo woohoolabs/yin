@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 final class ResourceTransformer
 {
     /**
-     * Transforms the original resource to a JSON API resource object.
+     * Transforms the original resource to a JSON:API resource object.
      */
     public function transformToResourceObject(ResourceTransformation $transformation, DataInterface $data): ?array
     {
@@ -30,7 +30,7 @@ final class ResourceTransformer
     }
 
     /**
-     * Transforms the original resource to a JSON API resource object.
+     * Transforms the original resource to a JSON:API resource object.
      */
     public function transformToResourceIdentifier(ResourceTransformation $transformation): ?array
     {

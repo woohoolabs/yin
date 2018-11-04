@@ -88,7 +88,7 @@ trait UpdateHydratorTrait
      * Hydrates the domain object from the updating request.
      *
      * The domain object's attributes and relationships are hydrated
-     * according to the JSON API specification.
+     * according to the JSON:API specification.
      *
      * @param mixed $domainObject
      * @return mixed

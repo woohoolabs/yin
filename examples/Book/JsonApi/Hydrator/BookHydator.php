@@ -55,7 +55,7 @@ class BookHydator extends AbstractHydrator
     /**
      * Produces a new ID for the domain objects.
      *
-     * UUID-s are preferred according to the JSON API specification.
+     * UUID-s are preferred according to the JSON:API specification.
      */
     protected function generateId(): string
     {

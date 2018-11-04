@@ -43,7 +43,7 @@ trait CreateHydratorTrait
     /**
      * Produces a new ID for the domain objects.
      *
-     * UUID-s are preferred according to the JSON API specification.
+     * UUID-s are preferred according to the JSON:API specification.
      *
      * @return string
      */
@@ -81,7 +81,7 @@ trait CreateHydratorTrait
      * Hydrates the domain object from the creating request.
      *
      * The domain object's attributes and relationships are hydrated
-     * according to the JSON API specification.
+     * according to the JSON:API specification.
      *
      * @param mixed $domainObject
      * @return mixed
