@@ -120,8 +120,8 @@ class UserResourceTransformer extends AbstractResourceTransformer
                     ToManyRelationship::create()
                         ->setLinks(
                             Links::createWithoutBaseUri([
-                                "related" => new Link("/?path=/users/" . $user["id"] . "/contacts"),
-                                "self" => new Link("/?path=/users/" . $user["id"] . "/relationships/contacts")
+                                "related" => new Link("/users/" . $user["id"] . "/contacts"),
+                                "self" => new Link("/users/" . $user["id"] . "/relationships/contacts")
                             ])
                         )
                         ->setDataAsCallable(function () use ($user) {

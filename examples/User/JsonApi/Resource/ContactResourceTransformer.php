@@ -58,7 +58,7 @@ class ContactResourceTransformer extends AbstractResourceTransformer
     {
         return Links::createWithoutBaseUri(
             [
-                "self" => new Link("/?path=/contacts/" . $this->getId($contact))
+                "self" => new Link("/contacts/" . $this->getId($contact))
             ]
         );
     }

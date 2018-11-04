@@ -45,6 +45,6 @@ class UsersDocument extends AbstractCollectionDocument
      */
     public function getLinks(): ?Links
     {
-        return Links::createWithoutBaseUri()->setPagination("/?path=/users", $this->domainObject);
+        return Links::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
     }
 }

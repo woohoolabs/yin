@@ -85,7 +85,7 @@ class BookResourceTransformer extends AbstractResourceTransformer
 
     public function getSelfLinkHref(array $book): string
     {
-        return "/?path=/books/" . $this->getId($book);
+        return "/books/" . $this->getId($book);
     }
 
     /**
