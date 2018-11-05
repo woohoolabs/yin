@@ -23,7 +23,7 @@ class ResponseValidatorTest extends TestCase
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->lintBody($response);
+        $validator->validateJsonBody($response);
         $this->assertTrue(true);
     }
 
@@ -38,7 +38,7 @@ class ResponseValidatorTest extends TestCase
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $this->expectException(ResponseBodyInvalidJson::class);
-        $validator->lintBody($response);
+        $validator->validateJsonBody($response);
     }
 
     /**
@@ -62,7 +62,7 @@ EOF
         );
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
         $this->assertTrue(true);
     }
 
@@ -75,7 +75,7 @@ EOF
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
         $this->assertTrue(true);
     }
 
@@ -90,6 +90,6 @@ EOF
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $this->expectException(ResponseBodyInvalidJsonApi::class);
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
     }
 }

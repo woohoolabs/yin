@@ -29,9 +29,9 @@ class ResponseValidator extends AbstractMessageValidator
     /**
      * @throws ResponseBodyInvalidJson|JsonApiExceptionInterface
      */
-    public function lintBody(ResponseInterface $response): void
+    public function validateJsonBody(ResponseInterface $response): void
     {
-        $errorMessage = $this->lintMessage($this->deserializer->getBodyAsString($response));
+        $errorMessage = $this->validateJsonMessage($this->deserializer->getBodyAsString($response));
 
         if (empty($errorMessage) === false) {
             throw $this->exceptionFactory->createResponseBodyInvalidJsonException(
@@ -45,9 +45,9 @@ class ResponseValidator extends AbstractMessageValidator
     /**
      * @throws ResponseBodyInvalidJsonApi|JsonApiExceptionInterface
      */
-    public function validateBody(ResponseInterface $response): void
+    public function validateJsonApiBody(ResponseInterface $response): void
     {
-        $errors = $this->validateMessage($this->deserializer->getBodyAsString($response));
+        $errors = $this->validateJsonApiMessage($this->deserializer->getBodyAsString($response));
 
         if (empty($errors) === false) {
             throw $this->exceptionFactory->createResponseBodyInvalidJsonApiException(

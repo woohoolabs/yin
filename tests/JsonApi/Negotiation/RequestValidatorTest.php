@@ -131,7 +131,7 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->lintBody($request);
+        $response = $validator->validateJsonBody($request);
 
         $this->assertNull($response);
     }
@@ -147,7 +147,7 @@ class RequestValidatorTest extends TestCase
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->lintBody($request);
+        $response = $validator->validateJsonBody($request);
 
         $this->assertNull($response);
     }
@@ -164,7 +164,7 @@ class RequestValidatorTest extends TestCase
         $validator = $this->createRequestValidator();
 
         $this->expectException(RequestBodyInvalidJson::class);
-        $validator->lintBody($request);
+        $validator->validateJsonBody($request);
     }
 
     public function createServerRequest($contentType, $accept = "")

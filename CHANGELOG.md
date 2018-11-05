@@ -26,6 +26,9 @@ CHANGED:
 - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links` (__BREAKING__)
 - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links` (__BREAKING__)
 - Renamed `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()` (__BREAKING__)
+- Renamed `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()` (__BREAKING__)
+- Renamed `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()` (__BREAKING__)
+- Renamed `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()` (__BREAKING__)
 
 REMOVED:
 

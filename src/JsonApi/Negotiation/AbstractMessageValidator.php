@@ -28,7 +28,7 @@ abstract class AbstractMessageValidator
         $this->includeOriginalMessage = $includeOriginalMessageInResponse;
     }
 
-    protected function lintMessage(string $message): string
+    protected function validateJsonMessage(string $message): string
     {
         if (empty($message)) {
             return "";
@@ -44,7 +44,7 @@ abstract class AbstractMessageValidator
         return "";
     }
 
-    protected function validateMessage(string $message): array
+    protected function validateJsonApiMessage(string $message): array
     {
         if (empty($message)) {
             return [];
