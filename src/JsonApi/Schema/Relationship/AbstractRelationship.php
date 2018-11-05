@@ -181,8 +181,6 @@ abstract class AbstractRelationship
         }
 
         if (($transformation->requestedRelationshipName && $transformation->currentRelationshipName !== $transformation->requestedRelationshipName) ||
-            $this->data === null ||
-            $this->resource === null ||
             ($transformation->request->isIncludedRelationship($transformation->basePath, $transformation->currentRelationshipName, $defaultRelationships) === false && $this->omitDataWhenNotIncluded)
         ) {
             return $relationshipObject;

@@ -31,7 +31,7 @@ class ToManyRelationship extends AbstractRelationship
     ): ?array {
         /** @var iterable $object */
         $object = $this->getData();
-        if (empty($object)) {
+        if (empty($object) || $this->resource === null) {
             return [];
         }
 
