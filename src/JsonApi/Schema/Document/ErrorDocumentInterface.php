@@ -21,5 +21,5 @@ interface ErrorDocumentInterface extends DocumentInterface
      */
     public function getErrors(): array;
 
-    public function getResponseCode(): int;
+    public function getStatusCode(): int;
 }

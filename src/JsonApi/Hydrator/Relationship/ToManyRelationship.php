@@ -41,7 +41,6 @@ class ToManyRelationship
     {
         $types = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
-            /** @var ResourceIdentifier $resourceIdentifier */
             $types[] = $resourceIdentifier->getType();
         }
 
@@ -52,7 +51,6 @@ class ToManyRelationship
     {
         $ids = [];
         foreach ($this->resourceIdentifiers as $resourceIdentifier) {
-            /** @var ResourceIdentifier $resourceIdentifier */
             $ids[] = $resourceIdentifier->getId();
         }
 

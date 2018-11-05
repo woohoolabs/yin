@@ -32,7 +32,7 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
         return $this;
     }
 
-    public function getResponseCode(?int $statusCode = null): int
+    public function getStatusCode(?int $statusCode = null): int
     {
         if ($statusCode !== null) {
             return $statusCode;
@@ -44,7 +44,6 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
 
         $responseCode = 500;
         foreach ($this->errors as $error) {
-            /** @var Error $error */
             $roundedStatusCode = (int) (((int)$error->getStatus()) / 100) * 100;
 
             if (abs($responseCode - $roundedStatusCode) >= 100) {
