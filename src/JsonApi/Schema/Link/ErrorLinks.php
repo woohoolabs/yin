@@ -57,14 +57,26 @@ class ErrorLinks extends AbstractLinks
     /**
      * @return Link[]
      */
-    public function getType(): array
+    public function getTypes(): array
     {
-        return $this->types;
+        return array_values($this->types);
     }
 
-    public function addType(?Link $type): ErrorLinks
+    /**
+     * @param Link[] $types
+     */
+    public function setTypes(array $types): ErrorLinks
     {
-        $this->types[] = $type;
+        foreach ($types as $type) {
+            $this->addType($type);
+        }
+
+        return $this;
+    }
+
+    public function addType(Link $type): ErrorLinks
+    {
+        $this->types[$type->getHref()] = $type;
 
         return $this;
     }

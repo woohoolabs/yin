@@ -122,14 +122,14 @@ class DocumentLinks extends AbstractLinks
     /**
      * @return Link[]
      */
-    public function getProfile(): array
+    public function getProfiles(): array
     {
-        return $this->profiles;
+        return array_values($this->profiles);
     }
 
-    public function addProfile(?Link $profile): DocumentLinks
+    public function addProfile(Link $profile): DocumentLinks
     {
-        $this->profiles[] = $profile;
+        $this->profiles[$profile->getHref()] = $profile;
 
         return $this;
     }

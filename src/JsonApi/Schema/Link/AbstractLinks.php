@@ -16,12 +16,17 @@ abstract class AbstractLinks
     protected $links;
 
     /**
-     * @param Link[] $links
+     * @param Link[]|null[] $links
      */
     public function __construct(string $baseUri = "", array $links = [])
     {
         $this->baseUri = $baseUri;
-        $this->links = $links;
+
+        foreach ($links as $name => $link) {
+            if ($link !== null) {
+                $this->addLink($name, $link);
+            }
+        }
     }
 
     public function getBaseUri(): string
@@ -34,11 +39,6 @@ abstract class AbstractLinks
         return $this->links[$name] ?? null;
     }
 
-    protected function addLink(string $name, ?Link $link): void
-    {
-        $this->links[$name] = $link;
-    }
-
     /**
      * @internal
      */
@@ -47,9 +47,14 @@ abstract class AbstractLinks
         $links = [];
 
         foreach ($this->links as $rel => $link) {
-            $links[$rel] = $links[$rel] ? $link->transform($this->baseUri) : null;
+            $links[$rel] = $link !== null ? $link->transform($this->baseUri) : null;
         }
 
         return $links;
+    }
+
+    protected function addLink(string $name, ?Link $link): void
+    {
+        $this->links[$name] = $link;
     }
 }

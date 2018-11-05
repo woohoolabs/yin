@@ -86,7 +86,7 @@ class ErrorLinksTest extends TestCase
     public function getTypeWhenEmpty()
     {
         $linksObject = $this->createErrorLinks();
-        $this->assertEquals([], $linksObject->getType());
+        $this->assertEquals([], $linksObject->getTypes());
     }
 
     /**
@@ -97,7 +97,7 @@ class ErrorLinksTest extends TestCase
         $typeLink = new Link("http://example.com/errors/404");
 
         $linksObject = $this->createErrorLinks()->addType($typeLink);
-        $this->assertContains($typeLink, $linksObject->getType());
+        $this->assertContains($typeLink, $linksObject->getTypes());
     }
 
     /**
