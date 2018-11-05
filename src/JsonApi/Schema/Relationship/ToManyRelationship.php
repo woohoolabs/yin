@@ -20,6 +20,9 @@ class ToManyRelationship extends AbstractRelationship
         parent::__construct($meta, $links, $data, $resource);
     }
 
+    /**
+     * @internal
+     */
     protected function transformData(
         ResourceTransformation $transformation,
         ResourceTransformer $resourceTransformer,

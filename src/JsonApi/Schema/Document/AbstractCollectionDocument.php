@@ -36,6 +36,19 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         return $this->resource;
     }
 
+    protected function hasItems(): bool
+    {
+        return empty($this->getItems()) === false;
+    }
+
+    protected function getItems(): iterable
+    {
+        return $this->object;
+    }
+
+    /**
+     * @internal
+     */
     public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         $resourceTransformation = new ResourceTransformation(
@@ -83,15 +96,5 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         }
 
         return $result;
-    }
-
-    protected function hasItems(): bool
-    {
-        return empty($this->getItems()) === false;
-    }
-
-    protected function getItems(): iterable
-    {
-        return $this->object;
     }
 }

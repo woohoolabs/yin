@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
+/**
+ * @internal
+ */
 interface DataInterface
 {
     public function getResource(string $type, string $id): ?array;

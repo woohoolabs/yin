@@ -6,6 +6,9 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 
+/**
+ * @internal
+ */
 final class ResourceTransformer
 {
     /**

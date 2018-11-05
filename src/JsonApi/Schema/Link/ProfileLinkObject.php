@@ -39,6 +39,7 @@ class ProfileLinkObject extends LinkObject
     }
 
     /**
+     * @internal
      * @return array|mixed
      */
     public function transform(string $baseUri)

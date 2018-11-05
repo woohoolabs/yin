@@ -136,6 +136,9 @@ class Error
         return $this;
     }
 
+    /**
+     * @internal
+     */
     public function transform(): array
     {
         $content = [];

@@ -23,6 +23,9 @@ class JsonApiObject
         return $this->version;
     }
 
+    /**
+     * @internal
+     */
     public function transform(): array
     {
         $result = [];

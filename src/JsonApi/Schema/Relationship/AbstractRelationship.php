@@ -39,6 +39,9 @@ abstract class AbstractRelationship
      */
     protected $resource;
 
+    /**
+     * @internal
+     */
     abstract protected function transformData(
         ResourceTransformation $transformation,
         ResourceTransformer $resourceTransformer,
@@ -146,8 +149,8 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @return mixed
      * @internal
+     * @return mixed
      */
     protected function getData()
     {
@@ -194,8 +197,8 @@ abstract class AbstractRelationship
     }
 
     /**
-     * @param mixed $object
      * @internal
+     * @param mixed $object
      */
     protected function transformResourceIdentifier(
         ResourceTransformation $transformation,

@@ -31,6 +31,19 @@ class ErrorSource
         $this->parameter = $parameter;
     }
 
+    public function getPointer(): string
+    {
+        return $this->pointer;
+    }
+
+    public function getParameter(): string
+    {
+        return $this->parameter;
+    }
+
+    /**
+     * @internal
+     */
     public function transform(): array
     {
         $content = [];
@@ -44,15 +57,5 @@ class ErrorSource
         }
 
         return $content;
-    }
-
-    public function getPointer(): string
-    {
-        return $this->pointer;
-    }
-
-    public function getParameter(): string
-    {
-        return $this->parameter;
     }
 }

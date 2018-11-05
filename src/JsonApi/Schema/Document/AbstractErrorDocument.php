@@ -23,7 +23,6 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
     /**
      * Includes a new error in the error document.
      *
-     * @param Error $error
      * @return $this
      */
     public function addError(Error $error)

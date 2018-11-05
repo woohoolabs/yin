@@ -35,17 +35,6 @@ class ErrorLinks extends AbstractLinks
         $this->types = $types;
     }
 
-    public function transform(): array
-    {
-        $links = parent::transform();
-
-        foreach ($this->types as $link) {
-            $links["type"][] = $link ? $link->transform($this->baseUri) : null;
-        }
-
-        return $links;
-    }
-
     public function setBaseUri(string $baseUri): ErrorLinks
     {
         $this->baseUri = $baseUri;
@@ -78,5 +67,19 @@ class ErrorLinks extends AbstractLinks
         $this->types[] = $type;
 
         return $this;
+    }
+
+    /**
+     * @internal
+     */
+    public function transform(): array
+    {
+        $links = parent::transform();
+
+        foreach ($this->types as $link) {
+            $links["type"][] = $link ? $link->transform($this->baseUri) : null;
+        }
+
+        return $links;
     }
 }

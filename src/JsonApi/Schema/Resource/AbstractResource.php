@@ -28,6 +28,7 @@ abstract class AbstractResource implements ResourceInterface
     protected $exceptionFactory;
 
     /**
+     * @internal
      * @param mixed $object
      */
     public function initializeTransformation(ResourceTransformation $transformation): void
@@ -37,6 +38,9 @@ abstract class AbstractResource implements ResourceInterface
         $this->exceptionFactory = $transformation->exceptionFactory;
     }
 
+    /**
+     * @internal
+     */
     public function clearTransformation(): void
     {
         $this->request = null;

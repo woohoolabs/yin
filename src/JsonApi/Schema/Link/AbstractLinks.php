@@ -24,22 +24,6 @@ abstract class AbstractLinks
         $this->links = $links;
     }
 
-    /**
-     * @internal
-     */
-    public function transform(): array
-    {
-        $links = [];
-
-        foreach ($this->links as $rel => $link) {
-            if ($link !== null) {
-                $links[$rel] = $link->transform($this->baseUri);
-            }
-        }
-
-        return $links;
-    }
-
     public function getBaseUri(): string
     {
         return $this->baseUri;
@@ -53,5 +37,19 @@ abstract class AbstractLinks
     protected function addLink(string $name, ?Link $link): void
     {
         $this->links[$name] = $link;
+    }
+
+    /**
+     * @internal
+     */
+    public function transform(): array
+    {
+        $links = [];
+
+        foreach ($this->links as $rel => $link) {
+            $links[$rel] = $links[$rel] ? $link->transform($this->baseUri) : null;
+        }
+
+        return $links;
     }
 }

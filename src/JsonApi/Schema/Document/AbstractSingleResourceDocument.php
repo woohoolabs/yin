@@ -46,6 +46,9 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
         return $this->resource->getId($this->object);
     }
 
+    /**
+     * @internal
+     */
     public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         $resourceTransformation = new ResourceTransformation(
@@ -68,6 +71,9 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
         return $data;
     }
 
+    /**
+     * @internal
+     */
     public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
     {
         $relationship = $this->resource->transformRelationship(
