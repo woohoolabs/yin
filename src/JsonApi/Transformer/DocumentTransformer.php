@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
+use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+
 /**
  * @internal
  */
@@ -46,8 +48,7 @@ final class DocumentTransformer
         $transformation = clone $transformation;
 
         $transformation->document->initializeTransformation($transformation);
-        $this->transformBaseMembers($transformation);
-        $this->transformDataMembers($transformation);
+        $this->transformRelationship($transformation);
         $transformation->document->clearTransformation();
 
         return $transformation;
@@ -76,6 +77,17 @@ final class DocumentTransformer
         $data = $transformation->document->getData($transformation, $this->resourceTransformer);
 
         $transformation->result["data"] = $data->transformPrimaryData();
+
+        if ($data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
+            $transformation->result["included"] = $data->transformIncluded();
+        }
+    }
+
+    private function transformRelationship(SuccessfulDocumentTransformation $transformation): void
+    {
+        $data = new SingleResourceData();
+
+        $transformation->result = $transformation->document->getRelationshipData($transformation, $this->resourceTransformer, $data);
 
         if ($data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
             $transformation->result["included"] = $data->transformIncluded();

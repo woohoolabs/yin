@@ -50,6 +50,28 @@ final class ResourceTransformer
         return $transformation->result;
     }
 
+    /**
+     * Transforms a relationship of the original resource to a JSON:API relationship.
+     */
+    public function transformToRelationshipObject(ResourceTransformation $transformation, DataInterface $data): ?array
+    {
+        $relationships = $transformation->resource->getRelationships($transformation->object);
+        if (empty($relationships)) {
+            return null;
+        }
+
+        $defaultRelationships = $transformation->resource->getDefaultIncludedRelationships($transformation->object);
+
+        $transformation->result = $this->transformRelationshipObject(
+            $transformation,
+            $data,
+            $relationships[$transformation->currentRelationshipName],
+            $defaultRelationships
+        );
+
+        return $transformation->result;
+    }
+
     private function transformResourceIdentifier(ResourceTransformation $transformation): void
     {
         $type = $transformation->resource->getType($transformation->object);
@@ -96,24 +118,39 @@ final class ResourceTransformer
 
         foreach ($relationships as $relationshipName => $relationshipCallback) {
             $transformation->currentRelationshipName = $relationshipName;
+            $relationshipObject = $this->transformRelationshipObject(
+                $transformation,
+                $data,
+                $relationshipCallback,
+                $defaultRelationships
+            );
 
-            if ($transformation->request->isIncludedField($transformation->resourceType, $relationshipName) === false &&
-                $transformation->request->isIncludedRelationship($transformation->basePath, $relationshipName, $defaultRelationships) === false
-            ) {
-                continue;
-            }
-
-            $relationshipCallback = $relationships[$relationshipName];
-            /** @var AbstractRelationship $relationship */
-            $relationship = $relationshipCallback($transformation->object, $transformation->request, $relationshipName);
-
-            $relationshipObject = $relationship->transform($transformation, $this, $data, $defaultRelationships);
             if (empty($relationshipObject) === false) {
                 $transformation->result["relationships"][$relationshipName] = $relationshipObject;
             }
         }
 
         $transformation->currentRelationshipName = "";
+    }
+
+    private function transformRelationshipObject(
+        ResourceTransformation $transformation,
+        DataInterface $data,
+        callable $relationshipCallback,
+        array $defaultRelationships
+    ): ?array {
+        $relationshipName = $transformation->currentRelationshipName;
+
+        if ($transformation->request->isIncludedField($transformation->resourceType, $relationshipName) === false &&
+            $transformation->request->isIncludedRelationship($transformation->basePath, $relationshipName, $defaultRelationships) === false
+        ) {
+            return null;
+        }
+
+        /** @var AbstractRelationship $relationship */
+        $relationship = $relationshipCallback($transformation->object, $transformation->request, $relationshipName);
+
+        return $relationship->transform($transformation, $this, $data, $defaultRelationships);
     }
 
     private function validateRelationships(ResourceTransformation $transformation, array $relationships): void

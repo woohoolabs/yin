@@ -18,7 +18,7 @@ interface SuccessfulDocumentInterface extends DocumentInterface
      */
     public function getLinks(): ?DocumentLinks;
 
-    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array;
+    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array;
 
     /**
      * @internal

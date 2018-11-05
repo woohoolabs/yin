@@ -74,19 +74,19 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @internal
      */
-    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
     {
-        $relationship = $this->resource->transformRelationship(
-            $relationshipName,
-            $transformation,
-            $this->object,
-            $additionalMeta
+        $resourceTransformation = new ResourceTransformation(
+            $this->getResource(),
+            $transformation->object,
+            "",
+            $transformation->request,
+            $transformation->basePath,
+            $transformation->requestedRelationshipName,
+            $transformation->requestedRelationshipName,
+            $transformation->exceptionFactory
         );
 
-        if ($relationship === null) {
-            $relationship = [];
-        }
-
-        return $relationship;
+        return $transformer->transformToRelationshipObject($resourceTransformation, $data);
     }
 }

@@ -104,24 +104,28 @@ abstract class AbstractResponder
     }
 
     /**
-     * @param mixed $domainObject
+     * @param mixed $object
      */
     protected function getRelationshipResponse(
         string $relationshipName,
         AbstractSuccessfulDocument $document,
-        $domainObject,
+        $object,
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $content = $document->getRelationshipContent(
-            $relationshipName,
+        $transformation = new SuccessfulDocumentTransformation(
+            $document,
+            $object,
             $this->request,
-            $this->exceptionFactory,
-            $domainObject,
-            $additionalMeta
+            "",
+            $relationshipName,
+            $additionalMeta,
+            $this->exceptionFactory
         );
 
-        return $this->serializer->serialize($this->response, $statusCode, $content);
+        $transformation = $this->documentTransformer->transformRelationshipDocument($transformation);
+
+        return $this->serializer->serialize($this->response, $statusCode, $transformation->result);
     }
 
     /**

@@ -76,7 +76,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     {
     }
 
-    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    public function getRelationshipData(SuccessfulDocumentTransformation $transformation): array
     {
         return $this->relationshipResponseContent;
     }

@@ -75,26 +75,8 @@ abstract class AbstractCollectionDocument extends AbstractSuccessfulDocument
         return $data;
     }
 
-    public function getRelationshipMember(SuccessfulDocumentTransformation $transformation): array
+    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
     {
-        if ($this->hasItems() === false) {
-            return [];
-        }
-
-        $result = [];
-        foreach ($this->getItems() as $item) {
-            $transformedRelationship = $this->resource->transformRelationship(
-                $relationshipName,
-                $transformation,
-                $item,
-                $additionalMeta
-            );
-
-            if ($transformedRelationship !== null) {
-                $result[] = $transformedRelationship;
-            }
-        }
-
-        return $result;
+        return null;
     }
 }
