@@ -25,3 +25,17 @@ composer-update:
 
 test:
 	docker-compose -f docker-compose.yml up
+
+cs:
+	docker-compose -f docker-compose.yml run yin-php /var/www/vendor/bin/phpcs \
+	    --standard=/var/www/phpcs.xml \
+	    --encoding=UTF-8 \
+	    --report-full \
+	    --extensions=php \
+	   /var/www/src/ /var/www/tests/
+
+cs-fix:
+	docker-compose -f docker-compose.yml run yin-php /var/www/vendor/bin/phpcbf \
+	    --standard=/var/www/phpcs.xml \
+	    --extensions=php \
+	   /var/www/src/ /var/www/tests/
