@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\Response;
 
 class ResponderTest extends TestCase
@@ -21,7 +21,7 @@ class ResponderTest extends TestCase
      */
     public function ok()
     {
-        $document = new StubSuccessfulDocument();
+        $document = new StubResourceDocument();
 
         $response = $this->createResponder()->ok($document, []);
         $this->assertEquals(200, $response->getStatusCode());
@@ -33,7 +33,7 @@ class ResponderTest extends TestCase
     public function okWithMeta()
     {
         $meta = ["abc" => "def"];
-        $document = new StubSuccessfulDocument(null, $meta);
+        $document = new StubResourceDocument(null, $meta);
 
         $response = $this->createResponder()->okWithMeta($document, []);
         $this->assertEquals(200, $response->getStatusCode());
@@ -44,7 +44,7 @@ class ResponderTest extends TestCase
      */
     public function okWithRelationship()
     {
-        $document = new StubSuccessfulDocument();
+        $document = new StubResourceDocument();
 
         $response = $this->createResponder()->okWithRelationship("", $document, []);
         $this->assertEquals(200, $response->getStatusCode());
@@ -55,7 +55,7 @@ class ResponderTest extends TestCase
      */
     public function created()
     {
-        $document = new StubSuccessfulDocument();
+        $document = new StubResourceDocument();
 
         $response = $this->createResponder()->created($document, []);
         $this->assertEquals(201, $response->getStatusCode());
@@ -67,7 +67,7 @@ class ResponderTest extends TestCase
     public function createdWithLinks()
     {
         $href = "http://example.com/users";
-        $document = new StubSuccessfulDocument(null, [], new DocumentLinks("", ["self" => new Link($href)]));
+        $document = new StubResourceDocument(null, [], new DocumentLinks("", ["self" => new Link($href)]));
 
         $response = $this->createResponder()->created($document, []);
         $this->assertEquals([$href], $response->getHeader("location"));
@@ -78,7 +78,7 @@ class ResponderTest extends TestCase
      */
     public function createdWithRelationship()
     {
-        $document = new StubSuccessfulDocument();
+        $document = new StubResourceDocument();
 
         $response = $this->createResponder()->createdWithRelationship("", $document, []);
         $this->assertEquals(201, $response->getStatusCode());

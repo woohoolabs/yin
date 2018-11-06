@@ -12,7 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubSuccessfulDocument;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 
 class AbstractSuccessfulDocumentTest extends TestCase
 {
@@ -223,7 +223,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         ?DataInterface $data = null,
         array $relationshipResponseContent = []
     ): AbstractResourceDocument {
-        return new StubSuccessfulDocument(
+        return new StubResourceDocument(
             $jsonApi,
             $meta,
             $links,

@@ -7,11 +7,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
-class StubSuccessfulDocument extends AbstractResourceDocument
+class StubResourceDocument extends AbstractResourceDocument
 {
     /**
      * @var JsonApiObject|null
@@ -72,12 +71,11 @@ class StubSuccessfulDocument extends AbstractResourceDocument
         return $this->data ?? new DummyData();
     }
 
-    protected function fillData(Transformation $documentTransformation): void
-    {
-    }
-
-    public function getRelationshipData(ResourceDocumentTransformation $transformation): array
-    {
+    public function getRelationshipData(
+        ResourceDocumentTransformation $transformation,
+        ResourceTransformer $transformer,
+        DataInterface $data
+    ): ?array {
         return $this->relationshipResponseContent;
     }
 }
