@@ -6,8 +6,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 {
