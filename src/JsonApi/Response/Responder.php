@@ -8,6 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
@@ -41,7 +42,7 @@ class Responder extends AbstractResponder
      *
      * @param mixed $object
      */
-    public function okWithMeta(AbstractResourceDocument $document, $object, array $additionalMeta = []): ResponseInterface
+    public function okWithMeta(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
     {
         return $this->getMetaResponse($document, $object, 200, $additionalMeta);
     }
@@ -154,10 +155,9 @@ class Responder extends AbstractResponder
      */
     public function forbidden(
         AbstractErrorDocument $document,
-        array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($document, $errors, 403, $additionalMeta);
+        return $this->getErrorResponse($document, 403, $additionalMeta);
     }
 
     /**
@@ -168,10 +168,9 @@ class Responder extends AbstractResponder
      */
     public function notFound(
         AbstractErrorDocument $document,
-        array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($document, $errors, 404, $additionalMeta);
+        return $this->getErrorResponse($document, 404, $additionalMeta);
     }
 
     /**
@@ -182,10 +181,9 @@ class Responder extends AbstractResponder
      */
     public function conflict(
         AbstractErrorDocument $document,
-        array $errors = [],
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($document, $errors, 409, $additionalMeta);
+        return $this->getErrorResponse($document, 409, $additionalMeta);
     }
 
     /**
@@ -203,11 +201,10 @@ class Responder extends AbstractResponder
      * @param Error[] $errors
      */
     public function genericError(
-        AbstractErrorDocument $document,
-        array $errors = [],
+        ErrorDocumentInterface $document,
         ?int $statusCode = null,
         array $additionalMeta = []
     ): ResponseInterface {
-        return $this->getErrorResponse($document, $errors, $statusCode, $additionalMeta);
+        return $this->getErrorResponse($document, $statusCode, $additionalMeta);
     }
 }

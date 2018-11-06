@@ -10,7 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 /**
  * @internal
  */
-class ResourceDocumentTransformation
+class ResourceDocumentTransformation extends AbstractDocumentTransformation
 {
     /**
      * @var ResourceDocumentInterface
@@ -23,11 +23,6 @@ class ResourceDocumentTransformation
     public $object;
 
     /**
-     * @var RequestInterface
-     */
-    public $request;
-
-    /**
      * @var string
      */
     public $basePath;
@@ -36,21 +31,6 @@ class ResourceDocumentTransformation
      * @var string
      */
     public $requestedRelationshipName;
-
-    /**
-     * @var array
-     */
-    public $additionalMeta;
-
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    public $exceptionFactory;
-
-    /**
-     * @var array
-     */
-    public $result = [];
 
     public function __construct(
         ResourceDocumentInterface $document,
@@ -61,12 +41,9 @@ class ResourceDocumentTransformation
         array $additionalMeta,
         ExceptionFactoryInterface $exceptionFactory
     ) {
-        $this->document = $document;
+        parent::__construct($document, $request, $additionalMeta, $exceptionFactory);
         $this->object = $object;
-        $this->request = $request;
         $this->basePath = $basePath;
         $this->requestedRelationshipName = $relationpshipName;
-        $this->additionalMeta = $additionalMeta;
-        $this->exceptionFactory = $exceptionFactory;
     }
 }

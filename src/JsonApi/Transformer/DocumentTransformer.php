@@ -54,7 +54,17 @@ final class DocumentTransformer
         return $transformation;
     }
 
-    private function transformBaseMembers(ResourceDocumentTransformation $transformation): void
+    public function transformErrorDocument(ErrorDocumentTransformation $transformation): ErrorDocumentTransformation
+    {
+        $transformation = clone $transformation;
+
+        $this->transformBaseMembers($transformation);
+        $this->transformErrors($transformation);
+
+        return $transformation;
+    }
+
+    private function transformBaseMembers(AbstractDocumentTransformation $transformation): void
     {
         $jsonApi = $transformation->document->getJsonApi();
         if ($jsonApi !== null) {
@@ -91,6 +101,17 @@ final class DocumentTransformer
 
         if ($data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
             $transformation->result["included"] = $data->transformIncluded();
+        }
+    }
+
+    /**
+     * Returns the content as an array with all the provided members of the error document. You can also pass
+     * additional meta information for the document in the $additionalMeta argument.
+     */
+    private function transformErrors(ErrorDocumentTransformation $transformation): void
+    {
+        foreach ($transformation->document->getErrors() as $error) {
+            $transformation->result["errors"][] = $error->transform();
         }
     }
 }
