@@ -9,9 +9,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
-abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
+abstract class AbstractSingleResourceDocument extends AbstractResourceDocument
 {
     /**
      * @var ResourceInterface
@@ -49,7 +49,7 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @internal
      */
-    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
+    public function getData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         $resourceTransformation = new ResourceTransformation(
             $this->getResource(),
@@ -74,8 +74,11 @@ abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @internal
      */
-    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
-    {
+    public function getRelationshipData(
+        ResourceDocumentTransformation $transformation,
+        ResourceTransformer $transformer,
+        DataInterface $data
+    ): ?array {
         $resourceTransformation = new ResourceTransformation(
             $this->getResource(),
             $transformation->object,

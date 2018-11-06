@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
-class StubSuccessfulDocument extends AbstractSuccessfulDocument
+class StubSuccessfulDocument extends AbstractResourceDocument
 {
     /**
      * @var JsonApiObject|null
@@ -67,7 +67,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
         return $this->links;
     }
 
-    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
+    public function getData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         return $this->data ?? new DummyData();
     }
@@ -76,7 +76,7 @@ class StubSuccessfulDocument extends AbstractSuccessfulDocument
     {
     }
 
-    public function getRelationshipData(SuccessfulDocumentTransformation $transformation): array
+    public function getRelationshipData(ResourceDocumentTransformation $transformation): array
     {
         return $this->relationshipResponseContent;
     }

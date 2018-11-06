@@ -7,12 +7,12 @@ use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\SuccessfulDocumentInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
 abstract class AbstractResponder
 {
@@ -59,12 +59,12 @@ abstract class AbstractResponder
      * @param mixed $object
      */
     protected function getResponse(
-        SuccessfulDocumentInterface $document,
+        ResourceDocumentInterface $document,
         $object,
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $transformation = new SuccessfulDocumentTransformation(
+        $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
             $this->request,
@@ -74,7 +74,7 @@ abstract class AbstractResponder
             $this->exceptionFactory
         );
 
-        $transformation = $this->documentTransformer->transformFullDocument($transformation);
+        $transformation = $this->documentTransformer->transformResourceDocument($transformation);
 
         return $this->serializer->serialize($this->response, $statusCode, $transformation->result);
     }
@@ -83,12 +83,12 @@ abstract class AbstractResponder
      * @param mixed $object
      */
     protected function getMetaResponse(
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $transformation = new SuccessfulDocumentTransformation(
+        $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
             $this->request,
@@ -108,12 +108,12 @@ abstract class AbstractResponder
      */
     protected function getRelationshipResponse(
         string $relationshipName,
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         int $statusCode,
         array $additionalMeta = []
     ): ResponseInterface {
-        $transformation = new SuccessfulDocumentTransformation(
+        $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
             $this->request,

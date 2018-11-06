@@ -48,7 +48,7 @@ class ResponseValidatorTest extends TestCase
     {
         $response = new Response();
         $response->getBody()->write(
-<<<EOF
+            <<<EOF
 {
   "data": {
     "type": "articles",

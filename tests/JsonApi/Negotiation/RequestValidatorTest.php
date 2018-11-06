@@ -91,8 +91,7 @@ class RequestValidatorTest extends TestCase
                     "sort" => "asc",
                     "page" => "1",
                     "filter" => "search",
-                ]
-            ));
+                ]));
 
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();

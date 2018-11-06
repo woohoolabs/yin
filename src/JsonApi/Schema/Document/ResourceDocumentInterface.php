@@ -6,9 +6,9 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
-interface SuccessfulDocumentInterface extends DocumentInterface
+interface ResourceDocumentInterface extends DocumentInterface
 {
     /**
      * Provides information about the "links" member of the current document.
@@ -18,17 +18,21 @@ interface SuccessfulDocumentInterface extends DocumentInterface
      */
     public function getLinks(): ?DocumentLinks;
 
-    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array;
+    public function getRelationshipData(
+        ResourceDocumentTransformation $transformation,
+        ResourceTransformer $transformer,
+        DataInterface $data
+    ): ?array;
 
     /**
      * @internal
      */
-    public function initializeTransformation(SuccessfulDocumentTransformation $transformation): void;
+    public function initializeTransformation(ResourceDocumentTransformation $transformation): void;
 
     /**
      * @internal
      */
-    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface;
+    public function getData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface;
 
     /**
      * @internal

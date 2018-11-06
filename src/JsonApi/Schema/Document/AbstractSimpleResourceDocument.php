@@ -7,9 +7,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
-abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
+abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 {
     /**
      * Provides information about the "links" member of the current document.
@@ -24,7 +24,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @internal
      */
-    public function getData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
+    public function getData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer): DataInterface
     {
         $data = new SingleResourceData();
 
@@ -36,7 +36,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractSuccessfulDocument
     /**
      * @internal
      */
-    public function getRelationshipData(SuccessfulDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
+    public function getRelationshipData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
     {
         $relationship = $this->getRelationshipFromResource($this->getResource(), $transformation->requestedRelationshipName);
 

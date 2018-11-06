@@ -5,9 +5,9 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\SuccessfulDocumentTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
-abstract class AbstractSuccessfulDocument implements SuccessfulDocumentInterface
+abstract class AbstractResourceDocument implements ResourceDocumentInterface
 {
     /**
      * @var RequestInterface
@@ -32,7 +32,7 @@ abstract class AbstractSuccessfulDocument implements SuccessfulDocumentInterface
     /**
      * @internal
      */
-    public function initializeTransformation(SuccessfulDocumentTransformation $transformation): void
+    public function initializeTransformation(ResourceDocumentTransformation $transformation): void
     {
         $this->request = $transformation->request;
         $this->object = $transformation->object;

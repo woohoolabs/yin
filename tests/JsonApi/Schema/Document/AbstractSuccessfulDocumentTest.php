@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
@@ -222,7 +222,7 @@ class AbstractSuccessfulDocumentTest extends TestCase
         ?DocumentLinks $links = null,
         ?DataInterface $data = null,
         array $relationshipResponseContent = []
-    ): AbstractSuccessfulDocument {
+    ): AbstractResourceDocument {
         return new StubSuccessfulDocument(
             $jsonApi,
             $meta,

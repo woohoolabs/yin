@@ -5,15 +5,15 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\SuccessfulDocumentInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 
 /**
  * @internal
  */
-class SuccessfulDocumentTransformation
+class ResourceDocumentTransformation
 {
     /**
-     * @var SuccessfulDocumentInterface
+     * @var ResourceDocumentInterface
      */
     public $document;
 
@@ -53,7 +53,7 @@ class SuccessfulDocumentTransformation
     public $result = [];
 
     public function __construct(
-        SuccessfulDocumentInterface $document,
+        ResourceDocumentInterface $document,
         $object,
         RequestInterface $request,
         string $basePath,

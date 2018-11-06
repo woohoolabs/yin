@@ -7,8 +7,8 @@ use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\SuccessfulDocumentInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
@@ -31,7 +31,7 @@ class Responder extends AbstractResponder
      *
      * @param mixed $object
      */
-    public function ok(SuccessfulDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
+    public function ok(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
     {
         return $this->getResponse($document, $object, 200, $additionalMeta);
     }
@@ -41,7 +41,7 @@ class Responder extends AbstractResponder
      *
      * @param mixed $object
      */
-    public function okWithMeta(AbstractSuccessfulDocument $document, $object, array $additionalMeta = []): ResponseInterface
+    public function okWithMeta(AbstractResourceDocument $document, $object, array $additionalMeta = []): ResponseInterface
     {
         return $this->getMetaResponse($document, $object, 200, $additionalMeta);
     }
@@ -54,7 +54,7 @@ class Responder extends AbstractResponder
      */
     public function okWithRelationship(
         string $relationshipName,
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {
@@ -74,7 +74,7 @@ class Responder extends AbstractResponder
      * @param mixed $object
      */
     public function created(
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {
@@ -95,7 +95,7 @@ class Responder extends AbstractResponder
      * @param mixed $object
      */
     public function createdWithMeta(
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {
@@ -117,7 +117,7 @@ class Responder extends AbstractResponder
      */
     public function createdWithRelationship(
         string $relationshipName,
-        AbstractSuccessfulDocument $document,
+        AbstractResourceDocument $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {

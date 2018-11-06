@@ -166,7 +166,11 @@ abstract class AbstractRelationship
         DataInterface $data,
         array $defaultRelationships
     ): ?array {
-        if ($transformation->request->isIncludedField($transformation->resourceType, $transformation->currentRelationshipName) === false) {
+        $requestedRelationshipName = $transformation->requestedRelationshipName;
+        $currentRelationshipName = $transformation->currentRelationshipName;
+        $basePath = $transformation->basePath;
+
+        if ($transformation->request->isIncludedField($transformation->resourceType, $currentRelationshipName) === false) {
             return null;
         }
 
@@ -180,8 +184,13 @@ abstract class AbstractRelationship
             $relationshipObject["meta"] = $this->meta;
         }
 
-        if (($transformation->requestedRelationshipName && $transformation->currentRelationshipName !== $transformation->requestedRelationshipName) ||
-            ($transformation->request->isIncludedRelationship($transformation->basePath, $transformation->currentRelationshipName, $defaultRelationships) === false && $this->omitDataWhenNotIncluded)
+        if ((
+                $requestedRelationshipName && $currentRelationshipName !== $requestedRelationshipName
+            ) ||
+            (
+                $transformation->request->isIncludedRelationship($basePath, $currentRelationshipName, $defaultRelationships) === false &&
+                $this->omitDataWhenNotIncluded
+            )
         ) {
             return $relationshipObject;
         }
