@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Negotiation;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -23,41 +24,35 @@ class RequestValidatorTest extends TestCase
      * Test valid request without Request validation Exceptions
      * @test
      */
-    public function negotiateValidRequest()
+    public function negotiateWhenValidRequest()
     {
-        $serverRequest = $this->getMockForAbstractClass(ServerRequestInterface::class);
-        $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
-
-        $request = $this->createRequestMock($serverRequest, $exceptionFactory);
-
+        $request = $this->createRequestMock();
         $request->expects($this->once())
             ->method("validateContentTypeHeader")
             ->will($this->returnValue(true));
-        ;
-
         $request->expects($this->once())
             ->method("validateAcceptHeader")
             ->will($this->returnValue(true));
-        ;
-
         $validator = $this->createRequestValidator();
 
         $validator->negotiate($request);
+
+        $this->assertTrue(true);
     }
 
     /**
      * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateThrowMediaTypeUnsupported($contentType)
+    public function negotiateWhenMediaTypeUnsupported(string $contentType)
     {
         // Content-Type is invalid, Accept is valid
         $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
-
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
         $this->expectException(MediaTypeUnsupported::class);
+
         $validator->negotiate($request);
     }
 
@@ -65,57 +60,61 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateThrowTypeUnacceptable($accept)
+    public function negotiateWhenTypeUnacceptable(string $accept)
     {
         // Content-Type is valid, Accept is invalid
         $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
-
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
         $this->expectException(MediaTypeUnacceptable::class);
+
         $validator->negotiate($request);
     }
 
     /**
      * @test
      */
-    public function validQueryParams()
+    public function validateQueryParamsWhenValid()
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $serverRequest->expects($this->once())
             ->method("getQueryParams")
-            ->will($this->returnValue([
-                    "fields" => ["foo" => "bar"],
-                    "include" => "baz",
-                    "sort" => "asc",
-                    "page" => "1",
-                    "filter" => "search",
-                ]));
+            ->will(
+                $this->returnValue(
+                    [
+                        "fields" => ["foo" => "bar"],
+                        "include" => "baz",
+                        "sort" => "asc",
+                        "page" => "1",
+                        "filter" => "search",
+                    ]
+                )
+            );
 
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->validateQueryParams($request);
+        $validator->validateQueryParams($request);
 
-        $this->assertNull($response);
+        $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function invalidQueryParamsThrowException()
+    public function validateQueryParamsWhenInvalid()
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $serverRequest->expects($this->once())
             ->method("getQueryParams")
             ->will($this->returnValue(["foo" => "bar"]));
-
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
         $this->expectException(QueryParamUnrecognized::class);
         $this->expectExceptionMessage("Query parameter 'foo' can't be recognized!");
+
         $validator->validateQueryParams($request);
     }
 
@@ -123,39 +122,39 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getEmptyMessages
      */
-    public function lintOnEmptyMessageReturnNull($message)
+    public function validateJsonBodyWhenEmpty(string $message)
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->validateJsonBody($request);
+        $validator->validateJsonBody($request);
 
-        $this->assertNull($response);
+        $this->assertTrue(true);
     }
 
     /**
      * @test
      * @dataProvider getValidJsonMessages
      */
-    public function lintOnValidMessageReturnNull($message)
+    public function validateJsonBodyWhenValid(string $message)
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->validateJsonBody($request);
+        $validator->validateJsonBody($request);
 
-        $this->assertNull($response);
+        $this->assertTrue(true);
     }
 
     /**
      * @test
      * @dataProvider getInvalidJsonMessages
      */
-    public function lintOnInvalidMessageThrowException($message)
+    public function validateJsonBodyWhenInvalid(string $message)
     {
         $server = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($server, $message);
@@ -163,10 +162,14 @@ class RequestValidatorTest extends TestCase
         $validator = $this->createRequestValidator();
 
         $this->expectException(RequestBodyInvalidJson::class);
+
         $validator->validateJsonBody($request);
     }
 
-    public function createServerRequest($contentType, $accept = "")
+    /**
+     * @return MockObject|ServerRequestInterface
+     */
+    public function createServerRequest(string $contentType, string $accept = "")
     {
         $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
 
@@ -186,7 +189,7 @@ class RequestValidatorTest extends TestCase
         return new Request($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function setFakeBody(ServerRequestInterface $request, $body)
+    private function setFakeBody(ServerRequestInterface $request, string $body): void
     {
         $stream = $this->getMockForAbstractClass(StreamInterface::class);
 
@@ -200,12 +203,21 @@ class RequestValidatorTest extends TestCase
             ->will($this->returnValue($stream));
     }
 
-    private function createRequestMock($serverRequest, ExceptionFactoryInterface $exceptionFactory)
+    /**
+     * @return MockObject|RequestInterface
+     */
+    private function createRequestMock()
     {
+        /** @var ServerRequestInterface $serverRequest */
+        $serverRequest = $this->getMockForAbstractClass(ServerRequestInterface::class);
+
+        /** @var ExceptionFactoryInterface $exceptionFactory */
+        $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
+
         return $this->getMockForAbstractClass(RequestInterface::class, [$serverRequest, $exceptionFactory]);
     }
 
-    private function createRequestValidator($includeOriginalMessageResponse = true): RequestValidator
+    private function createRequestValidator(bool $includeOriginalMessageResponse = true): RequestValidator
     {
         return new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageResponse);
     }
@@ -228,13 +240,15 @@ class RequestValidatorTest extends TestCase
 
     public function getEmptyMessages(): array
     {
-        return [['']];
+        return [
+            [""],
+        ];
     }
 
     public function getValidJsonMessages(): array
     {
         return [
-            ['{}'],
+            ["{}"],
             ['{"employees":[
                 {"firstName":"John", "lastName":"Doe"},
                 {"firstName":"Anna", "lastName":"Smith"},

@@ -11,12 +11,26 @@ class RemovalProhibitedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException("");
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("403", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getRelationshipName()
     {
-        $relationshipName = "authors";
+        $exception = $this->createException("authors");
 
-        $exception = $this->createException($relationshipName);
-        $this->assertEquals($relationshipName, $exception->getRelationshipName());
+        $relationshipName = $exception->getRelationshipName();
+
+        $this->assertEquals("authors", $relationshipName);
     }
 
     private function createException(string $relationshipName): RemovalProhibited

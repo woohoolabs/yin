@@ -11,12 +11,26 @@ class SortParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException("");
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getSortParam()
     {
-        $sortParam = "id";
-        $exception = $this->createException($sortParam);
+        $exception = $this->createException("param");
 
-        $this->assertEquals($sortParam, $exception->getSortParam());
+        $sortParam = $exception->getSortParam();
+
+        $this->assertEquals("param", $sortParam);
     }
 
     private function createException(string $sortParam): SortParamUnrecognized

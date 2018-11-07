@@ -11,12 +11,26 @@ class MediaTypeUnsupportedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException("");
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("415", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getMediaTypeName()
     {
-        $mediaType = "media-type";
+        $exception = $this->createException("media-type");
 
-        $exception = $this->createException($mediaType);
-        $this->assertEquals($mediaType, $exception->getMediaTypeName());
+        $mediaTypeName = $exception->getMediaTypeName();
+
+        $this->assertEquals("media-type", $mediaTypeName);
     }
 
     private function createException(string $mediaType): MediaTypeUnsupported

@@ -11,12 +11,26 @@ class QueryParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException("");
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getQueryParam()
     {
-        $queryParam = "id";
+        $exception = $this->createException("param");
 
-        $exception = $this->createException($queryParam);
-        $this->assertEquals($queryParam, $exception->getUnrecognizedQueryParam());
+        $queryParam = $exception->getUnrecognizedQueryParam();
+
+        $this->assertEquals("param", $queryParam);
     }
 
     private function createException($queryParam): QueryParamUnrecognized

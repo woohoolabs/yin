@@ -11,15 +11,29 @@ class ClientGeneratedIdAlreadyExistsTest extends TestCase
     /**
      * @test
      */
-    public function getClientGeneratedId()
+    public function getError()
     {
-        $id = "1";
+        $exception = $this->createException("1");
 
-        $exception = $this->createException($id);
-        $this->assertEquals($id, $exception->getClientGeneratedId());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("409", $errors[0]->getStatus());
     }
 
-    private function createException($id)
+    /**
+     * @test
+     */
+    public function getClientGeneratedId()
+    {
+        $exception = $this->createException("1");
+
+        $id = $exception->getClientGeneratedId();
+
+        $this->assertEquals("1", $id);
+    }
+
+    private function createException($id): ClientGeneratedIdAlreadyExists
     {
         return new ClientGeneratedIdAlreadyExists($id);
     }

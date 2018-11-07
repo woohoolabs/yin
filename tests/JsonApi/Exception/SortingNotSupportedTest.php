@@ -11,11 +11,26 @@ class SortingNotSupportedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException();
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getMessage()
     {
         $exception = $this->createException();
 
-        $this->assertEquals("Sorting is not supported!", $exception->getMessage());
+        $message = $exception->getMessage();
+
+        $this->assertEquals("Sorting is not supported!", $message);
     }
 
     private function createException(): SortingUnsupported

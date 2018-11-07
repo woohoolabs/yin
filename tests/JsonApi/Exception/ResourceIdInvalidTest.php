@@ -11,23 +11,26 @@ class ResourceIdInvalidTest extends TestCase
     /**
      * @test
      */
-    public function getId()
+    public function getError()
     {
-        $id = "1";
+        $exception = $this->createException("");
 
-        $exception = $this->createException($id);
-        $this->assertEquals($id, $exception->getId());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
     }
 
     /**
      * @test
      */
-    public function createExceptionForNotString()
+    public function getId()
     {
-        $id = 1;
+        $exception = $this->createException(1);
 
-        $exception = $this->createException($id);
-        $this->assertEquals($id, $exception->getId());
+        $id = $exception->getId();
+
+        $this->assertEquals(1, $id);
     }
 
     private function createException($id): ResourceIdInvalid

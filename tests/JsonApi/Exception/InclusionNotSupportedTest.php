@@ -17,6 +17,19 @@ class InclusionNotSupportedTest extends TestCase
         $this->assertEquals("Inclusion is not supported!", $exception->getMessage());
     }
 
+    /**
+     * @test
+     */
+    public function getError()
+    {
+        $exception = $this->createException();
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
+    }
+
     private function createException(): InclusionUnsupported
     {
         return new InclusionUnsupported();

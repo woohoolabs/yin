@@ -11,17 +11,28 @@ class QueryParamMalformedTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParam()
+    public function getError()
     {
-        $queryParam = "sort";
-        $queryParamValue = ["field" => "asc"];
+        $exception = $this->createException("", "");
 
-        $exception = $this->createException($queryParam, $queryParamValue);
-        $this->assertEquals($queryParam, $exception->getMalformedQueryParam());
-        $this->assertEquals($queryParamValue, $exception->getMalformedQueryParamValue());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
     }
 
-    private function createException($queryParam, $queryParamValue): QueryParamMalformed
+    /**
+     * @test
+     */
+    public function getQueryParam()
+    {
+        $exception = $this->createException("sort", ["field" => "value"]);
+
+        $this->assertEquals("sort", $exception->getMalformedQueryParam());
+        $this->assertEquals(["field" => "value"], $exception->getMalformedQueryParamValue());
+    }
+
+    private function createException(string $queryParam, $queryParamValue): QueryParamMalformed
     {
         return new QueryParamMalformed($queryParam, $queryParamValue);
     }

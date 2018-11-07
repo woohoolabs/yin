@@ -11,23 +11,38 @@ class RelationshipTypeNotAppropriateTest extends TestCase
     /**
      * @test
      */
-    public function getRelationshipName()
+    public function getError()
     {
-        $name = "friends";
+        $exception = $this->createException("", "", "");
 
-        $exception = $this->createException($name, "", "");
-        $this->assertEquals($name, $exception->getRelationshipName());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
     }
 
     /**
      * @test
      */
-    public function getRelationshipType()
+    public function getRelationshipName()
     {
-        $type = "to-many";
+        $exception = $this->createException("rel", "", "");
 
-        $exception = $this->createException("", $type, "");
-        $this->assertEquals($type, $exception->getCurrentRelationshipType());
+        $relationshipName = $exception->getRelationshipName();
+
+        $this->assertEquals("rel", $relationshipName);
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrentRelationshipType()
+    {
+        $exception = $this->createException("", "type", "");
+
+        $relationshipType = $exception->getCurrentRelationshipType();
+
+        $this->assertEquals("type", $relationshipType);
     }
 
     /**
@@ -35,10 +50,11 @@ class RelationshipTypeNotAppropriateTest extends TestCase
      */
     public function getExpectedRelationshipType()
     {
-        $expectedType = "to-one";
+        $exception = $this->createException("", "", "type");
 
-        $exception = $this->createException("", "", $expectedType);
-        $this->assertEquals($expectedType, $exception->getExpectedRelationshipType());
+        $relationshipType = $exception->getExpectedRelationshipType();
+
+        $this->assertEquals("type", $relationshipType);
     }
 
     private function createException(string $name, string $type, string $expectedType): RelationshipTypeInappropriate

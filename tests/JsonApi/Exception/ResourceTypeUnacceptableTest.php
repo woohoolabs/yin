@@ -11,12 +11,26 @@ class ResourceTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getType()
+    public function getError()
     {
-        $type = "book";
+        $exception = $this->createException("", []);
 
-        $exception = $this->createException($type, []);
-        $this->assertEquals($type, $exception->getCurrentType());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("409", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
+    public function getCurrentType()
+    {
+        $exception = $this->createException("book", []);
+
+        $type = $exception->getCurrentType();
+
+        $this->assertEquals("book", $type);
     }
 
     /**
@@ -24,10 +38,11 @@ class ResourceTypeUnacceptableTest extends TestCase
      */
     public function getAcceptedTypes()
     {
-        $acceptedTypes = ["book"];
+        $exception = $this->createException("", ["book"]);
 
-        $exception = $this->createException("", $acceptedTypes);
-        $this->assertEquals(["book"], $exception->getAcceptedTypes());
+        $types = $exception->getAcceptedTypes();
+
+        $this->assertEquals(["book"], $types);
     }
 
     private function createException(string $type, array $acceptedTypes): ResourceTypeUnacceptable

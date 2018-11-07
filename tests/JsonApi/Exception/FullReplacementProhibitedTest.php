@@ -11,15 +11,29 @@ class FullReplacementProhibitedTest extends TestCase
     /**
      * @test
      */
-    public function getRelationshipName()
+    public function getError()
     {
-        $relationshipName = "authors";
+        $exception = $this->createException("authors");
 
-        $exception = $this->createException($relationshipName);
-        $this->assertEquals($relationshipName, $exception->getRelationshipName());
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("403", $errors[0]->getStatus());
     }
 
-    private function createException($relationshipName)
+    /**
+     * @test
+     */
+    public function getRelationshipName()
+    {
+        $exception = $this->createException("authors");
+
+        $relationshipName = $exception->getRelationshipName();
+
+        $this->assertEquals("authors", $relationshipName);
+    }
+
+    private function createException(string $relationshipName): FullReplacementProhibited
     {
         return new FullReplacementProhibited($relationshipName);
     }

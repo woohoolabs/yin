@@ -11,12 +11,26 @@ class InclusionUnrecognizedTest extends TestCase
     /**
      * @test
      */
+    public function getError()
+    {
+        $exception = $this->createException([]);
+
+        $errors = $exception->getErrorDocument()->getErrors();
+
+        $this->assertCount(1, $errors);
+        $this->assertEquals("400", $errors[0]->getStatus());
+    }
+
+    /**
+     * @test
+     */
     public function getIncludes()
     {
-        $includes = ["a", "b", "c"];
+        $exception = $this->createException(["a", "b", "c"]);
 
-        $exception = $this->createException($includes);
-        $this->assertEquals($includes, $exception->getUnrecognizedIncludes());
+        $includes = $exception->getUnrecognizedIncludes();
+
+        $this->assertEquals(["a", "b", "c"], $includes);
     }
 
     private function createException(array $includes): InclusionUnrecognized

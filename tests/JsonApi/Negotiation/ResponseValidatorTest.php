@@ -16,35 +16,35 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function lintBodySuccessfully()
+    public function validateJsonBodySuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"data": {"type":"abc", "id":"cde"}}');
-
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $validator->validateJsonBody($response);
+
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function lintBodyUnsuccessfully()
+    public function validateJsonBodyUnsuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"type');
-
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $this->expectException(ResponseBodyInvalidJson::class);
+
         $validator->validateJsonBody($response);
     }
 
     /**
      * @test
      */
-    public function validateBodySuccessfully()
+    public function validateJsonApiBodySuccessfully()
     {
         $response = new Response();
         $response->getBody()->write(
@@ -63,26 +63,27 @@ EOF
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $validator->validateJsonApiBody($response);
+
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function validateEmptyBodySuccessfully()
+    public function validateJsonApiSuccessfullyWhenEmptyBody()
     {
         $response = new Response();
-
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $validator->validateJsonApiBody($response);
+
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function validateBodyUnsuccessfully()
+    public function validateJsonApiBodyUnsuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"type":"abc", "id":"cde"}');
