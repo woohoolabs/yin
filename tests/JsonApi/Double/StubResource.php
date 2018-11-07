@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
@@ -61,38 +63,56 @@ class StubResource extends AbstractResource
         $this->relationships = $relationships;
     }
 
-    public function getType($domainObject): string
+    public function getType($object): string
     {
         return $this->type;
     }
 
-    public function getId($domainObject): string
+    public function getId($object): string
     {
         return $this->id;
     }
 
-    public function getMeta($domainObject): array
+    public function getMeta($object): array
     {
         return $this->meta;
     }
 
-    public function getLinks($domainObject): ?ResourceLinks
+    public function getLinks($object): ?ResourceLinks
     {
         return $this->links;
     }
 
-    public function getAttributes($domainObject): array
+    public function getAttributes($object): array
     {
         return $this->attributes;
     }
 
-    public function getDefaultIncludedRelationships($domainObject): array
+    public function getDefaultIncludedRelationships($object): array
     {
         return $this->defaultRelationships;
     }
 
-    public function getRelationships($domainObject): array
+    public function getRelationships($object): array
     {
         return $this->relationships;
+    }
+
+    public function getRequest(): RequestInterface
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    public function getExceptionFactory(): ExceptionFactoryInterface
+    {
+        return $this->exceptionFactory;
     }
 }

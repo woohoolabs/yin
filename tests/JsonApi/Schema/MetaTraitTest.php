@@ -13,16 +13,15 @@ class MetaTraitTest extends TestCase
      */
     public function getMeta()
     {
-        $meta = ["abc" => "def"];
+        $metaTrait = $this->createMetaTrait()
+            ->setMeta(["abc" => "def"]);
 
-        $metaTrait = $this->createMetaTrait()->setMeta($meta);
-        $this->assertEquals($meta, $metaTrait->getMeta());
+        $meta = $metaTrait->getMeta();
+
+        $this->assertEquals(["abc" => "def"], $meta);
     }
 
-    /**
-     * @return \WoohooLabs\Yin\JsonApi\Schema\MetaTrait
-     */
-    private function createMetaTrait()
+    private function createMetaTrait(): MetaTrait
     {
         return $this->getObjectForTrait(MetaTrait::class);
     }

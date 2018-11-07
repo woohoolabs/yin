@@ -24,7 +24,7 @@ class ResponseValidatorTest extends TestCase
 
         $validator->validateJsonBody($response);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -64,7 +64,7 @@ EOF
 
         $validator->validateJsonApiBody($response);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -77,7 +77,7 @@ EOF
 
         $validator->validateJsonApiBody($response);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**

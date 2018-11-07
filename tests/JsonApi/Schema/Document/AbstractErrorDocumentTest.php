@@ -12,47 +12,67 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
+    public function getErrorsWhenEmpty()
+    {
+        $errorDocument = $this->createErrorDocument();
+
+        $errors = $errorDocument->getErrors();
+
+        $this->assertEquals([], $errors);
+    }
+
+    /**
+     * @test
+     */
     public function getErrors()
     {
-        $error = (new Error())->setId("abc");
+        $errorDocument = $this->createErrorDocument()
+            ->addError(new Error())
+            ->addError(new Error());
 
-        $errorDocument = $this->createErrorDocument()->addError($error)->addError($error);
-        $this->assertEquals([$error, $error], $errorDocument->getErrors());
+        $errors = $errorDocument->getErrors();
+
+        $this->assertEquals([new Error(), new Error()], $errors);
     }
 
     /**
      * @test
      */
-    public function getResponseWithoutError()
+    public function getStatusCodeWithOneErrorInDocument()
     {
-        $content = $this->createErrorDocument()->getContent();
+        $errorDocument = $this->createErrorDocument()
+            ->addError(Error::create()->setStatus("404"));
 
-        $this->assertArrayNotHasKey("errors", $content);
+        $statusCode = $errorDocument->getStatusCode();
+
+        $this->assertEquals("404", $statusCode);
     }
 
     /**
      * @test
      */
-    public function getResponseWithOneError()
+    public function getStatusCodeWithErrorInParameter()
     {
-        $content = $this->createErrorDocument()->addError((new Error())->setStatus("404"))->getContent();
+        $errorDocument = $this->createErrorDocument()
+            ->addError(Error::create());
 
-        $this->assertCount(1, $content["errors"]);
+        $statusCode = $errorDocument->getStatusCode(404);
+
+        $this->assertEquals(404, $statusCode);
     }
 
     /**
      * @test
      */
-    public function getResponseWithMultipleErrors()
+    public function getStatusCodeWithMultipleErrorsInDocument()
     {
-        $content = $this
-            ->createErrorDocument()
-            ->addError((new Error())->setStatus("403"))
-            ->addError((new Error())->setStatus("404"))
-            ->addError((new Error())->setStatus("418"))
-            ->getContent();
+        $errorDocument = $this->createErrorDocument()
+            ->addError(Error::create()->setStatus("418"))
+            ->addError(Error::create()->setStatus("404"));
 
-        $this->assertCount(3, $content["errors"]);
+        $statusCode = $errorDocument->getStatusCode();
+
+        $this->assertEquals(400, $statusCode);
     }
 
     private function createErrorDocument(): StubErrorDocument

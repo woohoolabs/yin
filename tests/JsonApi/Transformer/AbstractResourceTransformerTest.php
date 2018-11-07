@@ -13,7 +13,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;

@@ -13,10 +13,11 @@ class JsonApiObjectTest extends TestCase
      */
     public function getVersion()
     {
-        $version = "1.0";
+        $jsonApi = $this->createJsonApiObject("1.0");
 
-        $jsonApi = $this->createJsonApiObject($version);
-        $this->assertEquals($version, $jsonApi->getVersion());
+        $version = $jsonApi->getVersion();
+
+        $this->assertEquals("1.0", $version);
     }
 
     /**
@@ -24,10 +25,11 @@ class JsonApiObjectTest extends TestCase
      */
     public function getMeta()
     {
-        $meta = ["abc" => "def"];
+        $jsonApi = $this->createJsonApiObject("", ["abc" => "def"]);
 
-        $jsonApi = $this->createJsonApiObject("", $meta);
-        $this->assertEquals($meta, $jsonApi->getMeta());
+        $meta = $jsonApi->getMeta();
+
+        $this->assertEquals(["abc" => "def"], $meta);
     }
 
     /**
@@ -35,10 +37,12 @@ class JsonApiObjectTest extends TestCase
      */
     public function setMeta()
     {
-        $meta = ["abc" => "def"];
+        $jsonApi = $this->createJsonApiObject("")
+            ->setMeta(["abc" => "def"]);
 
-        $jsonApi = $this->createJsonApiObject("")->setMeta($meta);
-        $this->assertEquals($meta, $jsonApi->getMeta());
+        $meta = $jsonApi->getMeta();
+
+        $this->assertEquals(["abc" => "def"], $meta);
     }
 
     /**
@@ -46,15 +50,16 @@ class JsonApiObjectTest extends TestCase
      */
     public function transformWithEmptyVersion()
     {
-        $version = "";
-        $meta = ["abc" => "def"];
+        $jsonApi = $this->createJsonApiObject("", ["abc" => "def"]);
 
-        $jsonApi = $this->createJsonApiObject($version, $meta);
+        $jsonApiObject = $jsonApi->transform();
 
-        $transformedJsonApi = [
-            "meta" => $meta,
-        ];
-        $this->assertEquals($transformedJsonApi, $jsonApi->transform());
+        $this->assertEquals(
+            [
+                "meta" => ["abc" => "def"],
+            ],
+            $jsonApiObject
+        );
     }
 
     /**
@@ -62,15 +67,17 @@ class JsonApiObjectTest extends TestCase
      */
     public function transformWithEmptyMeta()
     {
-        $version = "1.0";
-        $meta = [];
+        $jsonApi = $this->createJsonApiObject("1.0", ["abc" => "def"]);
 
-        $jsonApi = $this->createJsonApiObject($version, $meta);
+        $jsonApiObject = $jsonApi->transform();
 
-        $transformedJsonApi = [
-            "version" => $version,
-        ];
-        $this->assertEquals($transformedJsonApi, $jsonApi->transform());
+        $this->assertEquals(
+            [
+                "version" => "1.0",
+                "meta" => ["abc" => "def"],
+            ],
+            $jsonApiObject
+        );
     }
 
     private function createJsonApiObject($version, array $meta = []): JsonApiObject

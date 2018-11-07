@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
@@ -21,10 +22,11 @@ class ResponderTest extends TestCase
      */
     public function ok()
     {
-        $document = new StubResourceDocument();
+        $response = $this->createResponder()->ok(new StubResourceDocument(), []);
 
-        $response = $this->createResponder()->ok($document, []);
-        $this->assertEquals(200, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(200, $statusCode);
     }
 
     /**
@@ -32,11 +34,13 @@ class ResponderTest extends TestCase
      */
     public function okWithMeta()
     {
-        $meta = ["abc" => "def"];
-        $document = new StubResourceDocument(null, $meta);
+        $response = $this->createResponder()->okWithMeta(new StubResourceDocument(null, ["abc" => "def"]), []);
 
-        $response = $this->createResponder()->okWithMeta($document, []);
-        $this->assertEquals(200, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+        $meta = json_decode($response->getBody()->__toString(), true)["meta"];
+
+        $this->assertEquals(200, $statusCode);
+        $this->assertEquals("def", $meta["abc"]);
     }
 
     /**
@@ -44,10 +48,11 @@ class ResponderTest extends TestCase
      */
     public function okWithRelationship()
     {
-        $document = new StubResourceDocument();
+        $response = $this->createResponder()->okWithRelationship("", new StubResourceDocument(), []);
 
-        $response = $this->createResponder()->okWithRelationship("", $document, []);
-        $this->assertEquals(200, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(200, $statusCode);
     }
 
     /**
@@ -55,10 +60,11 @@ class ResponderTest extends TestCase
      */
     public function created()
     {
-        $document = new StubResourceDocument();
+        $response = $this->createResponder()->created(new StubResourceDocument(), []);
 
-        $response = $this->createResponder()->created($document, []);
-        $this->assertEquals(201, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(201, $statusCode);
     }
 
     /**
@@ -66,11 +72,18 @@ class ResponderTest extends TestCase
      */
     public function createdWithLinks()
     {
-        $href = "http://example.com/users";
-        $document = new StubResourceDocument(null, [], new DocumentLinks("", ["self" => new Link($href)]));
+        $response = $this->createResponder()->created(
+            new StubResourceDocument(
+                null,
+                [],
+                new DocumentLinks("", ["self" => new Link("http://example.com/users")])
+            ),
+            []
+        );
 
-        $response = $this->createResponder()->created($document, []);
-        $this->assertEquals([$href], $response->getHeader("location"));
+        $location = $response->getHeader("location");
+
+        $this->assertEquals(["http://example.com/users"], $location);
     }
 
     /**
@@ -78,10 +91,11 @@ class ResponderTest extends TestCase
      */
     public function createdWithRelationship()
     {
-        $document = new StubResourceDocument();
+        $response = $this->createResponder()->createdWithRelationship("", new StubResourceDocument(), []);
 
-        $response = $this->createResponder()->createdWithRelationship("", $document, []);
-        $this->assertEquals(201, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(201, $statusCode);
     }
 
     /**
@@ -90,7 +104,10 @@ class ResponderTest extends TestCase
     public function accepted()
     {
         $response = $this->createResponder()->accepted();
-        $this->assertEquals(202, $response->getStatusCode());
+
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(202, $statusCode);
     }
 
     /**
@@ -99,7 +116,10 @@ class ResponderTest extends TestCase
     public function noContent()
     {
         $response = $this->createResponder()->noContent();
-        $this->assertEquals(204, $response->getStatusCode());
+
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(204, $statusCode);
     }
 
     /**
@@ -107,10 +127,11 @@ class ResponderTest extends TestCase
      */
     public function forbidden()
     {
-        $document = new ErrorDocument();
+        $response = $this->createResponder()->forbidden(new ErrorDocument());
 
-        $response = $this->createResponder()->forbidden($document, []);
-        $this->assertEquals(403, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(403, $statusCode);
     }
 
     /**
@@ -118,10 +139,11 @@ class ResponderTest extends TestCase
      */
     public function notFound()
     {
-        $document = new ErrorDocument();
+        $response = $this->createResponder()->notFound(new ErrorDocument());
 
-        $response = $this->createResponder()->notFound($document, []);
-        $this->assertEquals(404, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(404, $statusCode);
     }
 
     /**
@@ -129,10 +151,40 @@ class ResponderTest extends TestCase
      */
     public function conflict()
     {
-        $document = new ErrorDocument();
+        $response = $this->createResponder()->conflict(new ErrorDocument());
 
-        $response = $this->createResponder()->conflict($document, []);
-        $this->assertEquals(409, $response->getStatusCode());
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(409, $statusCode);
+    }
+
+    /**
+     * @test
+     */
+    public function genericSuccess()
+    {
+        $response = $this->createResponder()->genericSuccess(201);
+
+        $statusCode = $response->getStatusCode();
+
+        $this->assertEquals(201, $statusCode);
+    }
+
+    /**
+     * @test
+     */
+    public function genericError()
+    {
+        $response = $this->createResponder()->genericError(
+            new ErrorDocument([new Error(), new Error()]),
+            418
+        );
+
+        $statusCode = $response->getStatusCode();
+        $errors = json_decode($response->getBody()->__toString(), true)["errors"];
+
+        $this->assertEquals(418, $statusCode);
+        $this->assertCount(2, $errors);
     }
 
     private function createResponder(): Responder

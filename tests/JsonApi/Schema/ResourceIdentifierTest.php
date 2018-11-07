@@ -16,10 +16,9 @@ class ResourceIdentifierTest extends TestCase
      */
     public function fromMissingTypeArray()
     {
-        $resourceIdentifierArray = ["id" => "1"];
-
         $this->expectException(ResourceIdentifierTypeMissing::class);
-        ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
+
+        ResourceIdentifier::fromArray(["id" => "1"], new DefaultExceptionFactory());
     }
 
     /**
@@ -27,10 +26,9 @@ class ResourceIdentifierTest extends TestCase
      */
     public function fromMissingIdArray()
     {
-        $resourceIdentifierArray = ["type" => "user"];
-
         $this->expectException(ResourceIdentifierIdMissing::class);
-        ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory());
+
+        ResourceIdentifier::fromArray(["type" => "user"], new DefaultExceptionFactory());
     }
 
     /**
@@ -38,18 +36,19 @@ class ResourceIdentifierTest extends TestCase
      */
     public function fromArray()
     {
-        $type = "user";
-        $id = "1";
+        $resourceIdentifier = $this->createResourceIdentifier()
+            ->setType("user")
+            ->setId("1");
 
-        $resourceIdentifierArray = [
-            "type" => $type,
-            "id" => $id,
-        ];
-
-        $this->assertEquals(
-            $this->createResourceIdentifier()->setType($type)->setId($id),
-            ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory())
+        $resourceIdentifierFromArray = ResourceIdentifier::fromArray(
+            [
+                "type" => "user",
+                "id" => "1",
+            ],
+            new DefaultExceptionFactory()
         );
+
+        $this->assertEquals($resourceIdentifier, $resourceIdentifierFromArray);
     }
 
     /**
@@ -57,20 +56,21 @@ class ResourceIdentifierTest extends TestCase
      */
     public function fromArrayWithMeta()
     {
-        $type = "user";
-        $id = "1";
-        $meta = ["abc" => "def"];
+        $resourceIdentifier = $this->createResourceIdentifier()
+            ->setType("user")
+            ->setId("1")
+            ->setMeta(["abc" => "def"]);
 
-        $resourceIdentifierArray = [
-            "type" => $type,
-            "id" => $id,
-            "meta" => $meta,
-        ];
-        $resourceIdentifier = $this->createResourceIdentifier()->setType($type)->setId($id)->setMeta($meta);
-        $this->assertEquals(
-            $resourceIdentifier,
-            ResourceIdentifier::fromArray($resourceIdentifierArray, new DefaultExceptionFactory())
+        $resourceIdentifierFromArray = ResourceIdentifier::fromArray(
+            [
+                "type" => "user",
+                "id" => "1",
+                "meta" => ["abc" => "def"],
+            ],
+            new DefaultExceptionFactory()
         );
+
+        $this->assertEquals($resourceIdentifier, $resourceIdentifierFromArray);
     }
 
     /**
@@ -78,10 +78,12 @@ class ResourceIdentifierTest extends TestCase
      */
     public function getType()
     {
-        $type = "book";
+        $link = $this->createResourceIdentifier()
+            ->setType("abc");
 
-        $link = $this->createResourceIdentifier()->setType($type);
-        $this->assertEquals($type, $link->getType());
+        $id = $link->getType();
+
+        $this->assertEquals("abc", $id);
     }
 
     /**
@@ -89,13 +91,15 @@ class ResourceIdentifierTest extends TestCase
      */
     public function getId()
     {
-        $id = "123456789";
+        $link = $this->createResourceIdentifier()
+            ->setId("123");
 
-        $link = $this->createResourceIdentifier()->setId($id);
-        $this->assertEquals($id, $link->getId());
+        $id = $link->getId();
+
+        $this->assertEquals("123", $id);
     }
 
-    private function createResourceIdentifier()
+    private function createResourceIdentifier(): ResourceIdentifier
     {
         return new ResourceIdentifier();
     }

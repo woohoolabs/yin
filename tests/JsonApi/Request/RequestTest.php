@@ -24,7 +24,11 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("application/vnd.api+json");
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -32,7 +36,11 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiContentTypeHeaderWithSemicolon()
     {
-        $this->assertValidContentTypeHeader("application/vnd.api+json;");
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json;");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -40,7 +48,11 @@ class RequestTest extends TestCase
      */
     public function validateEmptyContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("");
+        $request = $this->createRequestWithHeader("Content-Type", "");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -48,7 +60,11 @@ class RequestTest extends TestCase
      */
     public function validateHtmlContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("text/html; charset=utf-8");
+        $request = $this->createRequestWithHeader("Content-Type", "text/html; charset=utf-8");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -56,7 +72,11 @@ class RequestTest extends TestCase
      */
     public function validateMultipleMediaTypeContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -64,7 +84,11 @@ class RequestTest extends TestCase
      */
     public function validateCaseInsensitiveContentTypeHeader()
     {
-        $this->assertValidContentTypeHeader("Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
+        $request = $this->createRequestWithHeader("Content-Type", "Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -72,8 +96,11 @@ class RequestTest extends TestCase
      */
     public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
+        $request = $this->createRequestWithHeader("Content-Type", 'application/vnd.api+json; ext="ext1,ext2"');
+
         $this->expectException(MediaTypeUnsupported::class);
-        $this->assertInvalidContentTypeHeader('application/vnd.api+json; ext="ext1,ext2"');
+
+        $request->validateContentTypeHeader();
     }
 
     /**
@@ -81,8 +108,11 @@ class RequestTest extends TestCase
      */
     public function validateInvalidContentTypeHeaderWithWhitespaceBeforeParameter()
     {
+        $request = $this->createRequestWithHeader("Content-Type", 'application/vnd.api+json ; ext="ext1,ext2"');
+
         $this->expectException(MediaTypeUnsupported::class);
-        $this->assertInvalidContentTypeHeader('application/vnd.api+json ; ext="ext1,ext2"');
+
+        $request->validateContentTypeHeader();
     }
 
     /**
@@ -90,24 +120,19 @@ class RequestTest extends TestCase
      */
     public function validateInvalidContentTypeHeaderWithCharsetMediaType()
     {
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json; Charset=utf-8");
+
         $this->expectException(MediaTypeUnsupported::class);
-        $this->assertInvalidContentTypeHeader("application/vnd.api+json; Charset=utf-8");
-    }
 
-    private function assertValidContentTypeHeader($value)
-    {
-        $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
-        $this->addToAssertionCount(1);
-    }
-
-    private function assertInvalidContentTypeHeader($value)
-    {
-        $this->createRequestWithHeader("Content-Type", $value)->validateContentTypeHeader();
+        $request->validateContentTypeHeader();
     }
 
     public function testValidateJsonApiAcceptHeaderWithExtMediaType()
     {
-        $this->createRequestWithHeader("Accept", "application/vnd.api+json")->validateAcceptHeader();
+        $request = $this->createRequestWithHeader("Accept", "application/vnd.api+json");
+
+        $request->validateAcceptHeader();
+
         $this->addToAssertionCount(1);
     }
 
@@ -116,18 +141,20 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
     {
+        $request = $this->createRequestWithHeader("Accept", 'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
+
         $this->expectException(MediaTypeUnacceptable::class);
-        $this->createRequestWithHeader(
-            "Accept",
-            'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en'
-        )->validateAcceptHeader();
+
+        $request->validateAcceptHeader();
     }
 
     public function testValidateEmptyQueryParams()
     {
-        $queryParams = [];
+        $request = $this->createRequestWithQueryParams([]);
 
-        $this->assertValidQueryParams($queryParams);
+        $request->validateQueryParams();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -135,15 +162,19 @@ class RequestTest extends TestCase
      */
     public function validateBasicQueryParams()
     {
-        $queryParams = [
-            "fields" => ["user" => "name, address"],
-            "include" => ["contacts"],
-            "sort" => ["-name"],
-            "page" => ["number" => "1"],
-            "filter" => ["age" => "21"]
-        ];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => ["user" => "name, address"],
+                "include" => ["contacts"],
+                "sort" => ["-name"],
+                "page" => ["number" => "1"],
+                "filter" => ["age" => "21"],
+            ]
+        );
 
-        $this->assertValidQueryParams($queryParams);
+        $request->validateQueryParams();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -151,32 +182,28 @@ class RequestTest extends TestCase
      */
     public function validateInvalidQueryParams()
     {
-        $queryParams = [
-            "fields" => ["user" => "name, address"],
-            "paginate" => ["-name"]
-        ];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => ["user" => "name, address"],
+                "paginate" => ["-name"],
+            ]
+        );
 
         $this->expectException(QueryParamUnrecognized::class);
-        $this->createRequestWithQueryParams($queryParams)->validateQueryParams();
-    }
 
-    private function assertValidQueryParams(array $params)
-    {
-        $this->createRequestWithQueryParams($params)->validateQueryParams();
-        $this->addToAssertionCount(1);
+        $request->validateQueryParams();
     }
 
     /**
      * @test
      */
-    public function getEmptyIncludedFields()
+    public function getIncludedFieldsWhenEmpty()
     {
-        $resourceType = "";
-        $includedFields = [];
-        $queryParams = [];
+        $request = $this->createRequestWithQueryParams([]);
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($includedFields, $request->getIncludedFields($resourceType));
+        $includedFields = $request->getIncludedFields("");
+
+        $this->assertEquals([], $includedFields);
     }
 
     /**
@@ -184,12 +211,17 @@ class RequestTest extends TestCase
      */
     public function getIncludedFieldsForResource()
     {
-        $resourceType = "book";
-        $includedFields = ["title", "pages"];
-        $queryParams = ["fields" => ["book" => implode(",", $includedFields)]];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => [
+                    "book" => "title,pages",
+                ],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($includedFields, $request->getIncludedFields($resourceType));
+        $includedFields = $request->getIncludedFields("book");
+
+        $this->assertEquals(["title", "pages"], $includedFields);
     }
 
     /**
@@ -197,12 +229,17 @@ class RequestTest extends TestCase
      */
     public function getIncludedFieldsForUnspecifiedResource()
     {
-        $resourceType = "newspaper";
-        $includedFields = ["title", "pages"];
-        $queryParams = ["fields" => ["book" => implode(",", $includedFields)]];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => [
+                    "book" => "title,pages",
+                ],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals([], $request->getIncludedFields($resourceType));
+        $includedFields = $request->getIncludedFields("newspaper");
+
+        $this->assertEquals([], $includedFields);
     }
 
     /**
@@ -210,11 +247,14 @@ class RequestTest extends TestCase
      */
     public function getIncludedFieldWhenMalformed()
     {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => "",
+            ]
+        );
+
         $this->expectException(QueryParamMalformed::class);
 
-        $queryParams = ["fields" => ""];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
         $request->getIncludedFields("");
     }
 
@@ -223,11 +263,16 @@ class RequestTest extends TestCase
      */
     public function getIncludedFieldWhenFieldMalformed()
     {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => [
+                    "book" => [],
+                ],
+            ]
+        );
+
         $this->expectException(QueryParamMalformed::class);
 
-        $queryParams = ["fields" => ["book" => []]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
         $request->getIncludedFields("");
     }
 

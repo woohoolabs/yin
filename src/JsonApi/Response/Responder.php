@@ -6,8 +6,6 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
@@ -20,11 +18,23 @@ class Responder extends AbstractResponder
     public static function create(
         RequestInterface $request,
         ResponseInterface $response,
-        DocumentTransformer $documentTransformer,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer
     ): Responder {
-        return new Responder($request, $response, $documentTransformer, $exceptionFactory, $serializer);
+        return new Responder($request, $response, $exceptionFactory, $serializer);
+    }
+
+    public function __construct(
+        RequestInterface $request,
+        ResponseInterface $response,
+        ExceptionFactoryInterface $exceptionFactory,
+        SerializerInterface $serializer
+    ) {
+        $this->request = $request;
+        $this->response = $response;
+        $this->documentTransformer = new DocumentTransformer();
+        $this->exceptionFactory = $exceptionFactory;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -55,7 +65,7 @@ class Responder extends AbstractResponder
      */
     public function okWithRelationship(
         string $relationshipName,
-        AbstractResourceDocument $document,
+        ResourceDocumentInterface $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {
@@ -74,19 +84,11 @@ class Responder extends AbstractResponder
      *
      * @param mixed $object
      */
-    public function created(
-        AbstractResourceDocument $document,
-        $object,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function created(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
+    {
         $response = $this->getResponse($document, $object, 201, $additionalMeta);
 
-        $links = $document->getLinks();
-        if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
-            $response = $response->withHeader("location", $links->getSelf()->getHref());
-        }
-
-        return $response;
+        return $this->getResponseWithLocationHeader($document, $response);
     }
 
     /**
@@ -95,19 +97,11 @@ class Responder extends AbstractResponder
      *
      * @param mixed $object
      */
-    public function createdWithMeta(
-        AbstractResourceDocument $document,
-        $object,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function createdWithMeta(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
+    {
         $response = $this->getMetaResponse($document, $object, 201, $additionalMeta);
 
-        $links = $document->getLinks();
-        if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
-            $response = $response->withHeader("location", $links->getSelf()->getHref());
-        }
-
-        return $response;
+        return $this->getResponseWithLocationHeader($document, $response);
     }
 
     /**
@@ -118,7 +112,7 @@ class Responder extends AbstractResponder
      */
     public function createdWithRelationship(
         string $relationshipName,
-        AbstractResourceDocument $document,
+        ResourceDocumentInterface $document,
         $object,
         array $additionalMeta = []
     ): ResponseInterface {
@@ -153,10 +147,8 @@ class Responder extends AbstractResponder
      *
      * @param Error[] $errors
      */
-    public function forbidden(
-        AbstractErrorDocument $document,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function forbidden(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
+    {
         return $this->getErrorResponse($document, 403, $additionalMeta);
     }
 
@@ -166,10 +158,8 @@ class Responder extends AbstractResponder
      *
      * @param Error[] $errors
      */
-    public function notFound(
-        AbstractErrorDocument $document,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function notFound(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
+    {
         return $this->getErrorResponse($document, 404, $additionalMeta);
     }
 
@@ -179,10 +169,8 @@ class Responder extends AbstractResponder
      *
      * @param Error[] $errors
      */
-    public function conflict(
-        AbstractErrorDocument $document,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function conflict(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
+    {
         return $this->getErrorResponse($document, 409, $additionalMeta);
     }
 
@@ -200,11 +188,18 @@ class Responder extends AbstractResponder
      *
      * @param Error[] $errors
      */
-    public function genericError(
-        ErrorDocumentInterface $document,
-        ?int $statusCode = null,
-        array $additionalMeta = []
-    ): ResponseInterface {
+    public function genericError(ErrorDocumentInterface $document, ?int $statusCode = null, array $additionalMeta = []): ResponseInterface
+    {
         return $this->getErrorResponse($document, $statusCode, $additionalMeta);
+    }
+
+    private function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface
+    {
+        $links = $document->getLinks();
+        if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
+            $response = $response->withHeader("location", $links->getSelf()->getHref());
+        }
+
+        return $response;
     }
 }

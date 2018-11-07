@@ -37,7 +37,7 @@ class RequestValidatorTest extends TestCase
 
         $validator->negotiate($request);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -97,7 +97,7 @@ class RequestValidatorTest extends TestCase
 
         $validator->validateQueryParams($request);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -131,7 +131,7 @@ class RequestValidatorTest extends TestCase
 
         $validator->validateJsonBody($request);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -147,7 +147,7 @@ class RequestValidatorTest extends TestCase
 
         $validator->validateJsonBody($request);
 
-        $this->assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 
     /**

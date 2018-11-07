@@ -41,20 +41,6 @@ abstract class AbstractResponder
      */
     protected $serializer;
 
-    public function __construct(
-        RequestInterface $request,
-        ResponseInterface $response,
-        DocumentTransformer $documentTransformer,
-        ExceptionFactoryInterface $exceptionFactory,
-        SerializerInterface $serializer
-    ) {
-        $this->request = $request;
-        $this->response = $response;
-        $this->documentTransformer = $documentTransformer;
-        $this->exceptionFactory = $exceptionFactory;
-        $this->serializer = $serializer;
-    }
-
     /**
      * @param mixed $object
      */

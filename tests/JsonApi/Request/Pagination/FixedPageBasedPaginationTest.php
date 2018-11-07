@@ -13,10 +13,10 @@ class FixedPageBasedPaginationTest extends TestCase
      */
     public function createFromPaginationQueryParams()
     {
-        $page = 1;
-        $query = ["number" => $page];
+        $pagination = $this->createPagination(1);
+        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams(["number" => 1]);
 
-        $this->assertEquals($this->createPagination($page), FixedPageBasedPagination::fromPaginationQueryParams($query));
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -24,13 +24,10 @@ class FixedPageBasedPaginationTest extends TestCase
      */
     public function createFromMissingPaginationQueryParams()
     {
-        $page = 1;
-        $query = [];
+        $pagination = $this->createPagination(1);
+        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams([], 1);
 
-        $this->assertEquals(
-            $this->createPagination($page),
-            FixedPageBasedPagination::fromPaginationQueryParams($query, $page)
-        );
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -38,13 +35,10 @@ class FixedPageBasedPaginationTest extends TestCase
      */
     public function createFromEmptyPaginationQueryParams()
     {
-        $page = 1;
-        $query = ["number" => ""];
+        $pagination = $this->createPagination(1);
+        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams(["number" => ""], 1);
 
-        $this->assertEquals(
-            $this->createPagination($page),
-            FixedPageBasedPagination::fromPaginationQueryParams($query, $page)
-        );
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -52,10 +46,11 @@ class FixedPageBasedPaginationTest extends TestCase
      */
     public function getPage()
     {
-        $page = 1;
+        $pagination = $this->createPagination(1);
 
-        $pagination = $this->createPagination($page);
-        $this->assertEquals($page, $pagination->getPage());
+        $page = $pagination->getPage();
+
+        $this->assertEquals(1, $page);
     }
 
     /**
@@ -63,12 +58,12 @@ class FixedPageBasedPaginationTest extends TestCase
      */
     public function getPaginationQueryString()
     {
-        $page = 1;
+        $queryString = FixedPageBasedPagination::getPaginationQueryString(1);
 
-        $this->assertEquals("page[number]=$page", FixedPageBasedPagination::getPaginationQueryString($page));
+        $this->assertEquals("page[number]=1", $queryString);
     }
 
-    private function createPagination($page)
+    private function createPagination($page): FixedPageBasedPagination
     {
         return new FixedPageBasedPagination($page);
     }

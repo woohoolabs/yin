@@ -5,7 +5,8 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\Transformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
@@ -40,9 +41,11 @@ class AbstractRelationshipTest extends TestCase
             },
             new StubResource()
         );
+        $data = $relationship->getRetrieveData();
+
         $this->assertEquals(
             ["id" => 1],
-            $relationship->getRetrieveData()
+            $data
         );
     }
 
@@ -53,7 +56,9 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $this->assertFalse($relationship->isOmitWhenNotIncluded());
+        $omit = $relationship->isOmitWhenNotIncluded();
+
+        $this->assertFalse($omit);
     }
 
     /**
@@ -64,7 +69,9 @@ class AbstractRelationshipTest extends TestCase
         $relationship = $this->createRelationship();
 
         $relationship->omitWhenNotIncluded();
-        $this->assertTrue($relationship->isOmitWhenNotIncluded());
+        $omit = $relationship->isOmitWhenNotIncluded();
+
+        $this->assertTrue($omit);
     }
 
     /**
@@ -74,18 +81,23 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $result = $relationship->transform(
-            new Transformation(new StubRequest(), new DummyData(), new DefaultExceptionFactory(), ""),
-            "type",
-            "name",
-            [],
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource(),
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
             []
         );
-        $this->assertEquals(
-            [
-            ],
-            $result
-        );
+
+        $this->assertEquals([], $relationshipObject);
     }
 
     private function createRelationship(): FakeRelationship

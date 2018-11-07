@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Resource;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
+use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractResourceTest extends TestCase
@@ -12,32 +14,56 @@ class AbstractResourceTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceIdentifierWhenDomainObjectIsNull()
+    public function initializeTransformation()
     {
-        $domainObject = null;
-
         $resource = $this->createResource();
 
-        $this->assertNull(null);
+        $resource->initializeTransformation(
+            new ResourceTransformation(
+                $resource,
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            )
+        );
+
+        $this->assertNotNull($resource->getRequest());
+        $this->assertEquals([], $resource->getObject());
+        $this->assertNotNull($resource->getExceptionFactory());
     }
 
-    protected function createResource(
-        string $type = "",
-        string $id = "",
-        array $meta = [],
-        ?ResourceLinks $links = null,
-        array $attributes = [],
-        array $defaultRelationships = [],
-        array $relationships = []
-    ): StubResource {
-        return new StubResource(
-            $type,
-            $id,
-            $meta,
-            $links,
-            $attributes,
-            $defaultRelationships,
-            $relationships
+    /**
+     * @test
+     */
+    public function clearTransformation()
+    {
+        $resource = $this->createResource();
+
+        $resource->initializeTransformation(
+            new ResourceTransformation(
+                $resource,
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            )
         );
+        $resource->clearTransformation();
+
+        $this->assertNull($resource->getRequest());
+        $this->assertNull($resource->getObject());
+        $this->assertNull($resource->getExceptionFactory());
+    }
+
+    protected function createResource(): StubResource
+    {
+        return new StubResource();
     }
 }

@@ -13,14 +13,10 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function createFromPaginationQueryParams()
     {
-        $offset = 1;
-        $limit = 10;
-        $query = ["offset" => $offset, "limit" => $limit];
+        $pagination = $this->createPagination(1, 10);
+        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams(["offset" => 1, "limit" => 10]);
 
-        $this->assertEquals(
-            $this->createPagination($offset, $limit),
-            OffsetBasedPagination::fromPaginationQueryParams($query)
-        );
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -28,14 +24,10 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function createFromMissingPaginationQueryParams()
     {
-        $offset = 1;
-        $limit = 10;
-        $query = [];
+        $pagination = $this->createPagination(1, 10);
+        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams([], 1, 10);
 
-        $this->assertEquals(
-            $this->createPagination($offset, $limit),
-            OffsetBasedPagination::fromPaginationQueryParams($query, $offset, $limit)
-        );
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -43,14 +35,10 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function createFromEmptyPaginationQueryParams()
     {
-        $offset = 1;
-        $limit = 10;
-        $query = ["offset" => "", "limit" => ""];
+        $pagination = $this->createPagination(1, 10);
+        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "", "limit" => ""], 1, 10);
 
-        $this->assertEquals(
-            $this->createPagination($offset, $limit),
-            OffsetBasedPagination::fromPaginationQueryParams($query, $offset, $limit)
-        );
+        $this->assertEquals($pagination, $paginationFromQueryParam);
     }
 
     /**
@@ -58,10 +46,23 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function getOffset()
     {
-        $offset = 1;
+        $pagination = $this->createPagination(1, 10);
 
-        $pagination = $this->createPagination($offset, 10);
-        $this->assertEquals($offset, $pagination->getOffset());
+        $offset = $pagination->getOffset();
+
+        $this->assertEquals(1, $offset);
+    }
+
+    /**
+     * @test
+     */
+    public function getOffsetWhenNull()
+    {
+        $pagination = $this->createPagination(null, 10);
+
+        $offset = $pagination->getOffset();
+
+        $this->assertNull($offset);
     }
 
     /**
@@ -69,10 +70,23 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function getLimit()
     {
-        $limit = 10;
+        $pagination = $this->createPagination(1, 10);
 
-        $pagination = $this->createPagination(1, $limit);
-        $this->assertEquals($limit, $pagination->getLimit());
+        $limit = $pagination->getLimit();
+
+        $this->assertEquals(10, $limit);
+    }
+
+    /**
+     * @test
+     */
+    public function getLimitWhenNull()
+    {
+        $pagination = $this->createPagination(1, null);
+
+        $limit = $pagination->getLimit();
+
+        $this->assertNull($limit);
     }
 
     /**
@@ -89,7 +103,7 @@ class OffsetBasedPaginationTest extends TestCase
         );
     }
 
-    private function createPagination($offset, $limit)
+    private function createPagination(?int $offset, ?int $limit)
     {
         return new OffsetBasedPagination($offset, $limit);
     }
