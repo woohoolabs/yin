@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
-class ApplicationError extends JsonApiException
+class ApplicationError extends AbstractJsonApiException
 {
     public function __construct()
     {

@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
-class QueryParamMalformed extends JsonApiException
+class QueryParamMalformed extends AbstractJsonApiException
 {
     /**
      * @var string
@@ -36,7 +36,7 @@ class QueryParamMalformed extends JsonApiException
                 ->setCode("QUERY_PARAM_MALFORMED")
                 ->setTitle("Query parameter is malformed")
                 ->setDetail("Query parameter '$this->malformedQueryParam' is malformed!")
-                ->setSource(ErrorSource::fromParameter($this->malformedQueryParam))
+                ->setSource(ErrorSource::fromParameter($this->malformedQueryParam)),
         ];
     }
 
@@ -45,6 +45,9 @@ class QueryParamMalformed extends JsonApiException
         return $this->malformedQueryParam;
     }
 
+    /**
+     * @return mixed
+     */
     public function getMalformedQueryParamValue()
     {
         return $this->malformedQueryParamValue;

@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
-class SortingUnsupported extends JsonApiException
+class SortingUnsupported extends AbstractJsonApiException
 {
     public function __construct()
     {

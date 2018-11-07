@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
-class RelationshipNotExists extends JsonApiException
+class RelationshipNotExists extends AbstractJsonApiException
 {
     /**
      * @var string

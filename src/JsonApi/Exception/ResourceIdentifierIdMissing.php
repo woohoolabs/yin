@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
-class ResourceIdentifierIdMissing extends JsonApiException
+class ResourceIdentifierIdMissing extends AbstractJsonApiException
 {
     /**
      * @var array

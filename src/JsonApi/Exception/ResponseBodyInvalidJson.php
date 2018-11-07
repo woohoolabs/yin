@@ -8,7 +8,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
-class ResponseBodyInvalidJson extends JsonApiException
+class ResponseBodyInvalidJson extends AbstractJsonApiException
 {
     /**
      * @var ResponseInterface

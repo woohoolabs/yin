@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
-class ResourceIdInvalid extends JsonApiException
+class ResourceIdInvalid extends AbstractJsonApiException
 {
     /**
      * @var mixed

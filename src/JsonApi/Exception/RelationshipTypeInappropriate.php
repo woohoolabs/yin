@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
-class RelationshipTypeInappropriate extends JsonApiException
+class RelationshipTypeInappropriate extends AbstractJsonApiException
 {
     /**
      * @var string
@@ -45,7 +45,7 @@ class RelationshipTypeInappropriate extends JsonApiException
                 ->setCode("RELATIONSHIP_TYPE_INAPPROPRIATE")
                 ->setTitle("Relationship type is inappropriate")
                 ->setDetail($this->getMessage())
-                ->setSource(ErrorSource::fromPointer("/data/relationships/$this->relationshipName"))
+                ->setSource(ErrorSource::fromPointer("/data/relationships/$this->relationshipName")),
         ];
     }
 

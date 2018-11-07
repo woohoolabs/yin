@@ -25,6 +25,8 @@ CHANGED:
 - `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links` (__BREAKING__)
 - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links` (__BREAKING__)
 - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links` (__BREAKING__)
+- `JsonApiExceptionInterface::getErrorDocument()` must return a `JsonApiExceptionInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
+- Renamed `JsonApiException` to `AbstractJsonApiException` (__BREAKING__)
 - Renamed `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()` (__BREAKING__)
 - Renamed `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()` (__BREAKING__)
 - Renamed `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()` (__BREAKING__)

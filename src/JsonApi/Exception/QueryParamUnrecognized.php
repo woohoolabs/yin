@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
-class QueryParamUnrecognized extends JsonApiException
+class QueryParamUnrecognized extends AbstractJsonApiException
 {
     /**
      * @var string
@@ -27,7 +27,7 @@ class QueryParamUnrecognized extends JsonApiException
                 ->setCode("QUERY_PARAM_UNRECOGNIZED")
                 ->setTitle("Query parameter is unrecognized")
                 ->setDetail("Query parameter '$this->unrecognizedQueryParam' can't be recognized by the endpoint!")
-                ->setSource(ErrorSource::fromParameter($this->unrecognizedQueryParam))
+                ->setSource(ErrorSource::fromParameter($this->unrecognizedQueryParam)),
         ];
     }
 
