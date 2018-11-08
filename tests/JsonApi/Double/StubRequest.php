@@ -10,6 +10,11 @@ use Zend\Diactoros\ServerRequest;
 
 class StubRequest extends Request
 {
+    public static function create(array $queryParams = []): StubRequest
+    {
+        return new StubRequest($queryParams);
+    }
+
     public function __construct(array $queryParams = [])
     {
         parent::__construct(

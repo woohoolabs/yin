@@ -13,7 +13,7 @@ abstract class AbstractLinks
     /**
      * @var Link[]
      */
-    protected $links;
+    protected $links = [];
 
     /**
      * @param Link[]|null[] $links

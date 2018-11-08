@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
@@ -77,5 +79,28 @@ class StubResourceDocument extends AbstractResourceDocument
         DataInterface $data
     ): ?array {
         return $this->relationshipResponseContent;
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
+
+    public function getExceptionFactory(): ?ExceptionFactoryInterface
+    {
+        return $this->exceptionFactory;
+    }
+
+    public function getAdditionalMeta(): array
+    {
+        return $this->additionalMeta;
     }
 }

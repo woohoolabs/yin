@@ -193,6 +193,10 @@ class ResourceTransformerTest extends TestCase
                 "id" => "1",
                 "meta" => ["abc" => "def"],
                 "links" => [],
+                "attributes" => [
+                    "full_name" => "John Doe",
+                    "birth" => 1985,
+                ],
             ],
             $resourceObject
         );
@@ -252,7 +256,7 @@ class ResourceTransformerTest extends TestCase
             [
                 "father" => function (array $object, RequestInterface $request) {
                     return ToOneRelationship::create()
-                        ->setData([""], new StubResource("user", "2"));
+                        ->setData([], new StubResource("user", "2"));
                 },
             ]
         );
@@ -273,18 +277,23 @@ class ResourceTransformerTest extends TestCase
      */
     public function transformToResourceWithInvalidRelationship()
     {
-        $defaultRelationships = ["father"];
-        $relationships = [
-            "father" => function () {
-                return new ToOneRelationship();
-            }
-        ];
-        $request = new StubRequest();
-        $request = $request->withQueryParams(["include" => "mother"]);
-        $resource = $this->createResource("user", "1", [], null, [], $defaultRelationships, $relationships);
+        $resource = $this->createResource(
+            "user",
+            "1",
+            [],
+            null,
+            [],
+            ["father"],
+            [
+                "father" => function (array $object, RequestInterface $request) {
+                    return ToOneRelationship::create();
+                },
+            ]
+        );
 
         $this->expectException(InclusionUnrecognized::class);
-        $this->transformToResourceObject($transformer, [], $request);
+
+        $this->toResourceObject($resource, [], StubRequest::create()->withQueryParams(["include" => "mother"]));
     }
 
     /**
@@ -292,15 +301,19 @@ class ResourceTransformerTest extends TestCase
      */
     public function transformToResourceToRelationshipWhenEmpty()
     {
-        $defaultRelationships = ["father"];
-        $relationships = [];
+        $resource = $this->createResource(
+            "user",
+            "1",
+            [],
+            null,
+            [],
+            [],
+            []
+        );
 
-        $request = new StubRequest();
-        $data = new SingleResourceData();
-        $resource = $this->createResource("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
-        $transformedResource = $resource->transformRelationship("father", $transformation, []);
-        $this->assertNull($transformedResource);
+        $resourceObject = $this->toRelationshipObject($resource, [], null, "father");
+
+        $this->assertNull($resourceObject);
     }
 
     /**
@@ -308,22 +321,33 @@ class ResourceTransformerTest extends TestCase
      */
     public function transformToRelationship()
     {
-        $defaultRelationships = ["father"];
-        $relationships = [
-            "father" => function () {
-                $relationship = new ToOneRelationship();
-                $relationship->setData(["Father Vader"], new StubResource("user", "2"));
-                return $relationship;
-            }
-        ];
+        $resource = $this->createResource(
+            "user",
+            "1",
+            [],
+            null,
+            [],
+            [],
+            [
+                "father" => function () {
+                    $relationship = new ToOneRelationship();
+                    $relationship->setData(["Father Vader"], new StubResource("user", "2"));
+                    return $relationship;
+                }
+            ]
+        );
 
-        $request = new StubRequest();
-        $data = new SingleResourceData();
-        $resource = $this->createResource("user", "1", [], null, [], $defaultRelationships, $relationships);
-        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
-        $transformedResource = $resource->transformRelationship("father", $transformation, []);
-        $this->assertEquals("user", $transformedResource["data"]["type"]);
-        $this->assertEquals("2", $transformedResource["data"]["id"]);
+        $resourceObject = $this->toRelationshipObject($resource, [], null, "father");
+
+        $this->assertEquals(
+            [
+                "data" => [
+                    "type" => "user",
+                    "id" => "2",
+                ],
+            ],
+            $resourceObject
+        );
     }
 
     /**
@@ -360,13 +384,12 @@ class ResourceTransformerTest extends TestCase
     private function toResourceObject(
         ResourceInterface $resource,
         $object,
-        string $type = "",
         ?RequestInterface $request = null
     ): ?array {
         $transformation = new ResourceTransformation(
             $resource,
             $object,
-            $type,
+            "",
             $request ? $request : new Request(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
@@ -381,6 +404,35 @@ class ResourceTransformerTest extends TestCase
         $transformer = new ResourceTransformer();
 
         return $transformer->transformToResourceObject($transformation, new DummyData());
+    }
+
+    /**
+     * @param mixed $object
+     */
+    private function toRelationshipObject(
+        ResourceInterface $resource,
+        $object,
+        ?RequestInterface $request = null,
+        string $requestedRelationshipName = ""
+    ): ?array {
+        $transformation = new ResourceTransformation(
+            $resource,
+            $object,
+            "",
+            $request ? $request : new Request(
+                new DiactorosServerRequest(),
+                new DefaultExceptionFactory(),
+                new JsonDeserializer()
+            ),
+            "",
+            $requestedRelationshipName,
+            $requestedRelationshipName,
+            new DefaultExceptionFactory()
+        );
+
+        $transformer = new ResourceTransformer();
+
+        return $transformer->transformToRelationshipObject($transformation, new DummyData());
     }
 
     private function createResource(

@@ -98,7 +98,7 @@ class StubResource extends AbstractResource
         return $this->relationships;
     }
 
-    public function getRequest(): RequestInterface
+    public function getRequest(): ?RequestInterface
     {
         return $this->request;
     }
@@ -111,7 +111,7 @@ class StubResource extends AbstractResource
         return $this->object;
     }
 
-    public function getExceptionFactory(): ExceptionFactoryInterface
+    public function getExceptionFactory(): ?ExceptionFactoryInterface
     {
         return $this->exceptionFactory;
     }

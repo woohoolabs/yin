@@ -21,7 +21,10 @@ class MetaTraitTest extends TestCase
         $this->assertEquals(["abc" => "def"], $meta);
     }
 
-    private function createMetaTrait(): MetaTrait
+    /**
+     * @return object|MetaTrait
+     */
+    private function createMetaTrait()
     {
         return $this->getObjectForTrait(MetaTrait::class);
     }
