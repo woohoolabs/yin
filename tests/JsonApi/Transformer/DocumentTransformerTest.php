@@ -14,12 +14,10 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\ServerRequest;
 

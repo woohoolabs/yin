@@ -8,7 +8,6 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
