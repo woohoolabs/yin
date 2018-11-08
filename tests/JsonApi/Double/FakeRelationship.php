@@ -22,7 +22,7 @@ class FakeRelationship extends AbstractRelationship
     /**
      * @return mixed
      */
-    public function getRetrieveData()
+    public function getRelationshipData()
     {
         return $this->getData();
     }

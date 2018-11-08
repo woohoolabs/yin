@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
@@ -17,15 +18,49 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
+    public function createWithData()
+    {
+        $relationship = FakeRelationship::createWithData([], new StubResource());
+
+        $data = $relationship->getRelationshipData();
+
+        $this->assertEquals([], $data);
+    }
+
+    /**
+     * @test
+     */
+    public function createWithLinks()
+    {
+        $relationship = FakeRelationship::createWithLinks(new RelationshipLinks());
+
+        $links = $relationship->getLinks();
+
+        $this->assertNotNull($links);
+    }
+
+    /**
+     * @test
+     */
+    public function createWithMeta()
+    {
+        $relationship = FakeRelationship::createWithMeta(["abc" => "def"]);
+
+        $meta = $relationship->getMeta();
+
+        $this->assertEquals(["abc" => "def"], $meta);
+    }
+
+    /**
+     * @test
+     */
     public function setData()
     {
         $relationship = $this->createRelationship();
 
         $relationship->setData(["id" => 1], new StubResource());
-        $this->assertEquals(
-            ["id" => 1],
-            $relationship->getRetrieveData()
-        );
+
+        $this->assertEquals(["id" => 1], $relationship->getRelationshipData());
     }
 
     /**
@@ -41,7 +76,7 @@ class AbstractRelationshipTest extends TestCase
             },
             new StubResource()
         );
-        $data = $relationship->getRetrieveData();
+        $data = $relationship->getRelationshipData();
 
         $this->assertEquals(
             ["id" => 1],
@@ -97,7 +132,12 @@ class AbstractRelationshipTest extends TestCase
             []
         );
 
-        $this->assertEquals([], $relationshipObject);
+        $this->assertEquals(
+            [
+                "data" => [],
+            ],
+            $relationshipObject
+        );
     }
 
     private function createRelationship(): FakeRelationship

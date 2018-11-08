@@ -33,7 +33,7 @@ final class ResourceTransformer
     }
 
     /**
-     * Transforms the original resource to a JSON:API resource object.
+     * Transforms the original resource to a JSON:API resource identifier.
      */
     public function transformToResourceIdentifier(ResourceTransformation $transformation): ?array
     {
