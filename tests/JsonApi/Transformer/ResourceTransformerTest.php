@@ -85,7 +85,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWhenAlmostEmpty()
+    public function transformToResourceObjectWhenAlmostEmpty()
     {
         $resource = $this->createResource("user", "1");
 
@@ -103,7 +103,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithMeta()
+    public function transformToResourceObjectWithMeta()
     {
         $resource = $this->createResource("", "", ["abc" => "def"]);
 
@@ -122,7 +122,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithLinks()
+    public function transformToResourceObjectWithLinks()
     {
         $resource = $this->createResource("", "", [], new ResourceLinks());
 
@@ -141,7 +141,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithMetaAndLinks()
+    public function transformToResourceObjectWithMetaAndLinks()
     {
         $resource = $this->createResource("user", "1", ["abc" => "def"], new ResourceLinks());
 
@@ -161,7 +161,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithAttributes()
+    public function transformToResourceObjectWithAttributes()
     {
         $resource = $this->createResource(
             "user",
@@ -204,7 +204,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithDefaultRelationship()
+    public function transformToResourceObjectWithDefaultRelationship()
     {
         $resource = $this->createResource(
             "user",
@@ -243,7 +243,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithoutIncludedRelationship()
+    public function transformToResourceObjectWithoutRelationships()
     {
         $resource = $this->createResource(
             "user",
@@ -253,14 +253,13 @@ class ResourceTransformerTest extends TestCase
             [],
             [],
             [
-                "father" => function (array $object, RequestInterface $request) {
-                    return ToOneRelationship::create()
-                        ->setData([], new StubResource("user", "2"));
+                "father" => function () {
+                    return ToOneRelationship::create();
                 },
             ]
         );
 
-        $resourceObject = $this->toResourceObject($resource, []);
+        $resourceObject = $this->toResourceObject($resource, [], StubRequest::create(["fields" => ["user" => ""]]));
 
         $this->assertEquals(
             [
@@ -274,7 +273,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceWithInvalidRelationship()
+    public function transformToResourceObjectWithInvalidRelationship()
     {
         $resource = $this->createResource(
             "user",
@@ -284,7 +283,7 @@ class ResourceTransformerTest extends TestCase
             [],
             ["father"],
             [
-                "father" => function (array $object, RequestInterface $request) {
+                "father" => function () {
                     return ToOneRelationship::create();
                 },
             ]
@@ -292,13 +291,48 @@ class ResourceTransformerTest extends TestCase
 
         $this->expectException(InclusionUnrecognized::class);
 
-        $this->toResourceObject($resource, [], StubRequest::create()->withQueryParams(["include" => "mother"]));
+        $this->toResourceObject($resource, [], StubRequest::create(["include" => "mother"]));
     }
 
     /**
      * @test
      */
-    public function transformToResourceToRelationshipWhenEmpty()
+    public function transformToResourceObjectWithRelationships()
+    {
+        $resource = $this->createResource(
+            "user",
+            "1",
+            [],
+            null,
+            [],
+            [],
+            [
+                "father" => function () {
+                    return ToOneRelationship::create();
+                },
+            ]
+        );
+
+        $resourceObject = $this->toResourceObject($resource, []);
+
+        $this->assertEquals(
+            [
+                "type" => "user",
+                "id" => "1",
+                "relationships" => [
+                    "father" => [
+                        "data" => null,
+                    ],
+                ],
+            ],
+            $resourceObject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformToRelationshipObjectWhenEmpty()
     {
         $resource = $this->createResource(
             "user",
@@ -318,7 +352,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToRelationship()
+    public function transformToRelationshipObject()
     {
         $resource = $this->createResource(
             "user",
@@ -329,9 +363,8 @@ class ResourceTransformerTest extends TestCase
             [],
             [
                 "father" => function () {
-                    $relationship = new ToOneRelationship();
-                    $relationship->setData(["Father Vader"], new StubResource("user", "2"));
-                    return $relationship;
+                    return ToOneRelationship::create()
+                        ->setData(["Father Vader"], new StubResource("user", "2"));
                 }
             ]
         );

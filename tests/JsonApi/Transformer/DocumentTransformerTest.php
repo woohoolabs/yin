@@ -18,6 +18,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\ServerRequest;
 
@@ -117,7 +118,7 @@ class DocumentTransformerTest extends TestCase
     {
         $document = $this->createDocument(null, [], null, new SingleResourceData());
 
-        $transformedDocument = $this->toResourceDocument($document, []);
+        $transformedDocument = $this->toResourceDocument($document, [], new StubRequest(["include" => "animal"]));
 
         $this->assertEquals(
             [
@@ -143,7 +144,7 @@ class DocumentTransformerTest extends TestCase
             ]
         );
 
-        $transformedDocument = $this->toRelationshipDocument($document, []);
+        $transformedDocument = $this->toRelationshipDocument($document, [], new StubRequest(["include" => "animal"]));
 
         $this->assertEquals(
             [
@@ -157,25 +158,74 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformRelationshipDataWithIncluded()
+    public function transformRelationshipDocumentWithIncluded()
     {
         $document = $this->createDocument(
             null,
             [],
             null,
-            new SingleResourceData(),
-            [
-                []
-            ]
+            (new SingleResourceData())
+                ->setIncludedResources(
+                    [
+                        [
+                            "type" => "user",
+                            "id" => "2",
+                        ],
+                        [
+                            "type" => "user",
+                            "id" => "3",
+                        ],
+                    ]
+                )
         );
 
         $transformedDocument = $this->toRelationshipDocument($document, []);
 
         $this->assertEquals(
             [
-                "data" => [],
+                "included" => [
+                    [
+                        "type" => "user",
+                        "id" => "2",
+                    ],
+                    [
+                        "type" => "user",
+                        "id" => "3",
+                    ],
+                ],
+            ],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformRelationshipDocumentByIncludedQueryParam()
+    {
+        $document = $this->createDocument();
+
+        $transformedDocument = $this->toRelationshipDocument($document, [], new StubRequest(["include" => "animal"]));
+
+        $this->assertEquals(
+            [
                 "included" => [],
             ],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformMetaDocumentWithoutJsonApiObject()
+    {
+        $document = $this->createDocument(null);
+
+        $transformedDocument = $this->toMetaDocument($document, []);
+
+        $this->assertEquals(
+            [],
             $transformedDocument
         );
     }

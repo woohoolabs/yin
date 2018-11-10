@@ -25,8 +25,8 @@ final class DocumentTransformer
         $transformation = clone $transformation;
 
         $transformation->document->initializeTransformation($transformation);
-        $this->transformBaseMembers($transformation);
-        $this->transformDataMembers($transformation);
+        $this->transformMetaMembers($transformation);
+        $this->transformResourceDataMembers($transformation);
         $transformation->document->clearTransformation();
 
         return $transformation;
@@ -37,7 +37,7 @@ final class DocumentTransformer
         $transformation = clone $transformation;
 
         $transformation->document->initializeTransformation($transformation);
-        $this->transformBaseMembers($transformation);
+        $this->transformMetaMembers($transformation);
         $transformation->document->clearTransformation();
 
         return $transformation;
@@ -48,7 +48,7 @@ final class DocumentTransformer
         $transformation = clone $transformation;
 
         $transformation->document->initializeTransformation($transformation);
-        $this->transformRelationship($transformation);
+        $this->transformRelationshipDataMembers($transformation);
         $transformation->document->clearTransformation();
 
         return $transformation;
@@ -58,13 +58,13 @@ final class DocumentTransformer
     {
         $transformation = clone $transformation;
 
-        $this->transformBaseMembers($transformation);
+        $this->transformMetaMembers($transformation);
         $this->transformErrors($transformation);
 
         return $transformation;
     }
 
-    private function transformBaseMembers(AbstractDocumentTransformation $transformation): void
+    private function transformMetaMembers(AbstractDocumentTransformation $transformation): void
     {
         $jsonApi = $transformation->document->getJsonApi();
         if ($jsonApi !== null) {
@@ -82,7 +82,7 @@ final class DocumentTransformer
         }
     }
 
-    private function transformDataMembers(ResourceDocumentTransformation $transformation): void
+    private function transformResourceDataMembers(ResourceDocumentTransformation $transformation): void
     {
         $data = $transformation->document->getData($transformation, $this->resourceTransformer);
 
@@ -93,7 +93,7 @@ final class DocumentTransformer
         }
     }
 
-    private function transformRelationship(ResourceDocumentTransformation $transformation): void
+    private function transformRelationshipDataMembers(ResourceDocumentTransformation $transformation): void
     {
         $data = new SingleResourceData();
 

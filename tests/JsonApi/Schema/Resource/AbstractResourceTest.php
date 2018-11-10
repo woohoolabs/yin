@@ -17,23 +17,13 @@ class AbstractResourceTest extends TestCase
     public function initializeTransformation()
     {
         $resource = $this->createResource();
+        $transformation = $this->createTransformation($resource);
 
-        $resource->initializeTransformation(
-            new ResourceTransformation(
-                $resource,
-                [],
-                "",
-                new StubRequest(),
-                "",
-                "",
-                "",
-                new DefaultExceptionFactory()
-            )
-        );
+        $resource->initializeTransformation($transformation);
 
-        $this->assertNotNull($resource->getRequest());
-        $this->assertEquals([], $resource->getObject());
-        $this->assertNotNull($resource->getExceptionFactory());
+        $this->assertEquals($transformation->request, $resource->getRequest());
+        $this->assertEquals($transformation->object, $resource->getObject());
+        $this->assertEquals($transformation->exceptionFactory, $resource->getExceptionFactory());
     }
 
     /**
@@ -42,19 +32,9 @@ class AbstractResourceTest extends TestCase
     public function clearTransformation()
     {
         $resource = $this->createResource();
+        $transformation = $this->createTransformation($resource);
 
-        $resource->initializeTransformation(
-            new ResourceTransformation(
-                $resource,
-                [],
-                "",
-                new StubRequest(),
-                "",
-                "",
-                "",
-                new DefaultExceptionFactory()
-            )
-        );
+        $resource->initializeTransformation($transformation);
         $resource->clearTransformation();
 
         $this->assertNull($resource->getRequest());
@@ -65,5 +45,23 @@ class AbstractResourceTest extends TestCase
     protected function createResource(): StubResource
     {
         return new StubResource();
+    }
+
+    /**
+     * @param $resource
+     * @return ResourceTransformation
+     */
+    private function createTransformation($resource): ResourceTransformation
+    {
+        return new ResourceTransformation(
+            $resource,
+            [],
+            "",
+            new StubRequest(),
+            "",
+            "",
+            "",
+            new DefaultExceptionFactory()
+        );
     }
 }

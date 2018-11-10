@@ -78,6 +78,11 @@ class StubResourceDocument extends AbstractResourceDocument
         ResourceTransformer $transformer,
         DataInterface $data
     ): ?array {
+        $ownData = $this->getData($transformation, $transformer);
+
+        $included = $ownData->transformIncluded();
+        $data->setIncludedResources($included);
+
         return $this->relationshipResponseContent;
     }
 
