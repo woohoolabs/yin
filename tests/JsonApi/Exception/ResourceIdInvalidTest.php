@@ -26,15 +26,15 @@ class ResourceIdInvalidTest extends TestCase
      */
     public function getId()
     {
-        $exception = $this->createException(1);
+        $exception = $this->createException("integer");
 
-        $id = $exception->getId();
+        $type = $exception->getType();
 
-        $this->assertEquals(1, $id);
+        $this->assertEquals("integer", $type);
     }
 
-    private function createException($id): ResourceIdInvalid
+    private function createException(string $type): ResourceIdInvalid
     {
-        return new ResourceIdInvalid($id);
+        return new ResourceIdInvalid($type);
     }
 }
