@@ -73,7 +73,7 @@ interface ExceptionFactoryInterface
         bool $includeOriginalBody
     ): JsonApiExceptionInterface;
 
-    public function createResourceIdentifierIdInvalidException(string $id): JsonApiExceptionInterface;
+    public function createResourceIdentifierIdInvalidException(string $type): JsonApiExceptionInterface;
 
     public function createResourceIdentifierIdMissingException(array $resourceIdentifier): JsonApiExceptionInterface;
 

@@ -121,9 +121,9 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginalBody);
     }
 
-    public function createResourceIdentifierIdInvalidException(string $id): JsonApiExceptionInterface
+    public function createResourceIdentifierIdInvalidException(string $type): JsonApiExceptionInterface
     {
-        return new ResourceIdentifierIdInvalid($id);
+        return new ResourceIdentifierIdInvalid($type);
     }
 
     public function createResourceIdentifierIdMissingException(array $resourceIdentifier): JsonApiExceptionInterface

@@ -7,6 +7,7 @@ use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\StreamFactory;
 
 class StubRequest extends Request
 {
@@ -17,8 +18,10 @@ class StubRequest extends Request
 
     public function __construct(array $queryParams = [])
     {
+        $streamFactory = new StreamFactory();
+
         parent::__construct(
-            new ServerRequest([], [], null, null, "php://input", [], [], $queryParams),
+            new ServerRequest([], [], null, null, $streamFactory->createStream(), [], [], $queryParams),
             new DefaultExceptionFactory(),
             new JsonDeserializer()
         );

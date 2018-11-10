@@ -10,12 +10,12 @@ class ResourceIdentifierIdInvalid extends AbstractJsonApiException
     /**
      * @var string
      */
-    protected $id;
+    protected $type;
 
-    public function __construct(string $id)
+    public function __construct(string $type)
     {
-        parent::__construct("The resource ID '$id' must be a string!");
-        $this->id = $id;
+        parent::__construct("The resource ID must be a string instead of $type!");
+        $this->type = $type;
     }
 
     protected function getErrors(): array
@@ -25,12 +25,12 @@ class ResourceIdentifierIdInvalid extends AbstractJsonApiException
                 ->setStatus("400")
                 ->setCode("RESOURCE_IDENTIFIER_ID_INVALID")
                 ->setTitle("Resource identifier ID is invalid")
-                ->setDetail("The resource ID '$this->id' must be a string!")
+                ->setDetail("The resource ID must be a string instead of $this->type!")
         ];
     }
 
-    public function getId(): string
+    public function getType(): string
     {
-        return $this->id;
+        return $this->type;
     }
 }
