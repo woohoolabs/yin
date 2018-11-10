@@ -105,6 +105,34 @@ class ErrorLinksTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function setTypes()
+    {
+        $typeLink1 = new Link("http://example.com/errors/404");
+        $typeLink2 = new Link("http://example.com/errors/405");
+
+        $linksObject = $this->createErrorLinks()->setTypes([$typeLink1, $typeLink2]);
+
+        $this->assertCount(2, $linksObject->getTypes());
+        $this->assertEquals($typeLink1, $linksObject->getTypes()[0]);
+        $this->assertEquals($typeLink2, $linksObject->getTypes()[1]);
+    }
+
+    /**
+     * @test
+     */
+    public function setTypesWithSameHref()
+    {
+        $typeLink = new Link("http://example.com/errors/404");
+
+        $linksObject = $this->createErrorLinks()->setTypes([$typeLink, $typeLink]);
+
+        $this->assertCount(1, $linksObject->getTypes());
+        $this->assertEquals($typeLink, $linksObject->getTypes()[0]);
+    }
+
+    /**
      * @param Link[] $links
      */
     private function createErrorLinks(string $baseUri = "", ?Link $about = null, array $types = []): ErrorLinks

@@ -54,6 +54,18 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
+    public function setLinks()
+    {
+        $relationship = FakeRelationship::create();
+
+        $relationship->setLinks(new RelationshipLinks());
+
+        $this->assertNotNull($relationship->getLinks());
+    }
+
+    /**
+     * @test
+     */
     public function setData()
     {
         $relationship = $this->createRelationship();
@@ -112,7 +124,42 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformEmpty()
+    public function transformWithMeta()
+    {
+        $relationship = $this->createRelationship()
+            ->setMeta(["abc" => "def"]);
+
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource(),
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertEquals(
+            [
+                "meta" => [
+                    "abc" => "def",
+                ],
+                "data" => [],
+            ],
+            $relationshipObject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformWithEmptyData()
     {
         $relationship = $this->createRelationship();
 

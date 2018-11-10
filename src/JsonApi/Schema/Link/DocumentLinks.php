@@ -14,30 +14,32 @@ class DocumentLinks extends AbstractLinks
 
     /**
      * @param Link[] $links
-     * @param Link[] $profile
+     * @param Link[] $profiles
      */
-    public static function createWithoutBaseUri(array $links = [], array $profile = []): DocumentLinks
+    public static function createWithoutBaseUri(array $links = [], array $profiles = []): DocumentLinks
     {
-        return new DocumentLinks("", $links, $profile);
+        return new DocumentLinks("", $links, $profiles);
     }
 
     /**
      * @param Link[] $links
-     * @param Link[] $profile
+     * @param Link[] $profiles
      */
-    public static function createWithBaseUri(string $baseUri, array $links = [], array $profile = []): DocumentLinks
+    public static function createWithBaseUri(string $baseUri, array $links = [], array $profiles = []): DocumentLinks
     {
-        return new DocumentLinks($baseUri, $links, $profile);
+        return new DocumentLinks($baseUri, $links, $profiles);
     }
 
     /**
      * @param Link[] $links
-     * @param Link[] $profile
+     * @param Link[] $profiles
      */
-    public function __construct(string $baseUri = "", array $links = [], array $profile = [])
+    public function __construct(string $baseUri = "", array $links = [], array $profiles = [])
     {
         parent::__construct($baseUri, $links);
-        $this->profiles = $profile;
+        foreach ($profiles as $profile) {
+            $this->addProfile($profile);
+        }
     }
 
     public function setBaseUri(string $baseUri): DocumentLinks

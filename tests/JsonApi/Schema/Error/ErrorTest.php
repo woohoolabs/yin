@@ -16,13 +16,19 @@ class ErrorTest extends TestCase
     public function getId()
     {
         $error = $this->createError()->setId("123456789");
-        $this->assertEquals("123456789", $error->getId());
+
+        $id = $error->getId();
+
+        $this->assertEquals("123456789", $id);
     }
 
     public function testGetStatus()
     {
         $error = $this->createError()->setStatus("500");
-        $this->assertEquals("500", $error->getStatus());
+
+        $status = $error->getStatus();
+
+        $this->assertEquals("500", $status);
     }
 
     /**
@@ -31,7 +37,22 @@ class ErrorTest extends TestCase
     public function getCode()
     {
         $error = $this->createError()->setCode("UNKNOWN_ERROR");
-        $this->assertEquals("UNKNOWN_ERROR", $error->getCode());
+
+        $code = $error->getCode();
+
+        $this->assertEquals("UNKNOWN_ERROR", $code);
+    }
+
+    /**
+     * @test
+     */
+    public function getLinks()
+    {
+        $links = new ErrorLinks();
+
+        $error = $this->createError()->setLinks($links);
+
+        $this->assertEquals($links, $error->getLinks());
     }
 
     /**
@@ -40,7 +61,10 @@ class ErrorTest extends TestCase
     public function getTitle()
     {
         $error = $this->createError()->setTitle("Unknown error!");
-        $this->assertEquals("Unknown error!", $error->getTitle());
+
+        $title = $error->getTitle();
+
+        $this->assertEquals("Unknown error!", $title);
     }
 
     /**
@@ -49,7 +73,10 @@ class ErrorTest extends TestCase
     public function getDetail()
     {
         $error = $this->createError()->setDetail("An unknown error has happened and no solution exists.");
-        $this->assertEquals("An unknown error has happened and no solution exists.", $error->getDetail());
+
+        $detail = $error->getDetail();
+
+        $this->assertEquals("An unknown error has happened and no solution exists.", $detail);
     }
 
     /**
@@ -60,6 +87,7 @@ class ErrorTest extends TestCase
         $source = new ErrorSource("/data/attributes/name", "name");
 
         $error = $this->createError()->setSource($source);
+
         $this->assertEquals($source, $error->getSource());
     }
 

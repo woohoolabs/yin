@@ -41,6 +41,19 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
+    public function addAliases()
+    {
+        $link = $this->createProfileLinkObject();
+
+        $link->addAlias("keyword1", "alias1");
+        $link->addAlias("keyword2", "alias2");
+
+        $this->assertEquals(["keyword1" => "alias1", "keyword2" => "alias2"], $link->getAliases());
+    }
+
+    /**
+     * @test
+     */
     public function transformLinkWithAlias()
     {
         $link = $this->createProfileLinkObject(["keyword" => "alias"]);

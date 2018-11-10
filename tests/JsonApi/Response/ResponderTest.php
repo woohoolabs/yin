@@ -63,8 +63,10 @@ class ResponderTest extends TestCase
         $response = $this->createResponder()->created(new StubResourceDocument(), []);
 
         $statusCode = $response->getStatusCode();
+        $body = json_decode($response->getBody()->__toString(), true);
 
         $this->assertEquals(201, $statusCode);
+        $this->assertNotEmpty($body);
     }
 
     /**
@@ -84,6 +86,29 @@ class ResponderTest extends TestCase
         $location = $response->getHeader("location");
 
         $this->assertEquals(["http://example.com/users"], $location);
+    }
+
+    /**
+     * @test
+     */
+    public function createdWithMeta()
+    {
+        $response = $this->createResponder()->createdWithMeta(
+            new StubResourceDocument(
+                null,
+                [],
+                new DocumentLinks("", ["self" => new Link("http://example.com/users")])
+            ),
+            []
+        );
+
+        $statusCode = $response->getStatusCode();
+        $location = $response->getHeader("location");
+        $body = json_decode($response->getBody()->__toString(), true);
+
+        $this->assertEquals(201, $statusCode);
+        $this->assertEquals(["http://example.com/users"], $location);
+        $this->assertNotEmpty($body);
     }
 
     /**
@@ -189,7 +214,7 @@ class ResponderTest extends TestCase
 
     private function createResponder(): Responder
     {
-        return new Responder(
+        return Responder::create(
             new StubRequest(),
             new Response(),
             new DefaultExceptionFactory(),

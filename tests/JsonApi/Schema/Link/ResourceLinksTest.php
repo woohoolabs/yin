@@ -5,7 +5,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 
 class ResourceLinksTest extends TestCase
@@ -15,7 +14,7 @@ class ResourceLinksTest extends TestCase
      */
     public function createWithoutBaseUri()
     {
-        $links = RelationshipLinks::createWithoutBaseUri();
+        $links = ResourceLinks::createWithoutBaseUri();
 
         $this->assertEquals("", $links->getBaseUri());
     }
@@ -25,7 +24,7 @@ class ResourceLinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = RelationshipLinks::createWithBaseUri("http://example.com");
+        $links = ResourceLinks::createWithBaseUri("http://example.com");
 
         $this->assertEquals("http://example.com", $links->getBaseUri());
     }

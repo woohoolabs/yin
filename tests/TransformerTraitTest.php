@@ -16,6 +16,7 @@ class TransformerTraitTest extends TestCase
     {
         $transformerTrait = $this->createTransformerTrait();
 
+        $this->assertEquals(0, $transformerTrait->toDecimal("abc"));
         $this->assertEquals(1.1, $transformerTrait->toDecimal("1.1", 1));
         $this->assertEquals(999.31, $transformerTrait->toDecimal("999.313", 2));
         $this->assertEquals(999.35, $transformerTrait->toDecimal("999.35321", 2));

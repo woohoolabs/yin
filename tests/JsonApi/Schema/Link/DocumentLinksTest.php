@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ProfileLinkObject;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubPaginationLinkProvider;
 
 class DocumentLinksTest extends TestCase
@@ -198,10 +199,40 @@ class DocumentLinksTest extends TestCase
     }
 
     /**
-     * @param Link[] $links
+     * @test
      */
-    private function createLinks(string $baseUri = "", array $links = []): DocumentLinks
+    public function getProfiles()
     {
-        return new DocumentLinks($baseUri, $links);
+        $profile1 = new ProfileLinkObject("href1");
+        $profile2 = new ProfileLinkObject("href2");
+
+        $links = $this->createLinks("", [], [$profile1, $profile2]);
+
+        $this->assertCount(2, $links->getProfiles());
+        $this->assertEquals($profile1, $links->getProfiles()[0]);
+        $this->assertEquals($profile2, $links->getProfiles()[1]);
+    }
+
+    /**
+     * @test
+     */
+    public function addProfilesWithSameHref()
+    {
+        $profile = new ProfileLinkObject("");
+
+        $links = $this->createLinks("", [])
+            ->addProfile($profile)
+            ->addProfile($profile);
+
+        $this->assertCount(1, $links->getProfiles());
+    }
+
+    /**
+     * @param Link[] $links
+     * @param ProfileLinkObject[] $profiles
+     */
+    private function createLinks(string $baseUri = "", array $links = [], array $profiles = []): DocumentLinks
+    {
+        return new DocumentLinks($baseUri, $links, $profiles);
     }
 }
