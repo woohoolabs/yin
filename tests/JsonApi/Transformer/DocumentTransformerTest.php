@@ -12,12 +12,15 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\ServerRequest;
@@ -218,14 +221,87 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformMetaDocumentWithoutJsonApiObject()
+    public function transformErrorDocumentWithoutJsonApiObject()
     {
-        $document = $this->createDocument(null);
+        $document = $this->createErrorDocument(null);
 
-        $transformedDocument = $this->toMetaDocument($document, []);
+        $transformedDocument = $this->toErrorDocument($document);
 
         $this->assertEquals(
             [],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformErrorDocumentWithJsonApiObject()
+    {
+        $document = $this->createErrorDocument(new JsonApiObject(""));
+
+        $transformedDocument = $this->toErrorDocument($document);
+
+        $this->assertEquals(
+            [
+                "jsonapi" => [],
+            ],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformErrorDocumentWithMeta()
+    {
+        $document = $this->createErrorDocument(null, ["abc" => "def"]);
+
+        $transformedDocument = $this->toErrorDocument($document);
+
+        $this->assertEquals(
+            [
+                "meta" => [
+                    "abc" => "def",
+                ],
+            ],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformErrorDocumentWithLinks()
+    {
+        $document = $this->createErrorDocument(null, [], new ErrorLinks());
+
+        $transformedDocument = $this->toErrorDocument($document);
+
+        $this->assertEquals(
+            [
+                "links" => [],
+            ],
+            $transformedDocument
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformErrorDocumentWithErrors()
+    {
+        $document = $this->createErrorDocument(null, [], null, [new Error(), new Error()]);
+
+        $transformedDocument = $this->toErrorDocument($document);
+
+        $this->assertEquals(
+            [
+                "errors" => [
+                    [],
+                    [],
+                ],
+            ],
             $transformedDocument
         );
     }
@@ -338,7 +414,7 @@ class DocumentTransformerTest extends TestCase
         ?DocumentLinks $links = null,
         ?DataInterface $data = null,
         array $relationshipResponseContent = []
-    ): AbstractResourceDocument {
+    ): ResourceDocumentInterface {
         return new StubResourceDocument(
             $jsonApi,
             $meta,
@@ -346,5 +422,17 @@ class DocumentTransformerTest extends TestCase
             $data,
             $relationshipResponseContent
         );
+    }
+
+    /**
+     * @param Error[] $errors
+     */
+    private function createErrorDocument(
+        ?JsonApiObject $jsonApi = null,
+        array $meta = [],
+        ?ErrorLinks $links = null,
+        array $errors = []
+    ): ErrorDocumentInterface {
+        return new StubErrorDocument($jsonApi, $meta, $links, $errors);
     }
 }

@@ -37,6 +37,7 @@ class ErrorLinksTest extends TestCase
         $links = $this->createErrorLinks();
 
         $links->setBaseUri("http://example.com");
+
         $this->assertEquals("http://example.com", $links->getBaseUri());
     }
 
@@ -55,6 +56,7 @@ class ErrorLinksTest extends TestCase
         );
 
         $transformedLinks = $linksObject->transform();
+
         $this->assertArrayHasKey("about", $transformedLinks);
         $this->assertArrayHasKey("type", $transformedLinks);
         $this->assertCount(2, $transformedLinks["type"]);
@@ -66,6 +68,7 @@ class ErrorLinksTest extends TestCase
     public function getAboutWhenEmpty()
     {
         $linksObject = $this->createErrorLinks();
+
         $this->assertNull($linksObject->getAbout());
     }
 
@@ -97,6 +100,7 @@ class ErrorLinksTest extends TestCase
         $typeLink = new Link("http://example.com/errors/404");
 
         $linksObject = $this->createErrorLinks()->addType($typeLink);
+
         $this->assertContains($typeLink, $linksObject->getTypes());
     }
 
