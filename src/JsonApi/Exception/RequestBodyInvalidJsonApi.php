@@ -55,7 +55,7 @@ class RequestBodyInvalidJsonApi extends AbstractJsonApiException
                 ->setTitle("Request body is an invalid JSON:API document")
                 ->setDetail(ucfirst($validationError["message"]));
 
-            if ($validationError["property"]) {
+            if (isset($validationError["property"]) === false && $validationError["property"] !== "") {
                 $error->setSource(ErrorSource::fromPointer($validationError["property"]));
             }
 

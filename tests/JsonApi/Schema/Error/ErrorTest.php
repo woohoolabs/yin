@@ -94,6 +94,18 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
+    public function getSourceWhenEmpty()
+    {
+        $error = $this->createError();
+
+        $source = $error->getSource();
+
+        $this->assertNull($source);
+    }
+
+    /**
+     * @test
+     */
     public function transformWithEmptyFields()
     {
         $id = "123456789";

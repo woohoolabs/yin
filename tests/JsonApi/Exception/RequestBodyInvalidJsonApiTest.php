@@ -12,15 +12,31 @@ class RequestBodyInvalidJsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getErrorsTwo()
+    public function getErrorsWithTwoErrors()
     {
-        $exception = $this->createException("", ["", ""]);
+        $exception = $this->createException(
+            "",
+            [
+                [
+                    "message" => "abc",
+                    "property" => "property1",
+                ],
+                [
+                    "message" => "cde",
+                    "property" => "",
+                ],
+            ]
+        );
 
         $errors = $exception->getErrorDocument()->getErrors();
 
         $this->assertCount(2, $errors);
         $this->assertEquals("400", $errors[0]->getStatus());
+        $this->assertEquals("Abc", $errors[0]->getDetail());
+        $this->assertEquals("property1", $errors[0]->getSource()->getParameter());
         $this->assertEquals("400", $errors[1]->getStatus());
+        $this->assertEquals("Cde", $errors[1]->getDetail());
+        $this->assertNull($errors[1]->getSource());
     }
 
     /**

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Error;
 
+use phpDocumentor\Reflection\DocBlock\Tags\Source;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 
@@ -41,7 +42,7 @@ class Error
     protected $detail;
 
     /**
-     * @var ErrorSource
+     * @var ErrorSource|null
      */
     protected $source;
 
@@ -125,7 +126,7 @@ class Error
         return $this;
     }
 
-    public function getSource(): ErrorSource
+    public function getSource(): ?ErrorSource
     {
         return $this->source;
     }
