@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
@@ -34,9 +34,9 @@ class ResponseBodyInvalidJsonApi extends AbstractJsonApiException
         $this->includeOriginalBody = $includeOriginalBody;
     }
 
-    protected function createErrorDocument(): AbstractErrorDocument
+    public function getErrorDocument(): ErrorDocumentInterface
     {
-        $errorDocument = new ErrorDocument();
+        $errorDocument = new ErrorDocument($this->getErrors());
 
         if ($this->includeOriginalBody) {
             $errorDocument->setMeta(["original" => json_decode($this->response->getBody()->__toString(), true)]);
@@ -54,7 +54,8 @@ class ResponseBodyInvalidJsonApi extends AbstractJsonApiException
                 ->setCode("RESPONSE_BODY_INVALID_JSON_API")
                 ->setTitle("Response body is an invalid JSON:API document")
                 ->setDetail(ucfirst($validationError["message"]));
-            if ($validationError["property"]) {
+
+            if (isset($validationError["property"]) && $validationError["property"] != "") {
                 $error->setSource(ErrorSource::fromPointer($validationError["property"]));
             }
 

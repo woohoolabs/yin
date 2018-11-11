@@ -5,9 +5,12 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJsonApi;
+use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
+use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use Zend\Diactoros\Response;
 
-class RequestBodyInvalidJsonApiTest extends TestCase
+class ResponseBodyInvalidJsonApiTest extends TestCase
 {
     /**
      * @test
@@ -31,10 +34,10 @@ class RequestBodyInvalidJsonApiTest extends TestCase
         $errors = $exception->getErrorDocument()->getErrors();
 
         $this->assertCount(2, $errors);
-        $this->assertEquals("400", $errors[0]->getStatus());
+        $this->assertEquals("500", $errors[0]->getStatus());
         $this->assertEquals("Abc", $errors[0]->getDetail());
         $this->assertEquals("property1", $errors[0]->getSource()->getPointer());
-        $this->assertEquals("400", $errors[1]->getStatus());
+        $this->assertEquals("500", $errors[1]->getStatus());
         $this->assertEquals("Cde", $errors[1]->getDetail());
         $this->assertNull($errors[1]->getSource());
     }
@@ -75,11 +78,11 @@ class RequestBodyInvalidJsonApiTest extends TestCase
         $this->assertEquals(["abc", "def"], $validationErrors);
     }
 
-    private function createException(string $body = "", array $validationErrors = [], bool $includeOriginal = false): RequestBodyInvalidJsonApi
+    private function createException(string $body = "", array $validationErrors = [], bool $includeOriginal = false): ResponseBodyInvalidJsonApi
     {
-        $request = StubRequest::create();
-        $request->getBody()->write($body);
+        $response = new Response();
+        $response->getBody()->write($body);
 
-        return new RequestBodyInvalidJsonApi($request, $validationErrors, $includeOriginal);
+        return new ResponseBodyInvalidJsonApi($response, $validationErrors, $includeOriginal);
     }
 }

@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
 class ResponseBodyInvalidJson extends AbstractJsonApiException
@@ -33,9 +34,9 @@ class ResponseBodyInvalidJson extends AbstractJsonApiException
         $this->includeOriginalBody = $includeOriginalBody;
     }
 
-    protected function createErrorDocument(): AbstractErrorDocument
+    public function getErrorDocument(): ErrorDocumentInterface
     {
-        $errorDocument = new ErrorDocument();
+        $errorDocument = new ErrorDocument($this->getErrors());
 
         if ($this->includeOriginalBody) {
             $errorDocument->setMeta(["original" => $this->response->getBody()->__toString()]);
