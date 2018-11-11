@@ -14,7 +14,7 @@ class RelationshipNotExists extends AbstractJsonApiException
 
     public function __construct(string $relationship)
     {
-        parent::__construct("The requested relationship '" . $relationship . "' does not exist!");
+        parent::__construct("The requested relationship '$relationship' does not exist!");
         $this->relationship = $relationship;
     }
 
@@ -24,8 +24,13 @@ class RelationshipNotExists extends AbstractJsonApiException
             Error::create()
                 ->setStatus("404")
                 ->setCode("RELATIONSHIP_NOT_EXISTS")
-                ->setTitle("The requested relationship does not exist!")
+                ->setTitle("The requested relationship '$this->relationship' does not exist!")
                 ->setDetail($this->getMessage())
         ];
+    }
+
+    public function getRelationship(): string
+    {
+        return $this->relationship;
     }
 }

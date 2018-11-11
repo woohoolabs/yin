@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
 
 class ResourceIdentifierTypeMissingTest extends TestCase
