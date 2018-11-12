@@ -26,7 +26,74 @@ class JsonApiTest extends TestCase
         $request = $request->withMethod("PUT");
 
         $jsonApi = $this->createJsonApi($request);
+
         $this->assertEquals($request, $jsonApi->getRequest());
+    }
+
+    /**
+     * @test
+     */
+    public function setRequest()
+    {
+        $request = $this->createRequest()
+            ->withMethod("PUT");
+
+        $jsonApi = $this->createJsonApi();
+        $jsonApi->setRequest($request);
+
+        $this->assertEquals($request, $jsonApi->getRequest());
+    }
+
+    /**
+     * @test
+     */
+    public function getResponse()
+    {
+        $response = $this->createResponse()
+            ->withStatus(404);
+
+        $jsonApi = $this->createJsonApi(null, $response);
+
+        $this->assertEquals($response, $jsonApi->getResponse());
+    }
+
+    /**
+     * @test
+     */
+    public function setResponse()
+    {
+        $response = $this->createResponse()
+            ->withStatus(404);
+
+        $jsonApi = $this->createJsonApi();
+        $jsonApi->setResponse($response);
+
+        $this->assertEquals($response, $jsonApi->getResponse());
+    }
+
+    /**
+     * @test
+     */
+    public function getExceptionFactory()
+    {
+        $exceptionFactory = new DefaultExceptionFactory();
+
+        $jsonApi = $this->createJsonApi(null, null, $exceptionFactory);
+
+        $this->assertEquals($exceptionFactory, $jsonApi->getExceptionFactory());
+    }
+
+    /**
+     * @test
+     */
+    public function setExceptionFactory()
+    {
+        $exceptionFactory = new DefaultExceptionFactory();
+
+        $jsonApi = $this->createJsonApi();
+        $jsonApi->setExceptionFactory($exceptionFactory);
+
+        $this->assertEquals($exceptionFactory, $jsonApi->getExceptionFactory());
     }
 
     /**
@@ -37,6 +104,7 @@ class JsonApiTest extends TestCase
         $request = $this->createRequest();
 
         $this->createJsonApi($request)->disableIncludes();
+
         $this->addToAssertionCount(1);
     }
 
@@ -45,10 +113,11 @@ class JsonApiTest extends TestCase
      */
     public function disableIncludesWhenEmpty()
     {
-        $request = $this->createRequest();
-        $request = $request->withQueryParams(["include" => ""]);
+        $request = $this->createRequest()
+            ->withQueryParams(["include" => ""]);
 
         $this->expectException(InclusionUnsupported::class);
+
         $this->createJsonApi($request)->disableIncludes();
     }
 
@@ -57,10 +126,11 @@ class JsonApiTest extends TestCase
      */
     public function disableIncludesWhenSet()
     {
-        $request = $this->createRequest();
-        $request = $request->withQueryParams(["include" => "users"]);
+        $request = $this->createRequest()
+            ->withQueryParams(["include" => "users"]);
 
         $this->expectException(InclusionUnsupported::class);
+
         $this->createJsonApi($request)->disableIncludes();
     }
 
@@ -72,6 +142,7 @@ class JsonApiTest extends TestCase
         $request = $this->createRequest();
 
         $this->createJsonApi($request)->disableSorting();
+
         $this->addToAssertionCount(1);
     }
 
@@ -80,10 +151,11 @@ class JsonApiTest extends TestCase
      */
     public function disableSortingWhenEmpty()
     {
-        $request = $this->createRequest();
-        $request = $request->withQueryParams(["sort" => ""]);
+        $request = $this->createRequest()
+            ->withQueryParams(["sort" => ""]);
 
         $this->expectException(SortingUnsupported::class);
+
         $this->createJsonApi($request)->disableSorting();
     }
 
@@ -92,10 +164,11 @@ class JsonApiTest extends TestCase
      */
     public function disableSortingWhenSet()
     {
-        $request = $this->createRequest();
-        $request = $request->withQueryParams(["sort" => "firstname"]);
+        $request = $this->createRequest()
+            ->withQueryParams(["sort" => "firstname"]);
 
         $this->expectException(SortingUnsupported::class);
+
         $this->createJsonApi($request)->disableSorting();
     }
 
@@ -103,7 +176,7 @@ class JsonApiTest extends TestCase
         ?Request $request = null,
         ?Response $response = null,
         ?ExceptionFactoryInterface $exceptionFactory = null
-    ) {
+    ): JsonApi {
         return new JsonApi(
             $request ? $request : $this->createRequest(),
             $response ? $response : new Response(),
@@ -111,12 +184,17 @@ class JsonApiTest extends TestCase
         );
     }
 
-    private function createRequest(?ServerRequestInterface $request = null)
+    private function createRequest(?ServerRequestInterface $request = null): Request
     {
         return new Request(
             $request ? $request : new ServerRequest(),
             new DefaultExceptionFactory(),
             new JsonDeserializer()
         );
+    }
+
+    private function createResponse(): Response
+    {
+        return new Response();
     }
 }
