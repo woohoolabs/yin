@@ -179,7 +179,7 @@ class Request implements RequestInterface
             return true;
         }
 
-        if (empty($this->includedFields[$resourceType])) {
+        if (isset($this->includedFields[$resourceType][""])) {
             return false;
         }
 
