@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Request;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
@@ -16,6 +17,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\Uri;
 
 class RequestTest extends TestCase
 {
@@ -1026,8 +1028,36 @@ class RequestTest extends TestCase
 
         $request = $this->createRequestWithHeaders($headers);
         $newRequest = $request->withoutHeader($headerName);
+
         $this->assertEquals([$headerValue], $request->getHeader($headerName));
         $this->assertEquals([], $newRequest->getHeader($headerName));
+    }
+
+    /**
+     * @test
+     */
+    public function getRequestTarget()
+    {
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getRequestTarget")
+            ->will($this->returnValue("/abc"));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals("/abc", $request->getRequestTarget());
+    }
+
+    /**
+     * @test
+     */
+    public function withRequestTarget()
+    {
+        $request = $this->createRequest();
+
+        $request = $request->withRequestTarget("/abc");
+
+        $this->assertEquals("/abc", $request->getRequestTarget());
     }
 
     /**
@@ -1041,6 +1071,92 @@ class RequestTest extends TestCase
         $newRequest = $request->withMethod($method);
         $this->assertEquals("GET", $request->getMethod());
         $this->assertEquals($method, $newRequest->getMethod());
+    }
+
+    /**
+     * @test
+     */
+    public function getUri()
+    {
+        $uri = new Uri();
+
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getUri")
+            ->will($this->returnValue($uri));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals($uri, $request->getUri());
+    }
+
+    /**
+     * @test
+     */
+    public function withUri()
+    {
+        $request = $this->createRequest();
+
+        $request = $request->withUri(new Uri("https://example.com"));
+
+        $this->assertEquals("https://example.com", $request->getUri()->__toString());
+    }
+
+    /**
+     * @test
+     */
+    public function getServerParams()
+    {
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getServerParams")
+            ->will($this->returnValue(["abc" => "def"]));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals(["abc" => "def"], $request->getServerParams());
+    }
+
+    /**
+     * @test
+     */
+    public function getCookieParams()
+    {
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getCookieParams")
+            ->will($this->returnValue(["abc" => "def"]));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals(["abc" => "def"], $request->getCookieParams());
+    }
+
+    /**
+     * @test
+     */
+    public function withCookieParams()
+    {
+        $request = $this->createRequest();
+
+        $request = $request->withCookieParams(["abc" => "def"]);
+
+        $this->assertEquals(["abc" => "def"], $request->getCookieParams());
+    }
+
+    /**
+     * @test
+     */
+    public function getUploadedFiles()
+    {
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getUploadedFiles")
+            ->will($this->returnValue(["abc"]));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals(["abc"], $request->getUploadedFiles());
     }
 
     /**
@@ -1096,9 +1212,13 @@ class RequestTest extends TestCase
         $this->assertEquals($attribute1Value, $newRequest->getAttribute($attribute1Key));
     }
 
-    private function createRequest(): Request
+    private function createRequest(ServerRequestInterface $serverRequest = null): Request
     {
-        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
+        return new Request(
+            $serverRequest ?? new ServerRequest(),
+            new DefaultExceptionFactory(),
+            new JsonDeserializer()
+        );
     }
 
     private function createRequestWithJsonBody(array $body): Request
