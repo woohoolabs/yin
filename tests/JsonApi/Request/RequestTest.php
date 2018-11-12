@@ -281,19 +281,11 @@ class RequestTest extends TestCase
      */
     public function isIncludedFieldWhenAllFieldsRequested()
     {
-        $resourceType = "book";
-        $field = "title";
-        $queryParams = ["fields" => []];
+        $request = $this->createRequestWithQueryParams(["fields" => []]);
+        $this->assertTrue($request->isIncludedField("book", "title"));
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue($request->isIncludedField($resourceType, $field));
-
-        $resourceType = "book";
-        $field = "title";
-        $queryParams = [];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue($request->isIncludedField($resourceType, $field));
+        $request = $this->createRequestWithQueryParams([]);
+        $this->assertTrue($request->isIncludedField("book", "title"));
     }
 
     /**
@@ -301,12 +293,11 @@ class RequestTest extends TestCase
      */
     public function isIncludedFieldWhenNoFieldRequested()
     {
-        $resourceType = "book";
-        $field = "title";
-        $queryParams = ["fields" => ["book" => ""]];
+        $request = $this->createRequestWithQueryParams(["fields" => ["book1" => ""]]);
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertFalse($request->isIncludedField($resourceType, $field));
+        $isIncludedField = $request->isIncludedField("book1", "title");
+
+        $this->assertFalse($isIncludedField);
     }
 
     /**
@@ -314,12 +305,11 @@ class RequestTest extends TestCase
      */
     public function isIncludedFieldWhenGivenFieldIsSpecified()
     {
-        $resourceType = "book";
-        $field = "title";
-        $queryParams = ["fields" => ["book" => "title,pages"]];
+        $request = $this->createRequestWithQueryParams(["fields" => ["book" => "title,pages"]]);
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue($request->isIncludedField($resourceType, $field));
+        $isIncludedField = $request->isIncludedField("book", "title");
+
+        $this->assertTrue($isIncludedField);
     }
 
     /**
@@ -327,10 +317,11 @@ class RequestTest extends TestCase
      */
     public function hasIncludedRelationshipsWhenTrue()
     {
-        $queryParams = ["include" => "authors"];
+        $request = $this->createRequestWithQueryParams(["include" => "authors"]);
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertTrue($request->hasIncludedRelationships());
+        $hasIncludedRelationships = $request->hasIncludedRelationships();
+
+        $this->assertTrue($hasIncludedRelationships);
     }
 
     /**

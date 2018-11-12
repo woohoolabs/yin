@@ -159,6 +159,65 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
+    public function transformWithLinks()
+    {
+        $relationship = $this->createRelationship()
+            ->setLinks(new RelationshipLinks());
+
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource(),
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertEquals(
+            [
+                "links" => [],
+                "data" => [],
+            ],
+            $relationshipObject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformWhenNotIncludedField()
+    {
+        $relationship = $this->createRelationship();
+
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource("user1"),
+                [],
+                "user1",
+                new StubRequest(["fields" => ["user1" => ""]]),
+                "",
+                "rel",
+                "rel",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertNull($relationshipObject);
+    }
+
+    /**
+     * @test
+     */
     public function transformWithEmptyData()
     {
         $relationship = $this->createRelationship();
@@ -183,6 +242,36 @@ class AbstractRelationshipTest extends TestCase
             [
                 "data" => [],
             ],
+            $relationshipObject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformWithEmptyOmittedData()
+    {
+        $relationship = $this->createRelationship()
+            ->omitWhenNotIncluded();
+
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource(),
+                [],
+                "",
+                new StubRequest(),
+                "",
+                "",
+                "",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertEquals(
+            [],
             $relationshipObject
         );
     }

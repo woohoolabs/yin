@@ -6,12 +6,12 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 
-class SortingNotSupportedTest extends TestCase
+class SortingUnsupportedTest extends TestCase
 {
     /**
      * @test
      */
-    public function getError()
+    public function getErrors()
     {
         $exception = $this->createException();
 

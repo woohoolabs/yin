@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;

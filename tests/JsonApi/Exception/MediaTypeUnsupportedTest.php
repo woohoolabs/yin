@@ -11,7 +11,7 @@ class MediaTypeUnsupportedTest extends TestCase
     /**
      * @test
      */
-    public function getError()
+    public function getErrors()
     {
         $exception = $this->createException("");
 

@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use Zend\Diactoros\Response;
 
 class ResponseBodyInvalidJsonTest extends TestCase

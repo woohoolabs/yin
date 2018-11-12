@@ -11,7 +11,7 @@ class QueryParamMalformedTest extends TestCase
     /**
      * @test
      */
-    public function getError()
+    public function getErrors()
     {
         $exception = $this->createException("", "");
 
