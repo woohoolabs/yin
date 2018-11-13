@@ -17,6 +17,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\Stream;
 use Zend\Diactoros\Uri;
 
 class RequestTest extends TestCase
@@ -1036,6 +1037,36 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function getBody()
+    {
+        $body = new Stream("php://input");
+
+        $serverRequest = $this->createMock(ServerRequestInterface::class);
+        $serverRequest->expects($this->once())
+            ->method("getBody")
+            ->will($this->returnValue($body));
+
+        $request = $this->createRequest($serverRequest);
+
+        $this->assertEquals($body, $request->getBody());
+    }
+
+    /**
+     * @test
+     */
+    public function withBody()
+    {
+        $body = new Stream("php://input");
+
+        $request = $this->createRequest();
+        $request = $request->withBody($body);
+
+        $this->assertEquals($body, $request->getBody());
+    }
+
+    /**
+     * @test
+     */
     public function getRequestTarget()
     {
         $serverRequest = $this->createMock(ServerRequestInterface::class);
@@ -1207,9 +1238,24 @@ class RequestTest extends TestCase
         $newRequest = $request
             ->withAttribute($attribute1Key, $attribute1Value)
             ->withAttribute($attribute2Key, $attribute2Value);
+
         $this->assertEquals([], $request->getAttributes());
         $this->assertEquals($attributes, $newRequest->getAttributes());
         $this->assertEquals($attribute1Value, $newRequest->getAttribute($attribute1Key));
+    }
+
+    /**
+     * @test
+     */
+    public function withoutAttributes()
+    {
+        $request = $this->createRequest();
+        $newRequest = $request
+            ->withAttribute("abc", "cde")
+            ->withoutAttribute("abc");
+
+        $this->assertEquals([], $request->getAttributes());
+        $this->assertEmpty($newRequest->getAttributes());
     }
 
     private function createRequest(ServerRequestInterface $serverRequest = null): Request
