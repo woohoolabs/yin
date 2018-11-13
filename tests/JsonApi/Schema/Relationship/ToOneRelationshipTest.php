@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
@@ -14,7 +15,7 @@ use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
-class ToManyRelationshipTest extends TestCase
+class ToOneRelationshipTest extends TestCase
 {
     /**
      * @test
@@ -41,7 +42,7 @@ class ToManyRelationshipTest extends TestCase
 
         $this->assertEquals(
             [
-                "data" => [],
+                "data" => null,
             ],
             $relationshipObject
         );
@@ -55,7 +56,7 @@ class ToManyRelationshipTest extends TestCase
         $relationship = $this->createRelationship(
             [],
             null,
-            [[], []],
+            [],
             new StubResource("abc", "1")
         );
 
@@ -78,14 +79,8 @@ class ToManyRelationshipTest extends TestCase
         $this->assertEquals(
             [
                 "data" => [
-                    [
-                      "type" => "abc",
-                      "id" => "1",
-                    ],
-                    [
-                      "type" => "abc",
-                      "id" => "1",
-                    ],
+                    "type" => "abc",
+                    "id" => "1",
                 ],
             ],
             $relationshipObject
@@ -97,7 +92,7 @@ class ToManyRelationshipTest extends TestCase
         ?RelationshipLinks $links = null,
         array $data = [],
         ?ResourceInterface $resource = null
-    ): ToManyRelationship {
-        return new ToManyRelationship($meta, $links, $data, $resource);
+    ): ToOneRelationship {
+        return new ToOneRelationship($meta, $links, $data, $resource);
     }
 }
