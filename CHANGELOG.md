@@ -11,30 +11,41 @@ CHANGED:
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 - `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
-- Moved classes related to documents (`AbstractCollectionDocument`, `AbstractSingleResourceDocument` etc.) from
-`WoohooLabs\Yin\JsonApi\Document` to the `WoohooLabs\Yin\JsonApi\Schema\Document` namespace (__BREAKING__)
-- Moved classes related to resources (`AbstractResourceTransformer` etc.) from `WoohooLabs\Yin\JsonApi\Transformer` to the
-`WoohooLabs\Yin\JsonApi\Schema\Resource` namespace (__BREAKING__)
-- Renamed `AbstractResourceTransformer` to `AbstractResource` (__BREAKING__)
-- Moved classes related to errors (`Error`, `ErrorSource`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Error` namespace (__BREAKING__)
-- Moved classes related to links (`Links`, `Link`, `LinkObject`) from `WoohooLabs\Yin\JsonApi\Schema` to the `WoohooLabs\Yin\JsonApi\Schema\Link` namespace (__BREAKING__)
-- `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links` (__BREAKING__)
-- `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
-- `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links` (__BREAKING__)
-- `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links` (__BREAKING__)
-- `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links` (__BREAKING__)
-- `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links` (__BREAKING__)
-- `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links` (__BREAKING__)
-- `JsonApiExceptionInterface::getErrorDocument()` must return a `JsonApiExceptionInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
+- Moved classes related to documents (__BREAKING__):
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument`
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument`
+    - `WoohooLabs\Yin\JsonApi\Document\ErrorDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument`
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument`
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSimpleDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSimpleDocument`
+- Moved classes related to resource transformation (__BREAKING__):
+    - `WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer` to `WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource`
+- Moved classes related to errors (__BREAKING__):
+    - `WoohooLabs\Yin\JsonApi\Schema\Error` to `WoohooLabs\Yin\JsonApi\Schema\Error\Error`
+    - `WoohooLabs\Yin\JsonApi\Schema\ErrorSource` to `WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource`
 - Renamed `JsonApiException` to `AbstractJsonApiException` (__BREAKING__)
-- Renamed `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()` (__BREAKING__)
-- Renamed `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()` (__BREAKING__)
-- Renamed `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()` (__BREAKING__)
-- Renamed `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()` (__BREAKING__)
+- Moved classes related to links (__BREAKING__):
+    - `WoohooLabs\Yin\JsonApi\Schema\Link` to `WoohooLabs\Yin\JsonApi\Schema\Link\Link` 
+    - `WoohooLabs\Yin\JsonApi\Schema\LinkObject` to `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` 
+- Links are used according to the spec (__BREAKING__):
+    - `AbstractSuccessfulDocument::getLinks() returns `?DocumentLinks` instead of `?Links`
+    - `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
+    - `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
+    - `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links`
+    - `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links`
+    - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links`
+    - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links`
+- Renamed various methods of validator classes (__BREAKING__):
+    - Renamed `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()`
+    - Renamed `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()`
+    - Renamed `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()`
+    - Renamed `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()`
+- `JsonApiExceptionInterface::getErrorDocument()` must return a `ErrorDocumentInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
+- The Request, an Exception Factory, and the transformed object are always available in the current Document and Resource
+through object properties (`$this->request`, `$this->exceptionFactory`, `$this->object`)
 
 REMOVED:
 
-- The generic `Link` class
+- The generic `Link` class (__BREAKING__)
 
 FIXED:
 

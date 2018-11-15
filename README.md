@@ -185,7 +185,7 @@ you to implement the following methods:
  *
  * @return JsonApiObject|null
  */
-public function getJsonApi()
+public function getJsonApi(): ?JsonApiObject
 {
     return new JsonApiObject("1.1");
 }

@@ -62,6 +62,7 @@ interface ResourceInterface
      * Returns an array of relationship names which are included in the response by default.
      *
      * @param mixed $object
+     * @return string[]
      */
     public function getDefaultIncludedRelationships($object): array;
 
