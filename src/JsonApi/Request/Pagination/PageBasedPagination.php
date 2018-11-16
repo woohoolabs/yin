@@ -6,12 +6,12 @@ namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 class PageBasedPagination
 {
     /**
-     * @var int|null
+     * @var int
      */
     protected $page;
 
     /**
-     * @var int|null
+     * @var int
      */
     protected $size;
 
@@ -20,8 +20,8 @@ class PageBasedPagination
      */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
-        ?int $defaultPage = null,
-        ?int $defaultSize = null
+        int $defaultPage = 0,
+        int $defaultSize = 0
     ): PageBasedPagination {
         $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
         $size = empty($paginationQueryParams["size"]) ? $defaultSize : (int) $paginationQueryParams["size"];
@@ -29,23 +29,23 @@ class PageBasedPagination
         return new PageBasedPagination($page, $size);
     }
 
-    public function __construct(?int $page, ?int $size)
+    public function __construct(int $page, int $size)
     {
         $this->page = $page;
         $this->size = $size;
     }
 
-    public function getPage(): ?int
+    public function getPage(): int
     {
         return $this->page;
     }
 
-    public function getSize(): ?int
+    public function getSize(): int
     {
         return $this->size;
     }
 
-    public static function getPaginationQueryString(?int $page, ?int $size): string
+    public static function getPaginationQueryString(int $page, int $size): string
     {
         return "page[number]=$page&page[size]=$size";
     }

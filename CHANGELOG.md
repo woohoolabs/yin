@@ -27,21 +27,29 @@ CHANGED:
     - `WoohooLabs\Yin\JsonApi\Schema\Link` to `WoohooLabs\Yin\JsonApi\Schema\Link\Link` 
     - `WoohooLabs\Yin\JsonApi\Schema\LinkObject` to `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` 
 - Links are used according to the spec (__BREAKING__):
-    - `AbstractSuccessfulDocument::getLinks() returns `?DocumentLinks` instead of `?Links`
+    - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
     - `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
     - `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
     - `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links`
     - `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links`
     - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links`
     - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links`
-- Renamed various methods of validator classes (__BREAKING__):
-    - Renamed `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()`
-    - Renamed `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()`
-    - Renamed `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()`
-    - Renamed `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()`
-- `JsonApiExceptionInterface::getErrorDocument()` must return a `ErrorDocumentInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
+- Renamed various methods of validator classes to clarify their intent (__BREAKING__):
+    - `AbstractErrorDocument::getResponseCode()` to `AbstractErrorDocument::getStatusCode()`
+    - `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()`
+    - `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()`
+    - `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()`
+- `JsonApiExceptionInterface::getErrorDocument()` must return an `ErrorDocumentInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
 - The Request, an Exception Factory, and the transformed object are always available in the current Document and Resource
 through object properties (`$this->request`, `$this->exceptionFactory`, `$this->object`)
+- Properties and methods of the following pagination classes became non-nullable (__BREAKING__):
+    - `FixedPageBasedPagination`
+    - `OffsetBasedPagination` 
+    - `PageBasedPagination`
+- Parameters of the following request methods became non-nullable (__BREAKING__):
+    - `RequestInterface::getFixedPageBasedPagination()`
+    - `RequestInterface::getPageBasedPagination()`
+    - `RequestInterface::getOffsetBasedPagination()`
 
 REMOVED:
 

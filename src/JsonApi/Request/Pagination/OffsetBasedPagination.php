@@ -6,12 +6,12 @@ namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 class OffsetBasedPagination
 {
     /**
-     * @var int|null
+     * @var int
      */
     protected $offset;
 
     /**
-     * @var int|null
+     * @var int
      */
     protected $limit;
 
@@ -20,8 +20,8 @@ class OffsetBasedPagination
      */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
-        ?int $defaultOffset = null,
-        ?int $defaultLimit = null
+        int $defaultOffset = 0,
+        int $defaultLimit = 0
     ): OffsetBasedPagination {
         $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : (int) $paginationQueryParams["offset"];
         $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : (int) $paginationQueryParams["limit"];
@@ -29,23 +29,23 @@ class OffsetBasedPagination
         return new OffsetBasedPagination($offset, $limit);
     }
 
-    public function __construct(?int $offset, ?int $limit)
+    public function __construct(int $offset, int $limit)
     {
         $this->offset = $offset;
         $this->limit = $limit;
     }
 
-    public function getOffset(): ?int
+    public function getOffset(): int
     {
         return $this->offset;
     }
 
-    public function getLimit(): ?int
+    public function getLimit(): int
     {
         return $this->limit;
     }
 
-    public static function getPaginationQueryString(?int $offset, ?int $limit): string
+    public static function getPaginationQueryString(int $offset, int $limit): string
     {
         return "page[offset]=$offset&page[limit]=$limit";
     }

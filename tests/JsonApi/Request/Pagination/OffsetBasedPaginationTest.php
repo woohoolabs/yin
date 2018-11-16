@@ -56,18 +56,6 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getOffsetWhenNull()
-    {
-        $pagination = $this->createPagination(null, 10);
-
-        $offset = $pagination->getOffset();
-
-        $this->assertNull($offset);
-    }
-
-    /**
-     * @test
-     */
     public function getLimit()
     {
         $pagination = $this->createPagination(1, 10);
@@ -75,18 +63,6 @@ class OffsetBasedPaginationTest extends TestCase
         $limit = $pagination->getLimit();
 
         $this->assertEquals(10, $limit);
-    }
-
-    /**
-     * @test
-     */
-    public function getLimitWhenNull()
-    {
-        $pagination = $this->createPagination(1, null);
-
-        $limit = $pagination->getLimit();
-
-        $this->assertNull($limit);
     }
 
     /**
@@ -103,7 +79,7 @@ class OffsetBasedPaginationTest extends TestCase
         );
     }
 
-    private function createPagination(?int $offset, ?int $limit)
+    private function createPagination(int $offset, int $limit)
     {
         return new OffsetBasedPagination($offset, $limit);
     }

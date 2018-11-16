@@ -84,7 +84,7 @@ interface RequestInterface extends ServerRequestInterface
      * The FixedPageBasedPagination class stores the value of the "page[number]" query parameter if present
      * or the $defaultPage otherwise.
      */
-    public function getFixedPageBasedPagination(?int $defaultPage = null): FixedPageBasedPagination;
+    public function getFixedPageBasedPagination(int $defaultPage = 0): FixedPageBasedPagination;
 
     /**
      * Returns a PageBasedPagination class in order to be used for page-based pagination.
@@ -92,7 +92,7 @@ interface RequestInterface extends ServerRequestInterface
      * The PageBasedPagination class stores the value of the "page[number]" and "page[size]" query parameters
      * if present or the $defaultPage and $defaultSize otherwise.
      */
-    public function getPageBasedPagination(?int $defaultPage = null, ?int $defaultSize = null): PageBasedPagination;
+    public function getPageBasedPagination(int $defaultPage = 0, int $defaultSize = 0): PageBasedPagination;
 
     /**
      * Returns a OffsetBasedPagination class in order to be used for offset-based pagination.
@@ -100,7 +100,7 @@ interface RequestInterface extends ServerRequestInterface
      * The OffsetBasedPagination class stores the value of the "page[offset]" and "page[limit]" query parameters
      * if present or the $defaultOffset and $defaultLimit otherwise.
      */
-    public function getOffsetBasedPagination(?int $defaultOffset = null, ?int $defaultLimit = null): OffsetBasedPagination;
+    public function getOffsetBasedPagination(int $defaultOffset = 0, int $defaultLimit = 0): OffsetBasedPagination;
 
     /**
      * Returns a CursorBasedPagination class in order to be used for cursor-based pagination.
