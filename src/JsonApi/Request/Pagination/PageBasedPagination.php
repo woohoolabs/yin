@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
+use WoohooLabs\Yin\Utils;
+
 class PageBasedPagination
 {
     /**
@@ -23,10 +25,10 @@ class PageBasedPagination
         int $defaultPage = 0,
         int $defaultSize = 0
     ): PageBasedPagination {
-        $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
-        $size = empty($paginationQueryParams["size"]) ? $defaultSize : (int) $paginationQueryParams["size"];
-
-        return new PageBasedPagination($page, $size);
+        return new PageBasedPagination(
+            Utils::getIntegerFromQueryParam($paginationQueryParams, "number", $defaultPage),
+            Utils::getIntegerFromQueryParam($paginationQueryParams, "size", $defaultSize)
+        );
     }
 
     public function __construct(int $page, int $size)

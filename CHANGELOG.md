@@ -57,6 +57,7 @@ REMOVED:
 
 FIXED:
 
+- Issues with 0 and non-numeric values when using built-in pagination objects (`PageBasedPagination`, `FixedPageBasedPagination`, `OffsetBasedPagination`)
 - Small issues found by static analysis
 
 ## 3.0.2 - 2018-02-06

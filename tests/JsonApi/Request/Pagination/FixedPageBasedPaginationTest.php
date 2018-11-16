@@ -11,34 +11,51 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function createFromPaginationQueryParams()
+    public function fromPaginationQueryParams()
     {
-        $pagination = $this->createPagination(1);
-        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams(["number" => 1]);
+        $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => 1]);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
     }
 
     /**
      * @test
      */
-    public function createFromMissingPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenMissing()
     {
-        $pagination = $this->createPagination(1);
-        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams([], 1);
+        $pagination = FixedPageBasedPagination::fromPaginationQueryParams([], 1);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
     }
 
     /**
      * @test
      */
-    public function createFromEmptyPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenEmpty()
     {
-        $pagination = $this->createPagination(1);
-        $paginationFromQueryParam = FixedPageBasedPagination::fromPaginationQueryParams(["number" => ""], 1);
+        $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => ""], 1);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenZero()
+    {
+        $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => "0"], 1);
+
+        $this->assertEquals(0, $pagination->getPage());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenNonNumeric()
+    {
+        $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => "abc"], 1);
+
+        $this->assertEquals(1, $pagination->getPage());
     }
 
     /**

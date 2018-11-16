@@ -11,34 +11,56 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function createFromPaginationQueryParams()
+    public function fromPaginationQueryParams()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams(["offset" => 1, "limit" => 10]);
+        $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => 1, "limit" => 10]);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getOffset());
+        $this->assertEquals(10, $pagination->getLimit());
     }
 
     /**
      * @test
      */
-    public function createFromMissingPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenMissing()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams([], 1, 10);
+        $pagination = OffsetBasedPagination::fromPaginationQueryParams([], 1, 10);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getOffset());
+        $this->assertEquals(10, $pagination->getLimit());
     }
 
     /**
      * @test
      */
-    public function createFromEmptyPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenEmpty()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "", "limit" => ""], 1, 10);
+        $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "", "limit" => ""], 1, 10);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getOffset());
+        $this->assertEquals(10, $pagination->getLimit());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenZero()
+    {
+        $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "0", "limit" => "0"], 1, 10);
+
+        $this->assertEquals(0, $pagination->getOffset());
+        $this->assertEquals(0, $pagination->getLimit());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenNonNumeric()
+    {
+        $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "abc", "limit" => "abc"], 1, 10);
+
+        $this->assertEquals(1, $pagination->getOffset());
+        $this->assertEquals(10, $pagination->getLimit());
     }
 
     /**

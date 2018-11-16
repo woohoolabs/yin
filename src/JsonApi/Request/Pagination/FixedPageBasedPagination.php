@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
+use WoohooLabs\Yin\Utils;
+
 class FixedPageBasedPagination
 {
     /**
@@ -15,9 +17,9 @@ class FixedPageBasedPagination
      */
     public static function fromPaginationQueryParams(array $paginationQueryParams, int $defaultPage = 0): FixedPageBasedPagination
     {
-        $page = empty($paginationQueryParams["number"]) ? $defaultPage : (int) $paginationQueryParams["number"];
-
-        return new FixedPageBasedPagination($page);
+        return new FixedPageBasedPagination(
+            Utils::getIntegerFromQueryParam($paginationQueryParams, "number", $defaultPage)
+        );
     }
 
     public function __construct(int $page)

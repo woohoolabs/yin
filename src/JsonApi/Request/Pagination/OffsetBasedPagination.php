@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
+use WoohooLabs\Yin\Utils;
+
 class OffsetBasedPagination
 {
     /**
@@ -23,10 +25,10 @@ class OffsetBasedPagination
         int $defaultOffset = 0,
         int $defaultLimit = 0
     ): OffsetBasedPagination {
-        $offset = empty($paginationQueryParams["offset"]) ? $defaultOffset : (int) $paginationQueryParams["offset"];
-        $limit = empty($paginationQueryParams["limit"]) ? $defaultLimit : (int) $paginationQueryParams["limit"];
-
-        return new OffsetBasedPagination($offset, $limit);
+        return new OffsetBasedPagination(
+            Utils::getIntegerFromQueryParam($paginationQueryParams, "offset", $defaultOffset),
+            Utils::getIntegerFromQueryParam($paginationQueryParams, "limit", $defaultLimit)
+        );
     }
 
     public function __construct(int $offset, int $limit)

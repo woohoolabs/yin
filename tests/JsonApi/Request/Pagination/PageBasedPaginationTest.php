@@ -11,34 +11,56 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function createFromPaginationQueryParams()
+    public function fromPaginationQueryParams()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = PageBasedPagination::fromPaginationQueryParams(["number" => 1, "size" => 10]);
+        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => 1, "size" => 10]);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**
      * @test
      */
-    public function createFromMissingPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenMissing()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = PageBasedPagination::fromPaginationQueryParams([], 1, 10);
+        $pagination = PageBasedPagination::fromPaginationQueryParams([], 1, 10);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**
      * @test
      */
-    public function createFromEmptyPaginationQueryParams()
+    public function fromPaginationQueryParamsWhenEmpty()
     {
-        $pagination = $this->createPagination(1, 10);
-        $paginationFromQueryParam = PageBasedPagination::fromPaginationQueryParams(["number" => "", "size" => ""], 1, 10);
+        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "", "size" => ""], 1, 10);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals(1, $pagination->getPage());
+        $this->assertEquals(10, $pagination->getSize());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenZero()
+    {
+        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "0", "size" => "0"], 1, 10);
+
+        $this->assertEquals(0, $pagination->getPage());
+        $this->assertEquals(0, $pagination->getSize());
+    }
+
+    /**
+     * @test
+     */
+    public function fromPaginationQueryParamsWhenNonNumeric()
+    {
+        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "abc", "size" => "abc"], 1, 10);
+
+        $this->assertEquals(1, $pagination->getPage());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**

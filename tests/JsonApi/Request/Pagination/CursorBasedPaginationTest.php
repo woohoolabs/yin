@@ -11,34 +11,31 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function createFromPaginationQueryParams()
+    public function fromPaginationQueryParams()
     {
-        $pagination = $this->createPagination("abc");
-        $paginationFromQueryParam = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc"]);
+        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc"]);
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals("abc", $pagination->getCursor());
     }
 
     /**
      * @test
      */
-    public function createFromMissingPaginationQueryParams()
+    public function fromMissingPaginationQueryParams()
     {
-        $pagination = $this->createPagination("abc");
-        $paginationFromQueryParam = CursorBasedPagination::fromPaginationQueryParams([], "abc");
+        $pagination = CursorBasedPagination::fromPaginationQueryParams([], "abc");
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals("abc", $pagination->getCursor());
     }
 
     /**
      * @test
      */
-    public function createFromEmptyPaginationQueryParams()
+    public function fromEmptyPaginationQueryParams()
     {
-        $pagination = $this->createPagination("abc");
-        $paginationFromQueryParam = CursorBasedPagination::fromPaginationQueryParams(["cursor" => ""], "abc");
+        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => ""], "abc");
 
-        $this->assertEquals($pagination, $paginationFromQueryParam);
+        $this->assertEquals("", $pagination->getCursor());
     }
 
     /**
