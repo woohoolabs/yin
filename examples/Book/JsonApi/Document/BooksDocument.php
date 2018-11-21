@@ -10,9 +10,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class BooksDocument extends AbstractCollectionDocument
 {
-    public function __construct(BookResource $transformer)
+    public function __construct(BookResource $resource)
     {
-        parent::__construct($transformer);
+        parent::__construct($resource);
     }
 
     /**
@@ -45,6 +45,7 @@ class BooksDocument extends AbstractCollectionDocument
      */
     public function getLinks(): ?DocumentLinks
     {
-        return DocumentLinks::createWithoutBaseUri()->setPagination("/books", $this->object);
+        return DocumentLinks::createWithoutBaseUri()
+            ->setPagination("/books", $this->object, $this->request->getUri()->getQuery());
     }
 }

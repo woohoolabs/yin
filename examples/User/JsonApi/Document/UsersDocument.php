@@ -10,9 +10,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class UsersDocument extends AbstractCollectionDocument
 {
-    public function __construct(UserResource $transformer)
+    public function __construct(UserResource $resource)
     {
-        parent::__construct($transformer);
+        parent::__construct($resource);
     }
 
     /**
