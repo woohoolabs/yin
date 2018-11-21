@@ -49,6 +49,6 @@ class PageBasedPagination
 
     public static function getPaginationQueryString(int $page, int $size): string
     {
-        return urlencode("page[number]=$page&page[size]=$size");
+        return urlencode("page[number]=$page") . "&" . urlencode("page[size]=$size");
     }
 }
