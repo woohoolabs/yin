@@ -10,7 +10,6 @@ CHANGED:
 
 - Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
-- `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
 - Moved classes related to documents (__BREAKING__):
     - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument`
     - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument`
@@ -39,7 +38,9 @@ CHANGED:
     - `RequestValidator::lintBody()` to `RequestValidator::validateJsonBody()`
     - `ResponseValidator::lintBody()` to `ResponseValidator::validateJsonBody()`
     - `ResponseValidator::validateBody()` to `ResponseValidator::validateJsonApiBody()`
+- `JsonApiExceptionInterface` now extends `Throwable` (__BREAKING__)
 - `JsonApiExceptionInterface::getErrorDocument()` must return an `ErrorDocumentInterface` instead of an `AbstractErrorDocument` (__BREAKING__)
+- `JsonApiException` was renamed to `AbstractJsonApiException` (__BREAKING__)
 - The Request, an Exception Factory, and the transformed object are always available in the current Document and Resource
 through object properties (`$this->request`, `$this->exceptionFactory`, `$this->object`)
 - Properties and methods of the following pagination classes became non-nullable (__BREAKING__):
@@ -59,6 +60,7 @@ FIXED:
 
 - Issues with 0 and non-numeric values when using built-in pagination objects (`PageBasedPagination`, `FixedPageBasedPagination`, `OffsetBasedPagination`)
 - Small issues found by static analysis
+- Query parameters of pagination links were not encoded properly
 
 ## 3.0.2 - 2018-02-06
 

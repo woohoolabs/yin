@@ -49,6 +49,6 @@ class OffsetBasedPagination
 
     public static function getPaginationQueryString(int $offset, int $limit): string
     {
-        return "page[offset]=$offset&page[limit]=$limit";
+        return urlencode("page[offset]=$offset&page[limit]=$limit");
     }
 }

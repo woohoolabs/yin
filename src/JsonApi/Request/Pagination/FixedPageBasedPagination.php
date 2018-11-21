@@ -34,6 +34,6 @@ class FixedPageBasedPagination
 
     public static function getPaginationQueryString(int $page): string
     {
-        return "page[number]=$page";
+        return urlencode("page[number]=$page");
     }
 }
