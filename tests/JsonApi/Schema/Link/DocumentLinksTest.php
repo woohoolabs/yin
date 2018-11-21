@@ -26,9 +26,9 @@ class DocumentLinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = DocumentLinks::createWithBaseUri("http://example.com", []);
+        $links = DocumentLinks::createWithBaseUri("https://example.com", []);
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -38,9 +38,9 @@ class DocumentLinksTest extends TestCase
     {
         $links = $this->createLinks();
 
-        $links->setBaseUri("http://example.com");
+        $links->setBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -51,8 +51,8 @@ class DocumentLinksTest extends TestCase
         $links = $this->createLinks(
             "",
             [
-                "self" => new Link("http://example.com/articles/1/relationships/author"),
-                "related" => new Link("http://example.com/articles/1/author"),
+                "self" => new Link("https://example.com/articles/1/relationships/author"),
+                "related" => new Link("https://example.com/articles/1/author"),
             ]
         );
 
@@ -77,7 +77,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getSelfWhenNotEmpty()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createLinks()->setSelf($self);
 
@@ -89,7 +89,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getRelatedWhenNotEmpty()
     {
-        $related = new Link("http://example.com/api/users");
+        $related = new Link("https://example.com/api/users");
 
         $links = $this->createLinks()->setRelated($related);
 
@@ -111,7 +111,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getFirstWhenNotEmpty()
     {
-        $first = new Link("http://example.com/api/users?page[number]=1");
+        $first = new Link("https://example.com/api/users?page[number]=1");
 
         $links = $this->createLinks()->setFirst($first);
 
@@ -123,7 +123,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getLastWhenNotEmpty()
     {
-        $last = new Link("http://example.com/api/users?page[number]=10");
+        $last = new Link("https://example.com/api/users?page[number]=10");
 
         $links = $this->createLinks()->setLast($last);
 
@@ -135,7 +135,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getPrevWhenNotEmpty()
     {
-        $prev = new Link("http://example.com/api/users?page[number]=4");
+        $prev = new Link("https://example.com/api/users?page[number]=4");
 
         $links = $this->createLinks()->setPrev($prev);
 
@@ -147,7 +147,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getNextWhenNotEmpty()
     {
-        $next = new Link("http://example.com/api/users?page[number]=6");
+        $next = new Link("https://example.com/api/users?page[number]=6");
 
         $links = $this->createLinks()->setNext($next);
 
@@ -159,16 +159,15 @@ class DocumentLinksTest extends TestCase
      */
     public function setPagination()
     {
-        $uri = "http://example.com/api/users/";
         $pagination = new StubPaginationLinkProvider();
 
-        $links = $this->createLinks()->setPagination($uri, $pagination);
+        $links = $this->createLinks()->setPagination("https://example.com/api/users/", $pagination);
 
-        $this->assertEquals(new Link($uri . "self"), $links->getSelf());
-        $this->assertEquals(new Link($uri . "first"), $links->getFirst());
-        $this->assertEquals(new Link($uri . "last"), $links->getLast());
-        $this->assertEquals(new Link($uri . "prev"), $links->getPrev());
-        $this->assertEquals(new Link($uri . "next"), $links->getNext());
+        $this->assertEquals(new Link("https://example.com/api/users/self"), $links->getSelf());
+        $this->assertEquals(new Link("https://example.com/api/users/first"), $links->getFirst());
+        $this->assertEquals(new Link("https://example.com/api/users/last"), $links->getLast());
+        $this->assertEquals(new Link("https://example.com/api/users/prev"), $links->getPrev());
+        $this->assertEquals(new Link("https://example.com/api/users/next"), $links->getNext());
     }
 
     /**
@@ -176,7 +175,7 @@ class DocumentLinksTest extends TestCase
      */
     public function getLink()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createLinks()->setLink("self", $self);
 
@@ -188,8 +187,8 @@ class DocumentLinksTest extends TestCase
      */
     public function getMultipleLinks()
     {
-        $self = new Link("http://example.com/api/users/1");
-        $related = new Link("http://example.com/api/people/1");
+        $self = new Link("https://example.com/api/users/1");
+        $related = new Link("https://example.com/api/people/1");
         $links = ["self" => $self, "related" => $related];
 
         $links = $this->createLinks()->setLinks($links);

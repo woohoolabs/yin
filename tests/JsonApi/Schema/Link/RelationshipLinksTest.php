@@ -24,9 +24,9 @@ class RelationshipLinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = RelationshipLinks::createWithBaseUri("http://example.com");
+        $links = RelationshipLinks::createWithBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -36,9 +36,9 @@ class RelationshipLinksTest extends TestCase
     {
         $links = $this->createRelationshipLinks();
 
-        $links->setBaseUri("http://example.com");
+        $links->setBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -48,8 +48,8 @@ class RelationshipLinksTest extends TestCase
     {
         $links = $this->createRelationshipLinks(
             "",
-            new Link("http://example.com/articles/1/relationships/author"),
-            new Link("http://example.com/articles/1/author")
+            new Link("https://example.com/articles/1/relationships/author"),
+            new Link("https://example.com/articles/1/author")
         );
 
         $transformedLinks = $links->transform();
@@ -73,7 +73,7 @@ class RelationshipLinksTest extends TestCase
      */
     public function getSelfWhenNotEmpty()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createRelationshipLinks()->setSelf($self);
 
@@ -95,7 +95,7 @@ class RelationshipLinksTest extends TestCase
      */
     public function getRelatedWhenNotEmpty()
     {
-        $related = new Link("http://example.com/articles/1/author");
+        $related = new Link("https://example.com/articles/1/author");
 
         $links = $this->createRelationshipLinks()->setRelated($related);
 
@@ -117,7 +117,7 @@ class RelationshipLinksTest extends TestCase
      */
     public function getLinkWhenNotEmpty()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createRelationshipLinks()->setSelf($self);
 

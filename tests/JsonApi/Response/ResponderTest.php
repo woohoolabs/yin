@@ -78,14 +78,14 @@ class ResponderTest extends TestCase
             new StubResourceDocument(
                 null,
                 [],
-                new DocumentLinks("", ["self" => new Link("http://example.com/users")])
+                new DocumentLinks("", ["self" => new Link("https://example.com/users")])
             ),
             []
         );
 
         $location = $response->getHeader("location");
 
-        $this->assertEquals(["http://example.com/users"], $location);
+        $this->assertEquals(["https://example.com/users"], $location);
     }
 
     /**
@@ -97,7 +97,7 @@ class ResponderTest extends TestCase
             new StubResourceDocument(
                 null,
                 [],
-                new DocumentLinks("", ["self" => new Link("http://example.com/users")])
+                new DocumentLinks("", ["self" => new Link("https://example.com/users")])
             ),
             []
         );
@@ -107,7 +107,7 @@ class ResponderTest extends TestCase
         $body = json_decode($response->getBody()->__toString(), true);
 
         $this->assertEquals(201, $statusCode);
-        $this->assertEquals(["http://example.com/users"], $location);
+        $this->assertEquals(["https://example.com/users"], $location);
         $this->assertNotEmpty($body);
     }
 

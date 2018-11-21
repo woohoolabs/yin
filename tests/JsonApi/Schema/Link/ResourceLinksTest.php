@@ -24,9 +24,9 @@ class ResourceLinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = ResourceLinks::createWithBaseUri("http://example.com");
+        $links = ResourceLinks::createWithBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -36,9 +36,9 @@ class ResourceLinksTest extends TestCase
     {
         $links = $this->createResourceLinks();
 
-        $links->setBaseUri("http://example.com");
+        $links->setBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -46,7 +46,7 @@ class ResourceLinksTest extends TestCase
      */
     public function transform()
     {
-        $links = $this->createResourceLinks("", new Link("http://example.com/articles/1"));
+        $links = $this->createResourceLinks("", new Link("https://example.com/articles/1"));
 
         $this->assertArrayHasKey("self", $links->transform());
     }
@@ -66,7 +66,7 @@ class ResourceLinksTest extends TestCase
      */
     public function getSelfWhenNotEmpty()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createResourceLinks()->setSelf($self);
 
@@ -88,7 +88,7 @@ class ResourceLinksTest extends TestCase
      */
     public function getLinkWhenNotEmpty()
     {
-        $self = new Link("http://example.com/api/users");
+        $self = new Link("https://example.com/api/users");
 
         $links = $this->createResourceLinks()->setSelf($self);
 

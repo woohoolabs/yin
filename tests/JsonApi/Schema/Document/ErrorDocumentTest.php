@@ -37,7 +37,7 @@ class ErrorDocumentTest extends TestCase
      */
     public function getLinks()
     {
-        $links = new ErrorLinks("http://example.com");
+        $links = new ErrorLinks("https://example.com");
 
         $errorDocument = $this->createErrorDocument()->setLinks($links);
         $this->assertEquals($links, $errorDocument->getLinks());

@@ -39,9 +39,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $link = $provider->getSelfLink("http://example.com/api/users?", "");
+        $link = $provider->getSelfLink("https://example.com/api/users?", "");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -51,9 +51,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "");
+        $link = $provider->getSelfLink("https://example.com/api/users?a=b", "");
 
-        $this->assertEquals("http://example.com/api/users?a=b&page[cursor]=2", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=b&page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -63,9 +63,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "a=c&b=d");
+        $link = $provider->getSelfLink("https://example.com/api/users?a=b", "a=c&b=d");
 
-        $this->assertEquals("http://example.com/api/users?a=c&b=d&page[cursor]=2", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -75,9 +75,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $link = $provider->getSelfLink("http://example.com/api/users", "page[cursor]=0");
+        $link = $provider->getSelfLink("https://example.com/api/users", "page[cursor]=0");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -87,7 +87,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(null, 0, 0, 0, 0);
 
-        $link = $provider->getFirstLink("http://example.com/api/users?", "");
+        $link = $provider->getFirstLink("https://example.com/api/users?", "");
 
         $this->assertNull($link);
     }
@@ -99,9 +99,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 0, 0, 0);
 
-        $link = $provider->getFirstLink("http://example.com/api/users", "");
+        $link = $provider->getFirstLink("https://example.com/api/users", "");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=0", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=0", urldecode($link->getHref()));
     }
 
     /**
@@ -111,7 +111,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, null, 0, 0, 0);
 
-        $link = $provider->getLastLink("http://example.com/api/users", "");
+        $link = $provider->getLastLink("https://example.com/api/users", "");
 
         $this->assertNull($link);
     }
@@ -123,9 +123,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 4, 0, 0, 0);
 
-        $link = $provider->getLastLink("http://example.com/api/users", "");
+        $link = $provider->getLastLink("https://example.com/api/users", "");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=4", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=4", urldecode($link->getHref()));
     }
 
     /**
@@ -135,9 +135,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 0, 2, 0);
 
-        $link = $provider->getPrevLink("http://example.com/api/users", "");
+        $link = $provider->getPrevLink("https://example.com/api/users", "");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -147,9 +147,9 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     {
         $provider = $this->createProvider(0, 0, 0, 0, 3);
 
-        $link = $provider->getNextLink("http://example.com/api/users", "");
+        $link = $provider->getNextLink("https://example.com/api/users", "");
 
-        $this->assertEquals("http://example.com/api/users?page[cursor]=3", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=3", urldecode($link->getHref()));
     }
 
     /**

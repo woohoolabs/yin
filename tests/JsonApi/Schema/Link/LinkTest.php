@@ -13,7 +13,7 @@ class LinkTest extends TestCase
      */
     public function getHref()
     {
-        $href = "http://example.com";
+        $href = "https://example.com";
 
         $link = $this->createLink($href);
 
@@ -25,7 +25,7 @@ class LinkTest extends TestCase
      */
     public function transformAbsoluteLink()
     {
-        $href = "http://example.com/api/users";
+        $href = "https://example.com/api/users";
 
         $link = $this->createLink($href);
 
@@ -37,7 +37,7 @@ class LinkTest extends TestCase
      */
     public function transformRelativeLink()
     {
-        $baseUri = "http://example.com/api";
+        $baseUri = "https://example.com/api";
         $href = "/users";
 
         $link = $this->createLink($href);

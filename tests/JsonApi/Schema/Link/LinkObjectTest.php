@@ -13,7 +13,7 @@ class LinkObjectTest extends TestCase
      */
     public function getHref()
     {
-        $href = "http://example.com/api/users";
+        $href = "https://example.com/api/users";
 
         $link = $this->createLinkObject($href);
         $this->assertEquals($href, $link->getHref());
@@ -24,7 +24,7 @@ class LinkObjectTest extends TestCase
      */
     public function getEmptyMeta()
     {
-        $href = "http://example.com/api/users";
+        $href = "https://example.com/api/users";
 
         $link = $this->createLinkObject($href);
         $this->assertEquals([], $link->getMeta());
@@ -46,7 +46,7 @@ class LinkObjectTest extends TestCase
      */
     public function transformAbsoluteLinkWithMeta()
     {
-        $href = "http://example.com/api/users";
+        $href = "https://example.com/api/users";
         $meta = ["abc" => "def"];
 
         $link = $this->createLinkWithMeta($href, $meta);
@@ -63,7 +63,7 @@ class LinkObjectTest extends TestCase
      */
     public function transformRelativeLinkWithoutMeta()
     {
-        $baseUri = "http://example.com/api";
+        $baseUri = "https://example.com/api";
         $href = "/users";
 
         $link = $this->createLinkObject($href);

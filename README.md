@@ -50,8 +50,8 @@
 
 ## Introduction
 
-[JSON:API](http://jsonapi.org) specification
-[reached 1.0 on 29th May 2015](http://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
+[JSON:API](https://jsonapi.org) specification
+[reached 1.0 on 29th May 2015](https://www.programmableweb.com/news/new-json-api-specification-aims-to-speed-api-development/2015/06/10)
 and we also believe it is a big day for RESTful APIs as this specification can help you make APIs more robust and
 future-proof. Woohoo Labs. Yin (named after Yin-Yang) was born to bring efficiency and elegance to your JSON:API
 servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its client-side counterpart.
@@ -59,7 +59,7 @@ servers, while [Woohoo Labs. Yang](https://github.com/woohoolabs/yang) is its cl
 ### Features
 
 - 100% [PSR-7](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-7-http-message.md) compatibility
-- 99% [JSON:API 1.1](http://jsonapi.org/) compatibility (approximately)
+- 99% [JSON:API 1.1](https://jsonapi.org/) compatibility (approximately)
 - Developed for efficiency and ease of use
 - Extensive documentation and examples
 - Provides Documents and Transformers to fetch resources
@@ -92,7 +92,7 @@ and responses).
 
 ## Install
 
-The only thing you need before getting started is [Composer](http://getcomposer.org).
+The only thing you need before getting started is [Composer](https://getcomposer.org).
 
 ### Install a PSR-7 implementation:
 
@@ -229,7 +229,7 @@ and this is the main "subject" of the document.
 public function getLinks(): ?Links
 {
     return new Links(
-        "http://example.com/api",
+        "https://example.com/api",
         [
             "self" => new Link("/books/" . $this->getResourceId())
         ]
@@ -237,7 +237,7 @@ public function getLinks(): ?Links
     
     /* This is equivalent to the following:
     return Links::createWithBaseUri(
-        "http://example.com/api",
+        "https://example.com/api",
         [
             "self" => new Link("/books/" . $this->getResourceId())
         ]
@@ -281,7 +281,7 @@ There is an `ErrorDocument` too, which makes it possible to build error response
 /** @var ErrorDocument $errorDocument */
 $errorDocument = new ErrorDocument();
 $errorDocument->setJsonApi(new JsonApiObject("1.0"));
-$errorDocument->setLinks(ErrorLinks::createWithoutBaseUri()->setAbout("http://example.com/api/errors/404")));
+$errorDocument->setLinks(ErrorLinks::createWithoutBaseUri()->setAbout("https://example.com/api/errors/404")));
 $errorDocument->addError(new MyError());
 ```
 
@@ -915,7 +915,7 @@ $requestValidator->negotiate($request);
 ### Request/response validation
 
 You can use the following method to check if the query parameters of the current request are in line with
-[the naming rules](http://jsonapi.org/format/#query-parameters):
+[the naming rules](https://jsonapi.org/format/#query-parameters):
 
 ```php
 $requestValidator->validateQueryParams($request);
@@ -991,7 +991,7 @@ $request = new Request(ServerRequestFactory::fromGlobals(), new ExceptionFactory
 If you use a middleware-oriented framework (like [Woohoo Labs. Harmony](https://github.com/woohoolabs/harmony),
 [Zend-Stratigility](https://github.com/zendframework/zend-stratigility/),
 [Zend-Expressive](https://github.com/zendframework/zend-expressive/) or
-[Slim Framework 3](http://www.slimframework.com/)), you will find the
+[Slim Framework 3](https://www.slimframework.com/)), you will find the
 [Yin-middleware](https://github.com/woohoolabs/yin-middleware) library quite useful. Read the documentation to
 learn about its advantages!
 
@@ -1204,7 +1204,7 @@ well as the dependencies via `Composer`.
 
 ## Versioning
 
-This library follows [SemVer v2.0.0](http://semver.org/).
+This library follows [SemVer v2.0.0](https://semver.org/).
 
 ## Change Log
 

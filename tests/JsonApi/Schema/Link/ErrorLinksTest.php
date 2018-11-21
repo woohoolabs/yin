@@ -24,9 +24,9 @@ class ErrorLinksTest extends TestCase
      */
     public function createWithBaseUri()
     {
-        $links = ErrorLinks::createWithBaseUri("http://example.com");
+        $links = ErrorLinks::createWithBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -36,9 +36,9 @@ class ErrorLinksTest extends TestCase
     {
         $links = $this->createErrorLinks();
 
-        $links->setBaseUri("http://example.com");
+        $links->setBaseUri("https://example.com");
 
-        $this->assertEquals("http://example.com", $links->getBaseUri());
+        $this->assertEquals("https://example.com", $links->getBaseUri());
     }
 
     /**
@@ -48,10 +48,10 @@ class ErrorLinksTest extends TestCase
     {
         $linksObject = $this->createErrorLinks(
             "",
-            new Link("http://example.com/api/errors/1"),
+            new Link("https://example.com/api/errors/1"),
             [
-                new Link("http://example.com/api/errors/type/1"),
-                new Link("http://example.com/api/errors/type/2"),
+                new Link("https://example.com/api/errors/type/1"),
+                new Link("https://example.com/api/errors/type/2"),
             ]
         );
 
@@ -77,7 +77,7 @@ class ErrorLinksTest extends TestCase
      */
     public function getAboutWhenNotEmpty()
     {
-        $about = new Link("http://example.com/about");
+        $about = new Link("https://example.com/about");
 
         $linksObject = $this->createErrorLinks()->setAbout($about);
         $this->assertEquals($about, $linksObject->getAbout());
@@ -97,7 +97,7 @@ class ErrorLinksTest extends TestCase
      */
     public function getTypeWhenNotEmpty()
     {
-        $typeLink = new Link("http://example.com/errors/404");
+        $typeLink = new Link("https://example.com/errors/404");
 
         $linksObject = $this->createErrorLinks()->addType($typeLink);
 
@@ -109,8 +109,8 @@ class ErrorLinksTest extends TestCase
      */
     public function setTypes()
     {
-        $typeLink1 = new Link("http://example.com/errors/404");
-        $typeLink2 = new Link("http://example.com/errors/405");
+        $typeLink1 = new Link("https://example.com/errors/404");
+        $typeLink2 = new Link("https://example.com/errors/405");
 
         $linksObject = $this->createErrorLinks()->setTypes([$typeLink1, $typeLink2]);
 
@@ -124,7 +124,7 @@ class ErrorLinksTest extends TestCase
      */
     public function setTypesWithSameHref()
     {
-        $typeLink = new Link("http://example.com/errors/404");
+        $typeLink = new Link("https://example.com/errors/404");
 
         $linksObject = $this->createErrorLinks()->setTypes([$typeLink, $typeLink]);
 
