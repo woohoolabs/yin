@@ -5,6 +5,7 @@ ADDED:
 - Support for Profiles (JSON:API 1.1 feature)
 - Support for `type` links in errors (JSON:API 1.1 feature)
 - Separate classes for the different types of links: `DocumentLinks`, `ErrorLinks`, `ResourceLinks`, `RelationshipLinks`
+- [#70](https://github.com/woohoolabs/yin/issues/70): Better support for query parameters in pagination links
 
 CHANGED:
 
@@ -51,6 +52,7 @@ through object properties (`$this->request`, `$this->exceptionFactory`, `$this->
     - `RequestInterface::getFixedPageBasedPagination()`
     - `RequestInterface::getPageBasedPagination()`
     - `RequestInterface::getOffsetBasedPagination()`
+- Methods of `PaginationLinkProviderInterface` expect a second parameter with a `$queryString` name
 
 REMOVED:
 

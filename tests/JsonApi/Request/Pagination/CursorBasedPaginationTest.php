@@ -57,7 +57,7 @@ class CursorBasedPaginationTest extends TestCase
     {
         $queryString = CursorBasedPagination::getPaginationQueryString("abc");
 
-        $this->assertEquals("page[cursor]=abc", $queryString);
+        $this->assertEquals("page[cursor]=abc", urldecode($queryString));
     }
 
     private function createPagination($cursor): CursorBasedPagination

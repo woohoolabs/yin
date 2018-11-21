@@ -136,13 +136,13 @@ class DocumentLinks extends AbstractLinks
         return $this;
     }
 
-    public function setPagination(string $uri, PaginationLinkProviderInterface $paginationProvider): DocumentLinks
+    public function setPagination(string $uri, PaginationLinkProviderInterface $paginationProvider, string $queryString = ""): DocumentLinks
     {
-        $this->setSelf($paginationProvider->getSelfLink($uri));
-        $this->setFirst($paginationProvider->getFirstLink($uri));
-        $this->setLast($paginationProvider->getLastLink($uri));
-        $this->setPrev($paginationProvider->getPrevLink($uri));
-        $this->setNext($paginationProvider->getNextLink($uri));
+        $this->setSelf($paginationProvider->getSelfLink($uri, $queryString));
+        $this->setFirst($paginationProvider->getFirstLink($uri, $queryString));
+        $this->setLast($paginationProvider->getLastLink($uri, $queryString));
+        $this->setPrev($paginationProvider->getPrevLink($uri, $queryString));
+        $this->setNext($paginationProvider->getNextLink($uri, $queryString));
 
         return $this;
     }

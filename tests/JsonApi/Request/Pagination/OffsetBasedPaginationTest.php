@@ -92,13 +92,9 @@ class OffsetBasedPaginationTest extends TestCase
      */
     public function getPaginationQueryString()
     {
-        $offset = 1;
-        $limit = 10;
+        $queryString = OffsetBasedPagination::getPaginationQueryString(1, 10);
 
-        $this->assertEquals(
-            "page[offset]=$offset&page[limit]=$limit",
-            OffsetBasedPagination::getPaginationQueryString($offset, $limit)
-        );
+        $this->assertEquals("page[offset]=1&page[limit]=10", urldecode($queryString));
     }
 
     private function createPagination(int $offset, int $limit)

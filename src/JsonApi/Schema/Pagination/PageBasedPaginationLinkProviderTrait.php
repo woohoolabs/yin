@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\Utils;
 
 trait PageBasedPaginationLinkProviderTrait
 {
@@ -14,66 +15,57 @@ trait PageBasedPaginationLinkProviderTrait
 
     abstract public function getSize(): int;
 
-    public function getSelfLink(string $url): ?Link
+    public function getSelfLink(string $uri, string $queryString): ?Link
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() > $this->getLastPage()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage(), $this->getSize());
+        return $this->createPaginatedLink($uri, $queryString, $this->getPage(), $this->getSize());
     }
 
-    public function getFirstLink(string $url): ?Link
+    public function getFirstLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, 1, $this->getSize());
+        return $this->createPaginatedLink($uri, $queryString, 1, $this->getSize());
     }
 
-    public function getLastLink(string $url): ?Link
+    public function getLastLink(string $uri, string $queryString): ?Link
     {
         if ($this->getSize() <= 0) {
             return null;
         }
 
         $page = $this->getLastPage();
-        return $this->createPaginatedLink($url, $page, $this->getSize());
+        return $this->createPaginatedLink($uri, $queryString, $page, $this->getSize());
     }
 
-    public function getPrevLink(string $url): ?Link
+    public function getPrevLink(string $uri, string $queryString): ?Link
     {
         if ($this->getPage() <= 1 || $this->getSize() <= 0) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage() - 1, $this->getSize());
+        return $this->createPaginatedLink($uri, $queryString, $this->getPage() - 1, $this->getSize());
     }
 
-    public function getNextLink(string $url): ?Link
+    public function getNextLink(string $uri, string $queryString): ?Link
     {
         if ($this->getPage() <= 0 || $this->getSize() <= 0 || $this->getPage() >= $this->getLastPage()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getPage() + 1, $this->getSize());
+        return $this->createPaginatedLink($uri, $queryString, $this->getPage() + 1, $this->getSize());
     }
 
-    protected function createPaginatedLink(string $url, int $page, int $size): ?Link
+    protected function createPaginatedLink(string $uri, string $queryString, int $page, int $size): ?Link
     {
         if ($this->getTotalItems() <= 0 || $this->getSize() <= 0) {
             return null;
         }
 
-        return new Link($this->appendQueryStringToUrl($url, PageBasedPagination::getPaginationQueryString($page, $size)));
-    }
-
-    protected function appendQueryStringToUrl(string $url, string $queryString): string
-    {
-        if (parse_url($url, PHP_URL_QUERY) === null) {
-            $separator = substr($url, -1, 1) !== "?" ? "?" : "";
-        } else {
-            $separator = "&";
-        }
-
-        return $url . $separator . $queryString;
+        return new Link(
+            Utils::getUri($uri, $queryString, PageBasedPagination::getPaginationQueryString($page, $size))
+        );
     }
 
     protected function getLastPage(): int

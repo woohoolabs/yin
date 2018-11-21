@@ -94,7 +94,7 @@ class PageBasedPaginationTest extends TestCase
     {
         $queryString = PageBasedPagination::getPaginationQueryString(1, 10);
 
-        $this->assertEquals("page[number]=1&page[size]=10", $queryString);
+        $this->assertEquals("page[number]=1&page[size]=10", urldecode($queryString));
     }
 
     private function createPagination(?int $page, ?int $size): PageBasedPagination

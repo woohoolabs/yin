@@ -13,15 +13,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenCurrentItemIsNull()
     {
-        $url = "http://example.com/api/users?";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = null;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, null, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("https://example.com/api/users?", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -29,15 +25,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenOnlyPathProvided()
     {
-        $url = "http://example.com/api/users";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("$url?page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("https://example.com/api/users", "");
+
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -45,15 +37,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenQueryStringSeparatorIsProvided()
     {
-        $url = "http://example.com/api/users?";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("{$url}page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("http://example.com/api/users?", "");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -61,15 +49,35 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenQueryStringIsProvided()
     {
-        $url = "http://example.com/api/users?a=b";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 2, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("{$url}&page[cursor]=$currentItem", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "");
+
+        $this->assertEquals("http://example.com/api/users?a=b&page[cursor]=2", urldecode($link->getHref()));
+    }
+
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided()
+    {
+        $provider = $this->createProvider(0, 0, 2, 0, 0);
+
+        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "a=c&b=d");
+
+        $this->assertEquals("http://example.com/api/users?a=c&b=d&page[cursor]=2", urldecode($link->getHref()));
+    }
+
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided()
+    {
+        $provider = $this->createProvider(0, 0, 2, 0, 0);
+
+        $link = $provider->getSelfLink("http://example.com/api/users", "page[cursor]=0");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -77,15 +85,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getFirstLinkWhenFirstItemIsNull()
     {
-        $url = "http://example.com/api/users?";
-        $firstItem = null;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(null, 0, 0, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertNull($provider->getFirstLink($url));
+        $link = $provider->getFirstLink("http://example.com/api/users?", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -93,15 +97,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getFirstLink()
     {
-        $url = "http://example.com/api/users";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 0, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("$url?page[cursor]=$firstItem", $provider->getFirstLink($url)->getHref());
+        $link = $provider->getFirstLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=0", urldecode($link->getHref()));
     }
 
     /**
@@ -109,15 +109,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getLastLinkWhenLastItemIsNull()
     {
-        $url = "http://example.com/api/users?";
-        $firstItem = null;
-        $lastItem = null;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, null, 0, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertNull($provider->getLastLink($url));
+        $link = $provider->getLastLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -125,15 +121,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getLastLink()
     {
-        $url = "http://example.com/api/users";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 4, 0, 0, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("$url?page[cursor]=$lastItem", $provider->getLastLink($url)->getHref());
+        $link = $provider->getLastLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=4", urldecode($link->getHref()));
     }
 
     /**
@@ -141,15 +133,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getPrevLink()
     {
-        $url = "http://example.com/api/users";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 0, 2, 0);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("$url?page[cursor]=$previousItem", $provider->getPrevLink($url)->getHref());
+        $link = $provider->getPrevLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=2", urldecode($link->getHref()));
     }
 
     /**
@@ -157,15 +145,11 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
      */
     public function getNextLink()
     {
-        $url = "http://example.com/api/users";
-        $firstItem = 0;
-        $lastItem = 4;
-        $currentItem = 2;
-        $previousItem = 1;
-        $nextItem = 3;
+        $provider = $this->createProvider(0, 0, 0, 0, 3);
 
-        $provider = $this->createProvider($firstItem, $lastItem, $currentItem, $previousItem, $nextItem);
-        $this->assertEquals("$url?page[cursor]=$nextItem", $provider->getNextLink($url)->getHref());
+        $link = $provider->getNextLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[cursor]=3", urldecode($link->getHref()));
     }
 
     /**

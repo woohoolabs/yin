@@ -77,7 +77,7 @@ class FixedPageBasedPaginationTest extends TestCase
     {
         $queryString = FixedPageBasedPagination::getPaginationQueryString(1);
 
-        $this->assertEquals("page[number]=1", $queryString);
+        $this->assertEquals("page[number]=1", urldecode($queryString));
     }
 
     private function createPagination($page): FixedPageBasedPagination

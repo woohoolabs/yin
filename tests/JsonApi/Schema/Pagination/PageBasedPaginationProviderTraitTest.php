@@ -13,13 +13,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPageIsNegative()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = -6;
-        $size = 10;
+        $provider = $this->createProvider(10, -6, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -27,13 +25,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPageIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 0;
-        $size = 10;
+        $provider = $this->createProvider(10, 0, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -41,13 +37,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenSizeIsNegative()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 1;
-        $size = -1;
+        $provider = $this->createProvider(10, 1, -1);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -55,13 +49,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenSizeIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 1;
-        $size = 0;
+        $provider = $this->createProvider(10, 1, 0);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -69,13 +61,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenTotalItemsIsNegative()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = -30;
-        $page = 1;
-        $size = 0;
+        $provider = $this->createProvider(-30, 1, 0);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -83,13 +73,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenTotalItemsIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 0;
-        $page = 1;
-        $size = 10;
+        $provider = $this->createProvider(0, 1, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -97,13 +85,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPageIsMoreThanLastPage()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 30;
-        $page = 31;
-        $size = 10;
+        $provider = $this->createProvider(30, 31, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getSelfLink($url));
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -111,13 +97,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPathIsProvided()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 1;
-        $size = 10;
+        $provider = $this->createProvider(10, 1, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=1&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -125,13 +109,35 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
     {
-        $url = "http://example.com/api/users?";
-        $totalItems = 10;
-        $page = 1;
-        $size = 10;
+        $provider = $this->createProvider(10, 1, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("{$url}page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("http://example.com/api/users?", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=1&page[size]=10", urldecode($link->getHref()));
+    }
+
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided()
+    {
+        $provider = $this->createProvider(10, 1, 10);
+
+        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "a=c&b=d");
+
+        $this->assertEquals("http://example.com/api/users?a=c&b=d&page[number]=1&page[size]=10", urldecode($link->getHref()));
+    }
+
+    /**
+     * @test
+     */
+    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided()
+    {
+        $provider = $this->createProvider(10, 1, 10);
+
+        $link = $provider->getSelfLink("http://example.com/api/users", "page[number]=0&page[size]=0");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=1&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -139,13 +145,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getSelfLinkWhenPathWithQueryStringIsProvided()
     {
-        $url = "http://example.com/api/users?a=b";
-        $totalItems = 10;
-        $page = 1;
-        $size = 10;
+        $provider = $this->createProvider(10, 1, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("{$url}&page[number]=$page&page[size]=$size", $provider->getSelfLink($url)->getHref());
+        $link = $provider->getSelfLink("http://example.com/api/users?a=b", "");
+
+        $this->assertEquals("http://example.com/api/users?a=b&page[number]=1&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -153,13 +157,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getFirstLinkWhenTotalItemsIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 0;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(0, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getFirstLink($url));
+        $link = $provider->getFirstLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -167,13 +169,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getFirstLinkWhenSizeIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 2;
-        $size = 0;
+        $provider = $this->createProvider(10, 2, 0);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getFirstLink($url));
+        $link = $provider->getFirstLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -181,13 +181,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getFirstLink()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 10;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(10, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=1&page[size]=$size", $provider->getFirstLink($url)->getHref());
+        $link = $provider->getFirstLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=1&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -195,13 +193,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getLastLinkWhenTotalItemsIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 0;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(0, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getLastLink($url));
+        $link = $provider->getLastLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -209,13 +205,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getLastLinkWhenSizeIsZero()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 2;
-        $size = 0;
+        $provider = $this->createProvider(50, 2, 0);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getLastLink($url));
+        $link = $provider->getLastLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -223,13 +217,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getLastLink()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(50, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=5&page[size]=$size", $provider->getLastLink($url)->getHref());
+        $link = $provider->getLastLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=5&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -237,13 +229,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getPrevLinkWhenPageIsFirst()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 1;
-        $size = 10;
+        $provider = $this->createProvider(50, 1, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getPrevLink($url));
+        $link = $provider->getPrevLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -251,13 +241,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getPrevLinkWhenPageIsLast()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 5;
-        $size = 10;
+        $provider = $this->createProvider(50, 5, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=4&page[size]=$size", $provider->getPrevLink($url)->getHref());
+        $link = $provider->getPrevLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=4&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -265,13 +253,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getPrevLink()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(50, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=1&page[size]=$size", $provider->getPrevLink($url)->getHref());
+        $link = $provider->getPrevLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=1&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -279,13 +265,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getNextLinkWhenPageIsLast()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 5;
-        $size = 10;
+        $provider = $this->createProvider(50, 5, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertNull($provider->getNextLink($url));
+        $link = $provider->getNextLink("http://example.com/api/users", "");
+
+        $this->assertNull($link);
     }
 
     /**
@@ -293,13 +277,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getNextLinkWhenPageIsBeforeLast()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 4;
-        $size = 10;
+        $provider = $this->createProvider(50, 4, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=5&page[size]=$size", $provider->getNextLink($url)->getHref());
+        $link = $provider->getNextLink("http://example.com/api/users", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=5&page[size]=10", urldecode($link->getHref()));
     }
 
     /**
@@ -307,13 +289,11 @@ class PageBasedPaginationProviderTraitTest extends TestCase
      */
     public function getNextLink()
     {
-        $url = "http://example.com/api/users";
-        $totalItems = 50;
-        $page = 2;
-        $size = 10;
+        $provider = $this->createProvider(50, 2, 10);
 
-        $provider = $this->createProvider($totalItems, $page, $size);
-        $this->assertEquals("$url?page[number]=3&page[size]=$size", $provider->getNextLink($url)->getHref());
+        $link = $provider->getNextLink("http://example.com/api/users?", "");
+
+        $this->assertEquals("http://example.com/api/users?page[number]=3&page[size]=10", urldecode($link->getHref()));
     }
 
     private function createProvider(int $totalItems, int $page, int $size): StubPageBasedPaginationProvider

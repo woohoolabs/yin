@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\Utils;
 
 trait OffsetBasedPaginationLinkProviderTrait
 {
@@ -14,7 +15,7 @@ trait OffsetBasedPaginationLinkProviderTrait
 
     abstract protected function getLimit(): int;
 
-    public function getSelfLink(string $url): ?Link
+    public function getSelfLink(string $uri, string $queryString): ?Link
     {
         $offset = $this->getOffset();
 
@@ -22,20 +23,20 @@ trait OffsetBasedPaginationLinkProviderTrait
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getOffset(), $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, $this->getOffset(), $this->getLimit());
     }
 
-    public function getFirstLink(string $url): ?Link
+    public function getFirstLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, 0, $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, 0, $this->getLimit());
     }
 
-    public function getLastLink(string $url): ?Link
+    public function getLastLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
     }
 
-    public function getPrevLink(string $url): ?Link
+    public function getPrevLink(string $uri, string $queryString): ?Link
     {
         if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
@@ -47,35 +48,26 @@ trait OffsetBasedPaginationLinkProviderTrait
             $prevOffset = 0;
         }
 
-        return $this->createPaginatedLink($url, $prevOffset, $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, $prevOffset, $this->getLimit());
     }
 
-    public function getNextLink(string $url): ?Link
+    public function getNextLink(string $uri, string $queryString): ?Link
     {
         if ($this->getOffset() < 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getOffset() + $this->getLimit(), $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, $this->getOffset() + $this->getLimit(), $this->getLimit());
     }
 
-    protected function createPaginatedLink(string $url, int $page, int $size): ?Link
+    protected function createPaginatedLink(string $uri, string $queryString, int $page, int $size): ?Link
     {
         if ($this->getTotalItems() <= 0 || $this->getLimit() <= 0) {
             return null;
         }
 
-        return new Link($this->appendQueryStringToUrl($url, OffsetBasedPagination::getPaginationQueryString($page, $size)));
-    }
-
-    protected function appendQueryStringToUrl(string $url, string $queryString): string
-    {
-        if (parse_url($url, PHP_URL_QUERY) === null) {
-            $separator = substr($url, -1, 1) !== "?" ? "?" : "";
-        } else {
-            $separator = "&";
-        }
-
-        return $url . $separator . $queryString;
+        return new Link(
+            Utils::getUri($uri, $queryString, OffsetBasedPagination::getPaginationQueryString($page, $size))
+        );
     }
 }

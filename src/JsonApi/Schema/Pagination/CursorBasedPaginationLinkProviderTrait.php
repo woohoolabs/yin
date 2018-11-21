@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use WoohooLabs\Yin\Utils;
 
 trait CursorBasedPaginationLinkProviderTrait
 {
@@ -33,55 +34,46 @@ trait CursorBasedPaginationLinkProviderTrait
      */
     abstract public function getNextItem();
 
-    public function getSelfLink(string $url): ?Link
+    public function getSelfLink(string $uri, string $queryString): ?Link
     {
         if ($this->getCurrentItem() === null) {
             return null;
         }
 
-        return $this->createPaginatedLink($url, $this->getCurrentItem());
+        return $this->createPaginatedLink($uri, $queryString, $this->getCurrentItem());
     }
 
-    public function getFirstLink(string $url): ?Link
+    public function getFirstLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, $this->getFirstItem());
+        return $this->createPaginatedLink($uri, $queryString, $this->getFirstItem());
     }
 
-    public function getLastLink(string $url): ?Link
+    public function getLastLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, $this->getLastItem());
+        return $this->createPaginatedLink($uri, $queryString, $this->getLastItem());
     }
 
-    public function getPrevLink(string $url): ?Link
+    public function getPrevLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, $this->getPreviousItem());
+        return $this->createPaginatedLink($uri, $queryString, $this->getPreviousItem());
     }
 
-    public function getNextLink(string $url): ?Link
+    public function getNextLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($url, $this->getNextItem());
+        return $this->createPaginatedLink($uri, $queryString, $this->getNextItem());
     }
 
     /**
      * @param mixed $cursor
      */
-    protected function createPaginatedLink(string $url, $cursor): ?Link
+    protected function createPaginatedLink(string $uri, string $queryString, $cursor): ?Link
     {
         if ($cursor === null) {
             return null;
         }
 
-        return new Link($this->appendQueryStringToUrl($url, CursorBasedPagination::getPaginationQueryString($cursor)));
-    }
-
-    protected function appendQueryStringToUrl(string $url, string $queryString): string
-    {
-        if (parse_url($url, PHP_URL_QUERY) === null) {
-            $separator = substr($url, -1, 1) !== "?" ? "?" : "";
-        } else {
-            $separator = "&";
-        }
-
-        return $url . $separator . $queryString;
+        return new Link(
+            Utils::getUri($uri, $queryString, CursorBasedPagination::getPaginationQueryString($cursor))
+        );
     }
 }
