@@ -5,7 +5,6 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 
 interface DocumentInterface
 {
@@ -30,7 +29,6 @@ interface DocumentInterface
      *
      * The method returns a new Links object if you want to provide linkage data
      * for the document or null if the member should be omitted from the response.
-     * @return DocumentLinks|ErrorLinks|null
      */
-    public function getLinks();
+    public function getLinks(): ?DocumentLinks;
 }

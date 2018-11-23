@@ -273,7 +273,7 @@ class DocumentTransformerTest extends TestCase
      */
     public function transformErrorDocumentWithLinks()
     {
-        $document = $this->createErrorDocument(null, [], new ErrorLinks());
+        $document = $this->createErrorDocument(null, [], new DocumentLinks());
 
         $transformedDocument = $this->toErrorDocument($document);
 
@@ -429,7 +429,7 @@ class DocumentTransformerTest extends TestCase
     private function createErrorDocument(
         ?JsonApiObject $jsonApi = null,
         array $meta = [],
-        ?ErrorLinks $links = null,
+        ?DocumentLinks $links = null,
         array $errors = []
     ): ErrorDocumentInterface {
         return new StubErrorDocument($jsonApi, $meta, $links, $errors);

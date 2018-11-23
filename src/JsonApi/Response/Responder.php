@@ -196,7 +196,7 @@ class Responder extends AbstractResponder
     private function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface
     {
         $links = $document->getLinks();
-        if ($links instanceof DocumentLinks && $links->getSelf() !== null) {
+        if ($links && $links->getSelf() !== null) {
             $response = $response->withHeader("location", $links->getSelf()->getHref());
         }
 

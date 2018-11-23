@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 
 class StubErrorDocument extends AbstractErrorDocument
@@ -21,14 +22,14 @@ class StubErrorDocument extends AbstractErrorDocument
     protected $meta;
 
     /**
-     * @var ErrorLinks|null
+     * @var DocumentLinks|null
      */
     protected $links;
 
     /**
      * @param Error[] $errors
      */
-    public function __construct(?JsonApiObject $jsonApi = null, array $meta = [], ?ErrorLinks $links = null, array $errors = [])
+    public function __construct(?JsonApiObject $jsonApi = null, array $meta = [], ?DocumentLinks $links = null, array $errors = [])
     {
         $this->jsonApi = $jsonApi;
         $this->meta = $meta;
@@ -46,7 +47,7 @@ class StubErrorDocument extends AbstractErrorDocument
         return $this->meta;
     }
 
-    public function getLinks(): ?ErrorLinks
+    public function getLinks(): ?DocumentLinks
     {
         return $this->links;
     }

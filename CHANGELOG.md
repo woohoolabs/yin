@@ -9,7 +9,6 @@ ADDED:
 
 CHANGED:
 
-- Increased minimum PHP version requirement to 7.2
 - Updated `justinrainbow/json-schema` to v5.2
 - Moved classes related to documents (__BREAKING__):
     - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument`
@@ -28,9 +27,9 @@ CHANGED:
     - `WoohooLabs\Yin\JsonApi\Schema\LinkObject` to `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` 
 - Links are used according to the spec (__BREAKING__):
     - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
-    - `AbstractErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
-    - `ErrorDocument::getLinks()` returns `?ErrorLinks` instead of `?Links`
-    - `ErrorDocument::setLinks()` expects a parameter of `?ErrorLinks` type instead of `?Links`
+    - `AbstractErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
+    - `ErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
+    - `ErrorDocument::setLinks()` expects a parameter of `?DocumentLinks` type instead of `?Links`
     - `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links`
     - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links`
     - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links`

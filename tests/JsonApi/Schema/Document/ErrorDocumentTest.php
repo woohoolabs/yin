@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class ErrorDocumentTest extends TestCase
 {
@@ -15,10 +15,11 @@ class ErrorDocumentTest extends TestCase
      */
     public function getJsonApi()
     {
-        $jsonApi = new JsonApiObject("1.0");
+        $errorDocument = $this->createErrorDocument();
 
-        $errorDocument = $this->createErrorDocument()->setJsonApi($jsonApi);
-        $this->assertEquals($jsonApi, $errorDocument->getJsonApi());
+        $errorDocument->setJsonApi(new JsonApiObject("1.0"));
+
+        $this->assertEquals(new JsonApiObject("1.0"), $errorDocument->getJsonApi());
     }
 
     /**
@@ -26,10 +27,11 @@ class ErrorDocumentTest extends TestCase
      */
     public function getMeta()
     {
-        $meta = ["abc" => "def"];
+        $errorDocument = $this->createErrorDocument();
 
-        $errorDocument = $this->createErrorDocument()->setMeta($meta);
-        $this->assertEquals($meta, $errorDocument->getMeta());
+        $errorDocument->setMeta(["abc" => "def"]);
+
+        $this->assertEquals(["abc" => "def"], $errorDocument->getMeta());
     }
 
     /**
@@ -37,10 +39,11 @@ class ErrorDocumentTest extends TestCase
      */
     public function getLinks()
     {
-        $links = new ErrorLinks("https://example.com");
+        $errorDocument = $this->createErrorDocument();
 
-        $errorDocument = $this->createErrorDocument()->setLinks($links);
-        $this->assertEquals($links, $errorDocument->getLinks());
+        $errorDocument->setLinks(new DocumentLinks("https://example.com"));
+
+        $this->assertEquals(new DocumentLinks("https://example.com"), $errorDocument->getLinks());
     }
 
     private function createErrorDocument(): ErrorDocument

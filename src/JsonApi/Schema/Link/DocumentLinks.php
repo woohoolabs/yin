@@ -10,7 +10,7 @@ class DocumentLinks extends AbstractLinks
     /**
      * @var Link[]
      */
-    protected $profiles;
+    protected $profiles = [];
 
     /**
      * @param Link[] $links

@@ -5,7 +5,6 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
@@ -17,14 +16,6 @@ abstract class AbstractSingleResourceDocument extends AbstractResourceDocument
      * @var ResourceInterface
      */
     protected $resource;
-
-    /**
-     * Provides information about the "links" member of the current document.
-     *
-     * The method returns a new Links object if you want to provide linkage data
-     * for the document or null if the member should be omitted from the response.
-     */
-    abstract public function getLinks(): ?DocumentLinks;
 
     public function __construct(ResourceInterface $resource)
     {

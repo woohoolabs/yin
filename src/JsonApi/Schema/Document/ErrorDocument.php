@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
+use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class ErrorDocument extends AbstractErrorDocument
 {
@@ -20,7 +20,7 @@ class ErrorDocument extends AbstractErrorDocument
     protected $meta = [];
 
     /**
-     * @var ErrorLinks|null
+     * @var DocumentLinks|null
      */
     protected $links;
 
@@ -58,12 +58,12 @@ class ErrorDocument extends AbstractErrorDocument
         return $this;
     }
 
-    public function getLinks(): ?ErrorLinks
+    public function getLinks(): ?DocumentLinks
     {
         return $this->links;
     }
 
-    public function setLinks(?ErrorLinks $links): ErrorDocument
+    public function setLinks(?DocumentLinks $links): ErrorDocument
     {
         $this->links = $links;
 
