@@ -134,8 +134,8 @@ class Request implements RequestInterface
     {
         $header = $this->getHeaderLine($headerName);
 
-        // The media type is modified with media type parameters
-        if (preg_match("/application\/vnd\.api\+json\s*;\s*[a-z0-9]+/i", $header)) {
+        // The media type is modified by media type parameters
+        if (preg_match("/^.*application\/vnd\.api\+json\s*;\s*[a-z0-9]+.*/i", $header) === 1) {
             return false;
         }
 
@@ -449,12 +449,12 @@ class Request implements RequestInterface
         $queryParams = $this->serverRequest->getQueryParams();
         $queryParams[$name] = $value;
         $self->serverRequest = $this->serverRequest->withQueryParams($queryParams);
-        $self->initializeParsedQueryParams();
+        $self->initializeParsedJsonApiQueryParams();
 
         return $self;
     }
 
-    protected function initializeParsedQueryParams(): void
+    protected function initializeParsedJsonApiQueryParams(): void
     {
         $this->includedFields = null;
         $this->includedRelationships = null;
@@ -605,7 +605,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withHeader($name, $value);
-        $self->profiles = null;
+        $self->initializeParsedJsonApiHeaders();
 
         return $self;
     }
@@ -614,9 +614,14 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
-        $self->profiles = null;
+        $self->initializeParsedJsonApiHeaders();
 
         return $self;
+    }
+
+    protected function initializeParsedJsonApiHeaders(): void
+    {
+        $this->profiles = null;
     }
 
     public function withoutHeader($name)
@@ -706,7 +711,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withQueryParams($query);
-        $self->initializeParsedQueryParams();
+        $self->initializeParsedJsonApiQueryParams();
 
         return $self;
     }

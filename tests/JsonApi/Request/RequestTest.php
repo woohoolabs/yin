@@ -587,11 +587,15 @@ class RequestTest extends TestCase
      */
     public function getSortingWhenNotEmpty()
     {
-        $sorting = ["name", "age", "sex"];
-        $queryParams = ["sort" => implode(",", $sorting)];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "sort" => "name,age,sex",
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($sorting, $request->getSorting());
+        $sorting = $request->getSorting();
+
+        $this->assertEquals(["name", "age", "sex"], $sorting);
     }
 
     /**
@@ -599,11 +603,14 @@ class RequestTest extends TestCase
      */
     public function getSortingWhenMalformed()
     {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "sort" => ["name" => "asc"],
+            ]
+        );
+
         $this->expectException(QueryParamMalformed::class);
 
-        $queryParams = ["sort" => ["name" => "asc"]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
         $request->getSorting();
     }
 
@@ -684,10 +691,15 @@ class RequestTest extends TestCase
      */
     public function getFilteringWhenEmpty()
     {
-        $queryParams = ["filter" => []];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "filter" => [],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals([], $request->getFiltering());
+        $filtering = $request->getFiltering();
+
+        $this->assertEmpty($filtering);
     }
 
     /**
@@ -695,10 +707,15 @@ class RequestTest extends TestCase
      */
     public function getFilteringWhenNotEmpty()
     {
-        $queryParams = ["filter" => ["name" => "John"]];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "filter" => ["name" => "John"],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals(["name" => "John"], $request->getFiltering());
+        $filtering = $request->getFiltering();
+
+        $this->assertEquals(["name" => "John"], $filtering);
     }
 
     /**
@@ -706,10 +723,15 @@ class RequestTest extends TestCase
      */
     public function getFilteringParam()
     {
-        $queryParams = ["filter" => ["name" => "John"]];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "filter" => ["name" => "John"],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals("John", $request->getFilteringParam("name"));
+        $filteringParam = $request->getFilteringParam("name");
+
+        $this->assertEquals("John", $filteringParam);
     }
 
     /**
@@ -717,10 +739,15 @@ class RequestTest extends TestCase
      */
     public function getDefaultFilteringParamWhenNotFound()
     {
-        $queryParams = ["filter" => ["name" => "John"]];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "filter" => ["name" => "John"],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertFalse($request->getFilteringParam("age", false));
+        $filteringParam = $request->getFilteringParam("age", false);
+
+        $this->assertFalse($filteringParam);
     }
 
     /**
@@ -1278,6 +1305,41 @@ class RequestTest extends TestCase
         $newRequest = $request->withQueryParams($queryParams);
         $this->assertEquals([], $request->getQueryParams());
         $this->assertEquals($queryParams, $newRequest->getQueryParams());
+    }
+
+    /**
+     * @test
+     */
+    public function withQueryParamsInitializesParsedJsonApiQueryParams()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "fields" => ["book" => "title,pages"],
+                "include" => "authors",
+                "page" => ["offset" => 0, "limit" => 10],
+                "filter" => ["name" => "John"],
+            ]
+        );
+
+        $request->getIncludedFields("");
+        $request->getIncludedRelationships("");
+        $request->getPagination();
+        $request->getFiltering();
+        $request->getSorting();
+
+        $request = $request->withQueryParams(
+            [
+                "fields" => ["book" => "isbn"],
+                "include" => "publisher",
+                "page" => ["number" => 1, "size" => 10],
+                "filter" => ["name" => "Jane"],
+            ]
+        );
+
+        $this->assertEquals(["isbn"], $request->getIncludedFields("book"));
+        $this->assertEquals(["publisher"], $request->getIncludedRelationships(""));
+        $this->assertEquals(["number" => 1, "size" => 10], $request->getPagination());
+        $this->assertEquals(["name" => "Jane"], $request->getFiltering());
     }
 
     /**
