@@ -43,6 +43,11 @@ interface RequestInterface extends ServerRequestInterface
     public function validateQueryParams(): void;
 
     /**
+     * @return string[]
+     */
+    public function getProfiles(): array;
+
+    /**
      * Returns a list of field names for the given resource type which should be present in the response.
      */
     public function getIncludedFields(string $resourceType): array;

@@ -41,6 +41,11 @@ class Request implements RequestInterface
     /**
      * @var array|null
      */
+    protected $profiles;
+
+    /**
+     * @var array|null
+     */
     protected $includedFields;
 
     /**
@@ -135,6 +140,33 @@ class Request implements RequestInterface
         }
 
         return true;
+    }
+
+    protected function setProfiles(): void
+    {
+        $header = $this->getHeaderLine("Content-Type");
+        $matches = [];
+
+        preg_match("/^.*application\/vnd\.api\+json\s*;\s*profile\s*=\s*[\"]*([^\";,]*).*$/i", $header, $matches);
+
+        if (isset($matches[1]) === false) {
+            $this->profiles = [];
+            return;
+        }
+
+        $this->profiles = explode(" ", $matches[1]);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getProfiles(): array
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return $this->profiles;
     }
 
     protected function setIncludedFields(): void
@@ -402,7 +434,7 @@ class Request implements RequestInterface
     {
         $queryParams = $this->serverRequest->getQueryParams();
 
-        return isset($queryParams[$name]) ? $queryParams[$name] : $default;
+        return $queryParams[$name] ?? $default;
     }
 
     /**
@@ -467,7 +499,7 @@ class Request implements RequestInterface
     {
         $data = $this->getResource();
 
-        return isset($data["id"]) ? $data["id"] : $default;
+        return $data["id"] ?? $default;
     }
 
     /**
@@ -490,7 +522,7 @@ class Request implements RequestInterface
     {
         $attributes = $this->getResourceAttributes();
 
-        return isset($attributes[$attribute]) ? $attributes[$attribute] : $default;
+        return $attributes[$attribute] ?? $default;
     }
 
     /**
@@ -573,6 +605,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withHeader($name, $value);
+        $self->profiles = null;
 
         return $self;
     }
@@ -581,6 +614,7 @@ class Request implements RequestInterface
     {
         $self = clone $this;
         $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
+        $self->profiles = null;
 
         return $self;
     }

@@ -200,6 +200,81 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function getProfilesWhenEmpty()
+    {
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
+
+        $profiles = $request->getProfiles();
+
+        $this->assertEmpty($profiles);
+    }
+
+    /**
+     * @test
+     */
+    public function getProfilesWhenOneProfile()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+        );
+
+        $profiles = $request->getProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getProfilesWhenTwoProfiles()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $profiles = $request->getProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getProfilesWhenMultipleJsonApiContentTypes()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile = https://example.com/extensions/last-modified, ' .
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $profiles = $request->getProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getIncludedFieldsWhenEmpty()
     {
         $request = $this->createRequestWithQueryParams([]);
