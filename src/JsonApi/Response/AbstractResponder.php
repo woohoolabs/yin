@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Document\DocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
@@ -44,7 +45,7 @@ abstract class AbstractResponder
     /**
      * @param mixed $object
      */
-    protected function getResponse(
+    protected function getResourceResponse(
         ResourceDocumentInterface $document,
         $object,
         int $statusCode,
@@ -61,8 +62,9 @@ abstract class AbstractResponder
         );
 
         $transformation = $this->documentTransformer->transformResourceDocument($transformation);
+        $response = $this->getResponse($document, $this->response, $statusCode);
 
-        return $this->serializer->serialize($this->response, $statusCode, $transformation->result);
+        return $this->serializer->serialize($response, $transformation->result);
     }
 
     /**
@@ -85,8 +87,9 @@ abstract class AbstractResponder
         );
 
         $transformation = $this->documentTransformer->transformMetaDocument($transformation);
+        $response = $this->getResponse($document, $this->response, $statusCode);
 
-        return $this->serializer->serialize($this->response, $statusCode, $transformation->result);
+        return $this->serializer->serialize($response, $transformation->result);
     }
 
     /**
@@ -110,8 +113,9 @@ abstract class AbstractResponder
         );
 
         $transformation = $this->documentTransformer->transformRelationshipDocument($transformation);
+        $response = $this->getResponse($document, $this->response, $statusCode);
 
-        return $this->serializer->serialize($this->response, $statusCode, $transformation->result);
+        return $this->serializer->serialize($response, $transformation->result);
     }
 
     /**
@@ -130,7 +134,47 @@ abstract class AbstractResponder
         );
 
         $transformation = $this->documentTransformer->transformErrorDocument($transformation);
+        $response = $this->getResponse($document, $this->response, $document->getStatusCode($statusCode));
 
-        return $this->serializer->serialize($this->response, $document->getStatusCode($statusCode), $transformation->result);
+        return $this->serializer->serialize($response, $transformation->result);
+    }
+
+    protected function getResponse(DocumentInterface $document, ResponseInterface $response, int $statusCode): ResponseInterface
+    {
+        $response = $response->withStatus($statusCode);
+        $response = $this->getResponseWithContentTypeHeader($document, $response);
+
+        return $response;
+    }
+
+    protected function getResponseWithContentTypeHeader(DocumentInterface $document, ResponseInterface $response): ResponseInterface
+    {
+        $links = $document->getLinks();
+        if ($links === null) {
+            return $response->withHeader("Content-Type", "application/vnd.api+json");
+        }
+
+        $profiles = $links->getProfiles();
+        if (empty($profiles)) {
+            return $response->withHeader("Content-Type", "application/vnd.api+json");
+        }
+
+        $hrefs = [];
+        foreach ($profiles as $profile) {
+            $hrefs[] = $profile->getHref();
+        }
+        $profileLinks = implode(" ", $hrefs);
+
+        return $response->withHeader("Content-Type", "application/vnd.api+json;profile=\"$profileLinks\"");
+    }
+
+    protected function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface
+    {
+        $links = $document->getLinks();
+        if ($links && $links->getSelf() !== null) {
+            $response = $response->withHeader("location", $links->getSelf()->getHref());
+        }
+
+        return $response;
     }
 }

@@ -1212,8 +1212,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 
 ## Testing
 
-Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder
-after you have copied phpunit.xml.dist to phpunit.xml:
+Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder:
 
 ``` bash
 $ phpunit

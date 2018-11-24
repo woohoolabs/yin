@@ -23,18 +23,14 @@ class JsonSerializer implements SerializerInterface
         $this->depth = $depth;
     }
 
-    public function serialize(ResponseInterface $response, int $responseCode, array $content): ResponseInterface
+    public function serialize(ResponseInterface $response, array $content): ResponseInterface
     {
-        $result = $response
-            ->withStatus($responseCode)
-            ->withHeader("Content-Type", "application/vnd.api+json");
-
-        if ($result->getBody()->isSeekable()) {
-            $result->getBody()->rewind();
+        if ($response->getBody()->isSeekable()) {
+            $response->getBody()->rewind();
         }
-        $result->getBody()->write(json_encode($content, $this->options, $this->depth));
+        $response->getBody()->write(json_encode($content, $this->options, $this->depth));
 
-        return $result;
+        return $response;
     }
 
     public function getBodyAsString(ResponseInterface $response): string

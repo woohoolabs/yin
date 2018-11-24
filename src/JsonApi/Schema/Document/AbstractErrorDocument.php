@@ -42,15 +42,15 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
             return (int) $this->errors[0]->getStatus();
         }
 
-        $responseCode = 500;
+        $result = 500;
         foreach ($this->errors as $error) {
             $roundedStatusCode = (int) (((int)$error->getStatus()) / 100) * 100;
 
-            if (abs($responseCode - $roundedStatusCode) >= 100) {
-                $responseCode = $roundedStatusCode;
+            if (abs($result - $roundedStatusCode) >= 100) {
+                $result = $roundedStatusCode;
             }
         }
 
-        return $responseCode;
+        return $result;
     }
 }

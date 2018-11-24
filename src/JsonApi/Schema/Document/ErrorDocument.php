@@ -27,6 +27,14 @@ class ErrorDocument extends AbstractErrorDocument
     /**
      * @param Error[] $errors
      */
+    public static function create(array $errors = []): ErrorDocument
+    {
+        return new ErrorDocument($errors);
+    }
+
+    /**
+     * @param Error[] $errors
+     */
     public function __construct(array $errors = [])
     {
         foreach ($errors as $error) {

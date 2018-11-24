@@ -9,7 +9,6 @@ use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 
@@ -44,7 +43,7 @@ class Responder extends AbstractResponder
      */
     public function ok(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
     {
-        return $this->getResponse($document, $object, 200, $additionalMeta);
+        return $this->getResourceResponse($document, $object, 200, $additionalMeta);
     }
 
     /**
@@ -86,7 +85,7 @@ class Responder extends AbstractResponder
      */
     public function created(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
     {
-        $response = $this->getResponse($document, $object, 201, $additionalMeta);
+        $response = $this->getResourceResponse($document, $object, 201, $additionalMeta);
 
         return $this->getResponseWithLocationHeader($document, $response);
     }
@@ -191,15 +190,5 @@ class Responder extends AbstractResponder
     public function genericError(ErrorDocumentInterface $document, ?int $statusCode = null, array $additionalMeta = []): ResponseInterface
     {
         return $this->getErrorResponse($document, $statusCode, $additionalMeta);
-    }
-
-    private function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface
-    {
-        $links = $document->getLinks();
-        if ($links && $links->getSelf() !== null) {
-            $response = $response->withHeader("location", $links->getSelf()->getHref());
-        }
-
-        return $response;
     }
 }

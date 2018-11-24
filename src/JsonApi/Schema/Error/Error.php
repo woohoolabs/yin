@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Error;
 
-use phpDocumentor\Reflection\DocBlock\Tags\Source;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 

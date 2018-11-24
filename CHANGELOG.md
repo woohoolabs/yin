@@ -45,13 +45,17 @@ CHANGED:
 through object properties (`$this->request`, `$this->exceptionFactory`, `$this->object`)
 - Properties and methods of the following pagination classes became non-nullable (__BREAKING__):
     - `FixedPageBasedPagination`
-    - `OffsetBasedPagination` 
+    - `OffsetBasedPagination`
     - `PageBasedPagination`
 - Parameters of the following request methods became non-nullable (__BREAKING__):
     - `RequestInterface::getFixedPageBasedPagination()`
     - `RequestInterface::getPageBasedPagination()`
     - `RequestInterface::getOffsetBasedPagination()`
 - Methods of `PaginationLinkProviderInterface` expect a second parameter with a `$queryString` name
+- Setting the status code and `Content-Type` header of the JSON:API response is done by the `Responder` instead of `Serializer`s (__BREAKING__):
+    - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally
+    - `SerializerInterface::serialize()` only accepts two arguments instead of 3 as the `$responseCode` parameter was removed
+    - `JsonSerializer` does not set the `Content-Type` header and the status code of the response anymore
 
 REMOVED:
 

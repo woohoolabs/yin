@@ -45,9 +45,5 @@ abstract class AbstractResourceDocument implements ResourceDocumentInterface
      */
     public function clearTransformation(): void
     {
-        $this->request = null;
-        $this->object = null;
-        $this->exceptionFactory = null;
-        $this->additionalMeta = [];
     }
 }

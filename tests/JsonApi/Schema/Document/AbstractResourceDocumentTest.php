@@ -41,9 +41,9 @@ class AbstractResourceDocumentTest extends TestCase
         $document->initializeTransformation($transformation);
         $document->clearTransformation();
 
-        $this->assertNull($document->getRequest());
-        $this->assertNull($document->getObject());
-        $this->assertNull($document->getExceptionFactory());
+        $this->assertNotNull($document->getRequest());
+        $this->assertNotNull($document->getObject());
+        $this->assertNotNull($document->getExceptionFactory());
     }
 
     private function createTransformation(ResourceDocumentInterface $document): ResourceDocumentTransformation

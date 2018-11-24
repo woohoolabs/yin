@@ -6,7 +6,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;

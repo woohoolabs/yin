@@ -32,6 +32,64 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
+    public function okWithoutLinks()
+    {
+        $response = $this->createResponder()->ok(
+            new StubResourceDocument(),
+            []
+        );
+
+        $contentType = $response->getHeaderLine("Content-Type");
+
+        $this->assertEquals("application/vnd.api+json", $contentType);
+    }
+
+    /**
+     * @test
+     */
+    public function okWithLinksWithoutProfiles()
+    {
+        $response = $this->createResponder()->ok(
+            new StubResourceDocument(
+                null,
+                [],
+                DocumentLinks::createWithoutBaseUri()
+            ),
+            []
+        );
+
+        $contentType = $response->getHeaderLine("Content-Type");
+
+        $this->assertEquals("application/vnd.api+json", $contentType);
+    }
+
+    /**
+     * @test
+     */
+    public function nokWithProfiles()
+    {
+        $response = $this->createResponder()->ok(
+            new StubResourceDocument(
+                null,
+                [],
+                DocumentLinks::createWithoutBaseUri()
+                    ->addProfile(new Link("https://example.com/extensions/last-modified"))
+                    ->addProfile(new Link("https://example.com/extensions/created"))
+            ),
+            []
+        );
+
+        $contentType = $response->getHeaderLine("Content-Type");
+
+        $this->assertEquals(
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
+            $contentType
+        );
+    }
+
+    /**
+     * @test
+     */
     public function okWithMeta()
     {
         $response = $this->createResponder()->okWithMeta(new StubResourceDocument(null, ["abc" => "def"]), []);
@@ -169,6 +227,28 @@ class ResponderTest extends TestCase
         $statusCode = $response->getStatusCode();
 
         $this->assertEquals(404, $statusCode);
+    }
+
+    /**
+     * @test
+     */
+    public function notFoundWithProfiles()
+    {
+        $response = $this->createResponder()->notFound(
+            ErrorDocument::create()
+                ->setLinks(
+                    DocumentLinks::createWithoutBaseUri()
+                        ->addProfile(new Link("https://example.com/extensions/last-modified"))
+                        ->addProfile(new Link("https://example.com/extensions/created"))
+                )
+        );
+
+        $contentType = $response->getHeaderLine("Content-Type");
+
+        $this->assertEquals(
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
+            $contentType
+        );
     }
 
     /**
