@@ -43,11 +43,6 @@ interface RequestInterface extends ServerRequestInterface
     public function validateQueryParams(): void;
 
     /**
-     * @return string[]
-     */
-    public function getProfiles(): array;
-
-    /**
      * Returns a list of field names for the given resource type which should be present in the response.
      */
     public function getIncludedFields(string $resourceType): array;
@@ -145,6 +140,27 @@ interface RequestInterface extends ServerRequestInterface
      * @return $this
      */
     public function withQueryParam(string $name, $value);
+
+    /**
+     * @return string[]
+     */
+    public function getAppliedProfiles(): array;
+
+    public function isProfileApplied(string $profile): bool;
+
+    /**
+     * @return string[]
+     */
+    public function getRequiredProfiles(): array;
+
+    public function isProfileRequired(string $profile): bool;
+
+    /**
+     * @return string[]
+     */
+    public function getRequestedProfiles(): array;
+
+    public function isProfileRequested(string $profile): bool;
 
     /**
      * Returns the primary resource if it is present in the request body, or the $default value otherwise.

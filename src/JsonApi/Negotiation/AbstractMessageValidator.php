@@ -34,8 +34,8 @@ abstract class AbstractMessageValidator
             return "";
         }
 
-        $linter = new JsonParser();
-        $result = $linter->lint($message);
+        $parser = new JsonParser();
+        $result = $parser->lint($message);
 
         if ($result instanceof ParsingException) {
             return $result->getMessage();

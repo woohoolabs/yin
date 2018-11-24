@@ -200,81 +200,6 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function getProfilesWhenEmpty()
-    {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
-
-        $profiles = $request->getProfiles();
-
-        $this->assertEmpty($profiles);
-    }
-
-    /**
-     * @test
-     */
-    public function getProfilesWhenOneProfile()
-    {
-        $request = $this->createRequestWithHeader(
-            "Content-Type",
-            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
-        );
-
-        $profiles = $request->getProfiles();
-
-        $this->assertEquals(
-            [
-                "https://example.com/extensions/last-modified",
-            ],
-            $profiles
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getProfilesWhenTwoProfiles()
-    {
-        $request = $this->createRequestWithHeader(
-            "Content-Type",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
-        );
-
-        $profiles = $request->getProfiles();
-
-        $this->assertEquals(
-            [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
-            ],
-            $profiles
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function getProfilesWhenMultipleJsonApiContentTypes()
-    {
-        $request = $this->createRequestWithHeader(
-            "Content-Type",
-            'application/vnd.api+json;profile = https://example.com/extensions/last-modified, ' .
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
-        );
-
-        $profiles = $request->getProfiles();
-
-        $this->assertEquals(
-            [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
-            ],
-            $profiles
-        );
-    }
-
-    /**
-     * @test
-     */
     public function getIncludedFieldsWhenEmpty()
     {
         $request = $this->createRequestWithQueryParams([]);
@@ -748,6 +673,244 @@ class RequestTest extends TestCase
         $filteringParam = $request->getFilteringParam("age", false);
 
         $this->assertFalse($filteringParam);
+    }
+
+    /**
+     * @test
+     */
+    public function getAppliedProfilesWhenEmpty()
+    {
+        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
+
+        $profiles = $request->getAppliedProfiles();
+
+        $this->assertEmpty($profiles);
+    }
+
+    /**
+     * @test
+     */
+    public function getAppliedProfilesWhenOneProfile()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+        );
+
+        $profiles = $request->getAppliedProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAppliedProfilesWhenTwoProfiles()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $profiles = $request->getAppliedProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getAppliedProfilesWhenMultipleJsonApiContentTypes()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile = https://example.com/extensions/last-modified, ' .
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $profiles = $request->getAppliedProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileAppliedWhenTrue()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $isProfileApplied = $request->isProfileApplied("https://example.com/extensions/created");
+
+        $this->assertTrue($isProfileApplied);
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileAppliedWhenFalse()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $isProfileApplied = $request->isProfileApplied("https://example.com/extensions/inexistent-profile");
+
+        $this->assertFalse($isProfileApplied);
+    }
+
+    /**
+     * @test
+     */
+    public function getRequestedProfilesWhenEmpty()
+    {
+        $request = $this->createRequestWithHeader("Accept", "application/vnd.api+json");
+
+        $profiles = $request->getRequestedProfiles();
+
+        $this->assertEmpty($profiles);
+    }
+
+    /**
+     * @test
+     */
+    public function getRequestedProfilesWhenTwoProfiles()
+    {
+        $request = $this->createRequestWithHeader(
+            "Accept",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $profiles = $request->getRequestedProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileRequestedWhenTrue()
+    {
+        $request = $this->createRequestWithHeader(
+            "Accept",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $isProfileRequested = $request->isProfileRequested("https://example.com/extensions/created");
+
+        $this->assertTrue($isProfileRequested);
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileRequestedWhenFalse()
+    {
+        $request = $this->createRequestWithHeader(
+            "Accept",
+            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+        );
+
+        $isProfileRequested = $request->isProfileRequested("https://example.com/extensions/inexistent-profile");
+
+        $this->assertFalse($isProfileRequested);
+    }
+
+    /**
+     * @test
+     */
+    public function getRequiredProfilesWhenEmpty()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "profile" => "",
+            ]
+        );
+
+        $profiles = $request->getRequiredProfiles();
+
+        $this->assertEmpty($profiles);
+    }
+
+    /**
+     * @test
+     */
+    public function getRequiredProfilesWhenTwoProfiles()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+            ]
+        );
+
+        $profiles = $request->getRequiredProfiles();
+
+        $this->assertEquals(
+            [
+                "https://example.com/extensions/last-modified",
+                "https://example.com/extensions/created",
+            ],
+            $profiles
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileRequiredWhenTrue()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+            ]
+        );
+
+        $isProfileRequired = $request->isProfileRequired("https://example.com/extensions/created");
+
+        $this->assertTrue($isProfileRequired);
+    }
+
+    /**
+     * @test
+     */
+    public function isProfileRequiredWhenFalse()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+            ]
+        );
+
+        $isProfileRequired = $request->isProfileRequired("https://example.com/extensions/inexistent-profile");
+
+        $this->assertFalse($isProfileRequired);
     }
 
     /**

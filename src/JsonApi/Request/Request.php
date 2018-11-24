@@ -41,11 +41,6 @@ class Request implements RequestInterface
     /**
      * @var array|null
      */
-    protected $profiles;
-
-    /**
-     * @var array|null
-     */
     protected $includedFields;
 
     /**
@@ -67,6 +62,11 @@ class Request implements RequestInterface
      * @var array|null
      */
     protected $filtering;
+
+    /**
+     * @var array|null
+     */
+    protected $profiles;
 
     /**
      * @var bool
@@ -144,29 +144,96 @@ class Request implements RequestInterface
 
     protected function setProfiles(): void
     {
-        $header = $this->getHeaderLine("Content-Type");
+        $this->setHeaderProfiles("applied", $this->getHeaderLine("Content-Type"));
+        $this->setHeaderProfiles("requested", $this->getHeaderLine("Accept"));
+        $this->setQueryParamProfiles("required", $this->getQueryParam("profile", ""));
+    }
+
+    protected function setHeaderProfiles(string $key, string $header): void
+    {
         $matches = [];
 
         preg_match("/^.*application\/vnd\.api\+json\s*;\s*profile\s*=\s*[\"]*([^\";,]*).*$/i", $header, $matches);
 
         if (isset($matches[1]) === false) {
-            $this->profiles = [];
+            $this->profiles[$key] = [];
             return;
         }
 
-        $this->profiles = explode(" ", $matches[1]);
+        $this->profiles[$key] = array_flip(explode(" ", $matches[1]));
+    }
+
+    protected function setQueryParamProfiles(string $key, string $queryParam): void
+    {
+        if ($queryParam === "") {
+            $this->profiles[$key] = [];
+            return;
+        }
+
+        $this->profiles[$key] = array_flip(explode(" ", $queryParam));
     }
 
     /**
      * @return string[]
      */
-    public function getProfiles(): array
+    public function getRequestedProfiles(): array
     {
         if ($this->profiles === null) {
             $this->setProfiles();
         }
 
-        return $this->profiles;
+        return array_keys($this->profiles["requested"]);
+    }
+
+    public function isProfileRequested(string $profile): bool
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return isset($this->profiles["requested"][$profile]);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRequiredProfiles(): array
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return array_keys($this->profiles["required"]);
+    }
+
+    public function isProfileRequired(string $profile): bool
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return isset($this->profiles["required"][$profile]);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAppliedProfiles(): array
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return array_keys($this->profiles["applied"]);
+    }
+
+    public function isProfileApplied(string $profile): bool
+    {
+        if ($this->profiles === null) {
+            $this->setProfiles();
+        }
+
+        return isset($this->profiles["applied"][$profile]);
     }
 
     protected function setIncludedFields(): void
