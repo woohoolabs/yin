@@ -123,7 +123,7 @@ class Request implements RequestInterface
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
             if (preg_match("/^([a-z]+)$/", $queryParamName) &&
-                in_array($queryParamName, ["fields", "include", "sort", "page", "filter"], true) === false
+                in_array($queryParamName, ["fields", "include", "sort", "page", "filter", "profile"], true) === false
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
             }
@@ -135,11 +135,10 @@ class Request implements RequestInterface
         $header = $this->getHeaderLine($headerName);
 
         // The media type is modified by media type parameters
-        if (preg_match("/^.*application\/vnd\.api\+json\s*;\s*[a-z0-9]+.*/i", $header) === 1) {
-            return false;
-        }
+        $matches = [];
+        $isMatching = preg_match("/^.*application\/vnd\.api\+json\s*;\s*([A-Za-z0-9]+)\s*=.*$/i", $header, $matches);
 
-        return true;
+        return $isMatching === 0 || (isset($matches[1]) && strtolower($matches[1]) === "profile");
     }
 
     protected function setProfiles(): void

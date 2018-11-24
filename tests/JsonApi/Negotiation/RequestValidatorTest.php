@@ -30,6 +30,7 @@ class RequestValidatorTest extends TestCase
         $request->expects($this->once())
             ->method("validateContentTypeHeader")
             ->will($this->returnValue(true));
+
         $request->expects($this->once())
             ->method("validateAcceptHeader")
             ->will($this->returnValue(true));
@@ -42,9 +43,25 @@ class RequestValidatorTest extends TestCase
 
     /**
      * @test
+     * @dataProvider getValidContentTypes
+     */
+    public function negotiateWhenContentTypeHeaderSupported(string $contentType)
+    {
+        // Content-Type and Accept is valid
+        $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
+        $request = $this->createRequest($serverRequest);
+        $validator = $this->createRequestValidator();
+
+        $validator->negotiate($request);
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateWhenMediaTypeUnsupported(string $contentType)
+    public function negotiateWhenContentTypeHeaderUnsupported(string $contentType)
     {
         // Content-Type is invalid, Accept is valid
         $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
@@ -58,9 +75,25 @@ class RequestValidatorTest extends TestCase
 
     /**
      * @test
+     * @dataProvider getValidContentTypes
+     */
+    public function negotiateWhenAcceptHeaderAcceptable(string $accept)
+    {
+        // Content-Type is valid, Accept is invalid
+        $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
+        $request = $this->createRequest($serverRequest);
+        $validator = $this->createRequestValidator();
+
+        $validator->negotiate($request);
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateWhenTypeUnacceptable(string $accept)
+    public function negotiateWhenAcceptHeaderUnacceptable(string $accept)
     {
         // Content-Type is valid, Accept is invalid
         $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
@@ -88,6 +121,7 @@ class RequestValidatorTest extends TestCase
                         "sort" => "asc",
                         "page" => "1",
                         "filter" => "search",
+                        "profile" => "https://example.com/extensions/last-modified",
                     ]
                 )
             );
@@ -169,7 +203,7 @@ class RequestValidatorTest extends TestCase
     /**
      * @return MockObject|ServerRequestInterface
      */
-    public function createServerRequest(string $contentType, string $accept = "")
+    private function createServerRequest(string $contentType, string $accept = "")
     {
         $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
 
@@ -234,6 +268,9 @@ class RequestValidatorTest extends TestCase
     {
         return [
             ["application/vnd.api+json"],
+            ["application/vnd.api+json;profile=\"https://example.com/extensions/last-modified\""],
+            ["application/vnd.api+json;profile=\"https://example.com/extensions/last-modified\", application/vnd.api+json"],
+            ["application/vnd.api+json; PROFILE=\"https://example.com/extensions/last-modified\", application/vnd.api+json"],
             ["text/html; charset=utf-8"],
         ];
     }

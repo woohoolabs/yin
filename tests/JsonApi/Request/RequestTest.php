@@ -121,7 +121,22 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function validateInvalidContentTypeHeaderWithCharsetMediaType()
+    public function validateContentTypeHeaderWithJsonApiProfileMediaTypeParameter()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+        );
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
+     */
+    public function validateContentTypeHeaderWithInvalidMediaTypeParameter()
     {
         $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json; Charset=utf-8");
 
@@ -130,7 +145,10 @@ class RequestTest extends TestCase
         $request->validateContentTypeHeader();
     }
 
-    public function testValidateJsonApiAcceptHeaderWithExtMediaType()
+    /**
+     * @test
+     */
+    public function validateAcceptHeaderWithJsonApiMediaType()
     {
         $request = $this->createRequestWithHeader("Accept", "application/vnd.api+json");
 
@@ -142,7 +160,22 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonApiAcceptHeaderWithAdditionalMediaTypes()
+    public function validateAcceptHeaderWithJsonApiProfileMediaTypeParameter()
+    {
+        $request = $this->createRequestWithHeader(
+            "Content-Type",
+            "application/vnd.api+json; Profile = https://example.com/extensions/last-modified"
+        );
+
+        $request->validateContentTypeHeader();
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
+     */
+    public function validateAcceptHeaderWithInvalidMediaTypeParameters()
     {
         $request = $this->createRequestWithHeader("Accept", 'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
 
@@ -151,7 +184,10 @@ class RequestTest extends TestCase
         $request->validateAcceptHeader();
     }
 
-    public function testValidateEmptyQueryParams()
+    /**
+     * @test
+     */
+    public function validateEmptyQueryParams()
     {
         $request = $this->createRequestWithQueryParams([]);
 
@@ -172,6 +208,7 @@ class RequestTest extends TestCase
                 "sort" => ["-name"],
                 "page" => ["number" => "1"],
                 "filter" => ["age" => "21"],
+                "profile" => "",
             ]
         );
 
