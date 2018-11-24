@@ -144,13 +144,15 @@ class Request implements RequestInterface
 
     protected function setProfiles(): void
     {
-        $this->setHeaderProfiles("applied", $this->getHeaderLine("Content-Type"));
-        $this->setHeaderProfiles("requested", $this->getHeaderLine("Accept"));
-        $this->setQueryParamProfiles("required", $this->getQueryParam("profile", ""));
+        $this->setHeaderProfiles("applied", "Content-Type");
+        $this->setHeaderProfiles("requested", "Accept");
+        $this->setQueryParamProfiles("required", "profile");
     }
 
-    protected function setHeaderProfiles(string $key, string $header): void
+    protected function setHeaderProfiles(string $key, string $headerName): void
     {
+        $header = $this->getHeaderLine($headerName);
+
         $matches = [];
 
         preg_match("/^.*application\/vnd\.api\+json\s*;\s*profile\s*=\s*[\"]*([^\";,]*).*$/i", $header, $matches);
@@ -163,8 +165,15 @@ class Request implements RequestInterface
         $this->profiles[$key] = array_flip(explode(" ", $matches[1]));
     }
 
-    protected function setQueryParamProfiles(string $key, string $queryParam): void
+    protected function setQueryParamProfiles(string $key, string $queryParamName): void
     {
+        $queryParam = $this->getQueryParam($queryParamName, "");
+
+        if (is_string($queryParam) === false) {
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, $queryParamName, $queryParam);
+        }
+
+        $queryParam = trim($queryParam);
         if ($queryParam === "") {
             $this->profiles[$key] = [];
             return;
@@ -414,8 +423,13 @@ class Request implements RequestInterface
 
     protected function setPagination(): void
     {
-        $pagination =  $this->getQueryParam("page", null);
-        $this->pagination = is_array($pagination) ? $pagination : [];
+        $pagination = $this->getQueryParam("page", []);
+
+        if (is_array($pagination) === false) {
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "page", $pagination);
+        }
+
+        $this->pagination = $pagination;
     }
 
     /**
@@ -467,7 +481,12 @@ class Request implements RequestInterface
     protected function setFiltering(): void
     {
         $filtering = $this->getQueryParam("filter", []);
-        $this->filtering = is_array($filtering) ? $filtering : [];
+
+        if (is_array($filtering) === false) {
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "filtering", $filtering);
+        }
+
+        $this->filtering = $filtering;
     }
 
     /**

@@ -66,6 +66,7 @@ FIXED:
 - Issues with 0 and non-numeric values when using built-in pagination objects (`PageBasedPagination`, `FixedPageBasedPagination`, `OffsetBasedPagination`)
 - Small issues found by static analysis
 - Query parameters of pagination links were not encoded properly
+- The `page` and `filter` query parameters must have an array value as per the spec
 
 ## 3.0.2 - 2018-02-06
 

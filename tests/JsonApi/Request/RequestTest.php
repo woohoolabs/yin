@@ -545,7 +545,7 @@ class RequestTest extends TestCase
     public function getPaginationWhenEmpty()
     {
         $pagination = [];
-        $queryParams = ["page" => ""];
+        $queryParams = ["page" => []];
 
         $request = $this->createRequestWithQueryParams($queryParams);
         $this->assertEquals($pagination, $request->getPagination());
@@ -556,11 +556,31 @@ class RequestTest extends TestCase
      */
     public function getPaginationWhenNotEmpty()
     {
-        $pagination = ["number" => "1", "size" => "10"];
-        $queryParams = ["page" => $pagination];
+        $request = $this->createRequestWithQueryParams(
+            [
+                "page" => ["number" => "1", "size" => "10"],
+            ]
+        );
 
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($pagination, $request->getPagination());
+        $pagination = $request->getPagination();
+
+        $this->assertEquals(["number" => "1", "size" => "10"], $pagination);
+    }
+
+    /**
+     * @test
+     */
+    public function getPaginationWhenMalformed()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "page" => "",
+            ]
+        );
+
+        $this->expectException(QueryParamMalformed::class);
+
+        $request->getPagination();
     }
 
     /**
@@ -641,6 +661,22 @@ class RequestTest extends TestCase
         $filtering = $request->getFiltering();
 
         $this->assertEquals(["name" => "John"], $filtering);
+    }
+
+    /**
+     * @test
+     */
+    public function getFilteringWhenMalformed()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "filter" => "",
+            ]
+        );
+
+        $this->expectException(QueryParamMalformed::class);
+
+        $request->getFiltering();
     }
 
     /**
@@ -841,6 +877,22 @@ class RequestTest extends TestCase
         $isProfileRequested = $request->isProfileRequested("https://example.com/extensions/inexistent-profile");
 
         $this->assertFalse($isProfileRequested);
+    }
+
+    /**
+     * @test
+     */
+    public function getRequiredProfilesWhenMalformed()
+    {
+        $request = $this->createRequestWithQueryParams(
+            [
+                "profile" => [],
+            ]
+        );
+
+        $this->expectException(QueryParamMalformed::class);
+
+        $request->getRequiredProfiles();
     }
 
     /**
