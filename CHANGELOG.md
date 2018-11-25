@@ -2,12 +2,17 @@
 
 ADDED:
 
-- Support for Profiles (JSON:API 1.1 feature)
-- Support for `type` links in errors (JSON:API 1.1 feature)
+- JSON:API 1.1 related features:
+    - Support for Profiles
+    - Support for `type` links in errors
 - Separate classes for the different types of links: `DocumentLinks`, `ResourceLinks`, `RelationshipLinks`, `ErrorLinks`
-- [#70](https://github.com/woohoolabs/yin/issues/70): Better support for query parameters in pagination links
-- `PaginationFactory` class to decouple Pagination class instantiation from the request
-- `JsonApi::getPaginationFactory()` method to make it easier to retrieve the Pagination Factory
+- Multiple pagination-related improvements:
+    - [#70](https://github.com/woohoolabs/yin/issues/70): Better support for query parameters in pagination links
+    - `PaginationFactory` class to decouple Pagination class instantiation from the request
+    - `JsonApi::getPaginationFactory()` method to make it easier to retrieve the Pagination Factory
+    - `FixedCursorBasedPagination` class which preserves the original behaviour of `CursorBasedPagination`
+    - `FixedCursorBasedPaginationProviderTrait` for using in connection with `FixedCursorBasedPagination`
+    - `FixedPageBasedPaginationLinkProviderTrait` for using in connection with `FixedPageBasedPagination`
 
 CHANGED:
 
@@ -45,14 +50,12 @@ CHANGED:
 - `JsonApiException` was renamed to `AbstractJsonApiException` (__BREAKING__)
 - The Request, an Exception Factory, and the transformed object are always available in the current Document and Resource
 through object properties (`$this->request`, `$this->exceptionFactory`, `$this->object`)
+- `CursorBasedPagination` defines size by using a `$defaultSize` constructor parameter the `page[size]` query parameter (the
+`FixedCursorBasedPagination` can be used instead for the original behaviour) (__BREAKING__)
 - Properties and methods of the following pagination classes became non-nullable (__BREAKING__):
     - `FixedPageBasedPagination`
     - `OffsetBasedPagination`
     - `PageBasedPagination`
-- Parameters of the following request methods became non-nullable (__BREAKING__):
-    - `RequestInterface::getFixedPageBasedPagination()`
-    - `RequestInterface::getPageBasedPagination()`
-    - `RequestInterface::getOffsetBasedPagination()`
 - Methods of `PaginationLinkProviderInterface` expect a second parameter with a `$queryString` name
 - Setting the status code and `Content-Type` header of the JSON:API response is done by the `Responder` by default instead of `Serializer`s (__BREAKING__):
     - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally

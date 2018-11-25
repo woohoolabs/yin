@@ -13,7 +13,7 @@ class PageBasedPaginationTest extends TestCase
      */
     public function fromPaginationQueryParams()
     {
-        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => 1, "size" => 10]);
+        $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => 1, "size" => "10"]);
 
         $this->assertEquals(1, $pagination->getPage());
         $this->assertEquals(10, $pagination->getSize());

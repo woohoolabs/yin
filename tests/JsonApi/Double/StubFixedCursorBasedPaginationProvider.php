@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\CursorBasedPaginationLinkProviderTrait;
+use WoohooLabs\Yin\JsonApi\Schema\Pagination\FixedCursorBasedPaginationLinkProviderTrait;
 
-class StubCursorBasedPaginationProvider
+class StubFixedCursorBasedPaginationProvider
 {
-    use CursorBasedPaginationLinkProviderTrait;
+    use FixedCursorBasedPaginationLinkProviderTrait;
 
     /**
      * @var mixed
@@ -35,25 +35,19 @@ class StubCursorBasedPaginationProvider
     private $nextItem;
 
     /**
-     * @var int
-     */
-    private $size;
-
-    /**
      * @param mixed $firstItem
      * @param mixed $lastItem
      * @param mixed $currentItem
      * @param mixed $previousItem
      * @param mixed $nextItem
      */
-    public function __construct($firstItem, $lastItem, $currentItem, $previousItem, $nextItem, int $size)
+    public function __construct($firstItem, $lastItem, $currentItem, $previousItem, $nextItem)
     {
         $this->firstItem = $firstItem;
         $this->lastItem = $lastItem;
         $this->currentItem = $currentItem;
         $this->previousItem = $previousItem;
         $this->nextItem = $nextItem;
-        $this->size = $size;
     }
 
     public function getFirstItem()
@@ -79,10 +73,5 @@ class StubCursorBasedPaginationProvider
     public function getNextItem()
     {
         return $this->nextItem;
-    }
-
-    public function getSize(): int
-    {
-        return $this->size;
     }
 }

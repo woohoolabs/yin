@@ -13,9 +13,10 @@ class CursorBasedPaginationTest extends TestCase
      */
     public function fromPaginationQueryParams()
     {
-        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc"]);
+        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc", "size" => "10"]);
 
         $this->assertEquals("abc", $pagination->getCursor());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**
@@ -23,9 +24,10 @@ class CursorBasedPaginationTest extends TestCase
      */
     public function fromMissingPaginationQueryParams()
     {
-        $pagination = CursorBasedPagination::fromPaginationQueryParams([], "abc");
+        $pagination = CursorBasedPagination::fromPaginationQueryParams([], "abc", 10);
 
         $this->assertEquals("abc", $pagination->getCursor());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**
@@ -33,9 +35,10 @@ class CursorBasedPaginationTest extends TestCase
      */
     public function fromEmptyPaginationQueryParams()
     {
-        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => ""], "abc");
+        $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "", "size" => ""], "abc", 10);
 
         $this->assertEquals("", $pagination->getCursor());
+        $this->assertEquals(10, $pagination->getSize());
     }
 
     /**
@@ -43,11 +46,13 @@ class CursorBasedPaginationTest extends TestCase
      */
     public function getCursor()
     {
-        $pagination = $this->createPagination("abc");
+        $pagination = $this->createPagination("abc", 10);
 
         $cursor = $pagination->getCursor();
+        $size = $pagination->getSize();
 
         $this->assertEquals("abc", $cursor);
+        $this->assertEquals(10, $size);
     }
 
     /**
@@ -55,13 +60,13 @@ class CursorBasedPaginationTest extends TestCase
      */
     public function getPaginationQueryString()
     {
-        $queryString = CursorBasedPagination::getPaginationQueryString("abc");
+        $queryString = CursorBasedPagination::getPaginationQueryString("abc", 10);
 
-        $this->assertEquals("page[cursor]=abc", urldecode($queryString));
+        $this->assertEquals("page[cursor]=abc&page[size]=10", urldecode($queryString));
     }
 
-    private function createPagination($cursor): CursorBasedPagination
+    private function createPagination($cursor, int $page = 0): CursorBasedPagination
     {
-        return new CursorBasedPagination($cursor);
+        return new CursorBasedPagination($cursor, $page);
     }
 }
