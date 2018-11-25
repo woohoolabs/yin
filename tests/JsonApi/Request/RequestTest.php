@@ -23,7 +23,7 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiContentTypeHeader()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
+        $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json");
 
         $request->validateContentTypeHeader();
 
@@ -35,7 +35,7 @@ class RequestTest extends TestCase
      */
     public function validateJsonApiContentTypeHeaderWithSemicolon()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json;");
+        $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json;");
 
         $request->validateContentTypeHeader();
 
@@ -47,7 +47,7 @@ class RequestTest extends TestCase
      */
     public function validateEmptyContentTypeHeader()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "");
+        $request = $this->createRequestWithHeader("content-type", "");
 
         $request->validateContentTypeHeader();
 
@@ -59,7 +59,7 @@ class RequestTest extends TestCase
      */
     public function validateHtmlContentTypeHeader()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "text/html; charset=utf-8");
+        $request = $this->createRequestWithHeader("content-type", "text/html; charset=utf-8");
 
         $request->validateContentTypeHeader();
 
@@ -71,7 +71,7 @@ class RequestTest extends TestCase
      */
     public function validateMultipleMediaTypeContentTypeHeader()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
+        $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
 
         $request->validateContentTypeHeader();
 
@@ -83,7 +83,7 @@ class RequestTest extends TestCase
      */
     public function validateCaseInsensitiveContentTypeHeader()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
+        $request = $this->createRequestWithHeader("content-type", "Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
 
         $request->validateContentTypeHeader();
 
@@ -95,7 +95,7 @@ class RequestTest extends TestCase
      */
     public function validateInvalidContentTypeHeaderWithExtMediaType()
     {
-        $request = $this->createRequestWithHeader("Content-Type", 'application/vnd.api+json; ext="ext1,ext2"');
+        $request = $this->createRequestWithHeader("content-type", 'application/vnd.api+json; ext="ext1,ext2"');
 
         $this->expectException(MediaTypeUnsupported::class);
 
@@ -107,7 +107,7 @@ class RequestTest extends TestCase
      */
     public function validateInvalidContentTypeHeaderWithWhitespaceBeforeParameter()
     {
-        $request = $this->createRequestWithHeader("Content-Type", 'application/vnd.api+json ; ext="ext1,ext2"');
+        $request = $this->createRequestWithHeader("content-type", 'application/vnd.api+json ; ext="ext1,ext2"');
 
         $this->expectException(MediaTypeUnsupported::class);
 
@@ -120,7 +120,7 @@ class RequestTest extends TestCase
     public function validateContentTypeHeaderWithJsonApiProfileMediaTypeParameter()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
         );
 
@@ -134,7 +134,7 @@ class RequestTest extends TestCase
      */
     public function validateContentTypeHeaderWithInvalidMediaTypeParameter()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json; Charset=utf-8");
+        $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json; Charset=utf-8");
 
         $this->expectException(MediaTypeUnsupported::class);
 
@@ -146,7 +146,7 @@ class RequestTest extends TestCase
      */
     public function validateAcceptHeaderWithJsonApiMediaType()
     {
-        $request = $this->createRequestWithHeader("Accept", "application/vnd.api+json");
+        $request = $this->createRequestWithHeader("accept", "application/vnd.api+json");
 
         $request->validateAcceptHeader();
 
@@ -159,7 +159,7 @@ class RequestTest extends TestCase
     public function validateAcceptHeaderWithJsonApiProfileMediaTypeParameter()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             "application/vnd.api+json; Profile = https://example.com/extensions/last-modified"
         );
 
@@ -173,7 +173,7 @@ class RequestTest extends TestCase
      */
     public function validateAcceptHeaderWithInvalidMediaTypeParameters()
     {
-        $request = $this->createRequestWithHeader("Accept", 'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
+        $request = $this->createRequestWithHeader("accept", 'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
 
         $this->expectException(MediaTypeUnacceptable::class);
 
@@ -701,7 +701,7 @@ class RequestTest extends TestCase
      */
     public function getAppliedProfilesWhenEmpty()
     {
-        $request = $this->createRequestWithHeader("Content-Type", "application/vnd.api+json");
+        $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json");
 
         $profiles = $request->getAppliedProfiles();
 
@@ -714,7 +714,7 @@ class RequestTest extends TestCase
     public function getAppliedProfilesWhenOneProfile()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
         );
 
@@ -734,7 +734,7 @@ class RequestTest extends TestCase
     public function getAppliedProfilesWhenTwoProfiles()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 
@@ -755,7 +755,7 @@ class RequestTest extends TestCase
     public function getAppliedProfilesWhenMultipleJsonApiContentTypes()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             'application/vnd.api+json;profile = https://example.com/extensions/last-modified, ' .
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
@@ -777,7 +777,7 @@ class RequestTest extends TestCase
     public function isProfileAppliedWhenTrue()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 
@@ -792,7 +792,7 @@ class RequestTest extends TestCase
     public function isProfileAppliedWhenFalse()
     {
         $request = $this->createRequestWithHeader(
-            "Content-Type",
+            "content-type",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 
@@ -806,7 +806,7 @@ class RequestTest extends TestCase
      */
     public function getRequestedProfilesWhenEmpty()
     {
-        $request = $this->createRequestWithHeader("Accept", "application/vnd.api+json");
+        $request = $this->createRequestWithHeader("accept", "application/vnd.api+json");
 
         $profiles = $request->getRequestedProfiles();
 
@@ -819,7 +819,7 @@ class RequestTest extends TestCase
     public function getRequestedProfilesWhenTwoProfiles()
     {
         $request = $this->createRequestWithHeader(
-            "Accept",
+            "accept",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 
@@ -840,7 +840,7 @@ class RequestTest extends TestCase
     public function isProfileRequestedWhenTrue()
     {
         $request = $this->createRequestWithHeader(
-            "Accept",
+            "accept",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 
@@ -855,7 +855,7 @@ class RequestTest extends TestCase
     public function isProfileRequestedWhenFalse()
     {
         $request = $this->createRequestWithHeader(
-            "Accept",
+            "accept",
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
         );
 

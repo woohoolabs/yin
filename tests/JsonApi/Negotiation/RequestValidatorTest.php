@@ -208,8 +208,8 @@ class RequestValidatorTest extends TestCase
         $server = $this->getMockForAbstractClass(ServerRequestInterface::class);
 
         $map = [
-            ["Content-Type", $contentType],
-            ["Accept", $accept],
+            ["content-type", $contentType],
+            ["accept", $accept],
         ];
         $server->expects($this->any())
             ->method("getHeaderLine")

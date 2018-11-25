@@ -151,12 +151,12 @@ abstract class AbstractResponder
     {
         $links = $document->getLinks();
         if ($links === null) {
-            return $response->withHeader("Content-Type", "application/vnd.api+json");
+            return $response->withHeader("content-type", "application/vnd.api+json");
         }
 
         $profiles = $links->getProfiles();
         if (empty($profiles)) {
-            return $response->withHeader("Content-Type", "application/vnd.api+json");
+            return $response->withHeader("content-type", "application/vnd.api+json");
         }
 
         $hrefs = [];
@@ -165,7 +165,7 @@ abstract class AbstractResponder
         }
         $profileLinks = implode(" ", $hrefs);
 
-        return $response->withHeader("Content-Type", "application/vnd.api+json;profile=\"$profileLinks\"");
+        return $response->withHeader("content-type", "application/vnd.api+json;profile=\"$profileLinks\"");
     }
 
     protected function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface

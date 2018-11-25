@@ -39,7 +39,7 @@ class ResponderTest extends TestCase
             []
         );
 
-        $contentType = $response->getHeaderLine("Content-Type");
+        $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals("application/vnd.api+json", $contentType);
     }
@@ -58,7 +58,7 @@ class ResponderTest extends TestCase
             []
         );
 
-        $contentType = $response->getHeaderLine("Content-Type");
+        $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals("application/vnd.api+json", $contentType);
     }
@@ -79,7 +79,7 @@ class ResponderTest extends TestCase
             []
         );
 
-        $contentType = $response->getHeaderLine("Content-Type");
+        $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals(
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
@@ -243,7 +243,7 @@ class ResponderTest extends TestCase
                 )
         );
 
-        $contentType = $response->getHeaderLine("Content-Type");
+        $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals(
             'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
