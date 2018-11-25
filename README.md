@@ -712,10 +712,10 @@ request query parameters when page-based, offset-based, or cursor-based paginati
 #### Page-based pagination
 
 Yin looks for the `page[number]` and the `page[size]` query parameters and parses their value. If any of them is missing
-then the default page number and size will be used ("1" and "10" in the following example).
+then the default page number or size will be used ("1" and "10" in the following example).
 
 ```php
-$pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
+$pagination = $jsonApi->getPaginationFactory()->createPageBasedPagination(1, 10);
 ```
 
 #### Fixed page-based pagination
@@ -725,31 +725,40 @@ will be used ("1" in the following example). This strategy can be useful if you 
 at all.
 
 ```php
-$pagination = $jsonApi->getRequest()->getFixedPageBasedPagination(1);
+$pagination = $jsonApi->getPaginationFactory()->createFixedPageBasedPagination(1);
 ```
 
 #### Offset-based pagination
 
 Yin looks for the `page[offset]` and the `page[limit]` query parameters and parses their value. If any of them is missing
-then the default offset and limit will be used ("1" and "10" in the following example).
+then the default offset or limit will be used ("1" and "10" in the following example).
 
 ```php
-$pagination = $jsonApi->getRequest()->getOffsetBasedPagination(1, 10);
+$pagination = $jsonApi->getPaginationFactory()->createOffsetBasedPagination(1, 10);
 ```
 
 #### Cursor-based pagination
+
+Yin looks for the `page[cursor]` and the `page[size]` query parameters and parses their value. If any of them is missing
+then the default cursor or size will be used ("2016-10-01" or 10 in the following example).
+
+```php
+$pagination = $jsonApi->getPaginationFactory()->createCursorBasedPagination("2016-10-01", 10);
+```
+
+#### Fixed cursor-based pagination
 
 Yin looks for the `page[cursor]` query parameter and parses its value. If it is missing then the default cursor will
 be used ("2016-10-01" in the following example).
 
 ```php
-$pagination = $jsonApi->getRequest()->getCursorBasedPagination("2016-10-01");
+$pagination = $jsonApi->getPaginationFactory()->createFixedCursorBasedPagination("2016-10-01");
 ```
 
 #### Custom pagination
 
-If you need a custom pagination strategy, you may use the `getPagination()` method which returns an array of pagination
-parameters.
+If you need a custom pagination strategy, you may use the `RequestInterface::getPagination()` method which returns an
+array of pagination parameters.
 
 ```php
 $paginationParams = $jsonApi->getRequest()->getPagination();

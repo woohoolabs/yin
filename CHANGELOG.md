@@ -6,6 +6,8 @@ ADDED:
 - Support for `type` links in errors (JSON:API 1.1 feature)
 - Separate classes for the different types of links: `DocumentLinks`, `ResourceLinks`, `RelationshipLinks`, `ErrorLinks`
 - [#70](https://github.com/woohoolabs/yin/issues/70): Better support for query parameters in pagination links
+- `PaginationFactory` class to decouple Pagination class instantiation from the request
+- `JsonApi::getPaginationFactory()` method to make it easier to retrieve the Pagination Factory
 
 CHANGED:
 
@@ -60,6 +62,11 @@ through object properties (`$this->request`, `$this->exceptionFactory`, `$this->
 REMOVED:
 
 - The generic `Link` class (__BREAKING__)
+- Methods related to pagination class instantiation were removed from `RequestInterface` (__BREAKING__):
+    - `RequestInterface::getFixedPageBasedPagination()`
+    - `RequestInterface::getPageBasedPagination()`
+    - `RequestInterface::getOffsetBasedPagination()`
+    - `RequestInterface::getCursorBasedPagination()`
 
 FIXED:
 

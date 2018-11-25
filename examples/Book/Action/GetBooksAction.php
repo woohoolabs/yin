@@ -17,7 +17,7 @@ class GetBooksAction
     public function __invoke(JsonApi $jsonApi): ResponseInterface
     {
         // Extracting pagination information from the request, page = 1, size = 10 if it is missing
-        $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
+        $pagination = $jsonApi->getPaginationFactory()->createPageBasedPagination(1, 10);
 
         // Retrieving a paginated collection of Book domain objects
         $books = BookRepository::getBooks($pagination->getPage(), $pagination->getSize());

@@ -13,10 +13,6 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
@@ -429,52 +425,6 @@ class Request implements RequestInterface
         }
 
         $this->pagination = $pagination;
-    }
-
-    /**
-     * Returns a FixedPageBasedPagination class in order to be used for fixed page-based pagination.
-     *
-     * The FixedPageBasedPagination class stores the value of the "page[number]" query parameter if present
-     * or the $defaultPage otherwise.
-     */
-    public function getFixedPageBasedPagination(int $defaultPage = 0): FixedPageBasedPagination
-    {
-        return FixedPageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage);
-    }
-
-    /**
-     * Returns a PageBasedPagination class in order to be used for page-based pagination.
-     *
-     * The PageBasedPagination class stores the value of the "page[number]" and "page[size]" query parameters
-     * if present or the $defaultPage and $defaultSize otherwise.
-     */
-    public function getPageBasedPagination(int $defaultPage = 0, int $defaultSize = 0): PageBasedPagination
-    {
-        return PageBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultPage, $defaultSize);
-    }
-
-    /**
-     * Returns a OffsetBasedPagination class in order to be used for offset-based pagination.
-     *
-     * The OffsetBasedPagination class stores the value of the "page[offset]" and "page[limit]" query parameters
-     * if present or the $defaultOffset and $defaultLimit otherwise.
-     */
-    public function getOffsetBasedPagination(int $defaultOffset = 0, int $defaultLimit = 0): OffsetBasedPagination
-    {
-        return OffsetBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultOffset, $defaultLimit);
-    }
-
-    /**
-     * Returns a CursorBasedPagination class in order to be used for cursor-based pagination.
-     *
-     * The CursorBasedPagination class stores the value of the "page[cursor]" query parameter if present
-     * or the $defaultCursor otherwise.
-     *
-     * @param mixed $defaultCursor
-     */
-    public function getCursorBasedPagination($defaultCursor = null): CursorBasedPagination
-    {
-        return CursorBasedPagination::fromPaginationQueryParams($this->getPagination(), $defaultCursor);
     }
 
     protected function setFiltering(): void

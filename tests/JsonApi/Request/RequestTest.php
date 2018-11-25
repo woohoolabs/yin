@@ -10,10 +10,6 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
@@ -618,54 +614,6 @@ class RequestTest extends TestCase
         $this->expectException(QueryParamMalformed::class);
 
         $request->getPagination();
-    }
-
-    /**
-     * @test
-     */
-    public function getFixedPageBasedPagination()
-    {
-        $pagination = new FixedPageBasedPagination(1);
-        $queryParams = ["page" => ["number" => $pagination->getPage()]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($pagination, $request->getFixedPageBasedPagination());
-    }
-
-    /**
-     * @test
-     */
-    public function getPageBasedPagination()
-    {
-        $pagination = new PageBasedPagination(1, 10);
-        $queryParams = ["page" => ["number" => $pagination->getPage(), "size" => $pagination->getSize()]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($pagination, $request->getPageBasedPagination());
-    }
-
-    /**
-     * @test
-     */
-    public function getOffsetBasedPagination()
-    {
-        $pagination = new OffsetBasedPagination(1, 10);
-        $queryParams = ["page" => ["offset" => $pagination->getOffset(), "limit" => $pagination->getLimit()]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($pagination, $request->getOffsetBasedPagination());
-    }
-
-    /**
-     * @test
-     */
-    public function getCursorBasedPagination()
-    {
-        $pagination = new CursorBasedPagination("abcdefg");
-        $queryParams = ["page" => ["cursor" => $pagination->getCursor()]];
-
-        $request = $this->createRequestWithQueryParams($queryParams);
-        $this->assertEquals($pagination, $request->getCursorBasedPagination());
     }
 
     /**

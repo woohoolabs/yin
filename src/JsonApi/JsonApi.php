@@ -11,6 +11,7 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
 use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
@@ -55,7 +56,7 @@ class JsonApi
         return $this->request;
     }
 
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): void
     {
         $this->request = $request;
     }
@@ -78,6 +79,11 @@ class JsonApi
     public function setExceptionFactory($exceptionFactory): void
     {
         $this->exceptionFactory = $exceptionFactory;
+    }
+
+    public function getPaginationFactory(): PaginationFactory
+    {
+        return new PaginationFactory($this->request);
     }
 
     public function respond(): Responder
