@@ -10,6 +10,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\JsonApi;
+use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
@@ -69,6 +70,16 @@ class JsonApiTest extends TestCase
         $jsonApi->setResponse($response);
 
         $this->assertEquals($response, $jsonApi->getResponse());
+    }
+
+    /**
+     * @test
+     */
+    public function getPaginationFactory()
+    {
+        $jsonApi = $this->createJsonApi();
+
+        $this->assertInstanceOf(PaginationFactory::class, $jsonApi->getPaginationFactory());
     }
 
     /**
