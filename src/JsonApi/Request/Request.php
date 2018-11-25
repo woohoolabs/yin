@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
@@ -17,22 +15,12 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
-class Request implements RequestInterface
+class Request extends AbstractRequest implements RequestInterface
 {
-    /**
-     * @var ServerRequestInterface
-     */
-    protected $serverRequest;
-
     /**
      * @var ExceptionFactoryInterface
      */
     protected $exceptionFactory;
-
-    /**
-     * @var DeserializerInterface
-     */
-    protected $deserializer;
 
     /**
      * @var array|null
@@ -64,19 +52,49 @@ class Request implements RequestInterface
      */
     protected $profiles;
 
-    /**
-     * @var bool
-     */
-    protected $isParsed = false;
-
     public function __construct(
         ServerRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         ?DeserializerInterface $deserializer = null
     ) {
-        $this->serverRequest = $request;
+        parent::__construct($request, $deserializer ?? new JsonDeserializer());
         $this->exceptionFactory = $exceptionFactory;
-        $this->deserializer = $deserializer ?? new JsonDeserializer();
+    }
+
+    protected function headerChanged(string $name)
+    {
+        $name = strtolower($name);
+
+        if ($name === "content-type") {
+            $this->profiles["required"] = null;
+        }
+    }
+
+    protected function queryParamChanged(string $name)
+    {
+        if ($name === "fields") {
+            $this->includedFields = null;
+        }
+
+        if ($name === "include") {
+            $this->includedRelationships = null;
+        }
+
+        if ($name === "sorting") {
+            $this->sorting = null;
+        }
+
+        if ($name === "page") {
+            $this->pagination = null;
+        }
+
+        if ($name === "filter") {
+            $this->filtering = null;
+        }
+
+        if ($name === "profile") {
+            $this->profiles["required"] = null;
+        }
     }
 
     /**
@@ -86,10 +104,10 @@ class Request implements RequestInterface
      */
     public function validateContentTypeHeader(): void
     {
-        if ($this->isValidMediaTypeHeader("Content-Type") === false) {
+        if ($this->isValidMediaTypeHeader("content-type") === false) {
             throw $this->exceptionFactory->createMediaTypeUnsupportedException(
                 $this,
-                $this->getHeaderLine("Content-Type")
+                $this->getHeaderLine("content-type")
             );
         }
     }
@@ -101,8 +119,8 @@ class Request implements RequestInterface
      */
     public function validateAcceptHeader(): void
     {
-        if ($this->isValidMediaTypeHeader("Accept") === false) {
-            throw $this->exceptionFactory->createMediaTypeUnacceptableException($this, $this->getHeaderLine("Accept"));
+        if ($this->isValidMediaTypeHeader("accept") === false) {
+            throw $this->exceptionFactory->createMediaTypeUnacceptableException($this, $this->getHeaderLine("accept"));
         }
     }
 
@@ -139,8 +157,8 @@ class Request implements RequestInterface
 
     protected function setProfiles(): void
     {
-        $this->setHeaderProfiles("applied", "Content-Type");
-        $this->setHeaderProfiles("requested", "Accept");
+        $this->setHeaderProfiles("applied", "content-type");
+        $this->setHeaderProfiles("requested", "accept");
         $this->setQueryParamProfiles("required", "profile");
     }
 
@@ -462,43 +480,6 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param mixed $default
-     * @return array|string|mixed
-     */
-    public function getQueryParam(string $name, $default = null)
-    {
-        $queryParams = $this->serverRequest->getQueryParams();
-
-        return $queryParams[$name] ?? $default;
-    }
-
-    /**
-     * Returns a new request with the "$name" query parameter.
-     *
-     * @param mixed $value
-     * @return $this
-     */
-    public function withQueryParam(string $name, $value)
-    {
-        $self = clone $this;
-        $queryParams = $this->serverRequest->getQueryParams();
-        $queryParams[$name] = $value;
-        $self->serverRequest = $this->serverRequest->withQueryParams($queryParams);
-        $self->initializeParsedJsonApiQueryParams();
-
-        return $self;
-    }
-
-    protected function initializeParsedJsonApiQueryParams(): void
-    {
-        $this->includedFields = null;
-        $this->includedRelationships = null;
-        $this->sorting = null;
-        $this->pagination = null;
-        $this->filtering = null;
-    }
-
-    /**
      * Returns the primary resource if it is present in the request body, or the $default value otherwise.
      *
      * @param mixed $default
@@ -601,215 +582,5 @@ class Request implements RequestInterface
         }
 
         return new ToManyRelationship($resourceIdentifiers);
-    }
-
-    public function getProtocolVersion(): string
-    {
-        return $this->serverRequest->getProtocolVersion();
-    }
-
-    public function withProtocolVersion($version)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withProtocolVersion($version);
-
-        return $self;
-    }
-
-    public function getHeaders(): array
-    {
-        return $this->serverRequest->getHeaders();
-    }
-
-    public function hasHeader($name): bool
-    {
-        return $this->serverRequest->hasHeader($name);
-    }
-
-    public function getHeader($name): array
-    {
-        return $this->serverRequest->getHeader($name);
-    }
-
-    public function getHeaderLine($name): string
-    {
-        return $this->serverRequest->getHeaderLine($name);
-    }
-
-    public function withHeader($name, $value)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withHeader($name, $value);
-        $self->initializeParsedJsonApiHeaders();
-
-        return $self;
-    }
-
-    public function withAddedHeader($name, $value)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withAddedHeader($name, $value);
-        $self->initializeParsedJsonApiHeaders();
-
-        return $self;
-    }
-
-    protected function initializeParsedJsonApiHeaders(): void
-    {
-        $this->profiles = null;
-    }
-
-    public function withoutHeader($name)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withoutHeader($name);
-
-        return $self;
-    }
-
-    public function getBody(): StreamInterface
-    {
-        return $this->serverRequest->getBody();
-    }
-
-    public function withBody(StreamInterface $body)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withBody($body);
-
-        return $self;
-    }
-
-    public function getRequestTarget(): string
-    {
-        return $this->serverRequest->getRequestTarget();
-    }
-
-    public function withRequestTarget($requestTarget)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withRequestTarget($requestTarget);
-
-        return $self;
-    }
-
-    public function getMethod(): string
-    {
-        return $this->serverRequest->getMethod();
-    }
-
-    public function withMethod($method)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withMethod($method);
-
-        return $self;
-    }
-
-    public function getUri(): UriInterface
-    {
-        return $this->serverRequest->getUri();
-    }
-
-    public function withUri(UriInterface $uri, $preserveHost = false)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withUri($uri, $preserveHost);
-
-        return $self;
-    }
-
-    public function getServerParams(): array
-    {
-        return $this->serverRequest->getServerParams();
-    }
-
-    public function getCookieParams(): array
-    {
-        return $this->serverRequest->getCookieParams();
-    }
-
-    public function withCookieParams(array $cookies)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withCookieParams($cookies);
-
-        return $self;
-    }
-
-    public function getQueryParams(): array
-    {
-        return $this->serverRequest->getQueryParams();
-    }
-
-    public function withQueryParams(array $query)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withQueryParams($query);
-        $self->initializeParsedJsonApiQueryParams();
-
-        return $self;
-    }
-
-    public function getUploadedFiles(): array
-    {
-        return $this->serverRequest->getUploadedFiles();
-    }
-
-    public function withUploadedFiles(array $uploadedFiles)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withUploadedFiles($uploadedFiles);
-
-        return $self;
-    }
-
-    public function getParsedBody()
-    {
-        if ($this->isParsed === false) {
-            $parsedBody = $this->serverRequest->getParsedBody();
-            if ($parsedBody === null || $parsedBody === []) {
-                $parsedBody = $this->deserializer->deserialize($this->serverRequest);
-                $this->serverRequest = $this->serverRequest->withParsedBody($parsedBody);
-                $this->isParsed = true;
-            }
-        }
-
-        return $this->serverRequest->getParsedBody();
-    }
-
-    public function withParsedBody($data)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withParsedBody($data);
-        $this->isParsed = true;
-
-        return $self;
-    }
-
-    public function getAttributes(): array
-    {
-        return $this->serverRequest->getAttributes();
-    }
-
-    public function getAttribute($name, $default = null)
-    {
-        return $this->serverRequest->getAttribute($name, $default);
-    }
-
-    public function withAttribute($name, $value)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withAttribute($name, $value);
-
-        return $self;
-    }
-
-    public function withoutAttribute($name)
-    {
-        $self = clone $this;
-        $self->serverRequest = $this->serverRequest->withoutAttribute($name);
-
-        return $self;
     }
 }
