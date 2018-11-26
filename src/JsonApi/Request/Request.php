@@ -66,7 +66,11 @@ class Request extends AbstractRequest implements RequestInterface
         $name = strtolower($name);
 
         if ($name === "content-type") {
-            $this->profiles["required"] = null;
+            $this->profiles["applied"] = null;
+        }
+
+        if ($name === "accept") {
+            $this->profiles["requested"] = null;
         }
     }
 
@@ -80,7 +84,7 @@ class Request extends AbstractRequest implements RequestInterface
             $this->includedRelationships = null;
         }
 
-        if ($name === "sorting") {
+        if ($name === "sort") {
             $this->sorting = null;
         }
 
@@ -155,10 +159,18 @@ class Request extends AbstractRequest implements RequestInterface
         return $isMatching === 0 || (isset($matches[1]) && strtolower($matches[1]) === "profile");
     }
 
-    protected function setProfiles(): void
+    protected function setAppliedProfiles(): void
     {
         $this->setHeaderProfiles("applied", "content-type");
+    }
+
+    protected function setRequestedProfiles(): void
+    {
         $this->setHeaderProfiles("requested", "accept");
+    }
+
+    protected function setRequiredProfiles(): void
+    {
         $this->setQueryParamProfiles("required", "profile");
     }
 
@@ -200,8 +212,8 @@ class Request extends AbstractRequest implements RequestInterface
      */
     public function getRequestedProfiles(): array
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["requested"]) === false) {
+            $this->setRequestedProfiles();
         }
 
         return array_keys($this->profiles["requested"]);
@@ -209,8 +221,8 @@ class Request extends AbstractRequest implements RequestInterface
 
     public function isProfileRequested(string $profile): bool
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["requested"]) === false) {
+            $this->setRequestedProfiles();
         }
 
         return isset($this->profiles["requested"][$profile]);
@@ -221,8 +233,8 @@ class Request extends AbstractRequest implements RequestInterface
      */
     public function getRequiredProfiles(): array
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["required"]) === false) {
+            $this->setRequiredProfiles();
         }
 
         return array_keys($this->profiles["required"]);
@@ -230,8 +242,8 @@ class Request extends AbstractRequest implements RequestInterface
 
     public function isProfileRequired(string $profile): bool
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["required"]) === false) {
+            $this->setRequiredProfiles();
         }
 
         return isset($this->profiles["required"][$profile]);
@@ -242,8 +254,8 @@ class Request extends AbstractRequest implements RequestInterface
      */
     public function getAppliedProfiles(): array
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["applied"]) === false) {
+            $this->setAppliedProfiles();
         }
 
         return array_keys($this->profiles["applied"]);
@@ -251,8 +263,8 @@ class Request extends AbstractRequest implements RequestInterface
 
     public function isProfileApplied(string $profile): bool
     {
-        if ($this->profiles === null) {
-            $this->setProfiles();
+        if (isset($this->profiles["applied"]) === false) {
+            $this->setAppliedProfiles();
         }
 
         return isset($this->profiles["applied"][$profile]);
@@ -450,7 +462,7 @@ class Request extends AbstractRequest implements RequestInterface
         $filtering = $this->getQueryParam("filter", []);
 
         if (is_array($filtering) === false) {
-            throw $this->exceptionFactory->createQueryParamMalformedException($this, "filtering", $filtering);
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "filter", $filtering);
         }
 
         $this->filtering = $filtering;

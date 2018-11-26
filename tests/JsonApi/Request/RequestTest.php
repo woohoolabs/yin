@@ -950,6 +950,39 @@ class RequestTest extends TestCase
     /**
      * @test
      */
+    public function withHeaderInvalidatesParsedJsonApiHeaders()
+    {
+        $request = $this->createRequest()
+            ->withHeader(
+                "content-type",
+                "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+            )
+            ->withHeader(
+                "accept",
+                "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+            )
+        ;
+
+        $request->getAppliedProfiles();
+        $request->getRequestedProfiles();
+
+        $request = $request
+            ->withHeader(
+                "content-type",
+                "application/vnd.api+json;profile=https://example.com/extensions/created"
+            )
+            ->withHeader(
+                "accept",
+                "application/vnd.api+json;profile=https://example.com/extensions/created"
+            );
+
+        $this->assertEquals(["https://example.com/extensions/created"], $request->getAppliedProfiles());
+        $this->assertEquals(["https://example.com/extensions/created"], $request->getRequestedProfiles());
+    }
+
+    /**
+     * @test
+     */
     public function getResourceWhenEmpty()
     {
         $body = [];
@@ -1182,7 +1215,9 @@ class RequestTest extends TestCase
                 "fields" => ["book" => "title,pages"],
                 "include" => "authors",
                 "page" => ["offset" => 0, "limit" => 10],
-                "filter" => ["name" => "John"],
+                "filter" => ["title" => "Working Effectively with Unit Tests"],
+                "sort" => "title",
+                "profile" => "https://example.com/extensions/last-modified",
             ]
         );
 
@@ -1191,20 +1226,30 @@ class RequestTest extends TestCase
         $request->getPagination();
         $request->getFiltering();
         $request->getSorting();
+        $request->getRequiredProfiles();
 
         $request = $request->withQueryParams(
             [
                 "fields" => ["book" => "isbn"],
                 "include" => "publisher",
                 "page" => ["number" => 1, "size" => 10],
-                "filter" => ["name" => "Jane"],
+                "filter" => ["title" => "Building Microservices"],
+                "sort" => "isbn",
+                "profile" => "https://example.com/extensions/created",
             ]
         );
 
         $this->assertEquals(["isbn"], $request->getIncludedFields("book"));
         $this->assertEquals(["publisher"], $request->getIncludedRelationships(""));
         $this->assertEquals(["number" => 1, "size" => 10], $request->getPagination());
-        $this->assertEquals(["name" => "Jane"], $request->getFiltering());
+        $this->assertEquals(["title" => "Building Microservices"], $request->getFiltering());
+        $this->assertEquals(["isbn"], $request->getSorting());
+        $this->assertEquals(["https://example.com/extensions/created"], $request->getRequiredProfiles());
+    }
+
+    private function createRequest(): Request
+    {
+        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithJsonBody(array $body): Request

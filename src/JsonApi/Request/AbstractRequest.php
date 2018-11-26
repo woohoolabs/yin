@@ -40,6 +40,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getProtocolVersion();
     }
 
+    /**
+     * @return $this
+     */
     public function withProtocolVersion($version)
     {
         $self = clone $this;
@@ -68,6 +71,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getHeaderLine($name);
     }
 
+    /**
+     * @return $this
+     */
     public function withHeader($name, $value)
     {
         $self = clone $this;
@@ -77,6 +83,9 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return $this
+     */
     public function withAddedHeader($name, $value)
     {
         $self = clone $this;
@@ -86,6 +95,9 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return $this
+     */
     public function withoutHeader($name)
     {
         $self = clone $this;
@@ -100,6 +112,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getBody();
     }
 
+    /**
+     * @return $this
+     */
     public function withBody(StreamInterface $body)
     {
         $self = clone $this;
@@ -113,6 +128,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getRequestTarget();
     }
 
+    /**
+     * @return $this
+     */
     public function withRequestTarget($requestTarget)
     {
         $self = clone $this;
@@ -126,6 +144,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getMethod();
     }
 
+    /**
+     * @return $this
+     */
     public function withMethod($method)
     {
         $self = clone $this;
@@ -139,6 +160,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getUri();
     }
 
+    /**
+     * @return $this
+     */
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
         $self = clone $this;
@@ -157,6 +181,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getCookieParams();
     }
 
+    /**
+     * @return $this
+     */
     public function withCookieParams(array $cookies)
     {
         $self = clone $this;
@@ -170,6 +197,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getQueryParams();
     }
 
+    /**
+     * @return $this
+     */
     public function withQueryParams(array $query)
     {
         $self = clone $this;
@@ -215,6 +245,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getUploadedFiles();
     }
 
+    /**
+     * @return $this
+     */
     public function withUploadedFiles(array $uploadedFiles)
     {
         $self = clone $this;
@@ -237,6 +270,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getParsedBody();
     }
 
+    /**
+     * @return $this
+     */
     public function withParsedBody($data)
     {
         $self = clone $this;
@@ -256,6 +292,9 @@ abstract class AbstractRequest
         return $this->serverRequest->getAttribute($name, $default);
     }
 
+    /**
+     * @return $this
+     */
     public function withAttribute($name, $value)
     {
         $self = clone $this;
@@ -264,6 +303,9 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return $this
+     */
     public function withoutAttribute($name)
     {
         $self = clone $this;
