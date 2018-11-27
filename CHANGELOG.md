@@ -13,6 +13,8 @@ ADDED:
     - `FixedCursorBasedPagination` class which preserves the original behaviour of `CursorBasedPagination`
     - `FixedCursorBasedPaginationProviderTrait` for using in connection with `FixedCursorBasedPagination`
     - `FixedPageBasedPaginationLinkProviderTrait` for using in connection with `FixedPageBasedPagination`
+- `ResponseInterface::hasToOneRelationship()` to determine if the relationship exist
+- `ResponseInterface::hasToManyRelationship()` to determine if the relationship exist
 
 CHANGED:
 
@@ -61,6 +63,8 @@ through object properties (`$this->request`, `$this->exceptionFactory`, `$this->
     - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally
     - `SerializerInterface::serialize()` only accepts two arguments instead of 3 as the `$responseCode` parameter was removed
     - `JsonSerializer` does not set the `Content-Type` header and the status code of the response anymore
+- `ResponseInterface::getToOneRelationship()` throws an exception instead of returning null if the relationship doesn't exist (__BREAKING__)
+- `ResponseInterface::getToManyRelationship()` throws an exception instead of returning null if the relationship doesn't exist (__BREAKING__)
 
 REMOVED:
 

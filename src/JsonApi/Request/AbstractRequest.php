@@ -25,9 +25,9 @@ abstract class AbstractRequest
      */
     protected $isParsed = false;
 
-    abstract protected function headerChanged(string $name);
+    abstract protected function headerChanged(string $name): void;
 
-    abstract protected function queryParamChanged(string $name);
+    abstract protected function queryParamChanged(string $name): void;
 
     public function __construct(ServerRequestInterface $request, DeserializerInterface $deserializer)
     {

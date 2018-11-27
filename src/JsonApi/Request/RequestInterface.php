@@ -162,12 +162,22 @@ interface RequestInterface extends ServerRequestInterface
     public function getResourceAttribute(string $attribute, $default = null);
 
     /**
+     * Returns if the $relationship to-one relationship of the primary resource is present.
+     */
+    public function hasToOneRelationship(string $relationship): bool;
+
+    /**
      * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
      */
-    public function getToOneRelationship(string $relationship): ?ToOneRelationship;
+    public function getToOneRelationship(string $relationship): ToOneRelationship;
+
+    /**
+     * Returns if the $relationship to-many relationship of the primary resource is present.
+     */
+    public function hasToManyRelationship(string $relationship): bool;
 
     /**
      * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
      */
-    public function getToManyRelationship(string $relationship): ?ToManyRelationship;
+    public function getToManyRelationship(string $relationship): ToManyRelationship;
 }

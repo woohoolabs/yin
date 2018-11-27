@@ -61,46 +61,6 @@ class Request extends AbstractRequest implements RequestInterface
         $this->exceptionFactory = $exceptionFactory;
     }
 
-    protected function headerChanged(string $name)
-    {
-        $name = strtolower($name);
-
-        if ($name === "content-type") {
-            $this->profiles["applied"] = null;
-        }
-
-        if ($name === "accept") {
-            $this->profiles["requested"] = null;
-        }
-    }
-
-    protected function queryParamChanged(string $name)
-    {
-        if ($name === "fields") {
-            $this->includedFields = null;
-        }
-
-        if ($name === "include") {
-            $this->includedRelationships = null;
-        }
-
-        if ($name === "sort") {
-            $this->sorting = null;
-        }
-
-        if ($name === "page") {
-            $this->pagination = null;
-        }
-
-        if ($name === "filter") {
-            $this->filtering = null;
-        }
-
-        if ($name === "profile") {
-            $this->profiles["required"] = null;
-        }
-    }
-
     /**
      * Validates if the current request's Content-Type header conforms to the JSON:API schema.
      *
@@ -553,39 +513,51 @@ class Request extends AbstractRequest implements RequestInterface
         return $attributes[$attribute] ?? $default;
     }
 
-    /**
-     * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
-     */
-    public function getToOneRelationship(string $relationship): ?ToOneRelationship
+    public function hasToOneRelationship(string $relationship): bool
     {
         $data = $this->getResource();
 
-        //The relationship has to exist in the request and have a data attribute to be valid
-        if (isset($data["relationships"][$relationship]) &&
-            array_key_exists("data", $data["relationships"][$relationship])
-        ) {
-            //If the data is null, this request is to clear the relationship, we return an empty relationship
+        return isset($data["relationships"][$relationship]) && array_key_exists("data", $data["relationships"][$relationship]);
+    }
+
+    /**
+     * Returns the $relationship to-one relationship of the primary resource if it is present, or null otherwise.
+     */
+    public function getToOneRelationship(string $relationship): ToOneRelationship
+    {
+        $data = $this->getResource();
+
+        // The relationship has to exist in the request and have a data attribute to be valid
+        if (isset($data["relationships"][$relationship]) && array_key_exists("data", $data["relationships"][$relationship])) {
+            // If the data is null, this request is to clear the relationship, we return an empty relationship
             if ($data["relationships"][$relationship]["data"] === null) {
                 return new ToOneRelationship();
             }
-            //If the data is set and is not null, we create the relationship with a resource identifier from the request
+            // If the data is set and is not null, we create the relationship with a resource identifier from the request
             return new ToOneRelationship(
                 ResourceIdentifier::fromArray($data["relationships"][$relationship]["data"], $this->exceptionFactory)
             );
         }
 
-        return null;
+        throw $this->exceptionFactory->createRelationshipNotExistsException($relationship);
+    }
+
+    public function hasToManyRelationship(string $relationship): bool
+    {
+        $data = $this->getResource();
+
+        return isset($data["relationships"][$relationship]["data"]);
     }
 
     /**
      * Returns the $relationship to-many relationship of the primary resource if it is present, or null otherwise.
      */
-    public function getToManyRelationship(string $relationship): ?ToManyRelationship
+    public function getToManyRelationship(string $relationship): ToManyRelationship
     {
         $data = $this->getResource();
 
         if (isset($data["relationships"][$relationship]["data"]) === false) {
-            return null;
+            throw $this->exceptionFactory->createRelationshipNotExistsException($relationship);
         }
 
         $resourceIdentifiers = [];
@@ -594,5 +566,45 @@ class Request extends AbstractRequest implements RequestInterface
         }
 
         return new ToManyRelationship($resourceIdentifiers);
+    }
+
+    protected function headerChanged(string $name): void
+    {
+        $name = strtolower($name);
+
+        if ($name === "content-type") {
+            $this->profiles["applied"] = null;
+        }
+
+        if ($name === "accept") {
+            $this->profiles["requested"] = null;
+        }
+    }
+
+    protected function queryParamChanged(string $name): void
+    {
+        if ($name === "fields") {
+            $this->includedFields = null;
+        }
+
+        if ($name === "include") {
+            $this->includedRelationships = null;
+        }
+
+        if ($name === "sort") {
+            $this->sorting = null;
+        }
+
+        if ($name === "page") {
+            $this->pagination = null;
+        }
+
+        if ($name === "filter") {
+            $this->filtering = null;
+        }
+
+        if ($name === "profile") {
+            $this->profiles["required"] = null;
+        }
     }
 }

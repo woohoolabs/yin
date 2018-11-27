@@ -9,6 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Request\Request;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
@@ -985,10 +986,11 @@ class RequestTest extends TestCase
      */
     public function getResourceWhenEmpty()
     {
-        $body = [];
+        $request = $this->createRequestWithJsonBody([]);
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getResource());
+        $resource = $request->getResource();
+
+        $this->assertNull($resource);
     }
 
     /**
@@ -996,12 +998,15 @@ class RequestTest extends TestCase
      */
     public function getResource()
     {
-        $body = [
-          "data" => [],
-        ];
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [],
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"], $request->getResource());
+        $resource = $request->getResource();
+
+        $this->assertEquals([], $resource);
     }
 
     /**
@@ -1009,10 +1014,11 @@ class RequestTest extends TestCase
      */
     public function getResourceTypeWhenEmpty()
     {
-        $body = [];
+        $request = $this->createRequestWithJsonBody([]);
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getResourceType());
+        $type = $request->getResourceType();
+
+        $this->assertNull($type);
     }
 
     /**
@@ -1020,14 +1026,17 @@ class RequestTest extends TestCase
      */
     public function getResourceType()
     {
-        $body = [
-            "data" => [
-                "type" => "user",
-            ],
-        ];
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "user",
+                ],
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"]["type"], $request->getResourceType());
+        $type = $request->getResourceType();
+
+        $this->assertEquals("user", $type);
     }
 
     /**
@@ -1035,12 +1044,15 @@ class RequestTest extends TestCase
      */
     public function getResourceIdWhenEmpty()
     {
-        $body = [
-            "data" => [],
-        ];
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [],
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getResourceId());
+        $id = $request->getResourceId();
+
+        $this->assertNull($id);
     }
 
     /**
@@ -1048,14 +1060,17 @@ class RequestTest extends TestCase
      */
     public function getResourceId()
     {
-        $body = [
-            "data" => [
-                "id" => "1",
-            ],
-        ];
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "id" => "1",
+                ],
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"]["id"], $request->getResourceId());
+        $id = $request->getResourceId();
+
+        $this->assertEquals("1", $id);
     }
 
     /**
@@ -1063,18 +1078,26 @@ class RequestTest extends TestCase
      */
     public function getResourceAttributes()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "attributes" => [
-                    "name" => "Hot dog",
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "attributes" => [
+                        "name" => "Hot dog",
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals($body["data"]["attributes"], $request->getResourceAttributes());
+        $attributes = $request->getResourceAttributes();
+
+        $this->assertEquals(
+            [
+                "name" => "Hot dog",
+            ],
+            $attributes
+        );
     }
 
     /**
@@ -1082,18 +1105,65 @@ class RequestTest extends TestCase
      */
     public function getResourceAttribute()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "attributes" => [
-                    "name" => "Hot dog",
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "attributes" => [
+                        "name" => "Hot dog",
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertEquals("Hot dog", $request->getResourceAttribute("name"));
+        $name = $request->getResourceAttribute("name");
+
+        $this->assertEquals("Hot dog", $name);
+    }
+
+    /**
+     * @test
+     */
+    public function hasToOneRelationshipWhenTrue()
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                        "owner" => [
+                            "data" => ["type" => "human", "id" => "1"],
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $hasToOneRelationship = $request->hasToOneRelationship("owner");
+
+        $this->assertTrue($hasToOneRelationship);
+    }
+
+    /**
+     * @test
+     */
+    public function hasToOneRelationshipWhenFalse()
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [],
+                ],
+            ]
+        );
+
+        $hasToOneRelationship = $request->hasToOneRelationship("owner");
+
+        $this->assertFalse($hasToOneRelationship);
     }
 
     /**
@@ -1101,22 +1171,26 @@ class RequestTest extends TestCase
      */
     public function getToOneRelationship()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "relationships" => [
-                    "owner" => [
-                        "data" => ["type" => "human", "id" => "1"],
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                        "owner" => [
+                            "data" => ["type" => "human", "id" => "1"],
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
         $resourceIdentifier = $request->getToOneRelationship("owner")->getResourceIdentifier();
-        $this->assertEquals("human", $resourceIdentifier->getType());
-        $this->assertEquals("1", $resourceIdentifier->getId());
+        $type = $resourceIdentifier->getType();
+        $id = $resourceIdentifier->getId();
+
+        $this->assertEquals("human", $type);
+        $this->assertEquals("1", $id);
     }
 
     /**
@@ -1124,39 +1198,92 @@ class RequestTest extends TestCase
      */
     public function getDeletingToOneRelationship()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "relationships" => [
-                    "owner" => [
-                        "data" => null,
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                        "owner" => [
+                            "data" => null,
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $relationship = $request->getToOneRelationship("owner");
-        $this->assertTrue($relationship->isEmpty());
+        $isEmpty = $request->getToOneRelationship("owner")->isEmpty();
+
+        $this->assertTrue($isEmpty);
     }
 
     /**
      * @test
      */
-    public function getNullWhenToOneRelationshipNotExists()
+    public function getToOneRelationshiWhenNotExists()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "relationships" => [
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getToOneRelationship("owner"));
+        $this->expectException(RelationshipNotExists::class);
+
+        $request->getToOneRelationship("owner");
+    }
+
+    /**
+     * @test
+     */
+    public function hasToManyRelationshipWhenTrue()
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                        "friends" => [
+                            "data" => [
+                                ["type" => "dog", "id" => "2"],
+                                ["type" => "dog", "id" => "3"],
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $hasRelationship = $request->hasToManyRelationship("friends");
+
+        $this->assertTrue($hasRelationship);
+    }
+
+    /**
+     * @test
+     */
+    public function hasToManyRelationshipWhenFalse()
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                    ],
+                ],
+            ]
+        );
+
+        $hasRelationship = $request->hasToManyRelationship("friends");
+
+        $this->assertFalse($hasRelationship);
     }
 
     /**
@@ -1164,23 +1291,25 @@ class RequestTest extends TestCase
      */
     public function getToManyRelationship()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "relationships" => [
-                    "friends" => [
-                        "data" => [
-                            ["type" => "dog", "id" => "2"],
-                            ["type" => "dog", "id" => "3"],
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                        "friends" => [
+                            "data" => [
+                                ["type" => "dog", "id" => "2"],
+                                ["type" => "dog", "id" => "3"],
+                            ],
                         ],
                     ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
         $resourceIdentifiers = $request->getToManyRelationship("friends")->getResourceIdentifiers();
+
         $this->assertEquals("dog", $resourceIdentifiers[0]->getType());
         $this->assertEquals("2", $resourceIdentifiers[0]->getId());
         $this->assertEquals("dog", $resourceIdentifiers[1]->getType());
@@ -1190,19 +1319,22 @@ class RequestTest extends TestCase
     /**
      * @test
      */
-    public function getNullWhenToManyRelationshipNotExists()
+    public function getToManyRelationshipWhenNotExists()
     {
-        $body = [
-            "data" => [
-                "type" => "dog",
-                "id" => "1",
-                "relationships" => [
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [
+                    "type" => "dog",
+                    "id" => "1",
+                    "relationships" => [
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
 
-        $request = $this->createRequestWithJsonBody($body);
-        $this->assertNull($request->getToManyRelationship("friends"));
+        $this->expectException(RelationshipNotExists::class);
+
+        $request->getToManyRelationship("friends");
     }
 
     /**
