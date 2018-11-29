@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
 abstract class AbstractResourceDocument implements ResourceDocumentInterface
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     protected $request;
 

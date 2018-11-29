@@ -5,8 +5,8 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
@@ -19,7 +19,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\ServerRequest;
 
@@ -119,7 +119,7 @@ class DocumentTransformerTest extends TestCase
     {
         $document = $this->createDocument(null, [], null, new SingleResourceData());
 
-        $transformedDocument = $this->toResourceDocument($document, [], new StubRequest(["include" => "animal"]));
+        $transformedDocument = $this->toResourceDocument($document, [], new StubJsonApiRequest(["include" => "animal"]));
 
         $this->assertEquals(
             [
@@ -145,7 +145,7 @@ class DocumentTransformerTest extends TestCase
             ]
         );
 
-        $transformedDocument = $this->toRelationshipDocument($document, [], new StubRequest(["include" => "animal"]));
+        $transformedDocument = $this->toRelationshipDocument($document, [], new StubJsonApiRequest(["include" => "animal"]));
 
         $this->assertEquals(
             [
@@ -206,7 +206,7 @@ class DocumentTransformerTest extends TestCase
     {
         $document = $this->createDocument();
 
-        $transformedDocument = $this->toRelationshipDocument($document, [], new StubRequest(["include" => "animal"]));
+        $transformedDocument = $this->toRelationshipDocument($document, [], new StubJsonApiRequest(["include" => "animal"]));
 
         $this->assertEquals(
             [
@@ -310,13 +310,13 @@ class DocumentTransformerTest extends TestCase
     private function toMetaDocument(
         ResourceDocumentInterface $document,
         $object,
-        ?RequestInterface $request = null,
+        ?JsonApiRequestInterface $request = null,
         string $requestedRelationshipName = ""
     ): array {
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -338,13 +338,13 @@ class DocumentTransformerTest extends TestCase
     private function toResourceDocument(
         ResourceDocumentInterface $document,
         $object,
-        ?RequestInterface $request = null,
+        ?JsonApiRequestInterface $request = null,
         string $requestedRelationshipName = ""
     ): array {
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -366,13 +366,13 @@ class DocumentTransformerTest extends TestCase
     private function toRelationshipDocument(
         ResourceDocumentInterface $document,
         $object,
-        ?RequestInterface $request = null,
+        ?JsonApiRequestInterface $request = null,
         string $requestedRelationshipName = ""
     ): array {
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -388,11 +388,11 @@ class DocumentTransformerTest extends TestCase
         return $transformer->transformRelationshipDocument($transformation)->result;
     }
 
-    private function toErrorDocument(ErrorDocumentInterface $document, ?RequestInterface $request = null): array
+    private function toErrorDocument(ErrorDocumentInterface $document, ?JsonApiRequestInterface $request = null): array
     {
         $transformation = new ErrorDocumentTransformation(
             $document,
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()

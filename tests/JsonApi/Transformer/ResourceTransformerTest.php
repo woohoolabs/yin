@@ -6,8 +6,8 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
-use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
@@ -15,7 +15,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
@@ -169,7 +169,7 @@ class ResourceTransformerTest extends TestCase
             ["abc" => "def"],
             new ResourceLinks(),
             [
-                "full_name" => function (array $object, RequestInterface $request) {
+                "full_name" => function (array $object, JsonApiRequestInterface $request) {
                     return $object["name"];
                 },
                 "birth" => function (array $object) {
@@ -214,7 +214,7 @@ class ResourceTransformerTest extends TestCase
             [],
             ["father"],
             [
-                "father" => function (array $object, RequestInterface $request) {
+                "father" => function (array $object, JsonApiRequestInterface $request) {
                     return ToOneRelationship::create()
                         ->setData([""], new StubResource("user", "2"));
                 },
@@ -259,7 +259,7 @@ class ResourceTransformerTest extends TestCase
             ]
         );
 
-        $resourceObject = $this->toResourceObject($resource, [], StubRequest::create(["fields" => ["user" => ""]]));
+        $resourceObject = $this->toResourceObject($resource, [], StubJsonApiRequest::create(["fields" => ["user" => ""]]));
 
         $this->assertEquals(
             [
@@ -291,7 +291,7 @@ class ResourceTransformerTest extends TestCase
 
         $this->expectException(InclusionUnrecognized::class);
 
-        $this->toResourceObject($resource, [], StubRequest::create(["include" => "mother"]));
+        $this->toResourceObject($resource, [], StubJsonApiRequest::create(["include" => "mother"]));
     }
 
     /**
@@ -388,13 +388,13 @@ class ResourceTransformerTest extends TestCase
     private function toResourceIdentifier(
         ResourceInterface $resource,
         $object,
-        ?RequestInterface $request = null
+        ?JsonApiRequestInterface $request = null
     ): ?array {
         $transformation = new ResourceTransformation(
             $resource,
             $object,
             "",
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -416,13 +416,13 @@ class ResourceTransformerTest extends TestCase
     private function toResourceObject(
         ResourceInterface $resource,
         $object,
-        ?RequestInterface $request = null
+        ?JsonApiRequestInterface $request = null
     ): ?array {
         $transformation = new ResourceTransformation(
             $resource,
             $object,
             "",
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -444,14 +444,14 @@ class ResourceTransformerTest extends TestCase
     private function toRelationshipObject(
         ResourceInterface $resource,
         $object,
-        ?RequestInterface $request = null,
+        ?JsonApiRequestInterface $request = null,
         string $requestedRelationshipName = ""
     ): ?array {
         $transformation = new ResourceTransformation(
             $resource,
             $object,
             "",
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()

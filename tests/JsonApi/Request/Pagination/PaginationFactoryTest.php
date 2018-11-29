@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 
@@ -102,11 +102,11 @@ class PaginationFactoryTest extends TestCase
         return new PaginationFactory($this->createRequestWithQueryParams($queryParams));
     }
 
-    private function createRequestWithQueryParams(array $queryParams): Request
+    private function createRequestWithQueryParams(array $queryParams): JsonApiRequest
     {
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 }

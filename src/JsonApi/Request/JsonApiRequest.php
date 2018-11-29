@@ -15,7 +15,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
-class Request extends AbstractRequest implements RequestInterface
+class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
 {
     /**
      * @var ExceptionFactoryInterface

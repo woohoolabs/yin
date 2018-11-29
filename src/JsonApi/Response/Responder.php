@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
@@ -15,7 +15,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 class Responder extends AbstractResponder
 {
     public static function create(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer
@@ -24,7 +24,7 @@ class Responder extends AbstractResponder
     }
 
     public function __construct(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ResponseInterface $response,
         ExceptionFactoryInterface $exceptionFactory,
         SerializerInterface $serializer

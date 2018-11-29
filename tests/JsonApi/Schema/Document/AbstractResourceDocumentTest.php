@@ -10,7 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 
 class AbstractResourceDocumentTest extends TestCase
@@ -51,7 +51,7 @@ class AbstractResourceDocumentTest extends TestCase
         return new ResourceDocumentTransformation(
             $document,
             [],
-            new StubRequest(),
+            new StubJsonApiRequest(),
             "",
             "",
             [],

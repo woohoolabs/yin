@@ -3,12 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
-use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
-
 class ProfileLinkObject extends LinkObject
 {
-    use MetaTrait;
-
     /**
      * @var string[]
      */

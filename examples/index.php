@@ -15,7 +15,7 @@ use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\JsonApi;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
@@ -23,52 +23,52 @@ use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
 
 // Defining routes
 $routes = [
-    "GET /books" => function (Request $request): Request {
+    "GET /books" => function (JsonApiRequest $request): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBooksAction::class);
     },
-    "GET /books/{id}" => function (Request $request, array $matches): Request {
+    "GET /books/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /books/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
+    "GET /books/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBookRelationshipsAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
-    "GET /books/{id}/authors" => function (Request $request, array $matches): Request {
+    "GET /books/{id}/authors" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetAuthorsOfBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "POST /books" => function (Request $request) {
+    "POST /books" => function (JsonApiRequest $request) {
         return $request
             ->withAttribute("action", CreateBookAction::class);
     },
-    "PATCH /books/{id}" => function (Request $request, array $matches): Request {
+    "PATCH /books/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", UpdateBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "PATCH /books/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
+    "PATCH /books/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", UpdateBookRelationshipAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
 
-    "GET /users" => function (Request $request): Request {
+    "GET /users" => function (JsonApiRequest $request): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUsersAction::class);
     },
-    "GET /users/{id}" => function (Request $request, array $matches): Request {
+    "GET /users/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUserAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /users/{id}/relationships/{rel}" => function (Request $request, array $matches): Request {
+    "GET /users/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUserRelationshipsAction::class)
             ->withAttribute("id", $matches[1])
@@ -79,7 +79,7 @@ $routes = [
 // Finding the current route
 $exceptionFactory = new DefaultExceptionFactory();
 $deserializer = new JsonDeserializer();
-$request = new Request(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);
+$request = new JsonApiRequest(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);
 $request = findRoute($request, $routes);
 
 // Invoking the current action
@@ -92,7 +92,7 @@ $response = $response->withHeader("Access-Control-Allow-Origin", "*");
 $emitter = new SapiEmitter();
 $emitter->emit($response);
 
-function findRoute(Request $request, array $routes): Request
+function findRoute(JsonApiRequest $request, array $routes): JsonApiRequest
 {
     $path = $request->getUri()->getPath();
     $method = $request->getMethod();

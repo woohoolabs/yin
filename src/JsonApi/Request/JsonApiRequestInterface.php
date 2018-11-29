@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 
-interface RequestInterface extends ServerRequestInterface
+interface JsonApiRequestInterface extends ServerRequestInterface
 {
     /**
      * Validates if the current request's "Content-Type" header conforms to the JSON:API schema.

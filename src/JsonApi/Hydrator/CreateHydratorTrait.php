@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 trait CreateHydratorTrait
 {
@@ -29,7 +29,7 @@ trait CreateHydratorTrait
      */
     abstract protected function validateClientGeneratedId(
         string $clientGeneratedId,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ): void;
 
@@ -38,7 +38,7 @@ trait CreateHydratorTrait
      *
      * @throws JsonApiExceptionInterface
      */
-    abstract protected function validateRequest(RequestInterface $request): void;
+    abstract protected function validateRequest(JsonApiRequestInterface $request): void;
 
     /**
      * Produces a new ID for the domain objects.
@@ -88,7 +88,7 @@ trait CreateHydratorTrait
      * @throws JsonApiExceptionInterface
      */
     public function hydrateForCreate(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {
@@ -113,7 +113,7 @@ trait CreateHydratorTrait
     protected function hydrateIdForCreate(
         $domainObject,
         array $data,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
         if (empty($data["id"]) === false && is_string($data["id"]) === false) {

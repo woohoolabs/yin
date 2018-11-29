@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
 class ToManyRelationshipTest extends TestCase
@@ -28,7 +28,7 @@ class ToManyRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",
@@ -64,7 +64,7 @@ class ToManyRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",

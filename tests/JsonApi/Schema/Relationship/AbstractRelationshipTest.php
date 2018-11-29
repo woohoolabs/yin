@@ -10,7 +10,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractRelationshipTest extends TestCase
@@ -134,7 +134,7 @@ class AbstractRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",
@@ -169,7 +169,7 @@ class AbstractRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",
@@ -201,7 +201,7 @@ class AbstractRelationshipTest extends TestCase
                 new StubResource("user1"),
                 [],
                 "user1",
-                new StubRequest(["fields" => ["user1" => ""]]),
+                new StubJsonApiRequest(["fields" => ["user1" => ""]]),
                 "",
                 "rel",
                 "rel",
@@ -227,7 +227,7 @@ class AbstractRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",
@@ -259,7 +259,7 @@ class AbstractRelationshipTest extends TestCase
                 new StubResource(),
                 [],
                 "",
-                new StubRequest(),
+                new StubJsonApiRequest(),
                 "",
                 "",
                 "",

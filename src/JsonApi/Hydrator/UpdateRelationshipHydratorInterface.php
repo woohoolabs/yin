@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Hydrator;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 interface UpdateRelationshipHydratorInterface
 {
@@ -17,7 +17,7 @@ interface UpdateRelationshipHydratorInterface
      */
     public function hydrateRelationship(
         string $relationship,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     );

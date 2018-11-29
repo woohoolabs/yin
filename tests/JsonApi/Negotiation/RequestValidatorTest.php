@@ -14,8 +14,8 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Negotiation\RequestValidator;
-use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class RequestValidatorTest extends TestCase
@@ -218,9 +218,9 @@ class RequestValidatorTest extends TestCase
         return $server;
     }
 
-    private function createRequest(ServerRequestInterface $serverRequest): RequestInterface
+    private function createRequest(ServerRequestInterface $serverRequest): JsonApiRequestInterface
     {
-        return new Request($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function setFakeBody(ServerRequestInterface $request, string $body): void
@@ -238,7 +238,7 @@ class RequestValidatorTest extends TestCase
     }
 
     /**
-     * @return MockObject|RequestInterface
+     * @return MockObject|JsonApiRequestInterface
      */
     private function createRequestMock()
     {
@@ -248,7 +248,7 @@ class RequestValidatorTest extends TestCase
         /** @var ExceptionFactoryInterface $exceptionFactory */
         $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
 
-        return $this->getMockForAbstractClass(RequestInterface::class, [$serverRequest, $exceptionFactory]);
+        return $this->getMockForAbstractClass(JsonApiRequestInterface::class, [$serverRequest, $exceptionFactory]);
     }
 
     private function createRequestValidator(bool $includeOriginalMessageResponse = true): RequestValidator

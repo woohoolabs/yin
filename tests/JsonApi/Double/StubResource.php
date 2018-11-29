@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
@@ -98,7 +98,7 @@ class StubResource extends AbstractResource
         return $this->relationships;
     }
 
-    public function getRequest(): ?RequestInterface
+    public function getRequest(): ?JsonApiRequestInterface
     {
         return $this->request;
     }

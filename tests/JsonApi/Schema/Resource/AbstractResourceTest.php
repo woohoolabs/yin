@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Resource;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractResourceTest extends TestCase
@@ -57,7 +57,7 @@ class AbstractResourceTest extends TestCase
             $resource,
             [],
             "",
-            new StubRequest(),
+            new StubJsonApiRequest(),
             "",
             "",
             "",

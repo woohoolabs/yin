@@ -19,6 +19,7 @@ ADDED:
 CHANGED:
 
 - Updated `justinrainbow/json-schema` to v5.2
+- Renamed `RequestInterface` to `JsonApiRequestInterface` and `Request` to `JsonApiRequest` (__BREAKING__)
 - Moved classes related to documents (__BREAKING__):
     - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument`
     - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument` to `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument`

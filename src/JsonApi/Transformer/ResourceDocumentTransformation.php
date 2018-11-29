@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
 
 /**
@@ -35,7 +35,7 @@ class ResourceDocumentTransformation extends AbstractDocumentTransformation
     public function __construct(
         ResourceDocumentInterface $document,
         $object,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $basePath,
         string $relationpshipName,
         array $additionalMeta,

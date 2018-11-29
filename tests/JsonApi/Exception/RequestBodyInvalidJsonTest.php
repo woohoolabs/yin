@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 
 class RequestBodyInvalidJsonTest extends TestCase
 {
@@ -60,7 +60,7 @@ class RequestBodyInvalidJsonTest extends TestCase
 
     private function createException(string $body = "", string $lintMessage = "", bool $includeOriginal = false): RequestBodyInvalidJson
     {
-        $request = StubRequest::create();
+        $request = StubJsonApiRequest::create();
         $request->getBody()->write($body);
 
         return new RequestBodyInvalidJson($request, $lintMessage, $includeOriginal);

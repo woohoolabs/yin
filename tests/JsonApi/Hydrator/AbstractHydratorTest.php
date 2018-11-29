@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
 use Zend\Diactoros\ServerRequest;
@@ -357,7 +357,7 @@ class AbstractHydratorTest extends TestCase
             ->withBody(new Stream("php://memory", "rw"));
         $psrRequest->getBody()->write(json_encode($body));
 
-        $request = new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        $request = new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
 
         return $request;
     }

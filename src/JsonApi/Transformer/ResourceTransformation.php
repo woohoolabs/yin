@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 
 /**
@@ -28,7 +28,7 @@ class ResourceTransformation
     public $resourceType;
 
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     public $request;
 
@@ -61,7 +61,7 @@ class ResourceTransformation
         ResourceInterface $resource,
         $object,
         string $resourceType,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $basePath,
         string $requestedRelationshipName,
         string $currentRelationshipName,

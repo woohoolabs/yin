@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\StreamFactory;
 
-class StubRequest extends Request
+class StubJsonApiRequest extends JsonApiRequest
 {
-    public static function create(array $queryParams = []): StubRequest
+    public static function create(array $queryParams = []): StubJsonApiRequest
     {
-        return new StubRequest($queryParams);
+        return new StubJsonApiRequest($queryParams);
     }
 
     public function __construct(array $queryParams = [])

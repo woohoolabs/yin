@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
@@ -12,7 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 class RequestBodyInvalidJsonApi extends AbstractJsonApiException
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     protected $request;
 
@@ -26,7 +26,7 @@ class RequestBodyInvalidJsonApi extends AbstractJsonApiException
      */
     protected $includeOriginalBody;
 
-    public function __construct(RequestInterface $request, array $validationErrors, bool $includeOriginalBody)
+    public function __construct(JsonApiRequestInterface $request, array $validationErrors, bool $includeOriginalBody)
     {
         parent::__construct("Request body is an invalid JSON:API document!" . print_r($validationErrors, true));
         $this->request = $request;

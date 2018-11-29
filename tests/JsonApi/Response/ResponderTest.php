@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
+use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
 use Zend\Diactoros\Response;
 
@@ -295,7 +295,7 @@ class ResponderTest extends TestCase
     private function createResponder(): Responder
     {
         return Responder::create(
-            new StubRequest(),
+            new StubJsonApiRequest(),
             new Response(),
             new DefaultExceptionFactory(),
             new JsonSerializer()

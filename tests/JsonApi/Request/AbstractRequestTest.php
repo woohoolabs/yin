@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\AbstractRequest;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
@@ -401,9 +401,9 @@ class AbstractRequestTest extends TestCase
         $this->assertEmpty($newRequest->getAttributes());
     }
 
-    private function createRequest(ServerRequestInterface $serverRequest = null): Request
+    private function createRequest(ServerRequestInterface $serverRequest = null): JsonApiRequest
     {
-        return new Request(
+        return new JsonApiRequest(
             $serverRequest ?? new ServerRequest(),
             new DefaultExceptionFactory(),
             new JsonDeserializer()
@@ -414,14 +414,14 @@ class AbstractRequestTest extends TestCase
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", $headers);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithHeader($headerName, $headerValue): AbstractRequest
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createRequestWithQueryParams(array $queryParams): AbstractRequest
@@ -429,6 +429,6 @@ class AbstractRequestTest extends TestCase
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 }

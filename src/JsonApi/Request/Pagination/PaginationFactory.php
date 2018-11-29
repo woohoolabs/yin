@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class PaginationFactory
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     private $request;
 
-    public function __construct(RequestInterface $request)
+    public function __construct(JsonApiRequestInterface $request)
     {
         $this->request = $request;
     }
