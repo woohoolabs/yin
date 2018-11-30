@@ -24,7 +24,7 @@ class RelationshipNotExists extends AbstractJsonApiException
             Error::create()
                 ->setStatus("404")
                 ->setCode("RELATIONSHIP_NOT_EXISTS")
-                ->setTitle("The requested relationship '$this->relationship' does not exist!")
+                ->setTitle("The requested relationship does not exist!")
                 ->setDetail($this->getMessage())
         ];
     }
