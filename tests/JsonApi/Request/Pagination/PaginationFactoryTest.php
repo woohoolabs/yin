@@ -5,13 +5,13 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedCursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 

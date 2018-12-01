@@ -121,7 +121,7 @@ class RequestValidatorTest extends TestCase
                         "sort" => "asc",
                         "page" => "1",
                         "filter" => "search",
-                        "profile" => "https://example.com/extensions/last-modified",
+                        "profile" => "https://example.com/profiles/last-modified",
                     ]
                 )
             );
@@ -268,9 +268,9 @@ class RequestValidatorTest extends TestCase
     {
         return [
             ["application/vnd.api+json"],
-            ["application/vnd.api+json;profile=\"https://example.com/extensions/last-modified\""],
-            ["application/vnd.api+json;profile=\"https://example.com/extensions/last-modified\", application/vnd.api+json"],
-            ["application/vnd.api+json; PROFILE=\"https://example.com/extensions/last-modified\", application/vnd.api+json"],
+            ["application/vnd.api+json;profile=\"https://example.com/profiles/last-modified\""],
+            ["application/vnd.api+json;profile=\"https://example.com/profiles/last-modified\", application/vnd.api+json"],
+            ["application/vnd.api+json; PROFILE=\"https://example.com/profiles/last-modified\", application/vnd.api+json"],
             ["text/html; charset=utf-8"],
         ];
     }

@@ -14,7 +14,7 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 
-class RequestTest extends TestCase
+class JsonApiRequestTest extends TestCase
 {
     /**
      * @test
@@ -119,7 +119,7 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+            "application/vnd.api+json;profile=https://example.com/profiles/last-modified"
         );
 
         $request->validateContentTypeHeader();
@@ -158,7 +158,7 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            "application/vnd.api+json; Profile = https://example.com/extensions/last-modified"
+            "application/vnd.api+json; Profile = https://example.com/profiles/last-modified"
         );
 
         $request->validateContentTypeHeader();
@@ -713,14 +713,14 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+            "application/vnd.api+json;profile=https://example.com/profiles/last-modified"
         );
 
         $profiles = $request->getAppliedProfiles();
 
         $this->assertEquals(
             [
-                "https://example.com/extensions/last-modified",
+                "https://example.com/profiles/last-modified",
             ],
             $profiles
         );
@@ -733,15 +733,15 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
         $profiles = $request->getAppliedProfiles();
 
         $this->assertEquals(
             [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
+                "https://example.com/profiles/last-modified",
+                "https://example.com/profiles/created",
             ],
             $profiles
         );
@@ -754,16 +754,16 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            'application/vnd.api+json;profile = https://example.com/extensions/last-modified, ' .
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile = https://example.com/profiles/last-modified, ' .
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
         $profiles = $request->getAppliedProfiles();
 
         $this->assertEquals(
             [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
+                "https://example.com/profiles/last-modified",
+                "https://example.com/profiles/created",
             ],
             $profiles
         );
@@ -776,10 +776,10 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
-        $isProfileApplied = $request->isProfileApplied("https://example.com/extensions/created");
+        $isProfileApplied = $request->isProfileApplied("https://example.com/profiles/created");
 
         $this->assertTrue($isProfileApplied);
     }
@@ -791,10 +791,10 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "content-type",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
-        $isProfileApplied = $request->isProfileApplied("https://example.com/extensions/inexistent-profile");
+        $isProfileApplied = $request->isProfileApplied("https://example.com/profiles/inexistent-profile");
 
         $this->assertFalse($isProfileApplied);
     }
@@ -818,15 +818,15 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "accept",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
         $profiles = $request->getRequestedProfiles();
 
         $this->assertEquals(
             [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
+                "https://example.com/profiles/last-modified",
+                "https://example.com/profiles/created",
             ],
             $profiles
         );
@@ -839,10 +839,10 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "accept",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
-        $isProfileRequested = $request->isProfileRequested("https://example.com/extensions/created");
+        $isProfileRequested = $request->isProfileRequested("https://example.com/profiles/created");
 
         $this->assertTrue($isProfileRequested);
     }
@@ -854,10 +854,10 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithHeader(
             "accept",
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"'
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"'
         );
 
-        $isProfileRequested = $request->isProfileRequested("https://example.com/extensions/inexistent-profile");
+        $isProfileRequested = $request->isProfileRequested("https://example.com/profiles/inexistent-profile");
 
         $this->assertFalse($isProfileRequested);
     }
@@ -901,7 +901,7 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithQueryParams(
             [
-                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+                "profile" => "https://example.com/profiles/last-modified https://example.com/profiles/created",
             ]
         );
 
@@ -909,8 +909,8 @@ class RequestTest extends TestCase
 
         $this->assertEquals(
             [
-                "https://example.com/extensions/last-modified",
-                "https://example.com/extensions/created",
+                "https://example.com/profiles/last-modified",
+                "https://example.com/profiles/created",
             ],
             $profiles
         );
@@ -923,11 +923,11 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithQueryParams(
             [
-                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+                "profile" => "https://example.com/profiles/last-modified https://example.com/profiles/created",
             ]
         );
 
-        $isProfileRequired = $request->isProfileRequired("https://example.com/extensions/created");
+        $isProfileRequired = $request->isProfileRequired("https://example.com/profiles/created");
 
         $this->assertTrue($isProfileRequired);
     }
@@ -939,11 +939,11 @@ class RequestTest extends TestCase
     {
         $request = $this->createRequestWithQueryParams(
             [
-                "profile" => "https://example.com/extensions/last-modified https://example.com/extensions/created",
+                "profile" => "https://example.com/profiles/last-modified https://example.com/profiles/created",
             ]
         );
 
-        $isProfileRequired = $request->isProfileRequired("https://example.com/extensions/inexistent-profile");
+        $isProfileRequired = $request->isProfileRequired("https://example.com/profiles/inexistent-profile");
 
         $this->assertFalse($isProfileRequired);
     }
@@ -956,11 +956,11 @@ class RequestTest extends TestCase
         $request = $this->createRequest()
             ->withHeader(
                 "content-type",
-                "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+                "application/vnd.api+json;profile=https://example.com/profiles/last-modified"
             )
             ->withHeader(
                 "accept",
-                "application/vnd.api+json;profile=https://example.com/extensions/last-modified"
+                "application/vnd.api+json;profile=https://example.com/profiles/last-modified"
             )
         ;
 
@@ -970,15 +970,15 @@ class RequestTest extends TestCase
         $request = $request
             ->withHeader(
                 "content-type",
-                "application/vnd.api+json;profile=https://example.com/extensions/created"
+                "application/vnd.api+json;profile=https://example.com/profiles/created"
             )
             ->withHeader(
                 "accept",
-                "application/vnd.api+json;profile=https://example.com/extensions/created"
+                "application/vnd.api+json;profile=https://example.com/profiles/created"
             );
 
-        $this->assertEquals(["https://example.com/extensions/created"], $request->getAppliedProfiles());
-        $this->assertEquals(["https://example.com/extensions/created"], $request->getRequestedProfiles());
+        $this->assertEquals(["https://example.com/profiles/created"], $request->getAppliedProfiles());
+        $this->assertEquals(["https://example.com/profiles/created"], $request->getRequestedProfiles());
     }
 
     /**
@@ -1349,7 +1349,7 @@ class RequestTest extends TestCase
                 "page" => ["offset" => 0, "limit" => 10],
                 "filter" => ["title" => "Working Effectively with Unit Tests"],
                 "sort" => "title",
-                "profile" => "https://example.com/extensions/last-modified",
+                "profile" => "https://example.com/profiles/last-modified",
             ]
         );
 
@@ -1367,7 +1367,7 @@ class RequestTest extends TestCase
                 "page" => ["number" => 1, "size" => 10],
                 "filter" => ["title" => "Building Microservices"],
                 "sort" => "isbn",
-                "profile" => "https://example.com/extensions/created",
+                "profile" => "https://example.com/profiles/created",
             ]
         );
 
@@ -1376,7 +1376,7 @@ class RequestTest extends TestCase
         $this->assertEquals(["number" => 1, "size" => 10], $request->getPagination());
         $this->assertEquals(["title" => "Building Microservices"], $request->getFiltering());
         $this->assertEquals(["isbn"], $request->getSorting());
-        $this->assertEquals(["https://example.com/extensions/created"], $request->getRequiredProfiles());
+        $this->assertEquals(["https://example.com/profiles/created"], $request->getRequiredProfiles());
     }
 
     private function createRequest(): JsonApiRequest

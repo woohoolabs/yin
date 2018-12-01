@@ -73,8 +73,8 @@ class ResponderTest extends TestCase
                 null,
                 [],
                 DocumentLinks::createWithoutBaseUri()
-                    ->addProfile(new Link("https://example.com/extensions/last-modified"))
-                    ->addProfile(new Link("https://example.com/extensions/created"))
+                    ->addProfile(new Link("https://example.com/profiles/last-modified"))
+                    ->addProfile(new Link("https://example.com/profiles/created"))
             ),
             []
         );
@@ -82,7 +82,7 @@ class ResponderTest extends TestCase
         $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals(
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"',
             $contentType
         );
     }
@@ -238,15 +238,15 @@ class ResponderTest extends TestCase
             ErrorDocument::create()
                 ->setLinks(
                     DocumentLinks::createWithoutBaseUri()
-                        ->addProfile(new Link("https://example.com/extensions/last-modified"))
-                        ->addProfile(new Link("https://example.com/extensions/created"))
+                        ->addProfile(new Link("https://example.com/profiles/last-modified"))
+                        ->addProfile(new Link("https://example.com/profiles/created"))
                 )
         );
 
         $contentType = $response->getHeaderLine("content-type");
 
         $this->assertEquals(
-            'application/vnd.api+json;profile="https://example.com/extensions/last-modified https://example.com/extensions/created"',
+            'application/vnd.api+json;profile="https://example.com/profiles/last-modified https://example.com/profiles/created"',
             $contentType
         );
     }
