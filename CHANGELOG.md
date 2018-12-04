@@ -82,6 +82,7 @@ FIXED:
 - Small issues found by static analysis
 - Query parameters of pagination links were not encoded properly
 - The `page` and `filter` query parameters must have an array value as per the spec
+- Instead of returning null, an exception is thrown when a non-existent relationship is fetched 
 
 ## 3.0.2 - 2018-02-06
 

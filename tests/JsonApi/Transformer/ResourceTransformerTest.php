@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
@@ -344,9 +345,34 @@ class ResourceTransformerTest extends TestCase
             []
         );
 
-        $resourceObject = $this->toRelationshipObject($resource, [], null, "father");
+        $this->expectException(RelationshipNotExists::class);
 
-        $this->assertNull($resourceObject);
+        $this->toRelationshipObject($resource, [], null, "father");
+    }
+
+    /**
+     * @test
+     */
+    public function transformToRelationshipObjectWhenNotFound()
+    {
+        $resource = $this->createResource(
+            "user",
+            "1",
+            [],
+            null,
+            [],
+            [],
+            [
+                "father" => function () {
+                    return ToOneRelationship::create()
+                        ->setData(["Father Vader"], new StubResource("user", "2"));
+                },
+            ]
+        );
+
+        $this->expectException(RelationshipNotExists::class);
+
+        $this->toRelationshipObject($resource, [], null, "mother");
     }
 
     /**
@@ -365,7 +391,7 @@ class ResourceTransformerTest extends TestCase
                 "father" => function () {
                     return ToOneRelationship::create()
                         ->setData(["Father Vader"], new StubResource("user", "2"));
-                }
+                },
             ]
         );
 

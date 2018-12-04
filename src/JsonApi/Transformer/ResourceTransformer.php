@@ -56,8 +56,8 @@ final class ResourceTransformer
     public function transformToRelationshipObject(ResourceTransformation $transformation, DataInterface $data): ?array
     {
         $relationships = $transformation->resource->getRelationships($transformation->object);
-        if (empty($relationships)) {
-            return null;
+        if (isset($relationships[$transformation->requestedRelationshipName]) === false) {
+            throw $transformation->exceptionFactory->createRelationshipNotExistsException($transformation->requestedRelationshipName);
         }
 
         $defaultRelationships = $transformation->resource->getDefaultIncludedRelationships($transformation->object);
