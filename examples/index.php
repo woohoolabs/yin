@@ -13,7 +13,9 @@ use WoohooLabs\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
 use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\Examples\Utils\ExampleExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
@@ -77,22 +79,29 @@ $routes = [
 ];
 
 // Finding the current route
-$exceptionFactory = new DefaultExceptionFactory();
+$exceptionFactory = new ExampleExceptionFactory();
 $deserializer = new JsonDeserializer();
 $request = new JsonApiRequest(ServerRequestFactory::fromGlobals(), $exceptionFactory, $deserializer);
-$request = findRoute($request, $routes);
+$jsonApi = new JsonApi($request, new Response(), $exceptionFactory);
 
 // Invoking the current action
-$jsonApi = new JsonApi($request, new Response(), $exceptionFactory);
-$action = $request->getAttribute("action");
-$response = call_user_func(new $action(), $jsonApi);
+try {
+    $request = findRoute($request, $routes, $exceptionFactory);
+    $action = $request->getAttribute("action");
+    $response = call_user_func(new $action(), $jsonApi);
+} catch (JsonApiExceptionInterface $exception) {
+    $response = $jsonApi->respond()->genericError($exception->getErrorDocument());
+} catch (Throwable $throwable) {
+    $response = $jsonApi->respond()->genericError($exceptionFactory->createApplicationErrorException($request)->getErrorDocument());
+}
+
 $response = $response->withHeader("Access-Control-Allow-Origin", "*");
 
 // Emitting the response
 $emitter = new SapiEmitter();
 $emitter->emit($response);
 
-function findRoute(JsonApiRequest $request, array $routes): JsonApiRequest
+function findRoute(JsonApiRequest $request, array $routes, ExceptionFactoryInterface $exceptionFactory): JsonApiRequest
 {
     $path = $request->getUri()->getPath();
     $method = $request->getMethod();
@@ -110,6 +119,5 @@ function findRoute(JsonApiRequest $request, array $routes): JsonApiRequest
         }
     }
 
-    http_response_code(404);
-    die("JSON:API document was not found! You can find the supported URIs in the <a href='https://github.com/woohoolabs/yin/#how-to-try-it-out'>README file</a>.");
+    throw $exceptionFactory->createResourceNotFoundException($request);
 }
