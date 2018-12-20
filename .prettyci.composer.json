@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "woohoolabs/coding-standard": "dev-master as 1.0.0"
+    }
+}
