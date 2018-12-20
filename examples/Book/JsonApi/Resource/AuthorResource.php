@@ -9,6 +9,11 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 class AuthorResource extends AbstractResource
 {
     /**
+     * @var array
+     */
+    protected $object;
+
+    /**
      * Provides information about the "type" member of the current resource.
      *
      * The method returns the type of the current resource.
@@ -29,7 +34,7 @@ class AuthorResource extends AbstractResource
      */
     public function getId($author) : string
     {
-        return (string) $author["id"];
+        return (string) $this->object["id"];
     }
 
     /**
@@ -70,8 +75,8 @@ class AuthorResource extends AbstractResource
     public function getAttributes($author): array
     {
         return [
-            "name" => function (array $author) {
-                return $author["name"];
+            "name" => function () {
+                return $this->object["name"];
             },
         ];
     }
