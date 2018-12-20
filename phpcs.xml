@@ -5,12 +5,14 @@
     <arg name="basepath" value="."/>
     <arg name="extensions" value="php"/>
     <arg name="colors" />
+    <arg name="parallel" value="80"/>
+    <arg name="cache" value=".phpcs-cache"/>
 
     <!-- Show progress of the run -->
-    <arg value="p"/>
-
-    <rule ref="WoohooLabs"/>
+    <arg value="nps"/>
 
     <file>src/</file>
     <file>tests/</file>
+
+    <rule ref="WoohooLabs"/>
 </ruleset>

@@ -14,6 +14,20 @@ use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use function array_flip;
+use function array_key_exists;
+use function array_keys;
+use function array_values;
+use function explode;
+use function in_array;
+use function is_array;
+use function is_string;
+use function preg_match;
+use function strlen;
+use function strpos;
+use function strtolower;
+use function substr;
+use function trim;
 
 class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
 {
@@ -101,7 +115,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
             if (preg_match("/^([a-z]+)$/", $queryParamName) &&
-                \in_array($queryParamName, ["fields", "include", "sort", "page", "filter", "profile"], true) === false
+                in_array($queryParamName, ["fields", "include", "sort", "page", "filter", "profile"], true) === false
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
             }
@@ -268,7 +282,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
             $this->setIncludedFields();
         }
 
-        if (\array_key_exists($resourceType, $this->includedFields) === false) {
+        if (array_key_exists($resourceType, $this->includedFields) === false) {
             return true;
         }
 
@@ -285,7 +299,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
 
         $includeQueryParam = $this->getQueryParam("include", "");
 
-        if (\is_string($includeQueryParam) === false) {
+        if (is_string($includeQueryParam) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "include", $includeQueryParam);
         }
 
@@ -381,7 +395,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     protected function setSorting(): void
     {
         $sortingQueryParam = $this->getQueryParam("sort", "");
-        if (\is_string($sortingQueryParam) === false) {
+        if (is_string($sortingQueryParam) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "sort", $sortingQueryParam);
         }
 
@@ -410,7 +424,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     {
         $pagination = $this->getQueryParam("page", []);
 
-        if (\is_array($pagination) === false) {
+        if (is_array($pagination) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "page", $pagination);
         }
 
@@ -421,7 +435,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     {
         $filtering = $this->getQueryParam("filter", []);
 
-        if (\is_array($filtering) === false) {
+        if (is_array($filtering) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "filter", $filtering);
         }
 

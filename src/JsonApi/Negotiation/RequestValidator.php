@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Negotiation;
 
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
@@ -13,13 +12,6 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class RequestValidator extends AbstractMessageValidator
 {
-    public function __construct(
-        ExceptionFactoryInterface $exceptionFactory,
-        bool $includeOriginalMessageInResponse = true
-    ) {
-        parent::__construct($exceptionFactory, $includeOriginalMessageInResponse);
-    }
-
     /**
      * @throws MediaTypeUnsupported|MediaTypeUnacceptable|JsonApiExceptionInterface
      */
