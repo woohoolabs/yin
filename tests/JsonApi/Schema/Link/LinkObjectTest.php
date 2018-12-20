@@ -52,8 +52,8 @@ class LinkObjectTest extends TestCase
         $link = $this->createLinkWithMeta($href, $meta);
 
         $transformedLink = [
-          "href" => $href,
-          "meta" => $meta,
+            "href" => $href,
+            "meta" => $meta,
         ];
         $this->assertEquals($transformedLink, $link->transform(""));
     }

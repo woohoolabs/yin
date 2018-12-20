@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use Zend\Diactoros\Response;
+use function json_encode;
 
 class JsonSerializerTest extends TestCase
 {

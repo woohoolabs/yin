@@ -27,7 +27,7 @@ class MediaTypeUnsupported extends AbstractJsonApiException
                 ->setCode("MEDIA_TYPE_UNSUPPORTED")
                 ->setTitle("The provided media type is unsupported")
                 ->setDetail($this->getMessage())
-                ->setSource(ErrorSource::fromParameter("content-type"))
+                ->setSource(ErrorSource::fromParameter("content-type")),
         ];
     }
 

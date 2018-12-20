@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use function urldecode;
 
 class OffsetBasedPaginationTest extends TestCase
 {

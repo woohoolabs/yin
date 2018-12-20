@@ -79,12 +79,12 @@ class ToManyRelationshipTest extends TestCase
             [
                 "data" => [
                     [
-                      "type" => "abc",
-                      "id" => "1",
+                        "type" => "abc",
+                        "id" => "1",
                     ],
                     [
-                      "type" => "abc",
-                      "id" => "1",
+                        "type" => "abc",
+                        "id" => "1",
                     ],
                 ],
             ],

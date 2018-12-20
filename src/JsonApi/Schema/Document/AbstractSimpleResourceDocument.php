@@ -7,6 +7,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use function is_array;
 
 abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 {
@@ -46,7 +47,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
             return null;
         }
 
-        if (\is_array($resource["relationships"][$relationshipName]) === false) {
+        if (is_array($resource["relationships"][$relationshipName]) === false) {
             return null;
         }
 

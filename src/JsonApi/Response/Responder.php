@@ -38,7 +38,6 @@ class Responder extends AbstractResponder
 
     /**
      * Returns a "200 Ok" response, containing a document in the body with the resource.
-     *
      * @param mixed $object
      */
     public function ok(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
@@ -48,7 +47,6 @@ class Responder extends AbstractResponder
 
     /**
      * Returns a "200 Ok" response, containing a document in the body with the resource metadata.
-     *
      * @param mixed $object
      */
     public function okWithMeta(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
@@ -59,7 +57,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
-     *
      * @param mixed $object
      */
     public function okWithRelationship(
@@ -80,7 +77,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "201 Created" response, containing a document in the body with the newly created resource. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
-     *
      * @param mixed $object
      */
     public function created(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
@@ -93,7 +89,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "201 Created" response, containing a document in the body with the newly created resource metadata.
      * You can also pass additional meta information for the document in the $additionalMeta argument.
-     *
      * @param mixed $object
      */
     public function createdWithMeta(ResourceDocumentInterface $document, $object, array $additionalMeta = []): ResponseInterface
@@ -106,7 +101,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "200 Ok" response, containing a document in the body with the relationship. You can also
      * pass additional meta information for the document in the $additionalMeta argument.
-     *
      * @param mixed $object
      */
     public function createdWithRelationship(
@@ -143,7 +137,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "403 Forbidden" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     *
      * @param Error[] $errors
      */
     public function forbidden(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
@@ -154,7 +147,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "404 Not Found" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     *
      * @param Error[] $errors
      */
     public function notFound(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
@@ -165,7 +157,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "409 Conflict" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     *
      * @param Error[] $errors
      */
     public function conflict(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
@@ -184,7 +175,6 @@ class Responder extends AbstractResponder
     /**
      * Returns an error response, containing a document in the body with the errors. You can also pass additional
      * meta information to the document in the $additionalMeta argument.
-     *
      * @param Error[] $errors
      */
     public function genericError(ErrorDocumentInterface $document, ?int $statusCode = null, array $additionalMeta = []): ResponseInterface

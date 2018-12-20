@@ -7,6 +7,8 @@ use JsonSchema\Validator;
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use function json_decode;
+use function realpath;
 
 abstract class AbstractMessageValidator
 {

@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Pagination;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubFixedCursorBasedPaginationProvider;
+use function urldecode;
 
 class FixedCursorBasedPaginationProviderTraitTest extends TestCase
 {

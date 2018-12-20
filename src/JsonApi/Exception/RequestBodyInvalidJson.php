@@ -51,7 +51,7 @@ class RequestBodyInvalidJson extends AbstractJsonApiException
                 ->setStatus("400")
                 ->setCode("REQUEST_BODY_INVALID_JSON")
                 ->setTitle("Request body is an invalid JSON document")
-                ->setDetail($this->getMessage())
+                ->setDetail($this->getMessage()),
         ];
     }
 

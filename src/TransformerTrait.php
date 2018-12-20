@@ -7,12 +7,13 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use function is_numeric;
+use function round;
 
 trait TransformerTrait
 {
     /**
      * Transforms a value to a decimal with a precision of $precision.
-     *
      * @param mixed $value
      */
     public function toDecimal($value, int $precision = 12): float

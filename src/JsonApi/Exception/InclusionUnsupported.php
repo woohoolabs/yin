@@ -21,7 +21,7 @@ class InclusionUnsupported extends AbstractJsonApiException
                 ->setCode("INCLUSION_UNSUPPORTED")
                 ->setTitle("Inclusion is unsupported")
                 ->setDetail("Inclusion is not supported by the endpoint!")
-                ->setSource(ErrorSource::fromParameter("include"))
+                ->setSource(ErrorSource::fromParameter("include")),
         ];
     }
 }

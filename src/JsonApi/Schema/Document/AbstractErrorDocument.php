@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
+use function abs;
+use function count;
 
 abstract class AbstractErrorDocument implements ErrorDocumentInterface
 {
@@ -22,7 +24,6 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
 
     /**
      * Includes a new error in the error document.
-     *
      * @return $this
      */
     public function addError(Error $error)
@@ -44,7 +45,7 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
 
         $result = 500;
         foreach ($this->errors as $error) {
-            $roundedStatusCode = (int) (((int)$error->getStatus()) / 100) * 100;
+            $roundedStatusCode = (int) ((int) $error->getStatus() / 100) * 100;
 
             if (abs($result - $roundedStatusCode) >= 100) {
                 $result = $roundedStatusCode;

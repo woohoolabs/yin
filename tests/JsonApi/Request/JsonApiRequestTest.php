@@ -13,6 +13,7 @@ use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
+use function implode;
 
 class JsonApiRequestTest extends TestCase
 {
@@ -961,8 +962,7 @@ class JsonApiRequestTest extends TestCase
             ->withHeader(
                 "accept",
                 "application/vnd.api+json;profile=https://example.com/profiles/last-modified"
-            )
-        ;
+            );
 
         $request->getAppliedProfiles();
         $request->getRequestedProfiles();

@@ -58,7 +58,7 @@ class AbstractCollectionDocumentTest extends TestCase
         $this->assertFalse($collectionDocument->getHasItems());
     }
 
-    private function createCollectionDocument(ResourceInterface $resource = null, $object = null): StubCollectionDocument
+    private function createCollectionDocument(?ResourceInterface $resource = null, $object = null): StubCollectionDocument
     {
         return new StubCollectionDocument(null, [], null, $resource, $object);
     }

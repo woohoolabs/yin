@@ -21,7 +21,7 @@ class SortingUnsupported extends AbstractJsonApiException
                 ->setCode("SORTING_UNSUPPORTED")
                 ->setTitle("Sorting is unsupported")
                 ->setDetail("Sorting is not supported by the endpoint!")
-                ->setSource(ErrorSource::fromParameter("sort"))
+                ->setSource(ErrorSource::fromParameter("sort")),
         ];
     }
 }

@@ -27,7 +27,7 @@ class SortParamUnrecognized extends AbstractJsonApiException
                 ->setCode("SORTING_UNRECOGNIZED")
                 ->setTitle("Sorting paramter is unrecognized")
                 ->setDetail("Sorting parameter '$this->sortParam' can't be recognized by the endpoint!")
-                ->setSource(ErrorSource::fromParameter("sort"))
+                ->setSource(ErrorSource::fromParameter("sort")),
         ];
     }
 

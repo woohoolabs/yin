@@ -30,7 +30,7 @@ class ClientGeneratedIdNotSupported extends AbstractJsonApiException
                 ->setCode("CLIENT_GENERATED_ID_NOT_SUPPORTED")
                 ->setTitle("Client generated ID is not supported")
                 ->setDetail($this->getMessage())
-                ->setSource(ErrorSource::fromPointer("/data/id"))
+                ->setSource(ErrorSource::fromPointer("/data/id")),
         ];
     }
 

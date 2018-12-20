@@ -19,7 +19,7 @@ class ResourceNotFound extends AbstractJsonApiException
                 ->setStatus("404")
                 ->setCode("RESOURCE_NOT_FOUND")
                 ->setTitle("Resource not found")
-                ->setDetail($this->getMessage())
+                ->setDetail($this->getMessage()),
         ];
     }
 }

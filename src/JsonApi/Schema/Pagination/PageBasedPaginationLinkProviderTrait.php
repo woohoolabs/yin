@@ -6,6 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\Utils;
+use function ceil;
 
 trait PageBasedPaginationLinkProviderTrait
 {

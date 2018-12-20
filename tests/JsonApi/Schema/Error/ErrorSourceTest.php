@@ -77,7 +77,7 @@ class ErrorSourceTest extends TestCase
         $errorSource = $this->createErrorSource("", $parameter);
 
         $transformedErrorSource = [
-            "parameter" => "name"
+            "parameter" => "name",
         ];
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }

@@ -1,22 +1,16 @@
 <?xml version="1.0"?>
-<ruleset name="Woohoo Labs. Coding Standard">
-    <description>Woohoo Labs. Coding Standard</description>
+<ruleset name="Yin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <description>PHP Coding Standards for Yin</description>
 
-    <!-- Options -->
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="colors" />
+
+    <!-- Show progress of the run -->
     <arg value="p"/>
-    <arg name="colors"/>
 
-    <!-- Rules -->
-    <rule ref="PSR12"/>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="150"/>
-            <property name="absoluteLineLimit" value="160"/>
-        </properties>
-    </rule>
+    <rule ref="WoohooLabs"/>
 
-    <!-- Paths -->
-    <file>src</file>
-    <file>tests</file>
+    <file>src/</file>
+    <file>tests/</file>
 </ruleset>

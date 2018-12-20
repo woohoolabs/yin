@@ -3,12 +3,19 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use ReflectionFunction;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function count;
+use function in_array;
+use function is_null;
 
 trait HydratorTrait
 {
@@ -18,7 +25,6 @@ trait HydratorTrait
      * The method should return an array of acceptable resource types. When such a resource is received for hydration
      * which can't be accepted (its type doesn't match the acceptable types of the hydrator), a ResourceTypeUnacceptable
      * exception will be raised.
-     *
      * @return string[]
      */
     abstract protected function getAcceptedTypes(): array;
@@ -34,7 +40,6 @@ trait HydratorTrait
      * to be hydrated as their arguments, and they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the callable should return the domain object.
-     *
      * @param mixed $domainObject
      * @return callable[]
      */
@@ -52,7 +57,6 @@ trait HydratorTrait
      * they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the callable should return the domain object.
-     *
      * @param mixed $domainObject
      * @return callable[]
      */
@@ -201,7 +205,7 @@ trait HydratorTrait
     protected function getArgumentTypeHintFromCallable(callable $callable): ?string
     {
         $function = &$callable;
-        $reflection = new \ReflectionFunction($function);
+        $reflection = new ReflectionFunction($function);
         $arguments  = $reflection->getParameters();
 
         if (empty($arguments) === false && isset($arguments[1]) && $arguments[1]->getClass()) {

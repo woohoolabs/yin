@@ -347,7 +347,6 @@ class AbstractRequestTest extends TestCase
         $this->assertEquals($addedQueryParamValue, $newRequest->getQueryParam($addedQueryParamName));
     }
 
-
     /**
      * @test
      */
@@ -401,7 +400,7 @@ class AbstractRequestTest extends TestCase
         $this->assertEmpty($newRequest->getAttributes());
     }
 
-    private function createRequest(ServerRequestInterface $serverRequest = null): JsonApiRequest
+    private function createRequest(?ServerRequestInterface $serverRequest = null): JsonApiRequest
     {
         return new JsonApiRequest(
             $serverRequest ?? new ServerRequest(),

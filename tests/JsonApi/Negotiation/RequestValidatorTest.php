@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Negotiation;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
@@ -231,7 +232,7 @@ class RequestValidatorTest extends TestCase
             ->method("__toString")
             ->will($this->returnValue($body));
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $request */
+        /** @var PHPUnit_Framework_MockObject_MockObject $request */
         $request->expects($this->once())
             ->method("getBody")
             ->will($this->returnValue($stream));
@@ -290,7 +291,8 @@ class RequestValidatorTest extends TestCase
                 {"firstName":"John", "lastName":"Doe"},
                 {"firstName":"Anna", "lastName":"Smith"},
                 {"firstName":"Peter", "lastName":"Jones"}
-            ]}'],
+            ]}',
+            ],
         ];
     }
 

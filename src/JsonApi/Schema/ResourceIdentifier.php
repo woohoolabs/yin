@@ -5,6 +5,9 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use function gettype;
+use function is_array;
+use function is_string;
 
 class ResourceIdentifier
 {

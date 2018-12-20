@@ -21,7 +21,7 @@ class ResourceTypeMissing extends AbstractJsonApiException
                 ->setCode("RESOURCE_TYPE_MISSING")
                 ->setTitle("Resource type is missing")
                 ->setDetail("A resource type must be included in the document!")
-                ->setSource(ErrorSource::fromPointer("/data"))
+                ->setSource(ErrorSource::fromPointer("/data")),
         ];
     }
 }

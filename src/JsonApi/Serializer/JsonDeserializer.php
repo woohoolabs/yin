@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ServerRequestInterface;
+use function json_decode;
 
 class JsonDeserializer implements DeserializerInterface
 {

@@ -8,6 +8,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
+use function json_decode;
+use function print_r;
+use function ucfirst;
 
 class ResponseBodyInvalidJsonApi extends AbstractJsonApiException
 {
@@ -55,7 +58,7 @@ class ResponseBodyInvalidJsonApi extends AbstractJsonApiException
                 ->setTitle("Response body is an invalid JSON:API document")
                 ->setDetail(ucfirst($validationError["message"]));
 
-            if (isset($validationError["property"]) && $validationError["property"] != "") {
+            if (isset($validationError["property"]) && $validationError["property"] !== "") {
                 $error->setSource(ErrorSource::fromPointer($validationError["property"]));
             }
 

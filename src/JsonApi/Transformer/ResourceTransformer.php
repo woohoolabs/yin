@@ -5,6 +5,9 @@ namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
+use function array_diff;
+use function array_flip;
+use function array_keys;
 
 /**
  * @internal

@@ -25,7 +25,7 @@ class ResourceIdentifierTypeMissing extends AbstractJsonApiException
                 ->setStatus("400")
                 ->setCode("RESOURCE_IDENTIFIER_TYPE_MISSING")
                 ->setTitle("A type for the resource identifier is missing")
-                ->setDetail("A type for the resource identifier must be included!")
+                ->setDetail("A type for the resource identifier must be included!"),
         ];
     }
 

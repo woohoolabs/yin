@@ -3,6 +3,14 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin;
 
+use function array_merge;
+use function http_build_query;
+use function is_numeric;
+use function parse_str;
+use function strpos;
+use function substr;
+use function urldecode;
+
 class Utils
 {
     public static function getIntegerFromQueryParam(array $queryParams, string $key, int $default): int

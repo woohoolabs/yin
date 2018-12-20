@@ -19,7 +19,7 @@ class ApplicationError extends AbstractJsonApiException
                 ->setStatus("500")
                 ->setCode("APPLICATION_ERROR")
                 ->setTitle("Application error")
-                ->setDetail("An application error has occurred!")
+                ->setDetail("An application error has occurred!"),
         ];
     }
 }

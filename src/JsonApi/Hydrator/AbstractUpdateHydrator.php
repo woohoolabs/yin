@@ -16,11 +16,10 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
 
     /**
      * Alias for UpdateHydratorTrait::hydrateForUpdate()
-     *
+     * @see UpdateHydratorTrait::hydrateForUpdate()
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
-     * @see UpdateHydratorTrait::hydrateForUpdate()
      */
     public function hydrate(JsonApiRequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {

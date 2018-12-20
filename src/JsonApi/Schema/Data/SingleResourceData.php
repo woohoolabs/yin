@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Data;
 
+use function key;
+use function reset;
+
 /**
  * @internal
  */

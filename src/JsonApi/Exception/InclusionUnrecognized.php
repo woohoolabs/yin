@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
+use function implode;
 
 class InclusionUnrecognized extends AbstractJsonApiException
 {
@@ -30,7 +31,7 @@ class InclusionUnrecognized extends AbstractJsonApiException
                     "Included paths '" . implode(", ", $this->unrecognizedIncludes) .
                     "' can't be recognized by the endpoint!"
                 )
-                ->setSource(ErrorSource::fromParameter("include"))
+                ->setSource(ErrorSource::fromParameter("include")),
         ];
     }
 

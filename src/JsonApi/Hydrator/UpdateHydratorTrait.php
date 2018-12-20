@@ -9,6 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use function is_string;
 
 trait UpdateHydratorTrait
 {
@@ -20,7 +21,6 @@ trait UpdateHydratorTrait
 
     /**
      * You can validate the request.
-     *
      * @throws JsonApiExceptionInterface
      */
     abstract protected function validateRequest(JsonApiRequestInterface $request): void;
@@ -31,7 +31,6 @@ trait UpdateHydratorTrait
      * The method mutates the domain object and sets the given ID for it.
      * If it is an immutable object or an array the whole, updated domain
      * object can be returned.
-     *
      * @param mixed $domainObject
      * @return mixed|void
      */
@@ -65,7 +64,6 @@ trait UpdateHydratorTrait
      * they should mutate the state of the domain object.
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the callable should return the domain object.
-     *
      * @param mixed $domainObject
      * @return callable[]
      */
@@ -89,7 +87,6 @@ trait UpdateHydratorTrait
      *
      * The domain object's attributes and relationships are hydrated
      * according to the JSON:API specification.
-     *
      * @param mixed $domainObject
      * @return mixed
      * @throws JsonApiExceptionInterface

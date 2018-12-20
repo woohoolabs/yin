@@ -25,7 +25,7 @@ class ResourceIdentifierIdInvalid extends AbstractJsonApiException
                 ->setStatus("400")
                 ->setCode("RESOURCE_IDENTIFIER_ID_INVALID")
                 ->setTitle("Resource identifier ID is invalid")
-                ->setDetail("The resource ID must be a string instead of $this->type!")
+                ->setDetail("The resource ID must be a string instead of $this->type!"),
         ];
     }
 

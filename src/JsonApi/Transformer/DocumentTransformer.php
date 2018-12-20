@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
+use function array_merge;
 
 /**
  * @internal

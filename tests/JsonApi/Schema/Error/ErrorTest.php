@@ -119,8 +119,7 @@ class ErrorTest extends TestCase
             ->setStatus($status)
             ->setCode($code)
             ->setTitle($title)
-            ->setDetail($detail)
-        ;
+            ->setDetail($detail);
 
         $this->assertEquals(
             [
@@ -147,8 +146,7 @@ class ErrorTest extends TestCase
             ->setCode("UNKNOWN_ERROR")
             ->setTitle("Unknown error!")
             ->setDetail("An unknown error has happened and no solution exists.")
-            ->setSource(new ErrorSource("", ""))
-        ;
+            ->setSource(new ErrorSource("", ""));
 
         $this->assertEquals(
             [

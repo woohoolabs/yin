@@ -9,6 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use function call_user_func;
 
 abstract class AbstractRelationship
 {
@@ -154,7 +155,7 @@ abstract class AbstractRelationship
      */
     protected function getData()
     {
-        return $this->isCallableData ? \call_user_func($this->data, $this) : $this->data;
+        return $this->isCallableData ? call_user_func($this->data, $this) : $this->data;
     }
 
     /**

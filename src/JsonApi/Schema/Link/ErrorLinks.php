@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
+use function array_values;
+
 class ErrorLinks extends AbstractLinks
 {
     /**

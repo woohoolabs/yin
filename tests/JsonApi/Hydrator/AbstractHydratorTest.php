@@ -16,6 +16,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
+use function json_encode;
 
 class AbstractHydratorTest extends TestCase
 {
@@ -102,7 +103,7 @@ class AbstractHydratorTest extends TestCase
         $attributeHydrator = [
             "height" => function (array &$elephant, $attribute) {
                 $elephant["height"] = $attribute;
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
@@ -127,7 +128,7 @@ class AbstractHydratorTest extends TestCase
         $attributeHydrator = [
             "weight" => function (array &$elephant, $attribute) {
                 $elephant["weight"] = $attribute;
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
@@ -153,7 +154,7 @@ class AbstractHydratorTest extends TestCase
         $attributeHydrator = [
             "weight" => function (array &$elephant, $attribute) {
                 $elephant["weight"] = $attribute;
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
@@ -180,7 +181,7 @@ class AbstractHydratorTest extends TestCase
             "weight" => function (array $elephant, $attribute) {
                 $elephant["weight"] = $attribute;
                 return $elephant;
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], $attributeHydrator);
@@ -205,7 +206,7 @@ class AbstractHydratorTest extends TestCase
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = ["Dumbo", "Mambo"];
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
@@ -235,7 +236,7 @@ class AbstractHydratorTest extends TestCase
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = $children->getResourceIdentifiers();
-            }
+            },
         ];
         $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
 
@@ -267,7 +268,7 @@ class AbstractHydratorTest extends TestCase
         $relationshipHydrator = [
             "children" => function (array &$elephant, ToOneRelationship $children) {
                 $elephant["children"] = $children->getResourceIdentifier();
-            }
+            },
         ];
         $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
 
@@ -299,7 +300,7 @@ class AbstractHydratorTest extends TestCase
         $relationshipHydrator = [
             "children" => function (array &$elephant, $children) {
                 $elephant["children"] = "Dumbo";
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);
@@ -341,7 +342,7 @@ class AbstractHydratorTest extends TestCase
             },
             "children" => function (array &$elephant, ToManyRelationship $children) {
                 $elephant["children"] = $children->getResourceIdentifierIds();
-            }
+            },
         ];
 
         $hydrator = $this->createHydrator(["elephant"], [], $relationshipHydrator);

@@ -21,7 +21,7 @@ class ResourceIdMissing extends AbstractJsonApiException
                 ->setCode("RESOURCE_ID_MISSING")
                 ->setTitle("Resource ID is missing")
                 ->setDetail("A resource ID must be included in the document!")
-                ->setSource(ErrorSource::fromPointer("/data"))
+                ->setSource(ErrorSource::fromPointer("/data")),
         ];
     }
 }

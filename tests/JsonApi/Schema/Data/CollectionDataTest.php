@@ -18,7 +18,7 @@ class CollectionDataTest extends TestCase
 
         $this->assertEquals(
             [
-                ["type" => "user", "id" => "1"]
+                ["type" => "user", "id" => "1"],
             ],
             $data->transformPrimaryData()
         );

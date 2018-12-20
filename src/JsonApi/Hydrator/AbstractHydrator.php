@@ -21,7 +21,6 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
      * If the request method is POST then the domain object is hydrated
      * as a create. If it is a PATCH request then the domain object is
      * hydrated as an update.
-     *
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing|JsonApiExceptionInterface

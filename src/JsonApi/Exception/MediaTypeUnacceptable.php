@@ -27,7 +27,7 @@ class MediaTypeUnacceptable extends AbstractJsonApiException
                 ->setCode("MEDIA_TYPE_UNACCEPTABLE")
                 ->setTitle("The provided media type is unacceptable")
                 ->setDetail($this->getMessage())
-                ->setSource(ErrorSource::fromParameter("accept"))
+                ->setSource(ErrorSource::fromParameter("accept")),
         ];
     }
 

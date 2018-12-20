@@ -21,7 +21,7 @@ class ClientGeneratedIdRequired extends AbstractJsonApiException
                 ->setCode("CLIENT_GENERATED_ID_REQUIRED")
                 ->setTitle("Required client generated ID")
                 ->setDetail($this->getMessage())
-                ->setSource(ErrorSource::fromPointer("/data/id"))
+                ->setSource(ErrorSource::fromPointer("/data/id")),
         ];
     }
 }
