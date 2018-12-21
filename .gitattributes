@@ -11,7 +11,6 @@
 .gitignore export-ignore
 .phpcs-cache export-ignore
 .scrutinizer.yml export-ignore
-.styleci.yml export-ignore
 .travis.yml export-ignore
 docker-compose.yml export-ignore
 docker-compose.examples.yml export-ignore
