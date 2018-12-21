@@ -3,10 +3,13 @@
     <description>PHP Coding Standards for Yin</description>
 
     <arg name="basepath" value="."/>
-    <arg name="extensions" value="php"/>
-    <arg name="colors" />
-    <arg name="parallel" value="80"/>
     <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors" />
+    <arg name="encoding" value="UTF-8"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="report" value="code"/>
+    <arg name="report-width" value="160"/>
 
     <!-- Show progress of the run -->
     <arg value="nps"/>

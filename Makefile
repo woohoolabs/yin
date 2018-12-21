@@ -27,13 +27,7 @@ test:
 	docker-compose -f docker-compose.yml up
 
 cs:
-	docker-compose -f docker-compose.yml run yin-php /var/www/vendor/bin/phpcs \
-	    --standard=/var/www/phpcs.xml \
-	    --encoding=UTF-8 \
-	    --report-full \
-	   /var/www/src/ /var/www/tests/
+	docker-compose -f docker-compose.yml run --rm yin-php /var/www/vendor/bin/phpcs --standard=/var/www/phpcs.xml
 
 cs-fix:
-	docker-compose -f docker-compose.yml run yin-php /var/www/vendor/bin/phpcbf \
-	    --standard=/var/www/phpcs.xml \
-	   /var/www/src/ /var/www/tests/
+	docker-compose -f docker-compose.yml run --rm yin-php /var/www/vendor/bin/phpcbf --standard=/var/www/phpcs.xml
