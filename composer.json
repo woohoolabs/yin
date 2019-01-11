@@ -25,7 +25,9 @@
         "squizlabs/php_codesniffer": "^3.4.0",
         "woohoolabs/coding-standard": "^1.0.0",
         "zendframework/zend-diactoros": "^2.0.0",
-        "zendframework/zend-httphandlerrunner": "^1.0.0"
+        "zendframework/zend-httphandlerrunner": "^1.0.0",
+        "phpstan/phpstan": "^0.10.8",
+        "phpstan/phpstan-strict-rules": "^0.10.1"
     },
     "suggest": {
         "justinrainbow/json-schema": "Allows to validate the request and response body against the JSON API schema",

@@ -1,0 +1,7 @@
+parameters:
+    bootstrap: vendor/autoload.php
+    ignoreErrors:
+        - '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
