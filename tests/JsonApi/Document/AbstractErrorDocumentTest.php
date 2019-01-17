@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Error;
+use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
 
 class AbstractErrorDocumentTest extends TestCase
