@@ -7,6 +7,15 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <file>src/JsonApi/Document/AbstractCollectionDocument.php</file>
+                <file>src/JsonApi/Document/AbstractDocument.php</file>
+                <file>src/JsonApi/Document/AbstractErrorDocument.php</file>
+                <file>src/JsonApi/Document/AbstractSimpleResourceDocument.php</file>
+                <file>src/JsonApi/Document/AbstractSingleResourceDocument.php</file>
+                <file>src/JsonApi/Document/AbstractSuccessfulDocument.php</file>
+                <file>src/JsonApi/Document/AbstractErrorDocument.php</file>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
