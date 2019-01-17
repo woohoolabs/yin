@@ -3,28 +3,11 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema;
 
-class Link
-{
-    /**
-     * @var string
-     */
-    private $href;
+use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 
-    public function __construct(string $href)
-    {
-        $this->href = $href;
-    }
+class_alias(Link::class, 'WoohooLabs\Yin\JsonApi\Schema\Link');
 
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-
-    /**
-     * @return string|mixed
-     */
-    public function transform(string $baseUri)
-    {
-        return $baseUri . $this->href;
-    }
-}
+trigger_error(
+    'Class WoohooLabs\Yin\JsonApi\Schema\Link is deprecated, use ' . Link::class . ' instead.',
+    E_USER_DEPRECATED
+);
