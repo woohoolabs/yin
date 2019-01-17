@@ -5,9 +5,9 @@ namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class PublisherResourceTransformer extends AbstractResourceTransformer
+class PublisherResourceTransformer extends AbstractResource
 {
     /**
      * @var RepresentativeResourceTransformer

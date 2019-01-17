@@ -5,17 +5,16 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractSingleResourceDocument extends AbstractSuccessfulDocument
 {
     /**
-     * @var ResourceTransformerInterface
+     * @var ResourceInterface
      */
     protected $transformer;
 
-    public function __construct(ResourceTransformerInterface $transformer)
+    public function __construct(ResourceInterface $transformer)
     {
         $this->transformer = $transformer;
     }

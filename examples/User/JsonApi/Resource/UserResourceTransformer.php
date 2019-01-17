@@ -6,9 +6,9 @@ namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class UserResourceTransformer extends AbstractResourceTransformer
+class UserResourceTransformer extends AbstractResource
 {
     /**
      * @var ContactResourceTransformer

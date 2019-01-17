@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\LinksTrait;
 use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 abstract class AbstractRelationship
@@ -30,7 +30,7 @@ abstract class AbstractRelationship
     protected $omitDataWhenNotIncluded;
 
     /**
-     * @var ResourceTransformerInterface
+     * @var ResourceInterface
      */
     protected $resourceTransformer;
 
@@ -67,7 +67,7 @@ abstract class AbstractRelationship
     /**
      * @return static
      */
-    public static function createWithData(array $data, ResourceTransformerInterface $resourceTransformer)
+    public static function createWithData(array $data, ResourceInterface $resourceTransformer)
     {
         return new static([], null, $data, $resourceTransformer);
     }
@@ -79,7 +79,7 @@ abstract class AbstractRelationship
         array $meta = [],
         ?Links $links = null,
         $data = [],
-        ?ResourceTransformerInterface $resourceTransformer = null
+        ?ResourceInterface $resourceTransformer = null
     ) {
         $this->meta = $meta;
         $this->links = $links;
@@ -93,7 +93,7 @@ abstract class AbstractRelationship
      * @param mixed $data
      * @return $this
      */
-    public function setData($data, ResourceTransformerInterface $resourceTransformer)
+    public function setData($data, ResourceInterface $resourceTransformer)
     {
         $this->data = $data;
         $this->isCallableData = false;
@@ -105,7 +105,7 @@ abstract class AbstractRelationship
     /**
      * @return $this
      */
-    public function setDataAsCallable(callable $data, ResourceTransformerInterface $resourceTransformer)
+    public function setDataAsCallable(callable $data, ResourceInterface $resourceTransformer)
     {
         $this->data = $data;
         $this->isCallableData = true;

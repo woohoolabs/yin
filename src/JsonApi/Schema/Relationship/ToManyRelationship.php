@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToManyRelationship extends AbstractRelationship
@@ -13,7 +12,7 @@ class ToManyRelationship extends AbstractRelationship
         array $meta = [],
         ?Links $links = null,
         array $data = [],
-        ?ResourceTransformerInterface $resourceTransformer = null
+        ?ResourceInterface $resourceTransformer = null
     ) {
         parent::__construct($meta, $links, $data, $resourceTransformer);
     }

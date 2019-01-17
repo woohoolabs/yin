@@ -13,8 +13,8 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceTransformer;
@@ -269,7 +269,7 @@ class AbstractResourceTransformerTest extends TestCase
      * @param mixed $domainObject
      */
     protected function transformToResource(
-        AbstractResourceTransformer $transformer,
+        AbstractResource $transformer,
         $domainObject,
         ?JsonApiRequestInterface $request = null,
         ?DataInterface $data = null

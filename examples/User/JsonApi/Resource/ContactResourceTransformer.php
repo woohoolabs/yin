@@ -5,9 +5,9 @@ namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
 
 use WoohooLabs\Yin\JsonApi\Schema\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
-use WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
-class ContactResourceTransformer extends AbstractResourceTransformer
+class ContactResourceTransformer extends AbstractResource
 {
     /**
      * Provides information about the "type" member of the current resource.
