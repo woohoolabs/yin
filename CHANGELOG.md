@@ -1,4 +1,4 @@
-## 3.1.0 - unreleased
+## next - unreleased
 
 ADDED:
 
@@ -6,30 +6,42 @@ CHANGED:
 
 DEPRECATED:
 
-- `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\AbstractDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\AbstractSimpleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSimpleResourceDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulResourceDocument` instead
-- `WoohooLabs\Yin\JsonApi\Document\ErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument` instead
-- `WoohooLabs\Yin\JsonApi\Exception\JsonApiException`: use `WoohooLabs\Yin\JsonApi\Exception\AbstractJsonApiException` instead
-- `WoohooLabs\Yin\JsonApi\Request\Request`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequest` instead
-- `WoohooLabs\Yin\JsonApi\Request\RequestInterface`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` instead
-- `WoohooLabs\Yin\JsonApi\Schema\Error`: use `WoohooLabs\Yin\JsonApi\Schema\Error\Error` instead
-- `WoohooLabs\Yin\JsonApi\Schema\ErrorSource`: use `WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource` instead
-- `WoohooLabs\Yin\JsonApi\Schema\Link`: use `WoohooLabs\Yin\JsonApi\Schema\Link\Link` instead
-- `WoohooLabs\Yin\JsonApi\Schema\LinkObject`: use `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` instead
-- `WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource` instead
-- `WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface` instead
-- `AbstractErrorDocument::getResponseCode()`: use `AbstractErrorDocument::getStatusCode()` instead
-- `RequestValidator::lintBody()`: use `RequestValidator::validateJsonBody()` instead
-- `ResponseValidator::lintBody()`: use `ResponseValidator::validateJsonBody()` instead
-- `ResponseValidator::validateBody()`: use `ResponseValidator::validateJsonApiBody()` instead
-
 REMOVED:
 
 FIXED:
+
+## 3.1.0 - 2019-01-17
+
+This is a release with several deprecations in order to ensure forward compatibility with Yin 4.0.
+
+DEPRECATED:
+
+- Classes related to Documents:
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSimpleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSimpleResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\ErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument` instead
+- Classes related to Resources:
+    - `WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource` instead
+    - `WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface` instead
+- Classes related to Errors and Exceptions:
+    - `WoohooLabs\Yin\JsonApi\Schema\Error`: use `WoohooLabs\Yin\JsonApi\Schema\Error\Error` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\ErrorSource`: use `WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource` instead
+    - `WoohooLabs\Yin\JsonApi\Exception\JsonApiException`: use `WoohooLabs\Yin\JsonApi\Exception\AbstractJsonApiException` instead
+- Classes related to the Request:
+    - `WoohooLabs\Yin\JsonApi\Request\Request`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequest` instead
+    - `WoohooLabs\Yin\JsonApi\Request\RequestInterface`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` instead
+- Classes related to Links:
+    - `WoohooLabs\Yin\JsonApi\Schema\Link`: use `WoohooLabs\Yin\JsonApi\Schema\Link\Link` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\LinkObject`: use `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` instead
+- The following methods:
+    - `AbstractErrorDocument::getResponseCode()`: use `AbstractErrorDocument::getStatusCode()` instead
+    - `RequestValidator::lintBody()`: use `RequestValidator::validateJsonBody()` instead
+    - `ResponseValidator::lintBody()`: use `ResponseValidator::validateJsonBody()` instead
+    - `ResponseValidator::validateBody()`: use `ResponseValidator::validateJsonApiBody()` instead
 
 ## 3.0.2 - 2018-02-06
 
