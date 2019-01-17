@@ -8,7 +8,7 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 trait UpdateHydratorTrait
 {
@@ -23,7 +23,7 @@ trait UpdateHydratorTrait
      *
      * @throws JsonApiExceptionInterface
      */
-    abstract protected function validateRequest(RequestInterface $request): void;
+    abstract protected function validateRequest(JsonApiRequestInterface $request): void;
 
     /**
      * Sets the given ID for the domain object.
@@ -95,7 +95,7 @@ trait UpdateHydratorTrait
      * @throws JsonApiExceptionInterface
      */
     public function hydrateForUpdate(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {
@@ -120,7 +120,7 @@ trait UpdateHydratorTrait
      */
     public function hydrateForRelationshipUpdate(
         string $relationship,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {

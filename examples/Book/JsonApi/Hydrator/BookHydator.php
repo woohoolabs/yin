@@ -13,7 +13,7 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class BookHydator extends AbstractHydrator
 {
@@ -44,7 +44,7 @@ class BookHydator extends AbstractHydrator
      */
     protected function validateClientGeneratedId(
         string $clientGeneratedId,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
         if ($clientGeneratedId !== null) {
@@ -84,7 +84,7 @@ class BookHydator extends AbstractHydrator
      *
      * @throws JsonApiExceptionInterface
      */
-    protected function validateRequest(RequestInterface $request): void
+    protected function validateRequest(JsonApiRequestInterface $request): void
     {
         // WARNING! THIS CONDITION CONTRADICTS TO THE SPEC
         if ($request->getAttribute("title") === null) {

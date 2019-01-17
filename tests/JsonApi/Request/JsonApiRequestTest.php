@@ -13,11 +13,11 @@ use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\ServerRequest;
 
-class RequestTest extends TestCase
+class JsonApiRequestTest extends TestCase
 {
     /**
      * @test
@@ -1060,38 +1060,38 @@ class RequestTest extends TestCase
         $this->assertEquals($attribute1Value, $newRequest->getAttribute($attribute1Key));
     }
 
-    private function createRequest(): Request
+    private function createRequest(): JsonApiRequest
     {
-        return new Request(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest(new ServerRequest(), new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithJsonBody(array $body): Request
+    private function createRequestWithJsonBody(array $body): JsonApiRequest
     {
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withParsedBody($body);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithHeaders(array $headers): Request
+    private function createRequestWithHeaders(array $headers): JsonApiRequest
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", $headers);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithHeader($headerName, $headerValue): Request
+    private function createRequestWithHeader($headerName, $headerValue): JsonApiRequest
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithQueryParams(array $queryParams): Request
+    private function createRequestWithQueryParams(array $queryParams): JsonApiRequest
     {
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest->withQueryParams($queryParams);
 
-        return new Request($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 }

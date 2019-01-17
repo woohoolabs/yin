@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Document;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
@@ -34,7 +34,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      * @param mixed $domainObject
      */
     public function getContent(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
         array $additionalMeta = []
@@ -63,7 +63,7 @@ abstract class AbstractSuccessfulDocument extends AbstractDocument
      */
     public function getRelationshipContent(
         string $relationshipName,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject,
         array $additionalMeta = []

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error;
 class RequestBodyInvalidJson extends JsonApiException
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     protected $request;
 
@@ -25,7 +25,7 @@ class RequestBodyInvalidJson extends JsonApiException
      */
     protected $includeOriginalBody;
 
-    public function __construct(RequestInterface $request, string $lintMessage, bool $includeOriginalBody)
+    public function __construct(JsonApiRequestInterface $request, string $lintMessage, bool $includeOriginalBody)
     {
         parent::__construct("Request body is an invalid JSON document: '$lintMessage'!");
         $this->request = $request;

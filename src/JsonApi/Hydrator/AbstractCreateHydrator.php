@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Hydrator;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 abstract class AbstractCreateHydrator implements HydratorInterface
 {
@@ -19,7 +19,7 @@ abstract class AbstractCreateHydrator implements HydratorInterface
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
      * @see CreateHydratorTrait::hydrateForCreate()
      */
-    public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
+    public function hydrate(JsonApiRequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
         return $this->hydrateForCreate($request, $exceptionFactory, $domainObject);
     }

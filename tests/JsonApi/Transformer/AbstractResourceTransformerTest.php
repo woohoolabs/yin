@@ -6,8 +6,8 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
-use WoohooLabs\Yin\JsonApi\Request\Request;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link;
@@ -131,9 +131,9 @@ class AbstractResourceTransformerTest extends TestCase
             "age" => 50,
         ];
         $attributes = [
-            "full_name" => function (array $object, RequestInterface $request) use ($domainObject) {
+            "full_name" => function (array $object, JsonApiRequestInterface $request) use ($domainObject) {
                 $this->assertEquals($object, $domainObject);
-                $this->assertInstanceOf(RequestInterface::class, $request);
+                $this->assertInstanceOf(JsonApiRequestInterface::class, $request);
                 return "James Bond";
             },
             "birth" => function (array $object) {
@@ -162,9 +162,9 @@ class AbstractResourceTransformerTest extends TestCase
         ];
         $defaultRelationships = ["father"];
         $relationships = [
-            "father" => function (array $object, RequestInterface $request) use ($domainObject) {
+            "father" => function (array $object, JsonApiRequestInterface $request) use ($domainObject) {
                 $this->assertEquals($object, $domainObject);
-                $this->assertInstanceOf(RequestInterface::class, $request);
+                $this->assertInstanceOf(JsonApiRequestInterface::class, $request);
 
                 $relationship = new ToOneRelationship();
                 $relationship->setData(["Father Vader"], new StubResourceTransformer("user", "2"));
@@ -271,11 +271,11 @@ class AbstractResourceTransformerTest extends TestCase
     protected function transformToResource(
         AbstractResourceTransformer $transformer,
         $domainObject,
-        ?RequestInterface $request = null,
+        ?JsonApiRequestInterface $request = null,
         ?DataInterface $data = null
     ): ?array {
         $transformation = new Transformation(
-            $request ? $request : new Request(
+            $request ? $request : new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()

@@ -10,7 +10,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\JsonApi;
-use WoohooLabs\Yin\JsonApi\Request\Request;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
@@ -100,7 +100,7 @@ class JsonApiTest extends TestCase
     }
 
     private function createJsonApi(
-        ?Request $request = null,
+        ?JsonApiRequest $request = null,
         ?Response $response = null,
         ?ExceptionFactoryInterface $exceptionFactory = null
     ) {
@@ -113,7 +113,7 @@ class JsonApiTest extends TestCase
 
     private function createRequest(?ServerRequestInterface $request = null)
     {
-        return new Request(
+        return new JsonApiRequest(
             $request ? $request : new ServerRequest(),
             new DefaultExceptionFactory(),
             new JsonDeserializer()

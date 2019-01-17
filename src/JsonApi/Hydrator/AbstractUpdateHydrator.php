@@ -7,7 +7,7 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
 use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelationshipHydratorInterface
 {
@@ -22,7 +22,7 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
      * @see UpdateHydratorTrait::hydrateForUpdate()
      */
-    public function hydrate(RequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
+    public function hydrate(JsonApiRequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
         return $this->hydrateForUpdate($request, $exceptionFactory, $domainObject);
     }
@@ -34,7 +34,7 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
      */
     public function hydrateRelationship(
         string $relationship,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory,
         $domainObject
     ) {

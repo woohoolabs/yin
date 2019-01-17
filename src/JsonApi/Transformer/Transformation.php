@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 
 class Transformation
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     public $request;
 
@@ -35,7 +35,7 @@ class Transformation
     public $fetchedRelationship = "";
 
     public function __construct(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         DataInterface $data,
         ExceptionFactoryInterface $exceptionFactory,
         string $basePath
@@ -46,7 +46,7 @@ class Transformation
         $this->basePath = $basePath;
     }
 
-    public function getRequest(): RequestInterface
+    public function getRequest(): JsonApiRequestInterface
     {
         return $this->request;
     }

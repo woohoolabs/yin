@@ -9,7 +9,7 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class RequestValidator extends AbstractMessageValidator
 {
@@ -23,7 +23,7 @@ class RequestValidator extends AbstractMessageValidator
     /**
      * @throws MediaTypeUnsupported|MediaTypeUnacceptable|JsonApiExceptionInterface
      */
-    public function negotiate(RequestInterface $request): void
+    public function negotiate(JsonApiRequestInterface $request): void
     {
         try {
             $request->validateContentTypeHeader();
@@ -38,7 +38,7 @@ class RequestValidator extends AbstractMessageValidator
     /**
      * @throws QueryParamUnrecognized|JsonApiExceptionInterface
      */
-    public function validateQueryParams(RequestInterface $request): void
+    public function validateQueryParams(JsonApiRequestInterface $request): void
     {
         try {
             $request->validateQueryParams();
@@ -53,7 +53,7 @@ class RequestValidator extends AbstractMessageValidator
     /**
      * @throws RequestBodyInvalidJson|JsonApiExceptionInterface
      */
-    public function validateJsonBody(RequestInterface $request): void
+    public function validateJsonBody(JsonApiRequestInterface $request): void
     {
         $this->lintBody($request);
     }
@@ -62,7 +62,7 @@ class RequestValidator extends AbstractMessageValidator
      * @throws RequestBodyInvalidJson|JsonApiExceptionInterface
      * @deprecated since 3.1.0, will be removed in 4.0.0. Use RequestValidator::validateJsonBody() instead.
      */
-    public function lintBody(RequestInterface $request): void
+    public function lintBody(JsonApiRequestInterface $request): void
     {
         $errorMessage = $this->lintMessage($request->getBody()->__toString());
 

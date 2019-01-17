@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 use LogicException;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class StubCreateHydrator
 {
@@ -40,7 +40,7 @@ class StubCreateHydrator
 
     protected function validateClientGeneratedId(
         string $clientGeneratedId,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ): void {
         if ($this->isClientGeneratedIdException) {
@@ -60,7 +60,7 @@ class StubCreateHydrator
         return $domainObject;
     }
 
-    protected function validateRequest(RequestInterface $request): void
+    protected function validateRequest(JsonApiRequestInterface $request): void
     {
         if ($this->logicException) {
             throw new LogicException();

@@ -11,7 +11,7 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
 use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
@@ -19,7 +19,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 class JsonApi
 {
     /**
-     * @var RequestInterface
+     * @var JsonApiRequestInterface
      */
     public $request;
 
@@ -39,7 +39,7 @@ class JsonApi
     protected $serializer;
 
     public function __construct(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ResponseInterface $response,
         ?ExceptionFactoryInterface $exceptionFactory = null,
         ?SerializerInterface $serializer = null
@@ -50,12 +50,12 @@ class JsonApi
         $this->serializer = $serializer ?? new JsonSerializer();
     }
 
-    public function getRequest(): RequestInterface
+    public function getRequest(): JsonApiRequestInterface
     {
         return $this->request;
     }
 
-    public function setRequest(RequestInterface $request)
+    public function setRequest(JsonApiRequestInterface $request)
     {
         $this->request = $request;
     }

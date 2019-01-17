@@ -4,49 +4,49 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\RequestInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 interface ExceptionFactoryInterface
 {
-    public function createApplicationErrorException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createApplicationErrorException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
     public function createClientGeneratedIdNotSupportedException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $currentId
     ): JsonApiExceptionInterface;
 
-    public function createClientGeneratedIdAlreadyExistsException(RequestInterface $request, string $currentId): JsonApiExceptionInterface;
+    public function createClientGeneratedIdAlreadyExistsException(JsonApiRequestInterface $request, string $currentId): JsonApiExceptionInterface;
 
-    public function createClientGeneratedIdRequiredException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createClientGeneratedIdRequiredException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
-    public function createDataMemberMissingException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createDataMemberMissingException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
     public function createFullReplacementProhibitedException(string $relationshipName): JsonApiExceptionInterface;
 
-    public function createInclusionUnsupportedException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createInclusionUnsupportedException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
     public function createInclusionUnrecognizedException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         array $unrecognizedInclusions
     ): JsonApiExceptionInterface;
 
     public function createMediaTypeUnsupportedException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $mediaTypeName
     ): JsonApiExceptionInterface;
 
     public function createMediaTypeUnacceptableException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $mediaTypeName
     ): JsonApiExceptionInterface;
 
     public function createQueryParamUnrecognizedException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $queryParamName
     ): JsonApiExceptionInterface;
 
     public function createQueryParamMalformedException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $queryParamName,
         $queryParamValue
     ): JsonApiExceptionInterface;
@@ -62,13 +62,13 @@ interface ExceptionFactoryInterface
     public function createRemovalProhibitedException(string $relationshipName): JsonApiExceptionInterface;
 
     public function createRequestBodyInvalidJsonException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         string $lintMessage,
         bool $includeOriginalBody
     ): JsonApiExceptionInterface;
 
     public function createRequestBodyInvalidJsonApiException(
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         array $validationErrors,
         bool $includeOriginalBody
     ): JsonApiExceptionInterface;
@@ -85,7 +85,7 @@ interface ExceptionFactoryInterface
 
     public function createResourceIdMissingException(): JsonApiExceptionInterface;
 
-    public function createResourceNotFoundException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createResourceNotFoundException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
     public function createResourceTypeMissingException(): JsonApiExceptionInterface;
 
@@ -103,7 +103,7 @@ interface ExceptionFactoryInterface
         bool $includeOriginalBody
     ): JsonApiExceptionInterface;
 
-    public function createSortingUnsupportedException(RequestInterface $request): JsonApiExceptionInterface;
+    public function createSortingUnsupportedException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
 
-    public function createSortParamUnrecognizedException(RequestInterface $request, string $paramName): JsonApiExceptionInterface;
+    public function createSortParamUnrecognizedException(JsonApiRequestInterface $request, string $paramName): JsonApiExceptionInterface;
 }
