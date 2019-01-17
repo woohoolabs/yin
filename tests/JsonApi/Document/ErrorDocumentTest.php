@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Document;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Document\ErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 

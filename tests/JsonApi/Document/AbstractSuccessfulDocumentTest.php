@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulDocument;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;

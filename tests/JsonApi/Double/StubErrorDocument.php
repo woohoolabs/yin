@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument;
+use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument;
 use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
 
