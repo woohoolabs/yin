@@ -6,6 +6,13 @@ CHANGED:
 
 DEPRECATED:
 
+- `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\AbstractDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\AbstractSimpleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSimpleResourceDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulResourceDocument` instead
+- `WoohooLabs\Yin\JsonApi\Document\ErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument` instead
 - `AbstractErrorDocument::getResponseCode()`: use `AbstractErrorDocument::getStatusCode()` instead
 - `RequestValidator::lintBody()`: use `RequestValidator::validateJsonBody()` instead
 - `ResponseValidator::lintBody()`: use `ResponseValidator::validateJsonBody()` instead
