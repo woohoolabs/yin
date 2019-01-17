@@ -13,6 +13,7 @@ DEPRECATED:
 - `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument` instead
 - `WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulResourceDocument` instead
 - `WoohooLabs\Yin\JsonApi\Document\ErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument` instead
+- `WoohooLabs\Yin\JsonApi\Exception\JsonApiException`: use `WoohooLabs\Yin\JsonApi\Exception\AbstractJsonApiException` instead
 - `WoohooLabs\Yin\JsonApi\Request\Request`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequest` instead
 - `WoohooLabs\Yin\JsonApi\Request\RequestInterface`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` instead
 - `WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource` instead

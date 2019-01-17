@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
-class MediaTypeUnacceptable extends JsonApiException
+class MediaTypeUnacceptable extends AbstractJsonApiException
 {
     /**
      * @var string

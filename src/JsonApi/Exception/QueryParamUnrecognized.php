@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
-class QueryParamUnrecognized extends JsonApiException
+class QueryParamUnrecognized extends AbstractJsonApiException
 {
     /**
      * @var string

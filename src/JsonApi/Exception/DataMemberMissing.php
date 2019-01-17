@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
-class DataMemberMissing extends JsonApiException
+class DataMemberMissing extends AbstractJsonApiException
 {
     public function __construct()
     {

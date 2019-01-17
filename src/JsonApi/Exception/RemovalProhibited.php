@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 use WoohooLabs\Yin\JsonApi\Schema\ErrorSource;
 
-class RemovalProhibited extends JsonApiException
+class RemovalProhibited extends AbstractJsonApiException
 {
     /**
      * @var string

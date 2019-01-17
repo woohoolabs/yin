@@ -5,7 +5,7 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 
 use WoohooLabs\Yin\JsonApi\Schema\Error;
 
-class ResourceIdentifierTypeInvalid extends JsonApiException
+class ResourceIdentifierTypeInvalid extends AbstractJsonApiException
 {
     /**
      * @var string
