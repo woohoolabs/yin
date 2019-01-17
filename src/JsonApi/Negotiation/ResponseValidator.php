@@ -54,6 +54,15 @@ class ResponseValidator extends AbstractMessageValidator
     /**
      * @throws ResponseBodyInvalidJsonApi|JsonApiExceptionInterface
      */
+    public function validateJsonApiBody(ResponseInterface $response): void
+    {
+        $this->validateBody($response);
+    }
+
+    /**
+     * @throws ResponseBodyInvalidJsonApi|JsonApiExceptionInterface
+     * @deprecated since 3.1.0, will be removed in 4.0.0. Use ResponseValidator::validateJsonApiBody() instead.
+     */
     public function validateBody(ResponseInterface $response): void
     {
         $errors = $this->validateMessage($this->deserializer->getBodyAsString($response));

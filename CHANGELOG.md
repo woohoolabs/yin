@@ -9,6 +9,7 @@ DEPRECATED:
 - `AbstractErrorDocument::getResponseCode()`: use `AbstractErrorDocument::getStatusCode()` instead
 - `RequestValidator::lintBody()`: use `RequestValidator::validateJsonBody()` instead
 - `ResponseValidator::lintBody()`: use `ResponseValidator::validateJsonBody()` instead
+- `ResponseValidator::validateBody()`: use `ResponseValidator::validateJsonApiBody()` instead
 
 REMOVED:
 

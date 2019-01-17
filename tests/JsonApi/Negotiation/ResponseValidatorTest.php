@@ -44,7 +44,7 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateBodySuccessfully()
+    public function validateJsonApiBodySuccessfully()
     {
         $response = new Response();
         $response->getBody()->write(
@@ -62,27 +62,27 @@ EOF
         );
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function validateEmptyBodySuccessfully()
+    public function validateJsonApiBodyEmptyBodySuccessfully()
     {
         $response = new Response();
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function validateBodyUnsuccessfully()
+    public function validateJsonApiBodyUnsuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"type":"abc", "id":"cde"}');
@@ -90,6 +90,6 @@ EOF
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $this->expectException(ResponseBodyInvalidJsonApi::class);
-        $validator->validateBody($response);
+        $validator->validateJsonApiBody($response);
     }
 }
