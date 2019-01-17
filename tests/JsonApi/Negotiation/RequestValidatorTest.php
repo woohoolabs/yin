@@ -124,14 +124,14 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getEmptyMessages
      */
-    public function lintOnEmptyMessageReturnNull($message)
+    public function validateJsonBodyWhenEmptyMessageReturnNull($message)
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->lintBody($request);
+        $response = $validator->validateJsonBody($request);
 
         $this->assertNull($response);
     }
@@ -140,14 +140,14 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getValidJsonMessages
      */
-    public function lintOnValidMessageReturnNull($message)
+    public function validateJsonBodyWhenValidMessageReturnNull($message)
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
         $request = $this->createRequest($serverRequest);
         $validator = $this->createRequestValidator();
 
-        $response = $validator->lintBody($request);
+        $response = $validator->validateJsonBody($request);
 
         $this->assertNull($response);
     }
@@ -156,7 +156,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getInvalidJsonMessages
      */
-    public function lintOnInvalidMessageThrowException($message)
+    public function validateJsonBodyWhenInvalidMessageThrowException($message)
     {
         $server = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($server, $message);
@@ -164,7 +164,7 @@ class RequestValidatorTest extends TestCase
         $validator = $this->createRequestValidator();
 
         $this->expectException(RequestBodyInvalidJson::class);
-        $validator->lintBody($request);
+        $validator->validateJsonBody($request);
     }
 
     public function createServerRequest($contentType, $accept = "")

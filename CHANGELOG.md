@@ -4,7 +4,11 @@ ADDED:
 
 CHANGED:
 
-- Run Travis tests on PHP 7.3 too
+DEPRECATED:
+
+- `AbstractErrorDocument::getResponseCode()`: use `AbstractErrorDocument::getStatusCode()` instead
+- `RequestValidator::lintBody()`: use `RequestValidator::validateJsonBody()` instead
+- `ResponseValidator::lintBody()`: use `ResponseValidator::validateJsonBody()` instead
 
 REMOVED:
 

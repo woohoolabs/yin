@@ -51,6 +51,14 @@ abstract class AbstractErrorDocument extends AbstractDocument
         return $content;
     }
 
+    public function getStatusCode(?int $statusCode = null): int
+    {
+        return $this->getResponseCode($statusCode);
+    }
+
+    /**
+     * @deprecated since 3.1.0, will be removed in 4.0.0. Use AbstractErrorDocument::getStatusCode() instead.
+     */
     public function getResponseCode(?int $statusCode = null): int
     {
         if ($statusCode !== null) {

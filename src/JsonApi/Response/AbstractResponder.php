@@ -113,7 +113,7 @@ abstract class AbstractResponder
         }
 
         $content = $document->getContent($additionalMeta);
-        $responseCode = $document->getResponseCode($statusCode);
+        $responseCode = $document->getStatusCode($statusCode);
 
         return $this->serializer->serialize($this->response, $responseCode, $content);
     }

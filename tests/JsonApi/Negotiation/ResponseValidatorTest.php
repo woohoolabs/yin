@@ -16,21 +16,21 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function lintBodySuccessfully()
+    public function validateJsonBodySuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"data": {"type":"abc", "id":"cde"}}');
 
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
-        $validator->lintBody($response);
+        $validator->validateJsonBody($response);
         $this->assertTrue(true);
     }
 
     /**
      * @test
      */
-    public function lintBodyUnsuccessfully()
+    public function validateJsonBodyUnsuccessfully()
     {
         $response = new Response();
         $response->getBody()->write('{"type');
@@ -38,7 +38,7 @@ class ResponseValidatorTest extends TestCase
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
 
         $this->expectException(ResponseBodyInvalidJson::class);
-        $validator->lintBody($response);
+        $validator->validateJsonBody($response);
     }
 
     /**
