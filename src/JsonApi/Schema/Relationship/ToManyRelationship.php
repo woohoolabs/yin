@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
 
 use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\Transformation;
 
 class ToManyRelationship extends AbstractRelationship

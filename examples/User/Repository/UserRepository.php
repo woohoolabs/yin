@@ -12,7 +12,7 @@ class UserRepository
      */
     private static $users = [
         [
-            "id" => "1",
+            "id" => 1,
             "firstname" => "John",
             "lastname" => "Doe",
             "contacts" => [
@@ -34,7 +34,7 @@ class UserRepository
             ],
         ],
         [
-            "id" => "2",
+            "id" => 2,
             "firstname" => "Jane",
             "lastname" => "Doe",
             "contacts" => [
