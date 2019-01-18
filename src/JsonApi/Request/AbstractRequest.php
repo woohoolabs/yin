@@ -41,7 +41,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param string $version HTTP protocol version
+     * @return static
      */
     public function withProtocolVersion($version)
     {
@@ -51,28 +52,45 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return string[][]
+     */
     public function getHeaders(): array
     {
         return $this->serverRequest->getHeaders();
     }
 
+    /**
+     * Checks if a header exists by the given case-insensitive name.
+     *
+     * @param string $name Case-insensitive header field name.
+     */
     public function hasHeader($name): bool
     {
         return $this->serverRequest->hasHeader($name);
     }
 
+    /**
+     * @param string $name
+     * @return string[]
+     */
     public function getHeader($name): array
     {
         return $this->serverRequest->getHeader($name);
     }
 
+    /**
+     * @param string $name
+     */
     public function getHeaderLine($name): string
     {
         return $this->serverRequest->getHeaderLine($name);
     }
 
     /**
-     * @return $this
+     * @param string $name Case-insensitive header field name.
+     * @param string|string[] $value Header value(s).
+     * @return static
      */
     public function withHeader($name, $value)
     {
@@ -84,7 +102,9 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param string $name Case-insensitive header field name to add.
+     * @param string|string[] $value Header value(s).
+     * @return static
      */
     public function withAddedHeader($name, $value)
     {
@@ -96,7 +116,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param string $name
+     * @return static
      */
     public function withoutHeader($name)
     {
@@ -113,7 +134,7 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function withBody(StreamInterface $body)
     {
@@ -129,7 +150,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param mixed $requestTarget
+     * @return static
      */
     public function withRequestTarget($requestTarget)
     {
@@ -145,7 +167,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param string $method Case-sensitive method.
+     * @return static
      */
     public function withMethod($method)
     {
@@ -161,7 +184,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param bool $preserveHost Preserve the original state of the Host header.
+     * @return static
      */
     public function withUri(UriInterface $uri, $preserveHost = false)
     {
@@ -182,7 +206,7 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function withCookieParams(array $cookies)
     {
@@ -192,13 +216,16 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getQueryParams(): array
     {
         return $this->serverRequest->getQueryParams();
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function withQueryParams(array $query)
     {
@@ -224,8 +251,6 @@ abstract class AbstractRequest
     }
 
     /**
-     * Returns a new request with the "$name" query parameter.
-     *
      * @param mixed $value
      * @return $this
      */
@@ -246,7 +271,7 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function withUploadedFiles(array $uploadedFiles)
     {
@@ -256,6 +281,9 @@ abstract class AbstractRequest
         return $self;
     }
 
+    /**
+     * @return array|object|null
+     */
     public function getParsedBody()
     {
         if ($this->isParsed === false) {
@@ -271,7 +299,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param array|object|null $data
+     * @return static
      */
     public function withParsedBody($data)
     {
@@ -287,13 +316,20 @@ abstract class AbstractRequest
         return $this->serverRequest->getAttributes();
     }
 
+    /**
+     * @param string $name
+     * @param mixed $default
+     * @return mixed
+     */
     public function getAttribute($name, $default = null)
     {
         return $this->serverRequest->getAttribute($name, $default);
     }
 
     /**
-     * @return $this
+     * @param string $name
+     * @param mixed $value
+     * @return static
      */
     public function withAttribute($name, $value)
     {
@@ -304,7 +340,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return $this
+     * @param string $name The attribute name.
+     * @return static
      */
     public function withoutAttribute($name)
     {

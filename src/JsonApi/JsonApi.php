@@ -76,7 +76,7 @@ class JsonApi
         return $this->exceptionFactory;
     }
 
-    public function setExceptionFactory($exceptionFactory): void
+    public function setExceptionFactory(ExceptionFactoryInterface $exceptionFactory): void
     {
         $this->exceptionFactory = $exceptionFactory;
     }

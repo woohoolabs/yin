@@ -19,10 +19,10 @@ trait TransformerTrait
     public function toDecimal($value, int $precision = 12): float
     {
         if (is_numeric($value) === false) {
-            return 0;
+            return 0.0;
         }
 
-        return round($value, $precision);
+        return round((float) $value, $precision);
     }
 
     /**
@@ -32,8 +32,8 @@ trait TransformerTrait
      */
     public function toIso8601Date(DateTimeInterface $dateTime, ?DateTimeZone $displayedTimeZone = null): string
     {
-        if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
-            $dateTime = $dateTime->setTimeZone($displayedTimeZone);
+        if ($displayedTimeZone !== null && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
+            $dateTime = $dateTime->setTimezone($displayedTimeZone);
         }
 
         return $dateTime->format("Y-m-d");
@@ -46,8 +46,8 @@ trait TransformerTrait
      */
     public function toIso8601DateTime(DateTimeInterface $dateTime, ?DateTimeZone $displayedTimeZone = null): string
     {
-        if ($displayedTimeZone && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
-            $dateTime = $dateTime->setTimeZone($displayedTimeZone);
+        if ($displayedTimeZone !== null && ($dateTime instanceof DateTime || $dateTime instanceof DateTimeImmutable)) {
+            $dateTime = $dateTime->setTimezone($displayedTimeZone);
         }
 
         return $dateTime->format(DateTime::ATOM);
@@ -56,13 +56,19 @@ trait TransformerTrait
     /**
      * Transforms an SQL compatible date-time string to an ISO 8601 compatible date-time string.
      */
-    public function fromSqlToIso8601Time(string $string, string $timeZoneName = ""): string
+    public function fromSqlToIso8601Time(string $string, ?DateTimeZone $displayedTimeZone = null): string
     {
-        return DateTime::createFromFormat(
+        $dateTime = DateTime::createFromFormat(
             "Y-m-d H:i:s",
             $string,
-            $timeZoneName ? new DateTimeZone($timeZoneName) : null
-        )->format(DateTime::ATOM);
+            $displayedTimeZone
+        );
+
+        if ($dateTime === false) {
+            return "";
+        }
+
+        return $dateTime->format(DateTime::ATOM);
     }
 
     /**
@@ -70,6 +76,6 @@ trait TransformerTrait
      */
     public function fromSqlToUtcIso8601Time(string $string): string
     {
-        return $this->fromSqlToIso8601Time($string, "UTC");
+        return $this->fromSqlToIso8601Time($string, new DateTimeZone("UTC"));
     }
 }

@@ -98,7 +98,10 @@ final class DocumentTransformer
     {
         $data = new SingleResourceData();
 
-        $transformation->result = $transformation->document->getRelationshipData($transformation, $this->resourceTransformer, $data);
+        $result = $transformation->document->getRelationshipData($transformation, $this->resourceTransformer, $data);
+        if ($result !== null) {
+            $transformation->result = $result;
+        }
 
         if ($data->hasIncludedResources() || $transformation->request->hasIncludedRelationships()) {
             $transformation->result["included"] = $data->transformIncluded();

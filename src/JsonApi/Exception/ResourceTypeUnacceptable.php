@@ -18,6 +18,9 @@ class ResourceTypeUnacceptable extends AbstractJsonApiException
      */
     protected $acceptedTypes;
 
+    /**
+     * @param mixed $currentType
+     */
     public function __construct($currentType, array $acceptedTypes)
     {
         parent::__construct("Resource type '$currentType' is not a string or can't be accepted by the Hydrator!");
@@ -33,7 +36,7 @@ class ResourceTypeUnacceptable extends AbstractJsonApiException
                 ->setCode("RESOURCE_TYPE_UNACCEPTABLE")
                 ->setTitle("Resource type is unacceptable")
                 ->setDetail("Resource type '$this->currentType' is unacceptable!")
-                ->setSource(ErrorSource::fromPointer("/data/type")),
+                ->setSource(ErrorSource::fromPointer("/datatype")),
         ];
     }
 

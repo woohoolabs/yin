@@ -309,7 +309,8 @@ class ResourceTransformerTest extends TestCase
             [],
             [
                 "father" => function () {
-                    return ToOneRelationship::create();
+                    return ToOneRelationship::create()
+                        ->setData(null, new StubResource());
                 },
             ]
         );

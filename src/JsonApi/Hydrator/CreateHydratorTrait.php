@@ -124,7 +124,7 @@ trait CreateHydratorTrait
         }
 
         $result = $this->setId($domainObject, $id);
-        if ($result) {
+        if ($result !== null) {
             $domainObject = $result;
         }
 

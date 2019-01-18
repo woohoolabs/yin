@@ -14,7 +14,6 @@ class FixedCursorBasedPagination
 
     /**
      * @param mixed $defaultCursor
-     * @return $this
      */
     public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultCursor = null): FixedCursorBasedPagination
     {

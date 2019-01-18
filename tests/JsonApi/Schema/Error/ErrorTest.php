@@ -46,6 +46,18 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
+    public function getLinksWhenNull()
+    {
+        $error = $this->createError();
+
+        $links = $error->getLinks();
+
+        $this->assertNull($links);
+    }
+
+    /**
+     * @test
+     */
     public function getLinks()
     {
         $links = new ErrorLinks();

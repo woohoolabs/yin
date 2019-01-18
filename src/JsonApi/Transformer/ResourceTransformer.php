@@ -19,7 +19,7 @@ final class ResourceTransformer
      */
     public function transformToResourceObject(ResourceTransformation $transformation, DataInterface $data): ?array
     {
-        if ($transformation->object === null) {
+        if ($transformation->object === null || $transformation->resource === null) {
             return null;
         }
 
@@ -40,7 +40,7 @@ final class ResourceTransformer
      */
     public function transformToResourceIdentifier(ResourceTransformation $transformation): ?array
     {
-        if ($transformation->object === null) {
+        if ($transformation->object === null || $transformation->resource === null) {
             return null;
         }
 
@@ -58,6 +58,10 @@ final class ResourceTransformer
      */
     public function transformToRelationshipObject(ResourceTransformation $transformation, DataInterface $data): ?array
     {
+        if ($transformation->object === null || $transformation->resource === null) {
+            return null;
+        }
+
         $relationships = $transformation->resource->getRelationships($transformation->object);
         if (isset($relationships[$transformation->requestedRelationshipName]) === false) {
             throw $transformation->exceptionFactory->createRelationshipNotExistsException($transformation->requestedRelationshipName);
@@ -77,6 +81,10 @@ final class ResourceTransformer
 
     private function transformResourceIdentifier(ResourceTransformation $transformation): void
     {
+        if ($transformation->object === null || $transformation->resource === null) {
+            return;
+        }
+
         $type = $transformation->resource->getType($transformation->object);
         $transformation->resourceType = $type;
         $id = $transformation->resource->getId($transformation->object);
@@ -94,6 +102,10 @@ final class ResourceTransformer
 
     private function transformLinksObject(ResourceTransformation $transformation): void
     {
+        if ($transformation->object === null || $transformation->resource === null) {
+            return;
+        }
+
         $links = $transformation->resource->getLinks($transformation->object);
 
         if ($links !== null) {
@@ -103,6 +115,10 @@ final class ResourceTransformer
 
     private function transformAttributesObject(ResourceTransformation $transformation): void
     {
+        if ($transformation->object === null || $transformation->resource === null) {
+            return;
+        }
+
         $attributes = $transformation->resource->getAttributes($transformation->object);
 
         foreach ($attributes as $name => $attribute) {
@@ -114,6 +130,10 @@ final class ResourceTransformer
 
     private function transformRelationshipsObject(ResourceTransformation $transformation, DataInterface $data): void
     {
+        if ($transformation->object === null || $transformation->resource === null) {
+            return;
+        }
+
         $relationships = $transformation->resource->getRelationships($transformation->object);
         $defaultRelationships = array_flip($transformation->resource->getDefaultIncludedRelationships($transformation->object));
 
@@ -163,7 +183,7 @@ final class ResourceTransformer
         $nonExistentRelationships = array_diff($requestedRelationships, array_keys($relationships));
         if (empty($nonExistentRelationships) === false) {
             foreach ($nonExistentRelationships as $key => $relationship) {
-                $nonExistentRelationships[$key] = ($transformation->basePath ? $transformation->basePath . "." : "") . $relationship;
+                $nonExistentRelationships[$key] = ($transformation->basePath !== "" ? $transformation->basePath . "." : "") . $relationship;
             }
 
             throw $transformation->exceptionFactory->createInclusionUnrecognizedException($transformation->request, $nonExistentRelationships);

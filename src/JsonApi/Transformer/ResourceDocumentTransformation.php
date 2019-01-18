@@ -32,6 +32,9 @@ class ResourceDocumentTransformation extends AbstractDocumentTransformation
      */
     public $requestedRelationshipName;
 
+    /**
+     * @param mixed $object
+     */
     public function __construct(
         ResourceDocumentInterface $document,
         $object,

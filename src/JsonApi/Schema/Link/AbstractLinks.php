@@ -11,7 +11,7 @@ abstract class AbstractLinks
     protected $baseUri;
 
     /**
-     * @var Link[]
+     * @var Link[]|null[]
      */
     protected $links = [];
 

@@ -9,7 +9,6 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\DocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
@@ -119,9 +118,6 @@ abstract class AbstractResponder
         return $this->serializer->serialize($response, $transformation->result);
     }
 
-    /**
-     * @param Error[] $errors
-     */
     protected function getErrorResponse(
         ErrorDocumentInterface $document,
         ?int $statusCode = null,
@@ -172,7 +168,7 @@ abstract class AbstractResponder
     protected function getResponseWithLocationHeader(ResourceDocumentInterface $document, ResponseInterface $response): ResponseInterface
     {
         $links = $document->getLinks();
-        if ($links && $links->getSelf() !== null) {
+        if ($links !== null && $links->getSelf() !== null) {
             $response = $response->withHeader("location", $links->getSelf()->getHref());
         }
 

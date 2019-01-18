@@ -13,7 +13,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 class ResourceTransformation
 {
     /**
-     * @var ResourceInterface
+     * @var ResourceInterface|null
      */
     public $resource;
 
@@ -57,8 +57,11 @@ class ResourceTransformation
      */
     public $result;
 
+    /**
+     * @param mixed $object
+     */
     public function __construct(
-        ResourceInterface $resource,
+        ?ResourceInterface $resource,
         $object,
         string $resourceType,
         JsonApiRequestInterface $request,

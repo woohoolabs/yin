@@ -129,12 +129,14 @@ trait UpdateHydratorTrait
 
         $relationshipHydrator = $relationshipHydrators[$relationship];
 
+        $body = $request->getParsedBody();
+
         return $this->doHydrateRelationship(
             $domainObject,
             $relationship,
             $relationshipHydrator,
             $exceptionFactory,
-            $request->getParsedBody(),
+            $body !== null ? (array) $body : null,
             $request->getResource()
         );
     }
@@ -155,7 +157,7 @@ trait UpdateHydratorTrait
         }
 
         $result = $this->setId($domainObject, $data["id"]);
-        if ($result) {
+        if ($result !== null) {
             $domainObject = $result;
         }
 

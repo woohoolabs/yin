@@ -21,19 +21,20 @@ class ToManyRelationshipTest extends TestCase
      */
     public function transformEmpty()
     {
-        $relationship = $this->createRelationship();
+        $transformation = new ResourceTransformation(
+            new StubResource(),
+            [],
+            "",
+            new StubJsonApiRequest(),
+            "",
+            "",
+            "",
+            new DefaultExceptionFactory()
+        );
+        $relationship = $this->createRelationship([], null, [], $transformation->resource);
 
         $relationshipObject = $relationship->transform(
-            new ResourceTransformation(
-                new StubResource(),
-                [],
-                "",
-                new StubJsonApiRequest(),
-                "",
-                "",
-                "",
-                new DefaultExceptionFactory()
-            ),
+            $transformation,
             new ResourceTransformer(),
             new DummyData(),
             []

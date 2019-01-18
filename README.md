@@ -130,7 +130,7 @@ $ composer require seld/jsonlint:^1.4.0
 ## Basic Usage
 
 When using Woohoo Labs. Yin, you will create:
-- Documents and resource transformers in order to map domain objects to JSON:API responses
+- Documents and resources in order to map domain objects to JSON:API responses
 - Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a [`JsonApi`](#jsonapi-class) class will be responsible for the instrumentation, while a PSR-7 compatible
@@ -155,19 +155,18 @@ As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. w
 of multiple types), we will not cover it here.
 
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
-the first one doesn't need a [resource transformer](#resource-transformers). For this reason, it is preferable to use
+the first one doesn't need a [resource](#resource). For this reason, it is preferable to use
 the former for really simple domain objects (like messages), while the latter works better for more complex domain
 objects (like users or addresses).
 
-`AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a
-[resource transformer](#resource-transformers) to work, which is a concept introduced in the following sections.
-For now, it is enough to know that one must be passed for the documents during instantiation. This means that a
-minimal constructor of your documents should look like this:
+`AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a [resource](#resource) to work, which is a
+concept introduced in the following sections. For now, it is enough to know that one must be passed for the documents
+during instantiation. This means that a minimal constructor of your documents should look like this:
 
 ```php
-public function __construct(MyResourceTransformer $transformer)
+public function __construct(MyResource $resource)
 {
-    parent::__construct($transformer);
+    parent::__construct($resource);
 }
 ```
 
@@ -223,12 +222,12 @@ and this is the main "subject" of the document.
 /**
  * Provides information about the "links" member of the current document.
  *
- * The method returns a new Links object if you want to provide linkage data
+ * The method returns a new DocumentLinks object if you want to provide linkage data
  * for the document or null if the member should be omitted from the response.
  */
-public function getLinks(): ?Links
+public function getLinks(): ?DocumentLinks
 {
-    return new Links(
+    return new DocumentLinks(
         "https://example.com/api",
         [
             "self" => new Link("/books/" . $this->getResourceId())
@@ -236,7 +235,7 @@ public function getLinks(): ?Links
     );
     
     /* This is equivalent to the following:
-    return Links::createWithBaseUri(
+    return DocumentLinks::createWithBaseUri(
         "https://example.com/api",
         [
             "self" => new Link("/books/" . $this->getResourceId())
@@ -246,8 +245,8 @@ public function getLinks(): ?Links
 ```
 
 This time, we want a self link to appear in the document. For this purpose, we utilize the `getResourceId()` method,
-which is a shortcut of calling the resource transformer (which is introduced below) to obtain the ID of the
-primary resource (`$this->transformer->getId($this->domainObject)`).
+which is a shortcut of calling the resource (which is introduced below) to obtain the ID of the
+primary resource (`$this->resource->getId($this->domainObject)`).
 
 The only difference between the `AbstractSingleResourceDocument` and `AbstractCollectionDocument` is the way they
 regard the `domainObject`. The first one regards it as a single domain object while the latter regards it
@@ -285,41 +284,41 @@ $errorDocument->setLinks(ErrorLinks::createWithoutBaseUri()->setAbout("https://e
 $errorDocument->addError(new MyError());
 ```
 
-### Resource transformers
+### Resources
 
 Documents for successful responses can contain one or more top-level resources and included resources.
-That's why resource transformers are responsible for converting domain objects into JSON:API resources and resource
+That's why resources are responsible for converting domain objects into JSON:API resources and resource
 identifiers.
 
 Although you are encouraged to create one transformer for each resource type, you also have the ability to define
-"composite" resource transformers following the Composite design pattern.
+"composite" resources following the Composite design pattern.
 
-Resource transformers must implement the `ResourceTransformerInterface`. In order to facilitate this job, you can also
-extend the `AbstractResourceTransformer` class.
+Resources must implement the `ResourceInterface`. In order to facilitate this job, you can also extend the
+`AbstractResource` class.
 
-Children of the `AbstractResourceTransformer` class need several abstract methods to be implemented - most of which
-are the same as seen in the Document objects. The following example illustrates a resource transformer dealing with
+Children of the `AbstractResource` class need several abstract methods to be implemented - most of which
+are the same as seen in the Document objects. The following example illustrates a resource dealing with
 a book domain object and its "authors" and "publisher" relationships.
 
 ```php
-class BookResourceTransformer extends AbstractResourceTransformer
+class BookResource extends AbstractResource
 {
     /**
-     * @var AuthorResourceTransformer
+     * @var AuthorResource
      */
-    private $authorTransformer;
+    private $authorResource;
 
     /**
-     * @var PublisherResourceTransformer
+     * @var PublisherResource
      */
-    private $publisherTransformer;
+    private $publisherResource;
 
     public function __construct(
-        AuthorResourceTransformer $authorTransformer,
-        PublisherResourceTransformer $publisherTransformer
+        AuthorResource $authorResource,
+        PublisherResource $publisherResource
     ) {
-        $this->authorTransformer = $authorTransformer;
-        $this->publisherTransformer = $publisherTransformer;
+        $this->authorResource = $authorResource;
+        $this->publisherResource = $publisherResource;
     }
 
     /**
@@ -777,14 +776,14 @@ $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize()
 #### Pagination links
 
 The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
-in this regard too. You only have use the `Links::setPagination()` method when you define links for your documents.
+in this regard too. You only have use the `DocumentLinks::setPagination()` method when you define links for your documents.
 It expects the paginated URI and an object implementing the `PaginationLinkProviderInterface` as seen in the following
 example:
 
 ```php
-public function getLinks(): ?Links
+public function getLinks(): ?DocumentLinks
 {
-    return Links::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
+    return DocumentLinks::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
 }
 ```
 
@@ -826,7 +825,7 @@ when you have a "to-many" relationship containing gazillion items. If this relat
 might only want to return a data key of a relationship when the relationship itself is included in the response. This
 optimization can save you bandwidth by omitting resource linkage.
 
-An example is extracted from the [`UserResourceTransformer`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResourceTransformer.php)
+An example is extracted from the [`UserResource`](https://github.com/woohoolabs/yin/blob/master/examples/User/JsonApi/Resource/UserResource.php)
 example class:
 
 ```php
@@ -1019,9 +1018,9 @@ public function getBook(JsonApi $jsonApi): ResponseInterface
 
     // Instantiating a book document
     $document = new BookDocument(
-        new BookResourceTransformer(
-            new AuthorResourceTransformer(),
-            new PublisherResourceTransformer()
+        new BookResource(
+            new AuthorResource(),
+            new PublisherResource()
         )
     );
 
@@ -1042,7 +1041,7 @@ public function getUsers(JsonApi $jsonApi): ResponseInterface
     $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
 
     // Instantiating a users document
-    $document = new UsersDocument(new UserResourceTransformer(new ContactResourceTransformer()));
+    $document = new UsersDocument(new UserResource(new ContactResource()));
 
     // Responding with "200 Ok" status code along with the users document
     return $jsonApi->respond()->ok($document, $users);
@@ -1065,10 +1064,10 @@ public function getBookRelationships(JsonApi $jsonApi): ResponseInterface
 
     // Instantiating a book document
     $document = new BookDocument(
-        new BookResourceTransformer(
-            new AuthorResourceTransformer(),
-            new PublisherResourceTransformer(
-                new RepresentativeResourceTransformer()
+        new BookResource(
+            new AuthorResource(),
+            new PublisherResource(
+                new RepresentativeResource()
             )
         )
     );
@@ -1091,10 +1090,10 @@ public function createBook(JsonApi $jsonApi): ResponseInterface
 
     // Creating the book document to be sent as the response
     $document = new BookDocument(
-        new BookResourceTransformer(
-            new AuthorResourceTransformer(),
-            new PublisherResourceTransformer(
-                new RepresentativeResourceTransformer()
+        new BookResource(
+            new AuthorResource(),
+            new PublisherResource(
+                new RepresentativeResource()
             )
         )
     );
@@ -1121,10 +1120,10 @@ public function updateBook(JsonApi $jsonApi): ResponseInterface
 
     // Instantiating the book document
     $document = new BookDocument(
-        new BookResourceTransformer(
-            new AuthorResourceTransformer(),
-            new PublisherResourceTransformer(
-                new RepresentativeResourceTransformer()
+        new BookResource(
+            new AuthorResource(),
+            new PublisherResource(
+                new RepresentativeResource()
             )
         )
     );
@@ -1154,10 +1153,10 @@ public function updateBookRelationship(JsonApi $jsonApi): ResponseInterface
 
     // Instantiating a book document
     $document = new BookDocument(
-        new BookResourceTransformer(
-            new AuthorResourceTransformer(),
-            new PublisherResourceTransformer(
-                new RepresentativeResourceTransformer()
+        new BookResource(
+            new AuthorResource(),
+            new PublisherResource(
+                new RepresentativeResource()
             )
         )
     );

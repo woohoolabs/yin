@@ -8,7 +8,6 @@ use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 
@@ -137,7 +136,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "403 Forbidden" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     * @param Error[] $errors
      */
     public function forbidden(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
     {
@@ -147,7 +145,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "404 Not Found" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     * @param Error[] $errors
      */
     public function notFound(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
     {
@@ -157,7 +154,6 @@ class Responder extends AbstractResponder
     /**
      * Returns a "409 Conflict" response, containing a document in the body with the errors. You can also pass
      * additional meta information for the error document in the $additionalMeta argument.
-     * @param Error[] $errors
      */
     public function conflict(ErrorDocumentInterface $document, array $additionalMeta = []): ResponseInterface
     {
@@ -175,7 +171,6 @@ class Responder extends AbstractResponder
     /**
      * Returns an error response, containing a document in the body with the errors. You can also pass additional
      * meta information to the document in the $additionalMeta argument.
-     * @param Error[] $errors
      */
     public function genericError(ErrorDocumentInterface $document, ?int $statusCode = null, array $additionalMeta = []): ResponseInterface
     {

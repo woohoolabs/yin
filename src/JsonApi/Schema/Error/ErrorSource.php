@@ -48,11 +48,11 @@ class ErrorSource
     {
         $content = [];
 
-        if ($this->getPointer()) {
+        if ($this->getPointer() !== "") {
             $content["pointer"] = $this->getPointer();
         }
 
-        if ($this->getParameter()) {
+        if ($this->getParameter() !== "") {
             $content["parameter"] = $this->getParameter();
         }
 

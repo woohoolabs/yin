@@ -16,7 +16,7 @@ abstract class AbstractRelationship
     use MetaTrait;
 
     /**
-     * @var RelationshipLinks
+     * @var RelationshipLinks|null
      */
     protected $links;
 
@@ -42,13 +42,14 @@ abstract class AbstractRelationship
 
     /**
      * @internal
+     * @return array|null|false
      */
     abstract protected function transformData(
         ResourceTransformation $transformation,
         ResourceTransformer $resourceTransformer,
         DataInterface $data,
         array $defaultRelationships
-    ): ?array;
+    );
 
     /**
      * @return static
@@ -171,10 +172,29 @@ abstract class AbstractRelationship
         $currentRelationshipName = $transformation->currentRelationshipName;
         $basePath = $transformation->basePath;
 
-        if ($transformation->request->isIncludedField($transformation->resourceType, $currentRelationshipName) === false) {
+        $isIncludedField = $transformation->request->isIncludedField($transformation->resourceType, $currentRelationshipName);
+        $isIncludedRelationship = $transformation->request->isIncludedRelationship($basePath, $currentRelationshipName, $defaultRelationships);
+
+        // The relationship is not needed at all
+        if ($isIncludedField === false && $isIncludedRelationship === false) {
             return null;
         }
 
+        // Transform the relationship data
+        $dataMember = false;
+        if (
+            ($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
+            ($requestedRelationshipName === "" || $currentRelationshipName === $requestedRelationshipName)
+        ) {
+            $dataMember = $this->transformData($transformation, $resourceTransformer, $data, $defaultRelationships);
+        }
+
+        // The relationship field is not included
+        if ($isIncludedField === false) {
+            return null;
+        }
+
+        // Transform the relationship link because the relationship field is included
         $relationshipObject = [];
 
         if ($this->links !== null) {
@@ -185,18 +205,6 @@ abstract class AbstractRelationship
             $relationshipObject["meta"] = $this->meta;
         }
 
-        if ((
-                $requestedRelationshipName && $currentRelationshipName !== $requestedRelationshipName
-            ) ||
-            (
-                $transformation->request->isIncludedRelationship($basePath, $currentRelationshipName, $defaultRelationships) === false &&
-                $this->omitDataWhenNotIncluded
-            )
-        ) {
-            return $relationshipObject;
-        }
-
-        $dataMember = $this->transformData($transformation, $resourceTransformer, $data, $defaultRelationships);
         if ($dataMember !== false) {
             $relationshipObject["data"] = $dataMember;
         }

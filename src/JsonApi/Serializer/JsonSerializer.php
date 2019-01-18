@@ -29,7 +29,11 @@ class JsonSerializer implements SerializerInterface
         if ($response->getBody()->isSeekable()) {
             $response->getBody()->rewind();
         }
-        $response->getBody()->write(json_encode($content, $this->options, $this->depth));
+
+        $body = json_encode($content, $this->options, $this->depth);
+        if ($body !== false) {
+            $response->getBody()->write($body);
+        }
 
         return $response;
     }

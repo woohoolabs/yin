@@ -29,7 +29,6 @@ abstract class AbstractResource implements ResourceInterface
 
     /**
      * @internal
-     * @param mixed $object
      */
     public function initializeTransformation(ResourceTransformation $transformation): void
     {

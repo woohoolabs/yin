@@ -30,7 +30,7 @@ class JsonApiObject
     {
         $result = [];
 
-        if ($this->version) {
+        if ($this->version !== "") {
             $result["version"] = $this->version;
         }
 

@@ -20,7 +20,6 @@ class CursorBasedPagination
 
     /**
      * @param mixed $defaultCursor
-     * @return $this
      */
     public static function fromPaginationQueryParams(array $paginationQueryParams, $defaultCursor = null, int $defaultSize = 0): CursorBasedPagination
     {

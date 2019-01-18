@@ -21,19 +21,50 @@ class ToOneRelationshipTest extends TestCase
      */
     public function transformEmpty()
     {
+        $transformation = new ResourceTransformation(
+            new StubResource(),
+            [],
+            "",
+            new StubJsonApiRequest(),
+            "",
+            "",
+            "",
+            new DefaultExceptionFactory()
+        );
         $relationship = $this->createRelationship();
 
         $relationshipObject = $relationship->transform(
-            new ResourceTransformation(
-                new StubResource(),
-                [],
-                "",
-                new StubJsonApiRequest(),
-                "",
-                "",
-                "",
-                new DefaultExceptionFactory()
-            ),
+            $transformation,
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertEquals(
+            [],
+            $relationshipObject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function transformNull()
+    {
+        $transformation = new ResourceTransformation(
+            new StubResource(),
+            [],
+            "",
+            new StubJsonApiRequest(),
+            "",
+            "",
+            "",
+            new DefaultExceptionFactory()
+        );
+        $relationship = $this->createRelationship([], null, null, $transformation->resource);
+
+        $relationshipObject = $relationship->transform(
+            $transformation,
             new ResourceTransformer(),
             new DummyData(),
             []
@@ -89,7 +120,7 @@ class ToOneRelationshipTest extends TestCase
     private function createRelationship(
         array $meta = [],
         ?RelationshipLinks $links = null,
-        array $data = [],
+        ?array $data = [],
         ?ResourceInterface $resource = null
     ): ToOneRelationship {
         return new ToOneRelationship($meta, $links, $data, $resource);

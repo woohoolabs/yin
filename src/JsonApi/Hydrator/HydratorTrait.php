@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
+use Closure;
 use ReflectionFunction;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
@@ -15,7 +16,6 @@ use function array_key_exists;
 use function array_keys;
 use function count;
 use function in_array;
-use function is_null;
 
 trait HydratorTrait
 {
@@ -159,7 +159,7 @@ trait HydratorTrait
                 $exceptionFactory
             );
 
-            if ($result) {
+            if ($result !== null) {
                 $domainObject = $result;
             }
         }
@@ -184,7 +184,7 @@ trait HydratorTrait
         // Checking if the current and expected relationship types match
         $relationshipType = $this->getRelationshipType($relationshipObject);
         $expectedRelationshipType = $this->getRelationshipType($this->getArgumentTypeHintFromCallable($hydrator));
-        if ($expectedRelationshipType !== null && $relationshipType !== $expectedRelationshipType) {
+        if ($expectedRelationshipType !== "" && $relationshipType !== $expectedRelationshipType) {
             throw $exceptionFactory->createRelationshipTypeInappropriateException(
                 $relationshipName,
                 $relationshipType,
@@ -205,20 +205,21 @@ trait HydratorTrait
     protected function getArgumentTypeHintFromCallable(callable $callable): ?string
     {
         $function = &$callable;
-        $reflection = new ReflectionFunction($function);
+        $reflection = new ReflectionFunction(Closure::fromCallable($function));
         $arguments  = $reflection->getParameters();
+        $class = isset($arguments[1]) ? $arguments[1]->getClass() : null;
 
-        if (empty($arguments) === false && isset($arguments[1]) && $arguments[1]->getClass()) {
-            return $arguments[1]->getClass()->getName();
+        if ($class === null) {
+            return null;
         }
 
-        return null;
+        return $class->getName();
     }
 
     /**
      * @param object|string|null $object
      */
-    protected function getRelationshipType($object): ?string
+    protected function getRelationshipType($object): string
     {
         if ($object instanceof ToOneRelationship || $object === ToOneRelationship::class) {
             return "to-one";
@@ -228,7 +229,7 @@ trait HydratorTrait
             return "to-many";
         }
 
-        return null;
+        return "";
     }
 
     /**
@@ -241,7 +242,7 @@ trait HydratorTrait
         }
 
         //If this is a request to clear the relationship, we create an empty relationship
-        if (is_null($relationship["data"])) {
+        if ($relationship["data"] === null) {
             $result = new ToOneRelationship();
         } elseif ($this->isAssociativeArray($relationship["data"])) {
             $result = new ToOneRelationship(
@@ -249,9 +250,9 @@ trait HydratorTrait
             );
         } else {
             $result = new ToManyRelationship();
-            foreach ($relationship["data"] as $relationship) {
+            foreach ($relationship["data"] as $data) {
                 $result->addResourceIdentifier(
-                    ResourceIdentifier::fromArray($relationship, $exceptionFactory)
+                    ResourceIdentifier::fromArray($data, $exceptionFactory)
                 );
             }
         }

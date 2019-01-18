@@ -13,32 +13,32 @@ class Error
     /**
      * @var string
      */
-    protected $id;
+    protected $id = "";
 
     /**
-     * @var ErrorLinks
+     * @var ErrorLinks|null
      */
     protected $links;
 
     /**
      * @var string
      */
-    protected $status;
+    protected $status = "";
 
     /**
      * @var string
      */
-    protected $code;
+    protected $code = "";
 
     /**
      * @var string
      */
-    protected $title;
+    protected $title = "";
 
     /**
      * @var string
      */
-    protected $detail;
+    protected $detail = "";
 
     /**
      * @var ErrorSource|null
@@ -62,7 +62,7 @@ class Error
         return $this;
     }
 
-    public function getLinks(): ErrorLinks
+    public function getLinks(): ?ErrorLinks
     {
         return $this->links;
     }
@@ -157,7 +157,7 @@ class Error
 
     protected function transformId(array &$content): void
     {
-        if ($this->id) {
+        if ($this->id !== "") {
             $content["id"] = $this->id;
         }
     }
@@ -171,42 +171,42 @@ class Error
 
     protected function transformLinks(array &$content): void
     {
-        if ($this->links) {
+        if ($this->links !== null) {
             $content["links"] = $this->links->transform();
         }
     }
 
     protected function transformStatus(array &$content): void
     {
-        if ($this->status) {
+        if ($this->status !== "") {
             $content["status"] = $this->status;
         }
     }
 
     protected function transformCode(array &$content): void
     {
-        if ($this->code) {
+        if ($this->code !== "") {
             $content["code"] = $this->code;
         }
     }
 
     protected function transformTitle(array &$content): void
     {
-        if ($this->title) {
+        if ($this->title !== "") {
             $content["title"] = $this->title;
         }
     }
 
     protected function transformDetail(array &$content): void
     {
-        if ($this->detail) {
+        if ($this->detail !== "") {
             $content["detail"] = $this->detail;
         }
     }
 
     protected function transformSource(array &$content): void
     {
-        if ($this->source) {
+        if ($this->source !== null) {
             $content["source"] = $this->source->transform();
         }
     }

@@ -91,7 +91,7 @@ class TransformerTraitTest extends TestCase
 
         $this->assertEquals(
             "2015-06-30T16:00:00+02:00",
-            $transformerTrait->fromSqlToIso8601Time("2015-06-30 16:00:00", "Europe/Budapest")
+            $transformerTrait->fromSqlToIso8601Time("2015-06-30 16:00:00", new DateTimeZone("Europe/Budapest"))
         );
     }
 

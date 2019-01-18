@@ -18,9 +18,6 @@ class PageBasedPagination
      */
     protected $size;
 
-    /**
-     * @return $this
-     */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
         int $defaultPage = 0,

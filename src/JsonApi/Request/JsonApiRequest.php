@@ -114,7 +114,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function validateQueryParams(): void
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
-            if (preg_match("/^([a-z]+)$/", $queryParamName) &&
+            if (preg_match("/^([a-z]+)$/", $queryParamName) === 1 &&
                 in_array($queryParamName, ["fields", "include", "sort", "page", "filter", "profile"], true) === false
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
@@ -244,9 +244,9 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
         return isset($this->profiles["applied"][$profile]);
     }
 
-    protected function setIncludedFields(): void
+    protected function setIncludedFields(): array
     {
-        $this->includedFields = [];
+        $includedFields = [];
         $fields = $this->getQueryParam("fields", []);
         if (is_array($fields) === false) {
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "fields", $fields);
@@ -257,8 +257,10 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
                 throw $this->exceptionFactory->createQueryParamMalformedException($this, "fields", $fields);
             }
 
-            $this->includedFields[$resourceType] = array_flip(explode(",", $resourceFields));
+            $includedFields[$resourceType] = array_flip(explode(",", $resourceFields));
         }
+
+        return $includedFields;
     }
 
     /**
@@ -267,7 +269,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getIncludedFields(string $resourceType): array
     {
         if ($this->includedFields === null) {
-            $this->setIncludedFields();
+            $this->includedFields = $this->setIncludedFields();
         }
 
         return isset($this->includedFields[$resourceType]) ? array_keys($this->includedFields[$resourceType]) : [];
@@ -279,7 +281,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function isIncludedField(string $resourceType, string $field): bool
     {
         if ($this->includedFields === null) {
-            $this->setIncludedFields();
+            $this->includedFields = $this->setIncludedFields();
         }
 
         if (array_key_exists($resourceType, $this->includedFields) === false) {
@@ -307,14 +309,15 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
             return;
         }
 
-        $relationshipNames = explode(",", (string) $includeQueryParam);
+        $relationshipNames = explode(",", $includeQueryParam);
         foreach ($relationshipNames as $relationship) {
             $relationship = ".$relationship.";
             $length = strlen($relationship);
             $dot1 = 0;
 
             while ($dot1 < $length - 1) {
-                $dot2 = strpos($relationship, ".", $dot1 + 1);
+                $pos = strpos($relationship, ".", $dot1 + 1);
+                $dot2 = $pos !== false ? $pos : 0;
                 $path = substr($relationship, 1, $dot1 > 0 ? $dot1 - 1 : 0);
                 $name = substr($relationship, $dot1 + 1, $dot2 - $dot1 - 1);
 
@@ -386,13 +389,13 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getSorting(): array
     {
         if ($this->sorting === null) {
-            $this->setSorting();
+            $this->sorting = $this->setSorting();
         }
 
         return $this->sorting;
     }
 
-    protected function setSorting(): void
+    protected function setSorting(): array
     {
         $sortingQueryParam = $this->getQueryParam("sort", "");
         if (is_string($sortingQueryParam) === false) {
@@ -400,12 +403,10 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
         }
 
         if ($sortingQueryParam === "") {
-            $this->sorting = [];
-
-            return;
+            return [];
         }
 
-        $this->sorting = explode(",", (string) $sortingQueryParam);
+        return explode(",", $sortingQueryParam);
     }
 
     /**
@@ -414,13 +415,13 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getPagination(): array
     {
         if ($this->pagination === null) {
-            $this->setPagination();
+            $this->pagination = $this->setPagination();
         }
 
         return $this->pagination;
     }
 
-    protected function setPagination(): void
+    protected function setPagination(): array
     {
         $pagination = $this->getQueryParam("page", []);
 
@@ -428,18 +429,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
             throw $this->exceptionFactory->createQueryParamMalformedException($this, "page", $pagination);
         }
 
-        $this->pagination = $pagination;
-    }
-
-    protected function setFiltering(): void
-    {
-        $filtering = $this->getQueryParam("filter", []);
-
-        if (is_array($filtering) === false) {
-            throw $this->exceptionFactory->createQueryParamMalformedException($this, "filter", $filtering);
-        }
-
-        $this->filtering = $filtering;
+        return $pagination;
     }
 
     /**
@@ -448,7 +438,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getFiltering(): array
     {
         if ($this->filtering === null) {
-            $this->setFiltering();
+            $this->filtering = $this->setFiltering();
         }
 
         return $this->filtering;
@@ -463,6 +453,17 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
         $filtering = $this->getFiltering();
 
         return $filtering[$param] ?? $default;
+    }
+
+    protected function setFiltering(): array
+    {
+        $filtering = $this->getQueryParam("filter", []);
+
+        if (is_array($filtering) === false) {
+            throw $this->exceptionFactory->createQueryParamMalformedException($this, "filter", $filtering);
+        }
+
+        return $filtering;
     }
 
     /**

@@ -16,7 +16,7 @@ class ClientGeneratedIdNotSupported extends AbstractJsonApiException
     public function __construct(string $clientGeneratedId)
     {
         parent::__construct(
-            "Client generated ID " . ($clientGeneratedId ? "'$clientGeneratedId' " : "") .
+            "Client generated ID " . ($clientGeneratedId !== "" ? "'$clientGeneratedId' " : "") .
             "is not supported!"
         );
         $this->clientGeneratedId = $clientGeneratedId;

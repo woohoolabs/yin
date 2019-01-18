@@ -11,15 +11,20 @@ class ToOneRelationship extends AbstractRelationship
 {
     /**
      * @internal
+     * @return array|null|false
      */
     protected function transformData(
         ResourceTransformation $transformation,
         ResourceTransformer $resourceTransformer,
         DataInterface $data,
         array $defaultRelationships
-    ): ?array {
+    ) {
+        if ($this->resource === null) {
+            return false;
+        }
+
         $object = $this->getData();
-        if ($object === null || $this->resource === null) {
+        if ($object === null) {
             return null;
         }
 

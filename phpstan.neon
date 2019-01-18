@@ -2,6 +2,9 @@ parameters:
     bootstrap: vendor/autoload.php
     ignoreErrors:
         - '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+        - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$request \(WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequestInterface\) does not accept null\.$#'
+        - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$exceptionFactory \(WoohooLabs\\Yin\\JsonApi\\Exception\\ExceptionFactoryInterface\) does not accept null\.$#'
+        - '#^Method WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequest::.* should return array<string> but returns array<int, int|string>\.$#'
 
 includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon

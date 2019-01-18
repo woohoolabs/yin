@@ -18,9 +18,6 @@ class OffsetBasedPagination
      */
     protected $limit;
 
-    /**
-     * @return $this
-     */
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,
         int $defaultOffset = 0,

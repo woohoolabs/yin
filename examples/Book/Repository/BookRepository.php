@@ -24,6 +24,10 @@ class BookRepository extends AbstractRepository
             "id" => 102,
             "name" => "Sam Newman",
         ],
+        [
+            "id" => 103,
+            "name" => "Jay Fields",
+        ],
     ];
 
     /**

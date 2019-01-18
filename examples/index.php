@@ -87,6 +87,7 @@ $jsonApi = new JsonApi($request, new Response(), $exceptionFactory);
 // Invoking the current action
 try {
     $request = findRoute($request, $routes, $exceptionFactory);
+    $jsonApi->request = $request;
     $action = $request->getAttribute("action");
     $response = call_user_func(new $action(), $jsonApi);
 } catch (JsonApiExceptionInterface $exception) {

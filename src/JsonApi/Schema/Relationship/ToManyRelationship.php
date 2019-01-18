@@ -11,16 +11,21 @@ class ToManyRelationship extends AbstractRelationship
 {
     /**
      * @internal
+     * @return array|null|false
      */
     protected function transformData(
         ResourceTransformation $transformation,
         ResourceTransformer $resourceTransformer,
         DataInterface $data,
         array $defaultRelationships
-    ): ?array {
+    ) {
+        if ($this->resource === null) {
+            return false;
+        }
+
         /** @var iterable $object */
         $object = $this->getData();
-        if (empty($object) || $this->resource === null) {
+        if (empty($object)) {
             return [];
         }
 

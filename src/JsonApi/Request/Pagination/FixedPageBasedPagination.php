@@ -13,9 +13,6 @@ class FixedPageBasedPagination
      */
     protected $page;
 
-    /**
-     * @return $this
-     */
     public static function fromPaginationQueryParams(array $paginationQueryParams, int $defaultPage = 0): FixedPageBasedPagination
     {
         return new FixedPageBasedPagination(
