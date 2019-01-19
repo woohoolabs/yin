@@ -134,7 +134,7 @@ When using Woohoo Labs. Yin, you will create:
 - Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a [`JsonApi`](#jsonapi-class) class will be responsible for the instrumentation, while a PSR-7 compatible
-[`JsonApiRequest`](#jsonapirrequest-class) class provides functionalities you commonly need.
+[`JsonApiRequest`](#jsonapirequest-class) class provides functionalities you commonly need.
 
 ### Documents
 
