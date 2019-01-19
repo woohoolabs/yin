@@ -42,7 +42,7 @@ abstract class AbstractRelationship
 
     /**
      * @internal
-     * @return array|null|false
+     * @return array|false|null
      */
     abstract protected function transformData(
         ResourceTransformation $transformation,
@@ -182,8 +182,7 @@ abstract class AbstractRelationship
 
         // Transform the relationship data
         $dataMember = false;
-        if (
-            ($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
+        if (($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
             ($requestedRelationshipName === "" || $currentRelationshipName === $requestedRelationshipName)
         ) {
             $dataMember = $this->transformData($transformation, $resourceTransformer, $data, $defaultRelationships);

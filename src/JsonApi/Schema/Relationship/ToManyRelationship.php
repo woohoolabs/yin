@@ -11,7 +11,7 @@ class ToManyRelationship extends AbstractRelationship
 {
     /**
      * @internal
-     * @return array|null|false
+     * @return array|false|null
      */
     protected function transformData(
         ResourceTransformation $transformation,
