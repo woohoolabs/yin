@@ -5,6 +5,7 @@ ADDED:
 - JSON:API 1.1 related features:
     - Partial support for Profiles
     - Support for `type` links in errors
+- `Resources` can also use the `$object` property to access the object which is being transformed
 - Separate classes for the different types of links instead of the generic `Links` class
     - `DocumentLinks`
     - `ResourceLinks`
@@ -24,7 +25,8 @@ ADDED:
 CHANGED:
 
 - Updated `justinrainbow/json-schema` to v5.2
-- Links are used strictly according to the spec (__BREAKING__):
+- `Documents` should use the `$object` property instead of `$domainObject` (__BREAKING CHANGE__)
+- Links are used strictly according to the spec (__BREAKING CHANGE__):
     - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
     - `AbstractErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
     - `ErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
@@ -34,33 +36,33 @@ CHANGED:
     - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links`
     - `Error::getLinks()` returns `ErrorLinks` instead of `Links`
     - `Error::setLinks()` expects a parameter of `ErrorLinks` instead of `Links`
-- Improvements related to `JsonApiExceptionInterface` (__BREAKING__):
+- Improvements related to `JsonApiExceptionInterface` (__BREAKING CHANGE__):
     - `JsonApiExceptionInterface` now extends `Throwable`
     - `JsonApiExceptionInterface::getErrorDocument()` must return an `ErrorDocumentInterface` instead of an `AbstractErrorDocument`
-- Improvements related to pagination (__BREAKING__):
+- Improvements related to pagination (__BREAKING CHANGE__):
     - A `$defaultSize` constructor parameter was added to `CursorBasedPagination` to define a default value for the `page[size]` query parameter
     - Properties and methods of `FixedPageBasedPagination` became non-nullable
     - Properties and methods of `OffsetBasedPagination` became non-nullable
     - Properties and methods of `PageBasedPagination` became non-nullable
     - Methods of `PaginationLinkProviderInterface` expect a second parameter with a `$queryString` name
-- Setting the status code and `Content-Type` header of the JSON:API response is done by the `Responder` by default instead of `Serializer`s (__BREAKING__):
-    - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally:
+- Setting the status code and `Content-Type` header of the JSON:API response is done by the `Responder` by default instead of `Serializer`s (__BREAKING CHANGE__):
+    - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally
     - `SerializerInterface::serialize()` only accepts two arguments instead of 3 as the `$responseCode` parameter was removed
     - `JsonSerializer` does not set the `Content-Type` header and the status code of the response anymore
-- Improvements related to relationships (__BREAKING__):
-    - `ResponseInterface::getToOneRelationship()` throws an exception instead of returning null if the relationship doesn't exist 
+- Improvements related to relationships (__BREAKING CHANGE__):
+    - `ResponseInterface::getToOneRelationship()` throws an exception instead of returning null if the relationship doesn't exist
     - `ResponseInterface::getToManyRelationship()` throws an exception instead of returning null if the relationship doesn't exist
-- TransformerTrait::fromSqlToIso8601Time() method expect a `?DateTimeZone` as a 2nd argument instead of string (__BREAKING__)
+- The `TransformerTrait::fromSqlToIso8601Time()` method expects a `?DateTimeZone` as its second argument instead of `string` (__BREAKING CHANGE__)
 
 REMOVED:
 
-- The generic `Links` class (__BREAKING__)
-- Methods related to pagination class instantiation were removed from `RequestInterface` (__BREAKING__):
+- The generic `Links` class (__BREAKING CHANGE__)
+- Methods related to pagination class instantiation were removed from `RequestInterface` (__BREAKING CHANGE__):
     - `RequestInterface::getFixedPageBasedPagination()`
     - `RequestInterface::getPageBasedPagination()`
     - `RequestInterface::getOffsetBasedPagination()`
     - `RequestInterface::getCursorBasedPagination()`
-- Various deprecated classes (__BREAKING__):
+- Various deprecated classes (__BREAKING CHANGE__):
     - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument` instead
     - `WoohooLabs\Yin\JsonApi\Document\AbstractDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractDocument` instead
     - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument` instead
@@ -77,7 +79,7 @@ REMOVED:
     - `WoohooLabs\Yin\JsonApi\Request\RequestInterface`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` instead
     - `WoohooLabs\Yin\JsonApi\Schema\Link`: use `WoohooLabs\Yin\JsonApi\Schema\Link\Link` instead
     - `WoohooLabs\Yin\JsonApi\Schema\LinkObject`: use `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` instead
-- Various deprecated methods (__BREAKING__):
+- Various deprecated methods (__BREAKING CHANGE__):
     - `AbstractErrorDocument::getResponseCode()` (use `AbstractErrorDocument::getStatusCode()` instead)
     - `RequestValidator::lintBody()` (use `RequestValidator::validateJsonBody()` instead)
     - `ResponseValidator::lintBody()` (use `ResponseValidator::validateJsonBody()` instead)
@@ -86,7 +88,7 @@ REMOVED:
 FIXED:
 
 - Issues with 0 and non-numeric values when using built-in pagination objects (`PageBasedPagination`, `FixedPageBasedPagination`, `OffsetBasedPagination`)
-- Small issues found by static analysis
+- Various issues found by static analysis
 - Query parameters of pagination links were not encoded properly
 - The `page` and `filter` query parameters must have an array value as per the spec
 - Instead of returning null, an exception is thrown when a non-existent relationship is fetched
@@ -147,9 +149,9 @@ FIXED:
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.1
-- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING__)
-- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING__)
-- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING__)
+- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING CHANGE__)
+- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING CHANGE__)
+- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING CHANGE__)
 
 REMOVED:
 
@@ -164,9 +166,9 @@ FIXED:
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.1
-- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING__)
-- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING__)
-- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING__)
+- `ExceptionFactoryInterface` methods must return `JsonApiExceptionInterface` (__BREAKING CHANGE__)
+- `AbstractDocument::getJsonApi()` and `AbstractDocument::getLinks()` return types must be declared (__BREAKING CHANGE__)
+- `ResourceTransformerInterface::getLinks()` return type must be declared (__BREAKING CHANGE__)
 
 REMOVED:
 
@@ -232,19 +234,19 @@ ADDED:
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.0
-- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
-- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
-- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
-- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
-- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__)
-- Hydrators must implement the `validateRequest()` method (__BREAKING__)
+- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING CHANGE__)
+- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING CHANGE__)
+- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING CHANGE__)
+- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING CHANGE__)
+- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING CHANGE__)
+- Hydrators must implement the `validateRequest()` method (__BREAKING CHANGE__)
 - `HydratorTrait::getAcceptedType()` was renamed to `HydratorTrait::getAcceptedTypes()` and it should always return an array
-even if the hydrator can only accept one resource type (__BREAKING__)
+even if the hydrator can only accept one resource type (__BREAKING CHANGE__)
 
 REMOVED:
 
-- `RelationshipResponder::okWithMeta()` method (__BREAKING__)
-- `JsonApi::respondWithRelationship()` method (__BREAKING__)
+- `RelationshipResponder::okWithMeta()` method (__BREAKING CHANGE__)
+- `JsonApi::respondWithRelationship()` method (__BREAKING CHANGE__)
 
 FIXED:
 
@@ -260,7 +262,7 @@ ADDED:
 
 CHANGED:
 
-- Hydrators must implement the `validateRequest()` method (__BREAKING__)
+- Hydrators must implement the `validateRequest()` method (__BREAKING CHANGE__)
 
 ## 2.0.0-beta2 - 2017-02-15
 
@@ -270,8 +272,8 @@ ADDED:
 
 CHANGED:
 
-- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING__)
-- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING__)
+- Renamed `DefaultSerializer` to `JsonSerializer` (__BREAKING CHANGE__)
+- Renamed some methods of `ExceptionFactoryInterface` which didn't end with `Exception` (e.g. `createRelationshipNotExists()` to `createRelationshipNotExistsException()`) (__BREAKING CHANGE__)
 
 FIXED:
 
@@ -288,14 +290,14 @@ ADDED:
 CHANGED:
 
 - Increased minimum PHP version requirement to 7.0
-- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING__)
-- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING__)
-- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING__)
+- Documents, Transformers, Hydrators, Serializers and Exceptions must be type hinted strictly (__BREAKING CHANGE__)
+- [#51](https://github.com/woohoolabs/yin/pull/55): Decouple `AbstractSuccessfulDocument` from `Serializer` and `Response` (__BREAKING CHANGE__)
+- Renamed `JsonApi` object to `JsonApiObject` in order to avoid ambiguities (__BREAKING CHANGE__)
 
 REMOVED:
 
-- `RelationshipResponder::okWithMeta()` method (__BREAKING__)
-- `JsonApi::respondWithRelationship()` method (__BREAKING__)
+- `RelationshipResponder::okWithMeta()` method (__BREAKING CHANGE__)
+- `JsonApi::respondWithRelationship()` method (__BREAKING CHANGE__)
 
 FIXED:
 

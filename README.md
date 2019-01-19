@@ -18,11 +18,11 @@
 * [Install](#install)
 * [Basic Usage](#basic-usage)
     * [Documents](#documents)
-    * [Resource transformers](#resource-transformers)
+    * [Resources](#resources)
     * [Hydrators](#hydrators)
     * [Exceptions](#exceptions)
     * [JsonApi class](#jsonapi-class)
-    * [Request class](#request-class)
+    * [JsonApiRequest class](#jsonapirequest-class)
 * [Advanced Usage](#advanced-usage)
     * [Pagination](#pagination)
     * [Loading relationship data efficiently](#loading-relationship-data-efficiently)
@@ -134,7 +134,7 @@ When using Woohoo Labs. Yin, you will create:
 - Hydrators in order to transform resources in a POST or PATCH request to domain objects
 
 Furthermore, a [`JsonApi`](#jsonapi-class) class will be responsible for the instrumentation, while a PSR-7 compatible
-[`Request`](#request-class) class provides functionalities you commonly need.
+[`JsonApiRequest`](#jsonapirrequest-class) class provides functionalities you commonly need.
 
 ### Documents
 
@@ -204,9 +204,9 @@ public function getMeta(): array
 {
     return [
         "page" => [
-            "offset" => $this->domainObject->getOffset(),
-            "limit" => $this->domainObject->getLimit(),
-            "total" => $this->domainObject->getCount(),
+            "offset" => $this->object->getOffset(),
+            "limit" => $this->object->getLimit(),
+            "total" => $this->object->getCount(),
         ]
     ];
 }
@@ -215,7 +215,7 @@ public function getMeta(): array
 Documents may also have a "meta" member which can contain any non-standard information. The example above adds
 information about pagination to the document.
 
-Note that the `domainObject` property is a variable of any type (in this case it is a hypothetical collection),
+Note that the `object` property is a variable of any type (in this case it is a hypothetical collection),
 and this is the main "subject" of the document.
 
 ```php
@@ -246,10 +246,10 @@ public function getLinks(): ?DocumentLinks
 
 This time, we want a self link to appear in the document. For this purpose, we utilize the `getResourceId()` method,
 which is a shortcut of calling the resource (which is introduced below) to obtain the ID of the
-primary resource (`$this->resource->getId($this->domainObject)`).
+primary resource (`$this->resource->getId($this->object)`).
 
 The only difference between the `AbstractSingleResourceDocument` and `AbstractCollectionDocument` is the way they
-regard the `domainObject`. The first one regards it as a single domain object while the latter regards it
+regard the `object`. The first one regards it as a single domain object while the latter regards it
 as an iterable collection.
 
 ##### Usage
@@ -342,6 +342,9 @@ class BookResource extends AbstractResource
      */
     public function getId($book): string
     {
+        return $this->object["id"];
+        
+        // This is equivalent to the following:
         return $book["id"];
     }
 
@@ -387,6 +390,16 @@ class BookResource extends AbstractResource
     public function getAttributes($book): array
     {
         return [
+            "title" => function () {
+                return $this->object["title"];
+            },
+            "pages" => function () {
+                return $this->toInt($this->object["pages"]);
+            },
+        ];
+        
+        // This is equivalent to the following:
+        return [
             "title" => function (array $book) {
                 return $book["title"];
             },
@@ -419,28 +432,45 @@ class BookResource extends AbstractResource
     public function getRelationships($book): array
     {
         return [
+            "authors" => function () {
+                return ToManyRelationship::create()
+                    ->setLinks(
+                        RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
+                    )
+                    ->setData($this->object["authors"], $this->authorTransformer);
+            },
+            "publisher" => function () {
+                return ToOneRelationship::create()
+                    ->setLinks(
+                        RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
+                    )
+                    ->setData($this->object["publisher"], $this->publisherTransformer);
+            },
+        ];
+    
+        // This is equivalent to the following:
+        
+        return [
             "authors" => function (array $book) {
                 return ToManyRelationship::create()
                     ->setLinks(
                         RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/authors"))
                     )
-                    ->setData($book["authors"], $this->authorTransformer)
-                ;
+                    ->setData($book["authors"], $this->authorTransformer);
             },
             "publisher" => function ($book) {
                 return ToOneRelationship::create()
                     ->setLinks(
                         RelationshipLinks::createWithoutBaseUri()->setSelf(new Link("/books/relationships/publisher"))
                     )
-                    ->setData($book["publisher"], $this->publisherTransformer)
-                ;
+                    ->setData($book["publisher"], $this->publisherTransformer);
             },
         ];
     }
 }
 ```
 
-Generally, you don't use resource transformers directly. Only documents need them to be able to fill the "data",
+Generally, you don't use resources directly. Only documents need them to be able to fill the "data",
 the "included" and the "relationship" members in the responses.
 
 ### Hydrators
@@ -489,7 +519,7 @@ class BookHydator extends AbstractHydrator
      */
     protected function validateClientGeneratedId(
         string $clientGeneratedId,
-        RequestInterface $request,
+        JsonApiRequestInterface $request,
         ExceptionFactoryInterface $exceptionFactory
     ) {
         if ($clientGeneratedId !== null) {
@@ -529,7 +559,7 @@ class BookHydator extends AbstractHydrator
      *
      * @throws JsonApiExceptionInterface
      */
-    protected function validateRequest(RequestInterface $request): void
+    protected function validateRequest(JsonApiRequestInterface $request): void
     {
         // WARNING! THIS CONDITION CONTRADICTS TO THE SPEC
         if ($request->getAttribute("title") === null) {
@@ -579,7 +609,7 @@ class BookHydator extends AbstractHydrator
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the callable should return the domain object.
      *
-     * @param mixed $domainObject
+     * @param mixed $book
      * @return callable[]
      */
     protected function getRelationshipHydrator($book): array
@@ -693,11 +723,11 @@ The `JsonApi` class is the orchestrator of the whole framework. It is highly rec
 if you want to use the entire functionality of Woohoo Labs. Yin. You can find various examples about the usage
 of it in the [examples section](#examples) or [example directory](https://github.com/woohoolabs/yin/blob/master/examples).
 
-### `Request` class
+### `JsonApiRequest` class
 
-The `Request` class implements the `WoohooLabs\Yin\JsonApi\Request\RequestInterface` which extends the PSR-7
+The `JsonApiRequest` class implements the `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` which extends the PSR-7
 `ServerRequestInterface` with some useful, JSON:API related methods. For further information about the available methods,
-please refer to the documentation of [`RequestInterface`](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Request/RequestInterface.php).
+please refer to the documentation of [`JsonApiRequestInterface`](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Request/JsonApiRequestInterface.php).
 
 ## Advanced Usage
 
@@ -756,7 +786,7 @@ $pagination = $jsonApi->getPaginationFactory()->createFixedCursorBasedPagination
 
 #### Custom pagination
 
-If you need a custom pagination strategy, you may use the `RequestInterface::getPagination()` method which returns an
+If you need a custom pagination strategy, you may use the `JsonApiRequestInterface::getPagination()` method which returns an
 array of pagination parameters.
 
 ```php
@@ -783,7 +813,7 @@ example:
 ```php
 public function getLinks(): ?DocumentLinks
 {
-    return DocumentLinks::createWithoutBaseUri()->setPagination("/users", $this->domainObject);
+    return DocumentLinks::createWithoutBaseUri()->setPagination("/users", $this->object);
 }
 ```
 
@@ -836,8 +866,7 @@ public function getRelationships($user): array
             return
                 ToManyRelationship::create()
                     ->setData($user["contacts"], $this->contactTransformer)
-                    ->omitWhenNotIncluded()
-                ;
+                    ->omitWhenNotIncluded();
         },
     ];
 }
@@ -1035,7 +1064,7 @@ public function getBook(JsonApi $jsonApi): ResponseInterface
 public function getUsers(JsonApi $jsonApi): ResponseInterface
 {
     // Extracting pagination information from the request, page = 1, size = 10 if it is missing
-    $pagination = $jsonApi->getRequest()->getPageBasedPagination(1, 10);
+    $pagination = $jsonApi->getPaginationFactory()->createPageBasedPagination(1, 10);
 
     // Fetching a paginated collection of user domain objects
     $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize());
