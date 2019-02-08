@@ -24,6 +24,8 @@ abstract class AbstractSingleResourceDocument extends AbstractResourceDocument
 
     public function getResource(): ResourceInterface
     {
+        $this->resource->initializeTransformation($this->request, $this->object, $this->exceptionFactory);
+
         return $this->resource;
     }
 
@@ -34,7 +36,7 @@ abstract class AbstractSingleResourceDocument extends AbstractResourceDocument
      */
     public function getResourceId(): string
     {
-        return $this->resource->getId($this->object);
+        return $this->getResource()->getId($this->object);
     }
 
     /**

@@ -8,6 +8,8 @@ REMOVED:
 
 FIXED:
 
+- Regression with uninitialized Resource properties
+
 ## 4.0.0-beta1 - 2019-01-19
 
 ADDED:

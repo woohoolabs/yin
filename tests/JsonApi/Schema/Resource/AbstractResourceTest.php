@@ -19,7 +19,11 @@ class AbstractResourceTest extends TestCase
         $resource = $this->createResource();
         $transformation = $this->createTransformation($resource);
 
-        $resource->initializeTransformation($transformation);
+        $resource->initializeTransformation(
+            $transformation->request,
+            $transformation->object,
+            $transformation->exceptionFactory
+        );
 
         $this->assertEquals($transformation->request, $resource->getRequest());
         $this->assertEquals($transformation->object, $resource->getObject());
@@ -34,7 +38,11 @@ class AbstractResourceTest extends TestCase
         $resource = $this->createResource();
         $transformation = $this->createTransformation($resource);
 
-        $resource->initializeTransformation($transformation);
+        $resource->initializeTransformation(
+            $transformation->request,
+            $transformation->object,
+            $transformation->exceptionFactory
+        );
         $resource->clearTransformation();
 
         $this->assertNull($resource->getRequest());

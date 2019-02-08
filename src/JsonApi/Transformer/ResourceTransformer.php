@@ -23,7 +23,11 @@ final class ResourceTransformer
             return null;
         }
 
-        $transformation->resource->initializeTransformation($transformation);
+        $transformation->resource->initializeTransformation(
+            $transformation->request,
+            $transformation->object,
+            $transformation->exceptionFactory
+        );
 
         $this->transformResourceIdentifier($transformation);
         $this->transformLinksObject($transformation);
@@ -44,7 +48,11 @@ final class ResourceTransformer
             return null;
         }
 
-        $transformation->resource->initializeTransformation($transformation);
+        $transformation->resource->initializeTransformation(
+            $transformation->request,
+            $transformation->object,
+            $transformation->exceptionFactory
+        );
 
         $this->transformResourceIdentifier($transformation);
 

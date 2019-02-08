@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
 
+use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 
 interface ResourceInterface
 {
@@ -73,8 +74,9 @@ interface ResourceInterface
 
     /**
      * @internal
+     * @param mixed $object
      */
-    public function initializeTransformation(ResourceTransformation $transformation): void;
+    public function initializeTransformation(JsonApiRequestInterface $request, $object, ExceptionFactoryInterface $exceptionFactory): void;
 
     /**
      * @internal

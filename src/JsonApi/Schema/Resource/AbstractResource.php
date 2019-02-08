@@ -5,7 +5,6 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
 
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\TransformerTrait;
 
 abstract class AbstractResource implements ResourceInterface
@@ -29,12 +28,13 @@ abstract class AbstractResource implements ResourceInterface
 
     /**
      * @internal
+     * @param mixed $object
      */
-    public function initializeTransformation(ResourceTransformation $transformation): void
+    public function initializeTransformation(JsonApiRequestInterface $request, $object, ExceptionFactoryInterface $exceptionFactory): void
     {
-        $this->request = $transformation->request;
-        $this->object = $transformation->object;
-        $this->exceptionFactory = $transformation->exceptionFactory;
+        $this->request = $request;
+        $this->object = $object;
+        $this->exceptionFactory = $exceptionFactory;
     }
 
     /**
