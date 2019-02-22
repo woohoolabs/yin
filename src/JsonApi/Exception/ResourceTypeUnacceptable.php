@@ -36,7 +36,7 @@ class ResourceTypeUnacceptable extends AbstractJsonApiException
                 ->setCode("RESOURCE_TYPE_UNACCEPTABLE")
                 ->setTitle("Resource type is unacceptable")
                 ->setDetail("Resource type '$this->currentType' is unacceptable!")
-                ->setSource(ErrorSource::fromPointer("/datatype")),
+                ->setSource(ErrorSource::fromPointer("/data/type")),
         ];
     }
 

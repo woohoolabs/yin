@@ -9,6 +9,7 @@ REMOVED:
 FIXED:
 
 - Regression with uninitialized Resource properties
+- Regression with the source pointer of the `ResourceTypeUnacceptable` error
 
 ## 4.0.0-beta1 - 2019-01-19
 
