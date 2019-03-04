@@ -35,5 +35,5 @@ composer-install:
 composer-update:
 	docker run --rm --interactive --tty --volume $(PWD):/app --user $(id -u):$(id -g) composer update --ignore-platform-reqs
 
-release:
-	make test && make phpstan && make cs && ./vendor/bin/releaser release
+release: test phpstan cs
+	./vendor/bin/releaser release
