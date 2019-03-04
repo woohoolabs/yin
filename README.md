@@ -202,8 +202,6 @@ you to implement the following methods:
  *
  * The method returns a new JsonApiObject object if this member should be present or null
  * if it should be omitted from the response.
- *
- * @return JsonApiObject|null
  */
 public function getJsonApi(): ?JsonApiObject
 {
@@ -333,6 +331,12 @@ class BookResource extends AbstractResource
      * @var PublisherResource
      */
     private $publisherResource;
+    
+    /**
+     * You can type-hint the object property this way.
+     * @var array
+     */
+    protected $object;
 
     public function __construct(
         AuthorResource $authorResource,
@@ -365,7 +369,7 @@ class BookResource extends AbstractResource
     {
         return $this->object["id"];
         
-        // This is equivalent to the following:
+        // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
         return $book["id"];
     }
 
@@ -419,7 +423,7 @@ class BookResource extends AbstractResource
             },
         ];
         
-        // This is equivalent to the following:
+        // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
         return [
             "title" => function (array $book) {
                 return $book["title"];
@@ -469,7 +473,7 @@ class BookResource extends AbstractResource
             },
         ];
     
-        // This is equivalent to the following:
+        // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
         
         return [
             "authors" => function (array $book) {
@@ -491,8 +495,8 @@ class BookResource extends AbstractResource
 }
 ```
 
-Generally, you don't use resources directly. Only documents need them to be able to fill the "data",
-the "included" and the "relationship" members in the responses.
+Generally, you don't use resources directly. Only documents need them to be able to fill the "data", the "included",
+and the "relationship" members in the responses.
 
 ### Hydrators
 
