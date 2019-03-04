@@ -11,6 +11,20 @@ use function is_array;
 
 abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 {
+    /**
+     * The method should return the whole resource including its type, id, attributes, and relationships as an array.
+     *
+     * @example
+     *  return [
+     *      "type" => "abc",
+     *      "id" => "1",
+     *      "attributes" => [
+     *          "attribute1" => "value1",
+     *      ],
+     *  ];
+     *
+     * @return array
+     */
     abstract protected function getResource(): array;
 
     /**

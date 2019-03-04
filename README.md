@@ -155,12 +155,33 @@ As the `AbstractSuccessfulDocument` is only useful for special use-cases (e.g. w
 of multiple types), we will not cover it here.
 
 The difference between the `AbstractSimpleResourceDocument` and the `AbstractSingleResourceDocument` classes is that
-the first one doesn't need a [resource](#resource). For this reason, it is preferable to use
-the former for really simple domain objects (like messages), while the latter works better for more complex domain
+the first one doesn't need a [resource](#resource) object. For this reason, it is preferable to use
+the former for only really simple domain objects (like messages), while the latter works better for more complex domain
 objects (like users or addresses).
 
-`AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a [resource](#resource) to work, which is a
-concept introduced in the following sections. For now, it is enough to know that one must be passed for the documents
+Let's first have a quick look at the `AbstractSimpleResourceDocument`: it has a `getResource()` abstract method which
+needs to be implemented when you extend this class. The `getResource()` method returns the whole transformed resource as
+an array including the type, id, attributes, and relationships like below:
+
+```php
+protected function getResource(): array
+{
+    return [
+        "type"       => "<type>",
+        "id"         => "<ID>",
+        "attributes" => [
+            "key" => "value",
+        ],
+    ];
+}
+```
+
+> Please note that `AbstractSimpleResourceDocument` doesn't support some features out-of-the-box like sparse fieldsets,
+automatic inclusion of related resources etc. That's why this document type should only be considered as a quick-and-dirty
+solution, and generally you should choose another, more advanced document type introduced below in the majority of the use cases.
+
+`AbstractSingleResourceDocument` and `AbstractCollectionDocument` both need a [resource](#resource) object in order to work,
+which is a concept introduced in the following sections. For now, it is enough to know that one must be passed for the documents
 during instantiation. This means that a minimal constructor of your documents should look like this:
 
 ```php
