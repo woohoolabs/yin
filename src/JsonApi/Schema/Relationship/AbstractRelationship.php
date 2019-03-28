@@ -135,8 +135,7 @@ abstract class AbstractRelationship
             "data" => null,
         ];
         
-        if (
-            (
+        if ((
                 $transformation->fetchedRelationship === $relationshipName &&
                 $this->data !== null &&
                 $this->omitDataWhenNotIncluded === false
@@ -153,7 +152,6 @@ abstract class AbstractRelationship
         }
 
         if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
-
             // Links
             if ($this->links !== null) {
                 $relationship["links"] = $this->links->transform();
