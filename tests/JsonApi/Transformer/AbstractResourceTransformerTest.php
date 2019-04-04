@@ -12,6 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Schema\Links;
+use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
@@ -263,6 +264,53 @@ class AbstractResourceTransformerTest extends TestCase
         $transformedResource = $transformer->transformRelationship("father", $transformation, []);
         $this->assertEquals("user", $transformedResource["data"]["type"]);
         $this->assertEquals("2", $transformedResource["data"]["id"]);
+    }
+    /**
+     * @test
+     */
+    public function transformToManyRelationship()
+    {
+        $defaultRelationships = ["father"];
+        $relationships = [
+            "father" => function () {
+                $relationship = new ToManyRelationship();
+                $relationship->setData([
+                    ["Father Vader"],
+                ], new StubResourceTransformer("user", "2"));
+                return $relationship;
+            }
+        ];
+    
+        $request = new StubRequest();
+        $data = new SingleResourceData();
+        $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
+        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
+        $transformedResource = $transformer->transformRelationship("father", $transformation, []);
+        $transformedResourceData = $transformedResource["data"];
+        $this->assertEquals("user", $transformedResourceData[0]["type"]);
+        $this->assertEquals("2", $transformedResourceData[0]["id"]);
+    }
+    /**
+     * @test
+     */
+    public function transformToManyEmptyRelationship()
+    {
+        $defaultRelationships = ["father"];
+        $relationships = [
+            "father" => function () {
+                $relationship = new ToManyRelationship();
+                return $relationship;
+            }
+        ];
+    
+        $request = new StubRequest();
+        $data = new SingleResourceData();
+        $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
+        $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
+        $transformedResource = $transformer->transformRelationship("father", $transformation, []);
+        $this->assertEquals([
+            "data" => [],
+        ], $transformedResource);
     }
 
     /**

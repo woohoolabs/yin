@@ -131,12 +131,13 @@ abstract class AbstractRelationship
         array $defaultRelationships,
         array $additionalMeta = []
     ): ?array {
-        $relationship = null;
-
-        if (
-            (
+        $relationship = [
+            "data" => null,
+        ];
+        
+        if ((
                 $transformation->fetchedRelationship === $relationshipName &&
-                $this->data &&
+                $this->data !== null &&
                 $this->omitDataWhenNotIncluded === false
             ) ||
             $transformation->request->isIncludedRelationship(
@@ -151,8 +152,6 @@ abstract class AbstractRelationship
         }
 
         if ($transformation->request->isIncludedField($resourceType, $relationshipName)) {
-            $relationship = [];
-
             // Links
             if ($this->links !== null) {
                 $relationship["links"] = $this->links->transform();
