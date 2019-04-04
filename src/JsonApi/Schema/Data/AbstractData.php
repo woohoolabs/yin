@@ -110,7 +110,7 @@ abstract class AbstractData implements DataInterface
         $id = $transformedResource["id"];
 
         $this->resources[$type . "." . $id] = $transformedResource;
-        $this->primaryKeys[$type. "." . $id] = &$this->resources[$type . "." . $id];
+        $this->primaryKeys[$type . "." . $id] = &$this->resources[$type . "." . $id];
     }
 
     protected function addResourceToIncludedData(array $transformedResource)

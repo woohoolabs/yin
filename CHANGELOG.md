@@ -10,6 +10,12 @@ REMOVED:
 
 FIXED:
 
+## 3.1.1 - 2019-04-05
+
+FIXED:
+
+- [#82](https://github.com/woohoolabs/yin/pull/82): Fix output for ToOneRelationship when the relationship doesn't contain any keys
+
 ## 3.1.0 - 2019-01-17
 
 This is a release with several deprecations in order to ensure forward compatibility with Yin 4.0.
