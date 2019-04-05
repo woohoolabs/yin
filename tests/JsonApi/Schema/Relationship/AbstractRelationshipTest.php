@@ -53,7 +53,7 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $this->assertFalse($relationship->isOmitWhenNotIncluded());
+        $this->assertFalse($relationship->isOmitDataWhenNotIncluded());
     }
 
     /**
@@ -63,8 +63,8 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $relationship->omitWhenNotIncluded();
-        $this->assertTrue($relationship->isOmitWhenNotIncluded());
+        $relationship->omitDataWhenNotIncluded();
+        $this->assertTrue($relationship->isOmitDataWhenNotIncluded());
     }
 
     /**

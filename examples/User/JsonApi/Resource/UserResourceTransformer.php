@@ -127,7 +127,7 @@ class UserResourceTransformer extends AbstractResource
                         ->setDataAsCallable(function () use ($user) {
                             return $user["contacts"];
                         }, $this->contactTransformer)
-                        ->omitWhenNotIncluded()
+                        ->omitDataWhenNotIncluded()
                     ;
             }
         ];

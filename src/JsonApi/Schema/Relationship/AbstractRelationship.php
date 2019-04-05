@@ -117,6 +117,15 @@ abstract class AbstractRelationship
     /**
      * @return $this
      */
+    public function omitDataWhenNotIncluded()
+    {
+        return $this->omitWhenNotIncluded();
+    }
+
+    /**
+     * @deprecated since 3.1.1, will be removed in 4.0.0. Use omitDataWhenNotIncluded() instead.
+     * @return $this
+     */
     public function omitWhenNotIncluded()
     {
         $this->omitDataWhenNotIncluded = true;

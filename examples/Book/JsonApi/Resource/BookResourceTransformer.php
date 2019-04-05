@@ -170,7 +170,7 @@ class BookResourceTransformer extends AbstractResource
                             )
                         )
                         ->setData($book["publisher"], $this->publisherTransformer)
-                        ->omitWhenNotIncluded()
+                        ->omitDataWhenNotIncluded()
                     ;
             }
         ];
