@@ -159,7 +159,7 @@ class BookResource extends AbstractResource
                                 ->setSelf(new Link("/relationships/publisher"))
                         )
                         ->setData($book["publisher"], $this->publisherTransformer)
-                        ->omitWhenNotIncluded()
+                        ->omitDataWhenNotIncluded()
                     ;
             }
         ];

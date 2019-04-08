@@ -99,13 +99,13 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function dataNotOmittedWhenNotIncludedByDefault()
+    public function dataNotOmittedByDefault()
     {
         $relationship = $this->createRelationship();
 
-        $omit = $relationship->isOmitWhenNotIncluded();
+        $isDataOmittedWhenNotIncluded = $relationship->isOmitDataWhenNotIncluded();
 
-        $this->assertFalse($omit);
+        $this->assertFalse($isDataOmittedWhenNotIncluded);
     }
 
     /**
@@ -115,10 +115,9 @@ class AbstractRelationshipTest extends TestCase
     {
         $relationship = $this->createRelationship();
 
-        $relationship->omitWhenNotIncluded();
-        $omit = $relationship->isOmitWhenNotIncluded();
+        $relationship->omitDataWhenNotIncluded();
 
-        $this->assertTrue($omit);
+        $this->assertTrue($relationship->isOmitDataWhenNotIncluded());
     }
 
     /**
@@ -252,7 +251,7 @@ class AbstractRelationshipTest extends TestCase
     public function transformWithEmptyOmittedData()
     {
         $relationship = $this->createRelationship()
-            ->omitWhenNotIncluded();
+            ->omitDataWhenNotIncluded();
 
         $relationshipObject = $relationship->transform(
             new ResourceTransformation(

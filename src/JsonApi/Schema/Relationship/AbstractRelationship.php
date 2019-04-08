@@ -143,7 +143,7 @@ abstract class AbstractRelationship
     /**
      * @return $this
      */
-    public function omitWhenNotIncluded()
+    public function omitDataWhenNotIncluded()
     {
         $this->omitDataWhenNotIncluded = true;
 

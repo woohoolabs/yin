@@ -6,6 +6,8 @@ CHANGED:
 
 REMOVED:
 
+- The deprecated `AbstractRelationship::omitWhenNotIncluded()` method (__BREAKING CHANGE__): use `AbstractRelationship::omitDataWhenNotIncluded()`
+
 FIXED:
 
 - Regression with uninitialized Resource properties

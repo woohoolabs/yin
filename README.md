@@ -891,13 +891,13 @@ public function getRelationships($user): array
             return
                 ToManyRelationship::create()
                     ->setData($user["contacts"], $this->contactTransformer)
-                    ->omitWhenNotIncluded();
+                    ->omitDataWhenNotIncluded();
         },
     ];
 }
 ```
 
-With usage of the `omitWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
+By using the `omitDataWhenNotIncluded()` method, the relationship data will be omitted when the relationship is not
 included. However, sometimes this optimization is not enough on its own. Even though we can save bandwidth with the prior
 technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
 to the relationship object with the `setData()` method.
@@ -919,7 +919,7 @@ public function getRelationships($user): array
                         },
                         $this->contactTransformer
                     )
-                    ->omitWhenNotIncluded()
+                    ->omitDataWhenNotIncluded()
                 ;
         },
     ];

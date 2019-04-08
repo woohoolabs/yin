@@ -27,7 +27,7 @@ class FakeRelationship extends AbstractRelationship
         return $this->getData();
     }
 
-    public function isOmitWhenNotIncluded(): bool
+    public function isOmitDataWhenNotIncluded(): bool
     {
         return $this->omitDataWhenNotIncluded;
     }
