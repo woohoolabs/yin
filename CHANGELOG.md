@@ -1,8 +1,14 @@
-## 4.0.0-beta2 - unreleased
+## 4.0.0 - unreleased
 
 ADDED:
 
 CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 4.0.0-beta2 - 2019-04-09
 
 REMOVED:
 
