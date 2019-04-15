@@ -60,14 +60,14 @@ trait OffsetBasedPaginationLinkProviderTrait
         return $this->createPaginatedLink($uri, $queryString, $this->getOffset() + $this->getLimit(), $this->getLimit());
     }
 
-    protected function createPaginatedLink(string $uri, string $queryString, int $page, int $size): ?Link
+    protected function createPaginatedLink(string $uri, string $queryString, int $offset, int $limit): ?Link
     {
         if ($this->getTotalItems() <= 0 || $this->getLimit() <= 0) {
             return null;
         }
 
         return new Link(
-            Utils::getUri($uri, $queryString, OffsetBasedPagination::getPaginationQueryString($page, $size))
+            Utils::getUri($uri, $queryString, OffsetBasedPagination::getPaginationQueryString($offset, $limit))
         );
     }
 }
