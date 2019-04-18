@@ -81,12 +81,8 @@ class AbstractRelationshipTest extends TestCase
             [],
             []
         );
-        $this->assertEquals(
-            [
-                "data" => null,
-            ],
-            $result
-        );
+
+        $this->assertEquals([], $result);
     }
 
     private function createRelationship(): FakeRelationship

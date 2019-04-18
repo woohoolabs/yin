@@ -298,8 +298,7 @@ class AbstractResourceTransformerTest extends TestCase
         $defaultRelationships = ["father"];
         $relationships = [
             "father" => function () {
-                $relationship = new ToManyRelationship();
-                return $relationship;
+                return new ToManyRelationship();
             }
         ];
     
@@ -308,9 +307,8 @@ class AbstractResourceTransformerTest extends TestCase
         $transformer = $this->createTransformer("user", "1", [], null, [], $defaultRelationships, $relationships);
         $transformation = new Transformation($request, $data, new DefaultExceptionFactory(), "");
         $transformedResource = $transformer->transformRelationship("father", $transformation, []);
-        $this->assertEquals([
-            "data" => [],
-        ], $transformedResource);
+
+        $this->assertEquals([], $transformedResource);
     }
 
     /**

@@ -10,16 +10,12 @@ REMOVED:
 
 FIXED:
 
-## 3.1.1 - 2019-04-05
+## 3.1.1 - 2019-04-18
 
 DEPRECATED:
 
 - `ToOneRelationship::omitWhenNotIncluded()`: Use `ToOneRelationship::omitDataWhenNotIncluded()`
 - `ToManyRelationship::omitWhenNotIncluded()`: Use `ToManyRelationship::omitDataWhenNotIncluded()`
-
-FIXED:
-
-- [#82](https://github.com/woohoolabs/yin/pull/82): Fix output for ToOneRelationship when the relationship doesn't contain any keys
 
 ## 3.1.0 - 2019-01-17
 
