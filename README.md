@@ -101,7 +101,7 @@ package), you must install one first. You may use [Zend Diactoros](https://githu
 any other library of your preference:
 
 ```bash
-$ composer require zendframework/zend-diactoros:^1.3.0
+$ composer require zendframework/zend-diactoros
 ```
 
 ### Install Yin:
@@ -123,8 +123,8 @@ If you want to take advantage of request/response validation then you have to al
 dependencies:
 
 ```bash
-$ composer require justinrainbow/json-schema:^2.0.0
-$ composer require seld/jsonlint:^1.4.0
+$ composer require justinrainbow/json-schema
+$ composer require seld/jsonlint
 ```
 
 ## Basic Usage
@@ -315,9 +315,9 @@ Although you are encouraged to create one transformer for each resource type, yo
 Resources must implement the `ResourceInterface`. In order to facilitate this job, you can also extend the
 `AbstractResource` class.
 
-Children of the `AbstractResource` class need several abstract methods to be implemented - most of which
-are the same as seen in the Document objects. The following example illustrates a resource dealing with
-a book domain object and its "authors" and "publisher" relationships.
+Children of the `AbstractResource` class need several abstract methods to be implemented - most of them are similar to
+the ones seen in the Document objects. The following example illustrates a resource dealing with a book domain object
+and its "authors" and "publisher" relationships.
 
 ```php
 class BookResource extends AbstractResource
@@ -419,7 +419,7 @@ class BookResource extends AbstractResource
                 return $this->object["title"];
             },
             "pages" => function () {
-                return $this->toInt($this->object["pages"]);
+                return (int) $this->object["pages"];
             },
         ];
         
@@ -429,7 +429,7 @@ class BookResource extends AbstractResource
                 return $book["title"];
             },
             "pages" => function (array $book) {
-                return $this->toInt($book["pages"]);
+                return (int) $book["pages"];
             },
         ];
     }
@@ -712,7 +712,7 @@ Array
 
 Woohoo Labs. Yin was designed to make error handling as easy and customizable as possible. That's why all the default
 exceptions extend the `JsonApiException` class and contain an [error document](#documents-for-error-responses) with the
-appropriate error object(s). That's why if you want to respond with an error document in case of an exception you only
+appropriate error object(s). That's why if you want to respond with an error document in case of an exception you
 need to do the following:
 
 ```php
@@ -831,7 +831,7 @@ $users = UserRepository::getUsers($pagination->getPage(), $pagination->getSize()
 #### Pagination links
 
 The JSON:API spec makes it available to provide pagination links for your resource collections. Yin is able to help you
-in this regard too. You only have use the `DocumentLinks::setPagination()` method when you define links for your documents.
+in this regard too. You have use the `DocumentLinks::setPagination()` method when you define links for your documents.
 It expects the paginated URI and an object implementing the `PaginationLinkProviderInterface` as seen in the following
 example:
 
@@ -844,8 +844,8 @@ public function getLinks(): ?DocumentLinks
 
 To make things even easier, there are some `LinkProvider` traits in order to ease the development of
 `PaginationLinkProviderInterface` implementations of the built-in pagination strategies. For example a collection
-for the `User` objects can use the `PageBasedPaginationLinkProviderTrait`. This way, you only have to implement three
-really simple abstract methods:
+for the `User` objects can use the `PageBasedPaginationLinkProviderTrait`. This way, only three abstract methods has
+to be implemented:
 
 ```php
 class UserCollection implements PaginationLinkProviderInterface
@@ -902,8 +902,8 @@ included. However, sometimes this optimization is not enough on its own. Even th
 technique, the relationship still has to be loaded from the data source (probably from a database), because we pass it
 to the relationship object with the `setData()` method.
 
-This problem can be mitigated by lazy-loading the relationship. To do so, you only have to change `setData()`
-with the `setDataAsCallable()` method:
+This problem can be mitigated by lazy-loading the relationship. To do so, you have to use `setDataAsCallable()` method
+instead of `setData()`:
 
 ```php
 public function getRelationships($user): array
@@ -932,16 +932,7 @@ allowing your API to be as efficient as possible.
 ### Injecting metadata into documents
 
 Metadata can be injected into documents on-the-fly. This comes handy if you want to customize or decorate your
-responses (e.g.: providing a cache ID to the returned document).
-
-The easiest way to check this functionality is to have a look at the [first examples](#fetching-a-single-resource),
-which responds with a book document:
-
-```php
-return $jsonApi->respond()->ok($document, $book);
-```
-
-If you would like to inject a cache ID into it, you could write this instead:
+responses. For example if you would like to inject a cache ID into the response document, you could use the following:
 
 ```php
 // Calculate the cache ID
@@ -963,9 +954,9 @@ a request validator to see it in action:
 $requestValidator = new RequestValidator(new DefaultExceptionFactory(), $includeOriginalMessageInResponse);
 ```
 
-To customize the exceptions which can be thrown, it is necessary to provide an [Exception Factory](#exceptions).
+In order to customize the exceptions which can be thrown, it is necessary to provide an [Exception Factory](#exceptions).
 On the other hand, the `$includeOriginalMessageInResponse` argument can be useful in a development environment
-when you also want to return the original message in the error response which may be triggered by the exception.
+when you also want to return the original request body that triggered the exception in the error response.
 
 In order to validate whether the current request's `Accept` and `Content-Type` headers conform to the JSON:API
 specification, use this method:
@@ -989,7 +980,7 @@ $requestValidator->validateQueryParams($request);
 Furthermore, the request body can be validated if it is a well-formed JSON document:
 
 ```php
-$requestValidator->lintBody($request);
+$requestValidator->validateJsonBody($request);
 ```
 
 Similarly, responses can be validated too. Let's create a response validator first:
@@ -1005,21 +996,21 @@ $responseValidator = new ResponseValidator(
 To ensure that the response body is a well-formed JSON document, one can use the following method:
 
 ```php
-$responseValidator->lintBody($response);
+$responseValidator->validateJsonBody($response);
 ```
 
 To ensure that the response body is a well-formed JSON:API document, one can use the following method:
 
 ```php
-$responseValidator->validateBody($response);
+$responseValidator->validateJsonApiBody($response);
 ```
 
 Validating the responses can be useful in a development environment to find possible bugs early.
 
 ### Custom serialization
 
-You can configure Yin to serialize responses in a custom way instead of using default serializer (`JsonSerializer`)
-which utilizes the `json_encode()` function to write JSON:API documents to the response body.
+You can configure Yin to serialize responses in a custom way instead of using the default serializer (`JsonSerializer`)
+that utilizes the `json_encode()` function to write JSON:API documents into the response body.
 
 In the majority of the use-cases, the default serializer should be sufficient for your needs, but sometimes you might
 need more sophistication. Or sometimes you want to do nasty things like returning your JSON:API response as an array
@@ -1029,23 +1020,23 @@ In order to use a custom serializer, create a class implementing `SerializerInte
 instance accordingly (pay attention to the last argument):
 
 ```php
-$jsonApi = new JsonApi(new Request(), new Response(), new ExceptionFactory(), new CustomSerializer());
+$jsonApi = new JsonApi(new JsonApiRequest(), new Response(), new DefaultExceptionFactory(), new CustomSerializer());
 ```
 
 ### Custom deserialization
 
 You can configure Yin to deserialize requests in a custom way instead of using the default deserializer
-(`JsonDeserializer`) which utilizes the `json_decode()` function to parse the contents of the request body.
+(`JsonDeserializer`) that utilizes the `json_decode()` function to parse the contents of the request body.
 
 In the majority of the use-cases, the default deserializer should be sufficient for your needs, but sometimes you might
 need more sophistication. Or sometimes you want to do nasty things like calling your JSON:API endpoints "internally"
 without converting your request body to JSON format.
 
-In order to use a custom deserializer, create a class implementing `DeserializerInterface` and setup your `Request`
+In order to use a custom deserializer, create a class implementing `DeserializerInterface` and setup your `JsonApiRequest`
 instance accordingly (pay attention to the last argument):
 
 ```php
-$request = new Request(ServerRequestFactory::fromGlobals(), new ExceptionFactory(), new CustomDeserializer());
+$request = new JsonApiRequest(ServerRequestFactory::fromGlobals(), new DefaultExceptionFactory(), new CustomDeserializer());
 ```
 
 ### Middleware
