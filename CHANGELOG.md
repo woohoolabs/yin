@@ -1,4 +1,4 @@
-## 4.0.0 - unreleased
+## 4.1.0 - unreleased
 
 ADDED:
 
@@ -7,6 +7,104 @@ CHANGED:
 REMOVED:
 
 FIXED:
+
+## 4.0.0 - 2019-04-19
+
+This release is the same as 4.0-beta2. The full change set is the following:
+
+ADDED:
+
+- JSON:API 1.1 related features:
+    - Partial support for Profiles
+    - Support for `type` links in errors
+- `Resources` can also use the `$object` property to access the object which is being transformed
+- Separate classes for the different types of links instead of the generic `Links` class
+    - `DocumentLinks`
+    - `ResourceLinks`
+    - `RelationshipLinks`
+    - `ErrorLinks`
+- New capabilities related to pagination:
+    - [#70](https://github.com/woohoolabs/yin/issues/70): Better support for query parameters in pagination links
+    - `PaginationFactory` class to decouple Pagination class instantiation from the request
+    - `JsonApi::getPaginationFactory()` method to make it easier to retrieve the Pagination Factory
+    - `FixedCursorBasedPagination` class which preserves the original behaviour of the changed `CursorBasedPagination`
+    - `FixedCursorBasedPaginationProviderTrait` for using it in connection with `FixedCursorBasedPagination`
+    - `FixedPageBasedPaginationLinkProviderTrait` for using it in connection with `FixedPageBasedPagination`
+- New capabilities related to relationships:
+    - `ResponseInterface::hasToOneRelationship()` to determine if a specific To-One relationship exists
+    - `ResponseInterface::hasToManyRelationship()` to determine if a specific To-Many relationship exists
+
+CHANGED:
+
+- Updated `justinrainbow/json-schema` to v5.2
+- `Documents` should use the `$object` property instead of `$domainObject` (__BREAKING CHANGE__)
+- Links are used strictly according to the spec (__BREAKING CHANGE__):
+    - `AbstractSuccessfulDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
+    - `AbstractErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
+    - `ErrorDocument::getLinks()` returns `?DocumentLinks` instead of `?Links`
+    - `ErrorDocument::setLinks()` expects a parameter of `?DocumentLinks` type instead of `?Links`
+    - `AbstractResource::getLinks()` returns `?ResourceLinks` instead of `Links`
+    - `AbstractRelationship::getLinks()` returns `?RelationshipLinks` instead of `Links`
+    - `AbstractRelationship::setLinks()` expects a parameter of `?RelationshipLinks` type instead of `Links`
+    - `Error::getLinks()` returns `ErrorLinks` instead of `Links`
+    - `Error::setLinks()` expects a parameter of `ErrorLinks` instead of `Links`
+- Improvements related to `JsonApiExceptionInterface` (__BREAKING CHANGE__):
+    - `JsonApiExceptionInterface` now extends `Throwable`
+    - `JsonApiExceptionInterface::getErrorDocument()` must return an `ErrorDocumentInterface` instead of an `AbstractErrorDocument`
+- Improvements related to pagination (__BREAKING CHANGE__):
+    - A `$defaultSize` constructor parameter was added to `CursorBasedPagination` to define a default value for the `page[size]` query parameter
+    - Properties and methods of `FixedPageBasedPagination` became non-nullable
+    - Properties and methods of `OffsetBasedPagination` became non-nullable
+    - Properties and methods of `PageBasedPagination` became non-nullable
+    - Methods of `PaginationLinkProviderInterface` expect a second parameter with a `$queryString` name
+- Setting the status code and `Content-Type` header of the JSON:API response is done by the `Responder` by default instead of `Serializer`s (__BREAKING CHANGE__):
+    - The `Responder` class sets the status code and the `Content-Type` header of the response, while custom `Serializer`s can override them optionally
+    - `SerializerInterface::serialize()` only accepts two arguments instead of 3 as the `$responseCode` parameter was removed
+    - `JsonSerializer` does not set the `Content-Type` header and the status code of the response anymore
+- Improvements related to relationships (__BREAKING CHANGE__):
+    - `ResponseInterface::getToOneRelationship()` throws an exception instead of returning null if the relationship doesn't exist
+    - `ResponseInterface::getToManyRelationship()` throws an exception instead of returning null if the relationship doesn't exist
+- The `TransformerTrait::fromSqlToIso8601Time()` method expects a `?DateTimeZone` as its second argument instead of `string` (__BREAKING CHANGE__)
+
+REMOVED:
+
+- The generic `Links` class (__BREAKING CHANGE__)
+- Methods related to pagination class instantiation were removed from `RequestInterface` (__BREAKING CHANGE__):
+    - `RequestInterface::getFixedPageBasedPagination()`
+    - `RequestInterface::getPageBasedPagination()`
+    - `RequestInterface::getOffsetBasedPagination()`
+    - `RequestInterface::getCursorBasedPagination()`
+- Various deprecated classes (__BREAKING CHANGE__):
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractCollectionDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractErrorDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSimpleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSimpleResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSingleResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSingleResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\AbstractSuccessfulResourceDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\AbstractSuccessfulResourceDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Document\ErrorDocument`: use `WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument` instead
+    - `WoohooLabs\Yin\JsonApi\Transformer\AbstractResourceTransformer`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource` instead
+    - `WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformerInterface`: use `WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\Error`: use `WoohooLabs\Yin\JsonApi\Schema\Error\Error` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\ErrorSource`: use `WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource` instead
+    - `WoohooLabs\Yin\JsonApi\Exception\JsonApiException`: use `WoohooLabs\Yin\JsonApi\Exception\AbstractJsonApiException` instead
+    - `WoohooLabs\Yin\JsonApi\Request\Request`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequest` instead
+    - `WoohooLabs\Yin\JsonApi\Request\RequestInterface`: use `WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\Link`: use `WoohooLabs\Yin\JsonApi\Schema\Link\Link` instead
+    - `WoohooLabs\Yin\JsonApi\Schema\LinkObject`: use `WoohooLabs\Yin\JsonApi\Schema\Link\LinkObject` instead
+- Various deprecated methods (__BREAKING CHANGE__):
+    - `AbstractErrorDocument::getResponseCode()` (use `AbstractErrorDocument::getStatusCode()` instead)
+    - `RequestValidator::lintBody()` (use `RequestValidator::validateJsonBody()` instead)
+    - `ResponseValidator::lintBody()` (use `ResponseValidator::validateJsonBody()` instead)
+    - `ResponseValidator::validateBody()` (`ResponseValidator::validateJsonApiBody()`)
+- The deprecated `AbstractRelationship::omitWhenNotIncluded()` method (__BREAKING CHANGE__): use `AbstractRelationship::omitDataWhenNotIncluded()`
+
+FIXED:
+
+- Issues with 0 and non-numeric values when using built-in pagination objects (`PageBasedPagination`, `FixedPageBasedPagination`, `OffsetBasedPagination`)
+- Various issues found by static analysis
+- Query parameters of pagination links were not encoded properly
+- The `page` and `filter` query parameters must have an array value as per the spec
+- Instead of returning null, an exception is thrown when a non-existent relationship is fetched
 
 ## 4.0.0-beta2 - 2019-04-09
 
@@ -113,6 +211,13 @@ FIXED:
 - Query parameters of pagination links were not encoded properly
 - The `page` and `filter` query parameters must have an array value as per the spec
 - Instead of returning null, an exception is thrown when a non-existent relationship is fetched
+
+## 3.1.1 - 2019-04-18
+
+DEPRECATED:
+
+- `ToOneRelationship::omitWhenNotIncluded()`: Use `ToOneRelationship::omitDataWhenNotIncluded()`
+- `ToManyRelationship::omitWhenNotIncluded()`: Use `ToManyRelationship::omitDataWhenNotIncluded()`
 
 ## 3.1.0 - 2019-01-17
 
