@@ -15,7 +15,7 @@ class ResourceIdInvalid extends AbstractJsonApiException
 
     public function __construct(string $type)
     {
-        parent::__construct("The resource ID must be a string instead of $type!");
+        parent::__construct("The resource ID must be a string instead of $type!", 400);
         $this->type = $type;
     }
 

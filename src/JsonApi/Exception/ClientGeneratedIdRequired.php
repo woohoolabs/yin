@@ -10,7 +10,7 @@ class ClientGeneratedIdRequired extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("A client generated ID must be used!");
+        parent::__construct("A client generated ID must be used!", 403);
     }
 
     protected function getErrors(): array

@@ -15,7 +15,7 @@ class MediaTypeUnsupported extends AbstractJsonApiException
 
     public function __construct(string $mediaTypeName)
     {
-        parent::__construct("The media type '$mediaTypeName' is unsupported in the 'Content-Type' header!");
+        parent::__construct("The media type '$mediaTypeName' is unsupported in the 'Content-Type' header!", 415);
         $this->mediaTypeName = $mediaTypeName;
     }
 

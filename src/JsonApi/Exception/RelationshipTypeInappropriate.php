@@ -30,7 +30,8 @@ class RelationshipTypeInappropriate extends AbstractJsonApiException
     ) {
         parent::__construct(
             "The provided relationship '$relationshipName' is of type of $currentRelationshipType, but " .
-            ($expectedRelationshipType !== "" ? "$expectedRelationshipType is" : "it is not the one which is") . " expected!"
+            ($expectedRelationshipType !== "" ? "$expectedRelationshipType is" : "it is not the one which is") . " expected!",
+            400
         );
         $this->relationshipName = $relationshipName;
         $this->currentRelationshipType = $currentRelationshipType;

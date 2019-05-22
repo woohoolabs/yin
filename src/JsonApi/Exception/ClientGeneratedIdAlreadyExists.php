@@ -15,7 +15,7 @@ class ClientGeneratedIdAlreadyExists extends AbstractJsonApiException
 
     public function __construct(string $clientGeneratedId)
     {
-        parent::__construct("Client generated ID '$clientGeneratedId' already exists!");
+        parent::__construct("Client generated ID '$clientGeneratedId' already exists!", 409);
         $this->clientGeneratedId = $clientGeneratedId;
     }
 

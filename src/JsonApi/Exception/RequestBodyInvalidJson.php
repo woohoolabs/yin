@@ -27,7 +27,7 @@ class RequestBodyInvalidJson extends AbstractJsonApiException
 
     public function __construct(JsonApiRequestInterface $request, string $lintMessage, bool $includeOriginalBody)
     {
-        parent::__construct("Request body is an invalid JSON document: '$lintMessage'!");
+        parent::__construct("Request body is an invalid JSON document: '$lintMessage'!", 400);
         $this->request = $request;
         $this->lintMessage = $lintMessage;
         $this->includeOriginalBody = $includeOriginalBody;
