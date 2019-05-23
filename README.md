@@ -1252,8 +1252,9 @@ well as the dependencies via `Composer`.
 
 ## Integrations
 
-- [dimvic/yii-yin](https://github.com/dimvic/yii-yin): integration for Yii 1.1
-- [qpautrat/woohoolabs-yin-bundle](https://github.com/qpautrat/woohoolabs-yin-bundle): integration for Symfony
+- [dimvic/yii-yin](https://github.com/dimvic/yii-yin): Integration for Yii 1.1
+- [paknahad/jsonapi-bundle](https://github.com/paknahad/jsonapi-bundle): Integration for Symfony
+- [qpautrat/woohoolabs-yin-bundle](https://github.com/qpautrat/woohoolabs-yin-bundle): Integration for Symfony
 
 ## Versioning
 
