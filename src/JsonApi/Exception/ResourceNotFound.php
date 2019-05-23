@@ -9,7 +9,7 @@ class ResourceNotFound extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("The requested resource is not found!");
+        parent::__construct("The requested resource is not found!", 404);
     }
 
     protected function getErrors(): array

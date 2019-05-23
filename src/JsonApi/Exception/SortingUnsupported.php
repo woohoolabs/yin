@@ -10,7 +10,7 @@ class SortingUnsupported extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("Sorting is not supported!");
+        parent::__construct("Sorting is not supported!", 400);
     }
 
     protected function getErrors(): array

@@ -27,7 +27,7 @@ class ResponseBodyInvalidJson extends AbstractJsonApiException
 
     public function __construct(ResponseInterface $response, string $lintMessage, bool $includeOriginalBody)
     {
-        parent::__construct("Response body is an invalid JSON document: '$lintMessage'!");
+        parent::__construct("Response body is an invalid JSON document: '$lintMessage'!", 500);
         $this->response = $response;
         $this->lintMessage = $lintMessage;
         $this->includeOriginalBody = $includeOriginalBody;

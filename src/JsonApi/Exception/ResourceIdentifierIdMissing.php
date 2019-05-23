@@ -14,7 +14,7 @@ class ResourceIdentifierIdMissing extends AbstractJsonApiException
 
     public function __construct(array $resourceIdentifier)
     {
-        parent::__construct("An ID for the resource identifier must be included!");
+        parent::__construct("An ID for the resource identifier must be included!", 400);
         $this->resourceIdentifier = $resourceIdentifier;
     }
 

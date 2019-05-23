@@ -10,7 +10,7 @@ class ResourceIdMissing extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("A resource ID must be included in the document!");
+        parent::__construct("A resource ID must be included in the document!", 400);
     }
 
     protected function getErrors(): array

@@ -23,7 +23,7 @@ class QueryParamMalformed extends AbstractJsonApiException
      */
     public function __construct(string $malformedQueryParam, $malformedQueryParamValue)
     {
-        parent::__construct("Query parameter '$malformedQueryParam' is malformed!");
+        parent::__construct("Query parameter '$malformedQueryParam' is malformed!", 400);
         $this->malformedQueryParam = $malformedQueryParam;
         $this->malformedQueryParamValue = $malformedQueryParamValue;
     }

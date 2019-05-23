@@ -16,7 +16,7 @@ class InclusionUnrecognized extends AbstractJsonApiException
 
     public function __construct(array $unrecognizedIncludes)
     {
-        parent::__construct("Included paths '" . implode(", ", $unrecognizedIncludes) . "' can't be recognized!");
+        parent::__construct("Included paths '" . implode(", ", $unrecognizedIncludes) . "' can't be recognized!", 400);
         $this->unrecognizedIncludes = $unrecognizedIncludes;
     }
 

@@ -15,7 +15,7 @@ class MediaTypeUnacceptable extends AbstractJsonApiException
 
     public function __construct(string $mediaTypeName)
     {
-        parent::__construct("The media type '" . $mediaTypeName . "' is unacceptable in the 'Accept' header!");
+        parent::__construct("The media type '" . $mediaTypeName . "' is unacceptable in the 'Accept' header!", 406);
         $this->mediaTypeName = $mediaTypeName;
     }
 

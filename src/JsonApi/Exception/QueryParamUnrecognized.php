@@ -15,7 +15,7 @@ class QueryParamUnrecognized extends AbstractJsonApiException
 
     public function __construct(string $unrecognizedQueryParam)
     {
-        parent::__construct("Query parameter '$unrecognizedQueryParam' can't be recognized!");
+        parent::__construct("Query parameter '$unrecognizedQueryParam' can't be recognized!", 400);
         $this->unrecognizedQueryParam = $unrecognizedQueryParam;
     }
 

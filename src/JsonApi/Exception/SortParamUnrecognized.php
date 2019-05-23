@@ -15,7 +15,7 @@ class SortParamUnrecognized extends AbstractJsonApiException
 
     public function __construct(string $sortParam)
     {
-        parent::__construct("Sorting parameter '$sortParam' , can't be recognized!");
+        parent::__construct("Sorting parameter '$sortParam' , can't be recognized!", 400);
         $this->sortParam = $sortParam;
     }
 

@@ -15,7 +15,7 @@ class FullReplacementProhibited extends AbstractJsonApiException
 
     public function __construct(string $relationshipName)
     {
-        parent::__construct("Full replacement of relationship '$relationshipName' is prohibited!");
+        parent::__construct("Full replacement of relationship '$relationshipName' is prohibited!", 403);
         $this->relationshipName = $relationshipName;
     }
 

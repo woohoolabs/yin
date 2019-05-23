@@ -10,7 +10,7 @@ class DataMemberMissing extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("Missing `data` member at the document's top level!");
+        parent::__construct("Missing `data` member at the document's top level!", 400);
     }
 
     protected function getErrors(): array

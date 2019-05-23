@@ -31,7 +31,7 @@ class ResponseBodyInvalidJsonApi extends AbstractJsonApiException
 
     public function __construct(ResponseInterface $response, array $validationErrors, bool $includeOriginalBody)
     {
-        parent::__construct("Response body is an invalid JSON:API document: " . print_r($validationErrors, true));
+        parent::__construct("Response body is an invalid JSON:API document: " . print_r($validationErrors, true), 500);
         $this->response = $response;
         $this->validationErrors = $validationErrors;
         $this->includeOriginalBody = $includeOriginalBody;

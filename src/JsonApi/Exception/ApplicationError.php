@@ -9,7 +9,7 @@ class ApplicationError extends AbstractJsonApiException
 {
     public function __construct()
     {
-        parent::__construct("Application exception is thrown!");
+        parent::__construct("Application exception is thrown!", 500);
     }
 
     protected function getErrors(): array
