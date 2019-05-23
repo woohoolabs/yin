@@ -8,6 +8,18 @@ REMOVED:
 
 FIXED:
 
+## 4.0.1 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+- [#84](https://github.com/woohoolabs/yin/issues/84): Exception codes are always 0
+
 ## 4.0.0 - 2019-04-19
 
 This release is the same as 4.0-beta2. The full change set is the following:
