@@ -210,7 +210,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
 
         $link = $provider->getLastLink("https://example.com/api/users?a=b", "");
 
-        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=39&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=40&page[limit]=10", urldecode($link->getHref()));
     }
 
     /**

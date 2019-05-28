@@ -33,12 +33,12 @@ trait OffsetBasedPaginationLinkProviderTrait
 
     public function getLastLink(string $uri, string $queryString): ?Link
     {
-        return $this->createPaginatedLink($uri, $queryString, $this->getTotalItems() - $this->getLimit() - 1, $this->getLimit());
+        return $this->createPaginatedLink($uri, $queryString, max($this->getTotalItems() - $this->getLimit(), 0), $this->getLimit());
     }
 
     public function getPrevLink(string $uri, string $queryString): ?Link
     {
-        if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() >= $this->getTotalItems()) {
+        if ($this->getOffset() <= 0 || $this->getOffset() + $this->getLimit() > $this->getTotalItems()) {
             return null;
         }
 
