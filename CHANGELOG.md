@@ -18,6 +18,7 @@ REMOVED:
 
 FIXED:
 
+- [#83](https://github.com/woohoolabs/yin/issues/83): Fix generated pagination links when using offset-based pagination
 - [#84](https://github.com/woohoolabs/yin/issues/84): Exception codes are always 0
 
 ## 4.0.0 - 2019-04-19
