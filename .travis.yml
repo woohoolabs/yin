@@ -15,10 +15,11 @@ matrix:
     include:
         - php: 7.1
         - php: 7.2
+        - php: 7.3
           env:
               - EXECUTE_COVERAGE=true
               - TEST_COMMAND="./vendor/bin/phpunit --coverage-clover coverage.clover"
-        - php: 7.3
+        - php: 7.4
 
 notifications:
     email: true
