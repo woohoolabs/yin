@@ -249,7 +249,11 @@ class RequestValidatorTest extends TestCase
         /** @var ExceptionFactoryInterface $exceptionFactory */
         $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
 
-        return $this->getMockForAbstractClass(JsonApiRequestInterface::class, [$serverRequest, $exceptionFactory]);
+        $mock = $this->getMockBuilder(JsonApiRequest::class)
+            ->setConstructorArgs([$serverRequest, $exceptionFactory])
+            ->getMock();
+
+        return $mock;
     }
 
     private function createRequestValidator(bool $includeOriginalMessageResponse = true): RequestValidator
