@@ -8,13 +8,7 @@ REMOVED:
 
 FIXED:
 
-## 4.0.1 - unreleased
-
-ADDED:
-
-CHANGED:
-
-REMOVED:
+## 4.0.1 - 2019-06-05
 
 FIXED:
 
