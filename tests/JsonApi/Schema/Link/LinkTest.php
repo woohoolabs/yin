@@ -11,7 +11,7 @@ class LinkTest extends TestCase
     /**
      * @test
      */
-    public function getHref()
+    public function getHref(): void
     {
         $href = "https://example.com";
 
@@ -23,7 +23,7 @@ class LinkTest extends TestCase
     /**
      * @test
      */
-    public function transformAbsoluteLink()
+    public function transformAbsoluteLink(): void
     {
         $href = "https://example.com/api/users";
 
@@ -35,7 +35,7 @@ class LinkTest extends TestCase
     /**
      * @test
      */
-    public function transformRelativeLink()
+    public function transformRelativeLink(): void
     {
         $baseUri = "https://example.com/api";
         $href = "/users";
@@ -45,7 +45,7 @@ class LinkTest extends TestCase
         $this->assertEquals($baseUri . $href, $link->transform($baseUri));
     }
 
-    private function createLink($href): Link
+    private function createLink(string $href): Link
     {
         return new Link($href);
     }

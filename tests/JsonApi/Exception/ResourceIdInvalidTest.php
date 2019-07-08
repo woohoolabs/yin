@@ -11,7 +11,7 @@ class ResourceIdInvalidTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("");
 
@@ -24,7 +24,7 @@ class ResourceIdInvalidTest extends TestCase
     /**
      * @test
      */
-    public function getId()
+    public function getId(): void
     {
         $exception = $this->createException("integer");
 

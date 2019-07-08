@@ -11,7 +11,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getAliases()
+    public function getAliases(): void
     {
         $link = $this->createProfileLinkObject(["keyword" => "alias"]);
 
@@ -21,7 +21,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getAliasWhenPresent()
+    public function getAliasWhenPresent(): void
     {
         $link = $this->createProfileLinkObject(["keyword" => "alias"]);
 
@@ -31,7 +31,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getAliasWhenNotPresent()
+    public function getAliasWhenNotPresent(): void
     {
         $link = $this->createProfileLinkObject(["keyword" => "alias"]);
 
@@ -41,7 +41,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function addAliases()
+    public function addAliases(): void
     {
         $link = $this->createProfileLinkObject();
 
@@ -54,7 +54,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformLinkWithAlias()
+    public function transformLinkWithAlias(): void
     {
         $link = $this->createProfileLinkObject(["keyword" => "alias"]);
 
@@ -67,7 +67,7 @@ class ProfileLinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformLinkWithoutAlias()
+    public function transformLinkWithoutAlias(): void
     {
         $link = $this->createProfileLinkObject([]);
 

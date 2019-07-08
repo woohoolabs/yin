@@ -12,7 +12,7 @@ class RequestBodyInvalidJsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getErrorsWithTwoErrors()
+    public function getErrorsWithTwoErrors(): void
     {
         $exception = $this->createException(
             "",
@@ -29,11 +29,12 @@ class RequestBodyInvalidJsonApiTest extends TestCase
         );
 
         $errors = $exception->getErrorDocument()->getErrors();
+        $source = $errors[0]->getSource();
 
         $this->assertCount(2, $errors);
         $this->assertEquals("400", $errors[0]->getStatus());
         $this->assertEquals("Abc", $errors[0]->getDetail());
-        $this->assertEquals("property1", $errors[0]->getSource()->getPointer());
+        $this->assertEquals("property1", $source !== null ? $source->getPointer() : null);
         $this->assertEquals("400", $errors[1]->getStatus());
         $this->assertEquals("Cde", $errors[1]->getDetail());
         $this->assertNull($errors[1]->getSource());
@@ -42,7 +43,7 @@ class RequestBodyInvalidJsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getErrorDocumentWhenNotIncludeOriginal()
+    public function getErrorDocumentWhenNotIncludeOriginal(): void
     {
         $exception = $this->createException("abc", [], false);
 
@@ -54,7 +55,7 @@ class RequestBodyInvalidJsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getErrorDocumentWhenIncludeOriginal()
+    public function getErrorDocumentWhenIncludeOriginal(): void
     {
         $exception = $this->createException("\"abc\"", [], true);
 
@@ -66,7 +67,7 @@ class RequestBodyInvalidJsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getValidationErrors()
+    public function getValidationErrors(): void
     {
         $exception = $this->createException("", ["abc", "def"]);
 

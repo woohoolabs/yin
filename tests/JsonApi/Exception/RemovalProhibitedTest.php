@@ -11,7 +11,7 @@ class RemovalProhibitedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("");
 
@@ -24,7 +24,7 @@ class RemovalProhibitedTest extends TestCase
     /**
      * @test
      */
-    public function getRelationshipName()
+    public function getRelationshipName(): void
     {
         $exception = $this->createException("authors");
 

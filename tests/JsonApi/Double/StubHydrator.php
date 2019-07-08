@@ -51,6 +51,10 @@ class StubHydrator extends AbstractHydrator
         return "1";
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return void
+     */
     protected function setId($domainObject, string $id)
     {
     }
@@ -59,11 +63,19 @@ class StubHydrator extends AbstractHydrator
     {
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return callable[]
+     */
     protected function getAttributeHydrator($domainObject): array
     {
         return $this->attributeHydrator;
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return callable[]
+     */
     protected function getRelationshipHydrator($domainObject): array
     {
         return $this->relationshipHydrator;

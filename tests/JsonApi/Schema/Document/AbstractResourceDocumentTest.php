@@ -18,7 +18,7 @@ class AbstractResourceDocumentTest extends TestCase
     /**
      * @test
      */
-    public function initializeTransformation()
+    public function initializeTransformation(): void
     {
         $document = $this->createDocument();
         $transformation = $this->createTransformation($document);
@@ -33,7 +33,7 @@ class AbstractResourceDocumentTest extends TestCase
     /**
      * @test
      */
-    public function clearTransformation()
+    public function clearTransformation(): void
     {
         $document = $this->createDocument();
         $transformation = $this->createTransformation($document);

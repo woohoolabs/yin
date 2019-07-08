@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
+namespace WoohooLabs\Yin\Tests\JsonApi;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,7 +11,6 @@ use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
@@ -21,7 +20,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getRequest()
+    public function getRequest(): void
     {
         $request = $this->createRequest();
         $request = $request->withMethod("PUT");
@@ -34,7 +33,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function setRequest()
+    public function setRequest(): void
     {
         $request = $this->createRequest()
             ->withMethod("PUT");
@@ -48,7 +47,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getResponse()
+    public function getResponse(): void
     {
         $response = $this->createResponse()
             ->withStatus(404);
@@ -61,7 +60,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function setResponse()
+    public function setResponse(): void
     {
         $response = $this->createResponse()
             ->withStatus(404);
@@ -75,17 +74,19 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationFactory()
+    public function getPaginationFactory(): void
     {
         $jsonApi = $this->createJsonApi();
 
-        $this->assertInstanceOf(PaginationFactory::class, $jsonApi->getPaginationFactory());
+        $jsonApi->getPaginationFactory();
+
+        $this->addToAssertionCount(1);
     }
 
     /**
      * @test
      */
-    public function getExceptionFactory()
+    public function getExceptionFactory(): void
     {
         $exceptionFactory = new DefaultExceptionFactory();
 
@@ -97,7 +98,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function setExceptionFactory()
+    public function setExceptionFactory(): void
     {
         $exceptionFactory = new DefaultExceptionFactory();
 
@@ -110,7 +111,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableIncludesWhenMissing()
+    public function disableIncludesWhenMissing(): void
     {
         $request = $this->createRequest();
 
@@ -122,7 +123,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableIncludesWhenEmpty()
+    public function disableIncludesWhenEmpty(): void
     {
         $request = $this->createRequest()
             ->withQueryParams(["include" => ""]);
@@ -135,7 +136,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableIncludesWhenSet()
+    public function disableIncludesWhenSet(): void
     {
         $request = $this->createRequest()
             ->withQueryParams(["include" => "users"]);
@@ -148,7 +149,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableSortingWhenMissing()
+    public function disableSortingWhenMissing(): void
     {
         $request = $this->createRequest();
 
@@ -160,7 +161,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableSortingWhenEmpty()
+    public function disableSortingWhenEmpty(): void
     {
         $request = $this->createRequest()
             ->withQueryParams(["sort" => ""]);
@@ -173,7 +174,7 @@ class JsonApiTest extends TestCase
     /**
      * @test
      */
-    public function disableSortingWhenSet()
+    public function disableSortingWhenSet(): void
     {
         $request = $this->createRequest()
             ->withQueryParams(["sort" => "firstname"]);
@@ -189,16 +190,16 @@ class JsonApiTest extends TestCase
         ?ExceptionFactoryInterface $exceptionFactory = null
     ): JsonApi {
         return new JsonApi(
-            $request ? $request : $this->createRequest(),
-            $response ? $response : new Response(),
-            $exceptionFactory ? $exceptionFactory : new DefaultExceptionFactory()
+            $request ?? $this->createRequest(),
+            $response ?? new Response(),
+            $exceptionFactory ?? new DefaultExceptionFactory()
         );
     }
 
     private function createRequest(?ServerRequestInterface $request = null): JsonApiRequest
     {
         return new JsonApiRequest(
-            $request ? $request : new ServerRequest(),
+            $request ?? new ServerRequest(),
             new DefaultExceptionFactory(),
             new JsonDeserializer()
         );

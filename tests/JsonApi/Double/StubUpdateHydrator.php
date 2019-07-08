@@ -17,15 +17,19 @@ class StubUpdateHydrator
      */
     private $validationException;
 
-    public function __construct($validationException = false)
+    public function __construct(bool $validationException = false)
     {
         $this->validationException = $validationException;
     }
 
-    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory)
+    protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory): void
     {
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed|void
+     */
     protected function setId($domainObject, string $id)
     {
         $domainObject["id"] = $id;
@@ -33,35 +37,50 @@ class StubUpdateHydrator
         return $domainObject;
     }
 
-    protected function validateRequest(JsonApiRequestInterface $request)
+    protected function validateRequest(JsonApiRequestInterface $request): void
     {
         if ($this->validationException) {
             throw new LogicException();
         }
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed
+     */
     protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed
+     */
     protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;
     }
 
-    protected function getRelationshipHydrator($domainObject)
+    /**
+     * @param mixed $domainObject
+     */
+    protected function getRelationshipHydrator($domainObject): array
     {
         return [];
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed
+     */
     protected function doHydrateRelationship(
         $domainObject,
-        $relationshipName,
+        string $relationshipName,
         callable $hydrator,
         ExceptionFactoryInterface $exceptionFactory,
-        $relationshipData,
-        $data
+        ?array $relationshipData,
+        ?array $data
     ) {
         return $domainObject;
     }

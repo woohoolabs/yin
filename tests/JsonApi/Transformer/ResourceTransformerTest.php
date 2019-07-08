@@ -25,7 +25,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceIdentifierWhenObjectIsNull()
+    public function transformToResourceIdentifierWhenObjectIsNull(): void
     {
         $resource = $this->createResource();
 
@@ -37,7 +37,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceIdentifierWhenObjectIsNotNull()
+    public function transformToResourceIdentifierWhenObjectIsNotNull(): void
     {
         $resource = $this->createResource("user", "1");
 
@@ -55,7 +55,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceIdentifierWithMeta()
+    public function transformToResourceIdentifierWithMeta(): void
     {
         $resource = $this->createResource("user", "1", ["abc" => "def"]);
 
@@ -74,7 +74,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWhenNull()
+    public function transformToResourceObjectWhenNull(): void
     {
         $resource = $this->createResource("user", "1");
 
@@ -86,7 +86,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWhenAlmostEmpty()
+    public function transformToResourceObjectWhenAlmostEmpty(): void
     {
         $resource = $this->createResource("user", "1");
 
@@ -104,7 +104,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithMeta()
+    public function transformToResourceObjectWithMeta(): void
     {
         $resource = $this->createResource("", "", ["abc" => "def"]);
 
@@ -123,7 +123,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithLinks()
+    public function transformToResourceObjectWithLinks(): void
     {
         $resource = $this->createResource("", "", [], new ResourceLinks());
 
@@ -142,7 +142,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithMetaAndLinks()
+    public function transformToResourceObjectWithMetaAndLinks(): void
     {
         $resource = $this->createResource("user", "1", ["abc" => "def"], new ResourceLinks());
 
@@ -162,7 +162,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithAttributes()
+    public function transformToResourceObjectWithAttributes(): void
     {
         $resource = $this->createResource(
             "user",
@@ -205,7 +205,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithDefaultRelationship()
+    public function transformToResourceObjectWithDefaultRelationship(): void
     {
         $resource = $this->createResource(
             "user",
@@ -244,7 +244,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithoutRelationships()
+    public function transformToResourceObjectWithoutRelationships(): void
     {
         $resource = $this->createResource(
             "user",
@@ -274,7 +274,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithInvalidRelationship()
+    public function transformToResourceObjectWithInvalidRelationship(): void
     {
         $resource = $this->createResource(
             "user",
@@ -298,7 +298,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToResourceObjectWithRelationships()
+    public function transformToResourceObjectWithRelationships(): void
     {
         $resource = $this->createResource(
             "user",
@@ -334,7 +334,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToRelationshipObjectWhenEmpty()
+    public function transformToRelationshipObjectWhenEmpty(): void
     {
         $resource = $this->createResource(
             "user",
@@ -354,7 +354,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToRelationshipObjectWhenNotFound()
+    public function transformToRelationshipObjectWhenNotFound(): void
     {
         $resource = $this->createResource(
             "user",
@@ -379,7 +379,7 @@ class ResourceTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformToRelationshipObject()
+    public function transformToRelationshipObject(): void
     {
         $resource = $this->createResource(
             "user",
@@ -421,7 +421,7 @@ class ResourceTransformerTest extends TestCase
             $resource,
             $object,
             "",
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -449,7 +449,7 @@ class ResourceTransformerTest extends TestCase
             $resource,
             $object,
             "",
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -478,7 +478,7 @@ class ResourceTransformerTest extends TestCase
             $resource,
             $object,
             "",
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new DiactorosServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()

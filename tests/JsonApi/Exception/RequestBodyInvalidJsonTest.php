@@ -12,7 +12,7 @@ class RequestBodyInvalidJsonTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 
@@ -25,7 +25,7 @@ class RequestBodyInvalidJsonTest extends TestCase
     /**
      * @test
      */
-    public function getErrorDocumentWhenNotIncludeOriginal()
+    public function getErrorDocumentWhenNotIncludeOriginal(): void
     {
         $exception = $this->createException("abc", "", false);
 
@@ -37,7 +37,7 @@ class RequestBodyInvalidJsonTest extends TestCase
     /**
      * @test
      */
-    public function getErrorDocumentWhenIncludeOriginal()
+    public function getErrorDocumentWhenIncludeOriginal(): void
     {
         $exception = $this->createException("abc", "", true);
 
@@ -49,7 +49,7 @@ class RequestBodyInvalidJsonTest extends TestCase
     /**
      * @test
      */
-    public function getLintMessage()
+    public function getLintMessage(): void
     {
         $exception = $this->createException("", "abc");
 

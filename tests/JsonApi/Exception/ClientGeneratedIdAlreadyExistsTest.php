@@ -11,7 +11,7 @@ class ClientGeneratedIdAlreadyExistsTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("1");
 
@@ -24,7 +24,7 @@ class ClientGeneratedIdAlreadyExistsTest extends TestCase
     /**
      * @test
      */
-    public function getClientGeneratedId()
+    public function getClientGeneratedId(): void
     {
         $exception = $this->createException("1");
 
@@ -33,7 +33,7 @@ class ClientGeneratedIdAlreadyExistsTest extends TestCase
         $this->assertEquals("1", $id);
     }
 
-    private function createException($id): ClientGeneratedIdAlreadyExists
+    private function createException(string $id): ClientGeneratedIdAlreadyExists
     {
         return new ClientGeneratedIdAlreadyExists($id);
     }

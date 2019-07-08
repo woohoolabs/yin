@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Error;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
@@ -11,7 +11,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function createFromPointer()
+    public function createFromPointer(): void
     {
         $pointer = "/data/attributes/name";
 
@@ -22,7 +22,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function createFromParameter()
+    public function createFromParameter(): void
     {
         $parameter = "name";
 
@@ -33,7 +33,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function getPointer()
+    public function getPointer(): void
     {
         $pointer = "/data/attributes/name";
 
@@ -44,7 +44,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function getParameter()
+    public function getParameter(): void
     {
         $parameter = "name";
 
@@ -55,7 +55,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function transformWithPointer()
+    public function transformWithPointer(): void
     {
         $pointer = "/data/attributes/name";
 
@@ -70,7 +70,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function transformWithParameter()
+    public function transformWithParameter(): void
     {
         $parameter = "name";
 
@@ -85,7 +85,7 @@ class ErrorSourceTest extends TestCase
     /**
      * @test
      */
-    public function transformWithBothAttributes()
+    public function transformWithBothAttributes(): void
     {
         $pointer = "/data/attributes/name";
         $parameter = "name";
@@ -99,7 +99,7 @@ class ErrorSourceTest extends TestCase
         $this->assertEquals($transformedErrorSource, $errorSource->transform());
     }
 
-    private function createErrorSource($pointer, $parameter): ErrorSource
+    private function createErrorSource(string $pointer, string $parameter): ErrorSource
     {
         return new ErrorSource($pointer, $parameter);
     }

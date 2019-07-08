@@ -12,7 +12,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenCurrentItemIsNull()
+    public function getSelfLinkWhenCurrentItemIsNull(): void
     {
         $provider = $this->createProvider(0, 0, null, 0, 0, 10);
 
@@ -24,67 +24,72 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenOnlyPathProvided()
+    public function getSelfLinkWhenOnlyPathProvided(): void
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenQueryStringSeparatorIsProvided()
+    public function getSelfLinkWhenQueryStringSeparatorIsProvided(): void
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenQueryStringIsProvided()
+    public function getSelfLinkWhenQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=b&page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=b&page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided()
+    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "a=c&b=d");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided()
+    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(0, 0, 2, 0, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users", "page[cursor]=0");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getFirstLinkWhenFirstItemIsNull()
+    public function getFirstLinkWhenFirstItemIsNull(): void
     {
         $provider = $this->createProvider(null, 0, 0, 0, 0, 10);
 
@@ -96,19 +101,20 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getFirstLink()
+    public function getFirstLink(): void
     {
         $provider = $this->createProvider(0, 0, 0, 0, 0, 10);
 
         $link = $provider->getFirstLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=0&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=0&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getLastLinkWhenLastItemIsNull()
+    public function getLastLinkWhenLastItemIsNull(): void
     {
         $provider = $this->createProvider(0, null, 0, 0, 0, 10);
 
@@ -120,37 +126,40 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getLastLink()
+    public function getLastLink(): void
     {
         $provider = $this->createProvider(0, 4, 0, 0, 0, 10);
 
         $link = $provider->getLastLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=4&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=4&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getPrevLink()
+    public function getPrevLink(): void
     {
         $provider = $this->createProvider(0, 0, 0, 2, 0, 10);
 
         $link = $provider->getPrevLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getNextLink()
+    public function getNextLink(): void
     {
         $provider = $this->createProvider(0, 0, 0, 0, 3, 10);
 
         $link = $provider->getNextLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=3&page[size]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[cursor]=3&page[size]=10", urldecode($href));
     }
 
     /**

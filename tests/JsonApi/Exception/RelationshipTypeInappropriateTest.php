@@ -11,7 +11,7 @@ class RelationshipTypeInappropriateTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("", "", "");
 
@@ -24,7 +24,7 @@ class RelationshipTypeInappropriateTest extends TestCase
     /**
      * @test
      */
-    public function getRelationshipName()
+    public function getRelationshipName(): void
     {
         $exception = $this->createException("rel", "", "");
 
@@ -36,7 +36,7 @@ class RelationshipTypeInappropriateTest extends TestCase
     /**
      * @test
      */
-    public function getCurrentRelationshipType()
+    public function getCurrentRelationshipType(): void
     {
         $exception = $this->createException("", "type", "");
 
@@ -48,7 +48,7 @@ class RelationshipTypeInappropriateTest extends TestCase
     /**
      * @test
      */
-    public function getExpectedRelationshipType()
+    public function getExpectedRelationshipType(): void
     {
         $exception = $this->createException("", "", "type");
 

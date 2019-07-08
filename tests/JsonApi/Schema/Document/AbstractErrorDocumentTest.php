@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Scema\Document;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
@@ -12,7 +12,7 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getErrorsWhenEmpty()
+    public function getErrorsWhenEmpty(): void
     {
         $errorDocument = $this->createErrorDocument();
 
@@ -24,7 +24,7 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $errorDocument = $this->createErrorDocument()
             ->addError(new Error())
@@ -38,7 +38,7 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getStatusCodeWithOneErrorInDocument()
+    public function getStatusCodeWithOneErrorInDocument(): void
     {
         $errorDocument = $this->createErrorDocument()
             ->addError(Error::create()->setStatus("404"));
@@ -51,7 +51,7 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getStatusCodeWithErrorInParameter()
+    public function getStatusCodeWithErrorInParameter(): void
     {
         $errorDocument = $this->createErrorDocument()
             ->addError(Error::create());
@@ -64,7 +64,7 @@ class AbstractErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getStatusCodeWithMultipleErrorsInDocument()
+    public function getStatusCodeWithMultipleErrorsInDocument(): void
     {
         $errorDocument = $this->createErrorDocument()
             ->addError(Error::create()->setStatus("418"))

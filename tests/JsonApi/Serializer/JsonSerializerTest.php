@@ -13,7 +13,7 @@ class JsonSerializerTest extends TestCase
     /**
      * @test
      */
-    public function serializeBody()
+    public function serializeBody(): void
     {
         $serializer = new JsonSerializer();
 
@@ -43,7 +43,7 @@ class JsonSerializerTest extends TestCase
     /**
      * @test
      */
-    public function getBodyAsString()
+    public function getBodyAsString(): void
     {
         $response = new Response();
         $response->getBody()->write("abc");

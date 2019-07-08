@@ -12,7 +12,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenOffsetIsNegative()
+    public function getSelfLinkWhenOffsetIsNegative(): void
     {
         $provider = $this->createProvider(10, -6, 10);
 
@@ -24,19 +24,20 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenOffsetIsZero()
+    public function getSelfLinkWhenOffsetIsZero(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenLimitIsNegative()
+    public function getSelfLinkWhenLimitIsNegative(): void
     {
         $provider = $this->createProvider(10, 0, -1);
 
@@ -48,7 +49,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenLimitIsZero()
+    public function getSelfLinkWhenLimitIsZero(): void
     {
         $provider = $this->createProvider(10, 1, 0);
 
@@ -60,7 +61,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenTotalItemsIsNegative()
+    public function getSelfLinkWhenTotalItemsIsNegative(): void
     {
         $provider = $this->createProvider(-30, 1, 0);
 
@@ -72,7 +73,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenTotalItemsIsZero()
+    public function getSelfLinkWhenTotalItemsIsZero(): void
     {
         $provider = $this->createProvider(0, 0, 10);
 
@@ -84,7 +85,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenOffsetIsTooMuch()
+    public function getSelfLinkWhenOffsetIsTooMuch(): void
     {
         $provider = $this->createProvider(30, 30, 10);
 
@@ -96,67 +97,72 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getSelfLinkWhenOnlyPathIsProvided()
+    public function getSelfLinkWhenOnlyPathIsProvided(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathWithQueryStringSeparatorIsProvided()
+    public function getSelfLinkWhenPathWithQueryStringSeparatorIsProvided(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathWithQueryStringIsProvided()
+    public function getSelfLinkWhenPathWithQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided()
+    public function getSelfLinkWhenPathAndAdditionalQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "a=c&b=d");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided()
+    public function getSelfLinkWhenPathAndAdditionalPaginationQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(10, 0, 10);
 
         $link = $provider->getSelfLink("https://example.com/api/users", "page[offset]=0&page[limit]=0");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getFirstLinkWhenTotalItemsIsZero()
+    public function getFirstLinkWhenTotalItemsIsZero(): void
     {
         $provider = $this->createProvider(0, 2, 10);
 
@@ -168,7 +174,7 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getFirstLinkWhenLimitIsZero()
+    public function getFirstLinkWhenLimitIsZero(): void
     {
         $provider = $this->createProvider(10, 0, 0);
 
@@ -180,43 +186,46 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getFirstLink()
+    public function getFirstLink(): void
     {
         $provider = $this->createProvider(10, 2, 10);
 
         $link = $provider->getFirstLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getLastLink()
+    public function getLastLink(): void
     {
         $provider = $this->createProvider(50, 2, 10);
 
         $link = $provider->getLastLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=40&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=40&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getLastLinkWhenQueryStringIsProvided()
+    public function getLastLinkWhenQueryStringIsProvided(): void
     {
         $provider = $this->createProvider(50, 2, 10);
 
         $link = $provider->getLastLink("https://example.com/api/users?a=b", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=40&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?a=b&page[offset]=40&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getPrevLinkWhenOffsetIsZero()
+    public function getPrevLinkWhenOffsetIsZero(): void
     {
         $provider = $this->createProvider(50, 0, 10);
 
@@ -228,43 +237,46 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getPrevLinkWhenPageIsTruncated()
+    public function getPrevLinkWhenPageIsTruncated(): void
     {
         $provider = $this->createProvider(50, 9, 10);
 
         $link = $provider->getPrevLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getPrevLink()
+    public function getPrevLink(): void
     {
         $provider = $this->createProvider(50, 10, 10);
 
         $link = $provider->getPrevLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=0&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getPrevLinkWhenOffsetIsMoreThanLimit()
+    public function getPrevLinkWhenOffsetIsMoreThanLimit(): void
     {
         $provider = $this->createProvider(50, 16, 10);
 
         $link = $provider->getPrevLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=6&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=6&page[limit]=10", urldecode($href));
     }
 
     /**
      * @test
      */
-    public function getNextLinkWhenOffsetIsLast()
+    public function getNextLinkWhenOffsetIsLast(): void
     {
         $provider = $this->createProvider(50, 41, 10);
 
@@ -276,13 +288,14 @@ class OffsetBasedPaginationProviderTraitTest extends TestCase
     /**
      * @test
      */
-    public function getNextLink()
+    public function getNextLink(): void
     {
         $provider = $this->createProvider(50, 10, 10);
 
         $link = $provider->getNextLink("https://example.com/api/users", "");
+        $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[offset]=20&page[limit]=10", urldecode($link->getHref()));
+        $this->assertEquals("https://example.com/api/users?page[offset]=20&page[limit]=10", urldecode($href));
     }
 
     private function createProvider(int $totalItems, int $offset, int $limit): StubOffsetBasedPaginationProvider

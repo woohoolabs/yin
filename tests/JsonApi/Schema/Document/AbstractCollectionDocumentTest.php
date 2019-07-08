@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Scema\Document;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
@@ -13,7 +13,7 @@ class AbstractCollectionDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getResource()
+    public function getResource(): void
     {
         $resource = new StubResource();
 
@@ -25,7 +25,7 @@ class AbstractCollectionDocumentTest extends TestCase
     /**
      * @test
      */
-    public function hasItemsTrue()
+    public function hasItemsTrue(): void
     {
         $resource = new StubResource();
 
@@ -37,7 +37,7 @@ class AbstractCollectionDocumentTest extends TestCase
     /**
      * @test
      */
-    public function hasItemsFalse()
+    public function hasItemsFalse(): void
     {
         $resource = new StubResource();
 
@@ -49,7 +49,7 @@ class AbstractCollectionDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getItemsFalse()
+    public function getItemsFalse(): void
     {
         $resource = new StubResource();
 
@@ -58,7 +58,7 @@ class AbstractCollectionDocumentTest extends TestCase
         $this->assertFalse($collectionDocument->getHasItems());
     }
 
-    private function createCollectionDocument(?ResourceInterface $resource = null, $object = null): StubCollectionDocument
+    private function createCollectionDocument(?ResourceInterface $resource = null, iterable $object = []): StubCollectionDocument
     {
         return new StubCollectionDocument(null, [], null, $resource, $object);
     }

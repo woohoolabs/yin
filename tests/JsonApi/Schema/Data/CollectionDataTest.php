@@ -11,7 +11,7 @@ class CollectionDataTest extends TestCase
     /**
      * @test
      */
-    public function transformSinglePrimaryResourcesInTheOrderDefined()
+    public function transformSinglePrimaryResourcesInTheOrderDefined(): void
     {
         $data = new CollectionData();
         $data->addPrimaryResource(["type" => "user", "id" => "1"]);
@@ -27,7 +27,7 @@ class CollectionDataTest extends TestCase
     /**
      * @test
      */
-    public function transformMultiplePrimaryResourcesInTheOrderDefined()
+    public function transformMultiplePrimaryResourcesInTheOrderDefined(): void
     {
         $data = new CollectionData();
         $data->setPrimaryResources(

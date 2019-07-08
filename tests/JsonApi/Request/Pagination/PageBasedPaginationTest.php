@@ -12,7 +12,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParams()
+    public function fromPaginationQueryParams(): void
     {
         $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => 1, "size" => "10"]);
 
@@ -23,7 +23,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenMissing()
+    public function fromPaginationQueryParamsWhenMissing(): void
     {
         $pagination = PageBasedPagination::fromPaginationQueryParams([], 1, 10);
 
@@ -34,7 +34,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenEmpty()
+    public function fromPaginationQueryParamsWhenEmpty(): void
     {
         $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "", "size" => ""], 1, 10);
 
@@ -45,7 +45,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenZero()
+    public function fromPaginationQueryParamsWhenZero(): void
     {
         $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "0", "size" => "0"], 1, 10);
 
@@ -56,7 +56,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenNonNumeric()
+    public function fromPaginationQueryParamsWhenNonNumeric(): void
     {
         $pagination = PageBasedPagination::fromPaginationQueryParams(["number" => "abc", "size" => "abc"], 1, 10);
 
@@ -67,7 +67,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPage()
+    public function getPage(): void
     {
         $pagination = $this->createPagination(1, 10);
 
@@ -79,7 +79,7 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getSizeTest()
+    public function getSizeTest(): void
     {
         $pagination = $this->createPagination(1, 10);
 
@@ -91,14 +91,14 @@ class PageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationQueryString()
+    public function getPaginationQueryString(): void
     {
         $queryString = PageBasedPagination::getPaginationQueryString(1, 10);
 
         $this->assertEquals("page[number]=1&page[size]=10", urldecode($queryString));
     }
 
-    private function createPagination(?int $page, ?int $size): PageBasedPagination
+    private function createPagination(int $page, int $size): PageBasedPagination
     {
         return new PageBasedPagination($page, $size);
     }

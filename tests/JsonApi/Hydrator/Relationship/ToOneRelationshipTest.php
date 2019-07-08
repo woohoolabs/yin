@@ -12,7 +12,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdentifierWhenSetInConstructor()
+    public function getResourceIdentifierWhenSetInConstructor(): void
     {
         $resourceIdentifier = (new ResourceIdentifier())->setType("user")->setId("1");
 
@@ -23,7 +23,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function setResourceIdentifier()
+    public function setResourceIdentifier(): void
     {
         $resourceIdentifier = (new ResourceIdentifier())->setType("user")->setId("1");
 
@@ -34,7 +34,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyIsFalse()
+    public function isEmptyIsFalse(): void
     {
         $relationship = $this->createRelationship(new ResourceIdentifier());
 
@@ -44,7 +44,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyIsTrue()
+    public function isEmptyIsTrue(): void
     {
         $relationship = $this->createRelationship();
 

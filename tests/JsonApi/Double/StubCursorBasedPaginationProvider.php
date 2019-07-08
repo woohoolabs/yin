@@ -56,26 +56,41 @@ class StubCursorBasedPaginationProvider
         $this->size = $size;
     }
 
+    /**
+     * @return mixed
+     */
     public function getFirstItem()
     {
         return $this->firstItem;
     }
 
+    /**
+     * @return mixed
+     */
     public function getLastItem()
     {
         return $this->lastItem;
     }
 
+    /**
+     * @return mixed
+     */
     public function getCurrentItem()
     {
         return $this->currentItem;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPreviousItem()
     {
         return $this->previousItem;
     }
 
+    /**
+     * @return mixed
+     */
     public function getNextItem()
     {
         return $this->nextItem;

@@ -20,7 +20,7 @@ class UpdateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateWhenBodyEmpty()
+    public function hydrateWhenBodyEmpty(): void
     {
         $body = [];
 
@@ -33,7 +33,7 @@ class UpdateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateWhenIdMissing()
+    public function hydrateWhenIdMissing(): void
     {
         $body = [
             "data" => [
@@ -50,7 +50,7 @@ class UpdateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateId()
+    public function hydrateId(): void
     {
         $id = "1";
         $body = [
@@ -68,7 +68,7 @@ class UpdateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function validateRequest()
+    public function validateRequest(): void
     {
         $type = "user";
         $id = "1";
@@ -86,20 +86,23 @@ class UpdateHydratorTraitTest extends TestCase
         $hydrator->hydrateForUpdate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
-    private function createRequest(array $body)
+    private function createRequest(array $body): JsonApiRequest
     {
+        $data = json_encode($body);
+        if ($data === false) {
+            $data = "";
+        }
+
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest
             ->withParsedBody($body)
             ->withBody(new Stream("php://memory", "rw"));
-        $psrRequest->getBody()->write(json_encode($body));
+        $psrRequest->getBody()->write($data);
 
-        $request = new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
-
-        return $request;
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createHydrator($validationException = false): StubUpdateHydrator
+    private function createHydrator(bool $validationException = false): StubUpdateHydrator
     {
         return new StubUpdateHydrator($validationException);
     }

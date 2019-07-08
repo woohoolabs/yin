@@ -20,7 +20,7 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateWhenBodyEmpty()
+    public function hydrateWhenBodyEmpty(): void
     {
         $body = [];
 
@@ -33,7 +33,7 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateWhenGeneratingId()
+    public function hydrateWhenGeneratingId(): void
     {
         $type = "user";
         $id = "1";
@@ -51,7 +51,7 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function testHydrateWhenBodyDataIdNotSupported()
+    public function testHydrateWhenBodyDataIdNotSupported(): void
     {
         $type = "user";
         $id = "1";
@@ -71,7 +71,7 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function hydrateBodyDataId()
+    public function hydrateBodyDataId(): void
     {
         $type = "user";
         $id = "1";
@@ -90,7 +90,7 @@ class CreateHydratorTraitTest extends TestCase
     /**
      * @test
      */
-    public function validateRequest()
+    public function validateRequest(): void
     {
         $type = "user";
         $id = "1";
@@ -108,17 +108,20 @@ class CreateHydratorTraitTest extends TestCase
         $hydrator->hydrateForCreate($this->createRequest($body), new DefaultExceptionFactory(), []);
     }
 
-    private function createRequest(array $body)
+    private function createRequest(array $body): JsonApiRequest
     {
+        $data = json_encode($body);
+        if ($data === false) {
+            $data = "";
+        }
+
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest
             ->withParsedBody($body)
             ->withBody(new Stream("php://memory", "rw"));
-        $psrRequest->getBody()->write(json_encode($body));
+        $psrRequest->getBody()->write($data);
 
-        $request = new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
-
-        return $request;
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     /**

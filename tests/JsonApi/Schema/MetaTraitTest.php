@@ -11,7 +11,7 @@ class MetaTraitTest extends TestCase
     /**
      * @test
      */
-    public function getMeta()
+    public function getMeta(): void
     {
         $metaTrait = $this->createMetaTrait()
             ->setMeta(["abc" => "def"]);
@@ -22,7 +22,7 @@ class MetaTraitTest extends TestCase
     }
 
     /**
-     * @return object|MetaTrait
+     * @return mixed
      */
     private function createMetaTrait()
     {

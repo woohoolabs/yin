@@ -16,7 +16,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithMissingType()
+    public function fromArrayWithMissingType(): void
     {
         $this->expectException(ResourceIdentifierTypeMissing::class);
 
@@ -26,7 +26,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithNotStringType()
+    public function fromArrayWithNotStringType(): void
     {
         $this->expectException(ResourceIdentifierTypeInvalid::class);
 
@@ -36,7 +36,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithMissingId()
+    public function fromArrayWithMissingId(): void
     {
         $this->expectException(ResourceIdentifierIdMissing::class);
 
@@ -46,7 +46,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithNotStringId()
+    public function fromArrayWithNotStringId(): void
     {
         $this->expectException(ResourceIdentifierIdInvalid::class);
 
@@ -56,7 +56,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithZeroTypeAndId()
+    public function fromArrayWithZeroTypeAndId(): void
     {
         $resourceIdentifier = $this->createResourceIdentifier()
             ->setType("0")
@@ -76,7 +76,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArray()
+    public function fromArray(): void
     {
         $resourceIdentifier = $this->createResourceIdentifier()
             ->setType("user")
@@ -96,7 +96,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function fromArrayWithMeta()
+    public function fromArrayWithMeta(): void
     {
         $resourceIdentifier = $this->createResourceIdentifier()
             ->setType("user")
@@ -118,7 +118,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function getType()
+    public function getType(): void
     {
         $link = $this->createResourceIdentifier()
             ->setType("abc");
@@ -131,7 +131,7 @@ class ResourceIdentifierTest extends TestCase
     /**
      * @test
      */
-    public function getId()
+    public function getId(): void
     {
         $link = $this->createResourceIdentifier()
             ->setId("123");

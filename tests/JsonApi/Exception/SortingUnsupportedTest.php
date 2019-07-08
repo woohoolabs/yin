@@ -11,7 +11,7 @@ class SortingUnsupportedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 
@@ -24,7 +24,7 @@ class SortingUnsupportedTest extends TestCase
     /**
      * @test
      */
-    public function getMessage()
+    public function getMessage(): void
     {
         $exception = $this->createException();
 

@@ -19,7 +19,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformEmpty()
+    public function transformEmpty(): void
     {
         $transformation = new ResourceTransformation(
             new StubResource(),
@@ -49,7 +49,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformNull()
+    public function transformNull(): void
     {
         $transformation = new ResourceTransformation(
             new StubResource(),
@@ -81,7 +81,7 @@ class ToOneRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $relationship = $this->createRelationship(
             [],

@@ -11,7 +11,7 @@ class ResourceIdentifierTypeMissingTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 
@@ -24,7 +24,7 @@ class ResourceIdentifierTypeMissingTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdentifier()
+    public function getResourceIdentifier(): void
     {
         $exception = $this->createException(["id" => "1"]);
 

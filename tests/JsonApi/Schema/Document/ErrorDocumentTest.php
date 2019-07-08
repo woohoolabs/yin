@@ -13,7 +13,7 @@ class ErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getJsonApi()
+    public function getJsonApi(): void
     {
         $errorDocument = $this->createErrorDocument();
 
@@ -25,7 +25,7 @@ class ErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getMeta()
+    public function getMeta(): void
     {
         $errorDocument = $this->createErrorDocument();
 
@@ -37,7 +37,7 @@ class ErrorDocumentTest extends TestCase
     /**
      * @test
      */
-    public function getLinks()
+    public function getLinks(): void
     {
         $errorDocument = $this->createErrorDocument();
 

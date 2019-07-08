@@ -11,7 +11,7 @@ class LinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getHref()
+    public function getHref(): void
     {
         $href = "https://example.com/api/users";
 
@@ -22,7 +22,7 @@ class LinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getEmptyMeta()
+    public function getEmptyMeta(): void
     {
         $href = "https://example.com/api/users";
 
@@ -33,7 +33,7 @@ class LinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function getMeta()
+    public function getMeta(): void
     {
         $meta = ["abc" => "def"];
 
@@ -44,7 +44,7 @@ class LinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformAbsoluteLinkWithMeta()
+    public function transformAbsoluteLinkWithMeta(): void
     {
         $href = "https://example.com/api/users";
         $meta = ["abc" => "def"];
@@ -61,7 +61,7 @@ class LinkObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformRelativeLinkWithoutMeta()
+    public function transformRelativeLinkWithoutMeta(): void
     {
         $baseUri = "https://example.com/api";
         $href = "/users";

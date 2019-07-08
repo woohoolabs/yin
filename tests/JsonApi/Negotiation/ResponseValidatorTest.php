@@ -16,7 +16,7 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonBodySuccessfully()
+    public function validateJsonBodySuccessfully(): void
     {
         $response = new Response();
         $response->getBody()->write('{"data": {"type":"abc", "id":"cde"}}');
@@ -30,7 +30,7 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonBodyUnsuccessfully()
+    public function validateJsonBodyUnsuccessfully(): void
     {
         $response = new Response();
         $response->getBody()->write('{"type');
@@ -44,7 +44,7 @@ class ResponseValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonApiBodySuccessfully()
+    public function validateJsonApiBodySuccessfully(): void
     {
         $response = new Response();
         $response->getBody()->write(
@@ -70,7 +70,7 @@ EOF
     /**
      * @test
      */
-    public function validateJsonApiSuccessfullyWhenEmptyBody()
+    public function validateJsonApiSuccessfullyWhenEmptyBody(): void
     {
         $response = new Response();
         $validator = new ResponseValidator(new JsonSerializer(), new DefaultExceptionFactory());
@@ -83,7 +83,7 @@ EOF
     /**
      * @test
      */
-    public function validateJsonApiBodyUnsuccessfully()
+    public function validateJsonApiBodyUnsuccessfully(): void
     {
         $response = new Response();
         $response->getBody()->write('{"type":"abc", "id":"cde"}');

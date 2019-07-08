@@ -12,7 +12,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithoutBaseUri()
+    public function createWithoutBaseUri(): void
     {
         $links = ResourceLinks::createWithoutBaseUri();
 
@@ -22,7 +22,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithBaseUri()
+    public function createWithBaseUri(): void
     {
         $links = ResourceLinks::createWithBaseUri("https://example.com");
 
@@ -32,7 +32,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function setBaseUri()
+    public function setBaseUri(): void
     {
         $links = $this->createResourceLinks();
 
@@ -44,7 +44,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $links = $this->createResourceLinks("", new Link("https://example.com/articles/1"));
 
@@ -54,7 +54,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenEmpty()
+    public function getSelfWhenEmpty(): void
     {
         $links = $this->createResourceLinks();
 
@@ -64,7 +64,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenNotEmpty()
+    public function getSelfWhenNotEmpty(): void
     {
         $self = new Link("https://example.com/api/users");
 
@@ -76,7 +76,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLinkWhenEmpty()
+    public function getLinkWhenEmpty(): void
     {
         $links = $this->createResourceLinks();
 
@@ -86,7 +86,7 @@ class ResourceLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLinkWhenNotEmpty()
+    public function getLinkWhenNotEmpty(): void
     {
         $self = new Link("https://example.com/api/users");
 

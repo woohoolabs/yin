@@ -11,7 +11,7 @@ class RelationshipNotExistsTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 
@@ -24,7 +24,7 @@ class RelationshipNotExistsTest extends TestCase
     /**
      * @test
      */
-    public function getRelationship()
+    public function getRelationship(): void
     {
         $exception = $this->createException("rel");
 

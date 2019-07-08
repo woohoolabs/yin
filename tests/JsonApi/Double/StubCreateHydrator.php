@@ -34,7 +34,7 @@ class StubCreateHydrator
         $this->logicException = $logicException;
     }
 
-    protected function validateType($data, ExceptionFactoryInterface $exceptionFactory): void
+    protected function validateType(array $data, ExceptionFactoryInterface $exceptionFactory): void
     {
     }
 
@@ -53,6 +53,10 @@ class StubCreateHydrator
         return $this->generatedId;
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed|void
+     */
     protected function setId($domainObject, string $id)
     {
         $domainObject["id"] = $id;
@@ -67,11 +71,19 @@ class StubCreateHydrator
         }
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed
+     */
     protected function hydrateAttributes($domainObject, array $data)
     {
         return $domainObject;
     }
 
+    /**
+     * @param mixed $domainObject
+     * @return mixed
+     */
     protected function hydrateRelationships($domainObject, array $data, ExceptionFactoryInterface $exceptionFactory)
     {
         return $domainObject;

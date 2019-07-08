@@ -11,7 +11,7 @@ class InclusionUnsupportedTest extends TestCase
     /**
      * @test
      */
-    public function getMessage()
+    public function getMessage(): void
     {
         $exception = $this->createException();
         $this->assertEquals("Inclusion is not supported!", $exception->getMessage());
@@ -20,7 +20,7 @@ class InclusionUnsupportedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 

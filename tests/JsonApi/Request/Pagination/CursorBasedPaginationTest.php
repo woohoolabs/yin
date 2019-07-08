@@ -12,7 +12,7 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParams()
+    public function fromPaginationQueryParams(): void
     {
         $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc", "size" => "10"]);
 
@@ -23,7 +23,7 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromMissingPaginationQueryParams()
+    public function fromMissingPaginationQueryParams(): void
     {
         $pagination = CursorBasedPagination::fromPaginationQueryParams([], "abc", 10);
 
@@ -34,7 +34,7 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromEmptyPaginationQueryParams()
+    public function fromEmptyPaginationQueryParams(): void
     {
         $pagination = CursorBasedPagination::fromPaginationQueryParams(["cursor" => "", "size" => ""], "abc", 10);
 
@@ -45,7 +45,7 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getCursor()
+    public function getCursor(): void
     {
         $pagination = $this->createPagination("abc", 10);
 
@@ -59,14 +59,14 @@ class CursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationQueryString()
+    public function getPaginationQueryString(): void
     {
         $queryString = CursorBasedPagination::getPaginationQueryString("abc", 10);
 
         $this->assertEquals("page[cursor]=abc&page[size]=10", urldecode($queryString));
     }
 
-    private function createPagination($cursor, int $page = 0): CursorBasedPagination
+    private function createPagination(string $cursor, int $page = 0): CursorBasedPagination
     {
         return new CursorBasedPagination($cursor, $page);
     }

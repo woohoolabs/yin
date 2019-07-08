@@ -12,7 +12,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithoutBaseUri()
+    public function createWithoutBaseUri(): void
     {
         $links = RelationshipLinks::createWithoutBaseUri();
 
@@ -22,7 +22,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithBaseUri()
+    public function createWithBaseUri(): void
     {
         $links = RelationshipLinks::createWithBaseUri("https://example.com");
 
@@ -32,7 +32,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function setBaseUri()
+    public function setBaseUri(): void
     {
         $links = $this->createRelationshipLinks();
 
@@ -44,7 +44,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $links = $this->createRelationshipLinks(
             "",
@@ -61,7 +61,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenEmpty()
+    public function getSelfWhenEmpty(): void
     {
         $links = $this->createRelationshipLinks();
 
@@ -71,7 +71,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenNotEmpty()
+    public function getSelfWhenNotEmpty(): void
     {
         $self = new Link("https://example.com/api/users");
 
@@ -83,7 +83,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getRelatedWhenEmpty()
+    public function getRelatedWhenEmpty(): void
     {
         $links = $this->createRelationshipLinks();
 
@@ -93,7 +93,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getRelatedWhenNotEmpty()
+    public function getRelatedWhenNotEmpty(): void
     {
         $related = new Link("https://example.com/articles/1/author");
 
@@ -105,7 +105,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLinkWhenEmpty()
+    public function getLinkWhenEmpty(): void
     {
         $links = $this->createRelationshipLinks();
 
@@ -115,7 +115,7 @@ class RelationshipLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLinkWhenNotEmpty()
+    public function getLinkWhenNotEmpty(): void
     {
         $self = new Link("https://example.com/api/users");
 

@@ -11,7 +11,7 @@ class QueryParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("");
 
@@ -24,7 +24,7 @@ class QueryParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParam()
+    public function getQueryParam(): void
     {
         $exception = $this->createException("param");
 
@@ -33,7 +33,7 @@ class QueryParamUnrecognizedTest extends TestCase
         $this->assertEquals("param", $queryParam);
     }
 
-    private function createException($queryParam): QueryParamUnrecognized
+    private function createException(string $queryParam): QueryParamUnrecognized
     {
         return new QueryParamUnrecognized($queryParam);
     }

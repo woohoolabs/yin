@@ -11,7 +11,7 @@ class SortParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("");
 
@@ -24,7 +24,7 @@ class SortParamUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getSortParam()
+    public function getSortParam(): void
     {
         $exception = $this->createException("param");
 

@@ -11,7 +11,7 @@ class ClientGeneratedIdNotSupportedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("1");
 
@@ -24,7 +24,7 @@ class ClientGeneratedIdNotSupportedTest extends TestCase
     /**
      * @test
      */
-    public function getClientGeneratedId()
+    public function getClientGeneratedId(): void
     {
         $exception = $this->createException("1");
 

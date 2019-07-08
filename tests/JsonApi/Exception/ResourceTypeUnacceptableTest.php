@@ -11,7 +11,7 @@ class ResourceTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("", []);
 
@@ -24,7 +24,7 @@ class ResourceTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getCurrentType()
+    public function getCurrentType(): void
     {
         $exception = $this->createException("book", []);
 
@@ -36,7 +36,7 @@ class ResourceTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getAcceptedTypes()
+    public function getAcceptedTypes(): void
     {
         $exception = $this->createException("", ["book"]);
 

@@ -11,7 +11,7 @@ class ResourceNotFoundTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 

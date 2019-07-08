@@ -25,7 +25,7 @@ class RequestValidatorTest extends TestCase
      * Test valid request without Request validation Exceptions
      * @test
      */
-    public function negotiateWhenValidRequest()
+    public function negotiateWhenValidRequest(): void
     {
         $request = $this->createRequestMock();
         $request->expects($this->once())
@@ -46,7 +46,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getValidContentTypes
      */
-    public function negotiateWhenContentTypeHeaderSupported(string $contentType)
+    public function negotiateWhenContentTypeHeaderSupported(string $contentType): void
     {
         // Content-Type and Accept is valid
         $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
@@ -62,7 +62,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateWhenContentTypeHeaderUnsupported(string $contentType)
+    public function negotiateWhenContentTypeHeaderUnsupported(string $contentType): void
     {
         // Content-Type is invalid, Accept is valid
         $serverRequest = $this->createServerRequest($contentType, "application/vnd.api+json");
@@ -78,7 +78,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getValidContentTypes
      */
-    public function negotiateWhenAcceptHeaderAcceptable(string $accept)
+    public function negotiateWhenAcceptHeaderAcceptable(string $accept): void
     {
         // Content-Type is valid, Accept is invalid
         $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
@@ -94,7 +94,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getInvalidContentTypes
      */
-    public function negotiateWhenAcceptHeaderUnacceptable(string $accept)
+    public function negotiateWhenAcceptHeaderUnacceptable(string $accept): void
     {
         // Content-Type is valid, Accept is invalid
         $serverRequest = $this->createServerRequest("application/vnd.api+json", $accept);
@@ -109,7 +109,7 @@ class RequestValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateQueryParamsWhenValid()
+    public function validateQueryParamsWhenValid(): void
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $serverRequest->expects($this->once())
@@ -138,7 +138,7 @@ class RequestValidatorTest extends TestCase
     /**
      * @test
      */
-    public function validateQueryParamsWhenInvalid()
+    public function validateQueryParamsWhenInvalid(): void
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $serverRequest->expects($this->once())
@@ -157,7 +157,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getEmptyMessages
      */
-    public function validateJsonBodyWhenEmpty(string $message)
+    public function validateJsonBodyWhenEmpty(string $message): void
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
@@ -173,7 +173,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getValidJsonMessages
      */
-    public function validateJsonBodyWhenValid(string $message)
+    public function validateJsonBodyWhenValid(string $message): void
     {
         $serverRequest = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($serverRequest, $message);
@@ -189,7 +189,7 @@ class RequestValidatorTest extends TestCase
      * @test
      * @dataProvider getInvalidJsonMessages
      */
-    public function validateJsonBodyWhenInvalid(string $message)
+    public function validateJsonBodyWhenInvalid(string $message): void
     {
         $server = $this->createServerRequest("application/vnd.api+json");
         $this->setFakeBody($server, $message);

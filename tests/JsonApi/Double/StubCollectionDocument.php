@@ -25,15 +25,12 @@ class StubCollectionDocument extends AbstractCollectionDocument
      */
     protected $links;
 
-    /**
-     * @param iterable $object
-     */
     public function __construct(
         ?JsonApiObject $jsonApi = null,
         array $meta = [],
         ?DocumentLinks $links = null,
         ?ResourceInterface $resource = null,
-        $object = []
+        iterable $object = []
     ) {
         parent::__construct($resource ?? new StubResource());
         $this->jsonApi = $jsonApi;

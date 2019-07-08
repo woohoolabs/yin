@@ -18,7 +18,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function createWithData()
+    public function createWithData(): void
     {
         $relationship = FakeRelationship::createWithData([], new StubResource());
 
@@ -30,7 +30,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function createWithLinks()
+    public function createWithLinks(): void
     {
         $relationship = FakeRelationship::createWithLinks(new RelationshipLinks());
 
@@ -42,7 +42,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function createWithMeta()
+    public function createWithMeta(): void
     {
         $relationship = FakeRelationship::createWithMeta(["abc" => "def"]);
 
@@ -54,7 +54,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function setLinks()
+    public function setLinks(): void
     {
         $relationship = FakeRelationship::create();
 
@@ -66,7 +66,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function setData()
+    public function setData(): void
     {
         $relationship = $this->createRelationship();
 
@@ -78,7 +78,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function setDataAsCallable()
+    public function setDataAsCallable(): void
     {
         $relationship = $this->createRelationship();
 
@@ -99,7 +99,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function dataNotOmittedByDefault()
+    public function dataNotOmittedByDefault(): void
     {
         $relationship = $this->createRelationship();
 
@@ -111,7 +111,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function omitDataWhenNotIncluded()
+    public function omitDataWhenNotIncluded(): void
     {
         $relationship = $this->createRelationship();
 
@@ -123,7 +123,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformWithMeta()
+    public function transformWithMeta(): void
     {
         $relationship = $this->createRelationship()
             ->setMeta(["abc" => "def"]);
@@ -158,7 +158,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformWithLinks()
+    public function transformWithLinks(): void
     {
         $relationship = $this->createRelationship()
             ->setLinks(new RelationshipLinks());
@@ -191,7 +191,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformWhenNotIncludedField()
+    public function transformWhenNotIncludedField(): void
     {
         $relationship = $this->createRelationship();
 
@@ -217,7 +217,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformWithEmptyData()
+    public function transformWithEmptyData(): void
     {
         $relationship = $this->createRelationship();
 
@@ -248,7 +248,7 @@ class AbstractRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function transformWithEmptyOmittedData()
+    public function transformWithEmptyOmittedData(): void
     {
         $relationship = $this->createRelationship()
             ->omitDataWhenNotIncluded();

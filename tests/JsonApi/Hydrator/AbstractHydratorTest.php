@@ -23,7 +23,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function validateTypeWhenMissing()
+    public function validateTypeWhenMissing(): void
     {
         $body = [
             "data" => [],
@@ -38,7 +38,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function validateTypeWhenUnacceptableAndOnlyOneAcceptable()
+    public function validateTypeWhenUnacceptableAndOnlyOneAcceptable(): void
     {
         $body = [
             "data" => [
@@ -55,7 +55,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function validateTypeWhenUnacceptableAndMoreAcceptable()
+    public function validateTypeWhenUnacceptableAndMoreAcceptable(): void
     {
         $body = [
             "data" => [
@@ -72,7 +72,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateAttributesWhenEmpty()
+    public function hydrateAttributesWhenEmpty(): void
     {
         $body = [
             "data" => [
@@ -89,7 +89,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateAttributesWhenNull()
+    public function hydrateAttributesWhenNull(): void
     {
         $body = [
             "data" => [
@@ -114,7 +114,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateAttributesWhenHydratorEmpty()
+    public function hydrateAttributesWhenHydratorEmpty(): void
     {
         $body = [
             "data" => [
@@ -139,7 +139,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateAttributesWhenHydratorReturnByReference()
+    public function hydrateAttributesWhenHydratorReturnByReference(): void
     {
         $weight = 1000;
         $body = [
@@ -165,7 +165,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateAttributesWhenHydratorReturnByValue()
+    public function hydrateAttributesWhenHydratorReturnByValue(): void
     {
         $weight = 1000;
         $body = [
@@ -192,7 +192,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateRelationshipsWhenHydratorEmpty()
+    public function hydrateRelationshipsWhenHydratorEmpty(): void
     {
         $body = [
             "data" => [
@@ -217,7 +217,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateRelationshipsWhenCardinalityInappropriate()
+    public function hydrateRelationshipsWhenCardinalityInappropriate(): void
     {
         $body = [
             "data" => [
@@ -247,7 +247,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateRelationshipsWhenCardinalityInappropriate2()
+    public function hydrateRelationshipsWhenCardinalityInappropriate2(): void
     {
         $body = [
             "data" => [
@@ -279,7 +279,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateRelationshipsWhenExpectedCardinalityIsNotSet()
+    public function hydrateRelationshipsWhenExpectedCardinalityIsNotSet(): void
     {
         $body = [
             "data" => [
@@ -311,7 +311,7 @@ class AbstractHydratorTest extends TestCase
     /**
      * @test
      */
-    public function hydrateRelationships()
+    public function hydrateRelationships(): void
     {
         $body = [
             "data" => [
@@ -337,7 +337,9 @@ class AbstractHydratorTest extends TestCase
         ];
         $relationshipHydrator = [
             "owner" => function (array $elephant, ToOneRelationship $owner) {
-                $elephant["owner"] = $owner->getResourceIdentifier()->getId();
+                $resourceIdentifier = $owner->getResourceIdentifier();
+
+                $elephant["owner"] = $resourceIdentifier !== null ? $resourceIdentifier->getId() : "";
                 return $elephant;
             },
             "children" => function (array &$elephant, ToManyRelationship $children) {
@@ -350,17 +352,20 @@ class AbstractHydratorTest extends TestCase
         $this->assertEquals(["owner" => "1", "children" => ["2"]], $domainObject);
     }
 
-    private function createRequest(array $body)
+    private function createRequest(array $body): JsonApiRequest
     {
+        $data = json_encode($body);
+        if ($data === false) {
+            $data = "";
+        }
+
         $psrRequest = new ServerRequest();
         $psrRequest = $psrRequest
             ->withParsedBody($body)
             ->withBody(new Stream("php://memory", "rw"));
-        $psrRequest->getBody()->write(json_encode($body));
+        $psrRequest->getBody()->write($data);
 
-        $request = new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
-
-        return $request;
+        return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
     private function createHydrator(

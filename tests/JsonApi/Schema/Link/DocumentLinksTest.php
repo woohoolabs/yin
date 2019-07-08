@@ -14,7 +14,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithoutBaseUri()
+    public function createWithoutBaseUri(): void
     {
         $links = DocumentLinks::createWithoutBaseUri([]);
 
@@ -24,7 +24,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function createWithBaseUri()
+    public function createWithBaseUri(): void
     {
         $links = DocumentLinks::createWithBaseUri("https://example.com", []);
 
@@ -34,7 +34,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function setBaseUri()
+    public function setBaseUri(): void
     {
         $links = $this->createLinks();
 
@@ -46,7 +46,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $links = $this->createLinks(
             "",
@@ -65,7 +65,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenEmpty()
+    public function getSelfWhenEmpty(): void
     {
         $links = $this->createLinks();
 
@@ -75,7 +75,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getSelfWhenNotEmpty()
+    public function getSelfWhenNotEmpty(): void
     {
         $self = new Link("https://example.com/api/users");
 
@@ -87,7 +87,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getRelatedWhenNotEmpty()
+    public function getRelatedWhenNotEmpty(): void
     {
         $related = new Link("https://example.com/api/users");
 
@@ -99,7 +99,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getFirstWhenEmpty()
+    public function getFirstWhenEmpty(): void
     {
         $linksObject = $this->createLinks();
 
@@ -109,7 +109,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getFirstWhenNotEmpty()
+    public function getFirstWhenNotEmpty(): void
     {
         $first = new Link("https://example.com/api/users?page[number]=1");
 
@@ -121,7 +121,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLastWhenNotEmpty()
+    public function getLastWhenNotEmpty(): void
     {
         $last = new Link("https://example.com/api/users?page[number]=10");
 
@@ -133,7 +133,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getPrevWhenNotEmpty()
+    public function getPrevWhenNotEmpty(): void
     {
         $prev = new Link("https://example.com/api/users?page[number]=4");
 
@@ -145,7 +145,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getNextWhenNotEmpty()
+    public function getNextWhenNotEmpty(): void
     {
         $next = new Link("https://example.com/api/users?page[number]=6");
 
@@ -157,7 +157,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function setPagination()
+    public function setPagination(): void
     {
         $pagination = new StubPaginationLinkProvider();
 
@@ -173,7 +173,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getLink()
+    public function getLink(): void
     {
         $self = new Link("https://example.com/api/users");
 
@@ -185,7 +185,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getMultipleLinks()
+    public function getMultipleLinks(): void
     {
         $self = new Link("https://example.com/api/users/1");
         $related = new Link("https://example.com/api/people/1");
@@ -200,7 +200,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function getProfiles()
+    public function getProfiles(): void
     {
         $profile1 = new ProfileLinkObject("href1");
         $profile2 = new ProfileLinkObject("href2");
@@ -215,7 +215,7 @@ class DocumentLinksTest extends TestCase
     /**
      * @test
      */
-    public function addProfilesWithSameHref()
+    public function addProfilesWithSameHref(): void
     {
         $profile = new ProfileLinkObject("");
 

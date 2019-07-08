@@ -12,7 +12,7 @@ class FixedCursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParams()
+    public function fromPaginationQueryParams(): void
     {
         $pagination = FixedCursorBasedPagination::fromPaginationQueryParams(["cursor" => "abc"]);
 
@@ -22,7 +22,7 @@ class FixedCursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromMissingPaginationQueryParams()
+    public function fromMissingPaginationQueryParams(): void
     {
         $pagination = FixedCursorBasedPagination::fromPaginationQueryParams([], "abc");
 
@@ -32,7 +32,7 @@ class FixedCursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromEmptyPaginationQueryParams()
+    public function fromEmptyPaginationQueryParams(): void
     {
         $pagination = FixedCursorBasedPagination::fromPaginationQueryParams(["cursor" => ""], "abc");
 
@@ -42,7 +42,7 @@ class FixedCursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getCursor()
+    public function getCursor(): void
     {
         $pagination = $this->createPagination("abc");
 
@@ -54,14 +54,14 @@ class FixedCursorBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationQueryString()
+    public function getPaginationQueryString(): void
     {
         $queryString = FixedCursorBasedPagination::getPaginationQueryString("abc");
 
         $this->assertEquals("page[cursor]=abc", urldecode($queryString));
     }
 
-    private function createPagination($cursor): FixedCursorBasedPagination
+    private function createPagination(string $cursor): FixedCursorBasedPagination
     {
         return new FixedCursorBasedPagination($cursor);
     }

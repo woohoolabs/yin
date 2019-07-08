@@ -20,7 +20,7 @@ class PaginationFactoryTest extends TestCase
     /**
      * @test
      */
-    public function createFixedPageBasedPagination()
+    public function createFixedPageBasedPagination(): void
     {
         $paginationFactory = $this->createPaginationFactoryFromRequestQueryParams(
             [
@@ -36,7 +36,7 @@ class PaginationFactoryTest extends TestCase
     /**
      * @test
      */
-    public function createPageBasedPagination()
+    public function createPageBasedPagination(): void
     {
         $paginationFactory = $this->createPaginationFactoryFromRequestQueryParams(
             [
@@ -52,7 +52,7 @@ class PaginationFactoryTest extends TestCase
     /**
      * @test
      */
-    public function createOffsetBasedPagination()
+    public function createOffsetBasedPagination(): void
     {
         $paginationFactory = $this->createPaginationFactoryFromRequestQueryParams(
             [
@@ -68,7 +68,7 @@ class PaginationFactoryTest extends TestCase
     /**
      * @test
      */
-    public function createCursorBasedPagination()
+    public function createCursorBasedPagination(): void
     {
         $paginationFactory = $this->createPaginationFactoryFromRequestQueryParams(
             [
@@ -84,7 +84,7 @@ class PaginationFactoryTest extends TestCase
     /**
      * @test
      */
-    public function createFixedCursorBasedPagination()
+    public function createFixedCursorBasedPagination(): void
     {
         $paginationFactory = $this->createPaginationFactoryFromRequestQueryParams(
             [

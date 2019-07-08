@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\TransformerTrait;
@@ -13,7 +13,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformToDecimal()
+    public function transformToDecimal(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -27,7 +27,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformToIso8601Date()
+    public function transformToIso8601Date(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -40,7 +40,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformToIso8601DateWithTimeZone()
+    public function transformToIso8601DateWithTimeZone(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -56,7 +56,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformToIso8601Time()
+    public function transformToIso8601Time(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -69,7 +69,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformToIso8601TimeWithTimeZone()
+    public function transformToIso8601TimeWithTimeZone(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -85,7 +85,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformFromSqlToIso8601Time()
+    public function transformFromSqlToIso8601Time(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -98,7 +98,7 @@ class TransformerTraitTest extends TestCase
     /**
      * @test
      */
-    public function transformFromSqlToUtcIso8601Time()
+    public function transformFromSqlToUtcIso8601Time(): void
     {
         $transformerTrait = $this->createTransformerTrait();
 
@@ -109,15 +109,15 @@ class TransformerTraitTest extends TestCase
     }
 
     /**
-     * @return TransformerTrait
+     * @return mixed
      */
     private function createTransformerTrait()
     {
         return $this->getObjectForTrait(TransformerTrait::class);
     }
 
-    private function createDateTime($string, $timeZone = "UTC")
+    private function createDateTime(string $string, string $timeZone = "UTC"): DateTimeImmutable
     {
-        return DateTime::createFromFormat("Y-m-d H:i:s", $string, new DateTimeZone($timeZone));
+        return new DateTimeImmutable($string, new DateTimeZone($timeZone));
     }
 }

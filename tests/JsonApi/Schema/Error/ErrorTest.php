@@ -13,7 +13,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getId()
+    public function getId(): void
     {
         $error = $this->createError()->setId("123456789");
 
@@ -22,7 +22,7 @@ class ErrorTest extends TestCase
         $this->assertEquals("123456789", $id);
     }
 
-    public function testGetStatus()
+    public function testGetStatus(): void
     {
         $error = $this->createError()->setStatus("500");
 
@@ -34,7 +34,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getCode()
+    public function getCode(): void
     {
         $error = $this->createError()->setCode("UNKNOWN_ERROR");
 
@@ -46,7 +46,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getLinksWhenNull()
+    public function getLinksWhenNull(): void
     {
         $error = $this->createError();
 
@@ -58,7 +58,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getLinks()
+    public function getLinks(): void
     {
         $links = new ErrorLinks();
 
@@ -70,7 +70,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getTitle()
+    public function getTitle(): void
     {
         $error = $this->createError()->setTitle("Unknown error!");
 
@@ -82,7 +82,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getDetail()
+    public function getDetail(): void
     {
         $error = $this->createError()->setDetail("An unknown error has happened and no solution exists.");
 
@@ -94,7 +94,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getSource()
+    public function getSource(): void
     {
         $source = new ErrorSource("/data/attributes/name", "name");
 
@@ -106,7 +106,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function getSourceWhenEmpty()
+    public function getSourceWhenEmpty(): void
     {
         $error = $this->createError();
 
@@ -118,7 +118,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function transformWithEmptyFields()
+    public function transformWithEmptyFields(): void
     {
         $id = "123456789";
         $status = "500";
@@ -148,7 +148,7 @@ class ErrorTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $error = $this->createError()
             ->setId("123456789")

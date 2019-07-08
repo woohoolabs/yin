@@ -11,7 +11,7 @@ class QueryParamMalformedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("", "");
 
@@ -24,7 +24,7 @@ class QueryParamMalformedTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParam()
+    public function getQueryParam(): void
     {
         $exception = $this->createException("sort", ["field" => "value"]);
 
@@ -32,6 +32,9 @@ class QueryParamMalformedTest extends TestCase
         $this->assertEquals(["field" => "value"], $exception->getMalformedQueryParamValue());
     }
 
+    /**
+     * @param mixed $queryParamValue
+     */
     private function createException(string $queryParam, $queryParamValue): QueryParamMalformed
     {
         return new QueryParamMalformed($queryParam, $queryParamValue);

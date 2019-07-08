@@ -18,7 +18,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getProtocolVersion()
+    public function getProtocolVersion(): void
     {
         $protocolVersion = "2";
 
@@ -29,7 +29,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getHeaders()
+    public function getHeaders(): void
     {
         $header1Name = "a";
         $header1Value = "b";
@@ -44,7 +44,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasHeaderWhenHeaderNotExists()
+    public function hasHeaderWhenHeaderNotExists(): void
     {
         $request = $this->createRequestWithHeader("a", "b");
 
@@ -54,7 +54,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasHeaderWhenHeaderExists()
+    public function hasHeaderWhenHeaderExists(): void
     {
         $request = $this->createRequestWithHeader("a", "b");
 
@@ -64,7 +64,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getHeaderWhenHeaderExists()
+    public function getHeaderWhenHeaderExists(): void
     {
         $request = $this->createRequestWithHeader("a", "b");
 
@@ -74,7 +74,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getHeaderLineWhenHeaderNotExists()
+    public function getHeaderLineWhenHeaderNotExists(): void
     {
         $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
 
@@ -84,7 +84,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getHeaderLineWhenHeaderExists()
+    public function getHeaderLineWhenHeaderExists(): void
     {
         $request = $this->createRequestWithHeaders(["a" => ["b", "c", "d"]]);
 
@@ -94,7 +94,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withHeader()
+    public function withHeader(): void
     {
         $headers = [];
         $headerName = "a";
@@ -109,7 +109,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withAddedHeader()
+    public function withAddedHeader(): void
     {
         $headerName = "a";
         $headerValue = "b";
@@ -124,7 +124,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withoutHeader()
+    public function withoutHeader(): void
     {
         $headerName = "a";
         $headerValue = "b";
@@ -140,7 +140,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getBody()
+    public function getBody(): void
     {
         $body = new Stream("php://input");
 
@@ -157,7 +157,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withBody()
+    public function withBody(): void
     {
         $body = new Stream("php://input");
 
@@ -170,7 +170,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequestTarget()
+    public function getRequestTarget(): void
     {
         $serverRequest = $this->createMock(ServerRequestInterface::class);
         $serverRequest->expects($this->once())
@@ -185,7 +185,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withRequestTarget()
+    public function withRequestTarget(): void
     {
         $request = $this->createRequest();
 
@@ -197,7 +197,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getMethod()
+    public function getMethod(): void
     {
         $method = "PUT";
 
@@ -210,7 +210,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getUri()
+    public function getUri(): void
     {
         $uri = new Uri();
 
@@ -227,7 +227,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withUri()
+    public function withUri(): void
     {
         $request = $this->createRequest();
 
@@ -239,7 +239,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getServerParams()
+    public function getServerParams(): void
     {
         $serverRequest = $this->createMock(ServerRequestInterface::class);
         $serverRequest->expects($this->once())
@@ -254,7 +254,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getCookieParams()
+    public function getCookieParams(): void
     {
         $serverRequest = $this->createMock(ServerRequestInterface::class);
         $serverRequest->expects($this->once())
@@ -269,7 +269,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withCookieParams()
+    public function withCookieParams(): void
     {
         $request = $this->createRequest();
 
@@ -281,7 +281,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getUploadedFiles()
+    public function getUploadedFiles(): void
     {
         $serverRequest = $this->createMock(ServerRequestInterface::class);
         $serverRequest->expects($this->once())
@@ -296,7 +296,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParams()
+    public function getQueryParams(): void
     {
         $queryParamName = "abc";
         $queryParamValue = "cde";
@@ -311,7 +311,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParamWhenNotFound()
+    public function getQueryParamWhenNotFound(): void
     {
         $queryParams = [];
 
@@ -322,7 +322,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getQueryParamWhenNotEmpty()
+    public function getQueryParamWhenNotEmpty(): void
     {
         $queryParamName = "abc";
         $queryParamValue = "cde";
@@ -335,7 +335,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withQueryParam()
+    public function withQueryParam(): void
     {
         $queryParams = [];
         $addedQueryParamName = "abc";
@@ -350,7 +350,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getParsedBody()
+    public function getParsedBody(): void
     {
         $parsedBody = [
             "data" => [
@@ -368,7 +368,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function getAttributes()
+    public function getAttributes(): void
     {
         $attribute1Key = "a";
         $attribute1Value = true;
@@ -389,7 +389,7 @@ class AbstractRequestTest extends TestCase
     /**
      * @test
      */
-    public function withoutAttributes()
+    public function withoutAttributes(): void
     {
         $request = $this->createRequest();
         $newRequest = $request
@@ -416,7 +416,7 @@ class AbstractRequestTest extends TestCase
         return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithHeader($headerName, $headerValue): AbstractRequest
+    private function createRequestWithHeader(string $headerName, string $headerValue): AbstractRequest
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
 

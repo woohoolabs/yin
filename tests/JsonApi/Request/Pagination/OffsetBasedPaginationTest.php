@@ -12,7 +12,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParams()
+    public function fromPaginationQueryParams(): void
     {
         $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => 1, "limit" => 10]);
 
@@ -23,7 +23,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenMissing()
+    public function fromPaginationQueryParamsWhenMissing(): void
     {
         $pagination = OffsetBasedPagination::fromPaginationQueryParams([], 1, 10);
 
@@ -34,7 +34,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenEmpty()
+    public function fromPaginationQueryParamsWhenEmpty(): void
     {
         $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "", "limit" => ""], 1, 10);
 
@@ -45,7 +45,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenZero()
+    public function fromPaginationQueryParamsWhenZero(): void
     {
         $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "0", "limit" => "0"], 1, 10);
 
@@ -56,7 +56,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenNonNumeric()
+    public function fromPaginationQueryParamsWhenNonNumeric(): void
     {
         $pagination = OffsetBasedPagination::fromPaginationQueryParams(["offset" => "abc", "limit" => "abc"], 1, 10);
 
@@ -67,7 +67,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getOffset()
+    public function getOffset(): void
     {
         $pagination = $this->createPagination(1, 10);
 
@@ -79,7 +79,7 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getLimit()
+    public function getLimit(): void
     {
         $pagination = $this->createPagination(1, 10);
 
@@ -91,14 +91,14 @@ class OffsetBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationQueryString()
+    public function getPaginationQueryString(): void
     {
         $queryString = OffsetBasedPagination::getPaginationQueryString(1, 10);
 
         $this->assertEquals("page[offset]=1&page[limit]=10", urldecode($queryString));
     }
 
-    private function createPagination(int $offset, int $limit)
+    private function createPagination(int $offset, int $limit): OffsetBasedPagination
     {
         return new OffsetBasedPagination($offset, $limit);
     }

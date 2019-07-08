@@ -13,7 +13,7 @@ class JsonDeserializerTest extends TestCase
     /**
      * @test
      */
-    public function deserializeNullBody()
+    public function deserializeNullBody(): void
     {
         $request = $this->createRequestWithJsonBody(null);
 
@@ -25,7 +25,7 @@ class JsonDeserializerTest extends TestCase
     /**
      * @test
      */
-    public function deserializeEmptyBody()
+    public function deserializeEmptyBody(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->createRequestWithJsonBody("");
@@ -34,7 +34,7 @@ class JsonDeserializerTest extends TestCase
     /**
      * @test
      */
-    public function deserialize()
+    public function deserialize(): void
     {
         $parsedBody = [
             "data" => [
@@ -48,6 +48,9 @@ class JsonDeserializerTest extends TestCase
         $this->assertEquals($parsedBody, $request->getParsedBody());
     }
 
+    /**
+     * @param mixed $body
+     */
     private function createRequestWithJsonBody($body): ServerRequest
     {
         $request = new ServerRequest();

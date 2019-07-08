@@ -11,7 +11,7 @@ class MediaTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException("");
 
@@ -24,7 +24,7 @@ class MediaTypeUnacceptableTest extends TestCase
     /**
      * @test
      */
-    public function getMediaTypeName()
+    public function getMediaTypeName(): void
     {
         $exception = $this->createException("media-type");
 

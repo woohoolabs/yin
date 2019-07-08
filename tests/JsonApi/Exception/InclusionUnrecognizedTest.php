@@ -11,7 +11,7 @@ class InclusionUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException([]);
 
@@ -24,7 +24,7 @@ class InclusionUnrecognizedTest extends TestCase
     /**
      * @test
      */
-    public function getIncludes()
+    public function getIncludes(): void
     {
         $exception = $this->createException(["a", "b", "c"]);
 

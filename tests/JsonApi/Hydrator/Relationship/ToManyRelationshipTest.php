@@ -12,7 +12,7 @@ class ToManyRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdentifiers()
+    public function getResourceIdentifiers(): void
     {
         $resourceIdentifier1 = (new ResourceIdentifier())->setType("user")->setId("1");
         $resourceIdentifier2 = (new ResourceIdentifier())->setType("user")->setId("2");
@@ -26,7 +26,7 @@ class ToManyRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdentifierTypes()
+    public function getResourceIdentifierTypes(): void
     {
         $type = "user";
         $resourceIdentifier1 = (new ResourceIdentifier())->setType($type)->setId("1");
@@ -41,7 +41,7 @@ class ToManyRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdentifierIds()
+    public function getResourceIdentifierIds(): void
     {
         $id1 = "1";
         $resourceIdentifier1 = (new ResourceIdentifier())->setType("user")->setId($id1);
@@ -57,7 +57,7 @@ class ToManyRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyIsFalse()
+    public function isEmptyIsFalse(): void
     {
         $relationship = $this->createRelationship()
             ->addResourceIdentifier((new ResourceIdentifier()));
@@ -68,14 +68,14 @@ class ToManyRelationshipTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyIsTrue()
+    public function isEmptyIsTrue(): void
     {
         $relationship = $this->createRelationship();
 
         $this->assertTrue($relationship->isEmpty());
     }
 
-    private function createRelationship()
+    private function createRelationship(): ToManyRelationship
     {
         return new ToManyRelationship();
     }

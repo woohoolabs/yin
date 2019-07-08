@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
@@ -11,7 +11,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function getNonExistentResource()
+    public function getNonExistentResource(): void
     {
         $resources = [
             [
@@ -28,7 +28,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function getResource()
+    public function getResource(): void
     {
         $resource = [
             "type" => "resource",
@@ -42,7 +42,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyByDefault()
+    public function isEmptyByDefault(): void
     {
         $included = $this->createData();
         $this->assertFalse($included->hasIncludedResources());
@@ -51,7 +51,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyWhenIncludingNoResource()
+    public function isEmptyWhenIncludingNoResource(): void
     {
         $resources = [
             [
@@ -67,7 +67,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function isEmptyWhenIncludingResources()
+    public function isEmptyWhenIncludingResources(): void
     {
         $resources = [];
 
@@ -78,7 +78,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function addResource()
+    public function addResource(): void
     {
         $resource = [
             "type" => "resource",
@@ -92,7 +92,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function transformEmpty()
+    public function transformEmpty(): void
     {
         $data = $this->createData();
 
@@ -102,7 +102,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function transform()
+    public function transform(): void
     {
         $data = $this->createData()->setIncludedResources([
             ["type" => "item", "id" => "1"],
@@ -127,7 +127,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function transformSinglePrimaryResources()
+    public function transformSinglePrimaryResources(): void
     {
         $data = $this->createData();
 
@@ -139,7 +139,7 @@ class SingleResourceDataTest extends TestCase
     /**
      * @test
      */
-    public function transformMultiplePrimaryResources()
+    public function transformMultiplePrimaryResources(): void
     {
         $data = $this->createData();
 

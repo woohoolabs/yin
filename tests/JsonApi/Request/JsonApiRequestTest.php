@@ -20,7 +20,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonApiContentTypeHeader()
+    public function validateJsonApiContentTypeHeader(): void
     {
         $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json");
 
@@ -32,7 +32,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateJsonApiContentTypeHeaderWithSemicolon()
+    public function validateJsonApiContentTypeHeaderWithSemicolon(): void
     {
         $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json;");
 
@@ -44,7 +44,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateEmptyContentTypeHeader()
+    public function validateEmptyContentTypeHeader(): void
     {
         $request = $this->createRequestWithHeader("content-type", "");
 
@@ -56,7 +56,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateHtmlContentTypeHeader()
+    public function validateHtmlContentTypeHeader(): void
     {
         $request = $this->createRequestWithHeader("content-type", "text/html; charset=utf-8");
 
@@ -68,7 +68,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateMultipleMediaTypeContentTypeHeader()
+    public function validateMultipleMediaTypeContentTypeHeader(): void
     {
         $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json, text/*;q=0.3, text/html;q=0.7");
 
@@ -80,7 +80,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateCaseInsensitiveContentTypeHeader()
+    public function validateCaseInsensitiveContentTypeHeader(): void
     {
         $request = $this->createRequestWithHeader("content-type", "Application/vnd.Api+JSON, text/*;q=0.3, text/html;Q=0.7");
 
@@ -92,7 +92,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateInvalidContentTypeHeaderWithExtMediaType()
+    public function validateInvalidContentTypeHeaderWithExtMediaType(): void
     {
         $request = $this->createRequestWithHeader("content-type", 'application/vnd.api+json; ext="ext1,ext2"');
 
@@ -104,7 +104,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateInvalidContentTypeHeaderWithWhitespaceBeforeParameter()
+    public function validateInvalidContentTypeHeaderWithWhitespaceBeforeParameter(): void
     {
         $request = $this->createRequestWithHeader("content-type", 'application/vnd.api+json ; ext="ext1,ext2"');
 
@@ -116,7 +116,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateContentTypeHeaderWithJsonApiProfileMediaTypeParameter()
+    public function validateContentTypeHeaderWithJsonApiProfileMediaTypeParameter(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -131,7 +131,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateContentTypeHeaderWithInvalidMediaTypeParameter()
+    public function validateContentTypeHeaderWithInvalidMediaTypeParameter(): void
     {
         $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json; Charset=utf-8");
 
@@ -143,7 +143,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateAcceptHeaderWithJsonApiMediaType()
+    public function validateAcceptHeaderWithJsonApiMediaType(): void
     {
         $request = $this->createRequestWithHeader("accept", "application/vnd.api+json");
 
@@ -155,7 +155,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateAcceptHeaderWithJsonApiProfileMediaTypeParameter()
+    public function validateAcceptHeaderWithJsonApiProfileMediaTypeParameter(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -170,7 +170,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateAcceptHeaderWithInvalidMediaTypeParameters()
+    public function validateAcceptHeaderWithInvalidMediaTypeParameters(): void
     {
         $request = $this->createRequestWithHeader("accept", 'application/vnd.api+json; ext="ext1,ext2"; charset=utf-8; lang=en');
 
@@ -182,7 +182,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateEmptyQueryParams()
+    public function validateEmptyQueryParams(): void
     {
         $request = $this->createRequestWithQueryParams([]);
 
@@ -194,7 +194,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateBasicQueryParams()
+    public function validateBasicQueryParams(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -215,7 +215,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function validateInvalidQueryParams()
+    public function validateInvalidQueryParams(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -232,7 +232,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedFieldsWhenEmpty()
+    public function getIncludedFieldsWhenEmpty(): void
     {
         $request = $this->createRequestWithQueryParams([]);
 
@@ -244,7 +244,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedFieldsForResource()
+    public function getIncludedFieldsForResource(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -262,7 +262,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedFieldsForUnspecifiedResource()
+    public function getIncludedFieldsForUnspecifiedResource(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -280,7 +280,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedFieldWhenMalformed()
+    public function getIncludedFieldWhenMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -296,7 +296,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedFieldWhenFieldMalformed()
+    public function getIncludedFieldWhenFieldMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -314,7 +314,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedFieldWhenAllFieldsRequested()
+    public function isIncludedFieldWhenAllFieldsRequested(): void
     {
         $request = $this->createRequestWithQueryParams(["fields" => []]);
         $this->assertTrue($request->isIncludedField("book", "title"));
@@ -326,7 +326,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedFieldWhenNoFieldRequested()
+    public function isIncludedFieldWhenNoFieldRequested(): void
     {
         $request = $this->createRequestWithQueryParams(["fields" => ["book1" => ""]]);
 
@@ -338,7 +338,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedFieldWhenGivenFieldIsSpecified()
+    public function isIncludedFieldWhenGivenFieldIsSpecified(): void
     {
         $request = $this->createRequestWithQueryParams(["fields" => ["book" => "title,pages"]]);
 
@@ -350,7 +350,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasIncludedRelationshipsWhenTrue()
+    public function hasIncludedRelationshipsWhenTrue(): void
     {
         $request = $this->createRequestWithQueryParams(["include" => "authors"]);
 
@@ -362,7 +362,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasIncludedRelationshipsWhenFalse()
+    public function hasIncludedRelationshipsWhenFalse(): void
     {
         $queryParams = ["include" => ""];
 
@@ -378,7 +378,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedEmptyRelationshipsWhenEmpty()
+    public function getIncludedEmptyRelationshipsWhenEmpty(): void
     {
         $baseRelationshipPath = "book";
         $includedRelationships = [];
@@ -398,7 +398,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedRelationshipsForPrimaryResource()
+    public function getIncludedRelationshipsForPrimaryResource(): void
     {
         $baseRelationshipPath = "";
         $includedRelationships = ["authors"];
@@ -411,7 +411,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedRelationshipsForEmbeddedResource()
+    public function getIncludedRelationshipsForEmbeddedResource(): void
     {
         $baseRelationshipPath = "book";
         $includedRelationships = ["authors"];
@@ -424,7 +424,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedRelationshipsForMultipleEmbeddedResource()
+    public function getIncludedRelationshipsForMultipleEmbeddedResource(): void
     {
         $baseRelationshipPath = "book.authors";
         $includedRelationships = ["contacts", "address"];
@@ -437,7 +437,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getIncludedRelationshipsWhenMalformed()
+    public function getIncludedRelationshipsWhenMalformed(): void
     {
         $this->expectException(QueryParamMalformed::class);
 
@@ -450,7 +450,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedRelationshipForPrimaryResourceWhenEmpty()
+    public function isIncludedRelationshipForPrimaryResourceWhenEmpty(): void
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -466,7 +466,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedRelationshipForPrimaryResourceWhenEmptyWithDefault()
+    public function isIncludedRelationshipForPrimaryResourceWhenEmptyWithDefault(): void
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -482,7 +482,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedRelationshipForPrimaryResourceWithDefault()
+    public function isIncludedRelationshipForPrimaryResourceWithDefault(): void
     {
         $baseRelationshipPath = "";
         $requiredRelationship = "authors";
@@ -498,7 +498,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedRelationshipForEmbeddedResource()
+    public function isIncludedRelationshipForEmbeddedResource(): void
     {
         $baseRelationshipPath = "authors";
         $requiredRelationship = "contacts";
@@ -514,7 +514,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isIncludedRelationshipForEmbeddedResourceWhenDefaulted()
+    public function isIncludedRelationshipForEmbeddedResourceWhenDefaulted(): void
     {
         $baseRelationshipPath = "authors";
         $requiredRelationship = "contacts";
@@ -530,7 +530,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getSortingWhenEmpty()
+    public function getSortingWhenEmpty(): void
     {
         $sorting = [];
         $queryParams = ["sort" => ""];
@@ -542,7 +542,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getSortingWhenNotEmpty()
+    public function getSortingWhenNotEmpty(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -558,7 +558,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getSortingWhenMalformed()
+    public function getSortingWhenMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -574,7 +574,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationWhenEmpty()
+    public function getPaginationWhenEmpty(): void
     {
         $pagination = [];
         $queryParams = ["page" => []];
@@ -586,7 +586,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationWhenNotEmpty()
+    public function getPaginationWhenNotEmpty(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -602,7 +602,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationWhenMalformed()
+    public function getPaginationWhenMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -618,7 +618,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getFilteringWhenEmpty()
+    public function getFilteringWhenEmpty(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -634,7 +634,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getFilteringWhenNotEmpty()
+    public function getFilteringWhenNotEmpty(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -650,7 +650,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getFilteringWhenMalformed()
+    public function getFilteringWhenMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -666,7 +666,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getFilteringParam()
+    public function getFilteringParam(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -682,7 +682,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getDefaultFilteringParamWhenNotFound()
+    public function getDefaultFilteringParamWhenNotFound(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -698,7 +698,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getAppliedProfilesWhenEmpty()
+    public function getAppliedProfilesWhenEmpty(): void
     {
         $request = $this->createRequestWithHeader("content-type", "application/vnd.api+json");
 
@@ -710,7 +710,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getAppliedProfilesWhenOneProfile()
+    public function getAppliedProfilesWhenOneProfile(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -730,7 +730,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getAppliedProfilesWhenTwoProfiles()
+    public function getAppliedProfilesWhenTwoProfiles(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -751,7 +751,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getAppliedProfilesWhenMultipleJsonApiContentTypes()
+    public function getAppliedProfilesWhenMultipleJsonApiContentTypes(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -773,7 +773,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileAppliedWhenTrue()
+    public function isProfileAppliedWhenTrue(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -788,7 +788,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileAppliedWhenFalse()
+    public function isProfileAppliedWhenFalse(): void
     {
         $request = $this->createRequestWithHeader(
             "content-type",
@@ -803,7 +803,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequestedProfilesWhenEmpty()
+    public function getRequestedProfilesWhenEmpty(): void
     {
         $request = $this->createRequestWithHeader("accept", "application/vnd.api+json");
 
@@ -815,7 +815,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequestedProfilesWhenTwoProfiles()
+    public function getRequestedProfilesWhenTwoProfiles(): void
     {
         $request = $this->createRequestWithHeader(
             "accept",
@@ -836,7 +836,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileRequestedWhenTrue()
+    public function isProfileRequestedWhenTrue(): void
     {
         $request = $this->createRequestWithHeader(
             "accept",
@@ -851,7 +851,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileRequestedWhenFalse()
+    public function isProfileRequestedWhenFalse(): void
     {
         $request = $this->createRequestWithHeader(
             "accept",
@@ -866,7 +866,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequiredProfilesWhenMalformed()
+    public function getRequiredProfilesWhenMalformed(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -882,7 +882,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequiredProfilesWhenEmpty()
+    public function getRequiredProfilesWhenEmpty(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -898,7 +898,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getRequiredProfilesWhenTwoProfiles()
+    public function getRequiredProfilesWhenTwoProfiles(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -920,7 +920,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileRequiredWhenTrue()
+    public function isProfileRequiredWhenTrue(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -936,7 +936,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function isProfileRequiredWhenFalse()
+    public function isProfileRequiredWhenFalse(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -952,7 +952,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function withHeaderInvalidatesParsedJsonApiHeaders()
+    public function withHeaderInvalidatesParsedJsonApiHeaders(): void
     {
         $request = $this->createRequest()
             ->withHeader(
@@ -984,7 +984,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceWhenEmpty()
+    public function getResourceWhenEmpty(): void
     {
         $request = $this->createRequestWithJsonBody([]);
 
@@ -996,7 +996,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResource()
+    public function getResource(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1012,7 +1012,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceTypeWhenEmpty()
+    public function getResourceTypeWhenEmpty(): void
     {
         $request = $this->createRequestWithJsonBody([]);
 
@@ -1024,7 +1024,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceType()
+    public function getResourceType(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1042,7 +1042,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceIdWhenEmpty()
+    public function getResourceIdWhenEmpty(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1058,7 +1058,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceId()
+    public function getResourceId(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1076,7 +1076,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceAttributes()
+    public function getResourceAttributes(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1103,7 +1103,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getResourceAttribute()
+    public function getResourceAttribute(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1125,7 +1125,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasToOneRelationshipWhenTrue()
+    public function hasToOneRelationshipWhenTrue(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1149,7 +1149,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasToOneRelationshipWhenFalse()
+    public function hasToOneRelationshipWhenFalse(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1169,7 +1169,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getToOneRelationship()
+    public function getToOneRelationship(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1186,8 +1186,8 @@ class JsonApiRequestTest extends TestCase
         );
 
         $resourceIdentifier = $request->getToOneRelationship("owner")->getResourceIdentifier();
-        $type = $resourceIdentifier->getType();
-        $id = $resourceIdentifier->getId();
+        $type = $resourceIdentifier !== null ? $resourceIdentifier->getType() : "";
+        $id = $resourceIdentifier !== null ? $resourceIdentifier->getId() : "";
 
         $this->assertEquals("human", $type);
         $this->assertEquals("1", $id);
@@ -1196,7 +1196,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getDeletingToOneRelationship()
+    public function getDeletingToOneRelationship(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1220,7 +1220,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getToOneRelationshiWhenNotExists()
+    public function getToOneRelationshiWhenNotExists(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1241,7 +1241,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasToManyRelationshipWhenTrue()
+    public function hasToManyRelationshipWhenTrue(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1268,7 +1268,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function hasToManyRelationshipWhenFalse()
+    public function hasToManyRelationshipWhenFalse(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1289,7 +1289,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getToManyRelationship()
+    public function getToManyRelationship(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1319,7 +1319,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function getToManyRelationshipWhenNotExists()
+    public function getToManyRelationshipWhenNotExists(): void
     {
         $request = $this->createRequestWithJsonBody(
             [
@@ -1340,7 +1340,7 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
-    public function withQueryParamsInvalidatesParsedJsonApiQueryParams()
+    public function withQueryParamsInvalidatesParsedJsonApiQueryParams(): void
     {
         $request = $this->createRequestWithQueryParams(
             [
@@ -1392,7 +1392,7 @@ class JsonApiRequestTest extends TestCase
         return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    private function createRequestWithHeader($headerName, $headerValue): JsonApiRequest
+    private function createRequestWithHeader(string $headerName, string $headerValue): JsonApiRequest
     {
         $psrRequest = new ServerRequest([], [], null, null, "php://temp", [$headerName => $headerValue]);
 

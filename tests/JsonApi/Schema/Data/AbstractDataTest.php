@@ -11,7 +11,7 @@ class AbstractDataTest extends TestCase
     /**
      * @test
      */
-    public function setPrimaryResources()
+    public function setPrimaryResources(): void
     {
         $dummyData = new DummyData();
         $dummyData->setPrimaryResources(
@@ -28,7 +28,7 @@ class AbstractDataTest extends TestCase
     /**
      * @test
      */
-    public function addNotYetIncludedPrimaryResource()
+    public function addNotYetIncludedPrimaryResource(): void
     {
         $dummyData = new DummyData();
         $dummyData->addPrimaryResource(["type" => "user", "id" => "1"]);
@@ -39,7 +39,7 @@ class AbstractDataTest extends TestCase
     /**
      * @test
      */
-    public function addAlreadyIncludedPrimaryResource()
+    public function addAlreadyIncludedPrimaryResource(): void
     {
         $dummyData = new DummyData();
         $dummyData->addIncludedResource(["type" => "user", "id" => "1"]);

@@ -21,7 +21,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function ok()
+    public function ok(): void
     {
         $response = $this->createResponder()->ok(new StubResourceDocument(), []);
 
@@ -33,7 +33,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function okWithoutLinks()
+    public function okWithoutLinks(): void
     {
         $response = $this->createResponder()->ok(
             new StubResourceDocument(),
@@ -48,7 +48,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function okWithLinksWithoutProfiles()
+    public function okWithLinksWithoutProfiles(): void
     {
         $response = $this->createResponder()->ok(
             new StubResourceDocument(
@@ -67,7 +67,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function nokWithProfiles()
+    public function nokWithProfiles(): void
     {
         $response = $this->createResponder()->ok(
             new StubResourceDocument(
@@ -91,7 +91,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function okWithMeta()
+    public function okWithMeta(): void
     {
         $response = $this->createResponder()->okWithMeta(new StubResourceDocument(null, ["abc" => "def"]), []);
 
@@ -105,7 +105,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function okWithRelationship()
+    public function okWithRelationship(): void
     {
         $response = $this->createResponder()->okWithRelationship("", new StubResourceDocument(), []);
 
@@ -117,7 +117,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function created()
+    public function created(): void
     {
         $response = $this->createResponder()->created(new StubResourceDocument(), []);
 
@@ -131,7 +131,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function createdWithLinks()
+    public function createdWithLinks(): void
     {
         $response = $this->createResponder()->created(
             new StubResourceDocument(
@@ -150,7 +150,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function createdWithMeta()
+    public function createdWithMeta(): void
     {
         $response = $this->createResponder()->createdWithMeta(
             new StubResourceDocument(
@@ -173,7 +173,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function createdWithRelationship()
+    public function createdWithRelationship(): void
     {
         $response = $this->createResponder()->createdWithRelationship("", new StubResourceDocument(), []);
 
@@ -185,7 +185,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function accepted()
+    public function accepted(): void
     {
         $response = $this->createResponder()->accepted();
 
@@ -197,7 +197,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function noContent()
+    public function noContent(): void
     {
         $response = $this->createResponder()->noContent();
 
@@ -209,7 +209,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function forbidden()
+    public function forbidden(): void
     {
         $response = $this->createResponder()->forbidden(new ErrorDocument());
 
@@ -221,7 +221,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function notFound()
+    public function notFound(): void
     {
         $response = $this->createResponder()->notFound(new ErrorDocument());
 
@@ -233,7 +233,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function notFoundWithProfiles()
+    public function notFoundWithProfiles(): void
     {
         $response = $this->createResponder()->notFound(
             ErrorDocument::create()
@@ -255,7 +255,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function conflict()
+    public function conflict(): void
     {
         $response = $this->createResponder()->conflict(new ErrorDocument());
 
@@ -267,7 +267,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function genericSuccess()
+    public function genericSuccess(): void
     {
         $response = $this->createResponder()->genericSuccess(201);
 
@@ -279,7 +279,7 @@ class ResponderTest extends TestCase
     /**
      * @test
      */
-    public function genericError()
+    public function genericError(): void
     {
         $response = $this->createResponder()->genericError(
             new ErrorDocument([new Error(), new Error()]),

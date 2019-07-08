@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
+namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
@@ -28,7 +28,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformMetaDocumentWithoutJsonApiObject()
+    public function transformMetaDocumentWithoutJsonApiObject(): void
     {
         $document = $this->createDocument(null);
 
@@ -43,7 +43,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformMetaDocumentWithJsonApiObject()
+    public function transformMetaDocumentWithJsonApiObject(): void
     {
         $document = $this->createDocument(new JsonApiObject("1.0"));
 
@@ -62,7 +62,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformMetaDocumentWithMeta()
+    public function transformMetaDocumentWithMeta(): void
     {
         $document = $this->createDocument(null, ["abc" => "def"]);
 
@@ -81,7 +81,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformMetaDocumentWithEmptyLinks()
+    public function transformMetaDocumentWithEmptyLinks(): void
     {
         $document = $this->createDocument(null, [], new DocumentLinks());
 
@@ -98,7 +98,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformResourceDocumentWithEmptyData()
+    public function transformResourceDocumentWithEmptyData(): void
     {
         $document = $this->createDocument(null, [], null, new SingleResourceData());
 
@@ -115,7 +115,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformResourceDocumentWithEmptyIncluded()
+    public function transformResourceDocumentWithEmptyIncluded(): void
     {
         $document = $this->createDocument(null, [], null, new SingleResourceData());
 
@@ -133,7 +133,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformRelationshipDocumentWithEmptyIncluded()
+    public function transformRelationshipDocumentWithEmptyIncluded(): void
     {
         $document = $this->createDocument(
             null,
@@ -159,7 +159,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformRelationshipDocumentWithIncluded()
+    public function transformRelationshipDocumentWithIncluded(): void
     {
         $document = $this->createDocument(
             null,
@@ -202,7 +202,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformRelationshipDocumentByIncludedQueryParam()
+    public function transformRelationshipDocumentByIncludedQueryParam(): void
     {
         $document = $this->createDocument();
 
@@ -219,7 +219,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformErrorDocumentWithoutJsonApiObject()
+    public function transformErrorDocumentWithoutJsonApiObject(): void
     {
         $document = $this->createErrorDocument(null);
 
@@ -234,7 +234,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformErrorDocumentWithJsonApiObject()
+    public function transformErrorDocumentWithJsonApiObject(): void
     {
         $document = $this->createErrorDocument(new JsonApiObject(""));
 
@@ -251,7 +251,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformErrorDocumentWithMeta()
+    public function transformErrorDocumentWithMeta(): void
     {
         $document = $this->createErrorDocument(null, ["abc" => "def"]);
 
@@ -270,7 +270,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformErrorDocumentWithLinks()
+    public function transformErrorDocumentWithLinks(): void
     {
         $document = $this->createErrorDocument(null, [], new DocumentLinks());
 
@@ -287,7 +287,7 @@ class DocumentTransformerTest extends TestCase
     /**
      * @test
      */
-    public function transformErrorDocumentWithErrors()
+    public function transformErrorDocumentWithErrors(): void
     {
         $document = $this->createErrorDocument(null, [], null, [new Error(), new Error()]);
 
@@ -316,7 +316,7 @@ class DocumentTransformerTest extends TestCase
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -344,7 +344,7 @@ class DocumentTransformerTest extends TestCase
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -372,7 +372,7 @@ class DocumentTransformerTest extends TestCase
         $transformation = new ResourceDocumentTransformation(
             $document,
             $object,
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()
@@ -392,7 +392,7 @@ class DocumentTransformerTest extends TestCase
     {
         $transformation = new ErrorDocumentTransformation(
             $document,
-            $request ? $request : new JsonApiRequest(
+            $request ?? new JsonApiRequest(
                 new ServerRequest(),
                 new DefaultExceptionFactory(),
                 new JsonDeserializer()

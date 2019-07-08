@@ -11,7 +11,7 @@ class ResourceIdentifierTypeInvalidTest extends TestCase
     /**
      * @test
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         $exception = $this->createException();
 
@@ -24,7 +24,7 @@ class ResourceIdentifierTypeInvalidTest extends TestCase
     /**
      * @test
      */
-    public function getType()
+    public function getType(): void
     {
         $exception = $this->createException("integer");
 

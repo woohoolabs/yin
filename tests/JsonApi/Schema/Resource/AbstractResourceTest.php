@@ -5,6 +5,7 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Resource;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
@@ -14,7 +15,7 @@ class AbstractResourceTest extends TestCase
     /**
      * @test
      */
-    public function initializeTransformation()
+    public function initializeTransformation(): void
     {
         $resource = $this->createResource();
         $transformation = $this->createTransformation($resource);
@@ -33,7 +34,7 @@ class AbstractResourceTest extends TestCase
     /**
      * @test
      */
-    public function clearTransformation()
+    public function clearTransformation(): void
     {
         $resource = $this->createResource();
         $transformation = $this->createTransformation($resource);
@@ -55,11 +56,7 @@ class AbstractResourceTest extends TestCase
         return new StubResource();
     }
 
-    /**
-     * @param $resource
-     * @return ResourceTransformation
-     */
-    private function createTransformation($resource): ResourceTransformation
+    private function createTransformation(ResourceInterface $resource): ResourceTransformation
     {
         return new ResourceTransformation(
             $resource,

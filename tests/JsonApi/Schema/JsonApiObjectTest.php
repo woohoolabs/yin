@@ -11,7 +11,7 @@ class JsonApiObjectTest extends TestCase
     /**
      * @test
      */
-    public function getVersion()
+    public function getVersion(): void
     {
         $jsonApi = $this->createJsonApiObject("1.0");
 
@@ -23,7 +23,7 @@ class JsonApiObjectTest extends TestCase
     /**
      * @test
      */
-    public function getMeta()
+    public function getMeta(): void
     {
         $jsonApi = $this->createJsonApiObject("", ["abc" => "def"]);
 
@@ -35,7 +35,7 @@ class JsonApiObjectTest extends TestCase
     /**
      * @test
      */
-    public function setMeta()
+    public function setMeta(): void
     {
         $jsonApi = $this->createJsonApiObject("")
             ->setMeta(["abc" => "def"]);
@@ -48,7 +48,7 @@ class JsonApiObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformWithEmptyVersion()
+    public function transformWithEmptyVersion(): void
     {
         $jsonApi = $this->createJsonApiObject("", ["abc" => "def"]);
 
@@ -65,7 +65,7 @@ class JsonApiObjectTest extends TestCase
     /**
      * @test
      */
-    public function transformWithEmptyMeta()
+    public function transformWithEmptyMeta(): void
     {
         $jsonApi = $this->createJsonApiObject("1.0", ["abc" => "def"]);
 
@@ -80,7 +80,7 @@ class JsonApiObjectTest extends TestCase
         );
     }
 
-    private function createJsonApiObject($version, array $meta = []): JsonApiObject
+    private function createJsonApiObject(string $version, array $meta = []): JsonApiObject
     {
         return new JsonApiObject($version, $meta);
     }

@@ -12,7 +12,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParams()
+    public function fromPaginationQueryParams(): void
     {
         $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => 1]);
 
@@ -22,7 +22,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenMissing()
+    public function fromPaginationQueryParamsWhenMissing(): void
     {
         $pagination = FixedPageBasedPagination::fromPaginationQueryParams([], 1);
 
@@ -32,7 +32,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenEmpty()
+    public function fromPaginationQueryParamsWhenEmpty(): void
     {
         $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => ""], 1);
 
@@ -42,7 +42,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenZero()
+    public function fromPaginationQueryParamsWhenZero(): void
     {
         $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => "0"], 1);
 
@@ -52,7 +52,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function fromPaginationQueryParamsWhenNonNumeric()
+    public function fromPaginationQueryParamsWhenNonNumeric(): void
     {
         $pagination = FixedPageBasedPagination::fromPaginationQueryParams(["number" => "abc"], 1);
 
@@ -62,7 +62,7 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPage()
+    public function getPage(): void
     {
         $pagination = $this->createPagination(1);
 
@@ -74,14 +74,14 @@ class FixedPageBasedPaginationTest extends TestCase
     /**
      * @test
      */
-    public function getPaginationQueryString()
+    public function getPaginationQueryString(): void
     {
         $queryString = FixedPageBasedPagination::getPaginationQueryString(1);
 
         $this->assertEquals("page[number]=1", urldecode($queryString));
     }
 
-    private function createPagination($page): FixedPageBasedPagination
+    private function createPagination(int $page): FixedPageBasedPagination
     {
         return new FixedPageBasedPagination($page);
     }
