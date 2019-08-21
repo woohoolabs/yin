@@ -18,16 +18,16 @@ down:
 	docker-compose -f docker-compose.examples.yml stop --timeout=2
 
 test:
-	docker-compose up
+	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpunit"
 
 phpstan:
-	docker-compose run --rm yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpstan analyse --level 7 src tests"
+	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpstan analyse --level 7 src tests"
 
 cs:
-	docker-compose run --rm yin-php /var/www/vendor/bin/phpcs --standard=/var/www/phpcs.xml
+	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcs --standard=/var/www/phpcs.xml
 
 cs-fix:
-	docker-compose run --rm yin-php /var/www/vendor/bin/phpcbf --standard=/var/www/phpcs.xml
+	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcbf --standard=/var/www/phpcs.xml
 
 composer-install:
 	docker run --rm --interactive --tty --volume $(PWD):/app --user $(id -u):$(id -g) composer install --ignore-platform-reqs
