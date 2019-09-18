@@ -1,39 +1,33 @@
 .PHONY: help
 .DEFAULT_GOAL := help
-
 $(VERBOSE).SILENT:
 
-help:
-    grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
-    cut -d: -f2- | \
-    sort -d | \
-    awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
+help: ## Print the help screen
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: up down test phpstan cs cs-fix composer-install composer-update release
-
-up:
+up: ## Start the Docker-based web server in order to try out the examples
 	docker-compose -f docker-compose.examples.yml stop --timeout=2 && docker-compose -f docker-compose.examples.yml up -d
 
-down:
+down: ## Stop the Docker-based web server
 	docker-compose -f docker-compose.examples.yml stop --timeout=2
 
-test:
-	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpunit"
-
-phpstan:
-	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpstan analyse --level 7 src tests"
-
-cs:
-	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcs --standard=/var/www/phpcs.xml
-
-cs-fix:
-	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcbf --standard=/var/www/phpcs.xml
-
-composer-install:
+composer-install: ## Install Composer dependencies
 	docker run --rm --interactive --tty --volume $(PWD):/app --user $(id -u):$(id -g) composer install --ignore-platform-reqs
 
-composer-update:
+composer-update: ## Update Composer dependencies
 	docker run --rm --interactive --tty --volume $(PWD):/app --user $(id -u):$(id -g) composer update --ignore-platform-reqs
 
-release: test phpstan cs
+test: ## Run PHPUnit for the unit tests
+	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpunit"
+
+phpstan: ## Run PHPStan to perform static analysis
+	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpstan analyse --level 7 src tests"
+
+cs: ## Run PHP CodeSniffer to detect issues with coding style
+	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcs --standard=/var/www/phpcs.xml
+
+cs-fix: ## Run PHPCBF to automatically fix issues with coding style
+	docker-compose run --rm --no-deps yin-php /var/www/vendor/bin/phpcbf --standard=/var/www/phpcs.xml
+
+release: test phpstan cs ## Release a new version of the library
 	./vendor/bin/releaser release
