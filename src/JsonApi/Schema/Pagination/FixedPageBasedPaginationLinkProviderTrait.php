@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
@@ -6,6 +7,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\Utils;
+
 use function ceil;
 
 trait FixedPageBasedPaginationLinkProviderTrait

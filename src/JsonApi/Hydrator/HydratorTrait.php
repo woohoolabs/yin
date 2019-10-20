@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
@@ -11,6 +12,7 @@ use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+
 use function array_filter;
 use function array_key_exists;
 use function array_keys;

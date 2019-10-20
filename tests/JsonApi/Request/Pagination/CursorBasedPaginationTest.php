@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
+
 use function urldecode;
 
 class CursorBasedPaginationTest extends TestCase

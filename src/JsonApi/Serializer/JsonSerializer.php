@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ResponseInterface;
+
 use function json_encode;
 
 class JsonSerializer implements SerializerInterface

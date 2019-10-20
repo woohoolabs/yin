@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Transformer;
 
 use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
 use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
+
 use function array_diff;
 use function array_flip;
 use function array_keys;
@@ -172,7 +174,8 @@ final class ResourceTransformer
     ): ?array {
         $relationshipName = $transformation->currentRelationshipName;
 
-        if ($transformation->request->isIncludedField($transformation->resourceType, $relationshipName) === false &&
+        if (
+            $transformation->request->isIncludedField($transformation->resourceType, $relationshipName) === false &&
             $transformation->request->isIncludedRelationship($transformation->basePath, $relationshipName, $defaultRelationships) === false
         ) {
             return null;

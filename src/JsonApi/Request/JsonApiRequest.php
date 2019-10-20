@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request;
@@ -14,6 +15,7 @@ use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+
 use function array_flip;
 use function array_key_exists;
 use function array_keys;
@@ -114,7 +116,8 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function validateQueryParams(): void
     {
         foreach ($this->getQueryParams() as $queryParamName => $queryParamValue) {
-            if (preg_match("/^([a-z]+)$/", $queryParamName) === 1 &&
+            if (
+                preg_match("/^([a-z]+)$/", $queryParamName) === 1 &&
                 in_array($queryParamName, ["fields", "include", "sort", "page", "filter", "profile"], true) === false
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);

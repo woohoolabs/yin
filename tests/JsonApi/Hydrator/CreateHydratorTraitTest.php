@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
@@ -13,6 +14,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubCreateHydrator;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Stream;
+
 use function json_encode;
 
 class CreateHydratorTraitTest extends TestCase

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Response;
@@ -13,6 +14,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
 use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+
 use function implode;
 
 abstract class AbstractResponder

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
@@ -9,6 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
 use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
 use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+
 use function call_user_func;
 
 abstract class AbstractRelationship
@@ -182,7 +184,8 @@ abstract class AbstractRelationship
 
         // Transform the relationship data
         $dataMember = false;
-        if (($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
+        if (
+            ($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
             ($requestedRelationshipName === "" || $currentRelationshipName === $requestedRelationshipName)
         ) {
             $dataMember = $this->transformData($transformation, $resourceTransformer, $data, $defaultRelationships);
@@ -231,11 +234,13 @@ abstract class AbstractRelationship
         $basePath .= ($basePath !== "" ? "." : "") . $relationshipTransformation->currentRelationshipName;
         $relationshipTransformation->basePath = $basePath;
 
-        if ($transformation->request->isIncludedRelationship(
-            $transformation->basePath,
-            $transformation->currentRelationshipName,
-            $defaultRelationships
-        )) {
+        if (
+            $transformation->request->isIncludedRelationship(
+                $transformation->basePath,
+                $transformation->currentRelationshipName,
+                $defaultRelationships
+            )
+        ) {
             $resource = $resourceTransformer->transformToResourceObject($relationshipTransformation, $data);
             if ($resource !== null) {
                 $data->addIncludedResource($resource);
