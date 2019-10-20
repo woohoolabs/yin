@@ -86,7 +86,7 @@ abstract class AbstractRelationship
     /**
      * @param mixed $data
      */
-    public function __construct(
+    final public function __construct(
         array $meta = [],
         ?RelationshipLinks $links = null,
         $data = null,
