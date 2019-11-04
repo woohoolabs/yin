@@ -1,14 +1,22 @@
-## 4.1.0 - unreleased
+## 4.2.0 - unreleased
 
 ADDED:
 
 CHANGED:
 
-- Updated JSON:API schema to the latest version 
-
 REMOVED:
 
 FIXED:
+
+## 4.1.0 - 2019-11-04
+
+ADDED:
+
+- [#90](https://github.com/woohoolabs/yin/pull/90): Support for adding custom links to Resources, Relationships, and Errors 
+
+CHANGED:
+
+- Updated JSON:API schema to the latest version 
 
 ## 4.0.1 - 2019-06-05
 
