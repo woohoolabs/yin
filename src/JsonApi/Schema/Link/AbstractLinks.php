@@ -54,6 +54,29 @@ abstract class AbstractLinks
         return $links;
     }
 
+    /**
+     * @param Link[] $links
+     * @return static
+     */
+    public function setLinks(array $links)
+    {
+        foreach ($links as $rel => $link) {
+            $this->addLink($rel, $link);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     */
+    public function setLink(string $name, ?Link $link)
+    {
+        $this->addLink($name, $link);
+
+        return $this;
+    }
+
     protected function addLink(string $name, ?Link $link): void
     {
         $this->links[$name] = $link;

@@ -149,23 +149,4 @@ class DocumentLinks extends AbstractLinks
 
         return $this;
     }
-
-    /**
-     * @param Link[] $links
-     */
-    public function setLinks(array $links): DocumentLinks
-    {
-        foreach ($links as $rel => $link) {
-            $this->addLink($rel, $link);
-        }
-
-        return $this;
-    }
-
-    public function setLink(string $name, ?Link $link): DocumentLinks
-    {
-        $this->addLink($name, $link);
-
-        return $this;
-    }
 }
