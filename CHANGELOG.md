@@ -12,11 +12,11 @@ FIXED:
 
 ADDED:
 
-- [#90](https://github.com/woohoolabs/yin/pull/90): Support for adding custom links to Resources, Relationships, and Errors 
+- [#90](https://github.com/woohoolabs/yin/pull/90): Support for adding custom links to Resources, Relationships, and Errors
 
 CHANGED:
 
-- Updated JSON:API schema to the latest version 
+- Updated JSON:API schema to the latest version
 
 ## 4.0.1 - 2019-06-05
 
@@ -489,7 +489,7 @@ CHANGED:
 
 FIXED:
 
-- [#50](https://github.com/woohoolabs/yin/issues/50): Omitting `data` property from `relationships` information 
+- [#50](https://github.com/woohoolabs/yin/issues/50): Omitting `data` property from `relationships` information
 
 ## 1.0.0 - 2016-10-29
 
@@ -506,13 +506,13 @@ CHANGED:
 - Updated JSON:API schema to the latest version
 - Renamed pagination provider traits to pagination link provider traits
 - Renamed pagination objects to include "Based" (e.g.: `PagePagination` became `PageBasedPagination`)
-- Improved documentation: added missing sections and fixed a lot of stylistic errors 
+- Improved documentation: added missing sections and fixed a lot of stylistic errors
 - Improved test coverage
 
 FIXED:
 
 - `FixedPageBasedPagination::getPage()`, `PageBasedPagination::getPage()` and `PageBasedPagination::getSize()`
-now return `integer` instead of `string`   
+now return `integer` instead of `string`
 - `CursorBasedPagination::getCursor()` now returns `integer` instead of `string`
 - `OffsetBasedPagination::getOffset()` and `OffsetBasedPagination::getLimit()` now return `integer` instead of `string`
 - [#44](https://github.com/woohoolabs/yin/pull/44): Fixed request validation
