@@ -103,7 +103,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $attributeHydrator = [
-            "height" => function (array &$elephant, $attribute) {
+            "height" => function (array &$elephant, $attribute): void {
                 $elephant["height"] = $attribute;
             },
         ];
@@ -128,7 +128,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $attributeHydrator = [
-            "weight" => function (array &$elephant, $attribute) {
+            "weight" => function (array &$elephant, $attribute): void {
                 $elephant["weight"] = $attribute;
             },
         ];
@@ -154,7 +154,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $attributeHydrator = [
-            "weight" => function (array &$elephant, $attribute) {
+            "weight" => function (array &$elephant, $attribute): void {
                 $elephant["weight"] = $attribute;
             },
         ];
@@ -180,7 +180,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $attributeHydrator = [
-            "weight" => function (array $elephant, $attribute) {
+            "weight" => function (array $elephant, $attribute): array {
                 $elephant["weight"] = $attribute;
                 return $elephant;
             },
@@ -206,7 +206,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $relationshipHydrator = [
-            "children" => function (array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children): void {
                 $elephant["children"] = ["Dumbo", "Mambo"];
             },
         ];
@@ -236,7 +236,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $relationshipHydrator = [
-            "children" => function (array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children): void {
                 $elephant["children"] = $children->getResourceIdentifiers();
             },
         ];
@@ -268,7 +268,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $relationshipHydrator = [
-            "children" => function (array &$elephant, ToOneRelationship $children) {
+            "children" => function (array &$elephant, ToOneRelationship $children): void {
                 $elephant["children"] = $children->getResourceIdentifier();
             },
         ];
@@ -300,7 +300,7 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $relationshipHydrator = [
-            "children" => function (array &$elephant, $children) {
+            "children" => function (array &$elephant, $children): void {
                 $elephant["children"] = "Dumbo";
             },
         ];
@@ -338,13 +338,13 @@ class AbstractHydratorTest extends TestCase
             ],
         ];
         $relationshipHydrator = [
-            "owner" => function (array $elephant, ToOneRelationship $owner) {
+            "owner" => function (array $elephant, ToOneRelationship $owner): array {
                 $resourceIdentifier = $owner->getResourceIdentifier();
 
                 $elephant["owner"] = $resourceIdentifier !== null ? $resourceIdentifier->getId() : "";
                 return $elephant;
             },
-            "children" => function (array &$elephant, ToManyRelationship $children) {
+            "children" => function (array &$elephant, ToManyRelationship $children): void {
                 $elephant["children"] = $children->getResourceIdentifierIds();
             },
         ];

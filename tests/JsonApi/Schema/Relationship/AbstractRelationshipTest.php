@@ -84,7 +84,7 @@ class AbstractRelationshipTest extends TestCase
         $relationship = $this->createRelationship();
 
         $relationship->setDataAsCallable(
-            function () {
+            function (): array {
                 return ["id" => 1];
             },
             new StubResource()
