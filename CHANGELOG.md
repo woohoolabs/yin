@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 4.1.1 -unreleased
+
+FIXED:
+
+- [#93](https://github.com/woohoolabs/yin/issues/93): Using validateJsonBody() before getResource() makes request body empty
+
 ## 4.1.0 - 2019-11-04
 
 ADDED:

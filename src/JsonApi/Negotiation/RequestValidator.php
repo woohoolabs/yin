@@ -50,6 +50,10 @@ class RequestValidator extends AbstractMessageValidator
     {
         $errorMessage = $this->validateJsonMessage($request->getBody()->__toString());
 
+        if ($request->getBody()->isSeekable()) {
+            $request->getBody()->rewind();
+        }
+
         if ($errorMessage !== "") {
             throw $this->exceptionFactory->createRequestBodyInvalidJsonException(
                 $request,
