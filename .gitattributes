@@ -1,5 +1,6 @@
 * text eol=lf
 
+/.github export-ignore
 /build export-ignore
 /examples export-ignore
 /tests export-ignore
