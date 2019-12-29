@@ -1,12 +1,12 @@
 # Woohoo Labs. Yin
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Latest Version on Packagist][ico-version]][link-version]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Build Status][ico-build]][link-build]
+[![Coverage Status][ico-coverage]][link-coverage]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Gitter][ico-gitter]][link-gitter]
+[![Gitter][ico-support]][link-support]
 
 **Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON:APIs.**
 
@@ -252,7 +252,7 @@ public function getLinks(): ?DocumentLinks
             "self" => new Link("/books/" . $this->getResourceId())
         ]
     );
-    
+
     /* This is equivalent to the following:
     return DocumentLinks::createWithBaseUri(
         "https://example.com/api",
@@ -331,7 +331,7 @@ class BookResource extends AbstractResource
      * @var PublisherResource
      */
     private $publisherResource;
-    
+
     /**
      * You can type-hint the object property this way.
      * @var array
@@ -368,7 +368,7 @@ class BookResource extends AbstractResource
     public function getId($book): string
     {
         return $this->object["id"];
-        
+
         // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
         return $book["id"];
     }
@@ -397,7 +397,7 @@ class BookResource extends AbstractResource
     public function getLinks($book): ?ResourceLinks
     {
         return new ResourceLinks::createWithoutBaseUri()->setSelf(new Link("/books/" . $this->getId($book)));
-        
+
         // This is equivalent to the following:
         // return new ResourceLinks("", new Link("/books/" . $this->getResourceId()));
     }
@@ -422,7 +422,7 @@ class BookResource extends AbstractResource
                 return (int) $this->object["pages"];
             },
         ];
-        
+
         // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
         return [
             "title" => function (array $book) {
@@ -433,7 +433,7 @@ class BookResource extends AbstractResource
             },
         ];
     }
-    
+
     /**
      * Returns an array of relationship names which are included in the response by default.
      *
@@ -472,9 +472,9 @@ class BookResource extends AbstractResource
                     ->setData($this->object["publisher"], $this->publisherTransformer);
             },
         ];
-    
+
         // This is equivalent to the following (the $book parameter is used this time instead of $this->object):
-        
+
         return [
             "authors" => function (array $book) {
                 return ToManyRelationship::create()
@@ -578,7 +578,7 @@ class BookHydator extends AbstractHydrator
 
         return $book;
     }
-    
+
     /**
      * You can validate the request.
      *
@@ -612,7 +612,7 @@ class BookHydator extends AbstractHydrator
         return [
             "title" => function (array $book, $attribute, $data, $attributeName) {
                 $book["title"] = $attribute;
-                
+
                 return $book;
             },
             "pages" => function (array &$book, $attribute, $data, $attributeName) {
@@ -721,13 +721,13 @@ try {
 } catch (JsonApiExceptionInterface $e) {
     // Get the error document from the exception
     $errorDocument = $e->getErrorDocument();
-    
+
     // Instantiate the responder - make sure to pass the correct dependencies to it
     $responder = Responder::create($request, $response, $exceptionFactory, $serializer);
-    
+
     // Create a response from the error document
     $responder->genericError($errorDocument);
-    
+
     // Emit the HTTP response
     sendResponse($response);
 }
@@ -851,12 +851,12 @@ to be implemented:
 class UserCollection implements PaginationLinkProviderInterface
 {
     use PageBasedPaginationLinkProviderTrait;
-    
+
     public function getTotalItems(): int
     {
         // ...
     }
-    
+
     public function getPage(): int
     {
         // ...
@@ -1100,10 +1100,10 @@ public function getBookRelationships(JsonApi $jsonApi): ResponseInterface
 {
     // Getting the "id" of the currently requested book
     $id = $jsonApi->getRequest()->getAttribute("id");
-    
+
     // Getting the currently requested relationship's name
     $relationshipName = $jsonApi->getRequest()->getAttribute("rel");
-    
+
     // Retrieving a book domain object with an ID of $id
     $book = BookRepository::getBook($id);
 
@@ -1159,7 +1159,7 @@ public function updateBook(JsonApi $jsonApi): ResponseInterface
 
     // Hydrating the retrieved book domain object from the request
     $book = $jsonApi->hydrate(new BookHydator(), $book);
-    
+
     // Updating the book
     // ...
 
@@ -1293,17 +1293,17 @@ The MIT License (MIT). Please see the [License File](LICENSE.md) for more inform
 
 [ico-version]: https://img.shields.io/packagist/v/woohoolabs/yin.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://img.shields.io/travis/woohoolabs/yin/master.svg
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/woohoolabs/yin.svg
+[ico-build]: https://img.shields.io/github/workflow/status/woohoolabs/yin/Continuous%20Integration
+[ico-coverage]: https://img.shields.io/codecov/c/github/woohoolabs/yin
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/woohoolabs/yin.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/woohoolabs/yin.svg
-[ico-gitter]: https://badges.gitter.im/woohoolabs/yin.svg
+[ico-support]: https://badges.gitter.im/woohoolabs/yin.svg
 
-[link-packagist]: https://packagist.org/packages/woohoolabs/yin
-[link-travis]: https://travis-ci.org/woohoolabs/yin
-[link-scrutinizer]: https://scrutinizer-ci.com/g/woohoolabs/yin/code-structure
+[link-version]: https://packagist.org/packages/woohoolabs/yin
+[link-build]: https://github.com/woohoolabs/yin/actions
+[link-coverage]: https://codecov.io/gh/woohoolabs/yin
 [link-code-quality]: https://scrutinizer-ci.com/g/woohoolabs/yin
-[link-gitter]: https://gitter.im/woohoolabs/yin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+[link-support]: https://gitter.im/woohoolabs/yin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
 [link-downloads]: https://packagist.org/packages/woohoolabs/yin
 [link-author]: https://github.com/kocsismate
 [link-contributors]: ../../contributors
