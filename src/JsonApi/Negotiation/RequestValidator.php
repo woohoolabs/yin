@@ -48,10 +48,11 @@ class RequestValidator extends AbstractMessageValidator
      */
     public function validateJsonBody(JsonApiRequestInterface $request): void
     {
-        $errorMessage = $this->validateJsonMessage($request->getBody()->__toString());
+        $body = $request->getBody();
+        $errorMessage = $this->validateJsonMessage($body->__toString());
 
-        if ($request->getBody()->isSeekable()) {
-            $request->getBody()->rewind();
+        if ($body->isSeekable()) {
+            $body->rewind();
         }
 
         if ($errorMessage !== "") {
