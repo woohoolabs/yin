@@ -14,6 +14,7 @@ CODE_OF_CONDUCT.md export-ignore
 CONTRIBUTING.md export-ignore
 SUPPORT.md export-ignore
 
+composer.lock export-ignore
 docker-compose.yml export-ignore
 docker-compose.examples.yml export-ignore
 Makefile export-ignore
