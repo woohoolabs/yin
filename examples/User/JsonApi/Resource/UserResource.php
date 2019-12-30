@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
@@ -117,8 +118,7 @@ class UserResource extends AbstractResource
     {
         return [
             "contacts" => function (array $user) {
-                return
-                    ToManyRelationship::create()
+                return ToManyRelationship::create()
                         ->setLinks(
                             RelationshipLinks::createWithoutBaseUri(
                                 new Link("/users/" . $user["id"] . "/contacts"),
@@ -128,9 +128,8 @@ class UserResource extends AbstractResource
                         ->setDataAsCallable(function () use ($user) {
                             return $user["contacts"];
                         }, $this->contactTransformer)
-                        ->omitDataWhenNotIncluded()
-                    ;
-            }
+                        ->omitDataWhenNotIncluded();
+            },
         ];
     }
 }

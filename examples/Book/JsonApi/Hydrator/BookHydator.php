@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
@@ -116,7 +117,7 @@ class BookHydator extends AbstractHydrator
             },
             "pages" => function (array &$book, $attribute, $data) {
                 $book["pages"] = $attribute;
-            }
+            },
         ];
     }
 
@@ -154,7 +155,7 @@ class BookHydator extends AbstractHydrator
                 } else {
                     $book["publisher"] = BookRepository::getPublisher((int) $publisher->getResourceIdentifier()->getId());
                 }
-            }
+            },
         ];
     }
 }

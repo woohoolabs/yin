@@ -1,10 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\Repository;
 
 use WoohooLabs\Yin\Examples\Utils\AbstractRepository;
 use WoohooLabs\Yin\Examples\Utils\Collection;
+
+use function array_slice;
+use function count;
 
 class BookRepository extends AbstractRepository
 {
@@ -103,7 +107,7 @@ class BookRepository extends AbstractRepository
         ],
     ];
 
-    public static function getBooks(int $page = null, int $size = null): Collection
+    public static function getBooks(?int $page = null, ?int $size = null): Collection
     {
         if ($page === null) {
             $page = 1;

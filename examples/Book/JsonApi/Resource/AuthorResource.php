@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
@@ -20,7 +21,7 @@ class AuthorResource extends AbstractResource
      *
      * @param array $author
      */
-    public function getType($author) : string
+    public function getType($author): string
     {
         return "authors";
     }
@@ -32,7 +33,7 @@ class AuthorResource extends AbstractResource
      *
      * @param array $author
      */
-    public function getId($author) : string
+    public function getId($author): string
     {
         return (string) $this->object["id"];
     }
@@ -45,7 +46,7 @@ class AuthorResource extends AbstractResource
      *
      * @param array $author
      */
-    public function getMeta($author) : array
+    public function getMeta($author): array
     {
         return [];
     }

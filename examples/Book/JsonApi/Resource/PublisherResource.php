@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
@@ -112,11 +113,9 @@ class PublisherResource extends AbstractResource
     {
         return [
             "representative" => function ($publisher) {
-                return
-                    ToOneRelationship::create()
-                        ->setData($publisher["representative"], $this->representativeTransformer)
-                    ;
-            }
+                return ToOneRelationship::create()
+                        ->setData($publisher["representative"], $this->representativeTransformer);
+            },
         ];
     }
 }

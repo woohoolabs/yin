@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Utils;
@@ -28,7 +29,7 @@ class ExampleResourceNotFound extends AbstractJsonApiException
                 ->setStatus("404")
                 ->setCode("RESOURCE_NOT_FOUND")
                 ->setTitle("Resource not found")
-                ->setDetail($this->getMessage())
+                ->setDetail($this->getMessage()),
         ];
     }
 }

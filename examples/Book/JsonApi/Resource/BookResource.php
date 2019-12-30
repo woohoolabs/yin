@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
@@ -142,26 +143,22 @@ class BookResource extends AbstractResource
     {
         return [
             "authors" => function (array $book) {
-                return
-                    ToManyRelationship::create()
+                return ToManyRelationship::create()
                         ->setLinks(
                             new RelationshipLinks($this->getSelfLinkHref($book), new Link("/relationships/authors"))
                         )
-                        ->setData($book["authors"], $this->authorTransformer)
-                    ;
+                        ->setData($book["authors"], $this->authorTransformer);
             },
             "publisher" => function ($book) {
-                return
-                    ToOneRelationship::create()
+                return ToOneRelationship::create()
                         ->setLinks(
                             RelationshipLinks::createWithoutBaseUri()
                                 ->setBaseUri($this->getSelfLinkHref($book))
                                 ->setSelf(new Link("/relationships/publisher"))
                         )
                         ->setData($book["publisher"], $this->publisherTransformer)
-                        ->omitDataWhenNotIncluded()
-                    ;
-            }
+                        ->omitDataWhenNotIncluded();
+            },
         ];
     }
 }

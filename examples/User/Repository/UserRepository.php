@@ -1,9 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Examples\User\Repository;
 
 use WoohooLabs\Yin\Examples\Utils\Collection;
+
+use function array_slice;
+use function count;
 
 class UserRepository
 {
@@ -47,7 +51,7 @@ class UserRepository
         ],
     ];
 
-    public static function getUsers(int $page = null, int $size = null): Collection
+    public static function getUsers(?int $page = null, ?int $size = null): Collection
     {
         if ($page === null) {
             $page = 1;
