@@ -8,7 +8,7 @@ REMOVED:
 
 FIXED:
 
-## 4.1.1 -unreleased
+## 4.1.1 -2019-12-30
 
 FIXED:
 
