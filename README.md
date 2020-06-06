@@ -514,7 +514,7 @@ For the sake of brevity, we only introduce the usage of the latter class as it i
 `AbstractCreateHydrator` and `AbstractUpdateHydrator`. Let's have a look at an example hydrator:
 
 ```php
-class BookHydator extends AbstractHydrator
+class BookHydrator extends AbstractHydrator
 {
     /**
      * Determines which resource types can be accepted by the hydrator.
@@ -1128,7 +1128,7 @@ public function getBookRelationships(JsonApi $jsonApi): ResponseInterface
 public function createBook(JsonApi $jsonApi): ResponseInterface
 {
     // Hydrating a new book domain object from the request
-    $book = $jsonApi->hydrate(new BookHydator(), []);
+    $book = $jsonApi->hydrate(new BookHydrator(), []);
 
     // Saving the newly created book
     // ...
@@ -1158,7 +1158,7 @@ public function updateBook(JsonApi $jsonApi): ResponseInterface
     $book = BookRepository::getBook($id);
 
     // Hydrating the retrieved book domain object from the request
-    $book = $jsonApi->hydrate(new BookHydator(), $book);
+    $book = $jsonApi->hydrate(new BookHydrator(), $book);
 
     // Updating the book
     // ...
@@ -1194,7 +1194,7 @@ public function updateBookRelationship(JsonApi $jsonApi): ResponseInterface
     }
 
     // Hydrating the retrieved book domain object from the request
-    $book = $jsonApi->hydrateRelationship($relationshipName, new BookHydator(), $book);
+    $book = $jsonApi->hydrateRelationship($relationshipName, new BookHydrator(), $book);
 
     // Instantiating a book document
     $document = new BookDocument(
