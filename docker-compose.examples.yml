@@ -18,7 +18,7 @@ services:
 
     yin-examples-php-fpm:
         container_name: yin-examples-php-fpm
-        image: php:7.2-fpm
+        image: php:7.3-fpm
         networks:
         - yin-examples
         volumes:

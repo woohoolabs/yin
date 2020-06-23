@@ -3,7 +3,7 @@ version: '2'
 services:
     yin-php:
         container_name: yin-php
-        image: php:7.2-cli
+        image: php:7.3-cli
         volumes:
             - .:/var/www
         command: /bin/bash -c "cd /var/www; php vendor/bin/phpunit"
