@@ -23,7 +23,6 @@ use function array_values;
 use function explode;
 use function in_array;
 use function is_array;
-use function is_object;
 use function is_string;
 use function preg_match;
 use function strlen;
