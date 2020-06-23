@@ -1,5 +1,6 @@
 parameters:
-    bootstrap: vendor/autoload.php
+    bootstrapFiles:
+        - vendor/autoload.php
     checkMissingIterableValueType: false
     ignoreErrors:
         - '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
