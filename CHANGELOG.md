@@ -8,7 +8,13 @@ REMOVED:
 
 FIXED:
 
-## 4.1.1 -2019-12-30
+## 4.1.2 - unreleased
+
+ADDED:
+
+- Support for PHP 8
+
+## 4.1.1 - 2019-12-30
 
 FIXED:
 
