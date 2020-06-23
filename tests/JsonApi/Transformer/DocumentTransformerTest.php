@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
+use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
@@ -22,7 +23,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
-use Zend\Diactoros\ServerRequest;
 
 class DocumentTransformerTest extends TestCase
 {

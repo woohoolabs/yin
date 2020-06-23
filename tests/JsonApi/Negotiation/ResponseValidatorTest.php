@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Negotiation;
 
+use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
 use WoohooLabs\Yin\JsonApi\Negotiation\ResponseValidator;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
-use Zend\Diactoros\Response;
 
 class ResponseValidatorTest extends TestCase
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
 
+use Laminas\Diactoros\ServerRequest as DiactorosServerRequest;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
@@ -19,7 +20,6 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
-use Zend\Diactoros\ServerRequest as DiactorosServerRequest;
 
 class ResourceTransformerTest extends TestCase
 {

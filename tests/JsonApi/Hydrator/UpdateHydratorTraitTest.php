@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Stream;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
@@ -12,8 +14,6 @@ use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubUpdateHydrator;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Stream;
 
 use function json_encode;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 
+use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
-use Zend\Diactoros\Response;
 
 use function json_encode;
 

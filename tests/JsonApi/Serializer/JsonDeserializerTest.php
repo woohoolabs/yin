@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
 
 use InvalidArgumentException;
+use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use Zend\Diactoros\ServerRequest;
 
 class JsonDeserializerTest extends TestCase
 {

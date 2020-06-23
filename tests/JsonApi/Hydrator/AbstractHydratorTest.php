@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
 
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Stream;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
@@ -15,8 +17,6 @@ use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Stream;
 
 use function json_encode;
 

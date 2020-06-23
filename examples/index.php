@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 require_once "../vendor/autoload.php";
 
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequestFactory;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
 use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
@@ -20,9 +23,6 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\JsonApi;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequestFactory;
-use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
 
 // Defining routes
 $routes = [

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
 
+use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
-use Zend\Diactoros\Response;
 
 class ResponseBodyInvalidJsonApiTest extends TestCase
 {

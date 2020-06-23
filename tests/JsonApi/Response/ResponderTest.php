@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\Tests\JsonApi\Response;
 
+use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
 use WoohooLabs\Yin\JsonApi\Response\Responder;
@@ -14,7 +15,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
-use Zend\Diactoros\Response;
 
 use function json_decode;
 
