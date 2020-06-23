@@ -478,6 +478,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getResource($default = null)
     {
         $body = $this->getParsedBody();
+        assert(is_array($body));
 
         return $body["data"] ?? $default;
     }
