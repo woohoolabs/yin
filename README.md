@@ -1,7 +1,7 @@
 # Woohoo Labs. Yin
 
 [![Latest Version on Packagist][ico-version]][link-version]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]](LICENSE)
 [![Build Status][ico-build]][link-build]
 [![Coverage Status][ico-coverage]][link-coverage]
 [![Quality Score][ico-code-quality]][link-code-quality]
