@@ -13,6 +13,11 @@ FIXED:
 ADDED:
 
 - Support for PHP 8
+- Support for PHPUnit 9
+
+CHANGED:
+
+- Instead of zendframework packages, laminas are required
 
 ## 4.1.1 - 2019-12-30
 
