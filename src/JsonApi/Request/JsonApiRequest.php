@@ -20,9 +20,11 @@ use function array_flip;
 use function array_key_exists;
 use function array_keys;
 use function array_values;
+use function assert;
 use function explode;
 use function in_array;
 use function is_array;
+use function is_object;
 use function is_string;
 use function preg_match;
 use function strlen;
@@ -478,7 +480,10 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
     public function getResource($default = null)
     {
         $body = $this->getParsedBody();
-        assert(is_array($body));
+
+        if (is_object($body)) {
+            return $body->data ?? $default;
+        }
 
         return $body["data"] ?? $default;
     }
