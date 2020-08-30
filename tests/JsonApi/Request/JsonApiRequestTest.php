@@ -12,7 +12,6 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
-use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
 use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
 use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
 use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
