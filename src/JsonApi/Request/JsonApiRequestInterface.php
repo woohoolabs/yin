@@ -9,6 +9,9 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 
@@ -35,6 +38,18 @@ interface JsonApiRequestInterface extends ServerRequestInterface
      * @throws QueryParamUnrecognized|JsonApiExceptionInterface
      */
     public function validateQueryParams(): void;
+
+    /**
+     * Validates if the current request's top-level members conform to the JSON:API schema.
+     *
+     * According to the JSON:API specification:
+     * - A document MUST contain at least one of the following top-level members: "data", "errors", "meta".
+     * - The members "data" and "errors" MUST NOT coexist in the same document.
+     * - The document MAY contain any of these top-level members: "jsonapi", "links", "included"
+     * - If a document does not contain a top-level "data" key, the "included" member MUST NOT be present either.
+     * @throws RequiredTopLevelMembersMissing|TopLevelMembersIncompatible|TopLevelMemberNotAllowed|JsonApiExceptionInterface
+     */
+    public function validateTopLevelMembers(): void;
 
     /**
      * Returns a list of field names for the given resource type which should be present in the response.

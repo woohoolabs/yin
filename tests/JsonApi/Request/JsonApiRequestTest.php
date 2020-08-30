@@ -12,6 +12,10 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
+use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
+use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
@@ -229,6 +233,103 @@ class JsonApiRequestTest extends TestCase
         $this->expectException(QueryParamUnrecognized::class);
 
         $request->validateQueryParams();
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenEmpty(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            []
+        );
+
+        $this->expectException(RequiredTopLevelMembersMissing::class);
+
+        $request->validateTopLevelMembers();
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenDataAndErrors(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [],
+                "errors" => [],
+            ]
+        );
+
+        $this->expectException(TopLevelMembersIncompatible::class);
+
+        $request->validateTopLevelMembers();
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenIncludedWithoutData(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "errors" => [],
+                "included" => [],
+            ]
+        );
+
+        $this->expectException(TopLevelMemberNotAllowed::class);
+
+        $request->validateTopLevelMembers();
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenData(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [],
+            ]
+        );
+
+        $request->validateTopLevelMembers();
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenDataAndIncluded(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "data" => [],
+                "included" => [],
+            ]
+        );
+
+        $request->validateTopLevelMembers();
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
+     */
+    public function validateTopLevelMembersWhenErrors(): void
+    {
+        $request = $this->createRequestWithJsonBody(
+            [
+                "errors" => [],
+            ]
+        );
+
+        $request->validateTopLevelMembers();
+
+        $this->addToAssertionCount(1);
     }
 
     /**

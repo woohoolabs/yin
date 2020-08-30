@@ -10,6 +10,9 @@ use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
 use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
 use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
@@ -122,6 +125,33 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
             ) {
                 throw $this->exceptionFactory->createQueryParamUnrecognizedException($this, $queryParamName);
             }
+        }
+    }
+
+    /**
+     * Validates if the current request's top-level members conform to the JSON:API schema.
+     *
+     * According to the JSON:API specification:
+     * - A document MUST contain at least one of the following top-level members: "data", "errors", "meta".
+     * - The members "data" and "errors" MUST NOT coexist in the same document.
+     * - The document MAY contain any of these top-level members: "jsonapi", "links", "included"
+     * - If a document does not contain a top-level "data" key, the "included" member MUST NOT be present either.
+     * @throws RequiredTopLevelMembersMissing|TopLevelMembersIncompatible|TopLevelMemberNotAllowed|JsonApiExceptionInterface
+     */
+    public function validateTopLevelMembers(): void
+    {
+        $body = (array) $this->getParsedBody();
+
+        if (isset($body["data"]) === false && isset($body["errors"]) === false && isset($body["meta"]) === false) {
+            throw $this->exceptionFactory->createRequiredTopLevelMembersMissingException($this);
+        }
+
+        if (isset($body["data"]) && isset($body["errors"])) {
+            throw $this->exceptionFactory->createTopLevelMembersIncompatibleException($this);
+        }
+
+        if (isset($body["data"]) === false && isset($body["included"])) {
+            throw $this->exceptionFactory->createTopLevelMemberNotAllowedException($this);
         }
     }
 

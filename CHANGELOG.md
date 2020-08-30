@@ -2,6 +2,8 @@
 
 ADDED:
 
+- [#98](https://github.com/woohoolabs/yin/issues/98): Support for validating top-level members in requests
+
 CHANGED:
 
 REMOVED:

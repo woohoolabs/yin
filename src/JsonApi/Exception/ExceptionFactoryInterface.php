@@ -55,6 +55,12 @@ interface ExceptionFactoryInterface
         $queryParamValue
     ): JsonApiExceptionInterface;
 
+    public function createRequiredTopLevelMembersMissingException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
+
+    public function createTopLevelMembersIncompatibleException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
+
+    public function createTopLevelMemberNotAllowedException(JsonApiRequestInterface $request): JsonApiExceptionInterface;
+
     public function createRelationshipNotExistsException(string $relationship): JsonApiExceptionInterface;
 
     public function createRelationshipTypeInappropriateException(

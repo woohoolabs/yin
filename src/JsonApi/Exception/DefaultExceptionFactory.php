@@ -87,6 +87,21 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
         return new QueryParamMalformed($queryParamName, $queryParamValue);
     }
 
+    public function createRequiredTopLevelMembersMissingException(JsonApiRequestInterface $request): JsonApiExceptionInterface
+    {
+        return new RequiredTopLevelMembersMissing();
+    }
+
+    public function createTopLevelMembersIncompatibleException(JsonApiRequestInterface $request): JsonApiExceptionInterface
+    {
+        return new TopLevelMembersIncompatible();
+    }
+
+    public function createTopLevelMemberNotAllowedException(JsonApiRequestInterface $request): JsonApiExceptionInterface
+    {
+        return new TopLevelMemberNotAllowed();
+    }
+
     public function createRelationshipNotExistsException(string $relationship): JsonApiExceptionInterface
     {
         return new RelationshipNotExists($relationship);

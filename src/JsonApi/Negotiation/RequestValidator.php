@@ -63,4 +63,12 @@ class RequestValidator extends AbstractMessageValidator
             );
         }
     }
+
+    /**
+     * @throws JsonApiExceptionInterface
+     */
+    public function validateTopLevelMembers(JsonApiRequestInterface $request): void
+    {
+        $request->validateTopLevelMembers();
+    }
 }

@@ -14,6 +14,9 @@ use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
 use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
 use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
 use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
+use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
 use WoohooLabs\Yin\JsonApi\Negotiation\RequestValidator;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
@@ -222,6 +225,20 @@ class RequestValidatorTest extends TestCase
     private function createRequest(ServerRequestInterface $serverRequest): JsonApiRequestInterface
     {
         return new JsonApiRequest($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
+    }
+
+    /**
+     * @return MockObject|JsonApiRequestInterface
+     */
+    private function createRequestWithParsedBody(array $parsedBody): JsonApiRequestInterface
+    {
+        $request = $this->getMockForAbstractClass(JsonApiRequestInterface::class);
+
+        $request->expects($this->once())
+            ->method("getParsedBody")
+            ->willReturn($parsedBody);
+
+        return $request;
     }
 
     private function setFakeBody(ServerRequestInterface $request, string $body): void
