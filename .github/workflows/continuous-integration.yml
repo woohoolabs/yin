@@ -15,10 +15,11 @@ jobs:
         uses: actions/checkout@master
 
       - name: "Install PHP 7.4"
-        run: |
-          sudo add-apt-repository ppa:ondrej/php
-          sudo apt-get update
-          sudo apt-get install php7.4 php7.4-mbstring php7.4-xml
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: "7.4"
+            extensions: mbstring, xml
+            tools: composer
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -48,10 +49,11 @@ jobs:
         uses: actions/checkout@master
 
       - name: "Install PHP 7.4"
-        run: |
-          sudo add-apt-repository ppa:ondrej/php
-          sudo apt-get update
-          sudo apt-get install php7.4 php7.4-mbstring php7.4-xml
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: "7.4"
+            extensions: mbstring, xml
+            tools: composer
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -75,11 +77,11 @@ jobs:
 
     strategy:
       matrix:
-        php-binary:
-          - php7.4
-          - php7.3
-          - php7.2
-          - php7.1
+        php-version:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
 
         dependencies:
           - lowest
@@ -89,11 +91,12 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@master
 
-      - name: "Install PHP 7.4"
-        run: |
-          sudo add-apt-repository ppa:ondrej/php
-          sudo apt-get update
-          sudo apt-get install php7.4 php7.4-mbstring php7.4-xml
+      - name: "Install PHP ${{ matrix.php-version }}"
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: ${{ matrix.php-version }}
+            extensions: mbstring, xml
+            tools: composer
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -106,14 +109,14 @@ jobs:
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
-        run: ${{ matrix.php-binary }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins --prefer-lowest
+        run: php${{ matrix.php-version }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins --prefer-lowest
 
       - name: "Install highest dependencies with composer"
         if: matrix.dependencies == 'highest'
-        run: ${{ matrix.php-binary }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins
+        run: php${{ matrix.php-version }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins
 
       - name: "Run unit tests"
-        run: ${{ matrix.php-binary }} vendor/bin/phpunit
+        run: php${{ matrix.php-version }} vendor/bin/phpunit
 
   code-coverage:
     name: "Code Coverage"
@@ -125,10 +128,12 @@ jobs:
         uses: actions/checkout@master
 
       - name: "Install PHP 7.4"
-        run: |
-          sudo add-apt-repository ppa:ondrej/php
-          sudo apt-get update
-          sudo apt-get install php7.4 php7.4-mbstring php7.4-xdebug php7.4-xml
+        uses: shivammathur/setup-php@v2
+        with:
+            php-version: "7.4"
+            extensions: mbstring, xml
+            coverage: xdebug
+            tools: composer
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
