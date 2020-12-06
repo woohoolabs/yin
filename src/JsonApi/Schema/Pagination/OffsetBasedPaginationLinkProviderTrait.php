@@ -70,7 +70,7 @@ trait OffsetBasedPaginationLinkProviderTrait
         }
 
         return new Link(
-            Utils::getUri($uri, $queryString, OffsetBasedPagination::getPaginationQueryString($offset, $limit))
+            Utils::getUri($uri, $queryString, OffsetBasedPagination::getPaginationQueryParams($offset, $limit))
         );
     }
 }

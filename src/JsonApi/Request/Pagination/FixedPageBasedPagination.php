@@ -6,7 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
 use WoohooLabs\Yin\Utils;
 
-use function urlencode;
+use function http_build_query;
 
 class FixedPageBasedPagination
 {
@@ -34,6 +34,15 @@ class FixedPageBasedPagination
 
     public static function getPaginationQueryString(int $page): string
     {
-        return urlencode("page[number]=$page");
+        return http_build_query(static::getPaginationQueryParams($page));
+    }
+
+    public static function getPaginationQueryParams(int $page): array
+    {
+        return [
+            "page" => [
+                "number" => $page,
+            ],
+        ];
     }
 }

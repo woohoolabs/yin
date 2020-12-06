@@ -19,7 +19,7 @@ class Utils
         return isset($queryParams[$key]) && is_numeric($queryParams[$key]) ? (int) $queryParams[$key] : $default;
     }
 
-    public static function getUri(string $uri, string $queryString1, string $queryString2): string
+    public static function getUri(string $uri, string $queryString, array $additionalQueryParams): string
     {
         $uriQueryStringSeparator = strpos($uri, "?");
         if ($uriQueryStringSeparator === false) {
@@ -33,13 +33,10 @@ class Utils
         $parsedUriQueryString = [];
         parse_str(urldecode($uriQueryString), $parsedUriQueryString);
 
-        $parsedQueryString1 = [];
-        parse_str(urldecode($queryString1), $parsedQueryString1);
+        $parsedQueryString = [];
+        parse_str(urldecode($queryString), $parsedQueryString);
 
-        $parsedQueryString2 = [];
-        parse_str(urldecode($queryString2), $parsedQueryString2);
-
-        $parsedFinalQueryString = array_merge($parsedUriQueryString, $parsedQueryString1, $parsedQueryString2);
+        $parsedFinalQueryString = array_merge($parsedUriQueryString, $parsedQueryString, $additionalQueryParams);
 
         $finalQueryString = http_build_query($parsedFinalQueryString);
 

@@ -74,7 +74,7 @@ trait FixedCursorBasedPaginationLinkProviderTrait
         }
 
         return new Link(
-            Utils::getUri($uri, $queryString, FixedCursorBasedPagination::getPaginationQueryString($cursor))
+            Utils::getUri($uri, $queryString, FixedCursorBasedPagination::getPaginationQueryParams($cursor))
         );
     }
 }

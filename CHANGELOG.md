@@ -11,6 +11,7 @@ REMOVED:
 FIXED:
 
 - [#100](https://github.com/woohoolabs/yin/issues/100): Error in createResourceIdInvalidException
+- [#97](https://github.com/woohoolabs/yin/issues/97): Incorrect encoding of (pagination) query parameters
 
 ## 4.1.2 - 2020-06-23
 

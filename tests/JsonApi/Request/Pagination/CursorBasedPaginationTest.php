@@ -7,8 +7,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
 
-use function urldecode;
-
 class CursorBasedPaginationTest extends TestCase
 {
     /**
@@ -65,7 +63,7 @@ class CursorBasedPaginationTest extends TestCase
     {
         $queryString = CursorBasedPagination::getPaginationQueryString("abc", 10);
 
-        $this->assertEquals("page[cursor]=abc&page[size]=10", urldecode($queryString));
+        $this->assertEquals("page%5Bcursor%5D=abc&page%5Bsize%5D=10", $queryString);
     }
 
     private function createPagination(string $cursor, int $page = 0): CursorBasedPagination

@@ -7,8 +7,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 
-use function urldecode;
-
 class FixedPageBasedPaginationTest extends TestCase
 {
     /**
@@ -80,7 +78,7 @@ class FixedPageBasedPaginationTest extends TestCase
     {
         $queryString = FixedPageBasedPagination::getPaginationQueryString(1);
 
-        $this->assertEquals("page[number]=1", urldecode($queryString));
+        $this->assertEquals("page%5Bnumber%5D=1", $queryString);
     }
 
     private function createPagination(int $page): FixedPageBasedPagination

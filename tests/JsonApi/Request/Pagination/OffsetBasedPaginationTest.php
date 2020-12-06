@@ -7,8 +7,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
 
-use function urldecode;
-
 class OffsetBasedPaginationTest extends TestCase
 {
     /**
@@ -97,7 +95,7 @@ class OffsetBasedPaginationTest extends TestCase
     {
         $queryString = OffsetBasedPagination::getPaginationQueryString(1, 10);
 
-        $this->assertEquals("page[offset]=1&page[limit]=10", urldecode($queryString));
+        $this->assertEquals("page%5Boffset%5D=1&page%5Blimit%5D=10", $queryString);
     }
 
     private function createPagination(int $offset, int $limit): OffsetBasedPagination

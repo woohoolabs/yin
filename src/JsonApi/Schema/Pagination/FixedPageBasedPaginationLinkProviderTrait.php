@@ -66,7 +66,7 @@ trait FixedPageBasedPaginationLinkProviderTrait
         }
 
         return new Link(
-            Utils::getUri($uri, $queryString, FixedPageBasedPagination::getPaginationQueryString($page))
+            Utils::getUri($uri, $queryString, FixedPageBasedPagination::getPaginationQueryParams($page))
         );
     }
 

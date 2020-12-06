@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
 
-use function urlencode;
+use function http_build_query;
 
 class FixedCursorBasedPagination
 {
@@ -44,6 +44,18 @@ class FixedCursorBasedPagination
      */
     public static function getPaginationQueryString($cursor): string
     {
-        return urlencode("page[cursor]=$cursor");
+        return http_build_query(static::getPaginationQueryParams($cursor));
+    }
+
+    /**
+     * @param mixed $cursor
+     */
+    public static function getPaginationQueryParams($cursor): array
+    {
+        return [
+            "page" => [
+                "cursor" => $cursor,
+            ],
+        ];
     }
 }

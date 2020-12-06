@@ -7,8 +7,6 @@ namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Pagination;
 use PHPUnit\Framework\TestCase;
 use WoohooLabs\Yin\Tests\JsonApi\Double\StubCursorBasedPaginationProvider;
 
-use function urldecode;
-
 class CursorBasedPaginationProviderTraitTest extends TestCase
 {
     /**
@@ -33,7 +31,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getSelfLink("https://example.com/api/users", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -46,7 +44,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getSelfLink("https://example.com/api/users?", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -59,7 +57,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=b&page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?a=b&page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -72,7 +70,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getSelfLink("https://example.com/api/users?a=b", "a=c&b=d");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?a=c&b=d&page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?a=c&b=d&page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -85,7 +83,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getSelfLink("https://example.com/api/users", "page[cursor]=0");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -110,7 +108,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getFirstLink("https://example.com/api/users", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=0&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=0&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -135,7 +133,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getLastLink("https://example.com/api/users", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=4&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=4&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -148,7 +146,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getPrevLink("https://example.com/api/users", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=2&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=2&page%5Bsize%5D=10", $href);
     }
 
     /**
@@ -161,7 +159,7 @@ class CursorBasedPaginationProviderTraitTest extends TestCase
         $link = $provider->getNextLink("https://example.com/api/users", "");
         $href = $link !== null ? $link->getHref() : "";
 
-        $this->assertEquals("https://example.com/api/users?page[cursor]=3&page[size]=10", urldecode($href));
+        $this->assertEquals("https://example.com/api/users?page%5Bcursor%5D=3&page%5Bsize%5D=10", $href);
     }
 
     /**
