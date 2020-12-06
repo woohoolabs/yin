@@ -18,7 +18,7 @@ composer-update: ## Update Composer dependencies
 	docker run --rm --interactive --tty --volume $(PWD):/app --user $(id -u):$(id -g) composer update --ignore-platform-reqs
 
 test: ## Run PHPUnit for the unit tests
-	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpunit"
+	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpunit $(if $(TEST),$(TEST),)"
 
 phpstan: ## Run PHPStan to perform static analysis
 	docker-compose run --rm --no-deps yin-php /bin/bash -c "cd /var/www && ./vendor/bin/phpstan analyse --level 8 src tests"
