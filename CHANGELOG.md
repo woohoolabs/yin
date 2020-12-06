@@ -10,6 +10,8 @@ REMOVED:
 
 FIXED:
 
+- [#100](https://github.com/woohoolabs/yin/issues/100): Error in createResourceIdInvalidException
+
 ## 4.1.2 - 2020-06-23
 
 ADDED:
