@@ -3,6 +3,7 @@
 ADDED:
 
 - [#98](https://github.com/woohoolabs/yin/issues/98): Support for validating top-level members in requests
+- [#96](https://github.com/woohoolabs/yin/issues/96): Support for providing a custom schema path to `ResponseValidator`
 
 CHANGED:
 

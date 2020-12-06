@@ -24,12 +24,19 @@ abstract class AbstractMessageValidator
      */
     protected $includeOriginalMessage;
 
+    /**
+     * @var string|null
+     */
+    protected $customSchemaPath;
+
     public function __construct(
         ExceptionFactoryInterface $exceptionFactory,
-        bool $includeOriginalMessageInResponse = true
+        bool $includeOriginalMessageInResponse = true,
+        ?string $customSchemaPath = null
     ) {
         $this->exceptionFactory = $exceptionFactory;
         $this->includeOriginalMessage = $includeOriginalMessageInResponse;
+        $this->customSchemaPath = $customSchemaPath;
     }
 
     protected function validateJsonMessage(string $message): string
@@ -59,7 +66,7 @@ abstract class AbstractMessageValidator
         $validator = new Validator();
         $validator->validate(
             $decodedMessage,
-            (object) ['$ref' => "file://" . realpath(__DIR__ . "/json-api-schema.json")]
+            (object) ['$ref' => "file://" . ($this->customSchemaPath ?? realpath(__DIR__ . "/json-api-schema.json"))]
         );
 
         return $validator->getErrors();

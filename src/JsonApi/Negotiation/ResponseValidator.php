@@ -21,9 +21,10 @@ class ResponseValidator extends AbstractMessageValidator
     public function __construct(
         SerializerInterface $deserializer,
         ExceptionFactoryInterface $exceptionFactory,
-        bool $includeOriginalMessageInResponse = true
+        bool $includeOriginalMessageInResponse = true,
+        ?string $customSchemaPath = null
     ) {
-        parent::__construct($exceptionFactory, $includeOriginalMessageInResponse);
+        parent::__construct($exceptionFactory, $includeOriginalMessageInResponse, $customSchemaPath);
         $this->deserializer = $deserializer;
     }
 
