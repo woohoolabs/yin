@@ -19,7 +19,7 @@ jobs:
         with:
             php-version: "7.4"
             extensions: mbstring, xml
-            tools: composer
+            tools: composer:v1
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -53,7 +53,7 @@ jobs:
         with:
             php-version: "7.4"
             extensions: mbstring, xml
-            tools: composer
+            tools: composer:v1
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -96,7 +96,7 @@ jobs:
         with:
             php-version: ${{ matrix.php-version }}
             extensions: mbstring, xml
-            tools: composer
+            tools: composer:v1
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
@@ -133,7 +133,7 @@ jobs:
             php-version: "7.4"
             extensions: mbstring, xml
             coverage: xdebug
-            tools: composer
+            tools: composer:v1
 
       - name: "Cache dependencies"
         uses: actions/cache@v1
