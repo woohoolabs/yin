@@ -31,13 +31,13 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: "Validate composer.json"
-        run: php7.4 $(which composer) validate --strict
+        run: php $(which composer) validate --strict
 
       - name: "Install dependencies with composer"
-        run: php7.4 $(which composer) install --no-interaction --no-progress --no-suggest
+        run: php $(which composer) install --no-interaction --no-progress --no-suggest
 
       - name: "Run PHP CodeSniffer"
-        run: php7.4 vendor/bin/phpcs --standard=phpcs.xml
+        run: php vendor/bin/phpcs --standard=phpcs.xml
 
   static-code-analysis:
     name: "Static Code Analysis"
@@ -65,10 +65,10 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
-        run: php7.4 $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
+        run: php $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
 
       - name: "Run phpstan/phpstan"
-        run: php7.4 vendor/bin/phpstan analyse --level 8 src tests
+        run: php vendor/bin/phpstan analyse --level 8 src tests
 
   tests:
     name: "Tests"
@@ -109,14 +109,14 @@ jobs:
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
-        run: php${{ matrix.php-version }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins --prefer-lowest
+        run: php $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins --prefer-lowest
 
       - name: "Install highest dependencies with composer"
         if: matrix.dependencies == 'highest'
-        run: php${{ matrix.php-version }} $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins
+        run: php $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins
 
       - name: "Run unit tests"
-        run: php${{ matrix.php-version }} vendor/bin/phpunit
+        run: php vendor/bin/phpunit
 
   code-coverage:
     name: "Code Coverage"
@@ -132,7 +132,7 @@ jobs:
         with:
             php-version: "7.4"
             extensions: mbstring, xml
-            coverage: xdebug
+            coverage: xdebug:v2
             tools: composer:v1
 
       - name: "Cache dependencies"
@@ -145,13 +145,13 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
-        run: php7.4 $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
+        run: php $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
 
       - name: "Dump Xdebug filter with phpunit/phpunit"
-        run: php7.4 vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php
+        run: php vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php
 
       - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-        run: php7.4 vendor/bin/phpunit --coverage-clover=build/logs/clover.xml --prepend=.build/phpunit/xdebug-filter.php
+        run: php vendor/bin/phpunit --coverage-clover=build/logs/clover.xml --prepend=.build/phpunit/xdebug-filter.php
 
       - name: "Download code coverage uploader for Codecov.io"
         run: curl -s https://codecov.io/bash -o codecov
