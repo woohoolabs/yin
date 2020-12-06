@@ -7,6 +7,8 @@ namespace WoohooLabs\Yin\JsonApi\Exception;
 use Psr\Http\Message\ResponseInterface;
 use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
+use function gettype;
+
 class DefaultExceptionFactory implements ExceptionFactoryInterface
 {
     public function createApplicationErrorException(JsonApiRequestInterface $request): JsonApiExceptionInterface
@@ -165,7 +167,7 @@ class DefaultExceptionFactory implements ExceptionFactoryInterface
      */
     public function createResourceIdInvalidException($id): JsonApiExceptionInterface
     {
-        return new ResourceIdInvalid($id);
+        return new ResourceIdInvalid(gettype($id));
     }
 
     public function createResourceIdMissingException(): JsonApiExceptionInterface
