@@ -1,13 +1,9 @@
-## 4.2.0 - unreleased
+## 4.2.0 - 2021-01-15
 
 ADDED:
 
 - [#98](https://github.com/woohoolabs/yin/issues/98): Support for validating top-level members in requests
 - [#96](https://github.com/woohoolabs/yin/issues/96): Support for providing a custom schema path to `ResponseValidator`
-
-CHANGED:
-
-REMOVED:
 
 FIXED:
 
