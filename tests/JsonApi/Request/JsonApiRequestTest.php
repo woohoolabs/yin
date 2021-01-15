@@ -237,6 +237,18 @@ class JsonApiRequestTest extends TestCase
     /**
      * @test
      */
+    public function validateTopLevelMembersWithoutBody(): void
+    {
+        $request = $this->createRequest();
+
+        $request->validateTopLevelMembers();
+
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @test
+     */
     public function validateTopLevelMembersWhenEmpty(): void
     {
         $request = $this->createRequestWithJsonBody(

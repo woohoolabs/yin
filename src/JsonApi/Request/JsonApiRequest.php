@@ -31,6 +31,7 @@ use function preg_match;
 use function strlen;
 use function strpos;
 use function strtolower;
+use function strtoupper;
 use function substr;
 use function trim;
 
@@ -140,7 +141,12 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
      */
     public function validateTopLevelMembers(): void
     {
-        $body = (array) $this->getParsedBody();
+        $body = $this->getParsedBody();
+        if ($body === null) {
+            return;
+        }
+
+        $body = (array) $body;
 
         if (isset($body["data"]) === false && isset($body["errors"]) === false && isset($body["meta"]) === false) {
             throw $this->exceptionFactory->createRequiredTopLevelMembersMissingException($this);

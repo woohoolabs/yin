@@ -289,7 +289,7 @@ abstract class AbstractRequest
     {
         if ($this->isParsed === false) {
             $parsedBody = $this->serverRequest->getParsedBody();
-            if ($parsedBody === null || $parsedBody === []) {
+            if ($parsedBody === null) {
                 $parsedBody = $this->deserializer->deserialize($this->serverRequest);
                 $this->serverRequest = $this->serverRequest->withParsedBody($parsedBody);
                 $this->isParsed = true;
