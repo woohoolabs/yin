@@ -145,13 +145,10 @@ jobs:
             ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
-        run: php $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
-
-      - name: "Dump Xdebug filter with phpunit/phpunit"
-        run: php vendor/bin/phpunit --dump-xdebug-filter=.build/phpunit/xdebug-filter.php
+        run: composer install --no-interaction --no-progress --no-plugins
 
       - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-        run: php vendor/bin/phpunit --coverage-clover=build/logs/clover.xml --prepend=.build/phpunit/xdebug-filter.php
+        run: vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
 
       - name: "Download code coverage uploader for Codecov.io"
         run: curl -s https://codecov.io/bash -o codecov
