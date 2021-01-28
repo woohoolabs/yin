@@ -8,7 +8,7 @@ REMOVED:
 
 FIXED:
 
-## 4.3.1 - unreleased
+## 4.2.1 - 2021-01-28
 
 FIXED:
 
