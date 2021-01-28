@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 4.3.1 - unreleased
+
+FIXED:
+
+- [#101](https://github.com/woohoolabs/yin/issues/101): Parsed body always contains an empty array when using Symfony requests
+
 ## 4.2.0 - 2021-01-23
 
 ADDED:
