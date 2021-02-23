@@ -871,7 +871,7 @@ class UserCollection implements PaginationLinkProviderInterface
 }
 ```
 
-You can find the full example [here](https://github.com/woohoolabs/yin/blob/master/utils/Collection.php).
+You can find the full example [here](https://github.com/woohoolabs/yin/blob/master/examples/Utils/Collection.php).
 
 ### Loading relationship data efficiently
 
