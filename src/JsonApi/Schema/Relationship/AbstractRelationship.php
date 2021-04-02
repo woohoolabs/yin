@@ -174,19 +174,20 @@ abstract class AbstractRelationship
         $currentRelationshipName = $transformation->currentRelationshipName;
         $basePath = $transformation->basePath;
 
+        $isCurrentRelationship = $requestedRelationshipName !== "" && $currentRelationshipName === $requestedRelationshipName;
         $isIncludedField = $transformation->request->isIncludedField($transformation->resourceType, $currentRelationshipName);
         $isIncludedRelationship = $transformation->request->isIncludedRelationship($basePath, $currentRelationshipName, $defaultRelationships);
 
         // The relationship is not needed at all
-        if ($isIncludedField === false && $isIncludedRelationship === false) {
+        if ($isCurrentRelationship === false && $isIncludedField === false && $isIncludedRelationship === false) {
             return null;
         }
 
         // Transform the relationship data
         $dataMember = false;
         if (
-            ($isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
-            ($requestedRelationshipName === "" || $currentRelationshipName === $requestedRelationshipName)
+            ($isCurrentRelationship === true || $isIncludedRelationship === true || $this->omitDataWhenNotIncluded === false) &&
+            ($isCurrentRelationship === true || $requestedRelationshipName === "")
         ) {
             $dataMember = $this->transformData($transformation, $resourceTransformer, $data, $defaultRelationships);
         }

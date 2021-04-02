@@ -8,6 +8,12 @@ REMOVED:
 
 FIXED:
 
+## 4.2.2 - 2021-04-02
+
+FIXED:
+
+- [#103](https://github.com/woohoolabs/yin/issues/103): Missing data in response if using omitDataWhenNotIncluded
+
 ## 4.2.1 - 2021-01-28
 
 FIXED:

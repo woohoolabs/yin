@@ -276,6 +276,38 @@ class AbstractRelationshipTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     */
+    public function transformWithEmptyOmittedDataWhenRelationship(): void
+    {
+        $relationship = $this->createRelationship()
+            ->omitDataWhenNotIncluded();
+
+        $relationshipObject = $relationship->transform(
+            new ResourceTransformation(
+                new StubResource(),
+                [],
+                "",
+                new StubJsonApiRequest(),
+                "",
+                "dummy",
+                "dummy",
+                new DefaultExceptionFactory()
+            ),
+            new ResourceTransformer(),
+            new DummyData(),
+            []
+        );
+
+        $this->assertEquals(
+            [
+                "data" => [],
+            ],
+            $relationshipObject
+        );
+    }
+
     private function createRelationship(): FakeRelationship
     {
         return new FakeRelationship();
