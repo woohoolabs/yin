@@ -650,6 +650,17 @@ class BookHydrator extends AbstractHydrator
             },
         ];
     }
+
+    /**
+     * You can validate the domain object after it has been hydrated from the request.
+     * @param mixed $book
+     */
+    protected function validateDomainObject($book): void
+    {
+        if (empty($book["authors"])) {
+            throw new LogicException("The 'authors' relationship cannot be empty!");
+        }
+    }
 }
 ```
 

@@ -1,4 +1,4 @@
-## 4.3.0 - unreleased
+## 5.0.0 - unreleased
 
 ADDED:
 
@@ -8,7 +8,11 @@ REMOVED:
 
 FIXED:
 
-## 4.2.2 - 2021-04-02
+## 4.3.0 - unreleased
+
+ADDED:
+
+- [#104](https://github.com/woohoolabs/yin/issues/104): Support for validating the hydrated domain object
 
 FIXED:
 
