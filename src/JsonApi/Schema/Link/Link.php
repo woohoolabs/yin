@@ -6,10 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
 class Link
 {
-    /**
-     * @var string
-     */
-    private $href;
+    private string $href;
 
     public function __construct(string $href)
     {
@@ -23,7 +20,8 @@ class Link
 
     /**
      * @internal
-     * @return string|mixed
+     *
+     * @return mixed
      */
     public function transform(string $baseUri)
     {

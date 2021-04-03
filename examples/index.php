@@ -26,52 +26,52 @@ use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
 
 // Defining routes
 $routes = [
-    "GET /books" => function (JsonApiRequest $request): JsonApiRequest {
+    "GET /books" => static function (JsonApiRequest $request): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBooksAction::class);
     },
-    "GET /books/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "GET /books/{id}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /books/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "GET /books/{id}/relationships/{rel}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetBookRelationshipsAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
-    "GET /books/{id}/authors" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "GET /books/{id}/authors" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetAuthorsOfBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "POST /books" => function (JsonApiRequest $request) {
+    "POST /books" => static function (JsonApiRequest $request) {
         return $request
             ->withAttribute("action", CreateBookAction::class);
     },
-    "PATCH /books/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "PATCH /books/{id}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", UpdateBookAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "PATCH /books/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "PATCH /books/{id}/relationships/{rel}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", UpdateBookRelationshipAction::class)
             ->withAttribute("id", $matches[1])
             ->withAttribute("rel", $matches[2]);
     },
 
-    "GET /users" => function (JsonApiRequest $request): JsonApiRequest {
+    "GET /users" => static function (JsonApiRequest $request): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUsersAction::class);
     },
-    "GET /users/{id}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "GET /users/{id}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUserAction::class)
             ->withAttribute("id", $matches[1]);
     },
-    "GET /users/{id}/relationships/{rel}" => function (JsonApiRequest $request, array $matches): JsonApiRequest {
+    "GET /users/{id}/relationships/{rel}" => static function (JsonApiRequest $request, array $matches): JsonApiRequest {
         return $request
             ->withAttribute("action", GetUserRelationshipsAction::class)
             ->withAttribute("id", $matches[1])

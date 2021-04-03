@@ -8,10 +8,7 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class PaginationFactory
 {
-    /**
-     * @var JsonApiRequestInterface
-     */
-    private $request;
+    private JsonApiRequestInterface $request;
 
     public function __construct(JsonApiRequestInterface $request)
     {
@@ -56,6 +53,7 @@ class PaginationFactory
      *
      * The FixedCursorBasedPagination class stores the value of the "page[cursor]" query parameter if present
      * or the $defaultCursor otherwise.
+     *
      * @param mixed $defaultCursor
      */
     public function createFixedCursorBasedPagination($defaultCursor = null): FixedCursorBasedPagination
@@ -68,6 +66,7 @@ class PaginationFactory
      *
      * The CursorBasedPagination class stores the value of the "page[cursor]" and "page[size]" query parameters if present
      * or the $defaultCursor and $defaultSize otherwise.
+     *
      * @param mixed $defaultCursor
      */
     public function createCursorBasedPagination($defaultCursor = null, int $defaultSize = 0): CursorBasedPagination

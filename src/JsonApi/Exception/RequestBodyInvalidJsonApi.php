@@ -16,20 +16,9 @@ use function ucfirst;
 
 class RequestBodyInvalidJsonApi extends AbstractJsonApiException
 {
-    /**
-     * @var JsonApiRequestInterface
-     */
-    protected $request;
-
-    /**
-     * @var array
-     */
-    protected $validationErrors;
-
-    /**
-     * @var bool
-     */
-    protected $includeOriginalBody;
+    protected JsonApiRequestInterface $request;
+    protected array $validationErrors;
+    protected bool $includeOriginalBody;
 
     public function __construct(JsonApiRequestInterface $request, array $validationErrors, bool $includeOriginalBody)
     {

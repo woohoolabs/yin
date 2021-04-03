@@ -11,20 +11,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
 class ResponseBodyInvalidJson extends AbstractJsonApiException
 {
-    /**
-     * @var ResponseInterface
-     */
-    protected $response;
-
-    /**
-     * @var string
-     */
-    protected $lintMessage;
-
-    /**
-     * @var bool
-     */
-    protected $includeOriginalBody;
+    protected ResponseInterface $response;
+    protected string $lintMessage;
+    protected bool $includeOriginalBody;
 
     public function __construct(ResponseInterface $response, string $lintMessage, bool $includeOriginalBody)
     {

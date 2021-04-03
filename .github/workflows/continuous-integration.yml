@@ -14,30 +14,33 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@master
 
-      - name: "Install PHP 7.4"
+      - name: "Install PHP 8.0"
         uses: shivammathur/setup-php@v2
         with:
-            php-version: "7.4"
-            extensions: mbstring, xml
-            tools: composer:v1
-
-      - name: "Cache dependencies"
-        uses: actions/cache@v1
-        id: cache
-        with:
-          path: ~/.composer/cache/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          php-version: "8.0"
+          extensions: mbstring, xml
+          coverage: none
+          tools: composer:v2
 
       - name: "Validate composer.json"
-        run: php $(which composer) validate --strict
+        run: composer validate --strict
+
+      - name: "Determine Composer cache directory"
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: "Cache dependencies"
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
-        run: php $(which composer) install --no-interaction --no-progress --no-suggest
+        run: composer install --no-interaction --no-progress
 
       - name: "Run PHP CodeSniffer"
-        run: php vendor/bin/phpcs --standard=phpcs.xml
+        run: vendor/bin/phpcs
 
   static-code-analysis:
     name: "Static Code Analysis"
@@ -48,27 +51,30 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@master
 
-      - name: "Install PHP 7.4"
+      - name: "Install PHP 8.0"
         uses: shivammathur/setup-php@v2
         with:
-            php-version: "7.4"
-            extensions: mbstring, xml
-            tools: composer:v1
+          php-version: "8.0"
+          extensions: mbstring, xml
+          coverage: none
+          tools: composer:v2
+
+      - name: "Determine Composer cache directory"
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: "Cache dependencies"
-        uses: actions/cache@v1
-        id: cache
+        uses: actions/cache@v2
         with:
-          path: ~/.composer/cache/files
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
-        run: php $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
+        run: composer install --no-interaction --no-progress --no-plugins
 
       - name: "Run phpstan/phpstan"
-        run: php vendor/bin/phpstan analyse --level 8 src tests
+        run: vendor/bin/phpstan analyse --level 8 src tests
 
   tests:
     name: "Tests"
@@ -77,11 +83,10 @@ jobs:
 
     strategy:
       matrix:
-        php-version:
-          - "7.1"
-          - "7.2"
-          - "7.3"
+        php-versions:
           - "7.4"
+          - "8.0"
+          - "8.1"
 
         dependencies:
           - lowest
@@ -91,32 +96,34 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@master
 
-      - name: "Install PHP ${{ matrix.php-version }}"
+      - name: "Install PHP ${{ matrix.php-versions }}"
         uses: shivammathur/setup-php@v2
         with:
-            php-version: ${{ matrix.php-version }}
-            extensions: mbstring, xml
-            tools: composer:v1
+          php-version: "${{ matrix.php-versions }}"
+          extensions: mbstring, xml
+          tools: composer:v2
+
+      - name: "Determine Composer cache directory"
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: "Cache dependencies"
-        uses: actions/cache@v1
-        id: cache
+        uses: actions/cache@v2
         with:
-          path: ~/.composer/cache/files
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: "Install lowest dependencies with composer"
         if: matrix.dependencies == 'lowest'
-        run: php $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins --prefer-lowest
+        run: composer update --no-interaction --no-progress --no-plugins --prefer-lowest --ignore-platform-reqs
 
       - name: "Install highest dependencies with composer"
         if: matrix.dependencies == 'highest'
-        run: php $(which composer) update --no-interaction --no-progress --no-suggest --no-plugins
+        run: composer update --no-interaction --no-progress --no-plugins --ignore-platform-reqs
 
       - name: "Run unit tests"
-        run: php vendor/bin/phpunit
+        run: vendor/bin/phpunit --verbose
 
   code-coverage:
     name: "Code Coverage"
@@ -127,22 +134,24 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@master
 
-      - name: "Install PHP 7.4"
+      - name: "Install PHP 8.0"
         uses: shivammathur/setup-php@v2
         with:
-            php-version: "7.4"
-            extensions: mbstring, xml
-            coverage: xdebug:v2
-            tools: composer:v1
+          php-version: "8.0"
+          extensions: mbstring, xml
+          coverage: xdebug:v3
+          tools: composer:v2
+
+      - name: "Determine Composer cache directory"
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
       - name: "Cache dependencies"
-        uses: actions/cache@v1
-        id: cache
+        uses: actions/cache@v2
         with:
-          path: ~/.composer/cache/files
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: "Install dependencies with composer"
         run: composer install --no-interaction --no-progress --no-plugins

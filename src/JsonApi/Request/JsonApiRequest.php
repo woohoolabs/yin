@@ -36,40 +36,13 @@ use function trim;
 
 class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
 {
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    protected $exceptionFactory;
-
-    /**
-     * @var array|null
-     */
-    protected $includedFields;
-
-    /**
-     * @var array|null
-     */
-    protected $includedRelationships;
-
-    /**
-     * @var array|null
-     */
-    protected $sorting;
-
-    /**
-     * @var array|null
-     */
-    protected $pagination;
-
-    /**
-     * @var array|null
-     */
-    protected $filtering;
-
-    /**
-     * @var array|null
-     */
-    protected $profiles;
+    protected ExceptionFactoryInterface $exceptionFactory;
+    protected ?array $includedFields = null;
+    protected ?array $includedRelationships = null;
+    protected ?array $sorting = null;
+    protected ?array $pagination = null;
+    protected ?array $filtering = null;
+    protected ?array $profiles = null;
 
     public function __construct(
         ServerRequestInterface $request,
@@ -136,6 +109,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
      * - The members "data" and "errors" MUST NOT coexist in the same document.
      * - The document MAY contain any of these top-level members: "jsonapi", "links", "included"
      * - If a document does not contain a top-level "data" key, the "included" member MUST NOT be present either.
+     *
      * @throws RequiredTopLevelMembersMissing|TopLevelMembersIncompatible|TopLevelMemberNotAllowed|JsonApiExceptionInterface
      */
     public function validateTopLevelMembers(): void
@@ -365,7 +339,7 @@ class JsonApiRequest extends AbstractRequest implements JsonApiRequestInterface
                 $this->includedRelationships[$path][$name] = $name;
 
                 $dot1 = $dot2;
-            };
+            }
         }
     }
 

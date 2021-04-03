@@ -8,10 +8,8 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ToManyRelationship
 {
-    /**
-     * @var ResourceIdentifier[]
-     */
-    protected $resourceIdentifiers = [];
+    /** @var ResourceIdentifier[] */
+    protected array $resourceIdentifiers = [];
 
     /**
      * @param ResourceIdentifier[] $resourceIdentifiers

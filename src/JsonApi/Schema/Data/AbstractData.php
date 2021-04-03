@@ -11,20 +11,9 @@ use function array_values;
  */
 abstract class AbstractData implements DataInterface
 {
-    /**
-     * @var array
-     */
-    protected $resources = [];
-
-    /**
-     * @var array
-     */
-    protected $primaryKeys = [];
-
-    /**
-     * @var array
-     */
-    protected $includedKeys = [];
+    protected array $resources = [];
+    protected array $primaryKeys = [];
+    protected array $includedKeys = [];
 
     public function getResource(string $type, string $id): ?array
     {

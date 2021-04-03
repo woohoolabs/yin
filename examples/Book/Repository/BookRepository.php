@@ -12,10 +12,7 @@ use function count;
 
 class BookRepository extends AbstractRepository
 {
-    /**
-     * @var array
-     */
-    private static $authors = [
+    private static array $authors = [
         [
             "id" => 100,
             "name" => "Jez Humble",
@@ -34,10 +31,7 @@ class BookRepository extends AbstractRepository
         ],
     ];
 
-    /**
-     * @var array
-     */
-    private static $publishers = [
+    private static array $publishers = [
         [
             "id" => 12346,
             "name" => "Addison-Wesley Professional",
@@ -55,10 +49,7 @@ class BookRepository extends AbstractRepository
         ],
     ];
 
-    /**
-     * @var array
-     */
-    private static $representatives = [
+    private static array $representatives = [
         [
             "id" => 10,
             "name" => "Melbourne Wesley Cummings",
@@ -71,10 +62,7 @@ class BookRepository extends AbstractRepository
         ],
     ];
 
-    /**
-     * @var array
-     */
-    private static $books = [
+    private static array $books = [
         [
             "id" => 1,
             "title" => "Building Microservices",

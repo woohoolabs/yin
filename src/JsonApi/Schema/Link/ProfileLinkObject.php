@@ -6,10 +6,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
 class ProfileLinkObject extends LinkObject
 {
-    /**
-     * @var string[]
-     */
-    private $aliases;
+    /** @var string[] */
+    private array $aliases;
 
     public function __construct(string $href, array $meta = [], array $aliases = [])
     {
@@ -37,6 +35,7 @@ class ProfileLinkObject extends LinkObject
 
     /**
      * @internal
+     *
      * @return array|mixed
      */
     public function transform(string $baseUri)

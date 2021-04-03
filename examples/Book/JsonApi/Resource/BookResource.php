@@ -13,15 +13,8 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class BookResource extends AbstractResource
 {
-    /**
-     * @var AuthorResource
-     */
-    private $authorTransformer;
-
-    /**
-     * @var PublisherResource
-     */
-    private $publisherTransformer;
+    private AuthorResource $authorTransformer;
+    private PublisherResource $publisherTransformer;
 
     public function __construct(
         AuthorResource $authorTransformer,
@@ -101,19 +94,19 @@ class BookResource extends AbstractResource
     public function getAttributes($book): array
     {
         return [
-            "title" => function (array $book) {
+            "title" => static function (array $book) {
                 return $book["title"];
             },
-            "isbn13" => function (array $book) {
+            "isbn13" => static function (array $book) {
                 return $book["isbn13"];
             },
-            "releaseDate" => function (array $book) {
+            "releaseDate" => static function (array $book) {
                 return $book["release_date"];
             },
-            "hardCover" => function (array $book) {
+            "hardCover" => static function (array $book) {
                 return $book["hard_cover"];
             },
-            "pages" => function (array $book) {
+            "pages" => static function (array $book) {
                 return (int) $book["pages"];
             },
         ];

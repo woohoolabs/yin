@@ -13,25 +13,12 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
  */
 class ResourceDocumentTransformation extends AbstractDocumentTransformation
 {
-    /**
-     * @var ResourceDocumentInterface
-     */
+    /** @var ResourceDocumentInterface */
     public $document;
-
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     public $object;
-
-    /**
-     * @var string
-     */
-    public $basePath;
-
-    /**
-     * @var string
-     */
-    public $requestedRelationshipName;
+    public string $basePath;
+    public string $requestedRelationshipName;
 
     /**
      * @param mixed $object

@@ -13,10 +13,7 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class ResponseValidator extends AbstractMessageValidator
 {
-    /**
-     * @var SerializerInterface
-     */
-    private $deserializer;
+    private SerializerInterface $deserializer;
 
     public function __construct(
         SerializerInterface $deserializer,

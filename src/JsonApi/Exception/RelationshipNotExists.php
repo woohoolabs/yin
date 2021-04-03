@@ -8,10 +8,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
 class RelationshipNotExists extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $relationship;
+    protected string $relationship;
 
     public function __construct(string $relationship)
     {

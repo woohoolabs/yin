@@ -6,18 +6,12 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Link;
 
 abstract class AbstractLinks
 {
-    /**
-     * @var string
-     */
-    protected $baseUri;
+    protected string $baseUri;
+    /** @var array<Link|null> */
+    protected array $links = [];
 
     /**
-     * @var Link[]|null[]
-     */
-    protected $links = [];
-
-    /**
-     * @param Link[]|null[] $links
+     * @param array<Link|null> $links
      */
     public function __construct(string $baseUri = "", array $links = [])
     {

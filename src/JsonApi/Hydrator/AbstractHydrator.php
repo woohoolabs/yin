@@ -22,6 +22,7 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
      * If the request method is POST then the domain object is hydrated
      * as a create. If it is a PATCH request then the domain object is
      * hydrated as an update.
+     *
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
@@ -55,6 +56,7 @@ abstract class AbstractHydrator implements HydratorInterface, UpdateRelationship
 
     /**
      * You can validate the domain object after it has been hydrated from the request.
+     *
      * @param mixed $domainObject
      */
     protected function validateDomainObject(

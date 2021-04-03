@@ -6,10 +6,7 @@ namespace WoohooLabs\Yin\JsonApi\Schema;
 
 trait MetaTrait
 {
-    /**
-     * @var array
-     */
-    protected $meta = [];
+    protected array $meta = [];
 
     public function getMeta(): array
     {

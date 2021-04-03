@@ -171,10 +171,10 @@ class ResourceTransformerTest extends TestCase
             ["abc" => "def"],
             new ResourceLinks(),
             [
-                "full_name" => function (array $object, JsonApiRequestInterface $request) {
+                "full_name" => static function (array $object, JsonApiRequestInterface $request) {
                     return $object["name"];
                 },
-                "birth" => function (array $object) {
+                "birth" => static function (array $object) {
                     return 2015 - $object["age"];
                 },
             ]
@@ -216,7 +216,7 @@ class ResourceTransformerTest extends TestCase
             [],
             ["father"],
             [
-                "father" => function (array $object, JsonApiRequestInterface $request): ToOneRelationship {
+                "father" => static function (array $object, JsonApiRequestInterface $request): ToOneRelationship {
                     return ToOneRelationship::create()
                         ->setData([""], new StubResource("user", "2"));
                 },
@@ -255,7 +255,7 @@ class ResourceTransformerTest extends TestCase
             [],
             [],
             [
-                "father" => function (): ToOneRelationship {
+                "father" => static function (): ToOneRelationship {
                     return ToOneRelationship::create();
                 },
             ]
@@ -285,7 +285,7 @@ class ResourceTransformerTest extends TestCase
             [],
             ["father"],
             [
-                "father" => function (): ToOneRelationship {
+                "father" => static function (): ToOneRelationship {
                     return ToOneRelationship::create();
                 },
             ]
@@ -309,7 +309,7 @@ class ResourceTransformerTest extends TestCase
             [],
             [],
             [
-                "father" => function (): ToOneRelationship {
+                "father" => static function (): ToOneRelationship {
                     return ToOneRelationship::create()
                         ->setData(null, new StubResource());
                 },
@@ -365,7 +365,7 @@ class ResourceTransformerTest extends TestCase
             [],
             [],
             [
-                "father" => function (): ToOneRelationship {
+                "father" => static function (): ToOneRelationship {
                     return ToOneRelationship::create()
                         ->setData(["Father Vader"], new StubResource("user", "2"));
                 },
@@ -390,7 +390,7 @@ class ResourceTransformerTest extends TestCase
             [],
             [],
             [
-                "father" => function (): ToOneRelationship {
+                "father" => static function (): ToOneRelationship {
                     return ToOneRelationship::create()
                         ->setData(["Father Vader"], new StubResource("user", "2"));
                 },

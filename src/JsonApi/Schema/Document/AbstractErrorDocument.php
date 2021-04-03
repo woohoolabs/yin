@@ -11,10 +11,8 @@ use function count;
 
 abstract class AbstractErrorDocument implements ErrorDocumentInterface
 {
-    /**
-     * @var Error[]
-     */
-    protected $errors = [];
+    /** @var Error[] */
+    protected array $errors = [];
 
     /**
      * @return Error[]
@@ -26,6 +24,7 @@ abstract class AbstractErrorDocument implements ErrorDocumentInterface
 
     /**
      * Includes a new error in the error document.
+     *
      * @return $this
      */
     public function addError(Error $error)

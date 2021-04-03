@@ -11,39 +11,25 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class StubResource extends AbstractResource
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $type;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $id;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $meta;
 
-    /**
-     * @var ResourceLinks|null
-     */
+    /** @var ResourceLinks|null */
     protected $links;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $attributes;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $defaultRelationships;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $relationships;
 
     public function __construct(

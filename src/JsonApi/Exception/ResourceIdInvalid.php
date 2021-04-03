@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class ResourceIdInvalid extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $type;
+    protected string $type;
 
     public function __construct(string $type)
     {

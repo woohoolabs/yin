@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class MediaTypeUnsupported extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $mediaTypeName;
+    protected string $mediaTypeName;
 
     public function __construct(string $mediaTypeName)
     {

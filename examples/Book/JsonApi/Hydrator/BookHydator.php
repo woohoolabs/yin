@@ -111,11 +111,11 @@ class BookHydator extends AbstractHydrator
     protected function getAttributeHydrator($book): array
     {
         return [
-            "title" => function (array $book, $attribute, $data) {
+            "title" => static function (array $book, $attribute, $data) {
                 $book["title"] = $attribute;
                 return $book;
             },
-            "pages" => function (array &$book, $attribute, $data) {
+            "pages" => static function (array &$book, $attribute, $data) {
                 $book["pages"] = $attribute;
             },
         ];
@@ -140,7 +140,7 @@ class BookHydator extends AbstractHydrator
     protected function getRelationshipHydrator($book): array
     {
         return [
-            "authors" => function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
+            "authors" => static function (array $book, ToManyRelationship $authors, $data, $relationshipName) {
                 if ($authors->isEmpty()) {
                     $book["authors"] = [];
                 } else {
@@ -149,7 +149,7 @@ class BookHydator extends AbstractHydrator
 
                 return $book;
             },
-            "publisher" => function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
+            "publisher" => static function (array &$book, ToOneRelationship $publisher, $data, $relationshipName) {
                 if ($publisher->isEmpty()) {
                     $book["publisher"] = null;
                 } else {

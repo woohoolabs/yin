@@ -8,10 +8,7 @@ use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ToOneRelationship
 {
-    /**
-     * @var ResourceIdentifier|null
-     */
-    protected $resourceIdentifier;
+    protected ?ResourceIdentifier $resourceIdentifier;
 
     public function __construct(?ResourceIdentifier $resourceIdentifier = null)
     {

@@ -9,9 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class AuthorResource extends AbstractResource
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $object;
 
     /**

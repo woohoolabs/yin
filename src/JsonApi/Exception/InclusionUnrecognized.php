@@ -11,10 +11,7 @@ use function implode;
 
 class InclusionUnrecognized extends AbstractJsonApiException
 {
-    /**
-     * @var array
-     */
-    protected $unrecognizedIncludes;
+    protected array $unrecognizedIncludes;
 
     public function __construct(array $unrecognizedIncludes)
     {

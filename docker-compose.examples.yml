@@ -2,7 +2,7 @@ version: '2'
 
 services:
     yin-examples-nginx:
-        image: nginx:1.15-alpine
+        image: nginx:1.19-alpine
         container_name: yin-examples-nginx
         networks:
         - yin-examples
@@ -18,7 +18,7 @@ services:
 
     yin-examples-php-fpm:
         container_name: yin-examples-php-fpm
-        image: php:7.3-fpm
+        image: php:7.4-fpm
         networks:
         - yin-examples
         volumes:

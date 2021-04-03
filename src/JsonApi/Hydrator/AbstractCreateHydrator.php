@@ -15,10 +15,11 @@ abstract class AbstractCreateHydrator implements HydratorInterface
     use CreateHydratorTrait;
 
     /**
+     * @see CreateHydratorTrait::hydrateForCreate()
+     *
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
-     * @see CreateHydratorTrait::hydrateForCreate()
      */
     public function hydrate(JsonApiRequestInterface $request, ExceptionFactoryInterface $exceptionFactory, $domainObject)
     {
@@ -31,6 +32,7 @@ abstract class AbstractCreateHydrator implements HydratorInterface
 
     /**
      * You can validate the domain object after it has been hydrated from the request.
+     *
      * @param mixed $domainObject
      */
     protected function validateDomainObject(

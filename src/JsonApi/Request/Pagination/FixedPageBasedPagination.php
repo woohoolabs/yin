@@ -10,10 +10,7 @@ use function http_build_query;
 
 class FixedPageBasedPagination
 {
-    /**
-     * @var int
-     */
-    protected $page;
+    protected int $page;
 
     public static function fromPaginationQueryParams(array $paginationQueryParams, int $defaultPage = 0): FixedPageBasedPagination
     {

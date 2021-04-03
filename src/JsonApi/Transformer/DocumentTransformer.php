@@ -13,10 +13,7 @@ use function array_merge;
  */
 final class DocumentTransformer
 {
-    /**
-     * @var ResourceTransformer
-     */
-    private $resourceTransformer;
+    private ResourceTransformer $resourceTransformer;
 
     public function __construct()
     {

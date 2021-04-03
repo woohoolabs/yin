@@ -14,20 +14,9 @@ use function realpath;
 
 abstract class AbstractMessageValidator
 {
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    protected $exceptionFactory;
-
-    /**
-     * @var bool
-     */
-    protected $includeOriginalMessage;
-
-    /**
-     * @var string|null
-     */
-    protected $customSchemaPath;
+    protected ExceptionFactoryInterface $exceptionFactory;
+    protected bool $includeOriginalMessage;
+    protected ?string $customSchemaPath;
 
     public function __construct(
         ExceptionFactoryInterface $exceptionFactory,

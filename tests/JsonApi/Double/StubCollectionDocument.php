@@ -11,19 +11,13 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
 
 class StubCollectionDocument extends AbstractCollectionDocument
 {
-    /**
-     * @var JsonApiObject|null
-     */
+    /** @var JsonApiObject|null */
     protected $jsonApi;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $meta;
 
-    /**
-     * @var DocumentLinks|null
-     */
+    /** @var DocumentLinks|null */
     protected $links;
 
     public function __construct(

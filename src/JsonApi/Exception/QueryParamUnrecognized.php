@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class QueryParamUnrecognized extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $unrecognizedQueryParam;
+    protected string $unrecognizedQueryParam;
 
     public function __construct(string $unrecognizedQueryParam)
     {

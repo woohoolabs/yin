@@ -10,15 +10,8 @@ use function http_build_query;
 
 class PageBasedPagination
 {
-    /**
-     * @var int
-     */
-    protected $page;
-
-    /**
-     * @var int
-     */
-    protected $size;
+    protected int $page;
+    protected int $size;
 
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,

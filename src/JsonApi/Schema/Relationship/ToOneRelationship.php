@@ -12,6 +12,7 @@ class ToOneRelationship extends AbstractRelationship
 {
     /**
      * @internal
+     *
      * @return array|false|null
      */
     protected function transformData(

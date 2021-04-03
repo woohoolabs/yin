@@ -10,10 +10,8 @@ use function array_values;
 
 class DocumentLinks extends AbstractLinks
 {
-    /**
-     * @var Link[]
-     */
-    protected $profiles = [];
+    /** @var Link[] */
+    protected array $profiles = [];
 
     /**
      * @param Link[] $links

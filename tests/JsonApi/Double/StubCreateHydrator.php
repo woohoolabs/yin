@@ -13,19 +13,13 @@ class StubCreateHydrator
 {
     use CreateHydratorTrait;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $isClientGeneratedIdException;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $generatedId;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $logicException;
 
     public function __construct(bool $isClientGeneratedIdException, string $generatedId, bool $logicException)

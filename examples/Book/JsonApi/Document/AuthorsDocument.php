@@ -12,10 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
 
 class AuthorsDocument extends AbstractCollectionDocument
 {
-    /**
-     * @var int
-     */
-    protected $bookId;
+    protected int $bookId;
 
     public function __construct(AuthorResource $resource, int $bookId)
     {

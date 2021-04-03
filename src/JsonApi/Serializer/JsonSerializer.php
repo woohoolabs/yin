@@ -10,15 +10,8 @@ use function json_encode;
 
 class JsonSerializer implements SerializerInterface
 {
-    /**
-     * @var int
-     */
-    private $options;
-
-    /**
-     * @var int
-     */
-    private $depth;
+    private int $options;
+    private int $depth;
 
     public function __construct(int $options = 0, int $depth = 512)
     {

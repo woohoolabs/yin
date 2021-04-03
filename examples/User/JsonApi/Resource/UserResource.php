@@ -12,10 +12,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class UserResource extends AbstractResource
 {
-    /**
-     * @var ContactResource
-     */
-    private $contactTransformer;
+    private ContactResource $contactTransformer;
 
     public function __construct(ContactResource $contactTransformer)
     {
@@ -85,10 +82,10 @@ class UserResource extends AbstractResource
     public function getAttributes($user): array
     {
         return [
-            "firstname" => function (array $user) {
+            "firstname" => static function (array $user) {
                 return $user["firstname"];
             },
-            "surname" => function (array $user) {
+            "surname" => static function (array $user) {
                 return $user["lastname"];
             },
         ];
@@ -125,7 +122,7 @@ class UserResource extends AbstractResource
                                 new Link("/users/" . $user["id"] . "/relationships/contacts")
                             )
                         )
-                        ->setDataAsCallable(function () use ($user) {
+                        ->setDataAsCallable(static function () use ($user) {
                             return $user["contacts"];
                         }, $this->contactTransformer)
                         ->omitDataWhenNotIncluded();

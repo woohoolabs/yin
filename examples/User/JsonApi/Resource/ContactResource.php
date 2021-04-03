@@ -83,7 +83,7 @@ class ContactResource extends AbstractResource
     public function getAttributes($contact): array
     {
         return [
-            $contact["type"] => function (array $contact) {
+            $contact["type"] => static function (array $contact) {
                 return $contact["value"];
             },
         ];

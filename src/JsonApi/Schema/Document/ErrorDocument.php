@@ -10,20 +10,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 class ErrorDocument extends AbstractErrorDocument
 {
-    /**
-     * @var JsonApiObject|null
-     */
-    protected $jsonApi;
-
-    /**
-     * @var array
-     */
-    protected $meta = [];
-
-    /**
-     * @var DocumentLinks|null
-     */
-    protected $links;
+    protected ?JsonApiObject $jsonApi = null;
+    protected array $meta = [];
+    protected ?DocumentLinks $links = null;
 
     /**
      * @param Error[] $errors

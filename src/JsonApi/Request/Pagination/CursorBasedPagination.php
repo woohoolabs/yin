@@ -10,15 +10,9 @@ use function http_build_query;
 
 class CursorBasedPagination
 {
-    /**
-     * @var mixed|null
-     */
+    /** @var mixed */
     protected $cursor;
-
-    /**
-     * @var int
-     */
-    protected $size;
+    protected int $size;
 
     /**
      * @param mixed $defaultCursor

@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class FullReplacementProhibited extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $relationshipName;
+    protected string $relationshipName;
 
     public function __construct(string $relationshipName)
     {

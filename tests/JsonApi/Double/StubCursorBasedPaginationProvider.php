@@ -10,34 +10,22 @@ class StubCursorBasedPaginationProvider
 {
     use CursorBasedPaginationLinkProviderTrait;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $firstItem;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $lastItem;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $currentItem;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $previousItem;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     private $nextItem;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $size;
 
     /**

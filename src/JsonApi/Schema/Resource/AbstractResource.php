@@ -12,23 +12,14 @@ abstract class AbstractResource implements ResourceInterface
 {
     use TransformerTrait;
 
-    /**
-     * @var JsonApiRequestInterface
-     */
-    protected $request;
-
-    /**
-     * @var mixed
-     */
+    protected ?JsonApiRequestInterface $request = null;
+    /** @var mixed */
     protected $object;
-
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    protected $exceptionFactory;
+    protected ?ExceptionFactoryInterface $exceptionFactory = null;
 
     /**
      * @internal
+     *
      * @param mixed $object
      */
     public function initializeTransformation(JsonApiRequestInterface $request, $object, ExceptionFactoryInterface $exceptionFactory): void

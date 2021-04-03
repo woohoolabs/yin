@@ -15,15 +15,8 @@ class ResourceIdentifier
 {
     use MetaTrait;
 
-    /**
-     * @var string
-     */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $id;
+    private string $type;
+    private string $id;
 
     /**
      * @throws JsonApiExceptionInterface

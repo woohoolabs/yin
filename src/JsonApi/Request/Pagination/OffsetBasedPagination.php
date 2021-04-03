@@ -10,15 +10,8 @@ use function http_build_query;
 
 class OffsetBasedPagination
 {
-    /**
-     * @var int
-     */
-    protected $offset;
-
-    /**
-     * @var int
-     */
-    protected $limit;
+    protected int $offset;
+    protected int $limit;
 
     public static function fromPaginationQueryParams(
         array $paginationQueryParams,

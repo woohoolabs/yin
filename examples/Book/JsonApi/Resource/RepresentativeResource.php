@@ -72,10 +72,10 @@ class RepresentativeResource extends AbstractResource
     public function getAttributes($representative): array
     {
         return [
-            "name" => function (array $representative) {
+            "name" => static function (array $representative) {
                 return $representative["name"];
             },
-            "email" => function (array $representative) {
+            "email" => static function (array $representative) {
                 return $representative["email"];
             },
         ];

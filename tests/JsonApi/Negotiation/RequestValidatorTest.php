@@ -23,6 +23,7 @@ class RequestValidatorTest extends TestCase
 {
     /**
      * Test valid request without Request validation Exceptions
+     *
      * @test
      */
     public function negotiateWhenValidRequest(): void
@@ -224,32 +225,17 @@ class RequestValidatorTest extends TestCase
         return new JsonApiRequest($serverRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
-    /**
-     * @return MockObject|JsonApiRequestInterface
-     */
-    private function createRequestWithParsedBody(array $parsedBody): JsonApiRequestInterface
-    {
-        $request = $this->getMockForAbstractClass(JsonApiRequestInterface::class);
-
-        $request->expects($this->once())
-            ->method("getParsedBody")
-            ->willReturn($parsedBody);
-
-        return $request;
-    }
-
-    private function setFakeBody(ServerRequestInterface $request, string $body): void
+    private function setFakeBody(MockObject $request, string $body): void
     {
         $stream = $this->getMockForAbstractClass(StreamInterface::class);
 
         $stream->expects($this->once())
             ->method("__toString")
-            ->will($this->returnValue($body));
+            ->willReturn($body);
 
-        /** @var MockObject $request */
         $request->expects($this->once())
             ->method("getBody")
-            ->will($this->returnValue($stream));
+            ->willReturn($stream);
     }
 
     /**
@@ -263,11 +249,9 @@ class RequestValidatorTest extends TestCase
         /** @var ExceptionFactoryInterface $exceptionFactory */
         $exceptionFactory = $this->getMockForAbstractClass(ExceptionFactoryInterface::class);
 
-        $mock = $this->getMockBuilder(JsonApiRequest::class)
+        return $this->getMockBuilder(JsonApiRequest::class)
             ->setConstructorArgs([$serverRequest, $exceptionFactory])
             ->getMock();
-
-        return $mock;
     }
 
     private function createRequestValidator(bool $includeOriginalMessageResponse = true): RequestValidator

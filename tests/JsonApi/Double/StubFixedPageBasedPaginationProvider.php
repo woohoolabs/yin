@@ -10,19 +10,13 @@ class StubFixedPageBasedPaginationProvider
 {
     use FixedPageBasedPaginationLinkProviderTrait;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $totalItems;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $page;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $size;
 
     public function __construct(int $totalItems, int $page, int $size)

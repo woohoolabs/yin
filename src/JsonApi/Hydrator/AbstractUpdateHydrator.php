@@ -17,7 +17,9 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
 
     /**
      * Alias for UpdateHydratorTrait::hydrateForUpdate()
+     *
      * @see UpdateHydratorTrait::hydrateForUpdate()
+     *
      * @param mixed $domainObject
      * @return mixed
      * @throws ResourceTypeMissing|JsonApiExceptionInterface
@@ -47,6 +49,7 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
 
     /**
      * You can validate the domain object after it has been hydrated from the request.
+     *
      * @param mixed $domainObject
      */
     protected function validateDomainObject(

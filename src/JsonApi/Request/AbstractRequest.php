@@ -11,20 +11,9 @@ use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
 
 abstract class AbstractRequest
 {
-    /**
-     * @var ServerRequestInterface
-     */
-    protected $serverRequest;
-
-    /**
-     * @var DeserializerInterface
-     */
-    protected $deserializer;
-
-    /**
-     * @var bool
-     */
-    protected $isParsed = false;
+    protected ServerRequestInterface $serverRequest;
+    protected DeserializerInterface $deserializer;
+    protected bool $isParsed = false;
 
     abstract protected function headerChanged(string $name): void;
 

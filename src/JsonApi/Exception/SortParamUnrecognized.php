@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class SortParamUnrecognized extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $sortParam;
+    protected string $sortParam;
 
     public function __construct(string $sortParam)
     {

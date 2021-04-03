@@ -10,10 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class PublisherResource extends AbstractResource
 {
-    /**
-     * @var RepresentativeResource
-     */
-    private $representativeTransformer;
+    private RepresentativeResource $representativeTransformer;
 
     public function __construct(RepresentativeResource $representativeTransformer)
     {
@@ -83,7 +80,7 @@ class PublisherResource extends AbstractResource
     public function getAttributes($publisher): array
     {
         return [
-            "name" => function (array $publisher) {
+            "name" => static function (array $publisher) {
                 return $publisher["name"];
             },
         ];

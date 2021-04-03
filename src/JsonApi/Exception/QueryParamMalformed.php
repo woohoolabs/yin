@@ -9,14 +9,8 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class QueryParamMalformed extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $malformedQueryParam;
-
-    /**
-     * @var mixed
-     */
+    protected string $malformedQueryParam;
+    /** @var mixed */
     protected $malformedQueryParamValue;
 
     /**

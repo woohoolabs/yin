@@ -8,9 +8,7 @@ use function http_build_query;
 
 class FixedCursorBasedPagination
 {
-    /**
-     * @var mixed|null
-     */
+    /** @var mixed */
     protected $cursor;
 
     /**

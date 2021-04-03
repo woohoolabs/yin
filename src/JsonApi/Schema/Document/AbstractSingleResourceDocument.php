@@ -13,10 +13,7 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractSingleResourceDocument extends AbstractResourceDocument
 {
-    /**
-     * @var ResourceInterface
-     */
-    protected $resource;
+    protected ResourceInterface $resource;
 
     public function __construct(ResourceInterface $resource)
     {

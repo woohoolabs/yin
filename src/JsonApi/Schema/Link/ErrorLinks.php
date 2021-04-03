@@ -8,10 +8,8 @@ use function array_values;
 
 class ErrorLinks extends AbstractLinks
 {
-    /**
-     * @var Link[]
-     */
-    protected $types;
+    /** @var Link[] */
+    protected array $types;
 
     /**
      * @param Link[] $types

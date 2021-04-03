@@ -10,19 +10,13 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class StubHydrator extends AbstractHydrator
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $acceptedTypes;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $attributeHydrator;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $relationshipHydrator;
 
     public function __construct(

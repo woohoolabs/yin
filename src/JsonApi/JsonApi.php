@@ -20,25 +20,10 @@ use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
 
 class JsonApi
 {
-    /**
-     * @var JsonApiRequestInterface
-     */
-    public $request;
-
-    /**
-     * @var ResponseInterface
-     */
-    public $response;
-
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    protected $exceptionFactory;
-
-    /**
-     * @var SerializerInterface
-     */
-    protected $serializer;
+    public JsonApiRequestInterface $request;
+    public ResponseInterface $response;
+    protected ExceptionFactoryInterface $exceptionFactory;
+    protected SerializerInterface $serializer;
 
     public function __construct(
         JsonApiRequestInterface $request,

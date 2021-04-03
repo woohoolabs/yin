@@ -6,15 +6,8 @@ namespace WoohooLabs\Yin\JsonApi\Schema\Error;
 
 class ErrorSource
 {
-    /**
-     * @var string
-     */
-    private $pointer;
-
-    /**
-     * @var string
-     */
-    private $parameter;
+    private string $pointer;
+    private string $parameter;
 
     public static function fromPointer(string $pointer): ErrorSource
     {

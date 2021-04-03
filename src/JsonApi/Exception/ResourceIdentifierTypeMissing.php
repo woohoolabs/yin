@@ -8,10 +8,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
 
 class ResourceIdentifierTypeMissing extends AbstractJsonApiException
 {
-    /**
-     * @var array
-     */
-    private $resourceIdentifier;
+    private array $resourceIdentifier;
 
     public function __construct(array $resourceIdentifier)
     {

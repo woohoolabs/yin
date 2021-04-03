@@ -11,8 +11,6 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
  */
 class ErrorDocumentTransformation extends AbstractDocumentTransformation
 {
-    /**
-     * @var ErrorDocumentInterface
-     */
+    /** @var ErrorDocumentInterface */
     public $document;
 }

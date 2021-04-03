@@ -9,10 +9,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class ClientGeneratedIdNotSupported extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $clientGeneratedId;
+    protected string $clientGeneratedId;
 
     public function __construct(string $clientGeneratedId)
     {

@@ -13,30 +13,12 @@ use WoohooLabs\Yin\JsonApi\Schema\Document\DocumentInterface;
  */
 abstract class AbstractDocumentTransformation
 {
-    /**
-     * @var DocumentInterface
-     */
+    /** @var DocumentInterface */
     public $document;
-
-    /**
-     * @var JsonApiRequestInterface
-     */
-    public $request;
-
-    /**
-     * @var array
-     */
-    public $additionalMeta;
-
-    /**
-     * @var ExceptionFactoryInterface
-     */
-    public $exceptionFactory;
-
-    /**
-     * @var array
-     */
-    public $result = [];
+    public JsonApiRequestInterface $request;
+    public array $additionalMeta;
+    public ExceptionFactoryInterface $exceptionFactory;
+    public array $result = [];
 
     public function __construct(
         DocumentInterface $document,

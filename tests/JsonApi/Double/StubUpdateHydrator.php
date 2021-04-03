@@ -13,9 +13,7 @@ class StubUpdateHydrator
 {
     use UpdateHydratorTrait;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $validationException;
 
     public function __construct(bool $validationException = false)

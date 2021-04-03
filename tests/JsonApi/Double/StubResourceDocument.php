@@ -15,29 +15,19 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 class StubResourceDocument extends AbstractResourceDocument
 {
-    /**
-     * @var JsonApiObject|null
-     */
+    /** @var JsonApiObject|null */
     protected $jsonApi;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $meta;
 
-    /**
-     * @var DocumentLinks|null
-     */
+    /** @var DocumentLinks|null */
     protected $links;
 
-    /**
-     * @var DataInterface|null
-     */
+    /** @var DataInterface|null */
     protected $data;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $relationshipResponseContent;
 
     public function __construct(

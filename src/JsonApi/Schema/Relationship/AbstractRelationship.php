@@ -17,33 +17,16 @@ abstract class AbstractRelationship
 {
     use MetaTrait;
 
-    /**
-     * @var RelationshipLinks|null
-     */
-    protected $links;
-
-    /**
-     * @var mixed
-     */
+    protected ?RelationshipLinks $links;
+    /** @var mixed */
     private $data;
-
-    /**
-     * @var bool
-     */
-    protected $isCallableData;
-
-    /**
-     * @var bool
-     */
-    protected $omitDataWhenNotIncluded;
-
-    /**
-     * @var ResourceInterface|null
-     */
-    protected $resource;
+    protected bool $isCallableData;
+    protected bool $omitDataWhenNotIncluded;
+    protected ?ResourceInterface $resource;
 
     /**
      * @internal
+     *
      * @return array|false|null
      */
     abstract protected function transformData(
@@ -154,6 +137,7 @@ abstract class AbstractRelationship
 
     /**
      * @internal
+     *
      * @return mixed
      */
     protected function getData()
@@ -217,6 +201,7 @@ abstract class AbstractRelationship
 
     /**
      * @internal
+     *
      * @param mixed $object
      */
     protected function transformResourceIdentifier(

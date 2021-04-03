@@ -10,19 +10,13 @@ class StubOffsetBasedPaginationProvider
 {
     use OffsetBasedPaginationLinkProviderTrait;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $totalItems;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $offset;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $limit;
 
     public function __construct(int $totalItems, int $offset, int $limit)

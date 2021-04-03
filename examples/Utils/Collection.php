@@ -13,25 +13,10 @@ class Collection implements IteratorAggregate, PaginationLinkProviderInterface
 {
     use PageBasedPaginationLinkProviderTrait;
 
-    /**
-     * @var ArrayIterator
-     */
-    private $items;
-
-    /**
-     * @var int
-     */
-    private $totalItems;
-
-    /**
-     * @var int
-     */
-    private $page;
-
-    /**
-     * @var int
-     */
-    private $size;
+    private ArrayIterator $items;
+    private int $totalItems;
+    private int $page;
+    private int $size;
 
     public function __construct(array $items, int $totalItems = 0, int $page = 0, int $size = 0)
     {

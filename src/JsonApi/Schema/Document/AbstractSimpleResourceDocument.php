@@ -16,6 +16,8 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
     /**
      * The method should return the whole resource including its type, id, attributes, and relationships as an array.
      *
+     * @return array
+     *
      * @example
      *  return [
      *      "type" => "abc",
@@ -24,8 +26,6 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
      *          "attribute1" => "value1",
      *      ],
      *  ];
-     *
-     * @return array
      */
     abstract protected function getResource(): array;
 

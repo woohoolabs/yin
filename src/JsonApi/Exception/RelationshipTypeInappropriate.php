@@ -9,20 +9,9 @@ use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class RelationshipTypeInappropriate extends AbstractJsonApiException
 {
-    /**
-     * @var string
-     */
-    protected $relationshipName;
-
-    /**
-     * @var string
-     */
-    protected $currentRelationshipType;
-
-    /**
-     * @var string
-     */
-    protected $expectedRelationshipType;
+    protected string $relationshipName;
+    protected string $currentRelationshipType;
+    protected string $expectedRelationshipType;
 
     public function __construct(
         string $relationshipName,

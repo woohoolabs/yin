@@ -18,7 +18,8 @@ class LinkObject extends Link
 
     /**
      * @internal
-     * @return array|mixed
+     *
+     * @return mixed
      */
     public function transform(string $baseUri)
     {

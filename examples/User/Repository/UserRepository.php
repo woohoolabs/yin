@@ -11,10 +11,7 @@ use function count;
 
 class UserRepository
 {
-    /**
-     * @var array
-     */
-    private static $users = [
+    private static array $users = [
         [
             "id" => 1,
             "firstname" => "John",
