@@ -24,7 +24,7 @@ abstract class AbstractCreateHydrator implements HydratorInterface
     {
         $domainObject = $this->hydrateForCreate($request, $exceptionFactory, $domainObject);
 
-        $this->validateDomainObject($domainObject);
+        $this->validateDomainObject($domainObject, $request, $exceptionFactory);
 
         return $domainObject;
     }
@@ -33,7 +33,10 @@ abstract class AbstractCreateHydrator implements HydratorInterface
      * You can validate the domain object after it has been hydrated from the request.
      * @param mixed $domainObject
      */
-    protected function validateDomainObject($domainObject): void
-    {
+    protected function validateDomainObject(
+        $domainObject,
+        JsonApiRequestInterface $request,
+        ExceptionFactoryInterface $exceptionFactory
+    ): void {
     }
 }
