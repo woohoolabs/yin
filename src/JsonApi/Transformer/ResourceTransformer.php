@@ -10,6 +10,7 @@ use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 use function array_diff;
 use function array_flip;
 use function array_keys;
+use function assert;
 
 /**
  * @internal
@@ -36,6 +37,7 @@ final class ResourceTransformer
         $this->transformAttributesObject($transformation);
         $this->transformRelationshipsObject($transformation, $data);
 
+        assert($transformation->resource !== null);
         $transformation->resource->clearTransformation();
 
         return $transformation->result;
@@ -58,6 +60,7 @@ final class ResourceTransformer
 
         $this->transformResourceIdentifier($transformation);
 
+        assert($transformation->resource !== null);
         $transformation->resource->clearTransformation();
 
         return $transformation->result;
