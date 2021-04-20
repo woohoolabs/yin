@@ -26,7 +26,7 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
     {
         $domainObject = $this->hydrateForUpdate($request, $exceptionFactory, $domainObject);
 
-        $this->validateDomainObject($domainObject, $request, $exceptionFactory);
+        $this->validateDomainObject($request, $exceptionFactory, $domainObject);
 
         return $domainObject;
     }
@@ -50,9 +50,9 @@ abstract class AbstractUpdateHydrator implements HydratorInterface, UpdateRelati
      * @param mixed $domainObject
      */
     protected function validateDomainObject(
-        $domainObject,
         JsonApiRequestInterface $request,
-        ExceptionFactoryInterface $exceptionFactory
+        ExceptionFactoryInterface $exceptionFactory,
+        $domainObject
     ): void {
     }
 }
