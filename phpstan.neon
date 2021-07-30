@@ -8,6 +8,9 @@ parameters:
         - '#^Dynamic call to static method PHPUnit\\Framework\\.*$#'
         - '#^Offset ''(required|requested|applied)'' does not exist on array\|null\.$#'
         - '#^Offset string does not exist on array\|null\.$#'
+        - '#^Instanceof between null and ReflectionUnionType will always evaluate to false\.$#'
+        - '#^Instanceof between null and ReflectionIntersectionType will always evaluate to false\.$#'
+        - '#^Class ReflectionIntersectionType not found\.$#'
 
 includes:
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon

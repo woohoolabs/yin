@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace WoohooLabs\Yin\JsonApi\Hydrator;
 
 use Closure;
+use InvalidArgumentException;
 use ReflectionFunction;
+use ReflectionNamedType;
+use ReflectionIntersectionType;
+use ReflectionUnionType;
 use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
 use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
@@ -18,6 +22,8 @@ use function array_key_exists;
 use function array_keys;
 use function count;
 use function in_array;
+
+use const PHP_VERSION_ID;
 
 trait HydratorTrait
 {
@@ -212,13 +218,25 @@ trait HydratorTrait
         $function = &$callable;
         $reflection = new ReflectionFunction(Closure::fromCallable($function));
         $arguments  = $reflection->getParameters();
-        $class = isset($arguments[1]) ? $arguments[1]->getClass() : null;
+        $class = null;
+        if (PHP_VERSION_ID >= 80000) {
+            $argType = isset($arguments[1]) ? $arguments[1]->getType() : null;
+            if ($argType instanceof ReflectionNamedType) {
+                $class = $argType->isBuiltin() === false ? $argType->getName() : null;
+            } elseif ($class instanceof ReflectionUnionType) {
+                throw new InvalidArgumentException("Union types are not supported in hydrators");
+            } elseif ($class instanceof ReflectionIntersectionType) {
+                throw new InvalidArgumentException("Intersection types are not supported in hydrators");
+            }
+        } else {
+            $class = isset($arguments[1]) && $arguments[1]->getClass() !== null ? $arguments[1]->getClass()->getName() : null;
+        }
 
         if ($class === null) {
             return null;
         }
 
-        return $class->getName();
+        return $class;
     }
 
     /**
