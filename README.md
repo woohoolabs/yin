@@ -97,11 +97,11 @@ The only thing you need before getting started is [Composer](https://getcomposer
 ### Install a PSR-7 implementation:
 
 Because Yin requires a PSR-7 implementation (a package which provides the `psr/http-message-implementation` virtual
-package), you must install one first. You may use [Zend Diactoros](https://github.com/zendframework/zend-diactoros) or
+package), you must install one first. You may use [Laminas Diactoros](https://github.com/laminas/laminas-diactoros) or
 any other library of your preference:
 
 ```bash
-$ composer require zendframework/zend-diactoros
+$ composer require laminas/laminas-diactoros
 ```
 
 ### Install Yin:
