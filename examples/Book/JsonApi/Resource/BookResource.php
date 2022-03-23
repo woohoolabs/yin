@@ -16,19 +16,19 @@ class BookResource extends AbstractResource
     /**
      * @var AuthorResource
      */
-    private $authorTransformer;
+    private $authorResource;
 
     /**
      * @var PublisherResource
      */
-    private $publisherTransformer;
+    private $publisherResource;
 
     public function __construct(
-        AuthorResource $authorTransformer,
-        PublisherResource $publisherTransformer
+        AuthorResource $authorResource,
+        PublisherResource $publisherResource
     ) {
-        $this->authorTransformer = $authorTransformer;
-        $this->publisherTransformer = $publisherTransformer;
+        $this->authorResource = $authorResource;
+        $this->publisherResource = $publisherResource;
     }
 
     /**
@@ -147,7 +147,7 @@ class BookResource extends AbstractResource
                         ->setLinks(
                             new RelationshipLinks($this->getSelfLinkHref($book), new Link("/relationships/authors"))
                         )
-                        ->setData($book["authors"], $this->authorTransformer);
+                        ->setData($book["authors"], $this->authorResource);
             },
             "publisher" => function ($book) {
                 return ToOneRelationship::create()
@@ -156,7 +156,7 @@ class BookResource extends AbstractResource
                                 ->setBaseUri($this->getSelfLinkHref($book))
                                 ->setSelf(new Link("/relationships/publisher"))
                         )
-                        ->setData($book["publisher"], $this->publisherTransformer)
+                        ->setData($book["publisher"], $this->publisherResource)
                         ->omitDataWhenNotIncluded();
             },
         ];
