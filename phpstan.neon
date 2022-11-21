@@ -1,4 +1,8 @@
 parameters:
+    level: 8
+    paths:
+        - src/
+        - tests/
     bootstrapFiles:
         - vendor/autoload.php
     checkMissingIterableValueType: false
@@ -8,10 +12,10 @@ parameters:
         - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$exceptionFactory \(WoohooLabs\\Yin\\JsonApi\\Exception\\ExceptionFactoryInterface\) does not accept null\.$#'
         - '#^Method WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequest::.* should return array<string> but returns array<int, int\|string>\.$#'
         - '#^Dynamic call to static method PHPUnit\\Framework\\.*$#'
-        - '#^Offset ''(required|requested|applied)'' does not exist on array\|null\.$#'
-        - '#^Offset string does not exist on array\|null\.$#'
+        - '#^Offset ''(required|requested|applied)'' might not exist on array\|null\.$#'
 
 includes:
+    - phpstan-baseline.neon
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon

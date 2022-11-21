@@ -38,7 +38,7 @@ class ResourceIdentifier
             throw $exceptionFactory->createResourceIdentifierTypeInvalidException(gettype($array["type"]));
         }
 
-        if (isset($array["id"]) === false || $array["type"] === "") {
+        if (isset($array["id"]) === false || $array["id"] === "") {
             throw $exceptionFactory->createResourceIdentifierIdMissingException($array);
         }
 
