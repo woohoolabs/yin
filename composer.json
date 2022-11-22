@@ -48,7 +48,7 @@
     },
     "scripts": {
         "test": "phpunit",
-        "phpstan": "phpstan analyse --level 8 src tests",
+        "phpstan": "phpstan",
         "phpcs": "phpcs",
         "phpcbf": "phpcbf"
     },

@@ -25,7 +25,7 @@ class BookHydator extends AbstractHydrator
      * which can't be accepted (its type doesn't match the acceptable types of the hydrator), a ResourceTypeUnacceptable
      * exception will be raised.
      *
-     * @return string[]
+     * @return list<string>
      */
     protected function getAcceptedTypes(): array
     {
@@ -106,7 +106,7 @@ class BookHydator extends AbstractHydrator
      * the callable should return the domain object.
      *
      * @param array $book
-     * @return callable[]
+     * @return array<string, callable>
      */
     protected function getAttributeHydrator($book): array
     {
@@ -135,7 +135,7 @@ class BookHydator extends AbstractHydrator
      * the callable should return the domain object.
      *
      * @param array $book
-     * @return callable[]
+     * @return array<string, callable>
      */
     protected function getRelationshipHydrator($book): array
     {

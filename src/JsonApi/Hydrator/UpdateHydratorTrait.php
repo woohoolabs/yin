@@ -67,7 +67,7 @@ trait UpdateHydratorTrait
      * If it is an immutable object or an array (and passing by reference isn't used),
      * the callable should return the domain object.
      * @param mixed $domainObject
-     * @return callable[]
+     * @return array<string, callable>
      */
     abstract protected function getRelationshipHydrator($domainObject): array;
 

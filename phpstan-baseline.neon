@@ -706,26 +706,6 @@ parameters:
 			path: src/JsonApi/Schema/Document/AbstractResourceDocument.php
 
 		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSimpleResourceDocument\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/JsonApi/Schema/Document/AbstractSimpleResourceDocument.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSimpleResourceDocument\\:\\:getRelationshipFromResource\\(\\) has parameter \\$resource with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/JsonApi/Schema/Document/AbstractSimpleResourceDocument.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSimpleResourceDocument\\:\\:getRelationshipFromResource\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/JsonApi/Schema/Document/AbstractSimpleResourceDocument.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSimpleResourceDocument\\:\\:getResource\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/JsonApi/Schema/Document/AbstractSimpleResourceDocument.php
-
-		-
 			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSingleResourceDocument\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/JsonApi/Schema/Document/AbstractSingleResourceDocument.php
@@ -1086,16 +1066,6 @@ parameters:
 			path: src/JsonApi/Transformer/ResourceTransformer.php
 
 		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Utils\\:\\:getIntegerFromQueryParam\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Utils.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Utils\\:\\:getUri\\(\\) has parameter \\$additionalQueryParams with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Utils.php
-
-		-
 			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\DummyData\\:\\:transformPrimaryData\\(\\) return type has no value type specified in iterable type iterable\\.$#"
 			count: 1
 			path: tests/JsonApi/Double/DummyData.php
@@ -1164,36 +1134,6 @@ parameters:
 			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubErrorDocument\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/JsonApi/Double/StubErrorDocument.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:__construct\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:__construct\\(\\) has parameter \\$attributeHydrator with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:__construct\\(\\) has parameter \\$relationshipHydrator with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
-
-		-
-			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:\\$acceptedTypes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
-
-		-
-			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:\\$attributeHydrator type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
-
-		-
-			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubHydrator\\:\\:\\$relationshipHydrator type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Double/StubHydrator.php
 
 		-
 			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubJsonApiRequest\\:\\:__construct\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
@@ -1349,21 +1289,6 @@ parameters:
 			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\ResponseBodyInvalidJsonApiTest\\:\\:createException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/JsonApi/Exception/ResponseBodyInvalidJsonApiTest.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\AbstractHydratorTest\\:\\:createHydrator\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Hydrator/AbstractHydratorTest.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\AbstractHydratorTest\\:\\:createHydrator\\(\\) has parameter \\$attributeHydrator with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Hydrator/AbstractHydratorTest.php
-
-		-
-			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\AbstractHydratorTest\\:\\:createHydrator\\(\\) has parameter \\$relationshipHydrator with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/JsonApi/Hydrator/AbstractHydratorTest.php
 
 		-
 			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\AbstractHydratorTest\\:\\:createRequest\\(\\) has parameter \\$body with no value type specified in iterable type array\\.$#"

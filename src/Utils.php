@@ -14,11 +14,17 @@ use function urldecode;
 
 class Utils
 {
+    /**
+     * @param array<string, mixed> $queryParams
+     */
     public static function getIntegerFromQueryParam(array $queryParams, string $key, int $default): int
     {
         return isset($queryParams[$key]) && is_numeric($queryParams[$key]) ? (int) $queryParams[$key] : $default;
     }
 
+    /**
+     * @param array<string, mixed> $additionalQueryParams
+     */
     public static function getUri(string $uri, string $queryString, array $additionalQueryParams): string
     {
         $uriQueryStringSeparator = strpos($uri, "?");

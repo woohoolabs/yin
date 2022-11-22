@@ -11,20 +11,25 @@ use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
 class StubHydrator extends AbstractHydrator
 {
     /**
-     * @var array
+     * @var list<string>
      */
     private $acceptedTypes;
 
     /**
-     * @var array
+     * @var array<string, callable>
      */
     private $attributeHydrator;
 
     /**
-     * @var array
+     * @var array<string, callable>
      */
     private $relationshipHydrator;
 
+    /**
+     * @param list<string> $acceptedTypes
+     * @param array<string, callable> $attributeHydrator
+     * @param array<string, callable> $relationshipHydrator
+     */
     public function __construct(
         array $acceptedTypes = [],
         array $attributeHydrator = [],
@@ -53,7 +58,6 @@ class StubHydrator extends AbstractHydrator
     }
 
     /**
-     * @param mixed $domainObject
      * @return void
      */
     protected function setId($domainObject, string $id)
@@ -64,19 +68,11 @@ class StubHydrator extends AbstractHydrator
     {
     }
 
-    /**
-     * @param mixed $domainObject
-     * @return callable[]
-     */
     protected function getAttributeHydrator($domainObject): array
     {
         return $this->attributeHydrator;
     }
 
-    /**
-     * @param mixed $domainObject
-     * @return callable[]
-     */
     protected function getRelationshipHydrator($domainObject): array
     {
         return $this->relationshipHydrator;

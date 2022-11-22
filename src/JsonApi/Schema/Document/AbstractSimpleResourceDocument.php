@@ -11,6 +11,18 @@ use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
 
 use function is_array;
 
+/**
+ * @phpstan-type TResource = array{
+ *     type: string,
+ *     id: string,
+ *     attributes: array<string, mixed>,
+ *     relationships?: array<string, array{
+ *          type: string,
+ *          id: string,
+ *          attributes: array<string, mixed>
+ *     }>,
+ *     }
+ */
 abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 {
     /**
@@ -25,7 +37,7 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
      *      ],
      *  ];
      *
-     * @return array
+     * @phpstan-return TResource
      */
     abstract protected function getResource(): array;
 
@@ -43,6 +55,8 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
 
     /**
      * @internal
+     *
+     * @phpstan-return TResource|array{}|null
      */
     public function getRelationshipData(ResourceDocumentTransformation $transformation, ResourceTransformer $transformer, DataInterface $data): ?array
     {
@@ -57,6 +71,11 @@ abstract class AbstractSimpleResourceDocument extends AbstractResourceDocument
         return $relationship;
     }
 
+    /**
+     * @phpstan-param TResource $resource
+     *
+     * @phpstan-return TResource|null
+     */
     private function getRelationshipFromResource(array $resource, string $relationshipName): ?array
     {
         if (empty($resource["relationships"][$relationshipName])) {
