@@ -5,7 +5,7 @@ parameters:
         - tests/
     bootstrapFiles:
         - vendor/autoload.php
-    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
         - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$request \(WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequestInterface\) does not accept null\.$#'
