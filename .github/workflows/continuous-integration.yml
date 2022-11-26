@@ -68,7 +68,7 @@ jobs:
         run: php $(which composer) install --no-interaction --no-progress --no-suggest --no-plugins
 
       - name: "Run phpstan/phpstan"
-        run: php vendor/bin/phpstan analyse --level 8 src tests
+        run: php vendor/bin/phpstan
 
   tests:
     name: "Tests"

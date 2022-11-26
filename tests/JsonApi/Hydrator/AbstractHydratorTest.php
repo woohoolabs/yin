@@ -370,6 +370,11 @@ class AbstractHydratorTest extends TestCase
         return new JsonApiRequest($psrRequest, new DefaultExceptionFactory(), new JsonDeserializer());
     }
 
+    /**
+     * @param list<string> $acceptedTypes
+     * @param array<string, callable> $attributeHydrator
+     * @param array<string, callable> $relationshipHydrator
+     */
     private function createHydrator(
         array $acceptedTypes = [],
         array $attributeHydrator = [],

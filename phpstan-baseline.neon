@@ -1,0 +1,1491 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createInclusionUnrecognizedException\\(\\) has parameter \\$unrecognizedInclusions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createRequestBodyInvalidJsonApiException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createResourceIdentifierIdMissingException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createResourceIdentifierTypeMissingException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createResourceTypeUnacceptableException\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\DefaultExceptionFactory\\:\\:createResponseBodyInvalidJsonApiException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/DefaultExceptionFactory.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createInclusionUnrecognizedException\\(\\) has parameter \\$unrecognizedInclusions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createRequestBodyInvalidJsonApiException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createResourceIdentifierIdMissingException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createResourceIdentifierTypeMissingException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createResourceTypeUnacceptableException\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ExceptionFactoryInterface\\:\\:createResponseBodyInvalidJsonApiException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ExceptionFactoryInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\InclusionUnrecognized\\:\\:__construct\\(\\) has parameter \\$unrecognizedIncludes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/InclusionUnrecognized.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\InclusionUnrecognized\\:\\:getUnrecognizedIncludes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/InclusionUnrecognized.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\InclusionUnrecognized\\:\\:\\$unrecognizedIncludes type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/InclusionUnrecognized.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\RequestBodyInvalidJsonApi\\:\\:__construct\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/RequestBodyInvalidJsonApi.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\RequestBodyInvalidJsonApi\\:\\:getValidationErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/RequestBodyInvalidJsonApi.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\RequestBodyInvalidJsonApi\\:\\:\\$validationErrors type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/RequestBodyInvalidJsonApi.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierIdMissing\\:\\:__construct\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierIdMissing.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierIdMissing\\:\\:getResourceIdentifier\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierIdMissing.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierIdMissing\\:\\:\\$resourceIdentifier type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierIdMissing.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierTypeMissing\\:\\:__construct\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierTypeMissing.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierTypeMissing\\:\\:getResourceIdentifier\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierTypeMissing.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceIdentifierTypeMissing\\:\\:\\$resourceIdentifier type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceIdentifierTypeMissing.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceTypeUnacceptable\\:\\:__construct\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceTypeUnacceptable.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceTypeUnacceptable\\:\\:getAcceptedTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceTypeUnacceptable.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResourceTypeUnacceptable\\:\\:\\$acceptedTypes type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResourceTypeUnacceptable.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResponseBodyInvalidJsonApi\\:\\:__construct\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResponseBodyInvalidJsonApi.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResponseBodyInvalidJsonApi\\:\\:getValidationErrors\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResponseBodyInvalidJsonApi.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Exception\\\\ResponseBodyInvalidJsonApi\\:\\:\\$validationErrors type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Exception/ResponseBodyInvalidJsonApi.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:createRelationship\\(\\) has parameter \\$relationship with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$relationshipData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:getRelationshipHydratorResult\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:hydrateAttributes\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:hydrateIdForCreate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:hydrateRelationships\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:isAssociativeArray\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractCreateHydrator\\:\\:validateType\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:createRelationship\\(\\) has parameter \\$relationship with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$relationshipData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:getRelationshipHydratorResult\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:hydrateAttributes\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:hydrateIdForCreate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:hydrateIdForUpdate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:hydrateRelationships\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:isAssociativeArray\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractHydrator\\:\\:validateType\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:createRelationship\\(\\) has parameter \\$relationship with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$relationshipData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:getRelationshipHydratorResult\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:hydrateAttributes\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:hydrateIdForUpdate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:hydrateRelationships\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:isAssociativeArray\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\AbstractUpdateHydrator\\:\\:validateType\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/AbstractUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\Relationship\\\\ToManyRelationship\\:\\:getResourceIdentifierIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/Relationship/ToManyRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Hydrator\\\\Relationship\\\\ToManyRelationship\\:\\:getResourceIdentifierTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Hydrator/Relationship/ToManyRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Negotiation\\\\AbstractMessageValidator\\:\\:validateJsonApiMessage\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Negotiation/AbstractMessageValidator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:getAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:getCookieParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:getParsedBody\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:getServerParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:getUploadedFiles\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:withCookieParams\\(\\) has parameter \\$cookies with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:withParsedBody\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:withQueryParams\\(\\) has parameter \\$query with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\AbstractRequest\\:\\:withUploadedFiles\\(\\) has parameter \\$uploadedFiles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/AbstractRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getFiltering\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getIncludedFields\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getIncludedRelationships\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getPagination\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getResourceAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:getSorting\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:isIncludedRelationship\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:setFiltering\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:setIncludedFields\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:setPagination\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:setSorting\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$filtering type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$includedFields type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$includedRelationships type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$pagination type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$profiles type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequest\\:\\:\\$sorting type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getFiltering\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getIncludedFields\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getIncludedRelationships\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getPagination\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getResourceAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:getSorting\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\JsonApiRequestInterface\\:\\:isIncludedRelationship\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/JsonApiRequestInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\CursorBasedPagination\\:\\:fromPaginationQueryParams\\(\\) has parameter \\$paginationQueryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/CursorBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\CursorBasedPagination\\:\\:getPaginationQueryParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/CursorBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\FixedCursorBasedPagination\\:\\:fromPaginationQueryParams\\(\\) has parameter \\$paginationQueryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/FixedCursorBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\FixedCursorBasedPagination\\:\\:getPaginationQueryParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/FixedCursorBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\FixedPageBasedPagination\\:\\:fromPaginationQueryParams\\(\\) has parameter \\$paginationQueryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/FixedPageBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\FixedPageBasedPagination\\:\\:getPaginationQueryParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/FixedPageBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\OffsetBasedPagination\\:\\:fromPaginationQueryParams\\(\\) has parameter \\$paginationQueryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/OffsetBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\OffsetBasedPagination\\:\\:getPaginationQueryParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/OffsetBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\PageBasedPagination\\:\\:fromPaginationQueryParams\\(\\) has parameter \\$paginationQueryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/PageBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Request\\\\Pagination\\\\PageBasedPagination\\:\\:getPaginationQueryParams\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Request/Pagination/PageBasedPagination.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\AbstractResponder\\:\\:getErrorResponse\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/AbstractResponder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\AbstractResponder\\:\\:getMetaResponse\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/AbstractResponder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\AbstractResponder\\:\\:getRelationshipResponse\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/AbstractResponder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\AbstractResponder\\:\\:getResourceResponse\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/AbstractResponder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:conflict\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:created\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:createdWithMeta\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:createdWithRelationship\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:forbidden\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:genericError\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:notFound\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:ok\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:okWithMeta\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Response\\\\Responder\\:\\:okWithRelationship\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Response/Responder.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:addIncludedResource\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:addPrimaryResource\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:addResourceToIncludedData\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:addResourceToPrimaryData\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:getResource\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:setIncludedResources\\(\\) has parameter \\$transformedResources with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:setPrimaryResources\\(\\) has parameter \\$transformedResources with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:transformIncluded\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:\\$includedKeys type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:\\$primaryKeys type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\AbstractData\\:\\:\\$resources type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/AbstractData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\CollectionData\\:\\:transformPrimaryData\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/CollectionData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:addIncludedResource\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:addPrimaryResource\\(\\) has parameter \\$transformedResource with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:getResource\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:setIncludedResources\\(\\) has parameter \\$transformedResources with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:setPrimaryResources\\(\\) has parameter \\$transformedResources with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:transformIncluded\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\DataInterface\\:\\:transformPrimaryData\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/DataInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Data\\\\SingleResourceData\\:\\:transformPrimaryData\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Data/SingleResourceData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractCollectionDocument\\:\\:getItems\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/AbstractCollectionDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractCollectionDocument\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/AbstractCollectionDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractResourceDocument\\:\\:\\$additionalMeta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/AbstractResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractSingleResourceDocument\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/AbstractSingleResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\DocumentInterface\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/DocumentInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ErrorDocument\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/ErrorDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ErrorDocument\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/ErrorDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ErrorDocument\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/ErrorDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ResourceDocumentInterface\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Document/ResourceDocumentInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformCode\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformDetail\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformId\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformLinks\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformMeta\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformSource\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformStatus\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:transformTitle\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\Error\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/Error.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Error\\\\ErrorSource\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Error/ErrorSource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\JsonApiObject\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/JsonApiObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\JsonApiObject\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/JsonApiObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\JsonApiObject\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/JsonApiObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\JsonApiObject\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/JsonApiObject.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\JsonApiObject\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/JsonApiObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\AbstractLinks\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/AbstractLinks.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\ErrorLinks\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/ErrorLinks.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\LinkObject\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/LinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\LinkObject\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/LinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\LinkObject\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/LinkObject.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\LinkObject\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/LinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\ProfileLinkObject\\:\\:__construct\\(\\) has parameter \\$aliases with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/ProfileLinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\ProfileLinkObject\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/ProfileLinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Link\\\\ProfileLinkObject\\:\\:getAliases\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Link/ProfileLinkObject.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:createWithData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:createWithMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transform\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transform\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transformData\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transformData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transformResourceIdentifier\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:transformResourceIdentifier\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\AbstractRelationship\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/AbstractRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToManyRelationship\\:\\:transformData\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/ToManyRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToManyRelationship\\:\\:transformData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/ToManyRelationship.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$object has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/ToManyRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToOneRelationship\\:\\:transformData\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/ToOneRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToOneRelationship\\:\\:transformData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Relationship/ToOneRelationship.php
+
+		-
+			message: "#^Instanceof between DateTimeImmutable and DateTimeImmutable will always evaluate to true\\.$#"
+			count: 2
+			path: src/JsonApi/Schema/Resource/AbstractResource.php
+
+		-
+			message: "#^Result of \\|\\| is always true\\.$#"
+			count: 2
+			path: src/JsonApi/Schema/Resource/AbstractResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Resource\\\\ResourceInterface\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/Resource/ResourceInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\ResourceIdentifier\\:\\:fromArray\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/ResourceIdentifier.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\ResourceIdentifier\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/ResourceIdentifier.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\ResourceIdentifier\\:\\:setMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/ResourceIdentifier.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\ResourceIdentifier\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Schema/ResourceIdentifier.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Serializer\\\\JsonSerializer\\:\\:serialize\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Serializer/JsonSerializer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Serializer\\\\SerializerInterface\\:\\:serialize\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Serializer/SerializerInterface.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\AbstractDocumentTransformation\\:\\:__construct\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/AbstractDocumentTransformation.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\AbstractDocumentTransformation\\:\\:\\$additionalMeta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/AbstractDocumentTransformation.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\AbstractDocumentTransformation\\:\\:\\$result type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/AbstractDocumentTransformation.php
+
+		-
+			message: "#^PHPDoc type WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ErrorDocumentInterface of property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ErrorDocumentTransformation\\:\\:\\$document is not the same as PHPDoc type WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\DocumentInterface of overridden property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\AbstractDocumentTransformation\\:\\:\\$document\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ErrorDocumentTransformation.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceDocumentTransformation\\:\\:__construct\\(\\) has parameter \\$additionalMeta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceDocumentTransformation.php
+
+		-
+			message: "#^PHPDoc type WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\ResourceDocumentInterface of property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceDocumentTransformation\\:\\:\\$document is not the same as PHPDoc type WoohooLabs\\\\Yin\\\\JsonApi\\\\Schema\\\\Document\\\\DocumentInterface of overridden property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\AbstractDocumentTransformation\\:\\:\\$document\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceDocumentTransformation.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformation\\:\\:\\$result type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformation.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:transformRelationshipObject\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:transformRelationshipObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:transformToRelationshipObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:transformToResourceIdentifier\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:transformToResourceObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\JsonApi\\\\Transformer\\\\ResourceTransformer\\:\\:validateRelationships\\(\\) has parameter \\$relationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/JsonApi/Transformer/ResourceTransformer.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\DummyData\\:\\:transformPrimaryData\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/DummyData.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\FakeRelationship\\:\\:transformData\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/FakeRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\FakeRelationship\\:\\:transformData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/FakeRelationship.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCollectionDocument\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCollectionDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCollectionDocument\\:\\:__construct\\(\\) has parameter \\$object with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCollectionDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCollectionDocument\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCollectionDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCollectionDocument\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCollectionDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCreateHydrator\\:\\:hydrateAttributes\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCreateHydrator\\:\\:hydrateIdForCreate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCreateHydrator\\:\\:hydrateRelationships\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubCreateHydrator\\:\\:validateType\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubCreateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubErrorDocument\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubErrorDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubErrorDocument\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubErrorDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubErrorDocument\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubErrorDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubJsonApiRequest\\:\\:__construct\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubJsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubJsonApiRequest\\:\\:create\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubJsonApiRequest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:__construct\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:__construct\\(\\) has parameter \\$relationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:\\$attributes type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:\\$defaultRelationships type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResource\\:\\:\\$relationships type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResource.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:__construct\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:__construct\\(\\) has parameter \\$relationshipResponseContent with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:getAdditionalMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:getMeta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:getRelationshipData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:\\$meta type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Property WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubResourceDocument\\:\\:\\$relationshipResponseContent type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubResourceDocument.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:doHydrateRelationship\\(\\) has parameter \\$relationshipData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:getRelationshipHydrator\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:hydrateAttributes\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:hydrateIdForUpdate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:hydrateRelationships\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Double\\\\StubUpdateHydrator\\:\\:validateType\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Double/StubUpdateHydrator.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\InclusionUnrecognizedTest\\:\\:createException\\(\\) has parameter \\$includes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/InclusionUnrecognizedTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\RequestBodyInvalidJsonApiTest\\:\\:createException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/RequestBodyInvalidJsonApiTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\ResourceIdentifierIdMissingTest\\:\\:createException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/ResourceIdentifierIdMissingTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\ResourceIdentifierTypeMissingTest\\:\\:createException\\(\\) has parameter \\$resourceIdentifier with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/ResourceIdentifierTypeMissingTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\ResourceTypeUnacceptableTest\\:\\:createException\\(\\) has parameter \\$acceptedTypes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/ResourceTypeUnacceptableTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Exception\\\\ResponseBodyInvalidJsonApiTest\\:\\:createException\\(\\) has parameter \\$validationErrors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Exception/ResponseBodyInvalidJsonApiTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\AbstractHydratorTest\\:\\:createRequest\\(\\) has parameter \\$body with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Hydrator/AbstractHydratorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\CreateHydratorTraitTest\\:\\:createRequest\\(\\) has parameter \\$body with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Hydrator/CreateHydratorTraitTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Hydrator\\\\UpdateHydratorTraitTest\\:\\:createRequest\\(\\) has parameter \\$body with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Hydrator/UpdateHydratorTraitTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:createRequestWithParsedBody\\(\\) has parameter \\$parsedBody with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:getEmptyMessages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:getInvalidContentTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:getInvalidJsonMessages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:getValidContentTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Negotiation\\\\RequestValidatorTest\\:\\:getValidJsonMessages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Negotiation/RequestValidatorTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\AbstractRequestTest\\:\\:createRequestWithHeaders\\(\\) has parameter \\$headers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/AbstractRequestTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\AbstractRequestTest\\:\\:createRequestWithQueryParams\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/AbstractRequestTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\JsonApiRequestTest\\:\\:createRequestWithJsonBody\\(\\) has parameter \\$body with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/JsonApiRequestTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\JsonApiRequestTest\\:\\:createRequestWithQueryParams\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/JsonApiRequestTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\Pagination\\\\PaginationFactoryTest\\:\\:createPaginationFactoryFromRequestQueryParams\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/Pagination/PaginationFactoryTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Request\\\\Pagination\\\\PaginationFactoryTest\\:\\:createRequestWithQueryParams\\(\\) has parameter \\$queryParams with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Request/Pagination/PaginationFactoryTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractCollectionDocumentTest\\:\\:createCollectionDocument\\(\\) has parameter \\$object with no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Document/AbstractCollectionDocumentTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractResourceDocumentTest\\:\\:createDocument\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Document/AbstractResourceDocumentTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Document\\\\AbstractResourceDocumentTest\\:\\:createDocument\\(\\) has parameter \\$relationshipResponseContent with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Document/AbstractResourceDocumentTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\JsonApiObjectTest\\:\\:createJsonApiObject\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/JsonApiObjectTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Link\\\\ErrorLinksTest\\:\\:createErrorLinks\\(\\) has parameter \\$types with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Link/ErrorLinksTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Link\\\\LinkObjectTest\\:\\:createLinkWithMeta\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Link/LinkObjectTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Link\\\\ProfileLinkObjectTest\\:\\:createProfileLinkObject\\(\\) has parameter \\$aliases with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Link/ProfileLinkObjectTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToManyRelationshipTest\\:\\:createRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Relationship/ToManyRelationshipTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToManyRelationshipTest\\:\\:createRelationship\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Relationship/ToManyRelationshipTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToOneRelationshipTest\\:\\:createRelationship\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Relationship/ToOneRelationshipTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Schema\\\\Relationship\\\\ToOneRelationshipTest\\:\\:createRelationship\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Schema/Relationship/ToOneRelationshipTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:createDocument\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:createDocument\\(\\) has parameter \\$relationshipResponseContent with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:createErrorDocument\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:toErrorDocument\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:toMetaDocument\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:toRelationshipDocument\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\DocumentTransformerTest\\:\\:toResourceDocument\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/DocumentTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:createResource\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:createResource\\(\\) has parameter \\$defaultRelationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:createResource\\(\\) has parameter \\$meta with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:createResource\\(\\) has parameter \\$relationships with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:toRelationshipObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:toResourceIdentifier\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php
+
+		-
+			message: "#^Method WoohooLabs\\\\Yin\\\\Tests\\\\JsonApi\\\\Transformer\\\\ResourceTransformerTest\\:\\:toResourceObject\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/JsonApi/Transformer/ResourceTransformerTest.php

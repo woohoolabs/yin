@@ -16,10 +16,13 @@ class JsonDeserializer implements DeserializerInterface
     private $options;
 
     /**
-     * @var int
+     * @var positive-int
      */
     private $depth;
 
+    /**
+     * @param positive-int $depth
+     */
     public function __construct(int $options = 0, int $depth = 512)
     {
         $this->options = $options;
