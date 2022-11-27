@@ -74,8 +74,12 @@ final class DocumentTransformer
             $transformation->result["jsonapi"] = $jsonApi->transform();
         }
 
-        $meta = array_merge($transformation->document->getMeta(), $transformation->additionalMeta);
-        if (empty($meta) === false) {
+        $meta = $transformation->document->getMeta();
+        foreach ($transformation->additionalMeta as $metaKey => $metaValue) {
+            $meta[$metaKey] = $metaValue;
+        }
+
+        if (!empty($meta)) {
             $transformation->result["meta"] = $meta;
         }
 
