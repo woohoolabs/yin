@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\User\Action;
+namespace Devleand\Yin\Examples\User\Action;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\Examples\User\JsonApi\Document\UserDocument;
-use WoohooLabs\Yin\Examples\User\JsonApi\Resource\ContactResource;
-use WoohooLabs\Yin\Examples\User\JsonApi\Resource\UserResource;
-use WoohooLabs\Yin\Examples\User\Repository\UserRepository;
-use WoohooLabs\Yin\JsonApi\JsonApi;
+use Devleand\Yin\Examples\User\JsonApi\Document\UserDocument;
+use Devleand\Yin\Examples\User\JsonApi\Resource\ContactResource;
+use Devleand\Yin\Examples\User\JsonApi\Resource\UserResource;
+use Devleand\Yin\Examples\User\Repository\UserRepository;
+use Devleand\Yin\JsonApi\JsonApi;
 
 class GetUserRelationshipsAction
 {

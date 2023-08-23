@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Book\JsonApi\Hydrator;
+namespace Devleand\Yin\Examples\Book\JsonApi\Hydrator;
 
 use LogicException;
-use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
-use WoohooLabs\Yin\Examples\Utils\Uuid;
-use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
-use WoohooLabs\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\Examples\Book\Repository\BookRepository;
+use Devleand\Yin\Examples\Utils\Uuid;
+use Devleand\Yin\JsonApi\Exception\ClientGeneratedIdAlreadyExists;
+use Devleand\Yin\JsonApi\Exception\ClientGeneratedIdNotSupported;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Hydrator\AbstractHydrator;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class BookHydator extends AbstractHydrator
 {

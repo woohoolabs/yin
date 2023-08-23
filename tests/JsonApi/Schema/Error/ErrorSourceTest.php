@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Error;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Error;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
+use Devleand\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class ErrorSourceTest extends TestCase
 {

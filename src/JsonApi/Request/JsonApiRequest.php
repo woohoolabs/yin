@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Request;
+namespace Devleand\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
-use WoohooLabs\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
-use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
-use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
-use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use Devleand\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use Devleand\Yin\JsonApi\Exception\RequiredTopLevelMembersMissing;
+use Devleand\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use Devleand\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Schema\ResourceIdentifier;
+use Devleand\Yin\JsonApi\Serializer\DeserializerInterface;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 use function array_flip;
 use function array_key_exists;

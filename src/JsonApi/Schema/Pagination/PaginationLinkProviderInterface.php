@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
+namespace Devleand\Yin\JsonApi\Schema\Pagination;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
 
 interface PaginationLinkProviderInterface
 {

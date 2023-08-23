@@ -8,9 +8,9 @@ parameters:
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
-        - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$request \(WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequestInterface\) does not accept null\.$#'
-        - '#^Property WoohooLabs\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$exceptionFactory \(WoohooLabs\\Yin\\JsonApi\\Exception\\ExceptionFactoryInterface\) does not accept null\.$#'
-        - '#^Method WoohooLabs\\Yin\\JsonApi\\Request\\JsonApiRequest::.* should return array<string> but returns array<int, int\|string>\.$#'
+        - '#^Property Devleand\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$request \(Devleand\\Yin\\JsonApi\\Request\\JsonApiRequestInterface\) does not accept null\.$#'
+        - '#^Property Devleand\\Yin\\JsonApi\\Schema\\Resource\\AbstractResource::\$exceptionFactory \(Devleand\\Yin\\JsonApi\\Exception\\ExceptionFactoryInterface\) does not accept null\.$#'
+        - '#^Method Devleand\\Yin\\JsonApi\\Request\\JsonApiRequest::.* should return array<string> but returns array<int, int\|string>\.$#'
         - '#^Dynamic call to static method PHPUnit\\Framework\\.*$#'
         - '#^Offset ''(required|requested|applied)'' might not exist on array\|null\.$#'
 

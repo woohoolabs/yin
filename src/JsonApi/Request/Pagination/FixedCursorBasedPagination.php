@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Request\Pagination;
+namespace Devleand\Yin\JsonApi\Request\Pagination;
 
 use function http_build_query;
 

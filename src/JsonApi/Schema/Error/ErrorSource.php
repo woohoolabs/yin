@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Error;
+namespace Devleand\Yin\JsonApi\Schema\Error;
 
 class ErrorSource
 {

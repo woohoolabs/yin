@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
+namespace Devleand\Yin\JsonApi\Schema\Resource;
 
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\TransformerTrait;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\TransformerTrait;
 
 abstract class AbstractResource implements ResourceInterface
 {

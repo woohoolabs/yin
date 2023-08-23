@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Utils;
+namespace Devleand\Yin\Examples\Utils;
 
 use function random_int;
 use function sprintf;

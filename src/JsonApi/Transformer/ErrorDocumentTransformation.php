@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace Devleand\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 
 /**
  * @internal

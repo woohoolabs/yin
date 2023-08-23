@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin;
+namespace Devleand\Yin;
 
 use function array_merge;
 use function http_build_query;

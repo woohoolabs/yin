@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResourceDocument;
 
 class AbstractResourceDocumentTest extends TestCase
 {

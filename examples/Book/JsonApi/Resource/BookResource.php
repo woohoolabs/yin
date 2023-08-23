@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Book\JsonApi\Resource;
+namespace Devleand\Yin\Examples\Book\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Schema\Link\RelationshipLinks;
+use Devleand\Yin\JsonApi\Schema\Link\ResourceLinks;
+use Devleand\Yin\JsonApi\Schema\Relationship\ToManyRelationship;
+use Devleand\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class BookResource extends AbstractResource
 {

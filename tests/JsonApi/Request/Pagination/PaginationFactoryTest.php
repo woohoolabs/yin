@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
+namespace Devleand\Yin\Tests\JsonApi\Request\Pagination;
 
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedCursorBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PageBasedPagination;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Request\Pagination\CursorBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\FixedCursorBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\PageBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\PaginationFactory;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class PaginationFactoryTest extends TestCase
 {

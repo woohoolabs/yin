@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Hydrator\Relationship;
+namespace Devleand\Yin\JsonApi\Hydrator\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+use Devleand\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ToManyRelationship
 {

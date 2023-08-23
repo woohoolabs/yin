@@ -1,5 +1,5 @@
 {
-    "name": "woohoolabs/yin",
+    "name": "devleand/yin",
     "description": "Woohoo Labs. Yin",
     "type": "library",
     "keywords": ["Woohoo Labs.", "Yin", "JSON API", "PSR-7"],
@@ -10,10 +10,6 @@
             "email": "kocsismate@woohoolabs.com"
         }
     ],
-    "support": {
-        "issues": "https://github.com/woohoolabs/yin/issues",
-        "source": "https://github.com/woohoolabs/yin"
-    },
     "require": {
         "php": "^7.1.0||^8.0.0",
         "psr/http-message-implementation": "^1.0.0"
@@ -37,13 +33,13 @@
     },
     "autoload": {
         "psr-4": {
-            "WoohooLabs\\Yin\\": "src/"
+            "Devleand\\Yin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WoohooLabs\\Yin\\Tests\\": "tests/",
-            "WoohooLabs\\Yin\\Examples\\": "examples/"
+            "Devleand\\Yin\\Tests\\": "tests/",
+            "Devleand\\Yin\\Examples\\": "examples/"
         }
     },
     "scripts": {

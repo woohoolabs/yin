@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests;
+namespace Devleand\Yin\Tests;
 
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\TransformerTrait;
+use Devleand\Yin\TransformerTrait;
 
 class TransformerTraitTest extends TestCase
 {

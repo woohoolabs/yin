@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
+use Devleand\Yin\JsonApi\Schema\Data\CollectionData;
 
 class CollectionDataTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema;
+namespace Devleand\Yin\JsonApi\Schema;
 
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
 
 use function gettype;
 use function is_array;

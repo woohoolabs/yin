@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Utils;
+namespace Devleand\Yin\Examples\Utils;
 
-use WoohooLabs\Yin\JsonApi\Exception\AbstractJsonApiException;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Exception\AbstractJsonApiException;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
 
 class ExampleResourceNotFound extends AbstractJsonApiException
 {
@@ -13,7 +13,7 @@ class ExampleResourceNotFound extends AbstractJsonApiException
     {
         parent::__construct(
             "The requested resource is not found! " .
-            "You can find the supported URIs in the Read Me file at https://github.com/woohoolabs/yin/#how-to-try-it-out."
+            "You can find the supported URIs in the Read Me file at https://github.com/devleand/yin/#how-to-try-it-out."
         );
     }
 
@@ -23,7 +23,7 @@ class ExampleResourceNotFound extends AbstractJsonApiException
             Error::create()
                 ->setMeta(
                     [
-                        "supported_uris" => "https://github.com/woohoolabs/yin/#how-to-try-it-out",
+                        "supported_uris" => "https://github.com/devleand/yin/#how-to-try-it-out",
                     ]
                 )
                 ->setStatus("404")

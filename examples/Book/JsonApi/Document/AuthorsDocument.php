@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Book\JsonApi\Document;
+namespace Devleand\Yin\Examples\Book\JsonApi\Document;
 
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
+use Devleand\Yin\JsonApi\Schema\Document\AbstractCollectionDocument;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
 
 class AuthorsDocument extends AbstractCollectionDocument
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Utils;
+namespace Devleand\Yin\Examples\Utils;
 
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class ExampleExceptionFactory extends DefaultExceptionFactory
 {

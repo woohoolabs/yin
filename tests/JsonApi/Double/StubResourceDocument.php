@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Schema\Document\AbstractResourceDocument;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformer;
 
 class StubResourceDocument extends AbstractResourceDocument
 {

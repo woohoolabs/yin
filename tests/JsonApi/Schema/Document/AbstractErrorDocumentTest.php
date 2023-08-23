@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\Tests\JsonApi\Double\StubErrorDocument;
 
 class AbstractErrorDocumentTest extends TestCase
 {

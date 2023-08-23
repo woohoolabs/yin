@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Document\AbstractCollectionDocument;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use Devleand\Yin\JsonApi\Schema\Document\AbstractCollectionDocument;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Schema\Resource\ResourceInterface;
 
 class StubCollectionDocument extends AbstractCollectionDocument
 {

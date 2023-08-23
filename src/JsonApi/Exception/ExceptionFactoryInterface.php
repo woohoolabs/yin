@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Exception;
+namespace Devleand\Yin\JsonApi\Exception;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 interface ExceptionFactoryInterface
 {

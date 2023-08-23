@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Link;
+namespace Devleand\Yin\JsonApi\Schema\Link;
 
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
+use Devleand\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
 use function array_values;
 

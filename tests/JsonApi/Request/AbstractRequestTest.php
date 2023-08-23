@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Request;
+namespace Devleand\Yin\Tests\JsonApi\Request;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Stream;
 use Laminas\Diactoros\Uri;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\AbstractRequest;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Request\AbstractRequest;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class AbstractRequestTest extends TestCase
 {

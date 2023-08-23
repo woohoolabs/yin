@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Relationship;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Relationship;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Schema\Link\RelationshipLinks;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
-use WoohooLabs\Yin\Tests\JsonApi\Double\FakeRelationship;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Schema\Link\RelationshipLinks;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformer;
+use Devleand\Yin\Tests\JsonApi\Double\DummyData;
+use Devleand\Yin\Tests\JsonApi\Double\FakeRelationship;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractRelationshipTest extends TestCase
 {

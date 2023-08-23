@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Exception;
+namespace Devleand\Yin\JsonApi\Exception;
 
 use Throwable;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
 
 interface JsonApiExceptionInterface extends Throwable
 {

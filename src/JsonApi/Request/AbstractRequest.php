@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Request;
+namespace Devleand\Yin\JsonApi\Request;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\DeserializerInterface;
+use Devleand\Yin\JsonApi\Serializer\DeserializerInterface;
 
 abstract class AbstractRequest
 {

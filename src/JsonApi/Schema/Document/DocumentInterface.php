@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Document;
+namespace Devleand\Yin\JsonApi\Schema\Document;
 
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
 
 interface DocumentInterface
 {

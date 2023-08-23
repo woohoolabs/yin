@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Link;
+namespace Devleand\Yin\JsonApi\Schema\Link;
 
-use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
+use Devleand\Yin\JsonApi\Schema\MetaTrait;
 
 class LinkObject extends Link
 {

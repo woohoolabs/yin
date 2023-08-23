@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Error;
+namespace Devleand\Yin\JsonApi\Schema\Error;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\ErrorLinks;
-use WoohooLabs\Yin\JsonApi\Schema\MetaTrait;
+use Devleand\Yin\JsonApi\Schema\Link\ErrorLinks;
+use Devleand\Yin\JsonApi\Schema\MetaTrait;
 
 class Error
 {

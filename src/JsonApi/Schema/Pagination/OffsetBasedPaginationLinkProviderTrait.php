@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Pagination;
+namespace Devleand\Yin\JsonApi\Schema\Pagination;
 
-use WoohooLabs\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\Utils;
+use Devleand\Yin\JsonApi\Request\Pagination\OffsetBasedPagination;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\Utils;
 
 use function max;
 

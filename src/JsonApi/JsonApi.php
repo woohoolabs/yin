@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi;
+namespace Devleand\Yin\JsonApi;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
-use WoohooLabs\Yin\JsonApi\Hydrator\HydratorInterface;
-use WoohooLabs\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\PaginationFactory;
-use WoohooLabs\Yin\JsonApi\Response\Responder;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
-use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\InclusionUnsupported;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\SortingUnsupported;
+use Devleand\Yin\JsonApi\Hydrator\HydratorInterface;
+use Devleand\Yin\JsonApi\Hydrator\UpdateRelationshipHydratorInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Request\Pagination\PaginationFactory;
+use Devleand\Yin\JsonApi\Response\Responder;
+use Devleand\Yin\JsonApi\Serializer\JsonSerializer;
+use Devleand\Yin\JsonApi\Serializer\SerializerInterface;
 
 class JsonApi
 {

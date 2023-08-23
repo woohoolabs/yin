@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Response;
+namespace Devleand\Yin\JsonApi\Response;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\DocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Document\DocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
+use Devleand\Yin\JsonApi\Serializer\SerializerInterface;
+use Devleand\Yin\JsonApi\Transformer\DocumentTransformer;
+use Devleand\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
 
 use function implode;
 

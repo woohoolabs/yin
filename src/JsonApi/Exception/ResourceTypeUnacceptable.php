@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Exception;
+namespace Devleand\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\JsonApi\Schema\Error\ErrorSource;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Schema\Error\ErrorSource;
 
 class ResourceTypeUnacceptable extends AbstractJsonApiException
 {

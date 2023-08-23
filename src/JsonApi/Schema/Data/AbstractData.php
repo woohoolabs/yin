@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Data;
+namespace Devleand\Yin\JsonApi\Schema\Data;
 
 use function array_values;
 

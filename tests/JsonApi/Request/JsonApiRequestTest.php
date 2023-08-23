@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Request;
+namespace Devleand\Yin\Tests\JsonApi\Request;
 
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\QueryParamMalformed;
-use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
-use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
-use WoohooLabs\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
-use WoohooLabs\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use Devleand\Yin\JsonApi\Exception\QueryParamMalformed;
+use Devleand\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use Devleand\Yin\JsonApi\Exception\RelationshipNotExists;
+use Devleand\Yin\JsonApi\Exception\TopLevelMemberNotAllowed;
+use Devleand\Yin\JsonApi\Exception\TopLevelMembersIncompatible;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 use function implode;
 

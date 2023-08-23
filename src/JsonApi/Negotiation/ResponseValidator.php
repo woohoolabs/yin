@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Negotiation;
+namespace Devleand\Yin\JsonApi\Negotiation;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
-use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
-use WoohooLabs\Yin\JsonApi\Serializer\SerializerInterface;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
+use Devleand\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
+use Devleand\Yin\JsonApi\Serializer\SerializerInterface;
 
 class ResponseValidator extends AbstractMessageValidator
 {

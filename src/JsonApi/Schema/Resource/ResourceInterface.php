@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Resource;
+namespace Devleand\Yin\JsonApi\Schema\Resource;
 
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Link\ResourceLinks;
 
 interface ResourceInterface
 {

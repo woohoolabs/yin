@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Book\Repository;
+namespace Devleand\Yin\Examples\Book\Repository;
 
-use WoohooLabs\Yin\Examples\Utils\AbstractRepository;
-use WoohooLabs\Yin\Examples\Utils\Collection;
+use Devleand\Yin\Examples\Utils\AbstractRepository;
+use Devleand\Yin\Examples\Utils\Collection;
 
 use function array_slice;
 use function count;

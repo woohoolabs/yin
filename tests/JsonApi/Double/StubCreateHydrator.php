@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
 use LogicException;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Hydrator\CreateHydratorTrait;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Hydrator\CreateHydratorTrait;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class StubCreateHydrator
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Hydrator;
+namespace Devleand\Yin\JsonApi\Hydrator;
 
 use Closure;
 use ReflectionFunction;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Schema\ResourceIdentifier;
 
 use function array_filter;
 use function array_key_exists;

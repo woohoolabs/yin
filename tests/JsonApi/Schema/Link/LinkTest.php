@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Link;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Link;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
 
 class LinkTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\AbstractData;
+use Devleand\Yin\JsonApi\Schema\Data\AbstractData;
 
 class DummyData extends AbstractData
 {

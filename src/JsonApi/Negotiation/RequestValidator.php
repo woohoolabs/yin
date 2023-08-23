@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Negotiation;
+namespace Devleand\Yin\JsonApi\Negotiation;
 
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Exception\MediaTypeUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\QueryParamUnrecognized;
-use WoohooLabs\Yin\JsonApi\Exception\RequestBodyInvalidJson;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnacceptable;
+use Devleand\Yin\JsonApi\Exception\MediaTypeUnsupported;
+use Devleand\Yin\JsonApi\Exception\QueryParamUnrecognized;
+use Devleand\Yin\JsonApi\Exception\RequestBodyInvalidJson;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
 
 class RequestValidator extends AbstractMessageValidator
 {

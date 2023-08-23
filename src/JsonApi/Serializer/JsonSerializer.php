@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Serializer;
+namespace Devleand\Yin\JsonApi\Serializer;
 
 use Psr\Http\Message\ResponseInterface;
 

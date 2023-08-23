@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Document;
+namespace Devleand\Yin\JsonApi\Schema\Document;
 
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
 
 interface ErrorDocumentInterface extends DocumentInterface
 {

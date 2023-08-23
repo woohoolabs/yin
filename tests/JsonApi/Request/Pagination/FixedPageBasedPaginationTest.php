@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Request\Pagination;
+namespace Devleand\Yin\Tests\JsonApi\Request\Pagination;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
+use Devleand\Yin\JsonApi\Request\Pagination\FixedPageBasedPagination;
 
 class FixedPageBasedPaginationTest extends TestCase
 {

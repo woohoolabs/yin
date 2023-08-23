@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
+namespace Devleand\Yin\Tests\JsonApi\Transformer;
 
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Data\SingleResourceData;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use WoohooLabs\Yin\JsonApi\Transformer\DocumentTransformer;
-use WoohooLabs\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubErrorDocument;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Schema\Data\SingleResourceData;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ResourceDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Transformer\DocumentTransformer;
+use Devleand\Yin\JsonApi\Transformer\ErrorDocumentTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use Devleand\Yin\Tests\JsonApi\Double\StubErrorDocument;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResourceDocument;
 
 class DocumentTransformerTest extends TestCase
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi;
+namespace Devleand\Yin\Tests\JsonApi;
 
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\InclusionUnsupported;
-use WoohooLabs\Yin\JsonApi\Exception\SortingUnsupported;
-use WoohooLabs\Yin\JsonApi\JsonApi;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\InclusionUnsupported;
+use Devleand\Yin\JsonApi\Exception\SortingUnsupported;
+use Devleand\Yin\JsonApi\JsonApi;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class JsonApiTest extends TestCase
 {

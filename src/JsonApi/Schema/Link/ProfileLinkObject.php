@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Link;
+namespace Devleand\Yin\JsonApi\Schema\Link;
 
 class ProfileLinkObject extends LinkObject
 {

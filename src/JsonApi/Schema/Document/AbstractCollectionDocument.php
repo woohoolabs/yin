@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Document;
+namespace Devleand\Yin\JsonApi\Schema\Document;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\CollectionData;
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use Devleand\Yin\JsonApi\Schema\Data\CollectionData;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use Devleand\Yin\JsonApi\Transformer\ResourceDocumentTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformer;
 
 abstract class AbstractCollectionDocument extends AbstractResourceDocument
 {

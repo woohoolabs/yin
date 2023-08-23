@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
+namespace Devleand\Yin\Tests\JsonApi\Serializer;
 
 use InvalidArgumentException;
 use Laminas\Diactoros\ServerRequest;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class JsonDeserializerTest extends TestCase
 {

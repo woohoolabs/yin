@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\StreamFactory;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 class StubJsonApiRequest extends JsonApiRequest
 {

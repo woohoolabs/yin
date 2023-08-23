@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
+namespace Devleand\Yin\Tests\JsonApi\Hydrator;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Stream;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeMissing;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
-use WoohooLabs\Yin\JsonApi\Hydrator\AbstractHydrator;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
-use WoohooLabs\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubHydrator;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\RelationshipTypeInappropriate;
+use Devleand\Yin\JsonApi\Exception\ResourceTypeMissing;
+use Devleand\Yin\JsonApi\Exception\ResourceTypeUnacceptable;
+use Devleand\Yin\JsonApi\Hydrator\AbstractHydrator;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToManyRelationship;
+use Devleand\Yin\JsonApi\Hydrator\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\Tests\JsonApi\Double\StubHydrator;
 
 use function json_encode;
 

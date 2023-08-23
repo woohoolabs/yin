@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Schema\Relationship;
+namespace Devleand\Yin\JsonApi\Schema\Relationship;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformer;
 
 class ToOneRelationship extends AbstractRelationship
 {

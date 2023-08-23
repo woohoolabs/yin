@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Negotiation;
+namespace Devleand\Yin\Tests\JsonApi\Negotiation;
 
 use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
-use WoohooLabs\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
-use WoohooLabs\Yin\JsonApi\Negotiation\ResponseValidator;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ResponseBodyInvalidJson;
+use Devleand\Yin\JsonApi\Exception\ResponseBodyInvalidJsonApi;
+use Devleand\Yin\JsonApi\Negotiation\ResponseValidator;
+use Devleand\Yin\JsonApi\Serializer\JsonSerializer;
 
 class ResponseValidatorTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\User\Repository;
+namespace Devleand\Yin\Examples\User\Repository;
 
-use WoohooLabs\Yin\Examples\Utils\Collection;
+use Devleand\Yin\Examples\Utils\Collection;
 
 use function array_slice;
 use function count;

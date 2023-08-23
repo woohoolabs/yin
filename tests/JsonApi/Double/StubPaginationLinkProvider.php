@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Double;
+namespace Devleand\Yin\Tests\JsonApi\Double;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
 class StubPaginationLinkProvider implements PaginationLinkProviderInterface
 {

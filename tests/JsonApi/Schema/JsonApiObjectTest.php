@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace Devleand\Yin\Tests\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\JsonApiObject;
+use Devleand\Yin\JsonApi\Schema\JsonApiObject;
 
 class JsonApiObjectTest extends TestCase
 {

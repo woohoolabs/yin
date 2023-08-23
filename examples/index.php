@@ -7,22 +7,22 @@ require_once "../vendor/autoload.php";
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
-use WoohooLabs\Yin\Examples\Book\Action\CreateBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetBookRelationshipsAction;
-use WoohooLabs\Yin\Examples\Book\Action\GetBooksAction;
-use WoohooLabs\Yin\Examples\Book\Action\UpdateBookAction;
-use WoohooLabs\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
-use WoohooLabs\Yin\Examples\User\Action\GetUserAction;
-use WoohooLabs\Yin\Examples\User\Action\GetUserRelationshipsAction;
-use WoohooLabs\Yin\Examples\User\Action\GetUsersAction;
-use WoohooLabs\Yin\Examples\Utils\ExampleExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ExceptionFactoryInterface;
-use WoohooLabs\Yin\JsonApi\Exception\JsonApiExceptionInterface;
-use WoohooLabs\Yin\JsonApi\JsonApi;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\Examples\Book\Action\CreateBookAction;
+use Devleand\Yin\Examples\Book\Action\GetAuthorsOfBookAction;
+use Devleand\Yin\Examples\Book\Action\GetBookAction;
+use Devleand\Yin\Examples\Book\Action\GetBookRelationshipsAction;
+use Devleand\Yin\Examples\Book\Action\GetBooksAction;
+use Devleand\Yin\Examples\Book\Action\UpdateBookAction;
+use Devleand\Yin\Examples\Book\Action\UpdateBookRelationshipAction;
+use Devleand\Yin\Examples\User\Action\GetUserAction;
+use Devleand\Yin\Examples\User\Action\GetUserRelationshipsAction;
+use Devleand\Yin\Examples\User\Action\GetUsersAction;
+use Devleand\Yin\Examples\Utils\ExampleExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ExceptionFactoryInterface;
+use Devleand\Yin\JsonApi\Exception\JsonApiExceptionInterface;
+use Devleand\Yin\JsonApi\JsonApi;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
 
 // Defining routes
 $routes = [

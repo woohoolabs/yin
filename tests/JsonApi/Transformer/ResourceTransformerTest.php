@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Transformer;
+namespace Devleand\Yin\Tests\JsonApi\Transformer;
 
 use Laminas\Diactoros\ServerRequest as DiactorosServerRequest;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\InclusionUnrecognized;
-use WoohooLabs\Yin\JsonApi\Exception\RelationshipNotExists;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\InclusionUnrecognized;
+use Devleand\Yin\JsonApi\Exception\RelationshipNotExists;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Link\ResourceLinks;
+use Devleand\Yin\JsonApi\Schema\Relationship\ToOneRelationship;
+use Devleand\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformation;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformer;
+use Devleand\Yin\Tests\JsonApi\Double\DummyData;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResource;
 
 class ResourceTransformerTest extends TestCase
 {

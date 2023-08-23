@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
+namespace Devleand\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdInvalid;
+use Devleand\Yin\JsonApi\Exception\ResourceIdInvalid;
 
 class ResourceIdInvalidTest extends TestCase
 {

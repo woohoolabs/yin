@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Serializer;
+namespace Devleand\Yin\Tests\JsonApi\Serializer;
 
 use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
+use Devleand\Yin\JsonApi\Serializer\JsonSerializer;
 
 use function json_encode;
 

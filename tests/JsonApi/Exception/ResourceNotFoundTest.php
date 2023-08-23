@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Exception;
+namespace Devleand\Yin\Tests\JsonApi\Exception;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceNotFound;
+use Devleand\Yin\JsonApi\Exception\ResourceNotFound;
 
 class ResourceNotFoundTest extends TestCase
 {

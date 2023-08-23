@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Exception;
+namespace Devleand\Yin\JsonApi\Exception;
 
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequestInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Request\JsonApiRequestInterface;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocument;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocumentInterface;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
 
 class RequestBodyInvalidJson extends AbstractJsonApiException
 {

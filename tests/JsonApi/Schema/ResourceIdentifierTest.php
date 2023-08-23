@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema;
+namespace Devleand\Yin\Tests\JsonApi\Schema;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdInvalid;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeInvalid;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
-use WoohooLabs\Yin\JsonApi\Schema\ResourceIdentifier;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ResourceIdentifierIdInvalid;
+use Devleand\Yin\JsonApi\Exception\ResourceIdentifierIdMissing;
+use Devleand\Yin\JsonApi\Exception\ResourceIdentifierTypeInvalid;
+use Devleand\Yin\JsonApi\Exception\ResourceIdentifierTypeMissing;
+use Devleand\Yin\JsonApi\Schema\ResourceIdentifier;
 
 class ResourceIdentifierTest extends TestCase
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Response;
+namespace Devleand\Yin\Tests\JsonApi\Response;
 
 use Laminas\Diactoros\Response;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Response\Responder;
-use WoohooLabs\Yin\JsonApi\Schema\Document\ErrorDocument;
-use WoohooLabs\Yin\JsonApi\Schema\Error\Error;
-use WoohooLabs\Yin\JsonApi\Schema\Link\DocumentLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonSerializer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResourceDocument;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Response\Responder;
+use Devleand\Yin\JsonApi\Schema\Document\ErrorDocument;
+use Devleand\Yin\JsonApi\Schema\Error\Error;
+use Devleand\Yin\JsonApi\Schema\Link\DocumentLinks;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Serializer\JsonSerializer;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResourceDocument;
 
 use function json_decode;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Data;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Data;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\Tests\JsonApi\Double\DummyData;
+use Devleand\Yin\Tests\JsonApi\Double\DummyData;
 
 class AbstractDataTest extends TestCase
 {

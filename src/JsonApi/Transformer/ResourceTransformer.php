@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\JsonApi\Transformer;
+namespace Devleand\Yin\JsonApi\Transformer;
 
-use WoohooLabs\Yin\JsonApi\Schema\Data\DataInterface;
-use WoohooLabs\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
+use Devleand\Yin\JsonApi\Schema\Data\DataInterface;
+use Devleand\Yin\JsonApi\Schema\Relationship\AbstractRelationship;
 
 use function array_diff;
 use function array_flip;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Utils;
+namespace Devleand\Yin\Examples\Utils;
 
 use ArrayIterator;
 use IteratorAggregate;
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
-use WoohooLabs\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
+use Devleand\Yin\JsonApi\Schema\Pagination\PageBasedPaginationLinkProviderTrait;
+use Devleand\Yin\JsonApi\Schema\Pagination\PaginationLinkProviderInterface;
 
 class Collection implements IteratorAggregate, PaginationLinkProviderInterface
 {

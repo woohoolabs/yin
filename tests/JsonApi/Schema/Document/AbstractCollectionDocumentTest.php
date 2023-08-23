@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Document;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Document;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubCollectionDocument;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
+use Devleand\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use Devleand\Yin\Tests\JsonApi\Double\StubCollectionDocument;
+use Devleand\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractCollectionDocumentTest extends TestCase
 {

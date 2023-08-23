@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\Book\Action;
+namespace Devleand\Yin\Examples\Book\Action;
 
 use Psr\Http\Message\ResponseInterface;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Document\BooksDocument;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\BookResource;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\PublisherResource;
-use WoohooLabs\Yin\Examples\Book\JsonApi\Resource\RepresentativeResource;
-use WoohooLabs\Yin\Examples\Book\Repository\BookRepository;
-use WoohooLabs\Yin\JsonApi\JsonApi;
+use Devleand\Yin\Examples\Book\JsonApi\Document\BooksDocument;
+use Devleand\Yin\Examples\Book\JsonApi\Resource\AuthorResource;
+use Devleand\Yin\Examples\Book\JsonApi\Resource\BookResource;
+use Devleand\Yin\Examples\Book\JsonApi\Resource\PublisherResource;
+use Devleand\Yin\Examples\Book\JsonApi\Resource\RepresentativeResource;
+use Devleand\Yin\Examples\Book\Repository\BookRepository;
+use Devleand\Yin\JsonApi\JsonApi;
 
 class GetBooksAction
 {

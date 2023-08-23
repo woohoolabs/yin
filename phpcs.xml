@@ -18,7 +18,7 @@
     <file>src/</file>
     <file>tests/</file>
 
-    <rule ref="WoohooLabs"/>
+    <rule ref="Devleand"/>
 
     <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
         <properties>

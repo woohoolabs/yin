@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Pagination;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Pagination;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubPageBasedPaginationProvider;
+use Devleand\Yin\Tests\JsonApi\Double\StubPageBasedPaginationProvider;
 
 class PageBasedPaginationProviderTraitTest extends TestCase
 {

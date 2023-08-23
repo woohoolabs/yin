@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Schema\Resource;
+namespace Devleand\Yin\Tests\JsonApi\Schema\Resource;
 
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\ResourceInterface;
-use WoohooLabs\Yin\JsonApi\Transformer\ResourceTransformation;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubResource;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Schema\Resource\ResourceInterface;
+use Devleand\Yin\JsonApi\Transformer\ResourceTransformation;
+use Devleand\Yin\Tests\JsonApi\Double\StubJsonApiRequest;
+use Devleand\Yin\Tests\JsonApi\Double\StubResource;
 
 class AbstractResourceTest extends TestCase
 {

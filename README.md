@@ -1,13 +1,5 @@
 # Woohoo Labs. Yin
 
-[![Latest Version on Packagist][ico-version]][link-version]
-[![Software License][ico-license]](LICENSE)
-[![Build Status][ico-build]][link-build]
-[![Coverage Status][ico-coverage]][link-coverage]
-[![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Gitter][ico-support]][link-support]
-
 **Woohoo Labs. Yin is a PHP framework which helps you to build beautifully crafted JSON:APIs.**
 
 ## Table of Contents
@@ -109,10 +101,10 @@ $ composer require laminas/laminas-diactoros
 To install the latest version of this library, run the command below:
 
 ```bash
-$ composer require woohoolabs/yin
+$ composer require devleand/yin
 ```
 
-> Note: The tests and examples won't be downloaded by default. You have to use `composer require woohoolabs/yin --prefer-source`
+> Note: The tests and examples won't be downloaded by default. You have to use `composer require devleand/yin --prefer-source`
 or clone the repository if you need them.
 
 The latest version of Yin requires PHP 7.1 at least but you can use Yin 2.0.6 for PHP 7.0.
@@ -748,7 +740,7 @@ To guarantee total customizability, we introduced the concept of __Exception Fac
 which create all the exceptions thrown by Woohoo Labs. Yin. As an Exception Factory of __your own choice__ is passed to
 every transformer and hydrator, you can completely customize what kind of exceptions are thrown.
 
-The default [Exception Factory](https://github.com/woohoolabs/yin/blob/master/src/JsonApi/Exception/DefaultExceptionFactory)
+The default [Exception Factory](https://github.com/devleand/yin/blob/master/src/JsonApi/Exception/DefaultExceptionFactory)
 creates children of [`JsonApiException`](src/JsonApi/Exception)s but you are free to create any `JsonApiExceptionInterface`
 exceptions. If you only want to customize the error document or the error objects of your exceptions, just extend the
 basic `Exception` class and create your `createErrorDocument()` or `getErrors()` methods.
@@ -1267,14 +1259,6 @@ well as the dependencies via `Composer`.
 - [paknahad/jsonapi-bundle](https://github.com/paknahad/jsonapi-bundle): Integration for Symfony
 - [qpautrat/woohoolabs-yin-bundle](https://github.com/qpautrat/woohoolabs-yin-bundle): Integration for Symfony
 
-## Versioning
-
-This library follows [SemVer v2.0.0](https://semver.org/).
-
-## Change Log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
-
 ## Testing
 
 Woohoo Labs. Yin has a PHPUnit test suite. To run the tests, run the following command from the project folder:
@@ -1285,36 +1269,6 @@ $ phpunit
 
 Additionally, you may run `docker-compose up` or `make test` in order to execute the tests.
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Support
-
-Please see [SUPPORT](SUPPORT.md) for details.
-
-## Credits
-
-- [Máté Kocsis][link-author]
-- [All Contributors][link-contributors]
-
 ## License
 
 The MIT License (MIT). Please see the [License File](LICENSE) for more information.
-
-[ico-version]: https://img.shields.io/packagist/v/woohoolabs/yin.svg
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-build]: https://img.shields.io/github/workflow/status/woohoolabs/yin/Continuous%20Integration
-[ico-coverage]: https://img.shields.io/codecov/c/github/woohoolabs/yin
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/woohoolabs/yin.svg
-[ico-downloads]: https://img.shields.io/packagist/dt/woohoolabs/yin.svg
-[ico-support]: https://badges.gitter.im/woohoolabs/yin.svg
-
-[link-version]: https://packagist.org/packages/woohoolabs/yin
-[link-build]: https://github.com/woohoolabs/yin/actions
-[link-coverage]: https://codecov.io/gh/woohoolabs/yin
-[link-code-quality]: https://scrutinizer-ci.com/g/woohoolabs/yin
-[link-support]: https://gitter.im/woohoolabs/yin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
-[link-downloads]: https://packagist.org/packages/woohoolabs/yin
-[link-author]: https://github.com/kocsismate
-[link-contributors]: ../../contributors

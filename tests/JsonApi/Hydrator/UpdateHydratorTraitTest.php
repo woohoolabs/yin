@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Tests\JsonApi\Hydrator;
+namespace Devleand\Yin\Tests\JsonApi\Hydrator;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Stream;
 use LogicException;
 use PHPUnit\Framework\TestCase;
-use WoohooLabs\Yin\JsonApi\Exception\DataMemberMissing;
-use WoohooLabs\Yin\JsonApi\Exception\DefaultExceptionFactory;
-use WoohooLabs\Yin\JsonApi\Exception\ResourceIdMissing;
-use WoohooLabs\Yin\JsonApi\Request\JsonApiRequest;
-use WoohooLabs\Yin\JsonApi\Serializer\JsonDeserializer;
-use WoohooLabs\Yin\Tests\JsonApi\Double\StubUpdateHydrator;
+use Devleand\Yin\JsonApi\Exception\DataMemberMissing;
+use Devleand\Yin\JsonApi\Exception\DefaultExceptionFactory;
+use Devleand\Yin\JsonApi\Exception\ResourceIdMissing;
+use Devleand\Yin\JsonApi\Request\JsonApiRequest;
+use Devleand\Yin\JsonApi\Serializer\JsonDeserializer;
+use Devleand\Yin\Tests\JsonApi\Double\StubUpdateHydrator;
 
 use function json_encode;
 

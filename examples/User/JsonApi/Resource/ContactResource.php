@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace WoohooLabs\Yin\Examples\User\JsonApi\Resource;
+namespace Devleand\Yin\Examples\User\JsonApi\Resource;
 
-use WoohooLabs\Yin\JsonApi\Schema\Link\Link;
-use WoohooLabs\Yin\JsonApi\Schema\Link\ResourceLinks;
-use WoohooLabs\Yin\JsonApi\Schema\Resource\AbstractResource;
+use Devleand\Yin\JsonApi\Schema\Link\Link;
+use Devleand\Yin\JsonApi\Schema\Link\ResourceLinks;
+use Devleand\Yin\JsonApi\Schema\Resource\AbstractResource;
 
 class ContactResource extends AbstractResource
 {
